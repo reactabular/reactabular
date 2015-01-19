@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/bebraw/reactabular",
   "devDependencies": {
+    "annozip": "^0.2.4",
     "jsx-loader": "0.12.2",
     "react-hot-loader": "1.1.1",
     "webpack": "1.5.1",

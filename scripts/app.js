@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var zip = require('annozip');
 
 var Table = require('./table.jsx');
 
@@ -57,6 +58,20 @@ var App = React.createClass({
                     property: 'country',
                     header: 'Country',
                     formatter: (country) => countries[country],
+                    editable: true,
+                    editor: (active, done) => {
+                        var handleChange = (e) =>
+                            done(e.target.value);
+
+                        return <select onChange={handleChange} value={active}>
+                            {zip(countries).map((pair, i) =>
+                                <option
+                                    key={i}
+                                    value={pair[0]}
+                                >{pair[1]}</option>
+                            )}
+                        </select>
+                    },
                 },
                 {
                     property: 'salary',
@@ -72,13 +87,13 @@ var App = React.createClass({
                         <span>
                             <button
                                 disabled={active}
-                                onClick={done.bind(null, true)}>
-                                &#10003;
+                                onClick={done.bind(null, true)}
+                            >&#10003;
                             </button>
                             <button
                                 disabled={!active}
-                                onClick={done.bind(null, false)}>
-                                &#10007;
+                                onClick={done.bind(null, false)}
+                            >&#10007;
                             </button>
                         </span>
                     ,
