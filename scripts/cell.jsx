@@ -14,6 +14,7 @@ var Cell = React.createClass({
 
     render() {
         var value = this.props.value || '';
+        var formatter = this.props.formatter || id;
         var editor = Editor;
 
         if(this.state && this.state.editing) {
@@ -24,7 +25,7 @@ var Cell = React.createClass({
 
         return (
             <td onClick={this.edit}>
-                {value}
+                {formatter(value)}
             </td>
         );
     },
@@ -46,6 +47,7 @@ var Cell = React.createClass({
     },
 });
 
+function id(a) {return a;}
 function noop() {}
 
 module.exports = Cell;

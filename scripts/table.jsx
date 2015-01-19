@@ -17,11 +17,7 @@ var Table = React.createClass({
             return null;
         }
 
-        var columns = config.columns.map((column) => {
-            column.formatter = column.formatter || id;
-
-            return column;
-        });
+        var columns = config.columns;
 
         return (
             <table>
@@ -40,7 +36,8 @@ var Table = React.createClass({
                             <Cell
                                 editable={column.editable}
                                 key={column.property + '-cell'}
-                                value={column.formatter(row[column.property])}
+                                formatter={column.formatter}
+                                value={row[column.property]}
                                 edited={(value) =>
                                     events.edited && events.edited(
                                         i,
@@ -55,7 +52,5 @@ var Table = React.createClass({
         );
     },
 });
-
-function id(a) {return a;}
 
 module.exports = Table;
