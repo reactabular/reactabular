@@ -56,18 +56,35 @@ var App = React.createClass({
                 {
                     property: 'country',
                     header: 'Country',
-                    formatter: (country) => countries[country]
+                    formatter: (country) => countries[country],
                 },
                 {
                     property: 'salary',
                     header: 'Salary',
                     editable: true,
-                    formatter: (salary) => parseFloat(salary).toFixed(2)
+                    formatter: (salary) => parseFloat(salary).toFixed(2),
                 },
                 {
                     property: 'active',
                     header: 'Active',
-                    formatter: (active) => active && (<span>&#10003;</span>)
+                    editable: true,
+                    editor: (active, done) => {
+                        return (
+                            <span>
+                                <button
+                                    disabled={active}
+                                    onClick={done.bind(null, true)}>
+                                    &#10003;
+                                </button>
+                                <button
+                                    disabled={!active}
+                                    onClick={done.bind(null, false)}>
+                                    &#10007;
+                                </button>
+                            </span>
+                        );
+                    },
+                    formatter: (active) => active && (<span>&#10003;</span>),
                 }
             ],
             events: {

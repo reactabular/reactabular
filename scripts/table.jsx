@@ -38,6 +38,7 @@ var Table = React.createClass({
                                 key={column.property + '-cell'}
                                 formatter={column.formatter}
                                 value={row[column.property]}
+                                editor={column.editor}
                                 edited={(value) =>
                                     events.edited && events.edited(
                                         i,

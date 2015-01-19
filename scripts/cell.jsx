@@ -15,12 +15,12 @@ var Cell = React.createClass({
     render() {
         var value = this.props.value || '';
         var formatter = this.props.formatter || id;
-        var editor = Editor;
+        var editor = this.props.editor || ((value, done) =>
+            <Editor value={value} done={done}></Editor>
+        );
 
         if(this.state && this.state.editing) {
-            return (
-                <Editor value={value} edited={this.edited}></Editor>
-            );
+            return editor(value, this.edited);
         }
 
         return (

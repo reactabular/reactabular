@@ -9,19 +9,19 @@ var Editor = React.createClass({
             <input
                 defaultValue={this.props.value}
                 onKeyUp={this.keyUp}
-                onBlur={this.edited}>
+                onBlur={this.done}>
             </input>
         );
     },
 
     keyUp(e) {
         if(e.keyCode === 13) {
-            this.edited();
+            this.done();
         }
     },
 
-    edited() {
-        (this.props.edited || noop)(this.getDOMNode().value);
+    done() {
+        (this.props.done || noop)(this.getDOMNode().value);
     },
 });
 
