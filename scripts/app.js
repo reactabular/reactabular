@@ -2,12 +2,15 @@
 
 var React = require('react');
 
+var Table = require('./table.jsx');
+
+
 var App = React.createClass({
-  render() {
-    return (
-      <h1>Hello, world.</h1>
-    );
-  }
+    render() {
+        return (
+            <Table></Table>
+        );
+    }
 });
 
 module.exports = App;
