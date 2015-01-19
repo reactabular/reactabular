@@ -14,18 +14,21 @@ var App = React.createClass({
                     position: 'Boss',
                     salary: 10000,
                     country: 'se',
+                    active: true,
                 },
                 {
                     name: 'Bo Bobson',
                     position: 'Contractor',
                     salary: 4650.9234,
                     country: 'de',
+                    active: false,
                 },
                 {
                     name: 'Cecilia Robertson',
                     position: 'Client',
                     salary: 6499.1038,
                     country: 'fi',
+                    active: true,
                 }
             ]
         };
@@ -60,6 +63,11 @@ var App = React.createClass({
                     header: 'Salary',
                     formatter: (salary) => salary.toFixed(2)
                 },
+                {
+                    property: 'active',
+                    header: 'Active',
+                    formatter: (active) => active && (<span>&#10003;</span>)
+                }
             ],
             events: {
                 edited: (i, property, value) => {
