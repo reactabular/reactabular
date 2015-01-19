@@ -2,25 +2,23 @@
 
 var React = require('react');
 
+var Editor = require('./editor.jsx');
+
 
 var Cell = React.createClass({
     getInitialState() {
         return {
             editing: false,
-            value: null
         };
     },
 
     render() {
         var value = this.props.value || '';
+        var editor = Editor;
 
         if(this.state && this.state.editing) {
             return (
-                <input
-                    defaultValue={value}
-                    onKeyUp={this.keyUp}
-                    onBlur={this.edited}>
-                </input>
+                <Editor value={value} edited={this.edited}></Editor>
             );
         }
 
@@ -39,14 +37,8 @@ var Cell = React.createClass({
         }
     },
 
-    keyUp(e) {
-        if(e.keyCode === 13) {
-            this.edited();
-        }
-    },
-
-    edited() {
-        (this.props.edited || noop)(this.getDOMNode().value);
+    edited(value) {
+        (this.props.edited || noop)(value);
 
         this.setState({
             editing: false
