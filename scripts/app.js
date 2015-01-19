@@ -46,8 +46,8 @@ var App = React.createClass({
             columns: [
                 {
                     property: 'name',
-                    editable: true,
                     header: 'Name',
+                    editable: true,
                 },
                 {
                     property: 'position',
@@ -61,7 +61,8 @@ var App = React.createClass({
                 {
                     property: 'salary',
                     header: 'Salary',
-                    formatter: (salary) => salary.toFixed(2)
+                    editable: true,
+                    formatter: (salary) => parseFloat(salary).toFixed(2)
                 },
                 {
                     property: 'active',
