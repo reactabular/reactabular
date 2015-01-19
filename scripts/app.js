@@ -12,26 +12,34 @@ var App = React.createClass({
                 {
                     property: 'name',
                     editable: true,
-                    header: 'Name'
+                    header: 'Name',
                 },
                 {
                     property: 'position',
-                    header: 'Position'
+                    header: 'Position',
+                },
+                {
+                    property: 'salary',
+                    header: 'Salary',
+                    formatter: (salary) => salary.toFixed(2)
                 }
             ]
         };
         var data = [
             {
                 name: 'Jack Jackson',
-                position: 'Boss'
+                position: 'Boss',
+                salary: 10000,
             },
             {
                 name: 'Bo Bobson',
-                position: 'Contractor'
+                position: 'Contractor',
+                salary: 4650.9234,
             },
             {
                 name: 'Cecilia Robertson',
-                position: 'Client'
+                position: 'Client',
+                salary: 6499.1038
             }
         ];
 

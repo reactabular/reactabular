@@ -14,24 +14,32 @@ var Table = React.createClass({
             return null;
         }
 
-        var columns = config.columns;
+        var columns = config.columns.map((column) => {
+            column.formatter = column.formatter || id;
+
+            return column;
+        });
 
         return (
             <table>
                 <thead>
                     <tr>
-                        {columns.map((column) => <th>{column.header}</th>)}
+                        {columns.map((column) =>
+                            <th>{column.header}</th>)
+                        }
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((row) => <tr>{
                         columns.map((column) =>
-                            <td>{row[column.property]}</td>
+                            <td>{column.formatter(row[column.property])}</td>
                     )}</tr>)}
                 </tbody>
             </table>
         );
     }
 });
+
+function id(a) {return a;}
 
 module.exports = Table;
