@@ -5,19 +5,29 @@ var React = require('react');
 
 var Table = React.createClass({
     render() {
+        var config = this.props.config || {};
+        var data = this.props.data || [];
+
+        if(!config.columns) {
+            console.warn('missing column configuration');
+
+            return null;
+        }
+
+        var columns = config.columns;
+
         return (
             <table>
                 <thead>
                     <tr>
-                        <th>Header content 1</th>
-                        <th>Header content 2</th>
+                        {columns.map((column) => <th>{column.header}</th>)}
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Body content 1</td>
-                        <td>Body content 2</td>
-                    </tr>
+                    {data.map((row) => <tr>{
+                        columns.map((column) =>
+                            <td>{row[column.property]}</td>
+                    )}</tr>)}
                 </tbody>
             </table>
         );
