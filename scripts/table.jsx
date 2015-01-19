@@ -2,6 +2,8 @@
 
 var React = require('react');
 
+var Cell = require('./cell.jsx');
+
 
 var Table = React.createClass({
     render() {
@@ -34,9 +36,10 @@ var Table = React.createClass({
                 <tbody>
                     {data.map((row, i) => <tr key={i + '-row'}>{
                         columns.map((column) =>
-                            <td key={column.property + '-cell'}>
-                                {column.formatter(row[column.property])}
-                            </td>
+                            <Cell
+                                key={column.property + '-cell'}
+                                value={column.formatter(row[column.property])}>
+                            </Cell>
                     )}</tr>)}
                 </tbody>
             </table>
