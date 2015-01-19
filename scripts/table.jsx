@@ -25,14 +25,18 @@ var Table = React.createClass({
                 <thead>
                     <tr>
                         {columns.map((column) =>
-                            <th>{column.header}</th>)
+                            <th key={column.property + '-header'}>
+                                {column.header}
+                            </th>)
                         }
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((row) => <tr>{
+                    {data.map((row, i) => <tr key={i + '-row'}>{
                         columns.map((column) =>
-                            <td>{column.formatter(row[column.property])}</td>
+                            <td key={column.property + '-cell'}>
+                                {column.formatter(row[column.property])}
+                            </td>
                     )}</tr>)}
                 </tbody>
             </table>
