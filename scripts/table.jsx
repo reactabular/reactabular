@@ -8,6 +8,7 @@ var Cell = require('./cell.jsx');
 var Table = React.createClass({
     render() {
         var config = this.props.config || {};
+        var events = config.events || {};
         var data = this.props.data || [];
 
         if(!config.columns) {
@@ -37,14 +38,22 @@ var Table = React.createClass({
                     {data.map((row, i) => <tr key={i + '-row'}>{
                         columns.map((column) =>
                             <Cell
+                                editable={column.editable}
                                 key={column.property + '-cell'}
-                                value={column.formatter(row[column.property])}>
+                                value={column.formatter(row[column.property])}
+                                edited={(value) =>
+                                    events.edited && events.edited(
+                                        i,
+                                        column.property,
+                                        value
+                                    )
+                                }>
                             </Cell>
                     )}</tr>)}
                 </tbody>
             </table>
         );
-    }
+    },
 });
 
 function id(a) {return a;}

@@ -6,7 +6,34 @@ var Table = require('./table.jsx');
 
 
 var App = React.createClass({
+    getInitialState() {
+        return {
+            data: [
+                {
+                    name: 'Jack Jackson',
+                    position: 'Boss',
+                    salary: 10000,
+                    country: 'se',
+                },
+                {
+                    name: 'Bo Bobson',
+                    position: 'Contractor',
+                    salary: 4650.9234,
+                    country: 'de',
+                },
+                {
+                    name: 'Cecilia Robertson',
+                    position: 'Client',
+                    salary: 6499.1038,
+                    country: 'fi',
+                }
+            ]
+        };
+    },
+
     render() {
+        var data = this.state.data;
+        var that = this;
         var countries = {
             'de': 'Germany',
             'fi': 'Finland',
@@ -33,28 +60,18 @@ var App = React.createClass({
                     header: 'Salary',
                     formatter: (salary) => salary.toFixed(2)
                 },
-            ]
-        };
-        var data = [
-            {
-                name: 'Jack Jackson',
-                position: 'Boss',
-                salary: 10000,
-                country: 'se',
-            },
-            {
-                name: 'Bo Bobson',
-                position: 'Contractor',
-                salary: 4650.9234,
-                country: 'de',
-            },
-            {
-                name: 'Cecilia Robertson',
-                position: 'Client',
-                salary: 6499.1038,
-                country: 'fi',
+            ],
+            events: {
+                edited: (i, property, value) => {
+                    // you could hook this with flux etc.
+                    data[i][property] = value;
+
+                    that.setState({
+                        data: data
+                    });
+                }
             }
-        ];
+        };
 
         return (
             <Table config={config} data={data}></Table>
