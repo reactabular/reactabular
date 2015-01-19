@@ -1,32 +1,26 @@
 {
-  "name": "react-hot-boilerplate",
+  "name": "reactabular",
   "version": "0.1.2",
-  "description": "Boilerplate for ReactJS project with hot code reloading",
+  "description": "Customizable tables for React",
   "scripts": {
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gaearon/react-hot-boilerplate.git"
+    "url": "https://github.com/bebraw/reactabular.git"
   },
   "keywords": [
     "react",
     "reactjs",
-    "boilerplate",
-    "hot",
-    "hot",
-    "reload",
-    "hmr",
-    "live",
-    "edit",
-    "webpack"
+    "table",
+    "tables"
   ],
-  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
+    "url": "https://github.com/bebraw/reactabular/issues"
   },
-  "homepage": "https://github.com/gaearon/react-hot-boilerplate",
+  "homepage": "https://github.com/bebraw/reactabular",
   "devDependencies": {
     "jsx-loader": "0.12.2",
     "react-hot-loader": "1.1.1",
