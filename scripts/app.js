@@ -7,6 +7,11 @@ var Table = require('./table.jsx');
 
 var App = React.createClass({
     render() {
+        var countries = {
+            'de': 'Germany',
+            'fi': 'Finland',
+            'se': 'Sweden'
+        };
         var config = {
             columns: [
                 {
@@ -19,10 +24,15 @@ var App = React.createClass({
                     header: 'Position',
                 },
                 {
+                    property: 'country',
+                    header: 'Country',
+                    formatter: (country) => countries[country]
+                },
+                {
                     property: 'salary',
                     header: 'Salary',
                     formatter: (salary) => salary.toFixed(2)
-                }
+                },
             ]
         };
         var data = [
@@ -30,16 +40,19 @@ var App = React.createClass({
                 name: 'Jack Jackson',
                 position: 'Boss',
                 salary: 10000,
+                country: 'se',
             },
             {
                 name: 'Bo Bobson',
                 position: 'Contractor',
                 salary: 4650.9234,
+                country: 'de',
             },
             {
                 name: 'Cecilia Robertson',
                 position: 'Client',
-                salary: 6499.1038
+                salary: 6499.1038,
+                country: 'fi',
             }
         ];
 
