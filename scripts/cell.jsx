@@ -23,11 +23,9 @@ var Cell = React.createClass({
             return editor(value, this.edited);
         }
 
-        return (
-            <td onClick={this.edit}>
-                {formatter(value)}
-            </td>
-        );
+        return <td onClick={this.edit}>
+            {formatter(value)}
+        </td>;
     },
 
     edit() {

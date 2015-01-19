@@ -5,13 +5,11 @@ var React = require('react');
 
 var Editor = React.createClass({
     render() {
-        return (
-            <input
-                defaultValue={this.props.value}
-                onKeyUp={this.keyUp}
-                onBlur={this.done}>
-            </input>
-        );
+        return <input
+            defaultValue={this.props.value}
+            onKeyUp={this.keyUp}
+            onBlur={this.done}>
+        </input>;
     },
 
     keyUp(e) {

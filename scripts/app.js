@@ -68,23 +68,21 @@ var App = React.createClass({
                     property: 'active',
                     header: 'Active',
                     editable: true,
-                    editor: (active, done) => {
-                        return (
-                            <span>
-                                <button
-                                    disabled={active}
-                                    onClick={done.bind(null, true)}>
-                                    &#10003;
-                                </button>
-                                <button
-                                    disabled={!active}
-                                    onClick={done.bind(null, false)}>
-                                    &#10007;
-                                </button>
-                            </span>
-                        );
-                    },
-                    formatter: (active) => active && (<span>&#10003;</span>),
+                    editor: (active, done) =>
+                        <span>
+                            <button
+                                disabled={active}
+                                onClick={done.bind(null, true)}>
+                                &#10003;
+                            </button>
+                            <button
+                                disabled={!active}
+                                onClick={done.bind(null, false)}>
+                                &#10007;
+                            </button>
+                        </span>
+                    ,
+                    formatter: (active) => active && <span>&#10003;</span>,
                 }
             ],
             events: {
@@ -99,9 +97,7 @@ var App = React.createClass({
             }
         };
 
-        return (
-            <Table config={config} data={data}></Table>
-        );
+        return <Table config={config} data={data}></Table>;
     }
 });
 
