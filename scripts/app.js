@@ -4,6 +4,7 @@ var React = require('react');
 var zip = require('annozip');
 
 var Table = require('./table.jsx');
+var editors = require('./editors.jsx');
 
 
 var App = React.createClass({
@@ -54,16 +55,7 @@ var App = React.createClass({
                     header: 'Country',
                     formatter: (country) => countries[country],
                     editable: true,
-                    editor: (active, done) => {
-                        return <select onChange={(e) => done(e.target.value)} value={active}>
-                            {zip(countries).map((pair, i) =>
-                                <option
-                                    key={i}
-                                    value={pair[0]}
-                                >{pair[1]}</option>
-                            )}
-                        </select>
-                    },
+                    editor: editors.dropdown(countries),
                 },
                 {
                     property: 'salary',
@@ -75,20 +67,7 @@ var App = React.createClass({
                     property: 'active',
                     header: 'Active',
                     editable: true,
-                    editor: (active, done) =>
-                        <span>
-                            <button
-                                disabled={active}
-                                onClick={done.bind(null, true)}
-                            >&#10003;
-                            </button>
-                            <button
-                                disabled={!active}
-                                onClick={done.bind(null, false)}
-                            >&#10007;
-                            </button>
-                        </span>
-                    ,
+                    editor: editors.boolean(),
                     formatter: (active) => active && <span>&#10003;</span>,
                 },
                 {
