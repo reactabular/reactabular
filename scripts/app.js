@@ -55,10 +55,7 @@ var App = React.createClass({
                     formatter: (country) => countries[country],
                     editable: true,
                     editor: (active, done) => {
-                        var handleChange = (e) =>
-                            done(e.target.value);
-
-                        return <select onChange={handleChange} value={active}>
+                        return <select onChange={(e) => done(e.target.value)} value={active}>
                             {zip(countries).map((pair, i) =>
                                 <option
                                     key={i}
