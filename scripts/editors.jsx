@@ -17,7 +17,7 @@ exports.boolean = () => {
                 onClick={done.bind(null, false)}
             >&#10007;
             </button>
-        </span>
+        </span>;
     };
 };
 
@@ -30,7 +30,7 @@ exports.dropdown = (options) => {
                     value={pair[0]}
                 >{pair[1]}</option>
             )}
-        </select>
+        </select>;
     };
 };
 
