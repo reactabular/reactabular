@@ -98,10 +98,10 @@ var App = React.createClass({
                     cell: (i) => {
                         var remove = () => {
                             // this could go through flux etc.
-                            delete data[i];
+                            delete that.state.data[i];
 
                             that.setState({
-                                data: data
+                                data: that.state.data
                             });
                         };
 
