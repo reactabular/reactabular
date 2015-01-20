@@ -24,7 +24,7 @@ var Search = React.createClass({
             )
             }</select>
             <input ref='query' onChange={this.change}></input>
-        </div>
+        </div>;
     },
 
     change(e) {
