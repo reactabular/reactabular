@@ -6,10 +6,10 @@ var math = require('annomath');
 
 var properties2object = require('schema2object').properties2object;
 
-var Table = require('./table.jsx');
-var Search = require('./search.jsx');
-var editors = require('./editors.jsx');
-var sortColumn = require('./sort_column');
+var Table = require('../lib/table.jsx');
+var Search = require('../lib/search.jsx');
+var editors = require('../lib/editors.jsx');
+var sortColumn = require('../lib/sort_column');
 
 
 var App = React.createClass({

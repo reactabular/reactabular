@@ -17,7 +17,7 @@
   ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
-  "main": "scripts/table.jsx",
+  "main": "lib/table.jsx",
   "bugs": {
     "url": "https://github.com/bebraw/reactabular/issues"
   },
