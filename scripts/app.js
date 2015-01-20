@@ -9,6 +9,7 @@ var properties2object = require('schema2object').properties2object;
 var Table = require('./table.jsx');
 var Search = require('./search.jsx');
 var editors = require('./editors.jsx');
+var sortColumn = require('./sort_column');
 
 
 var App = React.createClass({
@@ -76,7 +77,6 @@ var App = React.createClass({
     },
 
     render() {
-        var that = this;
         var columns = this.state.columns || [];
         var data = this.state.data || [];
 
@@ -84,41 +84,14 @@ var App = React.createClass({
             columns: columns,
             events: {
                 // you could hook these with flux etc.
-                selectedHeader: (column) => {
-                    var property = column.property;
-
-                    columns.map((column) => {
-                        column.classes = {};
-
-                        return column;
-                    });
-
-                    column.sort = column.sort? -column.sort: 1;
-                    column.classes = {
-                        'sort-asc': column.sort === 1,
-                        'sort-desc': column.sort === -1
-                    };
-
-                    data.sort((a, b) => {
-                        if(a[property].localeCompare) {
-                            return a[property].localeCompare(b[property]) * column.sort;
-                        }
-
-                        return a[property] - b[property] * column.sort;
-                    });
-
-                    that.setState({
-                        columns: columns,
-                        data: data
-                    });
-                },
-                edited: (i, property, value) => {
+                selectedHeader: sortColumn(columns, data, this.setState.bind(this)),
+                edited: ((i, property, value) => {
                     data[i][property] = value;
 
-                    that.setState({
+                    this.setState({
                         data: data
                     });
-                }
+                }).bind(this)
             }
         };
 
