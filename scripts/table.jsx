@@ -36,7 +36,9 @@ var Table = React.createClass({
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((row, i) => <tr key={i + '-row'}>{
+                    {data.filter((row) =>
+                        !('_visible' in row) || row._visible
+                    ).map((row, i) => <tr key={i + '-row'}>{
                         columns.map((column, j) =>
                             column.cell? <td key={j + '-cell'}>{column.cell(i)}</td>:
                             <Cell

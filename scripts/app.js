@@ -7,6 +7,7 @@ var math = require('annomath');
 var properties2object = require('schema2object').properties2object;
 
 var Table = require('./table.jsx');
+var Search = require('./search.jsx');
 var editors = require('./editors.jsx');
 
 
@@ -76,8 +77,8 @@ var App = React.createClass({
 
     render() {
         var that = this;
-        var columns = this.state.columns;
-        var data = this.state.data;
+        var columns = this.state.columns || [];
+        var data = this.state.data || [];
 
         var config = {
             columns: columns,
@@ -121,9 +122,38 @@ var App = React.createClass({
             }
         };
 
-        return <Table config={config} data={data}></Table>;
-    }
+        return <div>
+            <Search onQuery={this.search}></Search>
+            <Table config={config} data={data}></Table>
+        </div>;
+    },
+
+    search(query) {
+        var columns = this.state.columns || [];
+        var data = this.state.data || [];
+
+        this.setState({
+            data: data.map((row) => {
+                row._visible = columns.filter((column) => {
+                    var formatter = column.formatter || noop;
+                    var formattedValue = formatter(row[column.property]);
+
+                    if(!formattedValue) {
+                        return;
+                    }
+
+                    if(formattedValue.toLowerCase) {
+                        return formattedValue.toLowerCase().indexOf(query.toLowerCase()) === 0;
+                    }
+                }).length > 0;
+
+                return row;
+            })
+        });
+    },
 });
+
+function noop(a) {return a;}
 
 module.exports = App;
 
