@@ -31,7 +31,43 @@ var Search = React.createClass({
         var query = this.refs.query.getDOMNode().value;
         var column = this.refs.column.getDOMNode().value;
 
-        (this.props.onQuery || noop)(query, column);
+        this.search(query, column);
+    },
+
+    search(query, column) {
+        if(!this.props.columns) {
+            return;
+        }
+
+        var data = this.props.data || [];
+        var columns = this.props.columns;
+
+        if(column !== 'all') {
+            columns = this.props.columns.filter((col) =>
+                col.property === column
+            );
+        }
+
+        (this.props.onResult || noop)({
+            data: data.map((row) => {
+                row._visible = columns.filter(isColumnVisible.bind(null, row)).length > 0;
+
+                return row;
+            })
+        });
+
+        function isColumnVisible(row, column) {
+            var formatter = column.formatter || id;
+            var formattedValue = formatter(row[column.property]);
+
+            if(!formattedValue) {
+                return;
+            }
+
+            if(formattedValue.toLowerCase) {
+                return formattedValue.toLowerCase().indexOf(query.toLowerCase()) === 0;
+            }
+        }
     },
 });
 

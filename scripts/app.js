@@ -96,49 +96,11 @@ var App = React.createClass({
         };
 
         return <div>
-            <Search columns={columns} onQuery={this.search}></Search>
+            <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
             <Table config={config} data={data}></Table>
         </div>;
     },
-
-    search(query, column) {
-        if(!this.state.columns) {
-            return;
-        }
-
-        var data = this.state.data || [];
-        var columns = this.state.columns;
-
-        if(column !== 'all') {
-            columns = this.state.columns.filter((col) =>
-                col.property === column
-            );
-        }
-
-        this.setState({
-            data: data.map((row) => {
-                row._visible = columns.filter(isColumnVisible.bind(null, row)).length > 0;
-
-                return row;
-            })
-        });
-
-        function isColumnVisible(row, column) {
-            var formatter = column.formatter || noop;
-            var formattedValue = formatter(row[column.property]);
-
-            if(!formattedValue) {
-                return;
-            }
-
-            if(formattedValue.toLowerCase) {
-                return formattedValue.toLowerCase().indexOf(query.toLowerCase()) === 0;
-            }
-        }
-    },
 });
-
-function noop(a) {return a;}
 
 module.exports = App;
 
