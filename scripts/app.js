@@ -12,7 +12,6 @@ var generateData = require('./generate_data');
 
 var App = React.createClass({
     getInitialState() {
-        var that = this;
         var countries = {
             'de': 'Germany',
             'fi': 'Finland',
@@ -55,20 +54,20 @@ var App = React.createClass({
                     formatter: (active) => active && <span>&#10003;</span>,
                 },
                 {
-                    cell: (i) => {
+                    cell: ((i) => {
                         var remove = () => {
                             // this could go through flux etc.
-                            delete that.state.data[i];
+                            this.state.data.splice(i, 1);
 
-                            that.setState({
-                                data: that.state.data
+                            this.setState({
+                                data: this.state.data
                             });
                         };
 
                         return <span>
-                            <span onClick={remove} style={{cursor: 'pointer'}}>&#10007;</span>
+                            <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
                         </span>;
-                    },
+                    }).bind(this),
                 }
             ]
         };
