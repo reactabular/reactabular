@@ -163,8 +163,6 @@ function getFieldGenerators(countries) {
             'Daniel', 'Marge', 'Homer', 'Trevor', 'Fiona', 'Margaret', 'Ofelia'];
             var surnames = ['MacGyver', 'Johnson', 'Jackson', 'Robertson', 'Hull', 'Hill'];
 
-            console.log('generating name');
-
             return math.pick(forenames) + ' ' + math.pick(surnames);
         },
         position: function() {
