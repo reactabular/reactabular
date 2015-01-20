@@ -134,12 +134,9 @@ var App = React.createClass({
         }
 
         var data = this.state.data || [];
-        var columns;
+        var columns = this.state.columns;
 
-        if(column === 'all') {
-            columns = this.state.columns;
-        }
-        else {
+        if(column !== 'all') {
             columns = this.state.columns.filter((col) =>
                 col.property === column
             );
