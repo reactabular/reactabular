@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 
 var Cell = require('./cell.jsx');
 
@@ -18,13 +18,18 @@ var Table = React.createClass({
         }
 
         var columns = config.columns;
+        var cx = React.addons.classSet;
 
         return (
             <table>
                 <thead>
                     <tr>
                         {columns.map((column, i) =>
-                            <th key={i + '-header'}>
+                            <th
+                                key={i + '-header'}
+                                className={cx(column.classes)}
+                                onClick={events.selectedHeader.bind(null, column)}
+                            >
                                 {column.header}
                             </th>)
                         }

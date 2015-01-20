@@ -8,6 +8,13 @@ var Table = require('./table.jsx');
 
 var App = React.createClass({
     getInitialState() {
+        var that = this;
+        var countries = {
+            'de': 'Germany',
+            'fi': 'Finland',
+            'se': 'Sweden'
+        };
+
         return {
             data: [
                 {
@@ -31,19 +38,7 @@ var App = React.createClass({
                     country: 'fi',
                     active: true,
                 }
-            ]
-        };
-    },
-
-    render() {
-        var data = this.state.data;
-        var that = this;
-        var countries = {
-            'de': 'Germany',
-            'fi': 'Finland',
-            'se': 'Sweden'
-        };
-        var config = {
+            ],
             columns: [
                 {
                     property: 'name',
@@ -115,10 +110,48 @@ var App = React.createClass({
                         </span>;
                     },
                 }
-            ],
+            ]
+        };
+    },
+
+    render() {
+        var that = this;
+        var columns = this.state.columns;
+        var data = this.state.data;
+
+        var config = {
+            columns: columns,
             events: {
+                // you could hook these with flux etc.
+                selectedHeader: (column) => {
+                    var property = column.property;
+
+                    columns.map((column) => {
+                        column.classes = {};
+
+                        return column;
+                    });
+
+                    column.sort = column.sort? -column.sort: 1;
+                    column.classes = {
+                        'sort-asc': column.sort === 1,
+                        'sort-desc': column.sort === -1
+                    };
+
+                    data.sort((a, b) => {
+                        if(a[property].localeCompare) {
+                            return a[property].localeCompare(b[property]) * column.sort;
+                        }
+
+                        return a[property] - b[property] * column.sort;
+                    });
+
+                    that.setState({
+                        columns: columns,
+                        data: data
+                    });
+                },
                 edited: (i, property, value) => {
-                    // you could hook this with flux etc.
                     data[i][property] = value;
 
                     that.setState({
