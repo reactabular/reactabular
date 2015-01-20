@@ -23,8 +23,8 @@ var Table = React.createClass({
             <table>
                 <thead>
                     <tr>
-                        {columns.map((column) =>
-                            <th key={column.property + '-header'}>
+                        {columns.map((column, i) =>
+                            <th key={i + '-header'}>
                                 {column.header}
                             </th>)
                         }
@@ -32,10 +32,11 @@ var Table = React.createClass({
                 </thead>
                 <tbody>
                     {data.map((row, i) => <tr key={i + '-row'}>{
-                        columns.map((column) =>
+                        columns.map((column, j) =>
+                            column.cell? <td key={j + '-cell'}>{column.cell(i)}</td>:
                             <Cell
                                 editable={column.editable}
-                                key={column.property + '-cell'}
+                                key={j + '-cell'}
                                 formatter={column.formatter}
                                 value={row[column.property]}
                                 editor={column.editor}

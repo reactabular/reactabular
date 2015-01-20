@@ -98,6 +98,22 @@ var App = React.createClass({
                         </span>
                     ,
                     formatter: (active) => active && <span>&#10003;</span>,
+                },
+                {
+                    cell: (i) => {
+                        var remove = () => {
+                            // this could go through flux etc.
+                            delete data[i];
+
+                            that.setState({
+                                data: data
+                            });
+                        };
+
+                        return <span>
+                            <span onClick={remove} style={{cursor: 'pointer'}}>&#10007;</span>
+                        </span>;
+                    },
                 }
             ],
             events: {
