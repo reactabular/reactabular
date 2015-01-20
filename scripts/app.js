@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react');
-var zip = require('annozip');
 
 var Table = require('./table.jsx');
 var editors = require('./editors.jsx');
