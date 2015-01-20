@@ -123,33 +123,48 @@ var App = React.createClass({
         };
 
         return <div>
-            <Search onQuery={this.search}></Search>
+            <Search columns={columns} onQuery={this.search}></Search>
             <Table config={config} data={data}></Table>
         </div>;
     },
 
-    search(query) {
-        var columns = this.state.columns || [];
+    search(query, column) {
+        if(!this.state.columns) {
+            return;
+        }
+
         var data = this.state.data || [];
+        var columns;
+
+        if(column === 'all') {
+            columns = this.state.columns;
+        }
+        else {
+            columns = this.state.columns.filter((col) =>
+                col.property === column
+            );
+        }
 
         this.setState({
             data: data.map((row) => {
-                row._visible = columns.filter((column) => {
-                    var formatter = column.formatter || noop;
-                    var formattedValue = formatter(row[column.property]);
-
-                    if(!formattedValue) {
-                        return;
-                    }
-
-                    if(formattedValue.toLowerCase) {
-                        return formattedValue.toLowerCase().indexOf(query.toLowerCase()) === 0;
-                    }
-                }).length > 0;
+                row._visible = columns.filter(isColumnVisible.bind(null, row)).length > 0;
 
                 return row;
             })
         });
+
+        function isColumnVisible(row, column) {
+            var formatter = column.formatter || noop;
+            var formattedValue = formatter(row[column.property]);
+
+            if(!formattedValue) {
+                return;
+            }
+
+            if(formattedValue.toLowerCase) {
+                return formattedValue.toLowerCase().indexOf(query.toLowerCase()) === 0;
+            }
+        }
     },
 });
 
