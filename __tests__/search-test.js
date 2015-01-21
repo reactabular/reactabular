@@ -32,7 +32,7 @@ describe('Search', function() {
             },
             {
                 header: 'Third'
-            }
+            },
         ];
 
         var search = TestUtils.renderIntoDocument(
@@ -46,5 +46,57 @@ describe('Search', function() {
         expect(options[0].getDOMNode().value).toEqual('all');
         expect(options[1].getDOMNode().value).toEqual(columns[0].property);
         expect(options[1].getDOMNode().textContent).toEqual(columns[0].header);
+    });
+
+    it('should be able to yield results', function() {
+        var columns = [
+            {
+                property: 'first',
+                header: 'First'
+            },
+        ];
+        var value = 'demo';
+        var data = [
+            {
+                first: value
+            },
+        ];
+        var result = function(d) {
+            expect(d.data).toEqual(data);
+        };
+        var search = TestUtils.renderIntoDocument(
+            <Search columns={columns} data={data} onResult={result} />
+        );
+
+        var input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
+        input.getDOMNode().value = value;
+
+        TestUtils.Simulate.change(input);
+    });
+
+    it('should be able to flag hidden results', function() {
+        var columns = [
+            {
+                property: 'first',
+                header: 'First'
+            },
+        ];
+        var value = 'demo';
+        var data = [
+            {
+                first: value
+            },
+        ];
+        var result = function(d) {
+            expect(d.data[0]._visible).toEqual(false);
+        };
+        var search = TestUtils.renderIntoDocument(
+            <Search columns={columns} data={data} onResult={result} />
+        );
+
+        var input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
+        input.getDOMNode().value = value + value;
+
+        TestUtils.Simulate.change(input);
     });
 });
