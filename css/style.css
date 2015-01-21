@@ -7,6 +7,26 @@ body {
     font-family: Sans-Serif;
 }
 
+header {
+    padding: 1em;
+
+    text-align: center;
+
+    color: #333;
+    border-bottom: 0.1em solid #bbb;
+
+    background-image: url(../images/bgnoise_lg.png);
+}
+
+.github-fork {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    border: 0;
+}
+
 .controls {
     overflow: auto;
 }
