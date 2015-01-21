@@ -2,5 +2,12 @@
   "node": true,
   "browser": true,
   "esnext": true,
-  "newcap": false
+  "newcap": false,
+  "indent": 4,
+  "globals": {
+    "jest": true,
+    "describe": true,
+    "expect": true,
+    "it": true
+  }
 }

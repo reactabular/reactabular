@@ -3,7 +3,8 @@
   "version": "0.1.5",
   "description": "Spectacular tables for React.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node_modules/.bin/jest"
   },
   "repository": {
     "type": "git",
@@ -26,8 +27,10 @@
     "annogenerate": "^0.8.1",
     "css-loader": "^0.9.1",
     "file-loader": "^0.8.1",
+    "jest-cli": "^0.2.1",
     "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.1.1",
+    "react-tools": "^0.12.2",
     "schema2object": "^0.4.0",
     "style-loader": "^0.8.3",
     "url-loader": "^0.5.5",
@@ -38,5 +41,12 @@
     "annomath": "^0.4.1",
     "annozip": "^0.2.4",
     "react": "^0.12.2"
+  },
+  "jest": {
+    "scriptPreprocessor": "./preprocessor.js",
+    "unmockedModulePathPatterns": [
+      "./node_modules/annotate",
+      "./node_modules/react"
+    ]
   }
 }
