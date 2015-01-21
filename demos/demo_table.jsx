@@ -131,7 +131,7 @@ var DemoTable = React.createClass({
 
         return <div>
             <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
-            <Paginator page={pagination.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
+            <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
             <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
             <Table config={config} data={paginated.data}></Table>
         </div>;
@@ -163,11 +163,13 @@ function paginate(o) {
     var page = o.page || 0;
     var perPage = o.perPage;
 
-    var start = page * perPage;
+    var amountOfPages = Math.ceil(data.length / perPage);
+    var startPage = page < amountOfPages? page: 0;
 
     return {
-        amount: Math.ceil(data.length / perPage),
-        data: data.slice(start, start + perPage)
+        amount: amountOfPages,
+        data: data.slice(startPage * perPage, startPage * perPage + perPage),
+        page: startPage
     };
 }
 
