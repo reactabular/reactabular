@@ -46,6 +46,7 @@
     "scriptPreprocessor": "./preprocessor.js",
     "unmockedModulePathPatterns": [
       "./node_modules/annotate",
+      "./node_modules/annomath",
       "./node_modules/annozip",
       "./node_modules/react"
     ]
