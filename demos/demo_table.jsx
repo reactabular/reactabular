@@ -46,7 +46,7 @@ var DemoTable = React.createClass({
 
         return {
             data: generateData({
-                amount: 40,
+                amount: 100,
                 countries: Object.keys(countries)
             }),
             columns: [
@@ -98,7 +98,7 @@ var DemoTable = React.createClass({
             ],
             pagination: {
                 page: 0,
-                perPage: 5
+                perPage: 20
             }
         };
     },
