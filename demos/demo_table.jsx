@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var math = require('annomath');
 
 var Table = require('../lib/table.jsx');
 var Search = require('../lib/search.jsx');
@@ -9,6 +10,31 @@ var sortColumn = require('../lib/sort_column');
 
 var generateData = require('./generate_data');
 
+
+var Paginator = React.createClass({
+    render() {
+        var onSelect = this.props.onSelect || noop;
+        var page = this.props.page;
+        var pages = this.props.pages;
+
+        return <ul className='pagination'>{
+            math.range(pages).map((i) =>
+                <li
+                    key={'pagination-' + i}
+                    onClick={onSelect.bind(null, i)}
+                    className={i === page && 'selected'}>
+                    <a href='#' onClick={this.preventDefault}>
+                        {i + 1}
+                    </a>
+                </li>
+            )
+        }</ul>;
+    },
+
+    preventDefault(e) {
+        e.preventDefault();
+    },
+});
 
 var DemoTable = React.createClass({
     getInitialState() {
@@ -20,7 +46,7 @@ var DemoTable = React.createClass({
 
         return {
             data: generateData({
-                amount: 20,
+                amount: 40,
                 countries: Object.keys(countries)
             }),
             columns: [
@@ -69,7 +95,11 @@ var DemoTable = React.createClass({
                         </span>;
                     }).bind(this),
                 }
-            ]
+            ],
+            pagination: {
+                page: 0,
+                perPage: 5
+            }
         };
     },
 
@@ -92,11 +122,44 @@ var DemoTable = React.createClass({
             }
         };
 
+        var pagination = this.state.pagination || {};
+        var paginated = paginate({
+            data: data.filter((d) => !('_visible' in d) || d._visible),
+            page: pagination.page,
+            perPage: pagination.perPage,
+        });
+
         return <div>
+            <Paginator page={pagination.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
             <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
-            <Table config={config} data={data}></Table>
+            <Table config={config} data={paginated.data}></Table>
         </div>;
     },
+
+    onSelect(page) {
+        var pagination = this.state.pagination || {};
+
+        pagination.page = page;
+
+        this.setState({
+            pagination: pagination
+        });
+    },
 });
+
+function paginate(o) {
+    var data = o.data || [];
+    var page = o.page || 0;
+    var perPage = o.perPage;
+
+    var start = page * perPage;
+
+    return {
+        amount: Math.ceil(data.length / perPage),
+        data: data.slice(start, start + perPage)
+    };
+}
+
+function noop() {}
 
 module.exports = DemoTable;
