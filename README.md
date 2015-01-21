@@ -1,4 +1,4 @@
-# reactabular - Customizable tables for React
+# reactabular - Spectacular tables for React.js
 
 TODO
 
