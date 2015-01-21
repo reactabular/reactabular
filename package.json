@@ -24,7 +24,6 @@
   "homepage": "https://github.com/bebraw/reactabular",
   "devDependencies": {
     "annogenerate": "^0.8.1",
-    "annomath": "^0.4.1",
     "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.1.1",
     "schema2object": "^0.4.0",
@@ -33,6 +32,7 @@
   },
   "dependencies": {
     "react": "^0.12.2",
+    "annomath": "^0.4.1",
     "annozip": "^0.2.4"
   }
 }

@@ -1,40 +1,15 @@
 'use strict';
 
 var React = require('react');
-var math = require('annomath');
 
 var Table = require('../lib/table.jsx');
 var Search = require('../lib/search.jsx');
+var Paginator = require('../lib/paginator.jsx');
 var editors = require('../lib/editors.jsx');
 var sortColumn = require('../lib/sort_column');
 
 var generateData = require('./generate_data');
 
-
-var Paginator = React.createClass({
-    render() {
-        var onSelect = this.props.onSelect || noop;
-        var page = this.props.page;
-        var pages = this.props.pages;
-
-        return <ul className='pagination'>{
-            math.range(pages).map((i) =>
-                <li
-                    key={'pagination-' + i}
-                    onClick={onSelect.bind(null, i)}
-                    className={i === page && 'selected'}>
-                    <a href='#' onClick={this.preventDefault}>
-                        {i + 1}
-                    </a>
-                </li>
-            )
-        }</ul>;
-    },
-
-    preventDefault(e) {
-        e.preventDefault();
-    },
-});
 
 var DemoTable = React.createClass({
     getInitialState() {
@@ -123,11 +98,7 @@ var DemoTable = React.createClass({
         };
 
         var pagination = this.state.pagination || {};
-        var paginated = paginate({
-            data: data.filter((d) => !('_visible' in d) || d._visible),
-            page: pagination.page,
-            perPage: pagination.perPage,
-        });
+        var paginated = Paginator.paginate(data, pagination);
 
         return <div>
             <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
@@ -157,22 +128,5 @@ var DemoTable = React.createClass({
         });
     },
 });
-
-function paginate(o) {
-    var data = o.data || [];
-    var page = o.page || 0;
-    var perPage = o.perPage;
-
-    var amountOfPages = Math.ceil(data.length / perPage);
-    var startPage = page < amountOfPages? page: 0;
-
-    return {
-        amount: amountOfPages,
-        data: data.slice(startPage * perPage, startPage * perPage + perPage),
-        page: startPage
-    };
-}
-
-function noop() {}
 
 module.exports = DemoTable;
