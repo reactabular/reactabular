@@ -82,19 +82,16 @@ var DemoTable = React.createClass({
         var columns = this.state.columns || [];
         var data = this.state.data || [];
 
-        var config = {
-            columns: columns,
-            events: {
-                // you could hook these with flux etc.
-                selectedHeader: sortColumn(columns, data, this.setState.bind(this)),
-                edited: ((i, property, value) => {
-                    data[i][property] = value;
+        var events = {
+            // you could hook these with flux etc.
+            selectedHeader: sortColumn(columns, data, this.setState.bind(this)),
+            edited: ((i, property, value) => {
+                data[i][property] = value;
 
-                    this.setState({
-                        data: data
-                    });
-                }).bind(this)
-            }
+                this.setState({
+                    data: data
+                });
+            }).bind(this)
         };
 
         var pagination = this.state.pagination || {};
@@ -109,7 +106,7 @@ var DemoTable = React.createClass({
                     Search <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
                 </div>
             </div>
-            <Table config={config} data={paginated.data}></Table>
+            <Table columns={columns} events={events} data={paginated.data}></Table>
             <div className='paginator-container'>
                 <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
             </div>

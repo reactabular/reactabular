@@ -7,17 +7,13 @@ var Cell = require('./cell.jsx');
 
 var Table = React.createClass({
     render() {
-        var config = this.props.config || {};
-        var events = config.events || {};
+        var events = this.props.events || {
+            selectedHeader: noop,
+            edited: noop
+        };
         var data = this.props.data || [];
+        var columns = this.props.columns || [];
 
-        if(!config.columns) {
-            console.warn('missing column configuration');
-
-            return null;
-        }
-
-        var columns = config.columns;
         var cx = React.addons.classSet;
 
         return (
@@ -48,7 +44,7 @@ var Table = React.createClass({
                                 value={row[column.property]}
                                 editor={column.editor}
                                 edited={(value) =>
-                                    events.edited && events.edited(
+                                    events.edited(
                                         i,
                                         column.property,
                                         value
@@ -61,5 +57,7 @@ var Table = React.createClass({
         );
     },
 });
+
+function noop() {}
 
 module.exports = Table;
