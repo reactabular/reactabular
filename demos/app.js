@@ -1,5 +1,7 @@
 'use strict';
 
+require('../css/style.css');
+
 var React = require('react');
 
 var DemoTable = require('./demo_table.jsx');
