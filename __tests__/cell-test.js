@@ -49,28 +49,14 @@ describe('Cell', function() {
         expect(inputs.length).toEqual(0);
     });
 
-    it('should be editable after click if set editable', function() {
-        var cell = TestUtils.renderIntoDocument(
-            <Cell value='value' editable={true} />
-        );
-
-        var td = TestUtils.findRenderedDOMComponentWithTag(cell, 'td');
-
-        TestUtils.Simulate.click(td);
-
-        var inputs = TestUtils.scryRenderedDOMComponentsWithTag(cell, 'input');
-
-        expect(inputs.length).toEqual(1);
-    });
-
-    it('should accept a custom editor', function() {
+    it('should be editable if an editor is provided', function() {
         var countries = {
             'de': 'Germany',
             'fi': 'Finland',
             'se': 'Sweden'
         };
         var cell = TestUtils.renderIntoDocument(
-            <Cell value='value' editable={true} editor={editors.dropdown(countries)} />
+            <Cell value='value' editor={editors.dropdown(countries)} />
         );
 
         var td = TestUtils.findRenderedDOMComponentWithTag(cell, 'td');

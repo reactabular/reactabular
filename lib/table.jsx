@@ -38,7 +38,6 @@ var Table = React.createClass({
                         columns.map((column, j) =>
                             column.cell? <td key={j + '-cell'}>{column.cell(i)}</td>:
                             <Cell
-                                editable={column.editable}
                                 key={j + '-cell'}
                                 formatter={column.formatter}
                                 value={row[column.property]}

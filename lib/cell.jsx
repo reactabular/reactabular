@@ -2,8 +2,6 @@
 
 var React = require('react');
 
-var editors = require('./editors.jsx');
-
 
 var Cell = React.createClass({
     getInitialState() {
@@ -15,10 +13,9 @@ var Cell = React.createClass({
     render() {
         var value = this.props.value || '';
         var formatter = this.props.formatter || id;
-        var editor = this.props.editor || editors.input();
 
         if(this.state && this.state.editing) {
-            return editor(value, this.edited);
+            return this.props.editor(value, this.edited);
         }
 
         return <td onClick={this.edit}>
@@ -27,7 +24,7 @@ var Cell = React.createClass({
     },
 
     edit() {
-        if(this.props.editable) {
+        if(this.props.editor) {
             this.setState({
                 editing: true
             });

@@ -28,7 +28,7 @@ var DemoTable = React.createClass({
                 {
                     property: 'name',
                     header: 'Name',
-                    editable: true,
+                    editor: editors.input(),
                 },
                 {
                     property: 'position',
@@ -38,19 +38,17 @@ var DemoTable = React.createClass({
                     property: 'country',
                     header: 'Country',
                     formatter: (country) => countries[country],
-                    editable: true,
                     editor: editors.dropdown(countries),
                 },
                 {
                     property: 'salary',
                     header: 'Salary',
-                    editable: true,
+                    editor: editors.input(),
                     formatter: (salary) => parseFloat(salary).toFixed(2),
                 },
                 {
                     property: 'active',
                     header: 'Active',
-                    editable: true,
                     editor: editors.boolean(),
                     formatter: (active) => active && <span>&#10003;</span>,
                 },
