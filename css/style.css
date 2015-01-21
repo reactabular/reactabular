@@ -1,3 +1,65 @@
 body {
-    background: white;
+    margin: 0;
+    padding: 0;
+
+    background: #fefefe;
+
+    font-family: Sans-Serif;
+}
+
+.controls {
+    overflow: auto;
+}
+.per-page-container {
+    margin: 1em;
+
+    float: left;
+}
+.search-container {
+    margin: 1em;
+
+    float: right;
+}
+
+.pagination {
+    margin: 1em;
+    padding: 0;
+
+    list-style: none;
+}
+.pagination li {
+    margin: 0;
+    margin-right: 1em;
+    padding: 0.5em;
+
+    display: inline-block;
+
+    background: #ddd;
+}
+.pagination a {
+    text-decoration: none;
+}
+.pagination .selected {
+    background: #222;
+}
+.pagination .selected a {
+    color: #eee;
+}
+
+table {
+    width: 100%;
+
+    border-spacing: 0;
+}
+th {
+    padding-left: 0.5em;
+    border-bottom: 0.2em solid #ccc;
+
+    text-align: left;
+}
+td {
+    padding: 0.5em;
+}
+tr:nth-child(even) {
+    background: #eee;
 }

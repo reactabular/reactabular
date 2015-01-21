@@ -101,10 +101,18 @@ var DemoTable = React.createClass({
         var paginated = Paginator.paginate(data, pagination);
 
         return <div>
-            <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
-            <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
-            <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
+            <div className='controls'>
+                <div className='per-page-container'>
+                    Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
+                </div>
+                <div className='search-container'>
+                    Search <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
+                </div>
+            </div>
             <Table config={config} data={paginated.data}></Table>
+            <div className='paginator-container'>
+                <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
+            </div>
         </div>;
     },
 

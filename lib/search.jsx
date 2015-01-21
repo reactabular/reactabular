@@ -18,13 +18,13 @@ var Search = React.createClass({
             }
         }).filter(id));
 
-        return <div>
+        return <span className='search'>
             <select ref='column' onChange={this.change}>{options.map((option) =>
                 <option key={option.value + '-option'} value={option.value}>{option.name}</option>
             )
             }</select>
             <input ref='query' onChange={this.change}></input>
-        </div>;
+        </span>;
     },
 
     change(e) {
