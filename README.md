@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/bebraw/reactabular.png)](http://travis-ci.org/bebraw/reactabular)
 # reactabular - Spectacular tables for React.js
 
 TODO
