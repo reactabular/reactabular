@@ -2,6 +2,7 @@
 // adapted based on https://github.com/gpbl/isomorphic-react-template
 var extend = require('xtend');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var common = require('./webpack.common');
 
@@ -11,9 +12,8 @@ module.exports = extend(common, {
         './demos/index'
     ],
     output: {
-        path: './dist',
+        path: './gh-pages',
         filename: 'bundle.js',
-        publicPath: '/demos/'
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -22,13 +22,13 @@ module.exports = extend(common, {
                 'NODE_ENV': JSON.stringify('production'),
             }
         }),
-        new webpack.optimize.CommonsChunkPlugin('lib', 'lib.js'),
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
             },
         }),
+        new HtmlWebpackPlugin(),
     ],
     module: {
         loaders: common.loaders.concat([{

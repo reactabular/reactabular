@@ -4,7 +4,8 @@
   "description": "Spectacular tables for React.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node_modules/.bin/jest"
+    "test": "node_modules/.bin/jest",
+    "gh-pages": "node_modules/.bin/webpack --config webpack.gh-pages.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "annomath": "^0.4.1",
     "css-loader": "^0.9.1",
     "file-loader": "^0.8.1",
+    "html-webpack-plugin": "^1.1.0",
     "jest-cli": "^0.2.1",
     "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.1.1",
