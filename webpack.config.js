@@ -21,7 +21,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.(js|jsx)*$/, loaders: ['react-hot', 'jsx?harmony'], exclude: /node_modules/ },
+      { test: /\.(js|jsx)$/, loaders: ['react-hot', 'jsx?harmony'], exclude: /node_modules/ },
       { test: /\.css$/, loaders: ['style', 'css'] },
       { test: /\.png$/, loader: 'url-loader?limit=100000&mimetype=image/png' },
       { test: /\.jpg$/, loader: 'file-loader' },
