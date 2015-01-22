@@ -5,7 +5,7 @@ var React = require('react/addons');
 var Cell = require('./cell.jsx');
 
 
-var Table = React.createClass({
+module.exports = React.createClass({
     render() {
         var events = this.props.events || {
             selectedHeader: noop,
@@ -59,5 +59,3 @@ var Table = React.createClass({
 });
 
 function noop() {}
-
-module.exports = Table;

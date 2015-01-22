@@ -3,7 +3,7 @@
 var React = require('react');
 
 
-var Cell = React.createClass({
+module.exports = React.createClass({
     getInitialState() {
         return {
             editing: false,
@@ -45,5 +45,3 @@ var Cell = React.createClass({
 
 function id(a) {return a;}
 function noop() {}
-
-module.exports = Cell;

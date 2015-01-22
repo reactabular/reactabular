@@ -3,7 +3,7 @@
 var React = require('react');
 
 
-var Search = React.createClass({
+module.exports = React.createClass({
     render() {
         var columns = this.props.columns || [];
         var options = [{
@@ -73,5 +73,3 @@ var Search = React.createClass({
 
 function id(a) {return a;}
 function noop() {}
-
-module.exports = Search;

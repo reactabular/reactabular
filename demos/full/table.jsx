@@ -11,7 +11,7 @@ var sortColumn = require('../../lib/sort_column');
 var generateData = require('../generate_data');
 
 
-var DemoTable = React.createClass({
+module.exports = React.createClass({
     getInitialState() {
         var countries = [
             {
@@ -149,5 +149,3 @@ var DemoTable = React.createClass({
 function find(arr, key, value) {
     return arr.reduce((a, b) => a[key] === value? a: b[key] === value && b);
 }
-
-module.exports = DemoTable;
