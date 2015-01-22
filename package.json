@@ -6,11 +6,7 @@
     "start": "node server.js",
     "test": "node_modules/.bin/jest",
     "gh-pages": "node_modules/.bin/webpack --config ./config/webpack.gh-pages.js",
-    "deploy-gh-pages": "node_modules/.bin/gh-pages-deploy"
-  },
-  "gh-pages-deploy": {
-    "staticpath": "gh-pages",
-    "noprompt": false
+    "deploy-gh-pages": "node ./config/deploy-gh-pages.js"
   },
   "repository": {
     "type": "git",
@@ -34,7 +30,7 @@
     "annomath": "^0.4.1",
     "css-loader": "^0.9.1",
     "file-loader": "^0.8.1",
-    "gh-pages-deploy": "^0.1.1",
+    "gh-pages": "^0.2.0",
     "html-webpack-plugin": "^1.1.0",
     "jest-cli": "^0.2.1",
     "jsx-loader": "^0.12.2",
