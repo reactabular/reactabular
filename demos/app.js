@@ -4,7 +4,7 @@ require('../css/style.css');
 
 var React = require('react');
 
-var DemoTable = require('./demo_table.jsx');
+var FullTable = require('./full/table.jsx');
 
 
 var App = React.createClass({
@@ -23,7 +23,7 @@ var App = React.createClass({
                 <div className='description'>Spectacular tables for React.js</div>
             </header>
             <article>
-                <DemoTable></DemoTable>
+                <FullTable></FullTable>
             </article>
         </div>;
     },
