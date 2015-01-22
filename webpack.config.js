@@ -1,8 +1,11 @@
 'use strict';
+var extend = require('xtend');
 var webpack = require('webpack');
 
+var common = require('./webpack.common');
 
-module.exports = {
+
+module.exports = extend(common, {
     devtool: 'eval',
     entry: [
         'webpack-dev-server/client?http://0.0.0.0:3000',
@@ -16,30 +19,13 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
     ],
-    resolve: {
-        extensions: ['', '.js', '.jsx', '.css', '.png', '.jpg']
-    },
     module: {
-        loaders: [
-            {
-                test: /\.(js|jsx)$/,
-                loaders: ['react-hot', 'jsx?harmony'],
-                exclude: /node_modules/
-            },
-            {
-                test: /\.css$/,
-                loaders: ['style', 'css']
-            },
-            {
-                test: /\.png$/,
-                loader: 'url-loader?limit=100000&mimetype=image/png'
-            },
-            {
-                test: /\.jpg$/,
-                loader: 'file-loader'
-            },
-        ]
+        loaders: common.loaders.concat([{
+            test: /\.(js|jsx)$/,
+            loaders: ['react-hot', 'jsx?harmony'],
+            exclude: /node_modules/,
+        }])
     }
-};
+});
