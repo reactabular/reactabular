@@ -4,18 +4,20 @@ var React = require('react');
 
 
 module.exports = () => {
-    return (active, done) => {
-        return <span>
+    return React.createClass({
+        render() {
+            return <span>
             <button
-                disabled={active}
-                onClick={done.bind(null, true)}
+                disabled={this.props.value}
+                onClick={this.props.onEdit.bind(null, true)}
             >&#10003;
             </button>
             <button
-                disabled={!active}
-                onClick={done.bind(null, false)}
+                disabled={!this.props.value}
+                onClick={this.props.onEdit.bind(null, false)}
             >&#10007;
             </button>
         </span>;
-    };
+        }
+    });
 };

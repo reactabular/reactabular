@@ -4,8 +4,11 @@ var React = require('react');
 
 
 module.exports = (options) => {
-    return (active, done) => {
-        return <select onChange={(e) => done(e.target.value)} value={active}>
+    return React.createClass({
+        render() {
+            return <select
+                onChange={(e) => this.props.onEdit(e.target.value)}
+                value={this.props.value}>
             {options.map((option, i) =>
                 <option
                     key={i}
@@ -13,5 +16,6 @@ module.exports = (options) => {
                 >{option.name}</option>
             )}
         </select>;
-    };
+        }
+    });
 };

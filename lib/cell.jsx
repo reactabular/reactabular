@@ -15,7 +15,10 @@ var Cell = React.createClass({
         var formatter = this.props.formatter || id;
 
         if(this.state && this.state.editing) {
-            return this.props.editor(value, this.edited);
+            return React.createElement(this.props.editor, {
+                value: value,
+                onEdit: this.edited
+            });
         }
 
         return <td onClick={this.edit}>
