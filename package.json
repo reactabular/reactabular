@@ -6,7 +6,8 @@
     "start": "node server.js",
     "test": "node_modules/.bin/jest",
     "gh-pages": "node_modules/.bin/webpack --config ./config/webpack.gh-pages.js",
-    "deploy-gh-pages": "node ./config/deploy-gh-pages.js"
+    "deploy-gh-pages": "node ./config/deploy-gh-pages.js",
+    "dist": "node_modules/.bin/webpack --config ./config/webpack.dist.js && node_modules/.bin/webpack --config ./config/webpack.dist.min.js"
   },
   "repository": {
     "type": "git",
