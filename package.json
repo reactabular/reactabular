@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/bebraw/reactabular",
   "devDependencies": {
+    "annomath": "^0.4.1",
     "annogenerate": "^0.8.1",
     "css-loader": "^0.9.1",
     "file-loader": "^0.8.1",
@@ -38,14 +39,12 @@
     "webpack-dev-server": "^1.7.0"
   },
   "dependencies": {
-    "annomath": "^0.4.1",
     "react": "^0.12.2"
   },
   "jest": {
     "scriptPreprocessor": "./preprocessor.js",
     "unmockedModulePathPatterns": [
       "./node_modules/annotate",
-      "./node_modules/annomath",
       "./node_modules/react"
     ]
   }

@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react');
-var math = require('annomath');
 
 
 var Paginator = React.createClass({
@@ -11,7 +10,7 @@ var Paginator = React.createClass({
         var pages = this.props.pages;
 
         return <ul className='pagination'>{
-            math.range(pages).map((i) =>
+            range(pages).map((i) =>
                 <li
                     key={'pagination-' + i}
                     onClick={onSelect.bind(null, i)}
@@ -28,6 +27,17 @@ var Paginator = React.createClass({
         e.preventDefault();
     },
 });
+
+function range(amount) {
+    var ret = [];
+    var i;
+
+    for(i = 0; i < amount; i++) {
+        ret.push(i);
+    }
+
+    return ret;
+}
 
 function paginate(data, o) {
     data = data || [];
