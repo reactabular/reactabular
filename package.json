@@ -45,7 +45,8 @@
     "scriptPreprocessor": "./preprocessor.js",
     "unmockedModulePathPatterns": [
       "./node_modules/annotate",
-      "./node_modules/react"
+      "./node_modules/react",
+      "./lib/editors"
     ]
   }
 }

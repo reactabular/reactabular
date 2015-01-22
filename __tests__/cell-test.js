@@ -6,7 +6,7 @@ var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 
 var Cell = require('../lib/cell.jsx');
-var editors = require('../lib/editors.jsx');
+var editors = require('../lib/editors');
 
 
 describe('Cell', function() {
@@ -72,8 +72,8 @@ describe('Cell', function() {
 
         TestUtils.Simulate.click(td);
 
-        var inputs = TestUtils.scryRenderedDOMComponentsWithTag(cell, 'select');
+        var selects = TestUtils.scryRenderedDOMComponentsWithTag(cell, 'select');
 
-        expect(inputs.length).toEqual(1);
+        expect(selects.length).toEqual(1);
     });
 });
