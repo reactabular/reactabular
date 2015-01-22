@@ -104,10 +104,15 @@ var DemoTable = React.createClass({
                     Search <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
                 </div>
             </div>
-            <Table columns={columns} events={events} data={paginated.data}></Table>
-            <div className='paginator-container'>
-                <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
-            </div>
+            <Table columns={columns} events={events} data={paginated.data}>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
+                        </td>
+                    </tr>
+                </tfoot>
+            </Table>
         </div>;
     },
 

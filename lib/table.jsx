@@ -52,6 +52,7 @@ var Table = React.createClass({
                             </Cell>
                     )}</tr>)}
                 </tbody>
+                {this.props.children}
             </table>
         );
     },

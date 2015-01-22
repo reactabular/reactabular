@@ -72,6 +72,11 @@ table {
 
     border-spacing: 0;
 }
+tfoot {
+    display: table-footer-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
 th {
     padding-left: 0.5em;
     border-bottom: 0.2em solid #ccc;
