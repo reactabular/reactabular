@@ -6,9 +6,9 @@ var React = require('react');
 module.exports = (options) => {
     return React.createClass({
         render() {
-            return <select
-                onChange={(e) => this.props.onEdit(e.target.value)}
-                value={this.props.value}>
+            var edit = (e) => this.props.onEdit(e.target.value);
+
+            return <select onBlur={edit} onChange={edit} value={this.props.value}>
             {options.map((option, i) =>
                 <option
                     key={i}
