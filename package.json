@@ -39,7 +39,6 @@
   },
   "dependencies": {
     "annomath": "^0.4.1",
-    "annozip": "^0.2.4",
     "react": "^0.12.2"
   },
   "jest": {
@@ -47,7 +46,6 @@
     "unmockedModulePathPatterns": [
       "./node_modules/annotate",
       "./node_modules/annomath",
-      "./node_modules/annozip",
       "./node_modules/react"
     ]
   }

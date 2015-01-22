@@ -13,16 +13,25 @@ var generateData = require('./generate_data');
 
 var DemoTable = React.createClass({
     getInitialState() {
-        var countries = {
-            'de': 'Germany',
-            'fi': 'Finland',
-            'se': 'Sweden'
-        };
+        var countries = [
+            {
+                value: 'de',
+                name: 'Germany',
+            },
+            {
+                value: 'fi',
+                name: 'Finland',
+            },
+            {
+                value: 'se',
+                name: 'Sweden',
+            },
+        ];
 
         return {
             data: generateData({
                 amount: 100,
-                countries: Object.keys(countries)
+                countries: countries.map((country) => country.value),
             }),
             columns: [
                 {
@@ -37,7 +46,7 @@ var DemoTable = React.createClass({
                 {
                     property: 'country',
                     header: 'Country',
-                    formatter: (country) => countries[country],
+                    formatter: (country) => find(countries, 'value', country).name,
                     editor: editors.dropdown(countries),
                 },
                 {
@@ -136,5 +145,9 @@ var DemoTable = React.createClass({
         });
     },
 });
+
+function find(arr, key, value) {
+    return arr.reduce((a, b) => a[key] === value? a: b[key] === value && b);
+}
 
 module.exports = DemoTable;

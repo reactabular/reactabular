@@ -50,11 +50,20 @@ describe('Cell', function() {
     });
 
     it('should be editable if an editor is provided', function() {
-        var countries = {
-            'de': 'Germany',
-            'fi': 'Finland',
-            'se': 'Sweden'
-        };
+        var countries = [
+            {
+                value: 'de',
+                name: 'Germany',
+            },
+            {
+                value: 'fi',
+                name: 'Finland',
+            },
+            {
+                value: 'se',
+                name: 'Sweden',
+            },
+        ];
         var cell = TestUtils.renderIntoDocument(
             <Cell value='value' editor={editors.dropdown(countries)} />
         );
