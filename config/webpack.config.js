@@ -10,7 +10,7 @@ module.exports = extend(common, {
     entry: [
         'webpack-dev-server/client?http://0.0.0.0:3000',
         'webpack/hot/only-dev-server',
-        './demos/index'
+        './demos/index',
     ],
     output: {
         path: __dirname,

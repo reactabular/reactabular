@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react');
+var generators = require('annogenerate');
+var math = require('annomath');
 
 var Table = require('../../lib/table.jsx');
 var Search = require('../../lib/search.jsx');
@@ -27,11 +29,29 @@ module.exports = React.createClass({
                 name: 'Sweden',
             },
         ];
+        var properties = {
+            name: {
+                type: 'string'
+            },
+            position: {
+                type: 'string'
+            },
+            salary: {
+                type: 'number'
+            },
+            country: {
+                type: 'string'
+            },
+            active: {
+                type: 'boolean'
+            }
+        };
 
         return {
             data: generateData({
                 amount: 100,
-                countries: countries.map((country) => country.value),
+                fieldGenerators: getFieldGenerators(countries),
+                properties: properties,
             }),
             columns: [
                 {
@@ -80,7 +100,7 @@ module.exports = React.createClass({
             ],
             pagination: {
                 page: 0,
-                perPage: 20
+                perPage: 10
             }
         };
     },
@@ -113,12 +133,17 @@ module.exports = React.createClass({
                     Search <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
                 </div>
             </div>
-            <Table columns={columns} events={events} data={paginated.data}>
+            <Table className='pure-table pure-table-striped' columns={columns} events={events} data={paginated.data}>
                 <tfoot>
                     <tr>
                         <td>
                             <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
                         </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </tfoot>
             </Table>
@@ -145,6 +170,29 @@ module.exports = React.createClass({
         });
     },
 });
+
+function getFieldGenerators(countries) {
+    countries = countries.map((country) => country.value);
+
+    return {
+        name: function() {
+            var forenames = ['Jack', 'Bo', 'John', 'Jill', 'Angus', 'Janet', 'Cecilia',
+            'Daniel', 'Marge', 'Homer', 'Trevor', 'Fiona', 'Margaret', 'Ofelia'];
+            var surnames = ['MacGyver', 'Johnson', 'Jackson', 'Robertson', 'Hull', 'Hill'];
+
+            return math.pick(forenames) + ' ' + math.pick(surnames);
+        },
+        position: function() {
+            var positions = ['Boss', 'Contractor', 'Client'];
+
+            return math.pick(positions);
+        },
+        salary: generators.number.bind(null, 0, 100000),
+        country: function() {
+            return math.pick(countries);
+        }
+    };
+}
 
 function find(arr, key, value) {
     return arr.reduce((a, b) => a[key] === value? a: b[key] === value && b);

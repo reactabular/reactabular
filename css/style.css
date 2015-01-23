@@ -1,20 +1,7 @@
 body {
-    margin: 0;
-    padding: 0;
-
     background: #fefefe;
 
     font-family: Sans-Serif;
-}
-
-h1, h2, h3, h4 {
-    margin: 0;
-    padding: 0;
-}
-
-h1 {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
 }
 
 header {
@@ -37,6 +24,10 @@ article {
     margin: 1em;
 }
 
+textarea {
+    width: 100%;
+}
+
 .github-fork {
     position: absolute;
 
@@ -52,6 +43,14 @@ article {
 
     max-width: 60em;
 
+    background: #fafafa;
+}
+
+.demonstration table {
+    width: 100%;
+}
+
+.demonstration tfoot {
     background: #fafafa;
 }
 
@@ -94,28 +93,6 @@ article {
     color: #eee;
 }
 
-table {
-    width: 100%;
-
-    border-spacing: 0;
-}
-tfoot {
-    display: table-footer-group;
-    vertical-align: middle;
-    border-color: inherit;
-}
-th {
-    padding-left: 0.5em;
-    border-bottom: 0.2em solid #ccc;
-
-    text-align: left;
-}
-td {
-    padding: 0.5em;
-}
-tr:nth-child(even) {
-    background: #eee;
-}
 table .sort-asc:after {
     padding-left: 1em;
 

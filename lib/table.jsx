@@ -16,8 +16,13 @@ module.exports = React.createClass({
 
         var cx = React.addons.classSet;
 
+        // don't pass these props to table. maybe there's a cleaner way...
+        delete this.props.events;
+        delete this.props.data;
+        delete this.props.columns;
+
         return (
-            <table>
+            <table {...this.props}>
                 <thead>
                     <tr>
                         {columns.map((column, i) =>

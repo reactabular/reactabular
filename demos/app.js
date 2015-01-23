@@ -1,15 +1,17 @@
 'use strict';
 
+require('purecss/pure.css');
 require('../css/style.css');
 
 var React = require('react');
 
 var FullTable = require('./full/table.jsx');
+var Explorer = require('./explorer/table.jsx');
 
 
 var App = React.createClass({
     render() {
-        return <div>
+        return <div className='pure-g'>
             <a href='https://github.com/bebraw/reactabular'>
                 <img
                     className='github-fork'
@@ -17,12 +19,12 @@ var App = React.createClass({
                     alt='Fork me on GitHub'
                     data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png'></img>
             </a>
-            <header>
+            <header className='pure-u-1'>
                 <h1>Reactabular</h1>
 
                 <div className='description'>Spectacular tables for React.js</div>
             </header>
-            <article>
+            <article className='pure-u-1'>
                 <div className="demonstration">
                     <div className="description">
                         <h2>Demonstration</h2>
@@ -35,6 +37,12 @@ var App = React.createClass({
                     </div>
 
                     <FullTable></FullTable>
+                </div>
+
+                <div className='explorer'>
+                    <h2>Explorer</h2>
+
+                    <Explorer></Explorer>
                 </div>
             </article>
         </div>;
