@@ -23,7 +23,19 @@ var App = React.createClass({
                 <div className='description'>Spectacular tables for React.js</div>
             </header>
             <article>
-                <FullTable></FullTable>
+                <div className="demonstration">
+                    <div className="description">
+                        <h2>Demonstration</h2>
+
+                        <p>The demo below shows basic features of Reactabular. Besides usual pagination, sorting and filtering by search it is possible to modify various fields by clicking them. In addition you may remove entire rows by hitting `x` at the end of each.</p>
+
+                        <p>Most of this functionality is optional and has been plugged on top of a small core. The rest is just basic React.js code.</p>
+
+                        <p>There are hooks for connecting with data stores (ie. Flux architecture) and the library has been developed extensibility in mind. Ideally you shouldn't have to modify the library itself to get something done.</p>
+                    </div>
+
+                    <FullTable></FullTable>
+                </div>
             </article>
         </div>;
     },

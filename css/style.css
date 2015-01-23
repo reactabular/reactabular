@@ -7,6 +7,16 @@ body {
     font-family: Sans-Serif;
 }
 
+h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
 header {
     padding: 1em;
     padding-bottom: 4em;
@@ -19,6 +29,14 @@ header {
     background-image: url(../images/bgnoise_lg.png);
 }
 
+header .description {
+    color: #888;
+}
+
+article {
+    margin: 1em;
+}
+
 .github-fork {
     position: absolute;
 
@@ -26,6 +44,15 @@ header {
     right: 0;
 
     border: 0;
+}
+
+.demonstration .description {
+    margin: 1em;
+    padding: 1em;
+
+    max-width: 60em;
+
+    background: #fafafa;
 }
 
 .controls {
