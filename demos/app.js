@@ -9,7 +9,7 @@ var FullTable = require('./full/table.jsx');
 var Explorer = require('./explorer/table.jsx');
 
 
-var App = React.createClass({
+module.exports = React.createClass({
     render() {
         return <div className='pure-g'>
             <a href='https://github.com/bebraw/reactabular'>
@@ -48,5 +48,3 @@ var App = React.createClass({
         </div>;
     },
 });
-
-module.exports = App;
