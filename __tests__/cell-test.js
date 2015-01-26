@@ -48,32 +48,4 @@ describe('Cell', function() {
 
         expect(inputs.length).toEqual(0);
     });
-
-    it('should be editable if an editor is provided', function() {
-        var countries = [
-            {
-                value: 'de',
-                name: 'Germany',
-            },
-            {
-                value: 'fi',
-                name: 'Finland',
-            },
-            {
-                value: 'se',
-                name: 'Sweden',
-            },
-        ];
-        var cell = TestUtils.renderIntoDocument(
-            <Cell value='value' editor={editors.dropdown(countries)} />
-        );
-
-        var td = TestUtils.findRenderedDOMComponentWithTag(cell, 'td');
-
-        TestUtils.Simulate.click(td);
-
-        var selects = TestUtils.scryRenderedDOMComponentsWithTag(cell, 'select');
-
-        expect(selects.length).toEqual(1);
-    });
 });
