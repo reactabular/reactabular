@@ -8,7 +8,7 @@ var config = require('./config/webpack.config');
 new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
     hot: true
-}).listen(3000, '0.0.0.0', function (err, result) {
+}).listen(3000, '0.0.0.0', function (err) {
     if(err) {
         return console.log(err);
     }
