@@ -9,7 +9,11 @@ module.exports = React.createClass({
     render() {
         var events = this.props.events || {
             selectedHeader: noop,
-            edited: noop
+            cell: {
+                isEdited: noop,
+                startEdit: noop,
+                endEdit: noop,
+            }
         };
         var data = this.props.data || [];
         var columns = this.props.columns || [];
@@ -47,8 +51,20 @@ module.exports = React.createClass({
                                 formatter={column.formatter}
                                 value={row[column.property]}
                                 editor={column.editor}
-                                edited={(value) =>
-                                    events.edited(
+                                isEdited={() =>
+                                    events.cell.isEdited(
+                                        i,
+                                        column.property
+                                    )
+                                }
+                                startEdit={() =>
+                                    events.cell.startEdit(
+                                        i,
+                                        column.property
+                                    )
+                                }
+                                endEdit={(value) =>
+                                    events.cell.endEdit(
                                         i,
                                         column.property,
                                         value

@@ -4,21 +4,19 @@ var React = require('react');
 
 
 module.exports = React.createClass({
-    getInitialState() {
-        return {
-            editing: false,
-        };
-    },
-
     render() {
         var value = this.props.value || '';
         var formatter = this.props.formatter || id;
+        var isEdited = this.props.isEdited || noop;
+        var editor;
 
-        if(this.state && this.state.editing) {
-            return React.createElement(this.props.editor, {
+        if(isEdited(value)) {
+            editor = React.createElement(this.props.editor, {
                 value: value,
                 onEdit: this.edited
             });
+
+            return <td>{editor}</td>
         }
 
         return <td onClick={this.edit}>
@@ -27,19 +25,11 @@ module.exports = React.createClass({
     },
 
     edit() {
-        if(this.props.editor) {
-            this.setState({
-                editing: true
-            });
-        }
+        (this.props.startEdit || noop)();
     },
 
     edited(value) {
-        (this.props.edited || noop)(value);
-
-        this.setState({
-            editing: false
-        });
+        (this.props.endEdit || noop)(value);
     },
 });
 

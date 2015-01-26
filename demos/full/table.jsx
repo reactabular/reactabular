@@ -101,7 +101,8 @@ module.exports = React.createClass({
             pagination: {
                 page: 0,
                 perPage: 10
-            }
+            },
+            editedCells: [] // i -> property index to keep track of edit state
         };
     },
 
@@ -111,14 +112,54 @@ module.exports = React.createClass({
 
         var events = {
             // you could hook these with flux etc.
-            selectedHeader: sortColumn(columns, data, this.setState.bind(this)),
-            edited: ((i, property, value) => {
-                data[i][property] = value;
-
+            selectedHeader: ((column) => {
+                // reset edits
                 this.setState({
-                    data: data
+                    editedCells: []
                 });
-            }).bind(this)
+
+                sortColumn(columns, column, data, this.setState.bind(this));
+            }).bind(this),
+            cell: {
+                // TODO: push to utilities
+                isEdited: (i, property) => {
+                    var editedCells = this.state.editedCells;
+
+                    if(!editedCells[i]) {
+                        return;
+                    }
+
+                    return editedCells[i][property];
+                },
+                startEdit: ((i, property) => {
+                    var editedCells = this.state.editedCells;
+
+                    if(!editedCells[i]) {
+                        editedCells[i] = {};
+                    }
+
+                    editedCells[i][property] = true;
+
+                    this.setState({
+                        editedCells: editedCells,
+                    })
+                }).bind(this),
+                endEdit: ((i, property, value) => {
+                    var editedCells = this.state.editedCells;
+
+                    if(!editedCells[i]) {
+                        return;
+                    }
+
+                    editedCells[i][property] = false;
+                    data[i][property] = value;
+
+                    this.setState({
+                        data: data,
+                        editedCells: editedCells,
+                    });
+                }).bind(this),
+            },
         };
 
         var pagination = this.state.pagination || {};
