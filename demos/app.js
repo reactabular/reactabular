@@ -6,6 +6,7 @@ require('../css/style.css');
 var React = require('react');
 
 var FullTable = require('./full_table.jsx');
+var EditorsTable = require('./editors_table.jsx');
 
 
 module.exports = React.createClass({
@@ -24,8 +25,8 @@ module.exports = React.createClass({
                 <div className='description'>Spectacular tables for React.js</div>
             </header>
             <article className='pure-u-1'>
-                <div className="demonstration">
-                    <div className="description">
+                <div className='demonstration'>
+                    <div className='description'>
                         <h2>Demonstration</h2>
 
                         <p>The demo below shows basic features of Reactabular. Besides usual pagination, sorting and filtering by search it is possible to modify various fields by clicking them. In addition you may remove entire rows by hitting `x` at the end of each.</p>
@@ -36,6 +37,15 @@ module.exports = React.createClass({
                     </div>
 
                     <FullTable></FullTable>
+                </div>
+                <div className='editors'>
+                    <div className='description'>
+                        <h2>Editors</h2>
+
+                        <p>The table below contains some sample editors you can use. It is possible to develop your own editors as long as you follow the same interface (`value`, `onValue` props).</p>
+                    </div>
+
+                    <EditorsTable></EditorsTable>
                 </div>
             </article>
         </div>;

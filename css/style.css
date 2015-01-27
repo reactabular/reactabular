@@ -37,7 +37,7 @@ textarea {
     border: 0;
 }
 
-.demonstration .description {
+article .description {
     margin: 1em;
     padding: 1em;
 
@@ -46,7 +46,7 @@ textarea {
     background: #fafafa;
 }
 
-.demonstration table {
+table {
     width: 100%;
 }
 

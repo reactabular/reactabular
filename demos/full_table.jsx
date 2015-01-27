@@ -10,25 +10,12 @@ var Paginator = require('../lib/paginator.jsx');
 var editors = require('../lib/editors');
 var sortColumn = require('../lib/sort_column');
 
+var countries = require('./countries');
 var generateData = require('./generate_data');
 
 
 module.exports = React.createClass({
     getInitialState() {
-        var countries = [
-            {
-                value: 'de',
-                name: 'Germany',
-            },
-            {
-                value: 'fi',
-                name: 'Finland',
-            },
-            {
-                value: 'se',
-                name: 'Sweden',
-            },
-        ];
         var properties = {
             name: {
                 type: 'string'
