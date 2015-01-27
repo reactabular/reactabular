@@ -178,7 +178,7 @@ module.exports = React.createClass({
                 <tfoot>
                     <tr>
                         <td>
-                            <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
+                            You could show sums etc. here in the customizable footer.
                         </td>
                         <td></td>
                         <td></td>
@@ -188,6 +188,11 @@ module.exports = React.createClass({
                     </tr>
                 </tfoot>
             </Table>
+            <div className='controls'>
+                <div className='pagination'>
+                    <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
+                </div>
+            </div>
         </div>;
     },
 
