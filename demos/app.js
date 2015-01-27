@@ -47,6 +47,11 @@ module.exports = React.createClass({
 
                     <EditorsTable></EditorsTable>
                 </div>
+                <div className='documentation'>
+                    <h2>Documentation</h2>
+
+                    <p>Please examine the demonstration source and check out <a href='https://github.com/bebraw/reactabular/blob/master/README.md'>project readme</a> for further information.</p>
+                </div>
             </article>
         </div>;
     },
