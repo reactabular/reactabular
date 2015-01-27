@@ -10,26 +10,18 @@ module.exports = React.createClass({
         var isEdited = this.props.isEdited || noop;
         var editor;
 
-        if(isEdited(value)) {
+        if(this.props.editor && isEdited(value)) {
             editor = React.createElement(this.props.editor, {
                 value: value,
-                onEdit: this.edited
+                onValue: this.props.onValue
             });
 
             return <td>{editor}</td>
         }
 
-        return <td onClick={this.edit}>
+        return <td onClick={this.props.onClick}>
             {formatter(value)}
         </td>;
-    },
-
-    edit() {
-        (this.props.startEdit || noop)();
-    },
-
-    edited(value) {
-        (this.props.endEdit || noop)(value);
     },
 });
 

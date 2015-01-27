@@ -11,8 +11,8 @@ module.exports = React.createClass({
             selectedHeader: noop,
             cell: {
                 isEdited: noop,
-                startEdit: noop,
-                endEdit: noop,
+                onClick: noop,
+                onValue: noop,
             }
         };
         var data = this.props.data || [];
@@ -57,14 +57,14 @@ module.exports = React.createClass({
                                         column.property
                                     )
                                 }
-                                startEdit={() =>
-                                    events.cell.startEdit(
+                                onClick={() =>
+                                    events.cell.onClick(
                                         i,
                                         column.property
                                     )
                                 }
-                                endEdit={(value) =>
-                                    events.cell.endEdit(
+                                onValue={(value) =>
+                                    events.cell.onValue(
                                         i,
                                         column.property,
                                         value

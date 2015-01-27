@@ -131,7 +131,7 @@ module.exports = React.createClass({
 
                     return editedCells[i][property];
                 },
-                startEdit: ((i, property) => {
+                onClick: ((i, property) => {
                     var editedCells = this.state.editedCells;
 
                     if(!editedCells[i]) {
@@ -144,7 +144,7 @@ module.exports = React.createClass({
                         editedCells: editedCells,
                     })
                 }).bind(this),
-                endEdit: ((i, property, value) => {
+                onValue: ((i, property, value) => {
                     var editedCells = this.state.editedCells;
 
                     if(!editedCells[i]) {

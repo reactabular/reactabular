@@ -20,7 +20,7 @@ module.exports = () => {
         },
 
         done() {
-            this.props.onEdit(this.getDOMNode().value);
+            this.props.onValue(this.getDOMNode().value);
         },
     });
 };
