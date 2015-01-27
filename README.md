@@ -1,7 +1,266 @@
 [![build status](https://secure.travis-ci.org/bebraw/reactabular.png)](http://travis-ci.org/bebraw/reactabular)
-# reactabular - Spectacular tables for React.js
+# Reactabular - Spectacular tables for React.js
+
+Reactabular has been designed to make it easier to build tables on top of React.js. Basic things, such as displaying data, are possible. More complex scenarios, such as search, pagination, sorting and inline editing, are supported.
+
+The library has been designed so that it is possible for you to extend it without having to stab at the core. Instead you can develop widgets around it and connect the component to your software architecture (Flux etc.) using callbacks.
+
+This means it might take more code to achieve certain things than in various other alternatives. On the other hand it gives you a degree of freedom you might appreciate. In addition it keeps the library quite small and easier to maintain.
+
+## Basic Table
+
+A basic table without any bells and whistles can be created like this:
+
+```javascript
+var Table = require('reactabular').Table;
+
+...
+```
+
+And when rendering you could do:
+
+```jsx
+<Table columns={columns} data={data}></Table>
+```
+
+Column and data definition looks like this:
+
+```javascript
+var data = [
+    {
+        name: 'React.js',
+        type: 'library',
+        description: 'Awesome library for handling view.',
+    },
+    {
+        name: 'Angular.js',
+        type: 'framework',
+        description: 'Swiss-knife of frameworks. Kitchen sink not included.',
+    },
+    {
+        name: 'Aurelia',
+        type: 'framework',
+        description: 'Framework for the next generation',
+    },
+];
+
+var columns: [
+    {
+        property: 'name',
+        header: 'Name',
+    },
+    {
+        property: 'type',
+        header: 'Type',
+    },
+    {
+        property: 'description',
+        header: 'Description',
+    },
+];
+```
+
+Using these definitions you should end up with a simplistic table with some library and framework data.
+
+`data` is simply an array of objects. `columns` provides column definition for the table and maps `data` fields to it using `property` key. `header` is used for UI. You could inject i18n'd versions of headers there etc.
+
+## Formatted Table
+
+As just listing libraries and frameworks is boring, let's add some more data to it. We could fetch information such as followers from GitHub. I'll leave that as an exercise to the reader and just add that data to the definition. In addition we could add a boolean there to signify projects that work with Reactabular out of the box. Here's an expanded definition:
+
+```javascript
+var data = [
+    {
+        name: 'React.js',
+        type: 'library',
+        description: 'Awesome library for handling view.',
+        followers: 23252,
+        worksWithReactabular: true,
+    },
+    {
+        name: 'Angular.js',
+        type: 'framework',
+        description: 'Swiss-knife of frameworks. Kitchen sink not included.',
+        followers: 35159,
+        worksWithReactabular: false,
+    },
+    {
+        name: 'Aurelia',
+        type: 'framework',
+        description: 'Framework for the next generation',
+        followers: 229,
+        worksWithReactabular: false,
+    },
+];
+```
+
+In addition we might want to improve the formatting of these new fields. Here's an expanded column definition (new fields only):
+
+```javascript
+var columns: [
+    ...
+    {
+        property: 'followers',
+        header: 'Followers',
+        // accuracy per hundred is enough for demoing
+        formatter: (followers) => followers - (followers % 100),
+    },
+    {
+        property: 'worksWithReactabular',
+        header: '1st Class Reactabular',
+        // render utf ok if works
+        formatter: (works) => works && <span>&#10003;</span>,
+    }
+];
+```
+
+`formatter` is expected to return some value or a React component so there is room for customization.
+
+It might be cool if it was possible to search the content, especially if we added more data there. Let's implement that next.
+
+## Searching a Table
+
+`Reactabular` comes with a search helper that can be hooked up. See below:
+
+```javascript
+var Search = require('reactabular').Search;
+
+...
+```
+
+Then at your `render` you could do:
+
+```jsx
+<div className='search-container'>
+    Search <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
+</div>
+```
+
+The interesting bit here is `this.setState.bind(this)`. When you enter something to the search field, it will filter your data and set `_visible` flag for `data` rows. This information is used when rendering. In order to take these changes in count, you will need to update the table state. Hence it is preferable to set up table `data` and `columns` at `getInitialState`. Alternatively you could hook into some implementation of Flux here.
+
+> By default `Search.onResult` returns an object with `data` and `columns` set so it can be a good idea to stick to that naming.
+
+> I'm not exactly certain whether it is a good idea to modify the original `data` with `_visible` flags. It definitely would be possible to keep searched data and original data separate if needed. - XXXXX: going to change this
+
+## Paginating a Table
+
+The next natural could be implementing a pagination for our table. We could add two separately controls for that. One to display amount of items per page and one to control the current page. This will take some additional wiring.
+
+To make this task easier, Reactabular comes with a helper for rendering the pagination control. Items per page is easy to model using a dropdown. You can replace the provided pagination solution with something more custom. This is just a starting point. Consider the code below:
+
+```javascript
+var Paginator = require('reactabular').Paginator;
+
+...
+
+// state
+pagination: {
+    page: 0,
+    perPage: 10
+},
+
+// handlers
+onSelect(page) {
+    var pagination = this.state.pagination || {};
+
+    pagination.page = page;
+
+    this.setState({
+        pagination: pagination
+    });
+},
+
+onPerPage(e) {
+    var pagination = this.state.pagination || {};
+
+    pagination.perPage = parseInt(event.target.value, 10);
+
+    this.setState({
+        pagination: pagination
+    });
+},
+```
+
+> Note! It might be a good idea to push the handlers and state to a Pagination mixin. Need to think about that.
+
+```jsx
+<div className='per-page-container'>
+    Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
+</div>
+
+...
+
+<div className='pagination'>
+    <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
+</div>
+```
+
+In addition we need to change `Table` `data` field to point at `paginated.data` like this:
+
+```jsx
+<Table columns={columns} data={paginated.data}></Table>
+```
+
+After these steps we should have pagination in our table. Pagination is simply a filtering step on data.
+
+We are still missing one basic feature - sorting. We'll implement that next.
+
+## Sorting a Table
+
+Reactabular comes with a little helper to make this task easier. It is possible to replace the provided sorter with something more advanced. Here's the basic idea:
+
+```javascript
+var sortColumn = require('reactabular').sortColumn;
+
+...
+
+var events = {
+    selectedHeader: ((column) => {
+        sortColumn(columns, column, data, this.setState.bind(this));
+    }).bind(this),
+};
+```
+
+In addition we need to provide `events` to our `Table` like this:
+
+```jsx
+<Table columns={columns} data={paginated.data} events={events}></Table>
+```
+
+After that it should be possible to sort table content by hitting various column names at header. `sortColumn` sets either `sort-asc` or `sort-desc` class for currently active header column. This allows some degree of styling. You can get something basic looking to work like this:
+
+```css
+table .sort-asc:after {
+    padding-left: 1em;
+
+    content: '\25BC';
+
+    font-size: 0.5em;
+}
+table .sort-desc:after {
+    padding-left: 1em;
+
+    content: '\25B2';
+
+    font-size: 0.5em;
+}
+```
+
+That will render nice little arrows showing sort direction.
+
+## Adding Custom Column
+
+It might be fun if it was possible to delete table entries directly...
+
+> TODO: redo this API. Get rid of `cell` API and just go through regular columns -> more generic.
+
+## Adding Custom Footer
 
 TODO
+
+## Inline Editing a Table
+
+TOOD
 
 ## Development
 
