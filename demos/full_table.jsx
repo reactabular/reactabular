@@ -108,7 +108,6 @@ module.exports = React.createClass({
                 sortColumn(columns, column, data, this.setState.bind(this));
             }).bind(this),
             cell: {
-                // TODO: push to utilities
                 isEdited: (i, property) => {
                     var editedCells = this.state.editedCells;
 
