@@ -5,7 +5,7 @@ require('../css/style.css');
 
 var React = require('react');
 
-var FullTable = require('./full/table.jsx');
+var FullTable = require('./full_table.jsx');
 
 
 module.exports = React.createClass({

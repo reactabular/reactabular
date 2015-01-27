@@ -4,13 +4,13 @@ var React = require('react');
 var generators = require('annogenerate');
 var math = require('annomath');
 
-var Table = require('../../lib/table.jsx');
-var Search = require('../../lib/search.jsx');
-var Paginator = require('../../lib/paginator.jsx');
-var editors = require('../../lib/editors');
-var sortColumn = require('../../lib/sort_column');
+var Table = require('../lib/table.jsx');
+var Search = require('../lib/search.jsx');
+var Paginator = require('../lib/paginator.jsx');
+var editors = require('../lib/editors');
+var sortColumn = require('../lib/sort_column');
 
-var generateData = require('../generate_data');
+var generateData = require('./generate_data');
 
 
 module.exports = React.createClass({
