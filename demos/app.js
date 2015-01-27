@@ -6,7 +6,6 @@ require('../css/style.css');
 var React = require('react');
 
 var FullTable = require('./full/table.jsx');
-var Explorer = require('./explorer/table.jsx');
 
 
 module.exports = React.createClass({
@@ -37,12 +36,6 @@ module.exports = React.createClass({
                     </div>
 
                     <FullTable></FullTable>
-                </div>
-
-                <div className='explorer'>
-                    <h2>Explorer</h2>
-
-                    <Explorer></Explorer>
                 </div>
             </article>
         </div>;
