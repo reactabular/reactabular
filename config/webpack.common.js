@@ -7,7 +7,6 @@ module.exports = {
     ],
     resolve: {
         extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg'],
-        modulesDirectories: ['node_modules', 'utils'],
     },
 };
 
