@@ -43,6 +43,11 @@ textarea {
     width: 100%;
 }
 
+pre {
+    background: #fafefe;
+    padding: 0.5em;
+}
+
 article .description {
     margin: 1em;
     padding: 1em;
