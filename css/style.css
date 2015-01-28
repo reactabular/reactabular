@@ -48,6 +48,10 @@ article .description {
     background: #fafafa;
 }
 
+article .description h2 {
+    margin: 0.83em 0;
+}
+
 table {
     width: 100%;
 }
