@@ -31,6 +31,10 @@ article section {
     margin-bottom: 2em;
 }
 
+article h2 {
+    margin-top: 2em;
+}
+
 textarea {
     width: 100%;
 }
