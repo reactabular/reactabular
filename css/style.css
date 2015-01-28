@@ -39,15 +39,6 @@ textarea {
     width: 100%;
 }
 
-.github-fork {
-    position: absolute;
-
-    top: 0;
-    right: 0;
-
-    border: 0;
-}
-
 article .description {
     margin: 1em;
     padding: 1em;
