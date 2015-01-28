@@ -62,7 +62,7 @@ describe('Search', function() {
             },
         ];
         var result = function(d) {
-            expect(d.data).toEqual(data);
+            expect(d.searchData).toEqual(data);
         };
         var search = TestUtils.renderIntoDocument(
             <Search columns={columns} data={data} onResult={result} />
@@ -74,7 +74,7 @@ describe('Search', function() {
         TestUtils.Simulate.change(input);
     });
 
-    it('should be able to flag hidden results', function() {
+    it('should be able to yield zero results', function() {
         var columns = [
             {
                 property: 'first',
@@ -88,7 +88,7 @@ describe('Search', function() {
             },
         ];
         var result = function(d) {
-            expect(d.data[0]._visible).toEqual(false);
+            expect(d.searchData.length).toEqual(0);
         };
         var search = TestUtils.renderIntoDocument(
             <Search columns={columns} data={data} onResult={result} />

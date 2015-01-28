@@ -41,7 +41,6 @@ function range(amount) {
 
 function paginate(data, o) {
     data = data || [];
-    data = data.filter((d) => !('_visible' in d) || d._visible);
 
     var page = o.page || 0;
     var perPage = o.perPage;

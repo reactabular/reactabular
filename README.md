@@ -126,6 +126,14 @@ It might be cool if it was possible to search the content, especially if we adde
 var Search = require('reactabular').Search;
 
 ...
+
+getInitialState() {
+    return {
+        ...
+        searchData: data,
+        ...
+    };
+}
 ```
 
 Then at your `render` you could do:
@@ -136,11 +144,22 @@ Then at your `render` you could do:
 </div>
 ```
 
-The interesting bit here is `this.setState.bind(this)`. When you enter something to the search field, it will filter your data and set `_visible` flag for `data` rows. This information is used when rendering. In order to take these changes in count, you will need to update the table state. Hence it is preferable to set up table `data` and `columns` at `getInitialState`. Alternatively you could hook into some implementation of Flux here.
+You should also wire `Table` to use filtered data:
 
-> By default `Search.onResult` returns an object with `data` and `columns` set so it can be a good idea to stick to that naming.
+```jsx
+<Table columns={columns} data={this.state.searchData}></Table>
+```
+```
 
-> I'm not exactly certain whether it is a good idea to modify the original `data` with `_visible` flags. It definitely would be possible to keep searched data and original data separate if needed. - XXXXX: going to change this
+The interesting bit here is `this.setState.bind(this)`. When you enter something to the search field, it will emit a structure like this:
+
+```js
+{
+    searchData: [...], // a list of matching rows
+}
+```
+
+In order to take these changes in count, you will need to update the table state. Hence it is preferable to set up table `data` and `columns` at `getInitialState`. Alternatively you could hook into some implementation of Flux here.
 
 ## Paginating a Table
 

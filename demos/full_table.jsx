@@ -33,13 +33,15 @@ module.exports = React.createClass({
                 type: 'boolean'
             }
         };
+        var data = generateData({
+            amount: 100,
+            fieldGenerators: getFieldGenerators(countries),
+            properties: properties,
+        });
 
         return {
-            data: generateData({
-                amount: 100,
-                fieldGenerators: getFieldGenerators(countries),
-                properties: properties,
-            }),
+            data: data,
+            searchData: data,
             columns: [
                 {
                     property: 'name',
@@ -89,13 +91,14 @@ module.exports = React.createClass({
                 page: 0,
                 perPage: 10
             },
-            editedCells: [] // i -> property index to keep track of edit state
+            editedCells: [], // i -> property index to keep track of edit state
         };
     },
 
     render() {
         var columns = this.state.columns || [];
         var data = this.state.data || [];
+        var searchData = this.state.searchData || [];
 
         var events = {
             // you could hook these with flux etc.
@@ -105,7 +108,7 @@ module.exports = React.createClass({
                     editedCells: []
                 });
 
-                sortColumn(columns, column, data, this.setState.bind(this));
+                sortColumn(columns, column, searchData, this.setState.bind(this));
             }).bind(this),
             cell: {
                 isEdited: (i, property) => {
@@ -149,7 +152,7 @@ module.exports = React.createClass({
         };
 
         var pagination = this.state.pagination || {};
-        var paginated = Paginator.paginate(data, pagination);
+        var paginated = Paginator.paginate(searchData, pagination);
 
         return <div>
             <div className='controls'>

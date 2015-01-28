@@ -41,9 +41,7 @@ module.exports = React.createClass({
                     </tr>
                 </thead>
                 <tbody>
-                    {data.filter((row) =>
-                        !('_visible' in row) || row._visible
-                    ).map((row, i) => <tr key={i + '-row'}>{
+                    {data.map((row, i) => <tr key={i + '-row'}>{
                         columns.map((column, j) =>
                             <Cell
                                 key={j + '-cell'}
