@@ -1,12 +1,15 @@
 'use strict';
 
 require('purecss/pure.css');
+require('highlight.js/styles/github.css');
 require('../css/style.css');
 
 var React = require('react');
 
 var FullTable = require('./full_table.jsx');
 var EditorsTable = require('./editors_table.jsx');
+
+var readme = require('../README.md');
 
 
 module.exports = React.createClass({
@@ -48,9 +51,9 @@ module.exports = React.createClass({
                     <EditorsTable></EditorsTable>
                 </div>
                 <div className='documentation'>
-                    <h2>Documentation</h2>
+                    <h2>README</h2>
 
-                    <p>Please examine the demonstration source and check out <a href='https://github.com/bebraw/reactabular/blob/master/README.md'>project readme</a> for further information.</p>
+                    <div dangerouslySetInnerHTML={{__html: readme}}></div>
                 </div>
             </article>
         </div>;
