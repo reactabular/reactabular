@@ -83,31 +83,6 @@ table {
     float: right;
 }
 
-.pagination {
-    margin: 1em;
-    padding: 0;
-
-    list-style: none;
-}
-.pagination li {
-    margin: 0;
-    margin-right: 1em;
-    padding: 0.5em;
-
-    display: inline-block;
-
-    background: #ddd;
-}
-.pagination a {
-    text-decoration: none;
-}
-.pagination .selected {
-    background: #222;
-}
-.pagination .selected a {
-    color: #eee;
-}
-
 table .sort-asc:after {
     padding-left: 1em;
 

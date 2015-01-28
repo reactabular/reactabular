@@ -165,10 +165,12 @@ In order to take these changes in count, you will need to update the table state
 
 The next natural could be implementing a pagination for our table. We could add two separately controls for that. One to display amount of items per page and one to control the current page. This will take some additional wiring.
 
-To make this task easier, Reactabular comes with a helper for rendering the pagination control. Items per page is easy to model using a dropdown. You can replace the provided pagination solution with something more custom. This is just a starting point. Consider the code below:
+The library doesn't come with pagination. Instead you can use an external library, such as [react-pagify](https://github.com/bebraw/react-pagify), for this purpose. Here's a brief example on how to set it up with `reactabular`:
 
 ```javascript
-var Paginator = require('reactabular').Paginator;
+var Paginator = require('react-pagify');
+
+require('react-pagify/style.css');
 
 ...
 
@@ -200,7 +202,7 @@ onPerPage(e) {
 },
 ```
 
-> Note! It might be a good idea to push the handlers and state to a Pagination mixin. Need to think about that.
+You could push some of that into a mixin to decrease the amount of code in your components.
 
 ```jsx
 <div className='per-page-container'>

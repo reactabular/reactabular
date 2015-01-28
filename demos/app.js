@@ -3,6 +3,7 @@
 require('purecss/pure.css');
 require('highlight.js/styles/github.css');
 require('react-ghfork/style.css');
+require('react-pagify/style.css');
 require('../css/style.css');
 
 var React = require('react');
