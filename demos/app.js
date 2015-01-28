@@ -28,7 +28,7 @@ module.exports = React.createClass({
                 <div className='description'>Spectacular tables for React.js</div>
             </header>
             <article className='pure-u-1'>
-                <div className='demonstration'>
+                <section className='demonstration'>
                     <div className='description'>
                         <h2>Demonstration</h2>
 
@@ -40,8 +40,8 @@ module.exports = React.createClass({
                     </div>
 
                     <FullTable></FullTable>
-                </div>
-                <div className='editors'>
+                </section>
+                <section className='editors'>
                     <div className='description'>
                         <h2>Editors</h2>
 
@@ -49,12 +49,12 @@ module.exports = React.createClass({
                     </div>
 
                     <EditorsTable></EditorsTable>
-                </div>
-                <div className='documentation'>
+                </section>
+                <section className='documentation'>
                     <h2>README</h2>
 
                     <div dangerouslySetInnerHTML={{__html: readme}}></div>
-                </div>
+                </section>
             </article>
         </div>;
     },
