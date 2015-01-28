@@ -248,26 +248,9 @@ In addition we need to provide `events` to our `Table` like this:
 <Table columns={columns} data={paginated.data} events={events}></Table>
 ```
 
-After that it should be possible to sort table content by hitting various column names at header. `sortColumn` sets either `sort-asc` or `sort-desc` class for currently active header column. This allows some degree of styling. You can get something basic looking to work like this:
+After that it should be possible to sort table content by hitting various column names at header. `sortColumn` sets either `sort-asc` or `sort-desc` class for currently active header column. This allows some degree of styling.
 
-```css
-table .sort-asc:after {
-    padding-left: 1em;
-
-    content: '\25BC';
-
-    font-size: 0.5em;
-}
-table .sort-desc:after {
-    padding-left: 1em;
-
-    content: '\25B2';
-
-    font-size: 0.5em;
-}
-```
-
-That will render nice little arrows showing sort direction.
+You can get something basic looking by utilizing `./style.css`. In Webpack you can import it to your project using `require('reactabular/style.css')` provided you have appropriate loaders set up.
 
 ## Adding Custom Column
 
@@ -286,7 +269,11 @@ It might be fun if it was possible to delete table entries directly. We can defi
         };
 
         return <span>
-            <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
+            <span
+                onClick={remove.bind(this)}
+                style={{cursor: 'pointer'}}>
+                &#10007;
+            </span>
         </span>;
     }).bind(this),
 },

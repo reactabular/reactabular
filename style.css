@@ -1,0 +1,14 @@
+table .sort-asc:after {
+    padding-left: 1em;
+
+    content: '\25BC';
+
+    font-size: 0.5em;
+}
+table .sort-desc:after {
+    padding-left: 1em;
+
+    content: '\25B2';
+
+    font-size: 0.5em;
+}

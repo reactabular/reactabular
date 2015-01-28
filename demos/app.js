@@ -4,7 +4,8 @@ require('purecss/pure.css');
 require('highlight.js/styles/github.css');
 require('react-ghfork/style.css');
 require('react-pagify/style.css');
-require('../css/style.css');
+require('./main.css');
+require('../style.css');
 
 var React = require('react');
 var Fork = require('react-ghfork');
