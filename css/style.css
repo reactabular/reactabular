@@ -20,6 +20,8 @@ header {
 
 header .description {
     color: #888;
+
+    border: 0.1em solid #eee;
 }
 
 article {
