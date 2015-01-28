@@ -2,11 +2,12 @@
 
 require('purecss/pure.css');
 require('highlight.js/styles/github.css');
+require('react-ghfork/style.css');
 require('../css/style.css');
 
 var React = require('react');
+var Fork = require('react-ghfork');
 
-var Fork = require('./fork.jsx');
 var FullTable = require('./full_table.jsx');
 var EditorsTable = require('./editors_table.jsx');
 
