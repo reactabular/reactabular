@@ -45,10 +45,11 @@ module.exports = React.createClass({
                         !('_visible' in row) || row._visible
                     ).map((row, i) => <tr key={i + '-row'}>{
                         columns.map((column, j) =>
-                            column.cell? <td key={j + '-cell'}>{column.cell(i)}</td>:
                             <Cell
                                 key={j + '-cell'}
-                                formatter={column.formatter}
+                                formatter={(value) =>
+                                    column.formatter? column.formatter(value, i): value
+                                }
                                 value={row[column.property]}
                                 editor={column.editor}
                                 isEdited={() =>

@@ -69,7 +69,7 @@ module.exports = React.createClass({
                     formatter: (active) => active && <span>&#10003;</span>,
                 },
                 {
-                    cell: ((i) => {
+                    formatter: ((_, i) => {
                         var remove = () => {
                             // this could go through flux etc.
                             this.state.data.splice(i, 1);
@@ -83,7 +83,7 @@ module.exports = React.createClass({
                             <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
                         </span>;
                     }).bind(this),
-                }
+                },
             ],
             pagination: {
                 page: 0,

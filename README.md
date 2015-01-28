@@ -250,9 +250,28 @@ That will render nice little arrows showing sort direction.
 
 ## Adding Custom Column
 
-It might be fun if it was possible to delete table entries directly...
+It might be fun if it was possible to delete table entries directly. We can define custom column with a delete button for this purpose. A definition such as follows should work:
 
-> TODO: redo this API. Get rid of `cell` API and just go through regular columns -> more generic.
+```javascript
+{
+    formatter: ((_, i) => {
+        var remove = () => {
+            // this could go through flux etc.
+            this.state.data.splice(i, 1);
+
+            this.setState({
+                data: this.state.data
+            });
+        };
+
+        return <span>
+            <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
+        </span>;
+    }).bind(this),
+},
+```
+
+It would be possible to add a confirmation there etc. but you get the idea. Besides the current value, the formatter gets the row index. That information can then be used to get rid of the row and update the state.
 
 ## Adding Custom Footer
 
