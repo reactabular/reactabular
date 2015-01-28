@@ -163,7 +163,7 @@ In order to take these changes in count, you will need to update the table state
 
 ## Paginating a Table
 
-The next natural could be implementing a pagination for our table. We could add two separately controls for that. One to display amount of items per page and one to control the current page. This will take some additional wiring.
+The next natural step could be implementing a pagination for our table. We could add two separately controls for that. One to display amount of items per page and one to control the current page. This will take some additional wiring.
 
 The library doesn't come with pagination. Instead you can use an external library, such as [react-pagify](https://github.com/bebraw/react-pagify), for this purpose. Here's a brief example on how to set it up with `reactabular`:
 
