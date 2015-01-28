@@ -20,8 +20,6 @@ header {
 
 header .description {
     color: #888;
-
-    border: 0.1em solid #eee;
 }
 
 article {
@@ -55,6 +53,8 @@ article .description {
     max-width: 60em;
 
     background: #fafafa;
+
+    border: 0.1em solid #eee;
 }
 
 article .description h2 {
