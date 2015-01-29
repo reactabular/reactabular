@@ -258,24 +258,22 @@ It might be fun if it was possible to delete table entries directly. We can defi
 
 ```javascript
 {
-    formatter: ((_, i) => {
+    cell: (property, value, rowIndex, columnIndex) => {
         var remove = () => {
             // this could go through flux etc.
-            this.state.data.splice(i, 1);
+            this.state.data.splice(rowIndex, 1);
 
             this.setState({
                 data: this.state.data
             });
         };
 
-        return <span>
-            <span
-                onClick={remove.bind(this)}
-                style={{cursor: 'pointer'}}>
-                &#10007;
+        return {
+            value: <span>
+                <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
             </span>
-        </span>;
-    }).bind(this),
+        };
+    },
 },
 ```
 
