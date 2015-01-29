@@ -277,7 +277,7 @@ It might be fun if it was possible to delete table entries directly. We can defi
 },
 ```
 
-It would be possible to add a confirmation there etc. but you get the idea. Besides the current value, the formatter gets the row index. That information can then be used to get rid of the row and update the state.
+It would be possible to add a confirmation there etc. but you get the idea. Besides the property and current value, the cell handler gets the row and column indices. That information can then be used to get rid of the row and update the state. You can also use the combination of indices to keep track of state per cell.
 
 ## Adding Custom Footer
 
