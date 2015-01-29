@@ -5,6 +5,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var common = require('./webpack.common');
+var pkg = require('../package.json');
 
 
 module.exports = extend(common, {
@@ -28,7 +29,9 @@ module.exports = extend(common, {
                 warnings: false
             },
         }),
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: pkg.name + ' - ' + pkg.description
+        }),
     ],
     module: {
         loaders: common.loaders.concat([{
