@@ -81,22 +81,22 @@ module.exports = React.createClass({
                     }),
                 },
                 {
-                    cell: createCell({
-                        formatter:(_, i) => {
-                            var remove = () => {
-                                // this could go through flux etc.
-                                this.state.data.splice(i, 1);
+                    cell: (property, value, rowIndex, columnIndex) => {
+                        var remove = () => {
+                            // this could go through flux etc.
+                            this.state.data.splice(rowIndex, 1);
 
-                                this.setState({
-                                    data: this.state.data
-                                });
-                            };
+                            this.setState({
+                                data: this.state.data
+                            });
+                        };
 
-                            return <span>
+                        return {
+                            value: <span>
                                 <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
-                            </span>;
-                        }
-                    }),
+                            </span>
+                        };
+                    },
                 },
             ],
             pagination: {
