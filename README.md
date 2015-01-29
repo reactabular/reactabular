@@ -149,7 +149,6 @@ You should also wire `Table` to use filtered data:
 ```jsx
 <Table columns={columns} data={this.state.searchData}></Table>
 ```
-```
 
 The interesting bit here is `this.setState.bind(this)`. When you enter something to the search field, it will emit a structure like this:
 
