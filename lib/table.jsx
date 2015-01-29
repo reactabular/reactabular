@@ -2,25 +2,18 @@
 
 var React = require('react/addons');
 
-var Cell = require('./cell.jsx');
-
 
 module.exports = React.createClass({
     render() {
         var events = this.props.events || {
             selectedHeader: noop,
-            cell: {
-                isEdited: noop,
-                onClick: noop,
-                onValue: noop,
-            }
         };
         var data = this.props.data || [];
         var columns = this.props.columns || [];
 
         var cx = React.addons.classSet;
 
-        // don't pass these props to table. maybe there's a cleaner way...
+        // XXX: don't pass these props to table. maybe there's a cleaner way...
         delete this.props.events;
         delete this.props.data;
         delete this.props.columns;
@@ -42,34 +35,23 @@ module.exports = React.createClass({
                 </thead>
                 <tbody>
                     {data.map((row, i) => <tr key={i + '-row'}>{
-                        columns.map((column, j) =>
-                            <Cell
-                                key={j + '-cell'}
-                                formatter={(value) =>
-                                    column.formatter? column.formatter(value, i): value
-                                }
-                                value={row[column.property]}
-                                editor={column.editor}
-                                isEdited={() =>
-                                    events.cell.isEdited(
-                                        i,
-                                        column.property
-                                    )
-                                }
-                                onClick={() =>
-                                    events.cell.onClick(
-                                        i,
-                                        column.property
-                                    )
-                                }
-                                onValue={(value) =>
-                                    events.cell.onValue(
-                                        i,
-                                        column.property,
-                                        value
-                                    )
-                                }>
-                            </Cell>
+                        columns.map((column, j) => {
+                            var value = row[column.property];
+                            var cell = column.cell;
+
+                            if(cell) {
+                                var props = cell(column.property, value, i, j)
+                                var content = props.value;
+
+                                // XXX: ugly
+                                delete props.value;
+
+                                return <td key={j + '-cell'} {...props}>{content}</td>
+                            }
+                            else {
+                                return <td key={j + '-cell'}>{value}</td>
+                            }
+                        }
                     )}</tr>)}
                 </tbody>
                 {this.props.children}

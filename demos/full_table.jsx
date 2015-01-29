@@ -9,6 +9,7 @@ var Table = require('../lib/table.jsx');
 var Search = require('../lib/search.jsx');
 var editors = require('../lib/editors');
 var sortColumn = require('../lib/sort_column');
+var cell = require('../lib/cell');
 
 var countries = require('./countries');
 var generateData = require('./generate_data');
@@ -38,6 +39,7 @@ module.exports = React.createClass({
             fieldGenerators: getFieldGenerators(countries),
             properties: properties,
         });
+        var createCell = cell.bind(null, this);
 
         return {
             data: data,
@@ -46,7 +48,9 @@ module.exports = React.createClass({
                 {
                     property: 'name',
                     header: 'Name',
-                    editor: editors.input(),
+                    cell: createCell({
+                        editor: editors.input(),
+                    }).bind(this),
                 },
                 {
                     property: 'position',
@@ -55,36 +59,44 @@ module.exports = React.createClass({
                 {
                     property: 'country',
                     header: 'Country',
-                    formatter: (country) => find(countries, 'value', country).name,
-                    editor: editors.dropdown(countries),
+                    cell: createCell({
+                        editor: editors.dropdown(countries),
+                        formatter: (country) => find(countries, 'value', country).name,
+                    }),
                 },
                 {
                     property: 'salary',
                     header: 'Salary',
-                    editor: editors.input(),
-                    formatter: (salary) => parseFloat(salary).toFixed(2),
+                    cell: createCell({
+                        editor: editors.input(),
+                        formatter: (salary) => parseFloat(salary).toFixed(2)
+                    }),
                 },
                 {
                     property: 'active',
                     header: 'Active',
-                    editor: editors.boolean(),
-                    formatter: (active) => active && <span>&#10003;</span>,
+                    cell: createCell({
+                        editor: editors.boolean(),
+                        formatter: (active) => active && <span>&#10003;</span>,
+                    }),
                 },
                 {
-                    formatter: ((_, i) => {
-                        var remove = () => {
-                            // this could go through flux etc.
-                            this.state.data.splice(i, 1);
+                    cell: createCell({
+                        formatter:(_, i) => {
+                            var remove = () => {
+                                // this could go through flux etc.
+                                this.state.data.splice(i, 1);
 
-                            this.setState({
-                                data: this.state.data
-                            });
-                        };
+                                this.setState({
+                                    data: this.state.data
+                                });
+                            };
 
-                        return <span>
-                            <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
-                        </span>;
-                    }).bind(this),
+                            return <span>
+                                <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
+                            </span>;
+                        }
+                    }),
                 },
             ],
             pagination: {
@@ -101,7 +113,7 @@ module.exports = React.createClass({
         var searchData = this.state.searchData || [];
 
         var events = {
-            // you could hook these with flux etc.
+            // you could hook into this with flux etc.
             selectedHeader: ((column) => {
                 // reset edits
                 this.setState({
@@ -110,45 +122,6 @@ module.exports = React.createClass({
 
                 sortColumn(columns, column, searchData, this.setState.bind(this));
             }).bind(this),
-            cell: {
-                isEdited: (i, property) => {
-                    var editedCells = this.state.editedCells;
-
-                    if(!editedCells[i]) {
-                        return;
-                    }
-
-                    return editedCells[i][property];
-                },
-                onClick: ((i, property) => {
-                    var editedCells = this.state.editedCells;
-
-                    if(!editedCells[i]) {
-                        editedCells[i] = {};
-                    }
-
-                    editedCells[i][property] = true;
-
-                    this.setState({
-                        editedCells: editedCells,
-                    })
-                }).bind(this),
-                onValue: ((i, property, value) => {
-                    var editedCells = this.state.editedCells;
-
-                    if(!editedCells[i]) {
-                        return;
-                    }
-
-                    editedCells[i][property] = false;
-                    data[i][property] = value;
-
-                    this.setState({
-                        data: data,
-                        editedCells: editedCells,
-                    });
-                }).bind(this),
-            },
         };
 
         var pagination = this.state.pagination || {};
