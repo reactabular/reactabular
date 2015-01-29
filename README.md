@@ -319,7 +319,7 @@ var createCell = cell.bind(this);
     header: 'Estimated value',
     cell: createCell({
         editor: editors.input(),
-        formatter: (salary) => parseFloat(salary).toFixed(2)
+        formatter: (estimatedValue) => parseFloat(estimatedValue).toFixed(2)
     }),
 },
 ```
