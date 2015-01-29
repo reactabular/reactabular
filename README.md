@@ -302,7 +302,31 @@ Adding a custom footer for our table is simple. Just write the definition inside
 
 ## Inline Editing a Table
 
-TOOD
+As you noticed in the custom column section above, Reactabular provides access to table cell rendering. You could implement various cell customizations on top of this. To make it easier to implement custom editors, Reactabular comes with a little shortcut. Here's an example:
+
+```javascript
+var cell = require('reactabular').cell;
+var editors = require('reactabular').editors;
+
+...
+// bind context at getInitialState
+var createCell = cell.bind(this);
+
+...
+
+{
+    property: 'estimatedValue',
+    header: 'Estimated value',
+    cell: createCell({
+        editor: editors.input(),
+        formatter: (salary) => parseFloat(salary).toFixed(2)
+    }),
+},
+```
+
+After you have a declaration like this, the column cells will be editable. It is possible to set up custom formatting if needed. Both `editor` and `formatter` are optional so you skip either if you want.
+
+The library comes with a couple of basic editors. As long as you follow the same interface (`value`, `onValue` properties), your editor should just work with the system.
 
 ## Development
 

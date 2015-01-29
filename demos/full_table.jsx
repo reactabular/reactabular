@@ -39,7 +39,7 @@ module.exports = React.createClass({
             fieldGenerators: getFieldGenerators(countries),
             properties: properties,
         });
-        var createCell = cell.bind(null, this);
+        var createCell = cell.bind(this);
 
         return {
             data: data,
