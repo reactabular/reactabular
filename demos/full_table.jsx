@@ -50,7 +50,7 @@ module.exports = React.createClass({
                     header: 'Name',
                     cell: createCell({
                         editor: editors.input(),
-                    }).bind(this),
+                    }),
                 },
                 {
                     property: 'position',
@@ -121,7 +121,7 @@ module.exports = React.createClass({
                 });
 
                 sortColumn(columns, column, searchData, this.setState.bind(this));
-            }).bind(this),
+            }),
         };
 
         var pagination = this.state.pagination || {};

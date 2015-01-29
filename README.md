@@ -238,7 +238,7 @@ var sortColumn = require('reactabular').sortColumn;
 var events = {
     selectedHeader: ((column) => {
         sortColumn(columns, column, data, this.setState.bind(this));
-    }).bind(this),
+    }),
 };
 ```
 
