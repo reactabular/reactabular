@@ -171,7 +171,7 @@ module.exports = React.createClass({
     onPerPage(e) {
         var pagination = this.state.pagination || {};
 
-        pagination.perPage = parseInt(event.target.value, 10);
+        pagination.perPage = parseInt(e.target.value, 10);
 
         this.setState({
             pagination: pagination
