@@ -211,7 +211,12 @@ You could push some of that into a mixin to decrease the amount of code in your 
 ...
 
 <div className='pagination'>
-    <Paginator page={paginated.page} pages={paginated.amount} onSelect={this.onSelect}></Paginator>
+    <Paginator
+        page={paginated.page}
+        pages={paginated.amount}
+        beginPages='3'
+        endPages='3'
+        onSelect={this.onSelect}></Paginator>
 </div>
 ```
 
