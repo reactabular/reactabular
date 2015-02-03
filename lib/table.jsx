@@ -1,20 +1,19 @@
 'use strict';
 
 var React = require('react/addons');
+var zip = require('annozip');
 
 
 module.exports = React.createClass({
     render() {
-        var events = this.props.events || {
-            selectedHeader: noop,
-        };
+        var header = this.props.header || {};
         var data = this.props.data || [];
         var columns = this.props.columns || [];
 
         var cx = React.addons.classSet;
 
         // XXX: don't pass these props to table. maybe there's a cleaner way...
-        delete this.props.events;
+        delete this.props.header;
         delete this.props.data;
         delete this.props.columns;
 
@@ -22,15 +21,24 @@ module.exports = React.createClass({
             <table {...this.props}>
                 <thead>
                     <tr>
-                        {columns.map((column, i) =>
-                            <th
+                        {columns.map((column, i) => {
+                            var z = zip(header);
+                            var columnHeader = z && zip.toObject(z.map((pair) => {
+                                if(pair[0].indexOf('on') === 0) {
+                                    return [pair[0], pair[1].bind(null, column)];
+                                }
+
+                                return pair;
+                            }));
+
+                            return <th
                                 key={i + '-header'}
                                 className={cx(column.classes)}
-                                onClick={events.selectedHeader.bind(null, column)}
+                                {...columnHeader}
                             >
                                 {column.header}
-                            </th>)
-                        }
+                            </th>;
+                        })}
                     </tr>
                 </thead>
                 <tbody>
@@ -59,5 +67,3 @@ module.exports = React.createClass({
         );
     },
 });
-
-function noop() {}

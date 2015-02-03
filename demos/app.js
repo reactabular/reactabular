@@ -2,7 +2,8 @@
 
 require('purecss/pure.css');
 require('highlight.js/styles/github.css');
-require('react-ghfork/style.css');
+require('react-ghfork/gh-fork-ribbon.ie.css');
+require('react-ghfork/gh-fork-ribbon.css');
 require('react-pagify/style.css');
 require('./main.css');
 require('../style.css');
@@ -19,7 +20,7 @@ var readme = require('../README.md');
 module.exports = React.createClass({
     render() {
         return <div className='pure-g'>
-            <Fork project='bebraw/reactabular'></Fork>
+            <Fork className='right' project='bebraw/reactabular'></Fork>
             <header className='pure-u-1'>
                 <h1>Reactabular</h1>
 

@@ -44,6 +44,21 @@ module.exports = React.createClass({
         return {
             data: data,
             searchData: data,
+            header: {
+                onClick: (column) => {
+                    // reset edits
+                    this.setState({
+                        editedCells: []
+                    });
+
+                    sortColumn(
+                        this.state.columns,
+                        column,
+                        this.state.searchData,
+                        this.setState.bind(this)
+                    );
+                },
+            },
             columns: [
                 {
                     property: 'name',
@@ -108,23 +123,12 @@ module.exports = React.createClass({
     },
 
     render() {
-        var columns = this.state.columns || [];
-        var data = this.state.data || [];
-        var searchData = this.state.searchData || [];
+        var header = this.state.header;
+        var columns = this.state.columns;
+        var data = this.state.data;
+        var searchData = this.state.searchData;
 
-        var events = {
-            // you could hook into this with flux etc.
-            selectedHeader: ((column) => {
-                // reset edits
-                this.setState({
-                    editedCells: []
-                });
-
-                sortColumn(columns, column, searchData, this.setState.bind(this));
-            }),
-        };
-
-        var pagination = this.state.pagination || {};
+        var pagination = this.state.pagination;
         var paginated = Paginator.paginate(searchData, pagination);
 
         return <div>
@@ -136,7 +140,7 @@ module.exports = React.createClass({
                     Search <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
                 </div>
             </div>
-            <Table className='pure-table pure-table-striped' columns={columns} events={events} data={paginated.data}>
+            <Table className='pure-table pure-table-striped' header={header} columns={columns} data={paginated.data}>
                 <tfoot>
                     <tr>
                         <td>

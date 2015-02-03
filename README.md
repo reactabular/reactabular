@@ -239,22 +239,29 @@ var sortColumn = require('reactabular').sortColumn;
 
 ...
 
-var events = {
-    selectedHeader: ((column) => {
-        sortColumn(columns, column, data, this.setState.bind(this));
-    }),
+var header = {
+    onClick: (column) => {
+        sortColumn(
+            this.state.columns,
+            column,
+            this.state.searchData,
+            this.setState.bind(this)
+        );
+    },
 };
 ```
 
-In addition we need to provide `events` to our `Table` like this:
+In addition we need to provide `header` to our `Table` like this:
 
 ```jsx
-<Table columns={columns} data={paginated.data} events={events}></Table>
+<Table columns={columns} data={paginated.data} header={header}></Table>
 ```
 
 After that it should be possible to sort table content by hitting various column names at header. `sortColumn` sets either `sort-asc` or `sort-desc` class for currently active header column. This allows some degree of styling.
 
 You can get something basic looking by utilizing `./style.css`. In Webpack you can import it to your project using `require('reactabular/style.css')` provided you have appropriate loaders set up.
+
+> `header` key-value pairs will be applied as attributes to `th`'s. If you have an event handler (ie. something starting with `on`), the first parameter provided will be the column in question. The second one will be React event.
 
 ## Adding Custom Column
 
@@ -288,7 +295,7 @@ It would be possible to add a confirmation there etc. but you get the idea. Besi
 Adding a custom footer for our table is simple. Just write the definition inside `Table` itself. In this particular case it's not very useful but you could easily generate things like sums and such here.
 
 ```jsx
-<Table columns={columns} events={events} data={paginated.data}>
+<Table columns={columns} header={header} data={paginated.data}>
     <tfoot>
         <tr>
             <td>
