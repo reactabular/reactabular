@@ -22,6 +22,10 @@ header .description {
     color: #888;
 }
 
+.github-fork-ribbon {
+    letter-spacing: 0.5;
+}
+
 article {
     display: block !important;
 
