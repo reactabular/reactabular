@@ -3,7 +3,6 @@
   "version": "0.3.0",
   "description": "Spectacular tables for React.js",
   "scripts": {
-    "prepublish": "npm run dist",
     "start": "node server.js",
     "test": "node_modules/.bin/jest",
     "gh-pages": "node_modules/.bin/webpack --config ./config/webpack.gh-pages.js",
