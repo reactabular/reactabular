@@ -1,9 +1,14 @@
 'use strict';
 
 var React = require('react');
+var Form = require('plexus-form');
+var validate = require('plexus-validate');
+var SkyLight = require('jsx!react-skylight/src/skylight.jsx');
 var generators = require('annogenerate');
 var math = require('annomath');
 var Paginator = require('react-pagify');
+var titleCase = require('title-case');
+var zip = require('annozip');
 
 var Table = require('../lib/table.jsx');
 var Search = require('../lib/search.jsx');
@@ -17,7 +22,8 @@ var generateData = require('./generate_data');
 
 module.exports = React.createClass({
     getInitialState() {
-        var properties = {
+        var countryValues = countries.map((c) => c.value);
+        var properties = generateTitles({
             name: {
                 type: 'string'
             },
@@ -28,15 +34,16 @@ module.exports = React.createClass({
                 type: 'number'
             },
             country: {
-                type: 'string'
+                enum: countryValues,
+                enumNames: countries.map((c) => c.name),
             },
             active: {
                 type: 'boolean'
             }
-        };
+        });
         var data = generateData({
             amount: 100,
-            fieldGenerators: getFieldGenerators(countries),
+            fieldGenerators: getFieldGenerators(countryValues),
             properties: properties,
         });
         var createCell = cell.bind(this);
@@ -97,6 +104,42 @@ module.exports = React.createClass({
                 },
                 {
                     cell: (property, value, rowIndex, columnIndex) => {
+                        var edit = () => {
+                            var schema = {
+                                type: 'object',
+                                properties: properties,
+                            };
+
+                            var onSubmit = (data, value, errors) => {
+                                this.refs.modal.hide();
+
+                                if(value === 'Cancel') {
+                                    return;
+                                }
+
+                                this.state.data[rowIndex] = data;
+
+                                this.setState({
+                                    data: this.state.data
+                                });
+                            };
+
+                            this.setState({
+                                modal: {
+                                    title: 'Edit',
+                                    content: <Form
+                                        buttons={['OK', 'Cancel']}
+                                        schema={schema}
+                                        validate={validate}
+                                        values={this.state.data[rowIndex]}
+                                        onSubmit={onSubmit}
+                                    ></Form>
+                                }
+                            });
+
+                            this.refs.modal.show();
+                        };
+
                         var remove = () => {
                             // this could go through flux etc.
                             this.state.data.splice(rowIndex, 1);
@@ -108,12 +151,21 @@ module.exports = React.createClass({
 
                         return {
                             value: <span>
-                                <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
+                                <span className='edit' onClick={edit.bind(this)} style={{cursor: 'pointer'}}>
+                                    &#8665;
+                                </span>
+                                <span className='remove' onClick={remove.bind(this)} style={{cursor: 'pointer'}}>
+                                    &#10007;
+                                </span>
                             </span>
                         };
                     },
                 },
             ],
+            modal: {
+                title: 'title',
+                content: 'content',
+            },
             pagination: {
                 page: 0,
                 perPage: 10
@@ -164,6 +216,7 @@ module.exports = React.createClass({
                         onSelect={this.onSelect}></Paginator>
                 </div>
             </div>
+            <SkyLight ref='modal' title={this.state.modal.title}>{this.state.modal.content}</SkyLight>
         </div>;
     },
 
@@ -188,9 +241,15 @@ module.exports = React.createClass({
     },
 });
 
-function getFieldGenerators(countries) {
-    countries = countries.map((country) => country.value);
+function generateTitles(o) {
+    return zip.toObject(zip(o).map((pair) => {
+        pair[1].title = titleCase(pair[0]);
 
+        return pair;
+    }));
+}
+
+function getFieldGenerators(countryValues) {
     return {
         name: function() {
             var forenames = ['Jack', 'Bo', 'John', 'Jill', 'Angus', 'Janet', 'Cecilia',
@@ -206,7 +265,7 @@ function getFieldGenerators(countries) {
         },
         salary: generators.number.bind(null, 0, 100000),
         country: function() {
-            return math.pick(countries);
+            return math.pick(countryValues);
         }
     };
 }
