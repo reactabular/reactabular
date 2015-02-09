@@ -23,7 +23,7 @@ module.exports = React.createClass({
                     <div className='description'>
                         <h2>Demonstration</h2>
 
-                        <p>The demo below shows basic features of Reactabular. Besides usual pagination, sorting and filtering by search it is possible to modify various fields by clicking them. In addition you may remove entire rows by hitting `x` at the end of each.</p>
+                        <p>The demo below shows basic features of Reactabular. Besides usual pagination, sorting and filtering by search it is possible to modify various fields by clicking them. In addition you may edit rows by hitting the arrow at the end of each. `x` will remove the row in question.</p>
 
                         <p>Most of this functionality is optional and has been plugged on top of a small core. The rest is just basic React.js code.</p>
 
