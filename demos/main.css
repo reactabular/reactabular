@@ -7,28 +7,42 @@ body {
 }
 
 header {
-    padding: 1em;
-    padding-bottom: 4em;
+    position: fixed;
+    padding: 0.5em;
 
     text-align: center;
 
     color: #333;
-    border-bottom: 0.1em solid #bbb;
+    border: 0.1em solid #bbb;
 
     background-image: url(../images/bgnoise_lg.png);
+}
+
+header h1 {
+    margin: 0;
 }
 
 header .description {
     color: #888;
 }
 
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
 .github-fork-ribbon {
+    position: fixed;
+
     letter-spacing: 0.1em;
 }
 
 article {
     display: block !important;
 
+    margin-top: 6em;
     margin-left: auto;
     margin-right: auto;
 
@@ -64,7 +78,7 @@ article .description {
 }
 
 article .description h2 {
-    margin: 0.83em 0;
+    margin: 0;
 }
 
 table {
