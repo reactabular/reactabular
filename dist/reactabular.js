@@ -73,6 +73,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var React = __webpack_require__(6);
+	var cx = React.addons.classSet;
+	var update = React.addons.update;
 	var zip = __webpack_require__(11);
 
 
@@ -82,15 +84,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var data = this.props.data || [];
 	        var columns = this.props.columns || [];
 
-	        var cx = React.addons.classSet;
-
-	        // XXX: don't pass these props to table. maybe there's a cleaner way...
-	        delete this.props.header;
-	        delete this.props.data;
-	        delete this.props.columns;
+	        var props = update(this.props, {
+	            $merge: {
+	                header: undefined,
+	                data: undefined,
+	                columns: undefined,
+	            },
+	        });
 
 	        return (
-	            React.createElement("table", React.__spread({},  this.props), 
+	            React.createElement("table", React.__spread({},  props), 
 	                React.createElement("thead", null, 
 	                    React.createElement("tr", null, 
 	                        columns.map(function(column, i)  {
@@ -120,11 +123,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            var cell = column.cell;
 
 	                            if(cell) {
-	                                var props = cell(column.property, value, i, j)
+	                                var props = cell(column.property, value, i, j);
 	                                var content = props.value;
 
-	                                // XXX: ugly
-	                                delete props.value;
+	                                props = update(props, {
+	                                    $merge: {
+	                                        value: undefined,
+	                                    },
+	                                });
 
 	                                return React.createElement("td", React.__spread({key: j + '-cell'},  props), content)
 	                            }
