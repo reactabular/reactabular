@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react/addons');
+var cx = React.addons.classSet;
+var update = React.addons.update;
 var zip = require('annozip');
 
 
@@ -10,15 +12,16 @@ module.exports = React.createClass({
         var data = this.props.data || [];
         var columns = this.props.columns || [];
 
-        var cx = React.addons.classSet;
-
-        // XXX: don't pass these props to table. maybe there's a cleaner way...
-        delete this.props.header;
-        delete this.props.data;
-        delete this.props.columns;
+        var props = update(this.props, {
+            $merge: {
+                header: undefined,
+                data: undefined,
+                columns: undefined,
+            },
+        });
 
         return (
-            <table {...this.props}>
+            <table {...props}>
                 <thead>
                     <tr>
                         {columns.map((column, i) => {
@@ -48,11 +51,14 @@ module.exports = React.createClass({
                             var cell = column.cell;
 
                             if(cell) {
-                                var props = cell(column.property, value, i, j)
+                                var props = cell(column.property, value, i, j);
                                 var content = props.value;
 
-                                // XXX: ugly
-                                delete props.value;
+                                props = update(props, {
+                                    $merge: {
+                                        value: undefined,
+                                    },
+                                });
 
                                 return <td key={j + '-cell'} {...props}>{content}</td>
                             }
