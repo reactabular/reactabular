@@ -263,7 +263,7 @@ You can get something basic looking by utilizing `./style.css`. In Webpack you c
 
 > `header` key-value pairs will be applied as attributes to `th`'s. If you have an event handler (ie. something starting with `on`), the first parameter provided will be the column in question. The second one will be React event.
 
-## Adding Custom Column
+## Adding a Custom Column
 
 It might be fun if it was possible to delete table entries directly. We can define custom column with a delete button for this purpose. A definition such as follows should work:
 
@@ -290,7 +290,7 @@ It might be fun if it was possible to delete table entries directly. We can defi
 
 It would be possible to add a confirmation there etc. but you get the idea. Besides the property and current value, the cell handler gets the row and column indices. That information can then be used to get rid of the row and update the state. You can also use the combination of indices to keep track of state per cell.
 
-## Adding Custom Footer
+## Adding a Custom Footer
 
 Adding a custom footer for our table is simple. Just write the definition inside `Table` itself. In this particular case it's not very useful but you could easily generate things like sums and such here.
 
