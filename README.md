@@ -44,7 +44,7 @@ var data = [
     },
 ];
 
-var columns: [
+var columns = [
     {
         property: 'name',
         header: 'Name',
