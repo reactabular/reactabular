@@ -97,19 +97,31 @@ var data = [
 In addition we might want to improve the formatting of these new fields. Here's an expanded column definition (new fields only):
 
 ```javascript
+var cell = require('reactabular').cell;
+
+...
+// bind context at getInitialState
+var createCell = cell.bind(this);
+
+...
+
 var columns: [
     ...
     {
         property: 'followers',
         header: 'Followers',
         // accuracy per hundred is enough for demoing
-        formatter: (followers) => followers - (followers % 100),
+        cell: createCell({
+            formatter: (followers) => followers - (followers % 100)
+        }),
     },
     {
         property: 'worksWithReactabular',
         header: '1st Class Reactabular',
         // render utf ok if works
-        formatter: (works) => works && <span>&#10003;</span>,
+        cell: createCell({
+           formatter: (works) => works && <span>&#10003;</span>
+        }),
     }
 ];
 ```
