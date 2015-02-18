@@ -363,6 +363,10 @@ Now edit `demos/app.js`.
 
 Your changes will appear without reloading the browser like in [this video](http://vimeo.com/100010922).
 
+## Contributors
+
+* [Brian Chang](https://github.com/eviltoylet) - Fixed README formatting examples.
+
 ## Acknowledgments
 
 Based on [react-hot-boilerplate](https://github.com/gaearon/react-hot-boilerplate) (MIT) by Dan Abramov.
