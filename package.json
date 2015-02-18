@@ -1,6 +1,6 @@
 {
   "name": "reactabular",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Spectacular tables for React.js",
   "scripts": {
     "start": "node server.js",
