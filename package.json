@@ -55,7 +55,9 @@
     "xtend": "^4.0.0"
   },
   "dependencies": {
-    "annozip": "^0.2.4",
+    "annozip": "^0.2.4"
+  },
+  "peerDependencies": {
     "react": "^0.12.2"
   },
   "jest": {
