@@ -35,9 +35,8 @@ module.exports = extend(common, {
     ],
     module: {
         loaders: common.loaders.concat([{
-            test: /\.(js|jsx)$/,
-            loaders: ['jsx?harmony'],
-            exclude: /node_modules/,
+            test: /\.jsx?$/,
+            loaders: ['jsx-loader?harmony'],
         }])
     }
 });
