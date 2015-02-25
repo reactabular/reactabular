@@ -5,14 +5,12 @@ var React = require('react');
 
 module.exports = function(o) {
     var context = this;
-    var formatter = o.formatter || id;
     var editor = o.editor;
 
     return (value, data, rowIndex, property) => {
         var idx = rowIndex.toString() + '-' + property;
         var editedCells = context.state.editedCells || [];
         var i = editedCells.indexOf(idx);
-        var formattedValue = formatter(value);
 
         if(i >= 0) {
             var editorElement = React.createElement(editor, {
@@ -33,7 +31,6 @@ module.exports = function(o) {
             });
 
             return {
-                searchValue: formattedValue,
                 value: editorElement
             };
         }
@@ -49,16 +46,12 @@ module.exports = function(o) {
                         editedCells: editedCells
                     });
                 },
-                searchValue: formattedValue,
-                value: formattedValue
+                value: value
             };
         }
 
         return {
-            searchValue: formattedValue,
-            value: formattedValue
+            value: value
         };
     };
 };
-
-function id(a) {return a;}

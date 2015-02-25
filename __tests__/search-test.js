@@ -1,6 +1,8 @@
 'use strict';
 
 jest.dontMock('../lib/search.jsx');
+jest.dontMock('../lib/formatters/index.js');
+jest.dontMock('../lib/formatters/identity.js');
 
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
@@ -25,7 +27,7 @@ describe('Search', function() {
         var columns = [
             {
                 property: 'first',
-                header: 'First'
+                header: 'First',
             },
             {
                 property: 'second'
@@ -52,7 +54,7 @@ describe('Search', function() {
         var columns = [
             {
                 property: 'first',
-                header: 'First'
+                header: 'First',
             },
         ];
         var value = 'demo';

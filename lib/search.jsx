@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var formatters = require('./formatters');
 
 
 module.exports = React.createClass({
@@ -55,10 +56,9 @@ module.exports = React.createClass({
         });
 
         function isColumnVisible(row, column) {
-            var cell = column.cell || defaultCell;
             var value = row[column.property];
-            var props = cell(value, data, 0, column.property);
-            var formattedValue = props.searchValue || props.value;
+            var formatter = column.formatter || formatters.identity; 
+            var formattedValue = formatter(value);
             if (!formattedValue) {
                 return;
             }
@@ -71,5 +71,4 @@ module.exports = React.createClass({
 });
 
 function id(a) {return a;}
-function defaultCell(a) {return {value: a};}
 function noop() {}

@@ -3,7 +3,6 @@
 var React = require('react');
 
 var Table = require('../lib/table.jsx');
-var cell = require('../lib/cell');
 var editors = require('../lib/editors');
 
 var countries = require('./countries');
@@ -11,7 +10,6 @@ var countries = require('./countries');
 
 module.exports = React.createClass({
     getInitialState() {
-        var createCell = cell.bind(this);
 
         return {
             data: [
@@ -39,13 +37,10 @@ module.exports = React.createClass({
                 {
                     property: 'editor',
                     header: 'Editor',
-                    cell: createCell({
-                        formatter: (value) =>
-                            React.createElement(value, {
-                                value: '',
-                                onValue: (value) =>
-                                    console.log(value)
-                            })
+                    formatter: (value) => React.createElement(value, {
+                        value: '',
+                        onValue: (value) =>
+                            console.log(value)
                     }),
                 },
                 {

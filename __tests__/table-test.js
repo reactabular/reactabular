@@ -1,6 +1,8 @@
 'use strict';
 
 jest.dontMock('../lib/table.jsx');
+jest.dontMock('../lib/cells/index.js');
+jest.dontMock('../lib/cells/identity.js');
 
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;

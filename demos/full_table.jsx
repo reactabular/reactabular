@@ -14,7 +14,7 @@ var Table = require('../lib/table.jsx');
 var Search = require('../lib/search.jsx');
 var editors = require('../lib/editors');
 var sortColumn = require('../lib/sort_column');
-var cell = require('../lib/cell');
+var cells = require('../lib/cells');
 
 var countries = require('./countries');
 var generateData = require('./generate_data');
@@ -46,7 +46,7 @@ module.exports = React.createClass({
             fieldGenerators: getFieldGenerators(countryValues),
             properties: properties,
         });
-        var createCell = cell.bind(this);
+        var createEditCell = cells.edit.bind(this);
 
         return {
             data: data,
@@ -70,7 +70,7 @@ module.exports = React.createClass({
                 {
                     property: 'name',
                     header: 'Name',
-                    cell: createCell({
+                    cell: createEditCell({
                         editor: editors.input(),
                     }),
                 },
@@ -81,29 +81,29 @@ module.exports = React.createClass({
                 {
                     property: 'country',
                     header: 'Country',
-                    cell: createCell({
+                    formatter: (country) => find(countries, 'value', country).name,
+                    cell: createEditCell({
                         editor: editors.dropdown(countries),
-                        formatter: (country) => find(countries, 'value', country).name,
                     }),
                 },
                 {
                     property: 'salary',
                     header: 'Salary',
-                    cell: createCell({
+                    formatter: (salary) => parseFloat(salary).toFixed(2),
+                    cell: createEditCell({
                         editor: editors.input(),
-                        formatter: (salary) => parseFloat(salary).toFixed(2)
                     }),
                 },
                 {
                     property: 'active',
                     header: 'Active',
-                    cell: createCell({
+                    formatter: (active) => active && <span>&#10003;</span>,
+                    cell: createEditCell({
                         editor: editors.boolean(),
-                        formatter: (active) => active && <span>&#10003;</span>,
                     }),
                 },
                 {
-                    cell: (value, data, rowIndex, property) => {
+                    cell: function(value, data, rowIndex, property) {
                         var edit = () => {
                             var schema = {
                                 type: 'object',
@@ -159,7 +159,7 @@ module.exports = React.createClass({
                                 </span>
                             </span>
                         };
-                    },
+                    }.bind(this),
                 },
             ],
             modal: {
