@@ -281,7 +281,7 @@ It might be fun if it was possible to delete table entries directly. We can defi
 
 ```javascript
 {
-    cell: (property, value, rowIndex, columnIndex) => {
+    cell: (value, data, rowIndex, property) => {
         var remove = () => {
             // this could go through flux etc.
             this.state.data.splice(rowIndex, 1);

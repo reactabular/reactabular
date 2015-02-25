@@ -55,10 +55,11 @@ module.exports = React.createClass({
         });
 
         function isColumnVisible(row, column) {
-            var formatter = column.formatter || id;
-            var formattedValue = formatter(row[column.property]);
-
-            if(!formattedValue) {
+            var cell = column.cell || defaultCell;
+            var value = row[column.property];
+            var props = cell(value, data, 0, column.property);
+            var formattedValue = props.searchValue || props.value;
+            if (!formattedValue) {
                 return;
             }
 
@@ -70,4 +71,5 @@ module.exports = React.createClass({
 });
 
 function id(a) {return a;}
+function defaultCell(a) {return {value: a};}
 function noop() {}

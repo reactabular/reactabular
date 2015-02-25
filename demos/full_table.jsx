@@ -103,7 +103,7 @@ module.exports = React.createClass({
                     }),
                 },
                 {
-                    cell: (property, value, rowIndex, columnIndex) => {
+                    cell: (value, data, rowIndex, property) => {
                         var edit = () => {
                             var schema = {
                                 type: 'object',

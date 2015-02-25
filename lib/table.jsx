@@ -48,23 +48,18 @@ module.exports = React.createClass({
                     {data.map((row, i) => <tr key={i + '-row'}>{
                         columns.map((column, j) => {
                             var value = row[column.property];
-                            var cell = column.cell;
+                            var cell = column.cell || defaultCell;
+                            var props = cell(value, data, i, column.property);
+                            var content = props.value;
 
-                            if(cell) {
-                                var props = cell(column.property, value, i, j);
-                                var content = props.value;
+                            props = update(props, {
+                                $merge: {
+                                    searchValue: undefined,
+                                    value: undefined,
+                                },
+                            });
 
-                                props = update(props, {
-                                    $merge: {
-                                        value: undefined,
-                                    },
-                                });
-
-                                return <td key={j + '-cell'} {...props}>{content}</td>
-                            }
-                            else {
-                                return <td key={j + '-cell'}>{value}</td>
-                            }
+                            return <td key={j + '-cell'} {...props}>{content}</td>
                         }
                     )}</tr>)}
                 </tbody>
@@ -73,3 +68,5 @@ module.exports = React.createClass({
         );
     },
 });
+
+function defaultCell(a) {return {value: a};}
