@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 var formatters = require('./formatters');
 
 
