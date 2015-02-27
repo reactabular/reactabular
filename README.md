@@ -97,31 +97,19 @@ var data = [
 In addition we might want to improve the formatting of these new fields. Here's an expanded column definition (new fields only):
 
 ```javascript
-var cell = require('reactabular').cell;
-
-...
-// bind context at getInitialState
-var createCell = cell.bind(this);
-
-...
-
 var columns: [
     ...
     {
         property: 'followers',
         header: 'Followers',
         // accuracy per hundred is enough for demoing
-        cell: createCell({
-            formatter: (followers) => followers - (followers % 100)
-        }),
+        formatter: (followers) => followers - (followers % 100),
     },
     {
         property: 'worksWithReactabular',
         header: '1st Class Reactabular',
         // render utf ok if works
-        cell: createCell({
-           formatter: (works) => works && <span>&#10003;</span>
-        }),
+        formatter: (works) => works && <span>&#10003;</span>,
     }
 ];
 ```
@@ -281,7 +269,7 @@ It might be fun if it was possible to delete table entries directly. We can defi
 
 ```javascript
 {
-    cell: (property, value, rowIndex, columnIndex) => {
+    cell: (value, data, rowIndex, property) => {
         var remove = () => {
             // this could go through flux etc.
             this.state.data.splice(rowIndex, 1);
@@ -328,21 +316,21 @@ Adding a custom footer for our table is simple. Just write the definition inside
 As you noticed in the custom column section above, Reactabular provides access to table cell rendering. You could implement various cell customizations on top of this. To make it easier to implement custom editors, Reactabular comes with a little shortcut. Here's an example:
 
 ```javascript
-var cell = require('reactabular').cell;
+var cells = require('reactabular').cells;
 var editors = require('reactabular').editors;
 
 ...
 // bind context at getInitialState
-var createCell = cell.bind(this);
+var createEditCell = cells.edit.bind(this);
 
 ...
 
 {
     property: 'estimatedValue',
     header: 'Estimated value',
-    cell: createCell({
+    formatter: (estimatedValue) => parseFloat(estimatedValue).toFixed(2)
+    cell: createEditCell({
         editor: editors.input(),
-        formatter: (estimatedValue) => parseFloat(estimatedValue).toFixed(2)
     }),
 },
 ```

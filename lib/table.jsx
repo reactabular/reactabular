@@ -1,7 +1,9 @@
 'use strict';
 
 var React = require('react/addons');
+var cells = require('./cells');
 var cx = React.addons.classSet;
+var formatters = require('./formatters');
 var update = React.addons.update;
 var zip = require('annozip');
 
@@ -48,23 +50,20 @@ module.exports = React.createClass({
                     {data.map((row, i) => <tr key={i + '-row'}>{
                         columns.map((column, j) => {
                             var value = row[column.property];
-                            var cell = column.cell;
+                            var formatter = column.formatter || formatters.identity;
+                            var formattedValue = formatter(value);
 
-                            if(cell) {
-                                var props = cell(column.property, value, i, j);
-                                var content = props.value;
+                            var cell = column.cell || cells.identity;
+                            var props = cell(formattedValue, data, i, column.property);
+                            var content = props.value;
 
-                                props = update(props, {
-                                    $merge: {
-                                        value: undefined,
-                                    },
-                                });
+                            props = update(props, {
+                                $merge: {
+                                    value: undefined,
+                                },
+                            });
 
-                                return <td key={j + '-cell'} {...props}>{content}</td>
-                            }
-                            else {
-                                return <td key={j + '-cell'}>{value}</td>
-                            }
+                            return <td key={j + '-cell'} {...props}>{content}</td>
                         }
                     )}</tr>)}
                 </tbody>
