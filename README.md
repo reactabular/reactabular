@@ -353,7 +353,7 @@ Your changes will appear without reloading the browser like in [this video](http
 
 ## Contributors
 
-* [Brian Chang](https://github.com/eviltoylet) - Fixed README formatting examples.
+* [Brian Chang](https://github.com/eviltoylet) - Fixed README formatting examples. Improved `column.cell` architecture.
 
 ## Acknowledgments
 
