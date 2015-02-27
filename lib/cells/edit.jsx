@@ -16,7 +16,6 @@ module.exports = function(o) {
             var editorElement = React.createElement(editor, {
                 value: value,
                 onValue: (value) => {
-                    var data = context.state.data;
                     var editedCells = context.state.editedCells;
 
                     editedCells.splice(idx, 1);
