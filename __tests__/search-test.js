@@ -3,6 +3,8 @@
 jest.dontMock('../lib/search.jsx');
 jest.dontMock('../lib/formatters/index.js');
 jest.dontMock('../lib/formatters/identity.js');
+jest.dontMock('../lib/predicates/index.js');
+jest.dontMock('../lib/predicates/prefix.js');
 
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
