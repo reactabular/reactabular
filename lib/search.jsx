@@ -2,9 +2,15 @@
 
 var React = require('react/addons');
 var formatters = require('./formatters');
-
+var predicates = require('./predicates');
 
 module.exports = React.createClass({
+    getDefaultProps() {
+        return {
+            strategy: predicates.prefix
+        };
+    },
+
     render() {
         var columns = this.props.columns || [];
         var options = [{
@@ -51,7 +57,7 @@ module.exports = React.createClass({
 
         (this.props.onResult || noop)({
             searchData: data.filter((row) =>
-                columns.filter(isColumnVisible.bind(null, row)).length > 0
+                columns.filter(isColumnVisible.bind(this, row)).length > 0
             )
         });
 
@@ -64,7 +70,8 @@ module.exports = React.createClass({
             }
 
             if(formattedValue.toLowerCase) {
-                return formattedValue.toLowerCase().indexOf(query.toLowerCase()) === 0;
+                var predicate = this.props.strategy(query.toLowerCase());
+                return predicate.matches(formattedValue.toLowerCase());
             }
         }
     },
