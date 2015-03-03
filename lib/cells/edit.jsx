@@ -3,29 +3,27 @@
 var React = require('react/addons');
 
 
-module.exports = function(o) {
+module.exports = function(editProperty, o) {
     var context = this;
     var editor = o.editor;
 
     return (value, data, rowIndex, property) => {
         var idx = rowIndex.toString() + '-' + property;
-        var editedCells = context.state.editedCells || [];
-        var i = editedCells.indexOf(idx);
+        var editedCell = context.state[editProperty];
 
-        if(i >= 0) {
+        if(editedCell === idx) {
             var editorElement = React.createElement(editor, {
-                value: value,
+                value: value.original,
                 onValue: (value) => {
-                    var editedCells = context.state.editedCells;
-
-                    editedCells.splice(idx, 1);
-
                     data[rowIndex][property] = value;
 
-                    context.setState({
-                        data: data,
-                        editedCells: editedCells,
-                    });
+                    var o = {
+                        data: data
+                    };
+
+                    o[editProperty] = null;
+
+                    context.setState(o);
                 }
             });
 
@@ -37,20 +35,18 @@ module.exports = function(o) {
         if(editor) {
             return {
                 onClick: () => {
-                    var editedCells = context.state.editedCells;
+                    var o = {};
 
-                    editedCells.push(idx);
+                    o[editProperty] = idx;
 
-                    context.setState({
-                        editedCells: editedCells
-                    });
+                    context.setState(o);
                 },
-                value: value
+                value: value.formatted
             };
         }
 
         return {
-            value: value
+            value: value.formatted
         };
     };
 };

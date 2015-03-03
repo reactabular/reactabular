@@ -54,7 +54,10 @@ module.exports = React.createClass({
                             var formattedValue = formatter(value);
 
                             var cell = column.cell || cells.identity;
-                            var props = cell(formattedValue, data, i, column.property);
+                            var props = cell({
+                                original: value,
+                                formatted: formattedValue,
+                            }, data, i, column.property);
                             var content = props.value;
 
                             props = update(props, {

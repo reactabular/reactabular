@@ -46,9 +46,10 @@ module.exports = React.createClass({
             fieldGenerators: getFieldGenerators(countryValues),
             properties: properties,
         });
-        var createEditCell = cells.edit.bind(this);
+        var createEditCell = cells.edit.bind(this, 'editedCell');
 
         return {
+            editedCell: null,
             data: data,
             searchData: data,
             header: {
