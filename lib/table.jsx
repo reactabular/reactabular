@@ -10,10 +10,24 @@ var update = React.addons.update;
 
 
 module.exports = React.createClass({
+    propTypes: {
+        header: React.PropTypes.object,
+        data: React.PropTypes.array,
+        columns: React.PropTypes.array,
+    },
+
+    getDefaultProps() {
+      return {
+        header: {},
+        data: [],
+        columns: [],
+      };
+    },
+
     render() {
-        var header = this.props.header || {};
-        var data = this.props.data || [];
-        var columns = this.props.columns || [];
+        var header = this.props.header;
+        var data = this.props.data;
+        var columns = this.props.columns;
 
         var props = update(this.props, {
             $merge: {
