@@ -1,11 +1,12 @@
 'use strict';
 
+var _ = require('lodash');
+
 var React = require('react/addons');
 var cells = require('./cells');
 var cx = React.addons.classSet;
 var formatters = require('./formatters');
 var update = React.addons.update;
-var zip = require('annozip');
 
 
 module.exports = React.createClass({
@@ -27,14 +28,9 @@ module.exports = React.createClass({
                 <thead>
                     <tr>
                         {columns.map((column, i) => {
-                            var z = zip(header);
-                            var columnHeader = z && zip.toObject(z.map((pair) => {
-                                if(pair[0].indexOf('on') === 0) {
-                                    return [pair[0], pair[1].bind(null, column)];
-                                }
-
-                                return pair;
-                            }));
+                            var columnHeader = _.transform(header, (result, v, k) => {
+                                result[k] = k.indexOf('on') === 0? v.bind(null, column): v;
+                            });
 
                             return <th
                                 key={i + '-header'}
