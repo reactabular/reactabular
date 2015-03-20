@@ -160,6 +160,16 @@ The interesting bit here is `this.setState.bind(this)`. When you enter something
 
 In order to take these changes in count, you will need to update the table state. Hence it is preferable to set up table `data` and `columns` at `getInitialState`. Alternatively you could hook into some implementation of Flux here.
 
+The Search component takes in the same structure for columns as the Table. By default, search will be performed across the raw data. However, a one argument function can be provided in the `search` field of a column to transform the data before searching on it.
+
+```javascript
+    {
+        property: 'salary',
+        header: 'Salary',
+        search: (salary) => parseFloat(salary).toFixed(2)
+    }
+```
+
 ## Paginating a Table
 
 The next natural step could be implementing a pagination for our table. We could add two separately controls for that. One to display amount of items per page and one to control the current page. This will take some additional wiring.
