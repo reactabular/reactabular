@@ -83,6 +83,7 @@ module.exports = React.createClass({
                     property: 'country',
                     header: 'Country',
                     formatter: (country) => find(countries, 'value', country).name,
+                    search: (country) => find(countries, 'value', country).name,
                     cell: createEditCell({
                         editor: editors.dropdown(countries),
                     }),
@@ -91,6 +92,7 @@ module.exports = React.createClass({
                     property: 'salary',
                     header: 'Salary',
                     formatter: (salary) => parseFloat(salary).toFixed(2),
+                    search: (salary) => parseFloat(salary).toFixed(2),
                     cell: createEditCell({
                         editor: editors.input(),
                     }),

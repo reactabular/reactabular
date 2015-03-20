@@ -63,7 +63,7 @@ module.exports = React.createClass({
 
         function isColumnVisible(row, column) {
             var value = row[column.property];
-            var formatter = column.formatter || formatters.identity; 
+            var formatter = column.search || formatters.identity;
             var formattedValue = formatter(value);
             if (!formattedValue) {
                 return;
