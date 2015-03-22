@@ -13,7 +13,7 @@ module.exports = function(editProperty, o) {
 
         if(editedCell === idx) {
             var editorElement = React.createElement(editor, {
-                value: value.original,
+                value: value,
                 onValue: (value) => {
                     data[rowIndex][property] = value;
 
@@ -41,12 +41,10 @@ module.exports = function(editProperty, o) {
 
                     context.setState(o);
                 },
-                value: value.formatted
+                value: value
             };
         }
 
-        return {
-            value: value.formatted
-        };
+        return value;
     };
 };

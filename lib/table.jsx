@@ -59,17 +59,35 @@ module.exports = React.createClass({
                 <tbody>
                     {data.map((row, i) => <tr key={i + '-row'}>{
                         columns.map((column, j) => {
-                            var value = row[column.property];
-                            var formatter = column.formatter || formatters.identity;
-                            var formattedValue = formatter(value);
+                            var property = column.property;
+                            var value = row[property];
+                            var cell = column.cell;
+                            var props = {};
+                            var content;
 
-                            var cell = column.cell || cells.identity;
-                            var props = cell({
-                                original: value,
-                                formatted: formattedValue,
-                            }, data, i, column.property);
-                            var content = props.value;
+                            if(_.isArray(cell)) {
+                                content = _.reduce([value].concat(cell), (v, fn) => {
+                                    if(_.isObject(v)) {
+                                        return _.merge(v, {
+                                            value: fn(v.value, data, i, property),
+                                        })
+                                    }
 
+                                    return fn(v, data, i, property)
+                                });
+                            }
+                            else if(_.isFunction(cell)) {
+                                content = cell(value, data, i, property);
+                            }
+
+                            // skip React elements - XXX: not sure if this is the right way
+                            if(_.isObject(content) && !content.type) {
+                                props = content;
+                                content = props.value;
+                            }
+
+                            // empty value - for instance editors may return it
+                            // so better to make it a prop too
                             props = update(props, {
                                 $merge: {
                                     value: undefined,

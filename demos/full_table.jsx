@@ -82,28 +82,23 @@ module.exports = React.createClass({
                 {
                     property: 'country',
                     header: 'Country',
-                    formatter: (country) => find(countries, 'value', country).name,
-                    search: (country) => find(countries, 'value', country).name,
-                    cell: createEditCell({
+                    cell: [createEditCell({
                         editor: editors.dropdown(countries),
-                    }),
+                    }), (country) => find(countries, 'value', country).name],
                 },
                 {
                     property: 'salary',
                     header: 'Salary',
-                    formatter: (salary) => parseFloat(salary).toFixed(2),
-                    search: (salary) => parseFloat(salary).toFixed(2),
-                    cell: createEditCell({
-                        editor: editors.input(),
-                    }),
+                    cell: (salary) => parseFloat(salary).toFixed(2),
                 },
                 {
                     property: 'active',
                     header: 'Active',
-                    formatter: (active) => active && <span>&#10003;</span>,
-                    cell: createEditCell({
+                    cell: (active) => active && <span>&#10003;</span>
+                    // TODO: figure out why buttons don't show up
+                    /*cell: [createEditCell({
                         editor: editors.boolean(),
-                    }),
+                    }), (active) => active && <span>&#10003;</span>],*/
                 },
                 {
                     cell: function(value, data, rowIndex, property) {
