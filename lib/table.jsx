@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-var React = require('react/addons');
+var React = require('react/addons'); // XXX: go back to regular react!
 var cells = require('./cells');
 var cx = React.addons.classSet;
 var formatters = require('./formatters');
@@ -68,35 +68,22 @@ module.exports = React.createClass({
                             cell = _.isFunction(cell)? [cell]: cell;
 
                             content = _.reduce([value].concat(cell), (v, fn) => {
-                                if(_.isObject(v)) {
+                                if(v && React.isValidElement(v.value)) {
+                                    return v;
+                                }
+
+                                if(_.isPlainObject(v)) {
+                                    // TODO: pass possible old values here
+                                    // [value, prevprev, prev] ...
                                     return _.merge(v, {
-                                        // TODO: pass possible old values here
-                                        // [value, prevprev, prev] ...
-                                        // TODO: take in count that fn might return
-                                        // React element as value
                                         value: fn(v.value, data, i, property),
                                     });
                                 }
 
-                                return fn(v, data, i, property)
+                                return fn(v, data, i, property);
                             });
 
-                            // in case we get an object, we'll inject everything
-                            // except value to props. value will be used as content
-                            if(_.isPlainObject(content)) {
-                                props = content;
-                                content = props.value;
-
-                                // empty value - for instance editors may return it
-                                // so better to make it a prop too
-                                props = update(props, {
-                                    $merge: {
-                                        value: undefined,
-                                    },
-                                });
-                            }
-
-                            return <td key={j + '-cell'} {...props}>{content}</td>
+                            return <td key={j + '-cell'} {...content.props}>{content.value}</td>
                         }
                     )}</tr>)}
                 </tbody>

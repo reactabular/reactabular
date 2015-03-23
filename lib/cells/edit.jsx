@@ -12,36 +12,36 @@ module.exports = function(editProperty, o) {
         var editedCell = context.state[editProperty];
 
         if(editedCell === idx) {
-            var editorElement = React.createElement(editor, {
-                value: value,
-                onValue: (value) => {
-                    data[rowIndex][property] = value;
-
-                    var o = {
-                        data: data
-                    };
-
-                    o[editProperty] = null;
-
-                    context.setState(o);
-                }
-            });
-
             return {
-                value: editorElement
+                value: React.createElement(editor, {
+                    value: value,
+                    onValue: (value) => {
+                        data[rowIndex][property] = value;
+
+                        var o = {
+                            data: data
+                        };
+
+                        o[editProperty] = null;
+
+                        context.setState(o);
+                    }
+                }),
             };
         }
 
         if(editor) {
             return {
-                onClick: () => {
-                    var o = {};
+                value: value,
+                props: {
+                    onClick: () => {
+                        var o = {};
 
-                    o[editProperty] = idx;
+                        o[editProperty] = idx;
 
-                    context.setState(o);
-                },
-                value: value
+                        context.setState(o);
+                    },
+                }
             };
         }
 

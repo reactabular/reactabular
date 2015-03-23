@@ -94,11 +94,12 @@ module.exports = React.createClass({
                 {
                     property: 'active',
                     header: 'Active',
-                    cell: (active) => active && <span>&#10003;</span>
-                    // TODO: figure out why buttons don't show up
-                    /*cell: [createEditCell({
-                        editor: editors.boolean(),
-                    }), (active) => active && <span>&#10003;</span>],*/
+                    cell: [
+                        createEditCell({
+                            editor: editors.boolean(),
+                        }),
+                        (active) => active && <span>&#10003;</span>
+                    ],
                 },
                 {
                     cell: function(value, data, rowIndex, property) {
