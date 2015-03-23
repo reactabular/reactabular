@@ -91,7 +91,7 @@ module.exports = React.createClass({
                     header: 'Salary',
                     cell: (salary) => parseFloat(salary).toFixed(2),
                 },
-                /*{
+                {
                     property: 'active',
                     header: 'Active',
                     cell: [
@@ -100,7 +100,7 @@ module.exports = React.createClass({
                         }),
                         (active) => active && <span>&#10003;</span>
                     ],
-                },*/
+                },
                 {
                     cell: function(value, data, rowIndex, property) {
                         var edit = () => {

@@ -82,7 +82,7 @@ module.exports = React.createClass({
 
                                 var val = fn(v, data, i, property);
 
-                                if(val.value) {
+                                if(!_.isUndefined(val.value)) {
                                     return val;
                                 }
 
