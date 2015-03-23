@@ -1,9 +1,7 @@
 'use strict';
-
 var _ = require('lodash');
 
 var React = require('react/addons');
-var cells = require('./cells');
 var cx = React.addons.classSet; // TODO: replace with a standalone solution
 var formatters = require('./formatters');
 var update = React.addons.update;
@@ -13,14 +11,14 @@ module.exports = React.createClass({
     propTypes: {
         header: React.PropTypes.object,
         data: React.PropTypes.array,
-        columns: React.PropTypes.array,
+        columns: React.PropTypes.array
     },
 
     getDefaultProps() {
       return {
         header: {},
         data: [],
-        columns: [],
+        columns: []
       };
     },
 
@@ -33,8 +31,8 @@ module.exports = React.createClass({
             $merge: {
                 header: undefined,
                 data: undefined,
-                columns: undefined,
-            },
+                columns: undefined
+            }
         });
 
         return (
@@ -62,7 +60,6 @@ module.exports = React.createClass({
                             var property = column.property;
                             var value = row[property];
                             var cell = column.cell || [formatters.identity];
-                            var props = {};
                             var content;
 
                             cell = _.isFunction(cell)? [cell]: cell;
@@ -76,7 +73,7 @@ module.exports = React.createClass({
                                     // TODO: pass possible old values here
                                     // [value, prevprev, prev] ...
                                     return _.merge(v, {
-                                        value: fn(v.value, data, i, property),
+                                        value: fn(v.value, data, i, property)
                                     });
                                 }
 
@@ -88,16 +85,16 @@ module.exports = React.createClass({
 
                                 // formatter shortcut
                                 return {
-                                    value: val,
+                                    value: val
                                 };
                             });
 
-                            return <td key={j + '-cell'} {...content.props}>{content.value}</td>
+                            return <td key={j + '-cell'} {...content.props}>{content.value}</td>;
                         }
                     )}</tr>)}
                 </tbody>
                 {this.props.children}
             </table>
         );
-    },
+    }
 });
