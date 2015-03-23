@@ -61,7 +61,7 @@ module.exports = React.createClass({
                         columns.map((column, j) => {
                             var property = column.property;
                             var value = row[property];
-                            var cell = column.cell || [];
+                            var cell = column.cell || [formatters.identity];
                             var props = {};
                             var content;
 
