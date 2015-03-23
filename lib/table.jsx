@@ -2,9 +2,9 @@
 
 var _ = require('lodash');
 
-var React = require('react/addons'); // XXX: go back to regular react!
+var React = require('react/addons');
 var cells = require('./cells');
-var cx = React.addons.classSet;
+var cx = React.addons.classSet; // TODO: replace with a standalone solution
 var formatters = require('./formatters');
 var update = React.addons.update;
 
