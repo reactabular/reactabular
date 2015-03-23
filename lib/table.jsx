@@ -80,7 +80,16 @@ module.exports = React.createClass({
                                     });
                                 }
 
-                                return fn(v, data, i, property);
+                                var val = fn(v, data, i, property);
+
+                                if(val.value) {
+                                    return val;
+                                }
+
+                                // formatter shortcut
+                                return {
+                                    value: val,
+                                };
                             });
 
                             return <td key={j + '-cell'} {...content.props}>{content.value}</td>
