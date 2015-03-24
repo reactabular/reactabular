@@ -1,8 +1,10 @@
 'use strict';
-
+var _ = require('lodash');
 var React = require('react/addons');
+
 var _formatters = require('./formatters');
 var _predicates = require('./predicates');
+
 
 module.exports = React.createClass({
     getDefaultProps() {
@@ -75,11 +77,13 @@ module.exports = React.createClass({
                 return false;
             }
 
-            if(formattedValue.toLowerCase) {
-                var predicate = this.props.strategy(query.toLowerCase());
-
-                return predicate.matches(formattedValue.toLowerCase());
+            if(!_.isString(formattedValue)) {
+                formattedValue = formattedValue.toString();
             }
+
+            var predicate = this.props.strategy(query.toLowerCase());
+
+            return predicate.matches(formattedValue.toLowerCase());
         }
     },
 });
