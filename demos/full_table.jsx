@@ -47,10 +47,14 @@ module.exports = React.createClass({
             properties: properties,
         });
         var editable = cells.edit.bind(this, 'editedCell');
+        var formatters = {
+            country: (country) => find(countries, 'value', country).name
+        };
 
         return {
             editedCell: null,
             data: data,
+            formatters: formatters,
             search: {
                 data: data,
                 query: '',
@@ -87,7 +91,7 @@ module.exports = React.createClass({
                     header: 'Country',
                     cell: [editable({
                         editor: editors.dropdown(countries),
-                    }), (country) => find(countries, 'value', country).name],
+                    }), formatters.country]
                 },
                 {
                     property: 'salary',
@@ -180,10 +184,11 @@ module.exports = React.createClass({
         var header = this.state.header;
         var columns = this.state.columns;
         var data = this.state.data;
-        var searchData = this.state.search.data;
+        var search = this.state.search;
+        var formatters = this.state.formatters;
 
         var pagination = this.state.pagination;
-        var paginated = Paginator.paginate(searchData, pagination);
+        var paginated = Paginator.paginate(search.data, pagination);
 
         return <div>
             <div className='controls'>
@@ -191,7 +196,7 @@ module.exports = React.createClass({
                     Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
                 </div>
                 <div className='search-container'>
-                    Search <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
+                    Search <Search columns={columns} data={data} formatters={formatters} onResult={this.setState.bind(this)}></Search>
                 </div>
             </div>
             <Table className='pure-table pure-table-striped' header={header} columns={columns} data={paginated.data}>

@@ -1,13 +1,13 @@
 'use strict';
 
 var React = require('react/addons');
-var formatters = require('./formatters');
-var predicates = require('./predicates');
+var _formatters = require('./formatters');
+var _predicates = require('./predicates');
 
 module.exports = React.createClass({
     getDefaultProps() {
         return {
-            strategy: predicates.prefix
+            strategy: _predicates.prefix
         };
     },
 
@@ -48,6 +48,7 @@ module.exports = React.createClass({
 
         var data = this.props.data || [];
         var columns = this.props.columns;
+        var formatters = this.props.formatters || {};
 
         if(column !== 'all') {
             columns = this.props.columns.filter((col) =>
@@ -64,16 +65,19 @@ module.exports = React.createClass({
             }
         });
 
-        function isColumnVisible(row, column) {
-            var value = row[column.property];
-            var formatter = column.search || formatters.identity;
+        function isColumnVisible(row, col) {
+            var property = col.property;
+            var formatter = formatters[property] || _formatters.identity;
+            var value = row[property];
             var formattedValue = formatter(value);
+
             if (!formattedValue) {
-                return;
+                return false;
             }
 
             if(formattedValue.toLowerCase) {
                 var predicate = this.props.strategy(query.toLowerCase());
+
                 return predicate.matches(formattedValue.toLowerCase());
             }
         }
