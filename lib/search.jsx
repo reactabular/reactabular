@@ -88,5 +88,28 @@ module.exports = React.createClass({
     },
 });
 
+module.exports.highlight = function(getQuery) {
+    return function(value) {
+        var query = getQuery();
+
+        if(query) {
+            var match = value.slice(0, query.length);
+
+            if(query.toLowerCase() !== match.toLowerCase()) {
+                return value;
+            }
+
+            var rest = value.slice(query.length);
+
+            return <span className='search-result'>
+                <span className='highlight'>{match}</span>
+                <span className='rest'>{rest}</span>
+            </span>;
+        }
+
+        return value;
+    };
+};
+
 function id(a) {return a;}
 function noop() {}

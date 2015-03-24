@@ -50,28 +50,7 @@ module.exports = React.createClass({
         var formatters = {
             country: (country) => find(countries, 'value', country).name
         };
-        var that = this;
-
-        function highlight(value) {
-            var query = that.state.search.query;
-
-            if(query) {
-                var match = value.slice(0, query.length);
-
-                if(query.toLowerCase() !== match.toLowerCase()) {
-                    return value;
-                }
-
-                var rest = value.slice(query.length);
-
-                return <span className='search-result'>
-                    <span className='highlight'>{match}</span>
-                    <span className='rest'>{rest}</span>
-                </span>;
-            }
-
-            return value;
-        }
+        var highlight = Search.highlight(() => this.state.search.query);
 
         return {
             editedCell: null,
