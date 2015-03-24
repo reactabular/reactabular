@@ -46,7 +46,7 @@ module.exports = React.createClass({
             fieldGenerators: getFieldGenerators(countryValues),
             properties: properties,
         });
-        var createEditCell = cells.edit.bind(this, 'editedCell');
+        var editable = cells.edit.bind(this, 'editedCell');
 
         return {
             editedCell: null,
@@ -71,7 +71,7 @@ module.exports = React.createClass({
                 {
                     property: 'name',
                     header: 'Name',
-                    cell: createEditCell({
+                    cell: editable({
                         editor: editors.input(),
                     }),
                 },
@@ -82,7 +82,7 @@ module.exports = React.createClass({
                 {
                     property: 'country',
                     header: 'Country',
-                    cell: [createEditCell({
+                    cell: [editable({
                         editor: editors.dropdown(countries),
                     }), (country) => find(countries, 'value', country).name],
                 },
@@ -95,7 +95,7 @@ module.exports = React.createClass({
                     property: 'active',
                     header: 'Active',
                     cell: [
-                        createEditCell({
+                        editable({
                             editor: editors.boolean(),
                         }),
                         (active) => active && <span>&#10003;</span>
