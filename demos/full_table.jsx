@@ -50,6 +50,28 @@ module.exports = React.createClass({
         var formatters = {
             country: (country) => find(countries, 'value', country).name
         };
+        var that = this;
+
+        function highlight(value) {
+            var query = that.state.search.query;
+
+            if(query) {
+                var match = value.slice(0, query.length);
+
+                if(query.toLowerCase() !== match.toLowerCase()) {
+                    return value;
+                }
+
+                var rest = value.slice(query.length);
+
+                return <span className='search-result'>
+                    <span className='highlight'>{match}</span>
+                    <span className='rest'>{rest}</span>
+                </span>;
+            }
+
+            return value;
+        }
 
         return {
             editedCell: null,
@@ -78,9 +100,9 @@ module.exports = React.createClass({
                 {
                     property: 'name',
                     header: 'Name',
-                    cell: editable({
+                    cell: [editable({
                         editor: editors.input(),
-                    }),
+                    }), highlight],
                 },
                 {
                     property: 'position',
@@ -91,7 +113,7 @@ module.exports = React.createClass({
                     header: 'Country',
                     cell: [editable({
                         editor: editors.dropdown(countries),
-                    }), formatters.country]
+                    }), formatters.country, highlight]
                 },
                 {
                     property: 'salary',

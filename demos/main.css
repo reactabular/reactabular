@@ -31,6 +31,10 @@ header .description {
     color: #888;
 }
 
+.highlight {
+    background: rgb(255, 255, 175);
+}
+
 .sticky {
     position: fixed;
     top: 0;
