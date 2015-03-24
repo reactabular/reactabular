@@ -51,7 +51,10 @@ module.exports = React.createClass({
         return {
             editedCell: null,
             data: data,
-            searchData: data,
+            search: {
+                data: data,
+                query: '',
+            },
             header: {
                 onClick: (column) => {
                     // reset edits
@@ -62,7 +65,7 @@ module.exports = React.createClass({
                     sortColumn(
                         this.state.columns,
                         column,
-                        this.state.searchData,
+                        this.state.search.data,
                         this.setState.bind(this)
                     );
                 },
@@ -177,7 +180,7 @@ module.exports = React.createClass({
         var header = this.state.header;
         var columns = this.state.columns;
         var data = this.state.data;
-        var searchData = this.state.searchData;
+        var searchData = this.state.search.data;
 
         var pagination = this.state.pagination;
         var paginated = Paginator.paginate(searchData, pagination);

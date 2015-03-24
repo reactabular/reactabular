@@ -56,9 +56,12 @@ module.exports = React.createClass({
         }
 
         (this.props.onResult || noop)({
-            searchData: data.filter((row) =>
-                columns.filter(isColumnVisible.bind(this, row)).length > 0
-            )
+            search: {
+                data: data.filter((row) =>
+                    columns.filter(isColumnVisible.bind(this, row)).length > 0
+                ),
+                query: query,
+            }
         });
 
         function isColumnVisible(row, column) {
