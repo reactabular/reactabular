@@ -89,6 +89,8 @@ module.exports = React.createClass({
                                 };
                             });
 
+                            content = content || {};
+
                             return <td key={j + '-cell'} {...content.props}>{content.value}</td>;
                         }
                     )}</tr>)}

@@ -66,7 +66,7 @@ describe('Search', function() {
             },
         ];
         var result = function(d) {
-            expect(d.searchData).toEqual(data);
+            expect(d.search.data).toEqual(data);
         };
         var search = TestUtils.renderIntoDocument(
             <Search columns={columns} data={data} onResult={result} />
@@ -92,7 +92,7 @@ describe('Search', function() {
             },
         ];
         var result = function(d) {
-            expect(d.searchData.length).toEqual(0);
+            expect(d.search.data.length).toEqual(0);
         };
         var search = TestUtils.renderIntoDocument(
             <Search columns={columns} data={data} onResult={result} />
