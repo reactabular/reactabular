@@ -48,7 +48,8 @@ module.exports = React.createClass({
         });
         var editable = cells.edit.bind(this, 'editedCell');
         var formatters = {
-            country: (country) => find(countries, 'value', country).name
+            country: (country) => find(countries, 'value', country).name,
+            salary: (salary) => parseFloat(salary).toFixed(2),
         };
         var highlight = Search.highlight(() => this.state.search.query);
 
@@ -90,6 +91,7 @@ module.exports = React.createClass({
                 {
                     property: 'country',
                     header: 'Country',
+                    search: formatters.country,
                     cell: [editable({
                         editor: editors.dropdown(countries),
                     }), formatters.country, highlight]
@@ -97,7 +99,8 @@ module.exports = React.createClass({
                 {
                     property: 'salary',
                     header: 'Salary',
-                    cell: (salary) => parseFloat(salary).toFixed(2),
+                    search: formatters.salary,
+                    cell: formatters.salary,
                 },
                 {
                     property: 'active',
@@ -186,7 +189,6 @@ module.exports = React.createClass({
         var columns = this.state.columns;
         var data = this.state.data;
         var search = this.state.search;
-        var formatters = this.state.formatters;
 
         var pagination = this.state.pagination;
         var paginated = Paginator.paginate(search.data, pagination);
@@ -197,7 +199,7 @@ module.exports = React.createClass({
                     Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
                 </div>
                 <div className='search-container'>
-                    Search <Search columns={columns} data={data} formatters={formatters} onResult={this.setState.bind(this)}></Search>
+                    Search <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
                 </div>
             </div>
             <Table className='pure-table pure-table-striped' header={header} columns={columns} data={paginated.data}>

@@ -50,7 +50,6 @@ module.exports = React.createClass({
 
         var data = this.props.data || [];
         var columns = this.props.columns;
-        var formatters = this.props.formatters || {};
 
         if(column !== 'all') {
             columns = this.props.columns.filter((col) =>
@@ -69,8 +68,8 @@ module.exports = React.createClass({
 
         function isColumnVisible(row, col) {
             var property = col.property;
-            var formatter = formatters[property] || _formatters.identity;
             var value = row[property];
+            var formatter = col.search || _formatters.identity;
             var formattedValue = formatter(value);
 
             if (!formattedValue) {
