@@ -182,7 +182,35 @@ You should also wire `Table` to use filtered data:
 
 ## Highlighting Search Results
 
-TODO - Simplify + document
+We can highlight individual search results by using a premade `highlight` helper. Here's a demo:
+
+```javascript
+
+var highlight = Search.highlight(() => this.state.search.query);
+
+...
+var columns: [
+    ...
+    {
+        property: 'followers',
+        header: 'Followers',
+        cell: [(followers) => followers - (followers % 100), highlight],
+        search: (followers) => followers - (followers % 100),
+    },
+    ...
+];
+```
+
+We just pipe the formatted cell to `highlight` helper which then figures out what part of the search result hit it, if it hit altogether. If there's a match, it will emit
+
+```jsx
+<span className='search-result'>
+    <span className='highlight'>{match}</span>
+    <span className='rest'>{rest}</span>
+</span>
+``
+
+Style as you like.
 
 ## Paginating a Table
 
@@ -364,6 +392,35 @@ var editable = cells.edit.bind(this);
 The simplest way would be just to provide an editor to a cell directly. In this case we take the approach further and combine it with custom formatting. As you can see, `cell` accepts a list of functions. If the editor gets triggered, it will override any possible formatting after it in the rendering queue.
 
 The library comes with a couple of basic editors. As long as you follow the same interface (`value`, `onValue` properties), your editor should just work with the system.
+
+## Implementing Custom Cell Operations
+
+So far you have actually implemented a few custom cell operations already. There are a few basic ways to do these:
+
+```javascript
+// return a value, modify it somehow etc.
+cell: (v) => v,
+
+// return jsx
+cell: (active) => active && <span>&#10003;</span>,
+
+// return value and props
+// props will be attached to td itself
+cell: (v) => {
+    value: v,
+    props: {
+        onClick: () => alert('hello world');
+    }
+},
+
+// return jsx as value
+cell: (v) => {
+    value: <span>Content goes here</span>
+    // props are optional
+}
+```
+
+If you return JSX as value, it will override any other operation possibly after it. This is handy for implementing blocking features, such as inline editors. Once the editor is done, restore state so that it will return the possible new value and you are done.
 
 ## Development
 
