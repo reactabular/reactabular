@@ -66,7 +66,7 @@ Using these definitions you should end up with a simplistic table with some libr
 
 ## Formatted Table
 
-As just listing libraries and frameworks is boring, let's add some more data to it. We could fetch information such as followers from GitHub. I'll leave that as an exercise to the reader and just add that data to the definition. In addition we could add a boolean there to signify projects that work with Reactabular out of the box. Here's an expanded definition:
+As just listing libraries and frameworks is boring, let's add some more data to it. We could fetch information such as followers from GitHub. We'll go with mock data in this case. In addition we could add a boolean there to signify projects that work with Reactabular out of the box. Here's an expanded definition:
 
 ```javascript
 var data = [
@@ -103,18 +103,18 @@ var columns: [
         property: 'followers',
         header: 'Followers',
         // accuracy per hundred is enough for demoing
-        formatter: (followers) => followers - (followers % 100),
+        cell: (followers) => followers - (followers % 100),
     },
     {
         property: 'worksWithReactabular',
         header: '1st Class Reactabular',
         // render utf ok if works
-        formatter: (works) => works && <span>&#10003;</span>,
+        cell: (works) => works && <span>&#10003;</span>,
     }
 ];
 ```
 
-`formatter` is expected to return some value or a React component so there is room for customization.
+`cell` is an optional property that can be used to customize cell outlook and behavior. In this case we will use it to format our cell content.
 
 It might be cool if it was possible to search the content, especially if we added more data there. Let's implement that next.
 
@@ -127,10 +127,38 @@ var Search = require('reactabular').Search;
 
 ...
 
+```javascript
+var columns: [
+    ...
+    {
+        property: 'followers',
+        header: 'Followers',
+        // accuracy per hundred is enough for demoing
+        cell: (followers) => followers - (followers % 100),
+        // search targets values by default. we can customize
+        // it by providing a custom data formatter to it to get
+        // matches you might expect
+        search: (followers) => followers - (followers % 100),
+    },
+    {
+        property: 'worksWithReactabular',
+        header: '1st Class Reactabular',
+        // render utf ok if works
+        cell: (works) => works && <span>&#10003;</span>,
+    }
+];
+```
+
+...
+
 getInitialState() {
     return {
         ...
-        searchData: data,
+        // Search `onResult` will emit a structure like this
+        search: {
+            data: data,
+            query: '',
+        },
         ...
     };
 }
@@ -144,31 +172,17 @@ Then at your `render` you could do:
 </div>
 ```
 
+`onResult` will update `search` data automatically to contain correct data and query based on input it is given. You can adjust this to work with Flux etc.
+
 You should also wire `Table` to use filtered data:
 
 ```jsx
-<Table columns={columns} data={this.state.searchData}></Table>
+<Table columns={columns} data={this.state.search.data}></Table>
 ```
 
-The interesting bit here is `this.setState.bind(this)`. When you enter something to the search field, it will emit a structure like this:
+## Highlighting Search Results
 
-```js
-{
-    searchData: [...], // a list of matching rows
-}
-```
-
-In order to take these changes in count, you will need to update the table state. Hence it is preferable to set up table `data` and `columns` at `getInitialState`. Alternatively you could hook into some implementation of Flux here.
-
-The Search component takes in the same structure for columns as the Table. By default, search will be performed across the raw data. However, a one argument function can be provided in the `search` field of a column to transform the data before searching on it.
-
-```javascript
-    {
-        property: 'salary',
-        header: 'Salary',
-        search: (salary) => parseFloat(salary).toFixed(2)
-    }
-```
+TODO - Simplify + document
 
 ## Paginating a Table
 
@@ -254,7 +268,7 @@ var header = {
         sortColumn(
             this.state.columns,
             column,
-            this.state.searchData,
+            this.state.search.data,
             this.setState.bind(this)
         );
     },
@@ -323,7 +337,7 @@ Adding a custom footer for our table is simple. Just write the definition inside
 
 ## Inline Editing a Table
 
-As you noticed in the custom column section above, Reactabular provides access to table cell rendering. You could implement various cell customizations on top of this. To make it easier to implement custom editors, Reactabular comes with a little shortcut. Here's an example:
+As you noticed in the custom column section above, Reactabular provides access to table cell rendering. This approach can be used to provide inline editing for tables.
 
 ```javascript
 var cells = require('reactabular').cells;
@@ -331,21 +345,23 @@ var editors = require('reactabular').editors;
 
 ...
 // bind context at getInitialState
-var createEditCell = cells.edit.bind(this);
+var editable = cells.edit.bind(this);
 
 ...
 
 {
     property: 'estimatedValue',
     header: 'Estimated value',
-    formatter: (estimatedValue) => parseFloat(estimatedValue).toFixed(2)
-    cell: createEditCell({
-        editor: editors.input(),
-    }),
+    cell: [
+        editable({
+            editor: editors.input(),
+        }),
+        (estimatedValue) => parseFloat(estimatedValue).toFixed(2)
+    ],
 },
 ```
 
-After you have a declaration like this, the column cells will be editable. It is possible to set up custom formatting if needed. Both `editor` and `formatter` are optional so you skip either if you want.
+The simplest way would be just to provide an editor to a cell directly. In this case we take the approach further and combine it with custom formatting. As you can see, `cell` accepts a list of functions. If the editor gets triggered, it will override any possible formatting after it in the rendering queue.
 
 The library comes with a couple of basic editors. As long as you follow the same interface (`value`, `onValue` properties), your editor should just work with the system.
 
@@ -363,7 +379,7 @@ Your changes will appear without reloading the browser like in [this video](http
 
 ## Contributors
 
-* [Brian Chang](https://github.com/eviltoylet) - Fixed README formatting examples. Improved `column.cell` architecture.
+* [Brian Chang](https://github.com/eviltoylet) - Fixed README formatting examples. Improved `column.cell` architecture. Helped to improve and design `cell` API.
 
 ## Acknowledgments
 
