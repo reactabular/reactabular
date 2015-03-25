@@ -70,8 +70,6 @@ module.exports = React.createClass({
                                 }
 
                                 if(_.isPlainObject(v)) {
-                                    // TODO: pass possible old values here
-                                    // [value, prevprev, prev] ...
                                     return _.merge(v, {
                                         value: fn(v.value, data, i, property)
                                     });
