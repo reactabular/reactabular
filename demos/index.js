@@ -9,8 +9,12 @@ require('./main.css');
 require('./skylight.css');
 require('../style.css');
 
-var React = require('react'),
-    App = require('./app');
+var React = require('react');
+var App = require('./app');
 
 
-React.render(<App />, document.body);
+main();
+
+function main() {
+    React.render(<App />, document.body);
+}
