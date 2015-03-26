@@ -119,3 +119,7 @@ table {
 .edit {
     margin-right: 1em;
 }
+
+.cancel-button {
+    float: right;
+}

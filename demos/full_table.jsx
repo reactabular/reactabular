@@ -16,6 +16,8 @@ var editors = require('../lib/editors');
 var sortColumn = require('../lib/sort_column');
 var cells = require('../lib/cells');
 
+var FieldWrapper = require('./field_wrapper.jsx');
+var SectionWrapper = require('./section_wrapper.jsx');
 var countries = require('./countries');
 var generateData = require('./generate_data');
 
@@ -135,11 +137,29 @@ module.exports = React.createClass({
                                 });
                             };
 
+                            var getButtons = (submit) => {
+                                return (
+                                    <span>
+                                        <input type='submit'
+                                            className='pure-button pure-button-primary ok-button'
+                                            key='ok' value='OK'
+                                            onClick={submit} />
+                                        <input type='submit'
+                                            className='pure-button cancel-button'
+                                            key='cancel' value='Cancel'
+                                            onClick={submit} />
+                                    </span>
+                                );
+                            };
+
                             this.setState({
                                 modal: {
                                     title: 'Edit',
                                     content: <Form
-                                        buttons={['OK', 'Cancel']}
+                                        className='pure-form pure-form-aligned'
+                                        fieldWrapper={FieldWrapper}
+                                        sectionWrapper={SectionWrapper}
+                                        buttons={getButtons}
                                         schema={schema}
                                         validate={validate}
                                         values={this.state.data[rowIndex]}
