@@ -49,7 +49,13 @@ module.exports = React.createClass({
             fieldGenerators: getFieldGenerators(countryValues),
             properties: properties,
         });
-        var editable = cells.edit.bind(this, 'editedCell');
+        var editable = cells.edit.bind(this, 'editedCell', (value, rowIndex, property) => {
+            this.state.data[rowIndex][property] = value;
+
+            this.setState({
+                data: data,
+            });
+        });
         var formatters = {
             country: (country) => find(countries, 'value', country).name,
             salary: (salary) => parseFloat(salary).toFixed(2),

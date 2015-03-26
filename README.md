@@ -372,8 +372,16 @@ var cells = require('reactabular').cells;
 var editors = require('reactabular').editors;
 
 ...
-// bind context at getInitialState
-var editable = cells.edit.bind(this);
+
+// bind context at getInitialState, provide name of field where to store the index
+// of edited cell and deal with received data
+var editable = cells.edit.bind(this, 'editedCell', (value, rowIndex, property) => {
+    this.state.data[rowIndex][property] = value;
+
+    this.setState({
+        data: data,
+    });
+});
 
 ...
 

@@ -3,7 +3,9 @@
 var React = require('react/addons');
 
 
-module.exports = function(editProperty, o) {
+module.exports = function(editProperty, onValue, o) {
+    onValue = onValue || noop;
+
     var context = this;
     var editor = o.editor;
 
@@ -16,15 +18,13 @@ module.exports = function(editProperty, o) {
                 value: React.createElement(editor, {
                     value: value,
                     onValue: (value) => {
-                        data[rowIndex][property] = value;
-
-                        var o = {
-                            data: data
-                        };
+                        var o = {};
 
                         o[editProperty] = null;
 
                         context.setState(o);
+
+                        onValue(value, rowIndex, property);
                     }
                 }),
             };
@@ -48,3 +48,5 @@ module.exports = function(editProperty, o) {
         return value;
     };
 };
+
+function noop() {}
