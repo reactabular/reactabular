@@ -208,7 +208,7 @@ We just pipe the formatted cell to `highlight` helper which then figures out wha
     <span className='highlight'>{match}</span>
     <span className='rest'>{rest}</span>
 </span>
-``
+```
 
 Style as you like.
 
