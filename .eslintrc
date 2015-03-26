@@ -2,16 +2,14 @@
   "parser": "babel-eslint",
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jasmine": true
   },
   "plugins": [
     "react"
   ],
   "globals": {
-    "jest": false,
-    "describe": false,
-    "it": false,
-    "expect": false
+    "jest": false
   },
   "ecmaFeatures": {
     "jsx": true,
