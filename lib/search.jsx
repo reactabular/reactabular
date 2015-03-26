@@ -10,8 +10,8 @@ module.exports = React.createClass({
     displayName: 'Search',
 
     propTypes: {
-        strategy: React.PropTypes.function,
-        onResult: React.PropTypes.function,
+        strategy: React.PropTypes.func,
+        onResult: React.PropTypes.func,
         columns: React.PropTypes.array,
         data: React.PropTypes.array,
     },
