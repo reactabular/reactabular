@@ -12,14 +12,27 @@ module.exports = () => {
             onValue: React.PropTypes.func,
         },
 
+        getInitialState() {
+            return {
+                value: '',
+            };
+        },
+
         render() {
             return (
                 <input
-                    defaultValue={this.props.value}
+                    value={this.state.value || this.props.value}
+                    onChange={this.onChange}
                     onKeyUp={this.keyUp}
                     onBlur={this.done}>
                 </input>
             );
+        },
+
+        onChange(e) {
+            this.setState({
+                value: e.target.value,
+            });
         },
 
         keyUp(e) {
