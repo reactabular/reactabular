@@ -40,7 +40,7 @@
     "marked": "^0.3.3",
     "plexus-form": "0.1.0",
     "plexus-validate": "^0.0.4",
-    "purecss": "^0.5.0",
+    "purecss": "^0.6.0",
     "react-ghfork": "^0.2.2",
     "react-hot-loader": "^1.1.5",
     "react-pagify": "^0.3.2",
