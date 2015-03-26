@@ -8,7 +8,6 @@ var generators = require('annogenerate');
 var math = require('annomath');
 var Paginator = require('react-pagify');
 var titleCase = require('title-case');
-var zip = require('annozip');
 
 var Table = require('../lib/table.jsx');
 var Search = require('../lib/search.jsx');
@@ -26,7 +25,7 @@ module.exports = React.createClass({
     displayName: 'FullTable',
     getInitialState() {
         var countryValues = countries.map((c) => c.value);
-        var properties = generateTitles({
+        var properties = augmentWithTitles({
             name: {
                 type: 'string'
             },
@@ -281,12 +280,12 @@ module.exports = React.createClass({
     },
 });
 
-function generateTitles(o) {
-    return zip.toObject(zip(o).map((pair) => {
-        pair[1].title = titleCase(pair[0]);
+function augmentWithTitles(o) {
+    for (var property in o) {
+        o[property].title = titleCase(property);
+    }
 
-        return pair;
-    }));
+    return o;
 }
 
 function getFieldGenerators(countryValues) {
