@@ -8,7 +8,7 @@ module.exports = () => {
         displayName: 'Input',
 
         propTypes: {
-            value: React.PropTypes.bool,
+            value: React.PropTypes.string,
             onValue: React.PropTypes.func,
         },
 
