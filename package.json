@@ -8,7 +8,7 @@
     "gh-pages": "webpack --config ./config/webpack.gh-pages.js",
     "deploy-gh-pages": "node ./config/deploy-gh-pages.js",
     "dist": "webpack --config ./config/webpack.dist.js && webpack --config ./config/webpack.dist.min.js",
-    "lint": "eslint config && eslint demos && eslint lib && eslint __tests__"
+    "lint": "eslint config && eslint demos && eslint demos/*.jsx && eslint lib && eslint lib/*.jsx  && eslint __tests__"
   },
   "repository": {
     "type": "git",

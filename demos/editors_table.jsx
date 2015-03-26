@@ -9,8 +9,8 @@ var countries = require('./countries');
 
 
 module.exports = React.createClass({
+    displayName: 'EditorsTable',
     getInitialState() {
-
         return {
             data: [
                 {
@@ -55,10 +55,10 @@ module.exports = React.createClass({
         var columns = this.state.columns || [];
         var data = this.state.data || [];
 
-        return <div>
+        return (
             <Table className='pure-table pure-table-striped'
                 columns={columns}
-                data={data}></Table>
-        </div>;
+                data={data} />
+        );
     },
 });

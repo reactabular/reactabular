@@ -16,6 +16,7 @@
     "globalReturn": false
   },
   "rules": {
+    "no-use-before-define": false,
     "quotes": [4, "single"],
     "comma-dangle": "always",
     "react/display-name": 1,

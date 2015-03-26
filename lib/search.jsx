@@ -2,14 +2,23 @@
 var _ = require('lodash');
 var React = require('react/addons');
 
-var _formatters = require('./formatters');
-var _predicates = require('./predicates');
+var formatters = require('./formatters');
+var predicates = require('./predicates');
 
 
 module.exports = React.createClass({
+    displayName: 'Search',
+
+    propTypes: {
+        strategy: React.PropTypes.function,
+        onResult: React.PropTypes.function,
+        columns: React.PropTypes.array,
+        data: React.PropTypes.array,
+    },
+
     getDefaultProps() {
         return {
-            strategy: _predicates.prefix
+            strategy: predicates.prefix
         };
     },
 
@@ -27,16 +36,18 @@ module.exports = React.createClass({
             }
         }).filter(id));
 
-        return <span className='search'>
-            <select ref='column' onChange={this.change}>{options.map((option) =>
-                <option key={option.value + '-option'} value={option.value}>{option.name}</option>
-            )
-            }</select>
-            <input ref='query' onChange={this.change}></input>
-        </span>;
+        return (
+            <span className='search'>
+                <select ref='column' onChange={this.change}>{options.map((option) =>
+                    <option key={option.value + '-option'} value={option.value}>{option.name}</option>
+                )
+                }</select>
+                <input ref='query' onChange={this.change}></input>
+            </span>
+        );
     },
 
-    change(e) {
+    change() {
         var query = this.refs.query.getDOMNode().value;
         var column = this.refs.column.getDOMNode().value;
 
@@ -69,7 +80,7 @@ module.exports = React.createClass({
         function isColumnVisible(row, col) {
             var property = col.property;
             var value = row[property];
-            var formatter = col.search || _formatters.identity;
+            var formatter = col.search || formatters.identity;
             var formattedValue = formatter(value);
 
             if (!formattedValue) {
@@ -100,15 +111,20 @@ module.exports.highlight = function(getQuery) {
 
             var rest = value.slice(query.length);
 
-            return <span className='search-result'>
-                <span className='highlight'>{match}</span>
-                <span className='rest'>{rest}</span>
-            </span>;
+            return (
+                <span className='search-result'>
+                    <span className='highlight'>{match}</span>
+                    <span className='rest'>{rest}</span>
+                </span>
+            );
         }
 
         return value;
     };
 };
 
-function id(a) {return a;}
+function id(a) {
+    return a;
+}
+
 function noop() {}

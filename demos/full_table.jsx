@@ -21,6 +21,7 @@ var generateData = require('./generate_data');
 
 
 module.exports = React.createClass({
+    displayName: 'FullTable',
     getInitialState() {
         var countryValues = countries.map((c) => c.value);
         var properties = generateTitles({
@@ -113,14 +114,14 @@ module.exports = React.createClass({
                     ],
                 },
                 {
-                    cell: function(value, data, rowIndex, property) {
+                    cell: function(value, celldata, rowIndex) {
                         var edit = () => {
                             var schema = {
                                 type: 'object',
                                 properties: properties,
                             };
 
-                            var onSubmit = (data, value, errors) => {
+                            var onSubmit = (data, value) => {
                                 this.refs.modal.hide();
 
                                 if(value === 'Cancel') {
@@ -142,8 +143,7 @@ module.exports = React.createClass({
                                         schema={schema}
                                         validate={validate}
                                         values={this.state.data[rowIndex]}
-                                        onSubmit={onSubmit}
-                                    ></Form>
+                                        onSubmit={onSubmit}/>
                                 }
                             });
 
@@ -160,14 +160,16 @@ module.exports = React.createClass({
                         };
 
                         return {
-                            value: <span>
-                                <span className='edit' onClick={edit.bind(this)} style={{cursor: 'pointer'}}>
-                                    &#8665;
+                            value: (
+                                <span>
+                                    <span className='edit' onClick={edit.bind(this)} style={{cursor: 'pointer'}}>
+                                        &#8665;
+                                    </span>
+                                    <span className='remove' onClick={remove.bind(this)} style={{cursor: 'pointer'}}>
+                                        &#10007;
+                                    </span>
                                 </span>
-                                <span className='remove' onClick={remove.bind(this)} style={{cursor: 'pointer'}}>
-                                    &#10007;
-                                </span>
-                            </span>
+                            )
                         };
                     }.bind(this),
                 },
@@ -193,41 +195,43 @@ module.exports = React.createClass({
         var pagination = this.state.pagination;
         var paginated = Paginator.paginate(search.data, pagination);
 
-        return <div>
-            <div className='controls'>
-                <div className='per-page-container'>
-                    Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
+        return (
+            <div>
+                <div className='controls'>
+                    <div className='per-page-container'>
+                        Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
+                    </div>
+                    <div className='search-container'>
+                        Search <Search columns={columns} data={data} onResult={this.setState.bind(this)} />
+                    </div>
                 </div>
-                <div className='search-container'>
-                    Search <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
+                <Table className='pure-table pure-table-striped' header={header} columns={columns} data={paginated.data}>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                You could show sums etc. here in the customizable footer.
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </Table>
+                <div className='controls'>
+                    <div className='pagination'>
+                        <Paginator
+                            page={paginated.page}
+                            pages={paginated.amount}
+                            beginPages='3'
+                            endPages='3'
+                            onSelect={this.onSelect} />
+                    </div>
                 </div>
+                <SkyLight ref='modal' title={this.state.modal.title}>{this.state.modal.content}</SkyLight>
             </div>
-            <Table className='pure-table pure-table-striped' header={header} columns={columns} data={paginated.data}>
-                <tfoot>
-                    <tr>
-                        <td>
-                            You could show sums etc. here in the customizable footer.
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </Table>
-            <div className='controls'>
-                <div className='pagination'>
-                    <Paginator
-                        page={paginated.page}
-                        pages={paginated.amount}
-                        beginPages='3'
-                        endPages='3'
-                        onSelect={this.onSelect}></Paginator>
-                </div>
-            </div>
-            <SkyLight ref='modal' title={this.state.modal.title}>{this.state.modal.content}</SkyLight>
-        </div>;
+        );
     },
 
     onSelect(page) {

@@ -8,6 +8,8 @@ var update = React.addons.update;
 
 
 module.exports = React.createClass({
+    displayName: 'Table',
+
     propTypes: {
         header: React.PropTypes.object,
         data: React.PropTypes.array,
@@ -44,13 +46,13 @@ module.exports = React.createClass({
                                 result[k] = k.indexOf('on') === 0? v.bind(null, column): v;
                             });
 
-                            return <th
-                                key={i + '-header'}
-                                className={cx(column.classes)}
-                                {...columnHeader}
-                            >
-                                {column.header}
-                            </th>;
+                            return (
+                                <th
+                                    key={i + '-header'}
+                                    className={cx(column.classes)}
+                                    {...columnHeader}
+                                >{column.header}</th>
+                            );
                         })}
                     </tr>
                 </thead>
