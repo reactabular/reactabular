@@ -6,6 +6,13 @@ var React = require('react');
 module.exports = React.createClass({
     displayName: 'FieldWrapper',
 
+    propTypes: {
+        errors: React.PropTypes.array,
+        classes: React.PropTypes.array,
+        key: React.PropTypes.string,
+        title: React.PropTypes.string,
+    },
+
     render() {
         var errors = (this.props.errors || []).join('\n');
         var classes = [].concat(errors? 'error' : [],

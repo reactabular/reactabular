@@ -6,6 +6,15 @@ var React = require('react');
 module.exports = React.createClass({
     displayName: 'SectionWrapper',
 
+    propTypes: {
+        errors: React.PropTypes.array,
+        path: React.PropTypes.array,
+        classes: React.PropTypes.array,
+        description: React.PropTypes.string,
+        key: React.PropTypes.string,
+        title: React.PropTypes.string,
+    },
+
     render() {
         var errors = (this.props.errors || []).join('\n');
         var level = this.props.path.length;
