@@ -59,6 +59,7 @@
     "xtend": "^4.0.0"
   },
   "dependencies": {
+    "classnames": "^1.2.0",
     "lodash": "^3.5.0"
   },
   "peerDependencies": {

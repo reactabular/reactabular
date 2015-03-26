@@ -2,7 +2,7 @@
 var _ = require('lodash');
 
 var React = require('react/addons');
-var cx = React.addons.classSet; // TODO: replace with a standalone solution
+var cx = require('classnames');
 var formatters = require('./formatters');
 var update = React.addons.update;
 
