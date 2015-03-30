@@ -28,16 +28,19 @@ Column and data definition looks like this:
 ```javascript
 var data = [
     {
+        id: 0,
         name: 'React.js',
         type: 'library',
         description: 'Awesome library for handling view.',
     },
     {
+        id: 1,
         name: 'Angular.js',
         type: 'framework',
         description: 'Swiss-knife of frameworks. Kitchen sink not included.',
     },
     {
+        id: 2,
         name: 'Aurelia',
         type: 'framework',
         description: 'Framework for the next generation',
@@ -325,7 +328,11 @@ It might be fun if it was possible to delete table entries directly. We can defi
     cell: (value, data, rowIndex, property) => {
         var remove = () => {
             // this could go through flux etc.
-            this.state.data.splice(rowIndex, 1);
+            var idx = findIndex(this.state.data, {
+                id: celldata[rowIndex].id,
+            });
+
+            this.state.data.splice(idx, 1);
 
             this.setState({
                 data: this.state.data
@@ -377,7 +384,11 @@ var editors = require('reactabular').editors;
 // bind context at getInitialState, provide name of field where to store the index
 // of edited cell and deal with received data
 var editable = cells.edit.bind(this, 'editedCell', (value, celldata, rowIndex, property) => {
-    this.state.data[rowIndex][property] = value;
+    var idx = findIndex(this.state.data, {
+        id: celldata[rowIndex].id,
+    });
+
+    this.state.data[idx][property] = value;
 
     this.setState({
         data: data,
