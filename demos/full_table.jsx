@@ -68,8 +68,8 @@ module.exports = React.createClass({
             data: data,
             formatters: formatters,
             search: {
-                data: data,
                 query: '',
+                column: '',
             },
             header: {
                 onClick: (column) => {
@@ -81,7 +81,7 @@ module.exports = React.createClass({
                     sortColumn(
                         this.state.columns,
                         column,
-                        this.state.search.data,
+                        this.state.data,
                         this.setState.bind(this)
                     );
                 },
@@ -220,12 +220,15 @@ module.exports = React.createClass({
         var header = this.state.header;
         var columns = this.state.columns;
         var data = this.state.data;
-        var search = this.state.search;
+        var searchData = Search.search(
+            this.state.search,
+            this.state.columns,
+            this.state.data
+        );
 
         var pagination = this.state.pagination;
 
-        // XXXXX: how to propagate data changes to search data??? trigger a filter here?
-        var paginated = Paginator.paginate(search.data, pagination);
+        var paginated = Paginator.paginate(searchData, pagination);
 
         return (
             <div>
@@ -234,7 +237,7 @@ module.exports = React.createClass({
                         Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
                     </div>
                     <div className='search-container'>
-                        Search <Search columns={columns} data={data} onResult={this.setState.bind(this)} />
+                        Search <Search columns={columns} onChange={this.setState.bind(this)} />
                     </div>
                 </div>
                 <Table className='pure-table pure-table-striped' header={header} columns={columns} data={paginated.data}>

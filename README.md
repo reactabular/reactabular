@@ -20,7 +20,7 @@ var Table = require('reactabular').Table;
 And when rendering you could do:
 
 ```jsx
-<Table columns={columns} data={data}></Table>
+<Table columns={columns} data={data} />
 ```
 
 Column and data definition looks like this:
@@ -154,10 +154,10 @@ var columns: [
 getInitialState() {
     return {
         ...
-        // Search `onResult` will emit a structure like this
+        // Search `onChange` will emit a structure like this
         search: {
-            data: data,
             query: '',
+            column: '',
         },
         ...
     };
@@ -167,18 +167,19 @@ getInitialState() {
 Then at your `render` you could do:
 
 ```jsx
+var searchData = Search.search(
+    this.state.search,
+    this.state.columns,
+    this.state.data
+);
+
 <div className='search-container'>
-    Search <Search columns={columns} data={data} onResult={this.setState.bind(this)}></Search>
+    Search <Search columns={columns} onChange={this.setState.bind(this)}></Search>
 </div>
+<Table data={searchData} />
 ```
 
-`onResult` will update `search` data automatically to contain correct data and query based on input it is given. You can adjust this to work with Flux etc.
-
-You should also wire `Table` to use filtered data:
-
-```jsx
-<Table columns={columns} data={this.state.search.data}></Table>
-```
+`onChange` will update `search` data. It will then be used to filter the data using `Search.search`. You can replace `onChange` handler with something more custom and skip filtering like this altogether if you are dealing with a backend.
 
 ## Highlighting Search Results
 
@@ -275,7 +276,7 @@ You could push some of that into a mixin to decrease the amount of code in your 
 In addition we need to change `Table` `data` field to point at `paginated.data` like this:
 
 ```jsx
-<Table columns={columns} data={paginated.data}></Table>
+<Table columns={columns} data={paginated.data} />
 ```
 
 After these steps we should have pagination in our table. Pagination is simply a filtering step on data.
@@ -296,7 +297,7 @@ var header = {
         sortColumn(
             this.state.columns,
             column,
-            this.state.search.data,
+            this.state.data,
             this.setState.bind(this)
         );
     },
@@ -306,7 +307,7 @@ var header = {
 In addition we need to provide `header` to our `Table` like this:
 
 ```jsx
-<Table columns={columns} data={paginated.data} header={header}></Table>
+<Table columns={columns} data={paginated.data} header={header} />
 ```
 
 After that it should be possible to sort table content by hitting various column names at header. `sortColumn` sets either `sort-asc` or `sort-desc` class for currently active header column. This allows some degree of styling.

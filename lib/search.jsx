@@ -10,16 +10,8 @@ module.exports = React.createClass({
     displayName: 'Search',
 
     propTypes: {
-        strategy: React.PropTypes.func,
-        onResult: React.PropTypes.func,
+        onChange: React.PropTypes.func,
         columns: React.PropTypes.array,
-        data: React.PropTypes.array,
-    },
-
-    getDefaultProps() {
-        return {
-            strategy: predicates.prefix
-        };
     },
 
     render() {
@@ -48,55 +40,53 @@ module.exports = React.createClass({
     },
 
     change() {
-        var query = this.refs.query.getDOMNode().value;
-        var column = this.refs.column.getDOMNode().value;
-
-        this.search(query, column);
-    },
-
-    search(query, column) {
-        if(!this.props.columns) {
-            return;
-        }
-
-        var data = this.props.data || [];
-        var columns = this.props.columns;
-
-        if(column !== 'all') {
-            columns = this.props.columns.filter((col) =>
-                col.property === column
-            );
-        }
-
-        (this.props.onResult || noop)({
+        (this.props.onChange || noop)({
             search: {
-                data: data.filter((row) =>
-                    columns.filter(isColumnVisible.bind(this, row)).length > 0
-                ),
-                query: query,
+                query: this.refs.query.getDOMNode().value,
+                column: this.refs.column.getDOMNode().value,
             }
         });
-
-        function isColumnVisible(row, col) {
-            var property = col.property;
-            var value = row[property];
-            var formatter = col.search || formatters.identity;
-            var formattedValue = formatter(value);
-
-            if (!formattedValue) {
-                return false;
-            }
-
-            if(!_.isString(formattedValue)) {
-                formattedValue = formattedValue.toString();
-            }
-
-            var predicate = this.props.strategy(query.toLowerCase());
-
-            return predicate.matches(formattedValue.toLowerCase());
-        }
     },
 });
+
+module.exports.search = function(search, columns, data) {
+    var query = search.query;
+    var column = search.column;
+
+    if(!query) {
+        return data;
+    }
+
+    if(column !== 'all') {
+        columns = columns.filter((col) =>
+            col.property === column
+        );
+    }
+
+    return data.filter((row) =>
+        columns.filter(isColumnVisible.bind(this, row)).length > 0
+    );
+
+    function isColumnVisible(row, col) {
+        var property = col.property;
+        var value = row[property];
+        var formatter = col.search || formatters.identity;
+        var formattedValue = formatter(value);
+
+        if (!formattedValue) {
+            return false;
+        }
+
+        if(!_.isString(formattedValue)) {
+            formattedValue = formattedValue.toString();
+        }
+
+        // TODO: allow strategy to be passed, now just defaulting to prefix
+        var predicate = predicates.prefix(query.toLowerCase());
+
+        return predicate.matches(formattedValue.toLowerCase());
+    }
+};
 
 module.exports.highlight = function(getQuery) {
     return function(value) {
