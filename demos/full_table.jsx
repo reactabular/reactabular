@@ -50,8 +50,12 @@ module.exports = React.createClass({
             properties: properties,
         });
         data = attachIds(data);
-        var editable = cells.edit.bind(this, 'editedCell', (value, rowIndex, property) => {
-            this.state.data[rowIndex][property] = value;
+        var editable = cells.edit.bind(this, 'editedCell', (value, celldata, rowIndex, property) => {
+            var idx = findIndex(this.state.data, {
+                id: celldata[rowIndex].id,
+            });
+
+            this.state.data[idx][property] = value;
 
             this.setState({
                 data: data,

@@ -24,7 +24,7 @@ module.exports = function(editProperty, onValue, o) {
 
                         context.setState(o);
 
-                        onValue(value, rowIndex, property);
+                        onValue(value, data, rowIndex, property);
                     }
                 }),
             };
