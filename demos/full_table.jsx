@@ -1,6 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
 var React = require('react');
 var Form = require('plexus-form');
 var validate = require('plexus-validate');
@@ -9,6 +8,7 @@ var generators = require('annogenerate');
 var math = require('annomath');
 var Paginator = require('react-pagify');
 var titleCase = require('title-case');
+var findIndex = require('lodash/array/findIndex');
 
 var Table = require('../lib/table.jsx');
 var Search = require('../lib/search.jsx');
@@ -124,7 +124,7 @@ module.exports = React.createClass({
                 },
                 {
                     cell: function(value, celldata, rowIndex) {
-                        var idx = _.findIndex(this.state.data, {
+                        var idx = findIndex(this.state.data, {
                             id: celldata[rowIndex].id,
                         });
 
