@@ -73,7 +73,7 @@ module.exports = React.createClass({
                 onClick: (column) => {
                     // reset edits
                     this.setState({
-                        editedCells: []
+                        editedCell: null
                     });
 
                     sortColumn(
@@ -207,7 +207,6 @@ module.exports = React.createClass({
                 page: 0,
                 perPage: 10
             },
-            editedCells: [], // i -> property index to keep track of edit state
         };
     },
 
