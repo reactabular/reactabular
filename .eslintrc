@@ -16,6 +16,7 @@
     "globalReturn": false
   },
   "rules": {
+    "no-underscore-dangle": false,
     "no-use-before-define": false,
     "quotes": [4, "single"],
     "comma-dangle": "always",

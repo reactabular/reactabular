@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('lodash');
 var React = require('react');
 var Form = require('plexus-form');
 var validate = require('plexus-validate');
@@ -41,13 +42,14 @@ module.exports = React.createClass({
             },
             active: {
                 type: 'boolean'
-            }
+            },
         });
         var data = generateData({
             amount: 100,
             fieldGenerators: getFieldGenerators(countryValues),
             properties: properties,
         });
+        data = attachIds(data);
         var editable = cells.edit.bind(this, 'editedCell', (value, rowIndex, property) => {
             this.state.data[rowIndex][property] = value;
 
@@ -122,6 +124,10 @@ module.exports = React.createClass({
                 },
                 {
                     cell: function(value, celldata, rowIndex) {
+                        var idx = _.findIndex(this.state.data, {
+                            id: celldata[rowIndex].id,
+                        });
+
                         var edit = () => {
                             var schema = {
                                 type: 'object',
@@ -135,7 +141,7 @@ module.exports = React.createClass({
                                     return;
                                 }
 
-                                this.state.data[rowIndex] = data;
+                                this.state.data[idx] = data;
 
                                 this.setState({
                                     data: this.state.data
@@ -167,7 +173,7 @@ module.exports = React.createClass({
                                         buttons={getButtons}
                                         schema={schema}
                                         validate={validate}
-                                        values={this.state.data[rowIndex]}
+                                        values={this.state.data[idx]}
                                         onSubmit={onSubmit}/>
                                 }
                             });
@@ -177,7 +183,7 @@ module.exports = React.createClass({
 
                         var remove = () => {
                             // this could go through flux etc.
-                            this.state.data.splice(rowIndex, 1);
+                            this.state.data.splice(idx, 1);
 
                             this.setState({
                                 data: this.state.data
@@ -217,6 +223,8 @@ module.exports = React.createClass({
         var search = this.state.search;
 
         var pagination = this.state.pagination;
+
+        // XXXXX: how to propagate data changes to search data??? trigger a filter here?
         var paginated = Paginator.paginate(search.data, pagination);
 
         return (
@@ -306,6 +314,14 @@ function getFieldGenerators(countryValues) {
             return math.pick(countryValues);
         }
     };
+}
+
+function attachIds(arr) {
+    return arr.map((o, i) => {
+        o.id = i;
+
+        return o;
+    });
 }
 
 function find(arr, key, value) {
