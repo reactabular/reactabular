@@ -1,5 +1,10 @@
 'use strict';
-var _ = require('lodash');
+var merge = require('lodash/object/merge');
+var transform = require('lodash/object/transform');
+var reduce = require('lodash/collection/reduce');
+var isFunction = require('lodash/lang/isFunction');
+var isPlainObject = require('lodash/lang/isPlainObject');
+var isUndefined = require('lodash/lang/isUndefined');
 
 var React = require('react/addons');
 var cx = require('classnames');
@@ -42,7 +47,7 @@ module.exports = React.createClass({
                 <thead>
                     <tr>
                         {columns.map((column, i) => {
-                            var columnHeader = _.transform(header, (result, v, k) => {
+                            var columnHeader = transform(header, (result, v, k) => {
                                 result[k] = k.indexOf('on') === 0? v.bind(null, column): v;
                             });
 
@@ -64,22 +69,22 @@ module.exports = React.createClass({
                             var cell = column.cell || [formatters.identity];
                             var content;
 
-                            cell = _.isFunction(cell)? [cell]: cell;
+                            cell = isFunction(cell)? [cell]: cell;
 
-                            content = _.reduce([value].concat(cell), (v, fn) => {
+                            content = reduce([value].concat(cell), (v, fn) => {
                                 if(v && React.isValidElement(v.value)) {
                                     return v;
                                 }
 
-                                if(_.isPlainObject(v)) {
-                                    return _.merge(v, {
+                                if(isPlainObject(v)) {
+                                    return merge(v, {
                                         value: fn(v.value, data, i, property)
                                     });
                                 }
 
                                 var val = fn(v, data, i, property);
 
-                                if(!_.isUndefined(val.value)) {
+                                if(val && !isUndefined(val.value)) {
                                     return val;
                                 }
 

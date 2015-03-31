@@ -69,6 +69,7 @@
     "scriptPreprocessor": "./config/preprocessor.js",
     "unmockedModulePathPatterns": [
       "./node_modules/annotate",
+      "./node_modules/lodash",
       "./node_modules/react",
       "./lib/editors"
     ]

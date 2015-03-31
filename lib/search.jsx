@@ -1,5 +1,5 @@
 'use strict';
-var _ = require('lodash');
+var isString = require('lodash/lang/isString');
 var React = require('react/addons');
 
 var formatters = require('./formatters');
@@ -77,7 +77,7 @@ module.exports.search = function(search, columns, data) {
             return false;
         }
 
-        if(!_.isString(formattedValue)) {
+        if(!isString(formattedValue)) {
             formattedValue = formattedValue.toString();
         }
 
