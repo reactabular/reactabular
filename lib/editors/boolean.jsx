@@ -8,7 +8,7 @@ module.exports = () => {
         displayName: 'Boolean',
 
         propTypes: {
-            value: React.PropTypes.bool,
+            value: React.PropTypes.string,
             onClick: React.PropTypes.func,
             onValue: React.PropTypes.func,
         },
