@@ -1,75 +1,15 @@
 [![build status](https://secure.travis-ci.org/bebraw/reactabular.png)](http://travis-ci.org/bebraw/reactabular)
 # Reactabular - Spectacular tables for React.js
 
-Reactabular has been designed to make it easier to build tables on top of React.js. Basic things, such as displaying data, are possible. More complex scenarios, such as search, pagination, sorting and inline editing, are supported.
+Reactabular has been designed to make it easier to build tables on top of React.js. The core has been kept simple while allowing you to extend it as needed. You can customize rendering on cell level and adjust the way data is sorted. This way you can implement basic functionalities such as search, pagination, sorting, inline editing and so on.
 
-The library has been designed so that it is possible for you to extend it without having to stab at the core. Instead you can develop widgets around it and connect the component to your software architecture (Flux etc.) using callbacks.
+The library can work with either fixed data loaded once or you can hook it into a backend through a method of your choosing. For instance it works well with various Flux approaches. The table simply consumes the data from store which you then adjust using various actions.
 
-This means it might take more code to achieve certain things than in various other alternatives. On the other hand it gives you a degree of freedom you might appreciate. In addition it keeps the library quite small and easier to maintain.
+The chosen approach means it might take more code to achieve certain goals. This gives you a degree of freedom while keeping the core easier to maintain.
 
 ## Basic Table
 
-A basic table without any bells and whistles can be created like this:
-
-```javascript
-var Table = require('reactabular').Table;
-
-...
-```
-
-And when rendering you could do:
-
-```jsx
-<Table columns={columns} data={data} />
-```
-
-Column and data definition looks like this:
-
-```javascript
-var data = [
-    {
-        id: 0,
-        name: 'React.js',
-        type: 'library',
-        description: 'Awesome library for handling view.',
-    },
-    {
-        id: 1,
-        name: 'Angular.js',
-        type: 'framework',
-        description: 'Swiss-knife of frameworks. Kitchen sink not included.',
-    },
-    {
-        id: 2,
-        name: 'Aurelia',
-        type: 'framework',
-        description: 'Framework for the next generation',
-    },
-];
-
-var columns = [
-    {
-        property: 'name',
-        header: 'Name',
-    },
-    {
-        property: 'type',
-        header: 'Type',
-    },
-    {
-        property: 'description',
-        header: 'Description',
-    },
-];
-```
-
-Using these definitions you should end up with a simplistic table with some library and framework data.
-
-`data` is simply an array of objects. `columns` provides column definition for the table and maps `data` fields to it using `property` key. `header` is used for UI. You could inject i18n'd versions of headers there etc.
-
-## Formatted Table
-
-As just listing libraries and frameworks is boring, let's add some more data to it. We could fetch information such as followers from GitHub. We'll go with mock data in this case. In addition we could add a boolean there to signify projects that work with Reactabular out of the box. Here's an expanded definition:
+The examples below assume we are operating on data like this:
 
 ```javascript
 var data = [
@@ -97,11 +37,24 @@ var data = [
 ];
 ```
 
-In addition we might want to improve the formatting of these new fields. Here's an expanded column definition (new fields only):
+Reactabular expects a list of objects and then maps them to table cells using some configuration. In this case I've attached ids for each entry. That will come in handy for operations such as edit and delete.
+
+Another thing we are going to need is column definition. Here's a basic example:
 
 ```javascript
-var columns: [
-    ...
+var columns = [
+    {
+        property: 'name',
+        header: 'Name',
+    },
+    {
+        property: 'type',
+        header: 'Type',
+    },
+    {
+        property: 'description',
+        header: 'Description',
+    },
     {
         property: 'followers',
         header: 'Followers',
@@ -113,13 +66,23 @@ var columns: [
         header: '1st Class Reactabular',
         // render utf ok if works
         cell: (works) => works && <span>&#10003;</span>,
-    }
+    },
 ];
 ```
 
-`cell` is an optional property that can be used to customize cell outlook and behavior. In this case we will use it to format our cell content.
+We simply define an ordering for our columns, tell the library what property to bind and what to display at header. You could inject internationalized strings there for instance.
 
-It might be cool if it was possible to search the content, especially if we added more data there. Let's implement that next.
+I've attached custom formatting for `followers` and `worksWithReactabular` fields. `cell` property gives you access to rendering and works as an extension point. I'll show you later how to build inline editor, search highlighting and so on using it. For now we just take the value, tweak it a little bit and let Reactabular worry about rendering.
+
+Finally to get some table to show up we should render it through Reactabular. Here's the minimum you can get by with:
+
+```javascript
+var Table = require('reactabular').Table;
+
+...
+
+<Table columns={columns} data={data} />
+```
 
 ## Searching a Table
 
@@ -143,12 +106,7 @@ var columns: [
         // matches you might expect
         search: (followers) => followers - (followers % 100),
     },
-    {
-        property: 'worksWithReactabular',
-        header: '1st Class Reactabular',
-        // render utf ok if works
-        cell: (works) => works && <span>&#10003;</span>,
-    }
+    ...
 ];
 ```
 
@@ -257,7 +215,7 @@ onPerPage(e) {
 },
 ```
 
-You could push some of that into a mixin to decrease the amount of code in your components.
+You could push some of that into a mixin or a higher order component to decrease the amount of code in your components.
 
 ```jsx
 <div className='per-page-container'>
