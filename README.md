@@ -93,7 +93,7 @@ var Search = require('reactabular').Search;
 
 ...
 
-```javascript
+
 var columns: [
     ...
     {
@@ -146,7 +146,6 @@ var searchData = Search.search(
 We can highlight individual search results by using a premade `highlight` helper. Here's a demo:
 
 ```javascript
-
 var highlight = Search.highlight(() => this.state.search.query);
 
 ...
@@ -401,7 +400,7 @@ If you return JSX as value, it will override any other operation possibly after 
 
 ## Development
 
-```
+```bash
 npm install
 npm start
 open http://localhost:3000
