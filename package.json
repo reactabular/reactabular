@@ -63,7 +63,7 @@
     "lodash": "^3.5.0"
   },
   "peerDependencies": {
-    "react": "^0.12.2"
+    "react": ">=0.11.2 <1.0.0"
   },
   "jest": {
     "scriptPreprocessor": "./config/preprocessor.js",
