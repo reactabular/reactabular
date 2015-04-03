@@ -10,6 +10,17 @@ var TestUtils = React.addons.TestUtils;
 var Table = require('../lib/table.jsx');
 
 
+var Footer = React.createClass({
+    displayName: 'Footer',
+    render() {
+        return (
+            <tfoot>
+                <tr>Dancing is the poetry of the foot.</tr>
+            </tfoot>
+        );
+    }
+});
+
 describe('Table', function() {
     it('should render a header based on `header` fields', function() {
         var columns = [
@@ -64,5 +75,25 @@ describe('Table', function() {
             table, 'tr');
 
         expect(trs.length).toEqual(data.length + 1);
+    });
+
+    it('should render correctly with no properties', function() {
+        var renderedTable = TestUtils.renderIntoDocument(
+            <Table/>
+        );
+
+        expect(renderedTable.props.data).toEqual([]);
+        expect(renderedTable.props.columns).toEqual([]);
+        expect(renderedTable.props.header).toEqual({});
+    });
+
+    it('should render children correctly', function() {
+        var renderedTable = TestUtils.renderIntoDocument(
+            <Table>
+                <Footer/>
+            </Table>
+        );
+
+        TestUtils.findRenderedComponentWithType(renderedTable, Footer);
     });
 });
