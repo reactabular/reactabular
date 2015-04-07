@@ -27,6 +27,9 @@
     "url": "https://github.com/bebraw/reactabular/issues"
   },
   "homepage": "https://github.com/bebraw/reactabular",
+  "dependencies": {
+    "classnames": "^1.2.0"
+  },
   "devDependencies": {
     "annogenerate": "^0.8.1",
     "annomath": "^0.4.1",
@@ -41,6 +44,7 @@
     "html-webpack-plugin": "^1.1.0",
     "jest-cli": "^0.4.0",
     "jsx-loader": "^0.12.2",
+    "lodash": "^3.5.0",
     "marked": "^0.3.3",
     "plexus-form": "0.1.1",
     "plexus-validate": "^0.0.4",
@@ -57,10 +61,6 @@
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0",
     "xtend": "^4.0.0"
-  },
-  "dependencies": {
-    "classnames": "^1.2.0",
-    "lodash": "^3.5.0"
   },
   "peerDependencies": {
     "react": ">=0.11.2 <1.0.0"
