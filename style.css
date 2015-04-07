@@ -1,3 +1,8 @@
+table th {
+    cursor: pointer;
+    cursor: hand;
+}
+
 table .sort-asc:after {
     padding-left: 1em;
 
