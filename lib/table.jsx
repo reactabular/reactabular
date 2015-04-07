@@ -22,11 +22,11 @@ module.exports = React.createClass({
     },
 
     getDefaultProps() {
-      return {
-        header: {},
-        data: [],
-        columns: []
-      };
+        return {
+            header: {},
+            data: [],
+            columns: []
+        };
     },
 
     render() {
