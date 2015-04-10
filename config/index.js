@@ -99,6 +99,7 @@ exports.ghpages = extend(common, {
 });
 
 var commonDist = extend(common, {
+    devtool: 'source-map',
     entry: './lib/index',
     externals: {
         react: 'react',
@@ -119,6 +120,7 @@ exports.dist = extend(commonDist, {
         filename: 'reactabular.js',
         libraryTarget: 'umd',
         library: 'Reactabular',
+        sourceMapFilename: '[file].map'
     },
 });
 
@@ -128,6 +130,7 @@ exports.distMin = extend(commonDist, {
         filename: 'reactabular.min.js',
         libraryTarget: 'umd',
         library: 'Reactabular',
+        sourceMapFilename: '[file].map'
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
