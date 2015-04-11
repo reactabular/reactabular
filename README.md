@@ -226,8 +226,8 @@ You could push some of that into a mixin or a higher order component to decrease
     <Paginator
         page={paginated.page}
         pages={paginated.amount}
-        beginPages='3'
-        endPages='3'
+        beginPages={3}
+        endPages={3}
         onSelect={this.onSelect}></Paginator>
 </div>
 ```
