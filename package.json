@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/bebraw/reactabular/issues"
   },
-  "homepage": "https://github.com/bebraw/reactabular",
+  "homepage": "https://bebraw.github.io/reactabular/",
   "dependencies": {
     "classnames": "^1.2.0"
   },
