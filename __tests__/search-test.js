@@ -2,9 +2,9 @@
 
 jest.dontMock('../lib/search.jsx');
 jest.dontMock('../lib/formatters/index.js');
-jest.dontMock('../lib/formatters/identity.js');
+jest.dontMock('../lib/formatters/lowercase.js');
 jest.dontMock('../lib/predicates/index.js');
-jest.dontMock('../lib/predicates/prefix.js');
+jest.dontMock('../lib/predicates/infix.js');
 
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
@@ -66,7 +66,7 @@ describe('Search', function() {
             },
         ];
         var result = function(d) {
-            expect(d.search.data).toEqual(data);
+            expect(d.data).toEqual(data);
         };
         var search = TestUtils.renderIntoDocument(
             <Search columns={columns} data={data} onResult={result} />
@@ -92,7 +92,7 @@ describe('Search', function() {
             },
         ];
         var result = function(d) {
-            expect(d.search.data.length).toEqual(0);
+            expect(d.data.length).toEqual(0);
         };
         var search = TestUtils.renderIntoDocument(
             <Search columns={columns} data={data} onResult={result} />

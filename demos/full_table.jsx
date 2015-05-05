@@ -72,8 +72,9 @@ module.exports = React.createClass({
             data: data,
             formatters: formatters,
             search: {
-                query: '',
                 column: '',
+                data: [],
+                query: ''
             },
             header: {
                 onClick: (column) => {
@@ -216,23 +217,23 @@ module.exports = React.createClass({
             pagination: {
                 page: 0,
                 perPage: 10
-            },
+            }
         };
+    },
+
+    onSearch(search) {
+        this.setState({
+            search: search
+        });
     },
 
     render() {
         var header = this.state.header;
         var columns = this.state.columns;
-        var data = this.state.data;
-        var searchData = Search.search(
-            this.state.search,
-            this.state.columns,
-            this.state.data
-        );
 
         var pagination = this.state.pagination;
 
-        var paginated = Paginator.paginate(searchData, pagination);
+        var paginated = Paginator.paginate(this.state.search.data, pagination);
 
         return (
             <div>
@@ -241,7 +242,7 @@ module.exports = React.createClass({
                         Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
                     </div>
                     <div className='search-container'>
-                        Search <Search columns={columns} onChange={this.setState.bind(this)} />
+                        Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
                     </div>
                 </div>
                 <Table className='pure-table pure-table-striped' header={header} columns={columns} data={paginated.data}>

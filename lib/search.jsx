@@ -10,12 +10,32 @@ module.exports = React.createClass({
     displayName: 'Search',
 
     propTypes: {
-        onChange: React.PropTypes.func,
         columns: React.PropTypes.array,
+        data: React.PropTypes.array,
+        onChange: React.PropTypes.func,
+        options: React.PropTypes.object
+    },
+
+    getDefaultProps() {
+        return {
+            columns: [],
+            data: [],
+            options: {
+                strategy: predicates.infix,
+                transform: formatters.lowercase
+            }
+        };
+    },
+
+    getInitialState() {
+        return {
+            column: 'all',
+            query: ''
+        };
     },
 
     render() {
-        var columns = this.props.columns || [];
+        var columns = this.props.columns;
         var options = [{
             value: 'all',
             name: 'All'
@@ -30,86 +50,106 @@ module.exports = React.createClass({
 
         return (
             <span className='search'>
-                <select ref='column' onChange={this.change}>{options.map((option) =>
+                <select ref='column' onChange={this.change} value={this.state.column}>{options.map((option) =>
                     <option key={option.value + '-option'} value={option.value}>{option.name}</option>
                 )
                 }</select>
-                <input ref='query' onChange={this.change}></input>
+                <input ref='query' onChange={this.change} value={this.state.query}></input>
             </span>
         );
     },
 
     change() {
-        (this.props.onChange || noop)({
-            search: {
-                query: this.refs.query.getDOMNode().value,
-                column: this.refs.column.getDOMNode().value,
-            }
+        // TODO: Determine if there's a better way to get the values instead of referencing the DOM nodes directly
+        var column = this.refs.column.getDOMNode().value;
+        var query = this.refs.query.getDOMNode().value;
+
+        this.setState({
+            column: column,
+            query: query
         });
-    },
-});
 
-module.exports.search = function(search, columns, data) {
-    var query = search.query;
-    var column = search.column;
-
-    if(!query) {
-        return data;
-    }
-
-    if(column !== 'all') {
-        columns = columns.filter((col) =>
-            col.property === column
-        );
-    }
-
-    return data.filter((row) =>
-        columns.filter(isColumnVisible.bind(this, row)).length > 0
-    );
-
-    function isColumnVisible(row, col) {
-        var property = col.property;
-        var value = row[property];
-        var formatter = col.search || formatters.identity;
-        var formattedValue = formatter(value);
-
-        if (!formattedValue) {
-            return false;
-        }
-
-        if(!isString(formattedValue)) {
-            formattedValue = formattedValue.toString();
-        }
-
-        // TODO: allow strategy to be passed, now just defaulting to prefix
-        var predicate = predicates.prefix(query.toLowerCase());
-
-        return predicate.matches(formattedValue.toLowerCase());
-    }
-};
-
-module.exports.highlight = function(getQuery) {
-    return function(value) {
-        var query = getQuery();
-
-        if(query) {
-            var match = value.slice(0, query.length);
-
-            if(query.toLowerCase() !== match.toLowerCase()) {
-                return value;
+        (this.props.onChange || noop)(
+            {
+                column: column,
+                data: this.filterData(),
+                query: query
             }
+        );
+    },
 
-            var rest = value.slice(query.length);
+    componentDidMount() {
+        this.change();
+    },
 
-            return (
-                <span className='search-result'>
-                    <span className='highlight'>{match}</span>
-                    <span className='rest'>{rest}</span>
-                </span>
+    filterData() {
+        var columns = this.props.columns;
+        var data = this.props.data;
+
+        var query = this.refs.query.getDOMNode().value;
+        var column = this.refs.column.getDOMNode().value;
+
+        if(!query) {
+            return data;
+        }
+
+        if(column !== 'all') {
+            columns = columns.filter((col) =>
+                col.property === column
             );
         }
 
-        return value;
+        return data.filter((row) =>
+            columns.filter(isColumnVisible.bind(this, row)).length > 0
+        );
+
+        function isColumnVisible(row, col) {
+            var property = col.property;
+            var value = row[property];
+            var formatter = col.search || formatters.identity;
+            var formattedValue = formatter(value);
+
+            if (!formattedValue) {
+                return false;
+            }
+
+            if(!isString(formattedValue)) {
+                formattedValue = formattedValue.toString();
+            }
+
+            var predicate = this.props.options.strategy(this.props.options.transform(query));
+
+            return predicate.matches(this.props.options.transform(formattedValue));
+        }
+    }
+});
+
+// TODO: Expose whether or not the highlighter is case-sensitive ?
+// This is a case-insensitive highlighter which highlights any occurrence of a given value
+module.exports.highlight = function(getQuery) {
+    return function(value) {
+        var lowerCaseValue = value.toLowerCase();
+        var query = getQuery().toLowerCase();
+        var startIndex = lowerCaseValue.indexOf(query);
+        if (startIndex === -1) {
+            return value;
+        }
+
+        var children = [];
+        var splitString = lowerCaseValue.split(query);
+        var currentPosition = 0;
+        for (var x = 0; x < splitString.length; x++) {
+            var nonMatchedFromOriginal = value.slice(currentPosition, currentPosition + splitString[x].length);
+            children.push(React.createElement('span', null, nonMatchedFromOriginal));
+            currentPosition = currentPosition + nonMatchedFromOriginal.length;
+
+            var matchedFromOriginal = value.slice(currentPosition, currentPosition + query.length);
+            children.push(React.createElement('span', {className: 'highlight'}, matchedFromOriginal));
+            currentPosition = currentPosition + matchedFromOriginal.length;
+        }
+        children.pop();
+        var element = React.createElement('span', {className: 'search-result'}, children);
+        return element;
     };
 };
 
