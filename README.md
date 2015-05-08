@@ -116,8 +116,9 @@ getInitialState() {
         ...
         // Search `onChange` will emit a structure like this
         search: {
-            query: '',
             column: '',
+            data: [],
+            query: ''
         },
         ...
     };
@@ -127,19 +128,13 @@ getInitialState() {
 Then at your `render` you could do:
 
 ```jsx
-var searchData = Search.search(
-    this.state.search,
-    this.state.columns,
-    this.state.data
-);
-
 <div className='search-container'>
     Search <Search columns={columns} onChange={this.setState.bind(this)}></Search>
 </div>
-<Table data={searchData} />
+<Table data={this.state.search.data} />
 ```
 
-`onChange` will update `search` data. It will then be used to filter the data using `Search.search`. You can replace `onChange` handler with something more custom and skip filtering like this altogether if you are dealing with a backend.
+`onChange` will update `search` data. You can replace `onChange` handler with something more custom and skip filtering like this altogether if you are dealing with a backend.
 
 ## Highlighting Search Results
 
@@ -161,12 +156,16 @@ var columns: [
 ];
 ```
 
-We just pipe the formatted cell to `highlight` helper which then figures out what part of the search result hit it, if it hit altogether. If there's a match, it will emit
+We just pipe the formatted cell to `highlight` helper which then figures out what part of the search result hit it, if it hit altogether. If there's a match, it will emit a `span` with `class='highlight'`. For example, if the search term was 'oo' and
+the data under evaluation 'noon moon', the following structure would be emitted:
 
 ```jsx
 <span className='search-result'>
-    <span className='highlight'>{match}</span>
-    <span className='rest'>{rest}</span>
+    <span>n</span>
+    <span className='highlight'>oo</span>
+    <span>n m</span>
+    <span className='highlight'>oo</span>
+    <span>n</span>
 </span>
 ```
 
