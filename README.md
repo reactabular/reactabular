@@ -138,10 +138,11 @@ Then at your `render` you could do:
 
 ## Highlighting Search Results
 
-We can highlight individual search results by using a premade `highlight` helper. Here's a demo:
+We can highlight individual search results by using a premade `highlight` helper. This helper takes advantage of the matches method on an instance of the Search component. Here's a demo:
 
 ```javascript
-var highlight = Search.highlight(() => this.state.search.query);
+var highlight = require('../lib/formatters/highlight');
+var highlighter = (column) => highlight((value) => this.refs.search.matches(column, value));
 
 ...
 var columns: [
@@ -149,7 +150,7 @@ var columns: [
     {
         property: 'followers',
         header: 'Followers',
-        cell: [(followers) => followers - (followers % 100), highlight],
+        cell: [(followers) => followers - (followers % 100), highlighter('followers')],
         search: (followers) => followers - (followers % 100),
     },
     ...
