@@ -21,6 +21,8 @@ var SectionWrapper = require('./section_wrapper.jsx');
 var countries = require('./countries');
 var generateData = require('./generate_data');
 
+var highlight = require('../lib/formatters/highlight');
+
 
 module.exports = React.createClass({
     displayName: 'FullTable',
@@ -65,7 +67,8 @@ module.exports = React.createClass({
             country: (country) => find(countries, 'value', country).name,
             salary: (salary) => parseFloat(salary).toFixed(2),
         };
-        var highlight = Search.highlight(() => this.state.search.query);
+
+        var highlighter = (column) => highlight((value) => this.refs.search.matches(column, value));
 
         return {
             editedCell: null,
@@ -97,11 +100,12 @@ module.exports = React.createClass({
                     header: 'Name',
                     cell: [editable({
                         editor: editors.input(),
-                    }), highlight],
+                    }), highlighter('name')],
                 },
                 {
                     property: 'position',
                     header: 'Position',
+                    cell: [highlighter('position')]
                 },
                 {
                     property: 'country',
@@ -109,13 +113,13 @@ module.exports = React.createClass({
                     search: formatters.country,
                     cell: [editable({
                         editor: editors.dropdown(countries),
-                    }), formatters.country, highlight]
+                    }), formatters.country, highlighter('country')]
                 },
                 {
                     property: 'salary',
                     header: 'Salary',
                     search: formatters.salary,
-                    cell: formatters.salary,
+                    cell: [formatters.salary, highlighter('salary')],
                 },
                 {
                     property: 'active',
@@ -242,7 +246,7 @@ module.exports = React.createClass({
                         Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
                     </div>
                     <div className='search-container'>
-                        Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
+                        Search <Search ref='search' columns={columns} data={this.state.data} onChange={this.onSearch} />
                     </div>
                 </div>
                 <Table className='pure-table pure-table-striped' header={header} columns={columns} data={paginated.data}>
