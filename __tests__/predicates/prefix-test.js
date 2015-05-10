@@ -16,6 +16,7 @@ describe('prefix', function() {
             length: queryTerm.length
         }];
 
+        expect(predicate.evaluate(text)).toEqual(true);
         expect(predicate.matches(text)).toEqual(expected);
     });
 
@@ -25,6 +26,7 @@ describe('prefix', function() {
 
         var predicate = prefix(queryTerm);
 
+        expect(predicate.evaluate(text)).toEqual(false);
         expect(predicate.matches(text)).toEqual([]);
     });
 });

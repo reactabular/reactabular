@@ -18,6 +18,7 @@ describe('infix', function() {
             }
         ];
 
+        expect(predicate.evaluate(text)).toEqual(true);
         expect(predicate.matches(text)).toEqual(expected);
     });
 
@@ -37,6 +38,7 @@ describe('infix', function() {
             }
         ];
 
+        expect(predicate.evaluate(text)).toEqual(true);
         expect(predicate.matches(text)).toEqual(expected);
     });
 
@@ -46,6 +48,7 @@ describe('infix', function() {
 
         var predicate = infix(queryTerm);
 
+        expect(predicate.evaluate(text)).toEqual(false);
         expect(predicate.matches(text)).toEqual([]);
     });
 });

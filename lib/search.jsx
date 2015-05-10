@@ -119,7 +119,7 @@ module.exports = React.createClass({
 
             var predicate = this.props.options.strategy(this.props.options.transform(query));
 
-            return predicate.matches(this.props.options.transform(formattedValue)).length !== 0;
+            return predicate.evaluate(this.props.options.transform(formattedValue));
         }
     },
     matches(column, value) {
