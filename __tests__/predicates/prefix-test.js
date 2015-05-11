@@ -11,8 +11,13 @@ describe('prefix', function() {
         var text = 'layout';
 
         var predicate = prefix(queryTerm);
+        var expected = [{
+            startIndex: 0,
+            length: queryTerm.length
+        }];
 
-        expect(predicate.matches(text)).toEqual(true);
+        expect(predicate.evaluate(text)).toEqual(true);
+        expect(predicate.matches(text)).toEqual(expected);
     });
 
     it('does not match', function() {
@@ -21,6 +26,7 @@ describe('prefix', function() {
 
         var predicate = prefix(queryTerm);
 
-        expect(predicate.matches(text)).toEqual(false);
+        expect(predicate.evaluate(text)).toEqual(false);
+        expect(predicate.matches(text)).toEqual([]);
     });
 });

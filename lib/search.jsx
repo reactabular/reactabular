@@ -119,39 +119,18 @@ module.exports = React.createClass({
 
             var predicate = this.props.options.strategy(this.props.options.transform(query));
 
-            return predicate.matches(this.props.options.transform(formattedValue));
+            return predicate.evaluate(this.props.options.transform(formattedValue));
         }
+    },
+    matches(column, value) {
+        if (this.state.column !== 'all' && this.state.column !== column) {
+            return [];
+        }
+
+        var predicate = this.props.options.strategy(this.props.options.transform(this.state.query));
+        return predicate.matches(this.props.options.transform(value));
     }
 });
-
-// TODO: Expose whether or not the highlighter is case-sensitive ?
-// This is a case-insensitive highlighter which highlights any occurrence of a given value
-module.exports.highlight = function(getQuery) {
-    return function(value) {
-        var lowerCaseValue = value.toLowerCase();
-        var query = getQuery().toLowerCase();
-        var startIndex = lowerCaseValue.indexOf(query);
-        if (startIndex === -1) {
-            return value;
-        }
-
-        var children = [];
-        var splitString = lowerCaseValue.split(query);
-        var currentPosition = 0;
-        for (var x = 0; x < splitString.length; x++) {
-            var nonMatchedFromOriginal = value.slice(currentPosition, currentPosition + splitString[x].length);
-            children.push(React.createElement('span', null, nonMatchedFromOriginal));
-            currentPosition = currentPosition + nonMatchedFromOriginal.length;
-
-            var matchedFromOriginal = value.slice(currentPosition, currentPosition + query.length);
-            children.push(React.createElement('span', {className: 'highlight'}, matchedFromOriginal));
-            currentPosition = currentPosition + matchedFromOriginal.length;
-        }
-        children.pop();
-        var element = React.createElement('span', {className: 'search-result'}, children);
-        return element;
-    };
-};
 
 function id(a) {
     return a;

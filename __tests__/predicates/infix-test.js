@@ -11,8 +11,35 @@ describe('infix', function() {
         var text = 'enlighten';
 
         var predicate = infix(queryTerm);
+        var expected = [
+            {
+                startIndex: 2,
+                length: queryTerm.length
+            }
+        ];
 
-        expect(predicate.matches(text)).toEqual(true);
+        expect(predicate.evaluate(text)).toEqual(true);
+        expect(predicate.matches(text)).toEqual(expected);
+    });
+
+    it('matches multiple correctly', function() {
+        var queryTerm = 'oub';
+        var text = 'double trouble';
+
+        var predicate = infix(queryTerm);
+        var expected = [
+            {
+                startIndex: 1,
+                length: queryTerm.length
+            },
+            {
+                startIndex: 9,
+                length: queryTerm.length
+            }
+        ];
+
+        expect(predicate.evaluate(text)).toEqual(true);
+        expect(predicate.matches(text)).toEqual(expected);
     });
 
     it('does not match', function() {
@@ -21,6 +48,7 @@ describe('infix', function() {
 
         var predicate = infix(queryTerm);
 
-        expect(predicate.matches(text)).toEqual(false);
+        expect(predicate.evaluate(text)).toEqual(false);
+        expect(predicate.matches(text)).toEqual([]);
     });
 });
