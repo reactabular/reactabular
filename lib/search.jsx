@@ -50,44 +50,63 @@ module.exports = React.createClass({
 
         return (
             <span className='search'>
-                <select ref='column' onChange={this.change} value={this.state.column}>{options.map((option) =>
+                <select onChange={this.onColumnChange} value={this.state.column}>{options.map((option) =>
                     <option key={option.value + '-option'} value={option.value}>{option.name}</option>
                 )
                 }</select>
-                <input ref='query' onChange={this.change} value={this.state.query}></input>
+                <input onChange={this.onQueryChange} value={this.state.query}></input>
             </span>
         );
     },
 
-    change() {
-        // TODO: Determine if there's a better way to get the values instead of referencing the DOM nodes directly
-        var column = this.refs.column.getDOMNode().value;
-        var query = this.refs.query.getDOMNode().value;
-
+    onColumnChange(event) {
+        var column = event.target.value;
+        var query = this.state.query;
         this.setState({
-            column: column,
+            column: column
+        });
+
+        (this.props.onChange || noop)(
+            {
+                column: column,
+                data: this.filterData(column, query),
+                query: query
+            }
+        );
+    },
+
+    onQueryChange(event) {
+        var column = this.state.column;
+        var query = event.target.value;
+        this.setState({
             query: query
         });
 
         (this.props.onChange || noop)(
             {
                 column: column,
-                data: this.filterData(),
+                data: this.filterData(column, query),
                 query: query
             }
         );
     },
 
     componentDidMount() {
-        this.change();
+        var column = this.state.column;
+        var query = this.state.query;
+
+        (this.props.onChange || noop)(
+            {
+                column: column,
+                data: this.filterData(column, query),
+                query: query
+            }
+        );
     },
 
-    filterData() {
+    filterData(column, query) {
         var columns = this.props.columns;
         var data = this.props.data;
-
-        var query = this.refs.query.getDOMNode().value;
-        var column = this.refs.column.getDOMNode().value;
 
         if(!query) {
             return data;
