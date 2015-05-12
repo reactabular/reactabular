@@ -1,10 +1,12 @@
 'use strict';
-var merge = require('lodash/object/merge');
-var transform = require('lodash/object/transform');
-var reduce = require('lodash/collection/reduce');
-var isFunction = require('lodash/lang/isFunction');
-var isPlainObject = require('lodash/lang/isPlainObject');
-var isUndefined = require('lodash/lang/isUndefined');
+var _ = require('lodash');
+
+var merge = _.merge;
+var transform = _.transform;
+var reduce = _.reduce;
+var isFunction = _.isFunction;
+var isPlainObject = _.isPlainObject;
+var isUndefined = _.isUndefined;
 
 var React = require('react/addons');
 var cx = require('classnames');

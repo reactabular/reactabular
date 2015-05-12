@@ -1,5 +1,5 @@
 'use strict';
-var isString = require('lodash/lang/isString');
+var isString = require('lodash').isString;
 var React = require('react/addons');
 
 var formatters = require('./formatters');
