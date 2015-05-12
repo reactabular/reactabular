@@ -6,7 +6,7 @@
     "start": "TARGET=dev node server.js",
     "test": "jest && npm run lint",
     "gh-pages": "TARGET=gh-pages webpack --config ./config",
-    "deploy-gh-pages": "TARGET=gh-pages node ./config/deploy-gh-pages.js",
+    "deploy-gh-pages": "TARGET=gh-pages node ./lib/deploy-gh-pages.js",
     "dist": "TARGET=dist webpack --config ./config && TARGET=dist-min webpack --config ./config",
     "lint": "eslint . --ext .js --ext .jsx",
     "version": "npm run test && npm run dist && npm version \"$@\" && npm run gh-pages && npm run deploy-gh-pages"
@@ -67,7 +67,7 @@
     "react": ">=0.11.2 <1.0.0"
   },
   "jest": {
-    "scriptPreprocessor": "./config/preprocessor.js",
+    "scriptPreprocessor": "./lib/preprocessor.js",
     "unmockedModulePathPatterns": [
       "./node_modules/annotate",
       "./node_modules/lodash",
