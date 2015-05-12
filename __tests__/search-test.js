@@ -1,15 +1,15 @@
 'use strict';
 
-jest.dontMock('../lib/search.jsx');
-jest.dontMock('../lib/formatters/index.js');
-jest.dontMock('../lib/formatters/lowercase.js');
-jest.dontMock('../lib/predicates/index.js');
-jest.dontMock('../lib/predicates/infix.js');
+jest.dontMock('../src/search.jsx');
+jest.dontMock('../src/formatters/index.js');
+jest.dontMock('../src/formatters/lowercase.js');
+jest.dontMock('../src/predicates/index.js');
+jest.dontMock('../src/predicates/infix.js');
 
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 
-var Search = require('../lib/search.jsx');
+var Search = require('../src/search.jsx');
 
 
 describe('Search', function() {

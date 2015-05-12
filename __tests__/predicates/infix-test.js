@@ -1,8 +1,8 @@
 'use strict';
 
-jest.dontMock('../../lib/predicates/infix.js');
+jest.dontMock('../../src/predicates/infix.js');
 
-var infix = require('../../lib/predicates/infix.js');
+var infix = require('../../src/predicates/infix.js');
 
 
 describe('infix', function() {

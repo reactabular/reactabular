@@ -105,7 +105,7 @@ if (TARGET === 'gh-pages') {
 
 var commonDist = extend(common, {
     devtool: 'source-map',
-    entry: './lib/index',
+    entry: './src/index',
     externals: {
         react: 'react',
         'react/addons': 'react/addons'

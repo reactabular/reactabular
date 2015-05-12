@@ -2,8 +2,8 @@
 
 var React = require('react');
 
-var Table = require('../lib/table.jsx');
-var editors = require('../lib/editors');
+var Table = require('../src/table.jsx');
+var editors = require('../src/editors');
 
 var countries = require('./countries');
 

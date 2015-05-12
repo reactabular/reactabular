@@ -1,8 +1,8 @@
 'use strict';
 
-jest.dontMock('../../lib/predicates/prefix.js');
+jest.dontMock('../../src/predicates/prefix.js');
 
-var prefix = require('../../lib/predicates/prefix.js');
+var prefix = require('../../src/predicates/prefix.js');
 
 
 describe('prefix', function() {

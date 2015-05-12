@@ -1,8 +1,8 @@
 'use strict';
 
-jest.dontMock('../../lib/cells/identity.js');
+jest.dontMock('../../src/cells/identity.js');
 
-var identity = require('../../lib/cells/identity.js');
+var identity = require('../../src/cells/identity.js');
 
 
 describe('identity', function(){

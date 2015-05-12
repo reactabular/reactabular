@@ -10,18 +10,18 @@ var Paginator = require('react-pagify');
 var titleCase = require('title-case');
 var findIndex = require('lodash/array/findIndex');
 
-var Table = require('../lib/table.jsx');
-var Search = require('../lib/search.jsx');
-var editors = require('../lib/editors');
-var sortColumn = require('../lib/sort_column');
-var cells = require('../lib/cells');
+var Table = require('../src/table.jsx');
+var Search = require('../src/search.jsx');
+var editors = require('../src/editors');
+var sortColumn = require('../src/sort_column');
+var cells = require('../src/cells');
 
 var FieldWrapper = require('./field_wrapper.jsx');
 var SectionWrapper = require('./section_wrapper.jsx');
 var countries = require('./countries');
 var generateData = require('./generate_data');
 
-var highlight = require('../lib/formatters/highlight');
+var highlight = require('../src/formatters/highlight');
 
 
 module.exports = React.createClass({

@@ -1,8 +1,8 @@
 'use strict';
 
-jest.dontMock('../../lib/formatters/identity.js');
+jest.dontMock('../../src/formatters/identity.js');
 
-var identity = require('../../lib/formatters/identity.js');
+var identity = require('../../src/formatters/identity.js');
 
 
 describe('identity', function(){
