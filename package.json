@@ -3,11 +3,11 @@
   "version": "0.5.2",
   "description": "Spectacular tables for React.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "TARGET=dev node server.js",
     "test": "jest && npm run lint",
-    "gh-pages": "webpack --config ./config/webpack.gh-pages.js",
-    "deploy-gh-pages": "node ./config/deploy-gh-pages.js",
-    "dist": "webpack --config ./config/webpack.dist.js && webpack --config ./config/webpack.dist.min.js",
+    "gh-pages": "TARGET=gh-pages webpack --config ./config",
+    "deploy-gh-pages": "TARGET=gh-pages node ./config/deploy-gh-pages.js",
+    "dist": "TARGET=dist webpack --config ./config && TARGET=dist-min webpack --config ./config",
     "lint": "eslint . --ext .js --ext .jsx",
     "version": "npm run test && npm run dist && npm version \"$@\" && npm run gh-pages && npm run deploy-gh-pages"
   },
