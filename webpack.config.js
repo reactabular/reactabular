@@ -3,7 +3,7 @@ var extend = require('xtend');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var pkg = require('../package.json');
+var pkg = require('./package.json');
 
 var TARGET = process.env.TARGET;
 

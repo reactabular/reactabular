@@ -5,9 +5,9 @@
   "scripts": {
     "start": "TARGET=dev node server.js",
     "test": "jest && npm run lint",
-    "gh-pages": "TARGET=gh-pages webpack --config ./config",
+    "gh-pages": "TARGET=gh-pages webpack",
     "deploy-gh-pages": "TARGET=gh-pages node ./lib/deploy-gh-pages.js",
-    "dist": "TARGET=dist webpack --config ./config && TARGET=dist-min webpack --config ./config",
+    "dist": "TARGET=dist webpack && TARGET=dist-min webpack",
     "lint": "eslint . --ext .js --ext .jsx",
     "version": "npm run test && npm run dist && npm version \"$@\" && npm run gh-pages && npm run deploy-gh-pages"
   },
