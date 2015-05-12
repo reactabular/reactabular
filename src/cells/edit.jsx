@@ -17,14 +17,14 @@ module.exports = function(editProperty, onValue, o) {
             return {
                 value: React.createElement(editor, {
                     value: value,
-                    onValue: (value) => {
-                        var o = {};
+                    onValue: (v) => {
+                        var state = {};
 
-                        o[editProperty] = null;
+                        state[editProperty] = null;
 
-                        context.setState(o);
+                        context.setState(state);
 
-                        onValue(value, data, rowIndex, property);
+                        onValue(v, data, rowIndex, property);
                     }
                 }),
             };
@@ -35,11 +35,11 @@ module.exports = function(editProperty, onValue, o) {
                 value: value,
                 props: {
                     onClick: () => {
-                        var o = {};
+                        var state = {};
 
-                        o[editProperty] = idx;
+                        state[editProperty] = idx;
 
-                        context.setState(o);
+                        context.setState(state);
                     },
                 }
             };

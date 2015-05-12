@@ -39,8 +39,8 @@ module.exports = React.createClass({
                     header: 'Editor',
                     cell: (value) => React.createElement(value, {
                         value: '',
-                        onValue: (value) =>
-                            console.log(value)
+                        onValue: (v) =>
+                            console.log(v)
                     }),
                 },
                 {

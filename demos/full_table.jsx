@@ -143,14 +143,14 @@ module.exports = React.createClass({
                                 properties: properties,
                             };
 
-                            var onSubmit = (data, value) => {
+                            var onSubmit = (editData, editValue) => {
                                 this.refs.modal.hide();
 
-                                if(value === 'Cancel') {
+                                if(editValue === 'Cancel') {
                                     return;
                                 }
 
-                                this.state.data[idx] = data;
+                                this.state.data[idx] = editData;
 
                                 this.setState({
                                     data: this.state.data

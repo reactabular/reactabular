@@ -4,10 +4,10 @@
 module.exports = (columns, column, data, done, sorter) => {
     sorter = sorter || defaultSorter;
 
-    columns.map((column) => {
-        column.classes = {};
+    columns.map((col) => {
+        col.classes = {};
 
-        return column;
+        return col;
     });
 
     column.sort = column.sort? -column.sort: 1;

@@ -13,6 +13,7 @@ module.exports = React.createClass({
         description: React.PropTypes.string,
         key: React.PropTypes.string,
         title: React.PropTypes.string,
+        children: React.PropTypes.object,
     },
 
     render() {
