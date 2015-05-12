@@ -70,12 +70,13 @@ if (TARGET === 'dev') {
 
 if (TARGET === 'gh-pages') {
     module.exports = extend(common, {
-        entry: [
-            './demos/index'
-        ],
+        entry: {
+            app: './demos/index',
+            vendors: ['react/addons', 'lodash'],
+        },
         output: {
             path: './gh-pages',
-            filename: 'bundle.js',
+            filename: 'bundle.[chunkhash].js',
         },
         plugins: [
             new webpack.DefinePlugin({
@@ -90,6 +91,7 @@ if (TARGET === 'gh-pages') {
                     warnings: false
                 },
             }),
+            new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.[chunkhash].js'),
             new HtmlWebpackPlugin({
                 title: pkg.name + ' - ' + pkg.description
             }),
