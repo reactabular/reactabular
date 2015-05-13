@@ -421,6 +421,7 @@ Your changes will appear without reloading the browser like in [this video](http
 ## Contributors
 
 * [Brian Chang](https://github.com/eviltoylet) - Fixed README formatting examples. Improved `column.cell` architecture. Helped to improve and design `cell` API.
+* [Antoine Verger](https://github.com/antoineverger) - Allow editor text inputs to be erased correctly
 
 ## Acknowledgments
 
