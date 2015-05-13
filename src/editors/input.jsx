@@ -14,14 +14,14 @@ module.exports = () => {
 
         getInitialState() {
             return {
-                value: '',
+                value: this.props.value,
             };
         },
 
         render() {
             return (
                 <input
-                    value={this.state.value || this.props.value}
+                    value={this.state.value }
                     onChange={this.onChange}
                     onKeyUp={this.keyUp}
                     onBlur={this.done}>
