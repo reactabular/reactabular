@@ -12,13 +12,13 @@ module.exports = function(getHighlights) {
             currentPosition = highlights[x].startIndex + highlights[x].length;
 
             if (nonMatchingPrefix.length > 0) {
-                children.push(React.createElement('span', null, nonMatchingPrefix));
+                children.push(<span key={x + '-nonmatch'}>{nonMatchingPrefix}</span>);
             }
-            children.push(React.createElement('span', {className: 'highlight'}, matchingText));
+            children.push(<span className='highlight' key={x + '-match'}>{matchingText}</span>);
         }
-        children.push(React.createElement('span', null, value.slice(currentPosition)));
+        children.push(<span key={x + '-remainder'}>{value.slice(currentPosition)}</span>);
 
-        var element = React.createElement('span', {className: 'search-result'}, children);
+        var element = <span className='search-result'>{children}</span>;
         return element;
     };
 };
