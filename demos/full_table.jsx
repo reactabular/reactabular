@@ -237,7 +237,12 @@ module.exports = React.createClass({
 
         var pagination = this.state.pagination;
 
-        var paginated = Paginator.paginate(this.state.search.data, pagination);
+        var searchData = this.state.search.data;
+        if (this.refs.search) {
+            searchData = this.refs.search.filterData(this.state.search.column, this.state.search.query);
+        }
+
+        var paginated = Paginator.paginate(searchData, pagination);
 
         return (
             <div>
