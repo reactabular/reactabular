@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
     render() {
         var errors = (this.props.errors || []).join('\n');
-        var classes = [].concat(errors? 'error' : [],
+        var classes = [].concat(errors ? 'error' : [],
             'form-element',
             this.props.classes || []);
 

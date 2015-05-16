@@ -10,7 +10,7 @@ module.exports = (columns, column, data, done, sorter) => {
         return col;
     });
 
-    column.sort = column.sort? -column.sort: 1;
+    column.sort = column.sort ? -column.sort : 1;
     column.classes = {
         'sort-asc': column.sort === 1,
         'sort-desc': column.sort === -1

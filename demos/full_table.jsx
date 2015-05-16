@@ -337,5 +337,5 @@ function attachIds(arr) {
 }
 
 function find(arr, key, value) {
-    return arr.reduce((a, b) => a[key] === value? a: b[key] === value && b);
+    return arr.reduce((a, b) => a[key] === value ? a : b[key] === value && b);
 }

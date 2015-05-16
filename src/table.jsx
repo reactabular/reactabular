@@ -51,7 +51,7 @@ module.exports = React.createClass({
                     <tr>
                         {columns.map((column, i) => {
                             var columnHeader = transform(header, (result, v, k) => {
-                                result[k] = k.indexOf('on') === 0? v.bind(null, column): v;
+                                result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
                             });
 
                             return (
@@ -72,7 +72,7 @@ module.exports = React.createClass({
                             var cell = column.cell || [formatters.identity];
                             var content;
 
-                            cell = isFunction(cell)? [cell]: cell;
+                            cell = isFunction(cell) ? [cell] : cell;
 
                             content = reduce([value].concat(cell), (v, fn) => {
                                 if(v && React.isValidElement(v.value)) {
