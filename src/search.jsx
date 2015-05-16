@@ -66,13 +66,7 @@ module.exports = React.createClass({
             column: column
         });
 
-        (this.props.onChange || noop)(
-            {
-                column: column,
-                data: this.filterData(column, query),
-                query: query
-            }
-        );
+        this.callOnChange(column, query);
     },
 
     onQueryChange(event) {
@@ -82,19 +76,14 @@ module.exports = React.createClass({
             query: query
         });
 
-        (this.props.onChange || noop)(
-            {
-                column: column,
-                data: this.filterData(column, query),
-                query: query
-            }
-        );
+        this.callOnChange(column, query);
     },
 
     componentDidMount() {
-        var column = this.state.column;
-        var query = this.state.query;
+        this.callOnChange(this.state.column, this.state.query);
+    },
 
+    callOnChange(column, query) {
         (this.props.onChange || noop)(
             {
                 column: column,
