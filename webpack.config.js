@@ -1,4 +1,6 @@
 'use strict';
+var path = require('path');
+
 var extend = require('xtend');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -6,6 +8,19 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var pkg = require('./package.json');
 
 var TARGET = process.env.TARGET;
+var ROOT_PATH = path.resolve(__dirname);
+var DEMO_DIR = 'demos';
+var config = {
+    paths: {
+        dist: path.join(ROOT_PATH, 'dist'),
+        src: path.join(ROOT_PATH, 'src'),
+        demo: path.join(ROOT_PATH, DEMO_DIR),
+        demoIndex: path.join(ROOT_PATH, DEMO_DIR, '/index'),
+    },
+    filename: 'boilerplate',
+    library: 'Boilerplate',
+    demoDirectory: DEMO_DIR,
+};
 
 var common = {
     exports: {
@@ -30,10 +45,12 @@ var commonLoaders = [
     {
         test: /\.png$/,
         loader: 'url-loader?limit=100000&mimetype=image/png',
+        include: config.paths.demo,
     },
     {
         test: /\.jpg$/,
         loader: 'file-loader',
+        include: config.paths.demo,
     },
 ];
 
@@ -62,7 +79,8 @@ if (TARGET === 'dev') {
         module: {
             loaders: commonLoaders.concat([{
                 test: /\.jsx?$/,
-                loaders: ['react-hot', 'jsx-loader?harmony'],
+                loaders: ['react-hot', 'babel-loader'],
+                include: [config.paths.demo, config.paths.src],
             }])
         }
     });
@@ -99,7 +117,8 @@ if (TARGET === 'gh-pages') {
         module: {
             loaders: commonLoaders.concat([{
                 test: /\.jsx?$/,
-                loaders: ['jsx-loader?harmony'],
+                loaders: ['babel-loader'],
+                include: [config.paths.demo, config.paths.src],
             }])
         }
     });
@@ -115,8 +134,8 @@ var commonDist = extend(common, {
     module: {
         loaders: commonLoaders.concat([{
             test: /\.jsx?$/,
-            loaders: ['jsx-loader?harmony'],
-            exclude: /node_modules/,
+            loaders: ['babel-loader'],
+            include: config.paths.src,
         }])
     }
 });

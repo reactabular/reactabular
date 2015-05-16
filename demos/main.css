@@ -20,7 +20,7 @@ header {
     color: #333;
     border: 0.1em solid #bbb;
 
-    background-image: url(../images/bgnoise_lg.png);
+    background-image: url(./images/bgnoise_lg.png);
 }
 
 header h1 {

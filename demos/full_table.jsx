@@ -3,7 +3,7 @@
 var React = require('react');
 var Form = require('plexus-form');
 var validate = require('plexus-validate');
-var SkyLight = require('react-skylight');
+var SkyLight = require('jsx!react-skylight/src/skylight.jsx'); // XXX: no proper build yet
 var generators = require('annogenerate');
 var math = require('annomath');
 var Paginator = require('react-pagify');
