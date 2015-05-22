@@ -131,7 +131,7 @@ Then at your `render` you could do:
 <div className='search-container'>
     Search <Search columns={columns} data={this.state.data} onChange={this.setState.bind(this)}></Search>
 </div>
-<Table data={this.state.search.data} />
+<Table columns={columns} data={this.state.search.data} />
 ```
 
 `onChange` will update `search` data. You can replace `onChange` handler with something more custom and skip filtering like this altogether if you are dealing with a backend. Note that changes to the `data` property currently don't force the `onChange` handler to fire. This is to avoid getting into an infinite loop. If the input data can change, consider manually invoking its `filterData(column, query)` method.
