@@ -89,11 +89,11 @@ module.exports = React.createClass({
                     sortColumn(
                         this.state.columns,
                         column,
-                        this.state.data,
                         this.setState.bind(this)
                     );
                 },
             },
+            sortingColumn: null, // reference to sorting column
             columns: [
                 {
                     property: 'name',
@@ -242,7 +242,10 @@ module.exports = React.createClass({
             searchData = this.refs.search.filterData(this.state.search.column, this.state.search.query);
         }
 
-        var paginated = Paginator.paginate(searchData, pagination);
+        var sortingColumn = this.state.sortingColumn;
+        var columnData = sortColumn.sort(searchData, sortingColumn);
+
+        var paginated = Paginator.paginate(columnData, pagination);
 
         return (
             <div>

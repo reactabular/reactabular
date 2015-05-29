@@ -130,6 +130,7 @@ module.exports = React.createClass({
             return predicate.evaluate(this.props.options.transform(formattedValue));
         }
     },
+
     matches(column, value) {
         if (this.state.column !== 'all' && this.state.column !== column) {
             return [];

@@ -1,9 +1,7 @@
 'use strict';
 
 
-module.exports = (columns, column, data, done, sorter) => {
-    sorter = sorter || defaultSorter;
-
+module.exports = (columns, column, done) => {
     columns.map((col) => {
         col.classes = {};
 
@@ -16,18 +14,20 @@ module.exports = (columns, column, data, done, sorter) => {
         'sort-desc': column.sort === -1
     };
 
-    sorter(data, column);
-
     done({
+        sortingColumn: column,
         columns: columns,
-        data: data
     });
 };
 
-function defaultSorter(data, column) {
+module.exports.sort = (data, column) => {
+    if(!column) {
+        return data;
+    }
+
     var property = column.property;
 
-    data.sort((a, b) => {
+    return data.concat().sort((a, b) => {
         var p1 = a[property] || '';
         var p2 = b[property] || '';
 
@@ -37,5 +37,4 @@ function defaultSorter(data, column) {
 
         return (p1 - p2) * column.sort;
     });
-}
-module.exports.defaultSorter = defaultSorter;
+};
