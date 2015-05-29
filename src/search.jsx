@@ -13,17 +13,12 @@ module.exports = React.createClass({
         columns: React.PropTypes.array,
         data: React.PropTypes.array,
         onChange: React.PropTypes.func,
-        options: React.PropTypes.object
     },
 
     getDefaultProps() {
         return {
             columns: [],
             data: [],
-            options: {
-                strategy: predicates.infix,
-                transform: formatters.lowercase
-            }
         };
     },
 
@@ -87,59 +82,66 @@ module.exports = React.createClass({
         (this.props.onChange || noop)(
             {
                 column: column,
-                data: this.filterData(column, query),
                 query: query
             }
         );
     },
-
-    filterData(column, query) {
-        var columns = this.props.columns;
-        var data = this.props.data;
-
-        if(!query) {
-            return data;
-        }
-
-        if(column !== 'all') {
-            columns = columns.filter((col) =>
-                col.property === column
-            );
-        }
-
-        return data.filter((row) =>
-            columns.filter(isColumnVisible.bind(this, row)).length > 0
-        );
-
-        function isColumnVisible(row, col) {
-            var property = col.property;
-            var value = row[property];
-            var formatter = col.search || formatters.identity;
-            var formattedValue = formatter(value);
-
-            if (!formattedValue) {
-                return false;
-            }
-
-            if(!isString(formattedValue)) {
-                formattedValue = formattedValue.toString();
-            }
-
-            var predicate = this.props.options.strategy(this.props.options.transform(query));
-
-            return predicate.evaluate(this.props.options.transform(formattedValue));
-        }
-    },
-
-    matches(column, value) {
-        if (this.state.column !== 'all' && this.state.column !== column) {
-            return [];
-        }
-
-        var predicate = this.props.options.strategy(this.props.options.transform(this.state.query));
-        return predicate.matches(this.props.options.transform(value));
-    }
 });
+
+module.exports.search = (data, columns, column, query, options) => {
+    if(!query) {
+        return data;
+    }
+
+    options = options || {
+        strategy: predicates.infix,
+        transform: formatters.lowercase
+    };
+
+    if(column !== 'all') {
+        columns = columns.filter((col) =>
+            col.property === column
+        );
+    }
+
+    return data.filter((row) =>
+        columns.filter(isColumnVisible.bind(this, row)).length > 0
+    );
+
+    function isColumnVisible(row, col) {
+        var property = col.property;
+        var value = row[property];
+        var formatter = col.search || formatters.identity;
+        var formattedValue = formatter(value);
+
+        if (!formattedValue) {
+            return false;
+        }
+
+        if (!isString(formattedValue)) {
+            formattedValue = formattedValue.toString();
+        }
+
+        var predicate = options.strategy(options.transform(query));
+
+        return predicate.evaluate(options.transform(formattedValue));
+    }
+};
+
+module.exports.matches = (column, value, query, options) => {
+    if(!query) {
+        return {};
+    }
+
+    options = options || {
+        strategy: predicates.infix,
+        transform: formatters.lowercase
+    };
+
+    var predicate = options.strategy(options.transform(query));
+
+    return predicate.matches(options.transform(value));
+};
 
 function id(a) {
     return a;

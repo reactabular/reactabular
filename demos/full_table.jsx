@@ -68,7 +68,9 @@ module.exports = React.createClass({
             salary: (salary) => parseFloat(salary).toFixed(2),
         };
 
-        var highlighter = (column) => highlight((value) => this.refs.search.matches(column, value));
+        var highlighter = (column) => highlight((value) => {
+            return Search.matches(column, value, this.state.search.query);
+        });
 
         return {
             editedCell: null,
@@ -76,7 +78,6 @@ module.exports = React.createClass({
             formatters: formatters,
             search: {
                 column: '',
-                data: [],
                 query: ''
             },
             header: {
@@ -237,15 +238,20 @@ module.exports = React.createClass({
 
         var pagination = this.state.pagination;
 
-        var searchData = this.state.search.data;
-        if (this.refs.search) {
-            searchData = this.refs.search.filterData(this.state.search.column, this.state.search.query);
+        var data = this.state.data;
+
+        if (this.state.search.query) {
+            data = Search.search(
+                data,
+                columns,
+                this.state.search.column,
+                this.state.search.query
+            );
         }
 
-        var sortingColumn = this.state.sortingColumn;
-        var columnData = sortColumn.sort(searchData, sortingColumn);
+        data = sortColumn.sort(data, this.state.sortingColumn);
 
-        var paginated = Paginator.paginate(columnData, pagination);
+        var paginated = Paginator.paginate(data, pagination);
 
         return (
             <div>
@@ -254,7 +260,7 @@ module.exports = React.createClass({
                         Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
                     </div>
                     <div className='search-container'>
-                        Search <Search ref='search' columns={columns} data={this.state.data} onChange={this.onSearch} />
+                        Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
                     </div>
                 </div>
                 <Table className='pure-table pure-table-striped' header={header} columns={columns} data={paginated.data}>
