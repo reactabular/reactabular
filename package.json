@@ -9,7 +9,9 @@
     "deploy-gh-pages": "TARGET=gh-pages node ./lib/deploy-gh-pages.js",
     "dist": "TARGET=dist webpack && TARGET=dist-min webpack",
     "lint": "eslint . --ext .js --ext .jsx",
-    "version": "npm run test && npm run dist && npm version \"$@\" && npm run gh-pages && npm run deploy-gh-pages"
+    "preversion": "npm run test && npm run dist",
+    "prepublish": "babel ./lib --out-dir ./dist-modules",
+    "postpublish": "npm run gh-pages && npm run deploy-gh-pages"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,7 @@
   ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
-  "main": "dist/reactabular.js",
+  "main": "dist-modules/index.js",
   "bugs": {
     "url": "https://github.com/bebraw/reactabular/issues"
   },
