@@ -114,27 +114,56 @@ var columns: [
 getInitialState() {
     return {
         ...
-        // Search `onChange` will emit a structure like this
         search: {
             column: '',
-            data: [],
             query: ''
         },
         ...
     };
 }
+
+...
+
+onSearch(search) {
+    this.setState({
+        search: search
+    });
+},
 ```
 
 Then at your `render` you could do:
 
 ```jsx
-<div className='search-container'>
-    Search <Search columns={columns} data={this.state.data} onChange={this.setState.bind(this)}></Search>
-</div>
-<Table columns={columns} data={this.state.search.data} />
+render() {
+    var data = this.state.data;
+
+    if (this.state.search.query) {
+        // apply search to data
+        // alternatively you could hit backend `onChange`
+        // or push this part elsewhere depending on your needs
+        data = Search.search(
+            data,
+            columns,
+            this.state.search.column,
+            this.state.search.query
+        );
+    }
+
+    return (
+        <div>
+            <div className='search-container'>
+                Search <Search columns={columns} data={this.state.data} onChange={this.onSearch}></Search>
+            </div>
+            <Table columns={columns} data={this.state.search.data} />
+        ...
+        </div>
+    );
+}
 ```
 
-`onChange` will update `search` data. You can replace `onChange` handler with something more custom and skip filtering like this altogether if you are dealing with a backend. Note that changes to the `data` property currently don't force the `onChange` handler to fire. This is to avoid getting into an infinite loop. If the input data can change, consider manually invoking its `filterData(column, query)` method.
+`onChange` will update `search` data. This data is then used for filtering table data before showing it. More functionality, such as sorting and pagination, may be added to this pipe as you will see in the subsequent sections.
+
+You can deal with filtering in an entirely different manner. The method shown here works if you need to filter local data. You can easily replace the solution with something Flux based for instance. Just operate based on that `onChange` hook.
 
 ## Highlighting Search Results
 
@@ -142,7 +171,9 @@ We can highlight individual search results by using a premade `highlight` helper
 
 ```javascript
 var highlight = require('reactabular/formatters/highlight');
-var highlighter = (column) => highlight((value) => this.refs.search.matches(column, value));
+var highlighter = (column) => highlight((value) => {
+    return Search.matches(column, value, this.state.search.query);
+});
 
 ...
 var columns: [
@@ -216,20 +247,35 @@ onPerPage(e) {
 You could push some of that into a mixin or a higher order component to decrease the amount of code in your components.
 
 ```jsx
-<div className='per-page-container'>
-    Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
-</div>
+render() {
+    var data = this.state.data;
+    var pagination = this.state.pagination;
 
-...
+    if (this.state.search.query) {
+        ... // search logic
+    }
 
-<div className='pagination'>
-    <Paginator
-        page={paginated.page}
-        pages={paginated.amount}
-        beginPages={3}
-        endPages={3}
-        onSelect={this.onSelect}></Paginator>
-</div>
+    var paginated = Paginator.paginate(data, pagination);
+
+    return (
+        <div>
+            <div className='per-page-container'>
+                Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
+            </div>
+
+            ...
+
+            <div className='pagination'>
+                <Paginator
+                    page={paginated.page}
+                    pages={paginated.amount}
+                    beginPages={3}
+                    endPages={3}
+                    onSelect={this.onSelect}></Paginator>
+            </div>
+        </div>
+    );
+}
 ```
 
 In addition we need to change `Table` `data` field to point at `paginated.data` like this:
@@ -251,22 +297,43 @@ var sortColumn = require('reactabular').sortColumn;
 
 ...
 
-var header = {
+// state
+header: {
     onClick: (column) => {
         sortColumn(
             this.state.columns,
             column,
-            this.state.data,
             this.setState.bind(this)
         );
     },
-};
+}
 ```
 
 In addition we need to provide `header` to our `Table` like this:
 
 ```jsx
-<Table columns={columns} data={paginated.data} header={header} />
+render() {
+    var header = this.state.header;
+    var data = this.state.data;
+    var pagination = this.state.pagination;
+
+    if (this.state.search.query) {
+        ... // search logic
+    }
+
+    // sorting data here
+    data = sortColumn.sort(data, this.state.sortingColumn);
+
+    var paginated = Paginator.paginate(data, pagination);
+
+    return (
+        <div>
+            ...
+            <Table columns={columns} data={paginated.data} header={header} />
+            ...,
+        </div>
+    );
+}
 ```
 
 After that it should be possible to sort table content by hitting various column names at header. `sortColumn` sets either `sort-asc` or `sort-desc` class for currently active header column. This allows some degree of styling.
