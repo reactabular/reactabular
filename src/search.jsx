@@ -19,6 +19,7 @@ module.exports = React.createClass({
         return {
             columns: [],
             data: [],
+            onChange: noop,
         };
     },
 
@@ -61,7 +62,10 @@ module.exports = React.createClass({
             column: column
         });
 
-        this.callOnChange(column, query);
+        this.props.onChange({
+            column: column,
+            query: query,
+        });
     },
 
     onQueryChange(event) {
@@ -71,20 +75,17 @@ module.exports = React.createClass({
             query: query
         });
 
-        this.callOnChange(column, query);
+        this.props.onChange({
+            column: column,
+            query: query,
+        });
     },
 
     componentDidMount() {
-        this.callOnChange(this.state.column, this.state.query);
-    },
-
-    callOnChange(column, query) {
-        (this.props.onChange || noop)(
-            {
-                column: column,
-                query: query
-            }
-        );
+        this.props.onChange({
+            column: this.state.column,
+            query: this.state.query
+        });
     },
 });
 
