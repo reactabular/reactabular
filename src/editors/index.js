@@ -2,7 +2,7 @@
 
 
 module.exports = {
-    boolean: require('./boolean.jsx'),
-    dropdown: require('./dropdown.jsx'),
-    input: require('./input.jsx'),
+    boolean: require('./boolean'),
+    dropdown: require('./dropdown'),
+    input: require('./input'),
 };

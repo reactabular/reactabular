@@ -2,9 +2,9 @@
 
 
 module.exports = {
-    Table: require('./table.jsx'),
-    Search: require('./search.jsx'),
-    sortColumn: require('./sort_column.js'),
+    Table: require('./table'),
+    Search: require('./search'),
+    sortColumn: require('./sort_column'),
     editors: require('./editors'),
     formatters: require('./formatters'),
     predicates: require('./predicates'),
