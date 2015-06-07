@@ -8,9 +8,9 @@
     "gh-pages": "TARGET=gh-pages webpack --colors",
     "deploy-gh-pages": "TARGET=gh-pages node ./lib/deploy-gh-pages.js",
     "dist": "TARGET=dist webpack --colors && TARGET=dist-min webpack --colors",
+    "dist-modules": "babel ./src --out-dir ./dist-modules",
     "lint": "eslint . --ext .js --ext .jsx",
-    "preversion": "npm run test && npm run dist && git commit -am \"Update dist\"",
-    "prepublish": "babel ./src --out-dir ./dist-modules"
+    "preversion": "npm run test && npm run dist && npm run dist-modules && git commit -am \"Update dist\""
   },
   "repository": {
     "type": "git",
