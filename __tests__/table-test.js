@@ -1,13 +1,13 @@
 'use strict';
 
-jest.dontMock('../src/table.jsx');
-jest.dontMock('../src/cells/index.js');
-jest.dontMock('../src/cells/identity.js');
+jest.dontMock('../src/table');
+jest.dontMock('../src/cells/index');
+jest.dontMock('../src/cells/identity');
 
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 
-var Table = require('../src/table.jsx');
+var Table = require('../src/table');
 
 
 var Footer = React.createClass({
