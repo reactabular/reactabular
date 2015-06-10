@@ -483,7 +483,7 @@ Your changes will appear without reloading the browser like in [this video](http
 1. Implement whatever you want and write tests
 2. Make sure `npm test` passes. This will run your tests and lint the code.
 3. Once you are happy with the code, add yourself to project contributors (below).
-4. Create a PR
+4. Create a PR against the `dev` branch
 
 ## Contributors
 
