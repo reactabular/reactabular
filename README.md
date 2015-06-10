@@ -94,7 +94,7 @@ var Search = require('reactabular').Search;
 ...
 
 
-var columns: [
+var columns = [
     ...
     {
         property: 'followers',
@@ -176,7 +176,7 @@ var highlighter = (column) => highlight((value) => {
 });
 
 ...
-var columns: [
+var columns = [
     ...
     {
         property: 'followers',
