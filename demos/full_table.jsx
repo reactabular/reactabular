@@ -10,8 +10,8 @@ var Paginator = require('react-pagify');
 var titleCase = require('title-case');
 var findIndex = require('lodash/array/findIndex');
 
-var Table = require('../src/table.jsx');
-var Search = require('../src/search.jsx');
+var Table = require('../src/table');
+var Search = require('../src/search');
 var editors = require('../src/editors');
 var sortColumn = require('../src/sort_column');
 var cells = require('../src/cells');
