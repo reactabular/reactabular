@@ -165,6 +165,23 @@ render() {
 
 You can deal with filtering in an entirely different manner. The method shown here works if you need to filter local data. You can easily replace the solution with something Flux based for instance. Just operate based on that `onChange` hook.
 
+## Attaching `props` per Row
+
+Sometimes you might want to apply some special props or logic per table row. This can be achieved easily through `row` prop like this:
+
+```javascript
+<Table
+    row={(d, rowIndex) => {
+        return {
+            className: rowIndex % 2 ? 'odd-row' : 'even-row',
+            onClick: () => console.log('clicked row', d)
+        };
+    }}
+>
+```
+
+Simply return the props you want to add to each `tr`'s within `tbody`.
+
 ## Highlighting Search Results
 
 We can highlight individual search results by using a premade `highlight` helper. This helper takes advantage of the matches method on an instance of the Search component. Here's a demo:

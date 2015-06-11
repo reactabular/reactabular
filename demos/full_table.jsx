@@ -263,7 +263,18 @@ module.exports = React.createClass({
                         Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
                     </div>
                 </div>
-                <Table className='pure-table pure-table-striped' header={header} columns={columns} data={paginated.data}>
+                <Table
+                    className='pure-table pure-table-striped'
+                    header={header}
+                    columns={columns}
+                    data={paginated.data}
+                    row={(d, rowIndex) => {
+                        return {
+                            className: rowIndex % 2 ? 'odd-row' : 'even-row',
+                            onClick: () => console.log('clicked row', d)
+                        };
+                    }}
+                >
                     <tfoot>
                         <tr>
                             <td>

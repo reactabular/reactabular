@@ -21,6 +21,7 @@ module.exports = React.createClass({
         header: React.PropTypes.object,
         data: React.PropTypes.array,
         columns: React.PropTypes.array,
+        row: React.PropTypes.func,
         children: React.PropTypes.object,
     },
 
@@ -36,6 +37,7 @@ module.exports = React.createClass({
         var header = this.props.header;
         var data = this.props.data;
         var columns = this.props.columns;
+        var rowProps = this.props.row || noop;
 
         var props = update(this.props, {
             $merge: {
@@ -65,7 +67,7 @@ module.exports = React.createClass({
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((row, i) => <tr key={i + '-row'}>{
+                    {data.map((row, i) => <tr key={i + '-row'} {...rowProps(row, i)}>{
                         columns.map((column, j) => {
                             var property = column.property;
                             var value = row[property];
@@ -108,3 +110,5 @@ module.exports = React.createClass({
         );
     }
 });
+
+function noop() {}
