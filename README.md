@@ -507,6 +507,7 @@ Your changes will appear without reloading the browser like in [this video](http
 * [Brian Chang](https://github.com/eviltoylet) - Fixed README formatting examples. Improved `column.cell` architecture. Helped to improve and design `cell` API.
 * [Antoine Verger](https://github.com/antoineverger) - Allow editor text inputs to be erased correctly
 * [Daan Nijkamp](https://github.com/daannijkamp) - Fixed README search example.
+* [Utku Demir](https://github.com/utdemir) - Helped to ideate row API.
 
 ## Acknowledgments
 
