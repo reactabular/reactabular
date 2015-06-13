@@ -23,6 +23,7 @@ module.exports = React.createClass({
         header: React.PropTypes.object,
         data: React.PropTypes.array,
         columns: React.PropTypes.array,
+        row: React.PropTypes.func,
         children: React.PropTypes.object },
 
     getDefaultProps: function getDefaultProps() {
@@ -37,6 +38,7 @@ module.exports = React.createClass({
         var header = this.props.header;
         var data = this.props.data;
         var columns = this.props.columns;
+        var rowProps = this.props.row || noop;
 
         var props = update(this.props, {
             $merge: {
@@ -77,7 +79,7 @@ module.exports = React.createClass({
                 data.map(function (row, i) {
                     return React.createElement(
                         'tr',
-                        { key: i + '-row' },
+                        _extends({ key: i + '-row' }, rowProps(row, i)),
                         columns.map(function (column, j) {
                             var property = column.property;
                             var value = row[property];
@@ -123,4 +125,6 @@ module.exports = React.createClass({
         );
     }
 });
+
+function noop() {}
 // formatter shortcut
