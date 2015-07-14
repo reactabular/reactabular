@@ -5,6 +5,7 @@ var Fork = require('react-ghfork');
 
 var FullTable = require('./full_table.jsx');
 var EditorsTable = require('./editors_table.jsx');
+var NestedTable = require('./nested_table.jsx');
 
 var readme = require('../README.md');
 
@@ -41,7 +42,16 @@ module.exports = React.createClass({
                             <p>The table below contains some sample editors you can use. It is possible to develop your own editors as long as you follow the same interface (`value`, `onValue` props).</p>
                         </div>
 
-                        <EditorsTable/>
+                        <EditorsTable />
+                    </section>
+                    <section>
+                        <div className='description'>
+                            <h2>Nested table</h2>
+
+                            <p>The table below contains some nested data.</p>
+                        </div>
+
+                        <NestedTable />
                     </section>
                     <section className='documentation'>
                         <h2>README</h2>

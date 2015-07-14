@@ -501,6 +501,7 @@ Your changes will appear without reloading the browser like in [this video](http
 * [Daan Nijkamp](https://github.com/daannijkamp) - Fixed README search example.
 * [Utku Demir](https://github.com/utdemir) - Helped to ideate row API.
 * [Andrea de la Isla](https://github.com/nuragic) - Made search algorithm stable.
+* [cameron](https://github.com/cameront) - Helped to render nested properties through cells.
 
 ## Acknowledgments
 
