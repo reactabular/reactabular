@@ -96,7 +96,7 @@ describe('Table', function() {
             {
                 property: 'complex',
                 header: 'Cell Props',
-                cell: (v) => ({ value:v, props:{className:'complex'}}),
+                cell: (v) => ({value: v, props: {className: 'complex'}}),
             },
             {
                 property: 'jsx',
@@ -108,15 +108,15 @@ describe('Table', function() {
             {
               basic: 'basic',
               identity: 'ident',
-              math: 123, 
+              math: 123,
               complex: 'somestr',
-              jsx: {id:"some_id_123", name:"helloworld"}
+              jsx: { id: 'some_id_123', name: 'helloworld'}
             },
         ];
         var table = TestUtils.renderIntoDocument(
             <Table columns={columns} data={data} />
         );
-        
+
         var tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
         expect(tds.length).toEqual(columns.length);
         expect(tds[0].getDOMNode().innerHTML).toBe('basic');
@@ -129,7 +129,7 @@ describe('Table', function() {
         var link = TestUtils.findRenderedDOMComponentWithTag(table, 'a');
         var linkDom = link.getDOMNode();
         expect(linkDom.parentNode).toEqual(tds[4].getDOMNode());
-        expect(linkDom.href).toBe('http://some_id_123/')
+        expect(linkDom.href).toBe('http://some_id_123/');
         expect(linkDom.innerHTML).toBe('helloworld');
 
     });

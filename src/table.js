@@ -3,14 +3,11 @@ var _ = require('lodash');
 
 var merge = _.merge;
 var transform = _.transform;
-var reduce = _.reduce;
 var isFunction = _.isFunction;
 var isPlainObject = _.isPlainObject;
-var isUndefined = _.isUndefined;
 
 var React = require('react/addons');
 var cx = require('classnames');
-var formatters = require('./formatters');
 var update = React.addons.update;
 
 
