@@ -8,7 +8,8 @@ module.exports = function (options) {
 
         propTypes: {
             value: React.PropTypes.string,
-            onValue: React.PropTypes.func },
+            onValue: React.PropTypes.func
+        },
 
         render: function render() {
             var _this = this;

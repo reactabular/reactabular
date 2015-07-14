@@ -11,13 +11,15 @@ module.exports = React.createClass({
     propTypes: {
         columns: React.PropTypes.array,
         data: React.PropTypes.array,
-        onChange: React.PropTypes.func },
+        onChange: React.PropTypes.func
+    },
 
     getDefaultProps: function getDefaultProps() {
         return {
             columns: [],
             data: [],
-            onChange: noop };
+            onChange: noop
+        };
     },
 
     getInitialState: function getInitialState() {
@@ -68,7 +70,8 @@ module.exports = React.createClass({
 
         this.props.onChange({
             column: column,
-            query: query });
+            query: query
+        });
     },
 
     onQueryChange: function onQueryChange(event) {
@@ -80,7 +83,8 @@ module.exports = React.createClass({
 
         this.props.onChange({
             column: column,
-            query: query });
+            query: query
+        });
     },
 
     componentDidMount: function componentDidMount() {
@@ -88,7 +92,8 @@ module.exports = React.createClass({
             column: this.state.column,
             query: this.state.query
         });
-    } });
+    }
+});
 
 module.exports.search = function (data, columns, column, query, options) {
     if (!query) {

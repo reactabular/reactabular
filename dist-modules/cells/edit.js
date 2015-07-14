@@ -25,7 +25,8 @@ module.exports = function (editProperty, _onValue, o) {
 
                         _onValue(v, data, rowIndex, property);
                     }
-                }) };
+                })
+            };
         }
 
         if (editor) {
@@ -38,7 +39,8 @@ module.exports = function (editProperty, _onValue, o) {
                         state[editProperty] = idx;
 
                         context.setState(state);
-                    } }
+                    }
+                }
             };
         }
 

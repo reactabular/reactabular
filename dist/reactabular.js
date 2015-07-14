@@ -58,12 +58,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = {
 	    Table: __webpack_require__(1),
-	    Search: __webpack_require__(9),
+	    Search: __webpack_require__(5),
 	    sortColumn: __webpack_require__(13),
 	    editors: __webpack_require__(14),
-	    formatters: __webpack_require__(5),
+	    formatters: __webpack_require__(6),
 	    predicates: __webpack_require__(10),
-	    cells: __webpack_require__(18) };
+	    cells: __webpack_require__(18)
+	};
 
 /***/ },
 /* 1 */
@@ -84,7 +85,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var React = __webpack_require__(3);
 	var cx = __webpack_require__(4);
-	var formatters = __webpack_require__(5);
 	var update = React.addons.update;
 	
 	module.exports = React.createClass({
@@ -95,7 +95,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        data: React.PropTypes.array,
 	        columns: React.PropTypes.array,
 	        row: React.PropTypes.func,
-	        children: React.PropTypes.object },
+	        children: React.PropTypes.object
+	    },
 	
 	    getDefaultProps: function getDefaultProps() {
 	        return {
@@ -154,7 +155,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        columns.map(function (column, j) {
 	                            var property = column.property;
 	                            var value = row[property];
-	                            var cell = column.cell || [formatters.identity];
+	                            var cell = column.cell || [id];
 	                            var content;
 	
 	                            cell = isFunction(cell) ? [cell] : cell;
@@ -164,7 +165,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    return v;
 	                                }
 	
-	                                if (isPlainObject(v)) {
+	                                if (!isPlainObject(value) && isPlainObject(v)) {
 	                                    return merge(v, {
 	                                        value: fn(v.value, data, i, property)
 	                                    });
@@ -197,18 +198,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	});
 	
+	function id(a) {
+	    return a;
+	}
 	function noop() {}
 	// formatter shortcut
 
 /***/ },
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
 /***/ },
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
@@ -253,13 +257,13 @@ return /******/ (function(modules) { // webpackBootstrap
 			return classes.substr(1);
 		}
 	
-		if (true) {
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true){
 			// AMD. Register as an anonymous module.
 			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 				return classNames;
 			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
 		} else {
 			window.classNames = classNames;
 		}
@@ -272,87 +276,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	module.exports = {
-	    highlight: __webpack_require__(6),
-	    identity: __webpack_require__(7),
-	    lowercase: __webpack_require__(8)
-	};
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(3);
-	
-	module.exports = function (getHighlights) {
-	    return function (value) {
-	        var children = [];
-	        var highlights = getHighlights(value);
-	        var currentPosition = 0;
-	        for (var x = 0; x < highlights.length; x++) {
-	            var nonMatchingPrefix = value.slice(currentPosition, highlights[x].startIndex);
-	            var matchingText = value.slice(highlights[x].startIndex, highlights[x].startIndex + highlights[x].length);
-	            currentPosition = highlights[x].startIndex + highlights[x].length;
-	
-	            if (nonMatchingPrefix.length > 0) {
-	                children.push(React.createElement(
-	                    'span',
-	                    { key: x + '-nonmatch' },
-	                    nonMatchingPrefix
-	                ));
-	            }
-	            children.push(React.createElement(
-	                'span',
-	                { className: 'highlight', key: x + '-match' },
-	                matchingText
-	            ));
-	        }
-	        children.push(React.createElement(
-	            'span',
-	            { key: x + '-remainder' },
-	            value.slice(currentPosition)
-	        ));
-	
-	        var element = React.createElement(
-	            'span',
-	            { className: 'search-result' },
-	            children
-	        );
-	        return element;
-	    };
-	};
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = function (value) {
-	    return value;
-	};
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = function (value) {
-	    return value.toLowerCase();
-	};
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 	var isString = __webpack_require__(2).isString;
 	var React = __webpack_require__(3);
 	
-	var formatters = __webpack_require__(5);
+	var formatters = __webpack_require__(6);
 	var predicates = __webpack_require__(10);
 	
 	module.exports = React.createClass({
@@ -361,13 +288,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    propTypes: {
 	        columns: React.PropTypes.array,
 	        data: React.PropTypes.array,
-	        onChange: React.PropTypes.func },
+	        onChange: React.PropTypes.func
+	    },
 	
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            columns: [],
 	            data: [],
-	            onChange: noop };
+	            onChange: noop
+	        };
 	    },
 	
 	    getInitialState: function getInitialState() {
@@ -418,7 +347,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        this.props.onChange({
 	            column: column,
-	            query: query });
+	            query: query
+	        });
 	    },
 	
 	    onQueryChange: function onQueryChange(event) {
@@ -430,7 +360,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        this.props.onChange({
 	            column: column,
-	            query: query });
+	            query: query
+	        });
 	    },
 	
 	    componentDidMount: function componentDidMount() {
@@ -438,7 +369,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            column: this.state.column,
 	            query: this.state.query
 	        });
-	    } });
+	    }
+	});
 	
 	module.exports.search = function (data, columns, column, query, options) {
 	    if (!query) {
@@ -502,6 +434,83 @@ return /******/ (function(modules) { // webpackBootstrap
 	function noop() {}
 
 /***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = {
+	    highlight: __webpack_require__(7),
+	    identity: __webpack_require__(8),
+	    lowercase: __webpack_require__(9)
+	};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(3);
+	
+	module.exports = function (getHighlights) {
+	    return function (value) {
+	        var children = [];
+	        var highlights = getHighlights(value);
+	        var currentPosition = 0;
+	        for (var x = 0; x < highlights.length; x++) {
+	            var nonMatchingPrefix = value.slice(currentPosition, highlights[x].startIndex);
+	            var matchingText = value.slice(highlights[x].startIndex, highlights[x].startIndex + highlights[x].length);
+	            currentPosition = highlights[x].startIndex + highlights[x].length;
+	
+	            if (nonMatchingPrefix.length > 0) {
+	                children.push(React.createElement(
+	                    'span',
+	                    { key: x + '-nonmatch' },
+	                    nonMatchingPrefix
+	                ));
+	            }
+	            children.push(React.createElement(
+	                'span',
+	                { className: 'highlight', key: x + '-match' },
+	                matchingText
+	            ));
+	        }
+	        children.push(React.createElement(
+	            'span',
+	            { key: x + '-remainder' },
+	            value.slice(currentPosition)
+	        ));
+	
+	        var element = React.createElement(
+	            'span',
+	            { className: 'search-result' },
+	            children
+	        );
+	        return element;
+	    };
+	};
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (value) {
+	    return value;
+	};
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (value) {
+	    return value.toLowerCase();
+	};
+
+/***/ },
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -514,7 +523,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 11 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 	
@@ -542,7 +551,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 12 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 	
@@ -571,6 +580,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
+	var _lodash = __webpack_require__(2);
+	
 	module.exports = function (columns, column, done) {
 	    columns.map(function (col) {
 	        col.classes = {};
@@ -578,10 +589,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return col;
 	    });
 	
-	    column.sort = column.sort ? -column.sort : 1;
+	    column.sort = column.sort === 'asc' ? 'desc' : 'asc';
 	    column.classes = {
-	        'sort-asc': column.sort === 1,
-	        'sort-desc': column.sort === -1
+	        'sort-asc': column.sort === 'asc',
+	        'sort-desc': column.sort === 'desc'
 	    };
 	
 	    done({
@@ -596,16 +607,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    var property = column.property;
 	
-	    return data.concat().sort(function (a, b) {
-	        var p1 = a[property] || '';
-	        var p2 = b[property] || '';
-	
-	        if (p1.localeCompare) {
-	            return p1.localeCompare(p2) * column.sort;
-	        }
-	
-	        return (p1 - p2) * column.sort;
-	    });
+	    return (0, _lodash.sortByOrder)(data, [property], [column.sort]);
 	};
 
 /***/ },
@@ -617,7 +619,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = {
 	    boolean: __webpack_require__(15),
 	    dropdown: __webpack_require__(16),
-	    input: __webpack_require__(17) };
+	    input: __webpack_require__(17)
+	};
 
 /***/ },
 /* 15 */
@@ -634,7 +637,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        propTypes: {
 	            value: React.PropTypes.string,
 	            onClick: React.PropTypes.func,
-	            onValue: React.PropTypes.func },
+	            onValue: React.PropTypes.func
+	        },
 	
 	        render: function render() {
 	            return React.createElement(
@@ -675,7 +679,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        propTypes: {
 	            value: React.PropTypes.string,
-	            onValue: React.PropTypes.func },
+	            onValue: React.PropTypes.func
+	        },
 	
 	        render: function render() {
 	            var _this = this;
@@ -716,11 +721,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        propTypes: {
 	            value: React.PropTypes.string,
-	            onValue: React.PropTypes.func },
+	            onValue: React.PropTypes.func
+	        },
 	
 	        getInitialState: function getInitialState() {
 	            return {
-	                value: this.props.value };
+	                value: this.props.value
+	            };
 	        },
 	
 	        render: function render() {
@@ -733,7 +740,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        onChange: function onChange(e) {
 	            this.setState({
-	                value: e.target.value });
+	                value: e.target.value
+	            });
 	        },
 	
 	        keyUp: function keyUp(e) {
@@ -744,7 +752,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        done: function done() {
 	            this.props.onValue(this.getDOMNode().value);
-	        } });
+	        }
+	    });
 	};
 
 /***/ },
@@ -755,11 +764,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = {
 	    identity: __webpack_require__(19),
-	    edit: __webpack_require__(20) };
+	    edit: __webpack_require__(20)
+	};
 
 /***/ },
 /* 19 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 	
@@ -800,7 +810,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                        _onValue(v, data, rowIndex, property);
 	                    }
-	                }) };
+	                })
+	            };
 	        }
 	
 	        if (editor) {
@@ -813,7 +824,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        state[editProperty] = idx;
 	
 	                        context.setState(state);
-	                    } }
+	                    }
+	                }
 	            };
 	        }
 	

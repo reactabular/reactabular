@@ -9,7 +9,8 @@ module.exports = function () {
         propTypes: {
             value: React.PropTypes.string,
             onClick: React.PropTypes.func,
-            onValue: React.PropTypes.func },
+            onValue: React.PropTypes.func
+        },
 
         render: function render() {
             return React.createElement(

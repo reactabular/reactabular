@@ -7,4 +7,5 @@ module.exports = {
     editors: require('./editors'),
     formatters: require('./formatters'),
     predicates: require('./predicates'),
-    cells: require('./cells') };
+    cells: require('./cells')
+};

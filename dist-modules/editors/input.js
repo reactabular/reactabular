@@ -8,11 +8,13 @@ module.exports = function () {
 
         propTypes: {
             value: React.PropTypes.string,
-            onValue: React.PropTypes.func },
+            onValue: React.PropTypes.func
+        },
 
         getInitialState: function getInitialState() {
             return {
-                value: this.props.value };
+                value: this.props.value
+            };
         },
 
         render: function render() {
@@ -25,7 +27,8 @@ module.exports = function () {
 
         onChange: function onChange(e) {
             this.setState({
-                value: e.target.value });
+                value: e.target.value
+            });
         },
 
         keyUp: function keyUp(e) {
@@ -36,5 +39,6 @@ module.exports = function () {
 
         done: function done() {
             this.props.onValue(this.getDOMNode().value);
-        } });
+        }
+    });
 };

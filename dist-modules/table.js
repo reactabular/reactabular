@@ -13,7 +13,6 @@ var isUndefined = _.isUndefined;
 
 var React = require('react/addons');
 var cx = require('classnames');
-var formatters = require('./formatters');
 var update = React.addons.update;
 
 module.exports = React.createClass({
@@ -24,7 +23,8 @@ module.exports = React.createClass({
         data: React.PropTypes.array,
         columns: React.PropTypes.array,
         row: React.PropTypes.func,
-        children: React.PropTypes.object },
+        children: React.PropTypes.object
+    },
 
     getDefaultProps: function getDefaultProps() {
         return {
@@ -83,7 +83,7 @@ module.exports = React.createClass({
                         columns.map(function (column, j) {
                             var property = column.property;
                             var value = row[property];
-                            var cell = column.cell || [formatters.identity];
+                            var cell = column.cell || [id];
                             var content;
 
                             cell = isFunction(cell) ? [cell] : cell;
@@ -93,7 +93,7 @@ module.exports = React.createClass({
                                     return v;
                                 }
 
-                                if (isPlainObject(v)) {
+                                if (!isPlainObject(value) && isPlainObject(v)) {
                                     return merge(v, {
                                         value: fn(v.value, data, i, property)
                                     });
@@ -126,5 +126,8 @@ module.exports = React.createClass({
     }
 });
 
+function id(a) {
+    return a;
+}
 function noop() {}
 // formatter shortcut
