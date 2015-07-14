@@ -77,6 +77,63 @@ describe('Table', function() {
         expect(trs.length).toEqual(data.length + 1);
     });
 
+    it('should allow manipulation of complex objects in cell functions', function() {
+        var columns = [
+            {
+                property: 'basic',
+                header: 'Basic',
+            },
+            {
+                property: 'identity',
+                header: 'Identity',
+                cell: (v) => v,
+            },
+            {
+                property: 'math',
+                header: 'Simple Math',
+                cell: (v) => v - 23,
+            },
+            {
+                property: 'complex',
+                header: 'Cell Props',
+                cell: (v) => ({ value:v, props:{className:'complex'}}),
+            },
+            {
+                property: 'jsx',
+                header: 'JSX',
+                cell: (v) => (<a href={'http://' + v.id}>{v.name}</a>),
+            },
+        ];
+        var data = [
+            {
+              basic: 'basic',
+              identity: 'ident',
+              math: 123, 
+              complex: 'somestr',
+              jsx: {id:"some_id_123", name:"helloworld"}
+            },
+        ];
+        var table = TestUtils.renderIntoDocument(
+            <Table columns={columns} data={data} />
+        );
+        
+        var tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
+        expect(tds.length).toEqual(columns.length);
+        expect(tds[0].getDOMNode().innerHTML).toBe('basic');
+        expect(tds[1].getDOMNode().innerHTML).toBe('ident');
+        expect(tds[2].getDOMNode().innerHTML).toBe('100');
+
+        expect(tds[3].getDOMNode().className).toBe('complex');
+        expect(tds[3].getDOMNode().innerHTML).toBe('somestr');
+
+        var link = TestUtils.findRenderedDOMComponentWithTag(table, 'a');
+        var linkDom = link.getDOMNode();
+        expect(linkDom.parentNode).toEqual(tds[4].getDOMNode());
+        expect(linkDom.href).toBe('http://some_id_123/')
+        expect(linkDom.innerHTML).toBe('helloworld');
+
+    });
+
     it('should render correctly with no properties', function() {
         var renderedTable = TestUtils.renderIntoDocument(
             <Table/>
