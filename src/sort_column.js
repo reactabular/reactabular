@@ -1,5 +1,6 @@
 'use strict';
 
+import {sortByOrder} from 'lodash';
 
 module.exports = (columns, column, done) => {
     columns.map((col) => {
@@ -8,33 +9,23 @@ module.exports = (columns, column, done) => {
         return col;
     });
 
-    column.sort = column.sort ? -column.sort : 1;
+    column.sort = column.sort === 'asc' ? 'desc' : 'asc';
     column.classes = {
-        'sort-asc': column.sort === 1,
-        'sort-desc': column.sort === -1
+        'sort-asc': column.sort === 'asc',
+        'sort-desc': column.sort === 'desc'
     };
 
     done({
         sortingColumn: column,
-        columns: columns,
-    });
+        columns: columns });
 };
 
 module.exports.sort = (data, column) => {
-    if(!column) {
+    if (!column) {
         return data;
     }
 
     var property = column.property;
 
-    return data.concat().sort((a, b) => {
-        var p1 = a[property] || '';
-        var p2 = b[property] || '';
-
-        if(p1.localeCompare) {
-            return p1.localeCompare(p2) * column.sort;
-        }
-
-        return (p1 - p2) * column.sort;
-    });
+    return sortByOrder(data, [property], [column.sort]);
 };
