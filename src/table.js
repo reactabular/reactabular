@@ -64,6 +64,7 @@ module.exports = React.createClass({
                             );
                         })}
                     </tr>
+                    {header.extraHeader}
                 </thead>
                 <tbody>
                     {data.map((row, i) => <tr key={i + '-row'} {...rowProps(row, i)}>{
