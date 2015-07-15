@@ -21,12 +21,24 @@ module.exports = () => {
         render() {
             return (
                 <input
-                    value={this.state.value }
+                    value={this.state.value}
+                    autoFocus={true}
+                    onFocus={this.onFocus}
                     onChange={this.onChange}
                     onKeyUp={this.keyUp}
                     onBlur={this.done}>
                 </input>
             );
+        },
+
+        onFocus(e) {
+            this.moveCaretToEnd(e.target);
+        },
+
+        moveCaretToEnd(field) {
+          const length = field.value.length;
+          field.selectionStart = length;
+          field.selectionEnd = length;
         },
 
         onChange(e) {
