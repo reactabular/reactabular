@@ -1,4 +1,5 @@
 'use strict';
+
 var _ = require('lodash');
 
 var merge = _.merge;
@@ -8,14 +9,17 @@ var isPlainObject = _.isPlainObject;
 var isUndefined = _.isUndefined;
 
 var React = require('react');
-var cx = require('classnames');
 var update = require('react/lib/update');
+var Header = require('./header');
 
 module.exports = React.createClass({
     displayName: 'Table',
 
     propTypes: {
-        header: React.PropTypes.object,
+        header: React.PropTypes.oneOfType([
+          React.PropTypes.object,
+          React.PropTypes.func
+        ]),
         data: React.PropTypes.array,
         columns: React.PropTypes.array,
         row: React.PropTypes.func,
@@ -48,25 +52,7 @@ module.exports = React.createClass({
 
         return (
             <table {...props}>
-                <thead>
-                    <tr>
-                        {columns.map((column, i) => {
-                            var columnHeader = reduce(header, (result, v, k) => {
-                                result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
-
-                                return result;
-                            }, {});
-
-                            return (
-                                <th
-                                    key={i + '-header'}
-                                    className={cx(column.classes)}
-                                    {...columnHeader}
-                                >{column.header}</th>
-                            );
-                        })}
-                    </tr>
-                </thead>
+                {isFunction(header) ? header(columns) : <thead><Header config={header} columns={columns} /></thead>}
                 <tbody>
                     {data.map((row, i) => <tr key={(row[rowKey] || i) + '-row'} {...rowProps(row, i)}>{
                         columns.map((column, j) => {

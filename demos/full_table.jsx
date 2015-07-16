@@ -11,11 +11,13 @@ var titleCase = require('title-case');
 var findIndex = require('lodash/array/findIndex');
 
 var Table = require('../src/table');
+var Header = require('../src/header');
 var Search = require('../src/search');
 var editors = require('../src/editors');
 var sortColumn = require('../src/sort_column');
 var cells = require('../src/cells');
 
+var CustomHeader = require('./custom_header.jsx');
 var FieldWrapper = require('./field_wrapper.jsx');
 var SectionWrapper = require('./section_wrapper.jsx');
 var countries = require('./countries');
@@ -234,8 +236,19 @@ module.exports = React.createClass({
         });
     },
 
+    customHeader() {
+        var headerConfig = this.state.header;
+        var columns = this.state.columns;
+        // if you don't want an header, just return;
+        return (
+            <thead>
+                <Header config={headerConfig} columns={columns} />
+                <CustomHeader columns={columns} />
+            </thead>
+        );
+    },
+
     render() {
-        var header = this.state.header;
         var columns = this.state.columns;
 
         var pagination = this.state.pagination;
@@ -267,7 +280,7 @@ module.exports = React.createClass({
                 </div>
                 <Table
                     className='pure-table pure-table-striped'
-                    header={header}
+                    header={this.customHeader}
                     columns={columns}
                     data={paginated.data}
                     row={(d, rowIndex) => {
