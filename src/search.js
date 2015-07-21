@@ -5,10 +5,7 @@ var React = require('react/addons');
 var formatters = require('./formatters');
 var predicates = require('./predicates');
 
-
-module.exports = React.createClass({
-    displayName: 'Search',
-
+var searchMixin = {
     propTypes: {
         columns: React.PropTypes.array,
         data: React.PropTypes.array,
@@ -19,7 +16,7 @@ module.exports = React.createClass({
         return {
             columns: [],
             data: [],
-            onChange: noop,
+            onChange: () => {},
         };
     },
 
@@ -28,31 +25,6 @@ module.exports = React.createClass({
             column: 'all',
             query: ''
         };
-    },
-
-    render() {
-        var columns = this.props.columns;
-        var options = [{
-            value: 'all',
-            name: 'All'
-        }].concat(columns.map((column) => {
-            if(column.property && column.header) {
-                return {
-                    value: column.property,
-                    name: column.header
-                };
-            }
-        }).filter(id));
-
-        return (
-            <span className='search'>
-                <select onChange={this.onColumnChange} value={this.state.column}>{options.map((option) =>
-                    <option key={option.value + '-option'} value={option.value}>{option.name}</option>
-                )
-                }</select>
-                <input onChange={this.onQueryChange} value={this.state.query}></input>
-            </span>
-        );
     },
 
     onColumnChange(event) {
@@ -87,7 +59,43 @@ module.exports = React.createClass({
             query: this.state.query
         });
     },
+
+    getOptions() {
+        var columns = this.props.columns;
+        return [{
+            value: 'all',
+            name: 'All',
+        }].concat(columns.map((column) => {
+              if(column.property && column.header) {
+                  return {
+                      value: column.property,
+                      name: column.header
+                  };
+              }
+          }).filter((a) => a));
+    },
+};
+
+module.exports = React.createClass({
+    displayName: 'Search',
+
+    mixins: [ searchMixin ],
+
+    render() {
+        return (
+            <span className='search'>
+                <select onChange={this.onColumnChange} value={this.state.column}>{this.getOptions().map((option) =>
+                    <option key={option.value + '-option'} value={option.value}>{option.name}</option>
+                )
+                }</select>
+                <input onChange={this.onQueryChange} value={this.state.query}></input>
+            </span>
+        );
+    },
+
 });
+
+module.exports.mixin = searchMixin;
 
 module.exports.search = (data, columns, column, query, options) => {
     if(!query) {
@@ -143,9 +151,3 @@ module.exports.matches = (column, value, query, options) => {
 
     return predicate.matches(options.transform(value));
 };
-
-function id(a) {
-    return a;
-}
-
-function noop() {}
