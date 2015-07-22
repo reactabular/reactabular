@@ -19,7 +19,7 @@ module.exports = React.createClass({
         return {
             columns: [],
             data: [],
-            onChange: noop,
+            onChange: () => {},
         };
     },
 
@@ -30,23 +30,25 @@ module.exports = React.createClass({
         };
     },
 
-    render() {
+    getOptions() {
         var columns = this.props.columns;
-        var options = [{
+        return [{
             value: 'all',
             name: 'All'
         }].concat(columns.map((column) => {
-            if(column.property && column.header) {
-                return {
-                    value: column.property,
-                    name: column.header
-                };
-            }
-        }).filter(id));
+              if(column.property && column.header) {
+                  return {
+                      value: column.property,
+                      name: column.header
+                  };
+              }
+        }).filter((a) => a));
+    },
 
+    render() {
         return (
             <span className='search'>
-                <select onChange={this.onColumnChange} value={this.state.column}>{options.map((option) =>
+                <select onChange={this.onColumnChange} value={this.state.column}>{this.getOptions().map((option) =>
                     <option key={option.value + '-option'} value={option.value}>{option.name}</option>
                 )
                 }</select>
@@ -143,9 +145,3 @@ module.exports.matches = (column, value, query, options) => {
 
     return predicate.matches(options.transform(value));
 };
-
-function id(a) {
-    return a;
-}
-
-function noop() {}
