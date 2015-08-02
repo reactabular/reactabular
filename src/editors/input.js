@@ -3,7 +3,9 @@
 var React = require('react/addons');
 
 
-module.exports = () => {
+module.exports = (attrs) => {
+    attrs = attrs || {};
+
     return React.createClass({
         displayName: 'Input',
 
@@ -22,12 +24,11 @@ module.exports = () => {
             return (
                 <input
                     value={this.state.value}
-                    autoFocus={true}
                     onFocus={this.onFocus}
                     onChange={this.onChange}
                     onKeyUp={this.keyUp}
-                    onBlur={this.done}>
-                </input>
+                    onBlur={this.done}
+                    {...attrs} />
             );
         },
 

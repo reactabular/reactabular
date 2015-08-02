@@ -444,6 +444,8 @@ var editable = cells.edit.bind(this, 'editedCell', (value, celldata, rowIndex, p
     header: 'Estimated value',
     cell: [
         editable({
+            // editors.input() accepts custom attributes as an object
+            // example {autoFocus: true}
             editor: editors.input(),
         }),
         (estimatedValue) => parseFloat(estimatedValue).toFixed(2)
