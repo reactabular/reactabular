@@ -20,9 +20,21 @@ module.exports = function () {
         render: function render() {
             return React.createElement('input', {
                 value: this.state.value,
+                autoFocus: true,
+                onFocus: this.onFocus,
                 onChange: this.onChange,
                 onKeyUp: this.keyUp,
                 onBlur: this.done });
+        },
+
+        onFocus: function onFocus(e) {
+            this.moveCaretToEnd(e.target);
+        },
+
+        moveCaretToEnd: function moveCaretToEnd(field) {
+            var length = field.value.length;
+            field.selectionStart = length;
+            field.selectionEnd = length;
         },
 
         onChange: function onChange(e) {

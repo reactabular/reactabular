@@ -18,7 +18,7 @@ module.exports = React.createClass({
         return {
             columns: [],
             data: [],
-            onChange: noop
+            onChange: function onChange() {}
         };
     },
 
@@ -29,9 +29,9 @@ module.exports = React.createClass({
         };
     },
 
-    render: function render() {
+    getOptions: function getOptions() {
         var columns = this.props.columns;
-        var options = [{
+        return [{
             value: 'all',
             name: 'All'
         }].concat(columns.map(function (column) {
@@ -41,15 +41,19 @@ module.exports = React.createClass({
                     name: column.header
                 };
             }
-        }).filter(id));
+        }).filter(function (a) {
+            return a;
+        }));
+    },
 
+    render: function render() {
         return React.createElement(
             'span',
             { className: 'search' },
             React.createElement(
                 'select',
                 { onChange: this.onColumnChange, value: this.state.column },
-                options.map(function (option) {
+                this.getOptions().map(function (option) {
                     return React.createElement(
                         'option',
                         { key: option.value + '-option', value: option.value },
@@ -149,9 +153,3 @@ module.exports.matches = function (column, value, query, options) {
 
     return predicate.matches(options.transform(value));
 };
-
-function id(a) {
-    return a;
-}
-
-function noop() {}

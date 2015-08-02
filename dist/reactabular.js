@@ -295,7 +295,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return {
 	            columns: [],
 	            data: [],
-	            onChange: noop
+	            onChange: function onChange() {}
 	        };
 	    },
 	
@@ -306,9 +306,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	    },
 	
-	    render: function render() {
+	    getOptions: function getOptions() {
 	        var columns = this.props.columns;
-	        var options = [{
+	        return [{
 	            value: 'all',
 	            name: 'All'
 	        }].concat(columns.map(function (column) {
@@ -318,15 +318,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    name: column.header
 	                };
 	            }
-	        }).filter(id));
+	        }).filter(function (a) {
+	            return a;
+	        }));
+	    },
 	
+	    render: function render() {
 	        return React.createElement(
 	            'span',
 	            { className: 'search' },
 	            React.createElement(
 	                'select',
 	                { onChange: this.onColumnChange, value: this.state.column },
-	                options.map(function (option) {
+	                this.getOptions().map(function (option) {
 	                    return React.createElement(
 	                        'option',
 	                        { key: option.value + '-option', value: option.value },
@@ -426,12 +430,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    return predicate.matches(options.transform(value));
 	};
-	
-	function id(a) {
-	    return a;
-	}
-	
-	function noop() {}
 
 /***/ },
 /* 6 */
@@ -733,9 +731,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        render: function render() {
 	            return React.createElement('input', {
 	                value: this.state.value,
+	                autoFocus: true,
+	                onFocus: this.onFocus,
 	                onChange: this.onChange,
 	                onKeyUp: this.keyUp,
 	                onBlur: this.done });
+	        },
+	
+	        onFocus: function onFocus(e) {
+	            this.moveCaretToEnd(e.target);
+	        },
+	
+	        moveCaretToEnd: function moveCaretToEnd(field) {
+	            var length = field.value.length;
+	            field.selectionStart = length;
+	            field.selectionEnd = length;
 	        },
 	
 	        onChange: function onChange(e) {
