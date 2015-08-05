@@ -1,6 +1,8 @@
 [![build status](https://secure.travis-ci.org/bebraw/reactabular.png)](http://travis-ci.org/bebraw/reactabular) [![bitHound Score](https://www.bithound.io/github/bebraw/reactabular/badges/score.svg)](https://www.bithound.io/github/bebraw/reactabular) [![Dependency Status](https://david-dm.org/bebraw/reactabular.svg)](https://david-dm.org/bebraw/reactabular)
 # Reactabular - Spectacular tables for React.js
 
+[![Join the chat at https://gitter.im/bebraw/reactabular](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bebraw/reactabular?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Reactabular has been designed to make it easier to build tables on top of React.js. The core has been kept simple while allowing you to extend it as needed. You can customize rendering on cell level and adjust the way data is sorted. This way you can implement basic functionalities such as search, pagination, sorting, inline editing and so on.
 
 The library can work with either fixed data loaded once or you can hook it into a backend through a method of your choosing. For instance it works well with various Flux approaches. The table simply consumes the data from store which you then adjust using various actions.
