@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("lodash"), require("react/addons"));
 	else if(typeof define === 'function' && define.amd)
-		define(["lodash", "react/addons"], factory);
+		define(["_", "React"], factory);
 	else if(typeof exports === 'object')
 		exports["Reactabular"] = factory(require("lodash"), require("react/addons"));
 	else
-		root["Reactabular"] = factory(root["lodash"], root["react/addons"]);
+		root["Reactabular"] = factory(root["_"], root["React"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

@@ -128,8 +128,18 @@ var commonDist = extend(common, {
     devtool: 'source-map',
     entry: './src/index',
     externals: {
-        'lodash': 'lodash',
-        'react/addons': 'react/addons',
+        'lodash': {
+            commonjs: 'lodash',
+            commonjs2: 'lodash',
+            amd: '_',
+            root: '_'
+        },
+        'react/addons': {
+            commonjs: 'react/addons',
+            commonjs2: 'react/addons',
+            amd: 'React',
+            root: 'React'
+        }
     },
     module: {
         loaders: commonLoaders.concat([{
