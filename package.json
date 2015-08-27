@@ -10,7 +10,7 @@
     "dist": "TARGET=dist webpack --colors && TARGET=dist-min webpack --colors",
     "dist-modules": "babel ./src --out-dir ./dist-modules",
     "lint": "eslint . --ext .js --ext .jsx",
-    "preversion": "npm run test && npm run dist && npm run dist-modules && git commit -am \"Update dist\""
+    "preversion": "npm run test && npm run dist && npm run dist-modules && git commit --allow-empty -am \"Update dist\""
   },
   "repository": {
     "type": "git",
