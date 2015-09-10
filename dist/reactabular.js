@@ -77,7 +77,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(2);
 	
 	var merge = _.merge;
-	var transform = _.transform;
 	var reduce = _.reduce;
 	var isFunction = _.isFunction;
 	var isPlainObject = _.isPlainObject;
@@ -130,9 +129,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    'tr',
 	                    null,
 	                    columns.map(function (column, i) {
-	                        var columnHeader = transform(header, function (result, v, k) {
+	                        var columnHeader = reduce(header, function (result, v, k) {
 	                            result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
-	                        });
+	
+	                            return result;
+	                        }, {});
 	
 	                        return React.createElement(
 	                            'th',

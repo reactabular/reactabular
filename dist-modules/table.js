@@ -5,7 +5,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var _ = require('lodash');
 
 var merge = _.merge;
-var transform = _.transform;
 var reduce = _.reduce;
 var isFunction = _.isFunction;
 var isPlainObject = _.isPlainObject;
@@ -58,9 +57,11 @@ module.exports = React.createClass({
                     'tr',
                     null,
                     columns.map(function (column, i) {
-                        var columnHeader = transform(header, function (result, v, k) {
+                        var columnHeader = reduce(header, function (result, v, k) {
                             result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
-                        });
+
+                            return result;
+                        }, {});
 
                         return React.createElement(
                             'th',
