@@ -2,7 +2,6 @@
 var _ = require('lodash');
 
 var merge = _.merge;
-var transform = _.transform;
 var reduce = _.reduce;
 var isFunction = _.isFunction;
 var isPlainObject = _.isPlainObject;
@@ -51,9 +50,11 @@ module.exports = React.createClass({
                 <thead>
                     <tr>
                         {columns.map((column, i) => {
-                            var columnHeader = transform(header, (result, v, k) => {
+                            var columnHeader = reduce(header, (result, v, k) => {
                                 result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
-                            });
+
+                                return result;
+                            }, {});
 
                             return (
                                 <th
