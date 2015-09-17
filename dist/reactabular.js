@@ -94,7 +94,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        data: React.PropTypes.array,
 	        columns: React.PropTypes.array,
 	        row: React.PropTypes.func,
-	        children: React.PropTypes.object
+	        children: React.PropTypes.object,
+	        rowKey: React.PropTypes.string
 	    },
 	
 	    getDefaultProps: function getDefaultProps() {
@@ -109,6 +110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var header = this.props.header;
 	        var data = this.props.data;
 	        var columns = this.props.columns;
+	        var rowKey = this.props.rowKey;
 	        var rowProps = this.props.row || noop;
 	
 	        var props = update(this.props, {
@@ -152,7 +154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                data.map(function (row, i) {
 	                    return React.createElement(
 	                        'tr',
-	                        _extends({ key: i + '-row' }, rowProps(row, i)),
+	                        _extends({ key: (row[rowKey] || i) + '-row' }, rowProps(row, i)),
 	                        columns.map(function (column, j) {
 	                            var property = column.property;
 	                            var value = row[property];
@@ -178,6 +180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    return val;
 	                                }
 	
+	                                // formatter shortcut
 	                                return {
 	                                    value: val
 	                                };
@@ -203,7 +206,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return a;
 	}
 	function noop() {}
-	// formatter shortcut
 
 /***/ },
 /* 2 */

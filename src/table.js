@@ -21,6 +21,7 @@ module.exports = React.createClass({
         columns: React.PropTypes.array,
         row: React.PropTypes.func,
         children: React.PropTypes.object,
+        rowKey: React.PropTypes.string
     },
 
     getDefaultProps() {
@@ -35,6 +36,7 @@ module.exports = React.createClass({
         var header = this.props.header;
         var data = this.props.data;
         var columns = this.props.columns;
+        var rowKey = this.props.rowKey;
         var rowProps = this.props.row || noop;
 
         var props = update(this.props, {
@@ -67,7 +69,7 @@ module.exports = React.createClass({
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((row, i) => <tr key={i + '-row'} {...rowProps(row, i)}>{
+                    {data.map((row, i) => <tr key={(row[rowKey] || i) + '-row'} {...rowProps(row, i)}>{
                         columns.map((column, j) => {
                             var property = column.property;
                             var value = row[property];
