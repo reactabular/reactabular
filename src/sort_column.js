@@ -1,6 +1,6 @@
 'use strict';
 
-import {sortByOrder} from 'lodash';
+import sortByOrder from 'lodash.sortbyorder';
 
 module.exports = (columns, column, done) => {
     columns.map((col) => {
