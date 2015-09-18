@@ -19,6 +19,7 @@ var data = [
         description: 'Awesome library for handling view.',
         followers: 23252,
         worksWithReactabular: true,
+        id: 123
     },
     {
         name: 'Angular.js',
@@ -26,6 +27,7 @@ var data = [
         description: 'Swiss-knife of frameworks. Kitchen sink not included.',
         followers: 35159,
         worksWithReactabular: false,
+        id: 456
     },
     {
         name: 'Aurelia',
@@ -33,6 +35,7 @@ var data = [
         description: 'Framework for the next generation.',
         followers: 229,
         worksWithReactabular: false,
+        id: 789
     },
 ];
 ```
@@ -154,7 +157,7 @@ render() {
             <div className='search-container'>
                 Search <Search columns={columns} data={this.state.data} onChange={this.onSearch}></Search>
             </div>
-            <Table columns={columns} data={this.state.search.data} />
+            <Table columns={columns} data={this.state.search.data} rowKey={'id'} />
         ...
         </div>
     );
@@ -164,6 +167,8 @@ render() {
 `onChange` will update `search` data. This data is then used for filtering table data before showing it. More functionality, such as sorting and pagination, may be added to this pipe as you will see in the subsequent sections.
 
 You can deal with filtering in an entirely different manner. The method shown here works if you need to filter local data. You can easily replace the solution with something Flux based for instance. Just operate based on that `onChange` hook.
+
+> IMPORTANT! It's preferable to set `rowKey`. It allows you to control React `key` per row leading to better performance. Object id works well for this for example.
 
 ## Attaching `props` per Row
 
