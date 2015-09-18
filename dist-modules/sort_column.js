@@ -1,6 +1,10 @@
 'use strict';
 
-var _lodash = require('lodash');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _lodashSortbyorder = require('lodash.sortbyorder');
+
+var _lodashSortbyorder2 = _interopRequireDefault(_lodashSortbyorder);
 
 module.exports = function (columns, column, done) {
     columns.map(function (col) {
@@ -27,5 +31,5 @@ module.exports.sort = function (data, column) {
 
     var property = column.property;
 
-    return (0, _lodash.sortByOrder)(data, [property], [column.sort]);
+    return (0, _lodashSortbyorder2['default'])(data, [property], [column.sort]);
 };
