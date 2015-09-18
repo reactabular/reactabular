@@ -49,6 +49,7 @@ var columns = [
     {
         property: 'name',
         header: 'Name',
+        classes: {'name-column': true}, // custom CSS classes
     },
     {
         property: 'type',
@@ -74,6 +75,8 @@ var columns = [
 ```
 
 We simply define an ordering for our columns, tell the library what property to bind and what to display at header. You could inject internationalized strings there for instance.
+
+> `classes` allows you to attach custom CSS classes per column. It uses [classnames](https://www.npmjs.com/package/classnames) internally.
 
 I've attached custom formatting for `followers` and `worksWithReactabular` fields. `cell` property gives you access to rendering and works as an extension point. I'll show you later how to build inline editor, search highlighting and so on using it. For now we just take the value, tweak it a little bit and let Reactabular worry about rendering.
 
