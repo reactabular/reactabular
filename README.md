@@ -504,6 +504,7 @@ Your changes will appear without reloading the browser like in [this video](http
 * [Utku Demir](https://github.com/utdemir) - Helped to ideate row API.
 * [Andrea de la Isla](https://github.com/nuragic) - Made search algorithm stable.
 * [cameron](https://github.com/cameront) - Helped to render nested properties through cells.
+* [Igor Kaplounenko](https://github.com/megawidget) - Allow `rowKey` to be set.
 
 ## Acknowledgments
 
