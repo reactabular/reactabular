@@ -180,6 +180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    return val;
 	                                }
 	
+	                                // formatter shortcut
 	                                return {
 	                                    value: val
 	                                };
@@ -205,7 +206,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return a;
 	}
 	function noop() {}
-	// formatter shortcut
 
 /***/ },
 /* 2 */
@@ -455,6 +455,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = function (getHighlights) {
 	    return function (value) {
+	        value = value || '';
+	
 	        var children = [];
 	        var highlights = getHighlights(value);
 	        var currentPosition = 0;

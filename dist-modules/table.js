@@ -108,6 +108,7 @@ module.exports = React.createClass({
                                     return val;
                                 }
 
+                                // formatter shortcut
                                 return {
                                     value: val
                                 };
@@ -133,4 +134,3 @@ function id(a) {
     return a;
 }
 function noop() {}
-// formatter shortcut

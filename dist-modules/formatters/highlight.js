@@ -3,6 +3,8 @@ var React = require('react/addons');
 
 module.exports = function (getHighlights) {
     return function (value) {
+        value = value || '';
+
         var children = [];
         var highlights = getHighlights(value);
         var currentPosition = 0;
