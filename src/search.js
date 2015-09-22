@@ -36,12 +36,12 @@ module.exports = React.createClass({
             value: 'all',
             name: 'All'
         }].concat(columns.map((column) => {
-              if(column.property && column.header) {
-                  return {
-                      value: column.property,
-                      name: column.header
-                  };
-              }
+            if(column.property && column.header) {
+                return {
+                    value: column.property,
+                    name: column.header
+                };
+            }
         }).filter((a) => a));
     },
 

@@ -16,12 +16,13 @@
     "globalReturn": false
   },
   "rules": {
-    "no-underscore-dangle": false,
-    "no-use-before-define": false,
-    "quotes": [4, "single"],
-    "comma-dangle": "always",
+    "no-underscore-dangle": 0,
+    "no-use-before-define": 0,
+    "quotes": [2, "single"],
+    "indent": 2,
+    "comma-dangle": 0,
+    "jsx-quotes": 0,
     "react/display-name": 1,
-    "react/jsx-quotes": 1,
     "react/jsx-no-undef": 1,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1,

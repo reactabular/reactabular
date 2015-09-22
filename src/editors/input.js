@@ -37,9 +37,9 @@ module.exports = (attrs) => {
         },
 
         moveCaretToEnd(field) {
-          const length = field.value.length;
-          field.selectionStart = length;
-          field.selectionEnd = length;
+            const length = field.value.length;
+            field.selectionStart = length;
+            field.selectionEnd = length;
         },
 
         onChange(e) {

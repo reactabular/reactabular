@@ -106,11 +106,11 @@ describe('Table', function() {
         ];
         var data = [
             {
-              basic: 'basic',
-              identity: 'ident',
-              math: 123,
-              complex: 'somestr',
-              jsx: {id: 'some_id_123', name: 'helloworld'}
+                basic: 'basic',
+                identity: 'ident',
+                math: 123,
+                complex: 'somestr',
+                jsx: {id: 'some_id_123', name: 'helloworld'}
             },
         ];
         var table = TestUtils.renderIntoDocument(
