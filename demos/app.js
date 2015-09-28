@@ -30,7 +30,7 @@ module.exports = React.createClass({
 
                             <p>Most of this functionality is optional and has been plugged on top of a small core. The rest is just basic React.js code.</p>
 
-                            <p>There are hooks for connecting with data stores (ie. Flux architecture) and the library has been developed extensibility in mind. Ideally you shouldn't have to modify the library itself to get something done.</p>
+                            <p>There are hooks for connecting with data stores (ie. Flux architecture) and the library has been developed with extensibility in mind. Ideally you shouldn't have to modify the library itself to get something done.</p>
                         </div>
 
                         <FullTable />
