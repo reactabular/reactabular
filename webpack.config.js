@@ -1,99 +1,107 @@
 'use strict';
 var path = require('path');
 
-var extend = require('xtend');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlwebpackPlugin = require('html-webpack-plugin');
+var merge = require('webpack-merge');
 
 var pkg = require('./package.json');
 
-var TARGET = process.env.TARGET;
+var TARGET = process.env.npm_lifecycle_event;
 var ROOT_PATH = path.resolve(__dirname);
-var DEMO_DIR = 'demos';
 var config = {
     paths: {
+        build: path.join(ROOT_PATH, 'build'),
         dist: path.join(ROOT_PATH, 'dist'),
         src: path.join(ROOT_PATH, 'src'),
-        demo: path.join(ROOT_PATH, DEMO_DIR),
-        demoIndex: path.join(ROOT_PATH, DEMO_DIR, '/index'),
-    },
-    filename: 'boilerplate',
-    library: 'Boilerplate',
-    demoDirectory: DEMO_DIR,
+        ghPages: path.join(ROOT_PATH, 'gh-pages'),
+        demo: path.join(ROOT_PATH, 'demos'),
+    }
 };
+
+process.env.BABEL_ENV = TARGET;
 
 var common = {
-    exports: {
-        entry: [
-            './demos/index'
-        ],
-        resolve: {
-            extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg'],
-        },
+    entry: config.paths.demo,
+    resolve: {
+        extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg'],
     },
+    output: {
+        path: config.paths.build,
+        filename: 'bundle.js'
+    },
+    resolveLoader: {
+        alias: {
+            markdown: path.join(ROOT_PATH, 'loaders/markdown')
+        }
+    },
+    module: {
+        loaders: [
+            {
+                test: /\.css$/,
+                loaders: ['style', 'css']
+            },
+            {
+                test: /\.md$/,
+                loaders: ['html', 'markdown']
+            },
+            {
+                test: /\.png$/,
+                loaders: ['url?limit=100000&mimetype=image/png'],
+                include: config.paths.demo
+            },
+            {
+                test: /\.jpg$/,
+                loaders: ['file'],
+                include: config.paths.demo
+            },
+            {
+                test: /\.jsx?$/,
+                loaders: ['babel'],
+                include: config.paths.src
+            }
+        ]
+    },
+    plugins: [
+        new HtmlwebpackPlugin({
+            title: pkg.name + ' - ' + pkg.description
+        })
+    ],
 };
 
-var commonLoaders = [
-    {
-        test: /\.css$/,
-        loaders: ['style', 'css'],
-    },
-    {
-        test: /\.md$/,
-        loader: 'html!../loaders/markdown',
-    },
-    {
-        test: /\.png$/,
-        loader: 'url-loader?limit=100000&mimetype=image/png',
-        include: config.paths.demo,
-    },
-    {
-        test: /\.jpg$/,
-        loader: 'file-loader',
-        include: config.paths.demo,
-    },
-];
-
-if (TARGET === 'dev') {
-    module.exports = extend(common, {
-        devtool: 'eval',
-        entry: [
-            'webpack-dev-server/client?http://0.0.0.0:3000',
-            'webpack/hot/only-dev-server',
-            './demos/index',
-        ],
-        output: {
-            path: __dirname,
-            filename: 'bundle.js',
-            publicPath: '/demos/'
+if (TARGET === 'start' || !TARGET) {
+    module.exports = merge(common, {
+        devtool: 'eval-source-map',
+        entry: config.paths.demo,
+        devServer: {
+            historyApiFallback: true,
+            hot: true,
+            inline: true,
+            progress: true
         },
         plugins: [
-            new webpack.DefinePlugin({
-                'process.env': {
-                    'NODE_ENV': JSON.stringify('development'),
-                }
-            }),
-            new webpack.HotModuleReplacementPlugin(),
-            new webpack.NoErrorsPlugin(),
+            new webpack.HotModuleReplacementPlugin()
         ],
         module: {
-            loaders: commonLoaders.concat([{
-                test: /\.jsx?$/,
-                loaders: ['react-hot', 'babel-loader'],
-                include: [config.paths.demo, config.paths.src],
-            }])
+            loaders: [
+                {
+                    test: /\.jsx?$/,
+                    loaders: ['babel'],
+                    include: config.paths.demo
+                }
+            ]
         }
     });
 }
 
-if (TARGET === 'gh-pages') {
-    module.exports = extend(common, {
+if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
+    module.exports = merge(common, {
         entry: {
-            app: './demos/index',
+            app: config.paths.demo,
             vendors: ['react/addons', 'lodash'],
         },
         output: {
-            path: './gh-pages',
+            path: config.paths.ghPages,
             filename: 'bundle.[chunkhash].js',
         },
         plugins: [
@@ -109,24 +117,26 @@ if (TARGET === 'gh-pages') {
                     warnings: false
                 },
             }),
-            new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.[chunkhash].js'),
-            new HtmlWebpackPlugin({
-                title: pkg.name + ' - ' + pkg.description
-            }),
+            new webpack.optimize.CommonsChunkPlugin(
+                'vendors',
+                '[name].[chunkhash].js'
+            )
         ],
         module: {
-            loaders: commonLoaders.concat([{
-                test: /\.jsx?$/,
-                loaders: ['babel-loader'],
-                include: [config.paths.demo, config.paths.src],
-            }])
+            loaders: [
+                {
+                    test: /\.jsx?$/,
+                    loaders: ['babel'],
+                    include: config.paths.demo
+                }
+            ]
         }
     });
 }
 
-var commonDist = extend(common, {
+var commonDist = merge(common, {
     devtool: 'source-map',
-    entry: './src/index',
+    entry: './src',
     externals: {
         'lodash': {
             commonjs: 'lodash',
@@ -140,20 +150,13 @@ var commonDist = extend(common, {
             amd: 'React',
             root: 'React'
         }
-    },
-    module: {
-        loaders: commonLoaders.concat([{
-            test: /\.jsx?$/,
-            loaders: ['babel-loader'],
-            include: config.paths.src,
-        }])
     }
 });
 
 if (TARGET === 'dist') {
-    module.exports = extend(commonDist, {
+    module.exports = merge(commonDist, {
         output: {
-            path: './dist',
+            path: config.paths.dist,
             filename: 'reactabular.js',
             libraryTarget: 'umd',
             library: 'Reactabular',
@@ -163,9 +166,9 @@ if (TARGET === 'dist') {
 }
 
 if (TARGET === 'dist-min') {
-    module.exports = extend(commonDist, {
+    module.exports = merge(commonDist, {
         output: {
-            path: './dist',
+            path: config.paths.dist,
             filename: 'reactabular.min.js',
             libraryTarget: 'umd',
             library: 'Reactabular',
