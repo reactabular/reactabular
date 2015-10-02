@@ -228,6 +228,7 @@ module.exports = React.createClass({
 
     onSearch(search) {
         this.setState({
+            editedCell: null, // reset edits
             search: search
         });
     },
