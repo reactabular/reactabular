@@ -6,7 +6,7 @@ var config = require('../webpack.config');
 
 
 var ip = '0.0.0.0';
-var port = 3000;
+var port = 8080;
 new WebpackDevServer(webpack(config), {
     contentBase: __dirname,
     publicPath: config.output.publicPath,
