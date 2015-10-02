@@ -3,6 +3,7 @@ var path = require('path');
 
 var webpack = require('webpack');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
+var Clean = require('clean-webpack-plugin');
 var merge = require('webpack-merge');
 
 var pkg = require('./package.json');
@@ -105,6 +106,7 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
             filename: 'bundle.[chunkhash].js',
         },
         plugins: [
+            new Clean(['gh-pages']),
             new webpack.DefinePlugin({
                 'process.env': {
                     // This has effect on the react lib size
