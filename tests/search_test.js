@@ -1,16 +1,7 @@
 'use strict';
-
-jest.dontMock('../src/search');
-jest.dontMock('../src/formatters/index');
-jest.dontMock('../src/formatters/lowercase');
-jest.dontMock('../src/predicates/index');
-jest.dontMock('../src/predicates/infix');
-
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
-
 var Search = require('../src/search');
-
 
 describe('Search', function() {
     it('should have a dropdown with default `all` option', function() {
@@ -21,8 +12,8 @@ describe('Search', function() {
         var options = TestUtils.scryRenderedDOMComponentsWithTag(
             search, 'option');
 
-        expect(options.length).toEqual(1);
-        expect(options[0].getDOMNode().value).toEqual('all');
+        expect(options.length).to.equal(1);
+        expect(options[0].getDOMNode().value).to.equal('all');
     });
 
     it('should have a dropdown that contain columns that have both property and header', function() {
@@ -46,10 +37,10 @@ describe('Search', function() {
         var options = TestUtils.scryRenderedDOMComponentsWithTag(
             search, 'option');
 
-        expect(options.length).toEqual(2);
-        expect(options[0].getDOMNode().value).toEqual('all');
-        expect(options[1].getDOMNode().value).toEqual(columns[0].property);
-        expect(options[1].getDOMNode().textContent).toEqual(columns[0].header);
+        expect(options.length).to.equal(2);
+        expect(options[0].getDOMNode().value).to.equal('all');
+        expect(options[1].getDOMNode().value).to.equal(columns[0].property);
+        expect(options[1].getDOMNode().textContent).to.equal(columns[0].header);
     });
 
     it('should be able to yield results', function() {
@@ -66,7 +57,7 @@ describe('Search', function() {
             },
         ];
         var result = function(d) {
-            expect(d.data).toEqual(data);
+            expect(d.data).to.equal(data);
         };
         var search = TestUtils.renderIntoDocument(
             <Search columns={columns} data={data} onResult={result} />
@@ -92,7 +83,7 @@ describe('Search', function() {
             },
         ];
         var result = function(d) {
-            expect(d.data.length).toEqual(0);
+            expect(d.data.length).to.equal(0);
         };
         var search = TestUtils.renderIntoDocument(
             <Search columns={columns} data={data} onResult={result} />

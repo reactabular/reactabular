@@ -1,9 +1,6 @@
 'use strict';
 
-jest.dontMock('../../src/predicates/infix.js');
-
 var infix = require('../../src/predicates/infix.js');
-
 
 describe('infix', function() {
     it('matches correctly', function() {
@@ -18,8 +15,8 @@ describe('infix', function() {
             }
         ];
 
-        expect(predicate.evaluate(text)).toEqual(true);
-        expect(predicate.matches(text)).toEqual(expected);
+        expect(predicate.evaluate(text)).to.equal(true);
+        expect(predicate.matches(text)).to.deep.equal(expected);
     });
 
     it('matches multiple correctly', function() {
@@ -38,8 +35,8 @@ describe('infix', function() {
             }
         ];
 
-        expect(predicate.evaluate(text)).toEqual(true);
-        expect(predicate.matches(text)).toEqual(expected);
+        expect(predicate.evaluate(text)).to.equal(true);
+        expect(predicate.matches(text)).to.deep.equal(expected);
     });
 
     it('does not match', function() {
@@ -48,7 +45,7 @@ describe('infix', function() {
 
         var predicate = infix(queryTerm);
 
-        expect(predicate.evaluate(text)).toEqual(false);
-        expect(predicate.matches(text)).toEqual([]);
+        expect(predicate.evaluate(text)).to.equal(false);
+        expect(predicate.matches(text)).to.be.empty;
     });
 });

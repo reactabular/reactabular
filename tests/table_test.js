@@ -1,14 +1,8 @@
 'use strict';
 
-jest.dontMock('../src/table');
-jest.dontMock('../src/cells/index');
-jest.dontMock('../src/cells/identity');
-
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
-
 var Table = require('../src/table');
-
 
 var Footer = React.createClass({
     displayName: 'Footer',
@@ -44,7 +38,7 @@ describe('Table', function() {
         var ths = TestUtils.scryRenderedDOMComponentsWithTag(
             table, 'th');
 
-        expect(ths.length).toEqual(columns.length);
+        expect(ths.length).to.equal(columns.length);
     });
 
     it('should render content based on data', function() {
@@ -74,7 +68,7 @@ describe('Table', function() {
         var trs = TestUtils.scryRenderedDOMComponentsWithTag(
             table, 'tr');
 
-        expect(trs.length).toEqual(data.length + 1);
+        expect(trs.length).to.equal(data.length + 1);
     });
 
     it('should allow manipulation of complex objects in cell functions', function() {
@@ -118,19 +112,19 @@ describe('Table', function() {
         );
 
         var tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
-        expect(tds.length).toEqual(columns.length);
-        expect(tds[0].getDOMNode().innerHTML).toBe('basic');
-        expect(tds[1].getDOMNode().innerHTML).toBe('ident');
-        expect(tds[2].getDOMNode().innerHTML).toBe('100');
+        expect(tds.length).to.equal(columns.length);
+        expect(tds[0].getDOMNode().innerHTML).to.equal('basic');
+        expect(tds[1].getDOMNode().innerHTML).to.equal('ident');
+        expect(tds[2].getDOMNode().innerHTML).to.equal('100');
 
-        expect(tds[3].getDOMNode().className).toBe('complex');
-        expect(tds[3].getDOMNode().innerHTML).toBe('somestr');
+        expect(tds[3].getDOMNode().className).to.equal('complex');
+        expect(tds[3].getDOMNode().innerHTML).to.equal('somestr');
 
         var link = TestUtils.findRenderedDOMComponentWithTag(table, 'a');
         var linkDom = link.getDOMNode();
-        expect(linkDom.parentNode).toEqual(tds[4].getDOMNode());
-        expect(linkDom.href).toBe('http://some_id_123/');
-        expect(linkDom.innerHTML).toBe('helloworld');
+        expect(linkDom.parentNode).to.equal(tds[4].getDOMNode());
+        expect(linkDom.href).to.equal('http://some_id_123/');
+        expect(linkDom.innerHTML).to.equal('helloworld');
     });
 
     it('should render correctly with no properties', function() {
@@ -138,9 +132,9 @@ describe('Table', function() {
             <Table/>
         );
 
-        expect(renderedTable.props.data).toEqual([]);
-        expect(renderedTable.props.columns).toEqual([]);
-        expect(renderedTable.props.header).toEqual({});
+        expect(renderedTable.props.data).to.be.empty;
+        expect(renderedTable.props.columns).to.be.empty;
+        expect(renderedTable.props.header).to.be.empty;
     });
 
     it('should render children correctly', function() {
