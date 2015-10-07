@@ -3,7 +3,7 @@ var React = require('react/addons');
 
 module.exports = function(getHighlights) {
     return function(value) {
-        value = value || '';
+        value = String(value); // deals with arrays/numbers/...
 
         var children = [];
         var highlights = getHighlights(value);
