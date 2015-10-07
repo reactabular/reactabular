@@ -2,8 +2,10 @@
 
 var React = require('react/addons');
 
+module.exports = (options, fields={}) => {
+    const nameField = fields.name || 'name';
+    const valueField = fields.value || 'value';
 
-module.exports = (options) => {
     return React.createClass({
         displayName: 'Dropdown',
 
@@ -13,15 +15,15 @@ module.exports = (options) => {
         },
 
         render() {
-            var edit = (e) => this.props.onValue(e.target.value);
+            const edit = (e) => this.props.onValue(e.target.value);
 
             return (
                 <select onBlur={edit} onChange={edit} value={this.props.value}>
                     {options.map((option, i) =>
                         <option
                             key={i}
-                            value={option.value}
-                        >{option.name}</option>
+                            value={option[valueField]}
+                        >{option[nameField]}</option>
                     )}
                 </select>
             );
