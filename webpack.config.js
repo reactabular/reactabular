@@ -188,30 +188,30 @@ if (TARGET === 'dist-min') {
 }
 
 if(TARGET === 'test' || TARGET === 'tdd') {
-  module.exports = merge(common, {
-    entry: {}, // karma will set this
-    output: {}, // karma will set this
-    devtool: 'inline-source-map',
-    resolve: {
-      alias: {
-        'src': config.paths.src
-      }
-    },
-    module: {
-      preLoaders: [
-        {
-          test: /\.jsx?$/,
-          loaders: ['isparta-instrumenter'],
-          include: config.paths.src
+    module.exports = merge(common, {
+        entry: {}, // karma will set this
+        output: {}, // karma will set this
+        devtool: 'inline-source-map',
+        resolve: {
+            alias: {
+                'src': config.paths.src
+            }
+        },
+        module: {
+            preLoaders: [
+                {
+                    test: /\.jsx?$/,
+                    loaders: ['isparta-instrumenter'],
+                    include: config.paths.src
+                }
+            ],
+            loaders: [
+                {
+                    test: /\.jsx?$/,
+                    loaders: ['babel'],
+                    include: config.paths.test
+                }
+            ]
         }
-      ],
-      loaders: [
-        {
-          test: /\.jsx?$/,
-          loaders: ['babel'],
-          include: config.paths.test
-        }
-      ]
-    }
-  });
+    });
 }
