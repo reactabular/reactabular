@@ -2,6 +2,10 @@
 
 module.exports = [
     {
+        value: 'none',
+        name: ''
+    },
+    {
         value: 'de',
         name: 'Germany',
     },

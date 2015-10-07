@@ -106,7 +106,9 @@ module.exports = React.createClass({
                 {
                     property: 'position',
                     header: 'Position',
-                    cell: [highlighter('position')]
+                    cell: [editable({
+                        editor: editors.input(),
+                    }), highlighter('position')]
                 },
                 {
                     property: 'country',
@@ -343,7 +345,7 @@ function getFieldGenerators(countryValues) {
             return math.pick(forenames) + ' ' + math.pick(surnames);
         },
         position: function() {
-            var positions = ['Boss', 'Contractor', 'Client'];
+            var positions = ['Boss', 'Contractor', 'Client', ''];
 
             return math.pick(positions);
         },
