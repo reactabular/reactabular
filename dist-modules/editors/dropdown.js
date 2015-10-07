@@ -3,6 +3,11 @@
 var React = require('react/addons');
 
 module.exports = function (options) {
+    var fields = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+    var nameField = fields.name || 'name';
+    var valueField = fields.value || 'value';
+
     return React.createClass({
         displayName: 'Dropdown',
 
@@ -26,9 +31,9 @@ module.exports = function (options) {
                         'option',
                         {
                             key: i,
-                            value: option.value
+                            value: option[valueField]
                         },
-                        option.name
+                        option[nameField]
                     );
                 })
             );
