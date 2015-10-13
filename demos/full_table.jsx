@@ -65,7 +65,7 @@ module.exports = React.createClass({
         });
         var formatters = {
             country: (country) => find(countries, 'value', country).name,
-            salary: (salary) => parseFloat(salary).toFixed(2),
+            //salary: (salary) => parseFloat(salary).toFixed(2),
         };
 
         var highlighter = (column) => highlight((value) => {
@@ -121,8 +121,7 @@ module.exports = React.createClass({
                 {
                     property: 'salary',
                     header: 'Salary',
-                    search: formatters.salary,
-                    cell: [formatters.salary, highlighter('salary')],
+                    cell: [highlighter('salary')],
                 },
                 {
                     property: 'active',
@@ -349,7 +348,7 @@ function getFieldGenerators(countryValues) {
 
             return math.pick(positions);
         },
-        salary: generators.number.bind(null, 0, 100000),
+        salary: generators.number.bind(null, 0, 2),
         country: function() {
             return math.pick(countryValues);
         }
