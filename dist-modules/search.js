@@ -125,7 +125,7 @@ module.exports.search = function (data, columns, column, query, options) {
         var formatter = col.search || formatters.identity;
         var formattedValue = formatter(value);
 
-        if (!formattedValue) {
+        if (!formattedValue && isNaN(formattedValue)) {
             return false;
         }
 
