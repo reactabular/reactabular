@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 
 
 module.exports = function(editProperty, onValue, o) {

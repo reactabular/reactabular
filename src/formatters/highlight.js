@@ -1,5 +1,5 @@
 'use strict';
-var React = require('react/addons');
+var React = require('react');
 
 module.exports = function(getHighlights) {
     return function(value) {

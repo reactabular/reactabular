@@ -7,10 +7,9 @@ var isFunction = _.isFunction;
 var isPlainObject = _.isPlainObject;
 var isUndefined = _.isUndefined;
 
-var React = require('react/addons');
+var React = require('react');
 var cx = require('classnames');
-var update = React.addons.update;
-
+var update = require('react/lib/update');
 
 module.exports = React.createClass({
     displayName: 'Table',
