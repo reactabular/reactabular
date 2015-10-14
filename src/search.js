@@ -1,6 +1,6 @@
 'use strict';
 var isString = require('lodash').isString;
-var React = require('react/addons');
+var React = require('react');
 
 var formatters = require('./formatters');
 var predicates = require('./predicates');
