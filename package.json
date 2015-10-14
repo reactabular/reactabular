@@ -29,7 +29,7 @@
   ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
-  "main": "dist-modules/index.js",
+  "main": "dist-modules",
   "bugs": {
     "url": "https://github.com/bebraw/reactabular/issues"
   },
@@ -68,7 +68,6 @@
     "lodash": "^3.10.1",
     "marked": "^0.3.5",
     "mocha": "^2.3.3",
-    "node-libs-browser": "^0.5.3",
     "phantomjs": "^1.9.18",
     "phantomjs-polyfill": "0.0.1",
     "plexus-form": "^0.1.3",
