@@ -20822,6 +20822,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	var isNumber = __webpack_require__(2).isNumber;
 	var isString = __webpack_require__(2).isString;
 	var React = __webpack_require__(3);
 	
@@ -20952,8 +20953,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return false;
 	        }
 	
-	        if (!isString(formattedValue)) {
+	        if (isNumber(formattedValue)) {
 	            formattedValue = formattedValue.toString();
+	        } else if (!isString(formattedValue)) {
+	            formattedValue = '';
 	        }
 	
 	        var predicate = options.strategy(options.transform(query));
