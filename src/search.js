@@ -1,4 +1,5 @@
 'use strict';
+var isNumber = require('lodash').isNumber;
 var isString = require('lodash').isString;
 var React = require('react');
 
@@ -121,8 +122,11 @@ module.exports.search = (data, columns, column, query, options) => {
             return false;
         }
 
-        if (!isString(formattedValue)) {
+        if (isNumber(formattedValue)) {
             formattedValue = formattedValue.toString();
+        }
+        else if (!isString(formattedValue)) {
+            formattedValue = '';
         }
 
         var predicate = options.strategy(options.transform(query));
