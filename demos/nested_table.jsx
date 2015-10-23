@@ -16,7 +16,8 @@ module.exports = React.createClass({
                     dad: {
                         id: 20,
                         name: 'John'
-                    }
+                    },
+                    lovesBeeGees: true
                 },
                 {
                     id: 101,
@@ -24,7 +25,8 @@ module.exports = React.createClass({
                     dad: {
                         id: 22,
                         name: 'George'
-                    }
+                    },
+                    lovesBeeGees: false
                 }
             ],
             columns: [
@@ -39,6 +41,14 @@ module.exports = React.createClass({
                         return 'id: ' + value.id + ', name: ' + value.name;
                     },
                 },
+                {
+                    property: 'lovesBeeGees',
+                    header: 'Loves BeeGees',
+                    cell: (lovesBeeGees) =>
+                        lovesBeeGees ?
+                        <span>Loves BeeGees</span> :
+                        <span>Does not love BeeGees</span>
+                }
             ],
         };
     },
