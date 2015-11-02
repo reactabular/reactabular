@@ -7,16 +7,16 @@ var cx = require('classnames');
 
 module.exports = React.createClass({
 
-    displayName: 'Header',
+    displayName: 'ColumnNames',
 
     render() {
-        const headerConfig = this.props.config;
+        const config = this.props.config;
         const columns = this.props.columns;
 
         return(
             <tr>
                 {columns.map((column, i) => {
-                    var columnHeader = reduce(headerConfig, (result, v, k) => {
+                    var columnHeader = reduce(config, (result, v, k) => {
                         result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
 
                         return result;

@@ -6,7 +6,7 @@ var React = require('react');
 
 module.exports = React.createClass({
 
-    displayName: 'CustomHeader',
+    displayName: 'ColumnFilters',
 
     // this is just an example of a possible custom header component...
     // inputs does nothing right now (but we can implement filtering or insertion here)

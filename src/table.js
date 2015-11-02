@@ -10,13 +10,13 @@ var isUndefined = _.isUndefined;
 
 var React = require('react');
 var update = require('react/lib/update');
-var Header = require('./header');
+var ColumnNames = require('./column_names');
 
 module.exports = React.createClass({
     displayName: 'Table',
 
     propTypes: {
-        header: React.PropTypes.oneOfType([
+        columnNames: React.PropTypes.oneOfType([
           React.PropTypes.object,
           React.PropTypes.func
         ]),
@@ -29,14 +29,14 @@ module.exports = React.createClass({
 
     getDefaultProps() {
         return {
-            header: {},
+            columnNames: {},
             data: [],
             columns: []
         };
     },
 
     render() {
-        var header = this.props.header;
+        var columnNames = this.props.columnNames;
         var data = this.props.data;
         var columns = this.props.columns;
         var rowKey = this.props.rowKey;
@@ -44,7 +44,7 @@ module.exports = React.createClass({
 
         var props = update(this.props, {
             $merge: {
-                header: undefined,
+                columnNames: undefined,
                 data: undefined,
                 columns: undefined
             }
@@ -52,7 +52,7 @@ module.exports = React.createClass({
 
         return (
             <table {...props}>
-                {isFunction(header) ? header(columns) : <thead><Header config={header} columns={columns} /></thead>}
+                {isFunction(columnNames) ? columnNames(columns) : <thead><ColumnNames config={columnNames} columns={columns} /></thead>}
                 <tbody>
                     {data.map((row, i) => <tr key={(row[rowKey] || i) + '-row'} {...rowProps(row, i)}>{
                         columns.map((column, j) => {
