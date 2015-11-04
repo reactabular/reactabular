@@ -29,10 +29,9 @@ Your changes will appear without reloading the browser like in [this video](http
 * [Antoine Verger](https://github.com/antoineverger) - Allow editor text inputs to be erased correctly
 * [Daan Nijkamp](https://github.com/daannijkamp) - Fixed README search example.
 * [Utku Demir](https://github.com/utdemir) - Helped to ideate row API.
-* [Andrea de la Isla](https://github.com/nuragic) - Made search algorithm stable.
+* [Andrea de la Isla](https://github.com/nuragic) - Made search algorithm stable and allowed header to be customized.
 * [cameron](https://github.com/cameront) - Helped to render nested properties through cells.
-* [Igor Kaplounenko](https://github.com/megawidget) - Allow `rowKey` to be set.
-* [Andrea Puddu](https://github.com/nuragic) - Allow header to be customized.
+* [Igor Kaplounenko](https://github.com/megawidget) - Allowed `rowKey` to be set.
 
 ## Acknowledgments
 
