@@ -3,8 +3,8 @@
 
 module.exports = {
     Table: require('./table'),
-    Header: require('./header'),
     Search: require('./search'),
+    ColumnNames: require('./column_names'),
     sortColumn: require('./sort_column'),
     editors: require('./editors'),
     formatters: require('./formatters'),
