@@ -17,8 +17,8 @@ module.exports = React.createClass({
 
     propTypes: {
         columnNames: React.PropTypes.oneOfType([
-          React.PropTypes.object,
-          React.PropTypes.func
+            React.PropTypes.object,
+            React.PropTypes.func
         ]),
         data: React.PropTypes.array,
         columns: React.PropTypes.array,

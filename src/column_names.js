@@ -6,8 +6,12 @@ var React = require('react/addons');
 var cx = require('classnames');
 
 module.exports = React.createClass({
-
     displayName: 'ColumnNames',
+
+    propTypes: {
+        config: React.PropTypes.object,
+        columns: React.PropTypes.array
+    },
 
     render() {
         const config = this.props.config;

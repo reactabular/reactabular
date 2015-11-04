@@ -5,8 +5,11 @@ var _ = require('lodash');
 var React = require('react');
 
 module.exports = React.createClass({
-
     displayName: 'ColumnFilters',
+
+    propTypes: {
+        columns: React.PropTypes.array
+    },
 
     // this is just an example of a possible custom header component...
     // inputs does nothing right now (but we can implement filtering or insertion here)
