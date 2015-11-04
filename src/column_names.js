@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var reduce = _.reduce;
-var React = require('react/addons');
+var React = require('react');
 var cx = require('classnames');
 
 module.exports = React.createClass({

@@ -100,7 +100,10 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
     module.exports = merge(common, {
         entry: {
             app: config.paths.demo,
-            vendors: ['react/addons', 'lodash'],
+            vendors: [
+                'react',
+                'lodash'
+            ],
         },
         output: {
             path: config.paths.ghPages,
@@ -147,9 +150,9 @@ var commonDist = merge(common, {
             amd: '_',
             root: '_'
         },
-        'react/addons': {
-            commonjs: 'react/addons',
-            commonjs2: 'react/addons',
+        'react': {
+            commonjs: 'react',
+            commonjs2: 'react',
             amd: 'React',
             root: 'React'
         }

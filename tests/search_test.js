@@ -1,6 +1,6 @@
 'use strict';
-var React = require('react/addons');
-var TestUtils = React.addons.TestUtils;
+var React = require('react');
+var TestUtils = require('react-addons-test-utils');
 var Search = require('../src/search');
 
 describe('Search', function() {
@@ -13,7 +13,7 @@ describe('Search', function() {
             search, 'option');
 
         expect(options.length).to.equal(1);
-        expect(options[0].getDOMNode().value).to.equal('all');
+        expect(options[0].value).to.equal('all');
     });
 
     it('should have a dropdown that contain columns that have both property and header', function() {
@@ -38,9 +38,9 @@ describe('Search', function() {
             search, 'option');
 
         expect(options.length).to.equal(2);
-        expect(options[0].getDOMNode().value).to.equal('all');
-        expect(options[1].getDOMNode().value).to.equal(columns[0].property);
-        expect(options[1].getDOMNode().textContent).to.equal(columns[0].header);
+        expect(options[0].value).to.equal('all');
+        expect(options[1].value).to.equal(columns[0].property);
+        expect(options[1].textContent).to.equal(columns[0].header);
     });
 
     it('should be able to yield results', function() {
@@ -64,7 +64,7 @@ describe('Search', function() {
         );
 
         var input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
-        input.getDOMNode().value = value;
+        input.value = value;
 
         TestUtils.Simulate.change(input);
     });
@@ -90,7 +90,7 @@ describe('Search', function() {
         );
 
         var input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
-        input.getDOMNode().value = value + value;
+        input.value = value + value;
 
         TestUtils.Simulate.change(input);
     });

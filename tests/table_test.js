@@ -1,7 +1,6 @@
 'use strict';
-
-var React = require('react/addons');
-var TestUtils = React.addons.TestUtils;
+var React = require('react');
+var TestUtils = require('react-addons-test-utils');
 var Table = require('../src/table');
 
 var Footer = React.createClass({
@@ -113,18 +112,17 @@ describe('Table', function() {
 
         var tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
         expect(tds.length).to.equal(columns.length);
-        expect(tds[0].getDOMNode().innerHTML).to.equal('basic');
-        expect(tds[1].getDOMNode().innerHTML).to.equal('ident');
-        expect(tds[2].getDOMNode().innerHTML).to.equal('100');
+        expect(tds[0].innerHTML).to.equal('basic');
+        expect(tds[1].innerHTML).to.equal('ident');
+        expect(tds[2].innerHTML).to.equal('100');
 
-        expect(tds[3].getDOMNode().className).to.equal('complex');
-        expect(tds[3].getDOMNode().innerHTML).to.equal('somestr');
+        expect(tds[3].className).to.equal('complex');
+        expect(tds[3].innerHTML).to.equal('somestr');
 
         var link = TestUtils.findRenderedDOMComponentWithTag(table, 'a');
-        var linkDom = link.getDOMNode();
-        expect(linkDom.parentNode).to.equal(tds[4].getDOMNode());
-        expect(linkDom.href).to.equal('http://some_id_123/');
-        expect(linkDom.innerHTML).to.equal('helloworld');
+        expect(link.parentNode).to.equal(tds[4]);
+        expect(link.href).to.equal('http://some_id_123/');
+        expect(link.innerHTML).to.equal('helloworld');
     });
 
     it('should render correctly with no properties', function() {
