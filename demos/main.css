@@ -123,3 +123,8 @@ table {
 .cancel-button {
     float: right;
 }
+
+.header-input {
+    float: left;
+    width: 100%;
+}
