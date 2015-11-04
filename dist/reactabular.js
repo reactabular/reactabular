@@ -566,8 +566,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _ = __webpack_require__(2);
-	var reduce = _.reduce;
+	var reduce = __webpack_require__(2).reduce;
 	var React = __webpack_require__(3);
 	
 	module.exports = React.createClass({
@@ -602,7 +601,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            })
 	        );
 	    }
-	
 	});
 
 /***/ },
