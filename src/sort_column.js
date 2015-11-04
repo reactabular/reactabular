@@ -3,9 +3,11 @@
 import sortByOrder from 'lodash.sortbyorder';
 
 module.exports = (columns, column, done) => {
-    columns.map(function (col) {
-        delete(col.classes['sort-asc']);
-        delete(col.classes['sort-desc']);
+    columns.forEach((col) => {
+        if(col.classes) {
+            delete(col.classes['sort-asc']);
+            delete(col.classes['sort-desc']);
+        }
     });
 
     column.sort = column.sort === 'asc' ? 'desc' : 'asc';
