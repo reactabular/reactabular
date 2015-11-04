@@ -1,7 +1,5 @@
 'use strict';
 
-import sortByOrder from 'lodash.sortbyorder';
-
 module.exports = (columns, column, done) => {
     columns.forEach((col) => {
         if(col.classes) {
@@ -22,7 +20,9 @@ module.exports = (columns, column, done) => {
     });
 };
 
-module.exports.sort = (data, column, sorter = sortByOrder) => {
+// sorter === lodash sortByOrder
+// https://lodash.com/docs#sortByOrder
+module.exports.sort = (data, column, sorter) => {
     if (!column) {
         return data;
     }

@@ -22,6 +22,8 @@ header: {
 In addition we need to provide `header` to our `Table` like this:
 
 ```jsx
+import {sortByOrder} from 'lodash';
+
 render() {
     var header = this.state.header;
     var data = this.state.data;
@@ -32,7 +34,7 @@ render() {
     }
 
     // sorting data here
-    data = sortColumn.sort(data, this.state.sortingColumn);
+    data = sortColumn.sort(data, this.state.sortingColumn, sortByOrder);
 
     var paginated = Paginator.paginate(data, pagination);
 

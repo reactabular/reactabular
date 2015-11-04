@@ -9,6 +9,7 @@ var math = require('annomath');
 var Paginator = require('react-pagify');
 var titleCase = require('title-case');
 var findIndex = require('lodash/array/findIndex');
+var sortByOrder = require('lodash/collection/sortByOrder');
 
 var Table = require('../src/table');
 var ColumnNames = require('../src/column_names');
@@ -264,7 +265,7 @@ module.exports = React.createClass({
             );
         }
 
-        data = sortColumn.sort(data, this.state.sortingColumn);
+        data = sortColumn.sort(data, this.state.sortingColumn, sortByOrder);
 
         var paginated = Paginator.paginate(data, pagination);
 
