@@ -27,7 +27,5 @@ module.exports.sort = (data, column, sorter) => {
         return data;
     }
 
-    var property = column.property;
-
-    return sorter(data, [property], [column.sort]);
+    return sorter(data, [column.property], [column.sort]);
 };
