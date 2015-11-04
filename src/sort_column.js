@@ -3,10 +3,9 @@
 import sortByOrder from 'lodash.sortbyorder';
 
 module.exports = (columns, column, done) => {
-    columns.map((col) => {
-        col.classes = {};
-
-        return col;
+    columns.map(function (col) {
+        delete(col.classes['sort-asc']);
+        delete(col.classes['sort-desc']);
     });
 
     column.sort = column.sort === 'asc' ? 'desc' : 'asc';
@@ -17,7 +16,8 @@ module.exports = (columns, column, done) => {
 
     done({
         sortingColumn: column,
-        columns: columns });
+        columns: columns
+    });
 };
 
 module.exports.sort = (data, column) => {
