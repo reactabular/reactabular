@@ -10,6 +10,7 @@ var Paginator = require('react-pagify');
 var titleCase = require('title-case');
 var findIndex = require('lodash/array/findIndex');
 var sortByOrder = require('lodash/collection/sortByOrder');
+var cx = require('classnames');
 
 var Table = require('../src/table');
 var ColumnNames = require('../src/column_names');
@@ -96,6 +97,7 @@ module.exports = React.createClass({
                         this.setState.bind(this)
                     );
                 },
+                className: cx(['header'])
             },
             sortingColumn: null, // reference to sorting column
             columns: [

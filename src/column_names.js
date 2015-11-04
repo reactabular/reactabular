@@ -3,7 +3,6 @@
 var _ = require('lodash');
 var reduce = _.reduce;
 var React = require('react');
-var cx = require('classnames');
 
 module.exports = React.createClass({
     displayName: 'ColumnNames',
@@ -29,7 +28,6 @@ module.exports = React.createClass({
                     return (
                         <th
                             key={i + '-header'}
-                            className={cx(column.classes)}
                             {...columnHeader}
                         >{column.header}</th>
                     );

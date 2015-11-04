@@ -34,9 +34,7 @@
     "url": "https://github.com/bebraw/reactabular/issues"
   },
   "homepage": "https://bebraw.github.io/reactabular/",
-  "dependencies": {
-    "classnames": "^2.1.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "annogenerate": "^0.8.1",
     "annomath": "^0.4.1",
@@ -46,6 +44,7 @@
     "babel-loader": "^5.3.2",
     "babel-plugin-react-transform": "^1.1.1",
     "chai": "^3.3.0",
+    "classnames": "^2.2.0",
     "clean-webpack-plugin": "^0.1.3",
     "css-loader": "^0.18.0",
     "eslint": "^1.5.0",
