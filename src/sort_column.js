@@ -20,12 +20,12 @@ module.exports = (columns, column, done) => {
     });
 };
 
-module.exports.sort = (data, column) => {
+module.exports.sort = (data, column, sorter = sortByOrder) => {
     if (!column) {
         return data;
     }
 
     var property = column.property;
 
-    return sortByOrder(data, [property], [column.sort]);
+    return sorter(data, [property], [column.sort]);
 };
