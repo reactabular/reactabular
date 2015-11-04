@@ -1,5 +1,4 @@
 'use strict';
-
 var _ = require('lodash');
 var reduce = _.reduce;
 var React = require('react');
@@ -35,5 +34,4 @@ module.exports = React.createClass({
             </tr>
         );
     }
-
 });
