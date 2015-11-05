@@ -566,6 +566,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
 	var reduce = __webpack_require__(2).reduce;
 	var React = __webpack_require__(3);
 	
@@ -590,12 +592,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                    return result;
 	                }, {});
+	                var className = columnHeader.className;
+	
+	                var props = _objectWithoutProperties(columnHeader, ['className']);
+	
+	                // sort column - XXX: tidy up somehow, maybe
+	                // there should be access to header specific classes?
+	                className = className || '';
+	                className += ' ' + column.headerClass;
 	
 	                return React.createElement(
 	                    'th',
 	                    _extends({
-	                        key: i + '-header'
-	                    }, columnHeader),
+	                        key: i + '-header',
+	                        className: className
+	                    }, props),
 	                    column.header
 	                );
 	            })
@@ -916,18 +927,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	module.exports = function (columns, column, done) {
+	    // reset old classes
 	    columns.forEach(function (col) {
-	        if (col.classes) {
-	            delete col.classes['sort-asc'];
-	            delete col.classes['sort-desc'];
-	        }
+	        col.headerClass = null;
 	    });
 	
 	    column.sort = column.sort === 'asc' ? 'desc' : 'asc';
-	    column.classes = {
-	        'sort-asc': column.sort === 'asc',
-	        'sort-desc': column.sort === 'desc'
-	    };
+	
+	    // push sorting hint
+	    column.headerClass = 'sort-' + column.sort;
 	
 	    done({
 	        sortingColumn: column,
