@@ -1,18 +1,15 @@
 'use strict';
 
 module.exports = (columns, column, done) => {
+    // reset old classes
     columns.forEach((col) => {
-        if(col.classes) {
-            delete(col.classes['sort-asc']);
-            delete(col.classes['sort-desc']);
-        }
+        col.headerClass = null;
     });
 
     column.sort = column.sort === 'asc' ? 'desc' : 'asc';
-    column.classes = {
-        'sort-asc': column.sort === 'asc',
-        'sort-desc': column.sort === 'desc'
-    };
+
+    // push sorting hint
+    column.headerClass = 'sort-' + column.sort;
 
     done({
         sortingColumn: column,

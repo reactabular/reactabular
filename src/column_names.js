@@ -22,11 +22,18 @@ module.exports = React.createClass({
 
                         return result;
                     }, {});
+                    var {className, ...props} = columnHeader;
+
+                    // sort column - XXX: tidy up somehow, maybe
+                    // there should be access to header specific classes?
+                    className = className || '';
+                    className += ' ' + column.headerClass;
 
                     return (
                         <th
                             key={i + '-header'}
-                            {...columnHeader}
+                            className={className}
+                            {...props}
                         >{column.header}</th>
                     );
                 })}
