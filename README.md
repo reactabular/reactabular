@@ -33,6 +33,7 @@ Your changes will appear without reloading the browser like in [this video](http
 * [cameron](https://github.com/cameront) - Helped to render nested properties through cells.
 * [Igor Kaplounenko](https://github.com/megawidget) - Allowed `rowKey` to be set.
 * [BJR Matos](https://github.com/bjrmatos) - Restored Node 0.10 support.
+* [Sitian Liu](https://github.com/goldensunliu) - Fixed header definition documentation.
 
 ## Acknowledgments
 
