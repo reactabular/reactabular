@@ -40,7 +40,7 @@ var columns = [
     {
         property: 'name',
         header: 'Name',
-        className: cx({'name-column': true}), // custom props
+        headerClass: cx({'name-column': true}), // custom props
     },
     {
         property: 'type',
