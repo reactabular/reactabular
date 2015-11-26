@@ -11,12 +11,12 @@ cell: (active) => active && <span>&#10003;</span>,
 
 // return value and props
 // props will be attached to td itself
-cell: (v) => {
+cell: (v) => ({
     value: v,
     props: {
-        onClick: () => alert('hello world');
+        onClick: () => alert('hello world')
     }
-},
+}),
 
 // return jsx as value
 cell: (v) => {
