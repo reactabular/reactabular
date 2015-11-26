@@ -126,7 +126,12 @@ module.exports = React.createClass({
                 {
                     property: 'salary',
                     header: 'Salary',
-                    cell: [highlighter('salary')],
+                    cell: [(v) => ({
+                        value: v,
+                        props: {
+                            onDoubleClick: () => alert('salary is ' + v)
+                        }
+                    }), highlighter('salary')]
                 },
                 {
                     property: 'active',
