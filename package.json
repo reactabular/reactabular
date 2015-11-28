@@ -75,7 +75,7 @@
     "react-addons-test-utils": "^0.14.2",
     "react-dom": "^0.14.2",
     "react-ghfork": "^0.3.2",
-    "react-pagify": "^0.8.1",
+    "react-pagify": "^0.10.0",
     "react-skylight": "^0.2.0",
     "react-transform-hmr": "^1.0.1",
     "schema2object": "^0.4.0",
