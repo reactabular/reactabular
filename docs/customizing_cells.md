@@ -19,10 +19,10 @@ cell: (v) => ({
 }),
 
 // return jsx as value
-cell: (v) => {
+cell: (v) => ({
     value: <span>Content goes here</span>
     // props are optional
-}
+})
 ```
 
 If you return JSX as value, it will override any other operation possibly after it. This is handy for implementing blocking features, such as inline editors. Once the editor is done, restore state so that it will return the possible new value and you are done.
