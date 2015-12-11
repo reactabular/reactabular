@@ -34,6 +34,7 @@ Your changes will appear without reloading the browser like in [this video](http
 * [Igor Kaplounenko](https://github.com/megawidget) - Allowed `rowKey` to be set.
 * [BJR Matos](https://github.com/bjrmatos) - Restored Node 0.10 support.
 * [Sitian Liu](https://github.com/goldensunliu) - Fixed header definition documentation.
+* [Eugene Cheung](https://github.com/arkon) - Fixed object protocol example at documentation.
 
 ## Acknowledgments
 
