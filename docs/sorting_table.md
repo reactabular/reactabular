@@ -8,7 +8,7 @@ var sortColumn = require('reactabular').sortColumn;
 ...
 
 // state
-header: {
+columnNames: {
     onClick: (column) => {
         sortColumn(
             this.state.columns,
@@ -19,13 +19,13 @@ header: {
 }
 ```
 
-In addition we need to provide `header` to our `Table` like this:
+In addition we need to provide `columnNames` to our `Table` like this:
 
 ```jsx
 import {sortByOrder} from 'lodash';
 
 render() {
-    var header = this.state.header;
+    var columnNames = this.state.columnNames;
     var data = this.state.data;
     var pagination = this.state.pagination;
 
@@ -41,7 +41,7 @@ render() {
     return (
         <div>
             ...
-            <Table columns={columns} data={paginated.data} header={header} />
+            <Table columns={columns} data={paginated.data} columnNames={columnNames} />
             ...,
         </div>
     );
