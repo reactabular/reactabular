@@ -128,7 +128,7 @@ describe('Table', function() {
     it('should aggregate returned props and values by the cell functions', function(){
         var columns = [
             {
-                property: 'value',
+                property: 'someData',
                 header: '',
                 cell: [
                     v => ({props: {className: 'fooClass'}, value: v}),
@@ -138,7 +138,7 @@ describe('Table', function() {
         ]
 
         var data = [
-            {value: 0}
+            {someData: 0}
         ]
 
         var table = TestUtils.renderIntoDocument(
