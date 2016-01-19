@@ -63,28 +63,20 @@ module.exports = React.createClass({
 
                             cell = isFunction(cell) ? [cell] : cell;
 
-                            content = reduce([value].concat(cell), (v, fn) => {
-                                if(v && React.isValidElement(v.value)) {
+                            content = reduce(cell, (v, fn) => {
+                                if(React.isValidElement(v.value)) {
                                     return v;
                                 }
 
-                                if(!isPlainObject(value) && isPlainObject(v)) {
-                                    return merge(v, {
-                                        value: fn(v.value, data, i, property)
-                                    });
+                                var val = fn(v.value, data, i, property);
+
+                                if(val && isUndefined(val.value)) {
+                                    // formatter shortcut
+                                    val = {value: val};
                                 }
 
-                                var val = fn(v, data, i, property);
-
-                                if(val && !isUndefined(val.value)) {
-                                    return val;
-                                }
-
-                                // formatter shortcut
-                                return {
-                                    value: val
-                                };
-                            });
+                                return merge(v, val);
+                            }, {value: value, props: {}});
 
                             content = content || {};
 

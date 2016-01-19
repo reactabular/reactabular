@@ -125,6 +125,33 @@ describe('Table', function() {
         expect(link.innerHTML).to.equal('helloworld');
     });
 
+    it('should aggregate returned props and values by the cell functions', function(){
+        var columns = [
+            {
+                property: 'someData',
+                header: '',
+                cell: [
+                    v => ({props: {className: 'fooClass'}, value: v}),
+                    v => ({props: {id: 'fooId'}, value: 'fooContent'+v}),
+                ]
+            }
+        ]
+
+        var data = [
+            {someData: 0}
+        ]
+
+        var table = TestUtils.renderIntoDocument(
+            <Table columns={columns} data={data} />
+        )
+
+        var tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
+        expect(tds).to.have.length(1);
+        expect(tds[0]).to.have.property('className', 'fooClass')
+        expect(tds[0]).to.have.property('id', 'fooId')
+        expect(tds[0]).to.have.property('innerHTML', 'fooContent0')
+    })
+
     it('should render correctly with no properties', function() {
         var renderedTable = TestUtils.renderIntoDocument(
             <Table/>
