@@ -654,8 +654,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    name: column.header
 	                };
 	            }
-	        }).filter(function (a) {
-	            return a;
+	        }).filter(function (column) {
+	            return column && !React.isValidElement(column.name);
 	        }));
 	    },
 	
