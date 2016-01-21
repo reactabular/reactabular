@@ -43,7 +43,9 @@ module.exports = React.createClass({
                     name: column.header
                 };
             }
-        }).filter((a) => a));
+        }).filter((column) => {
+            return column && !React.isValidElement(column.name);
+        }));
     },
 
     render() {

@@ -103,7 +103,12 @@ module.exports = React.createClass({
             columns: [
                 {
                     property: 'name',
-                    header: 'Name',
+                    header: <div>
+                        <input
+                            type="checkbox"
+                            onClick={() => console.log('clicked')}
+                            style={{width:'20px'}}/>Name
+                        </div>,
                     cell: [editable({
                         editor: editors.input(),
                     }), highlighter('name')],
