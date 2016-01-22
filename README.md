@@ -35,7 +35,7 @@ Your changes will appear without reloading the browser like in [this video](http
 * [BJR Matos](https://github.com/bjrmatos) - Restored Node 0.10 support.
 * [Sitian Liu](https://github.com/goldensunliu) - Fixed header definition documentation.
 * [Eugene Cheung](https://github.com/arkon) - Fixed object protocol example at documentation.
-* [Johnson Liang](https://github.com/MrOrz) - Cleaned up cell prop/value merging and made it work correctly if only cell functions are provided.
+* [Johnson Liang](https://github.com/MrOrz) - Cleaned up cell prop/value merging and made it work correctly if only cell functions are provided. Fixed formatter logic for falsy values.
 
 ## Acknowledgments
 
