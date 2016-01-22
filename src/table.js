@@ -70,7 +70,7 @@ module.exports = React.createClass({
 
                                 var val = fn(v.value, data, i, property);
 
-                                if(val && isUndefined(val.value)) {
+                                if(!isPlainObject(val) || isUndefined(val.value)) {
                                     // formatter shortcut
                                     val = {value: val};
                                 }

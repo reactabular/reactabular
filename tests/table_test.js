@@ -101,7 +101,7 @@ describe('Table', function() {
             {
                 basic: 'basic',
                 identity: 'ident',
-                math: 123,
+                math: 23, // deliberately chosen to make cell function return 0, a falsy value
                 complex: 'somestr',
                 jsx: {id: 'some_id_123', name: 'helloworld'}
             },
@@ -114,7 +114,7 @@ describe('Table', function() {
         expect(tds.length).to.equal(columns.length);
         expect(tds[0].innerHTML).to.equal('basic');
         expect(tds[1].innerHTML).to.equal('ident');
-        expect(tds[2].innerHTML).to.equal('100');
+        expect(tds[2].innerHTML).to.equal('0');
 
         expect(tds[3].className).to.equal('complex');
         expect(tds[3].innerHTML).to.equal('somestr');
