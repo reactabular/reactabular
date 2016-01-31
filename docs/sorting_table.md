@@ -19,6 +19,24 @@ columnNames: {
 }
 ```
 
+A more sophisticated (multi-column) sort example (each column can be independently cycled through ascending, descending, and no sort, and sorts are applied in the order they were invoked via the following onClick handler):
+
+```javascript
+var sortColumns = require('reactabular').sortColumns;
+
+...
+
+// state
+columnNames: {
+    onClick: (column) => {
+        sortColumns(this.state.columns,
+        this.state.sortedColumns,
+        column,
+        this.setState.bind(this)
+    }
+}
+```
+
 In addition we need to provide `columnNames` to our `Table` like this:
 
 ```jsx
