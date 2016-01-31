@@ -61,10 +61,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Search: __webpack_require__(10),
 	    ColumnNames: __webpack_require__(9),
 	    sortColumn: __webpack_require__(18),
-	    editors: __webpack_require__(19),
+	    sortColumns: __webpack_require__(19),
+	    editors: __webpack_require__(20),
 	    formatters: __webpack_require__(11),
 	    predicates: __webpack_require__(15),
-	    cells: __webpack_require__(23)
+	    cells: __webpack_require__(24)
 	};
 
 /***/ },
@@ -523,7 +524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * will remain to ensure logic does not differ in production.
 	 */
 	
-	var invariant = function (condition, format, a, b, c, d, e, f) {
+	function invariant(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
@@ -537,15 +538,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	      var args = [a, b, c, d, e, f];
 	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+	      error = new Error(format.replace(/%s/g, function () {
 	        return args[argIndex++];
 	      }));
+	      error.name = 'Invariant Violation';
 	    }
 	
 	    error.framesToPop = 1; // we don't care about invariant's own frame
 	    throw error;
 	  }
-	};
+	}
 	
 	module.exports = invariant;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
@@ -947,18 +949,77 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 19 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
+	
+	module.exports = function (columns, sortColumns, column, done) {
+	    var newSortCols = undefined;
+	
+	    if (typeof sortColumns === 'undefined') {
+	        newSortCols = [column];
+	    } else if (sortColumns.includes(column)) {
+	        newSortCols = sortColumns;
+	    } else {
+	        newSortCols = [].concat(_toConsumableArray(sortColumns), [column]);
+	    }
+	
+	    // cycle through: asc, desc, no sort
+	    if (typeof column.sort === 'undefined' || column.sort === '') {
+	        column.sort = 'asc';
+	        column.headerClass = 'sort-asc';
+	    } else if (column.sort === 'asc') {
+	        column.sort = 'desc';
+	        column.headerClass = 'sort-desc';
+	    } else {
+	        var idx = newSortCols.indexOf(column);
+	        if (idx > -1) {
+	            newSortCols.splice(idx, 1);
+	        }
+	        column.headerClass = null;
+	        column.sort = '';
+	    }
+	
+	    done({
+	        sortingColumns: newSortCols,
+	        columns: columns
+	    });
+	};
+	
+	// sorter === lodash sortByOrder
+	// https://lodash.com/docs#sortByOrder
+	module.exports.sort = function (data, sortColumns, sorter) {
+	    if (!sortColumns) {
+	        return data;
+	    }
+	
+	    var propertyList = [];
+	    var orderList = [];
+	
+	    sortColumns.forEach(function (column) {
+	        propertyList.push(column.property);
+	        orderList.push(column.sort);
+	    });
+	
+	    return sorter(data, propertyList, orderList);
+	};
+
+/***/ },
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	module.exports = {
-	    boolean: __webpack_require__(20),
-	    dropdown: __webpack_require__(21),
-	    input: __webpack_require__(22)
+	    boolean: __webpack_require__(21),
+	    dropdown: __webpack_require__(22),
+	    input: __webpack_require__(23)
 	};
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1001,7 +1062,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1048,7 +1109,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1113,18 +1174,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	module.exports = {
-	    identity: __webpack_require__(24),
-	    edit: __webpack_require__(25)
+	    identity: __webpack_require__(25),
+	    edit: __webpack_require__(26)
 	};
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1136,7 +1197,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
