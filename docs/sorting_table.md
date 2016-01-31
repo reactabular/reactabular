@@ -3,7 +3,7 @@
 Reactabular comes with a little helper to make sorting easier. It is possible to replace the provided sorter with something more advanced. Here's the basic idea:
 
 ```javascript
-var sortColumn = require('reactabular').sortColumn;
+var sortColumn = require('reactabular').sortColumn; 
 
 ...
 
