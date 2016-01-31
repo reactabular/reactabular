@@ -52,3 +52,4 @@ module.exports.sort = (data, sortColumns, sorter) => {
 
     return sorter(data, propertyList, orderList);
 };
+
