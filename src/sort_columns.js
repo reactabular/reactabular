@@ -7,10 +7,10 @@ module.exports = (columns, sortColumns, column, done) => {
         newSortCols = [column];
     }
     else if (sortColumns.includes(column)) {
-       newSortCols = sortColumns;
+        newSortCols = sortColumns;
     }
     else {
-       newSortCols = [...sortColumns, column];
+        newSortCols = [...sortColumns, column];
     }
 
 	// cycle through: asc, desc, no sort
