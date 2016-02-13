@@ -37,6 +37,7 @@ Your changes will appear without reloading the browser like in [this video](http
 * [Eugene Cheung](https://github.com/arkon) - Fixed object protocol example at documentation.
 * [Johnson Liang](https://github.com/MrOrz) - Cleaned up cell prop/value merging and made it work correctly if only cell functions are provided. Fixed formatter logic for falsy values.
 * [Jeff Sanchez](https://github.com/JeffSanchez) - Added support for multi-column sorting.
+* [Frederic Heem](https://github.com/FredericHeem) - Relaxed lodash version range.
 
 ## Acknowledgments
 
