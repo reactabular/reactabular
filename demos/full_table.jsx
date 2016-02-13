@@ -8,8 +8,8 @@ var generators = require('annogenerate');
 var math = require('annomath');
 var Paginator = require('react-pagify');
 var titleCase = require('title-case');
-var findIndex = require('lodash/array/findIndex');
-var sortByOrder = require('lodash/collection/sortByOrder');
+var findIndex = require('lodash/findIndex');
+var orderBy = require('lodash/orderBy');
 var cx = require('classnames');
 
 var Table = require('../src/table');
@@ -277,7 +277,7 @@ module.exports = React.createClass({
             );
         }
 
-        data = sortColumn.sort(data, this.state.sortingColumn, sortByOrder);
+        data = sortColumn.sort(data, this.state.sortingColumn, orderBy);
 
         var paginated = Paginator.paginate(data, pagination);
 
