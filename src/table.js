@@ -75,7 +75,7 @@ module.exports = React.createClass({
                                     val = {value: val};
                                 }
 
-                                return merge(v, val);
+                                return merge({}, v, val);
                             }, {value: value, props: {}});
 
                             content = content || {};
