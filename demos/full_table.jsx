@@ -3,14 +3,15 @@
 var React = require('react');
 var Form = require('plexus-form');
 var validate = require('plexus-validate');
-var SkyLight = require('babel!react-skylight/src/skylight.jsx'); // XXX: no proper build yet
+var SkyLight = require('react-skylight').default;
 var generators = require('annogenerate');
 var math = require('annomath');
-var Paginator = require('react-pagify');
+var Paginator = require('react-pagify').default;
 var titleCase = require('title-case');
 var findIndex = require('lodash/findIndex');
 var orderBy = require('lodash/orderBy');
 var cx = require('classnames');
+var segmentize = require('segmentize');
 
 var Table = require('../src/table');
 var ColumnNames = require('../src/column_names');
@@ -26,7 +27,6 @@ var countries = require('./countries');
 var generateData = require('./generate_data');
 
 var highlight = require('../src/formatters/highlight');
-
 
 module.exports = React.createClass({
     displayName: 'FullTable',
@@ -236,7 +236,7 @@ module.exports = React.createClass({
                 content: 'content',
             },
             pagination: {
-                page: 0,
+                page: 1,
                 perPage: 10
             }
         };
@@ -279,7 +279,10 @@ module.exports = React.createClass({
 
         data = sortColumn.sort(data, this.state.sortingColumn, orderBy);
 
-        var paginated = Paginator.paginate(data, pagination);
+        var paginated = paginate(data, pagination);
+        var pages = Math.ceil(data.length / Math.max(
+          isNaN(pagination.perPage) ? 1 : pagination.perPage, 1)
+        );
 
         return (
             <div>
@@ -318,12 +321,32 @@ module.exports = React.createClass({
                 </Table>
                 <div className='controls'>
                     <div className='pagination'>
-                        <Paginator
-                            page={paginated.page}
-                            pages={paginated.amount}
-                            beginPages={3}
-                            endPages={3}
-                            onSelect={this.onSelect} />
+                        <Paginator.Context className="pagify-pagination"
+                        segments={segmentize({
+                            page: pagination.page,
+                            pages: pages,
+                            beginPages: 3,
+                            endPages: 3,
+                            sidePages: 2
+                        })} onSelect={this.onSelect}>
+                            <Paginator.Button page={pagination.page - 1}>Previous</Paginator.Button>
+
+                            <Paginator.Segment field="beginPages" />
+
+                            <Paginator.Ellipsis className="ellipsis"
+                              previousField="beginPages" nextField="previousPages" />
+
+                            <Paginator.Segment field="previousPages" />
+                            <Paginator.Segment field="centerPage" className="selected" />
+                            <Paginator.Segment field="nextPages" />
+
+                            <Paginator.Ellipsis className="ellipsis"
+                              previousField="nextPages" nextField="endPages" />
+
+                            <Paginator.Segment field="endPages" />
+
+                            <Paginator.Button page={pagination.page + 1}>Next</Paginator.Button>
+                        </Paginator.Context>
                     </div>
                 </div>
                 <SkyLight ref='modal' title={this.state.modal.title}>{this.state.modal.content}</SkyLight>
@@ -333,8 +356,9 @@ module.exports = React.createClass({
 
     onSelect(page) {
         var pagination = this.state.pagination || {};
+        var pages = Math.ceil(this.state.data.length / pagination.perPage);
 
-        pagination.page = page;
+        pagination.page = Math.min(Math.max(page, 1), pages);
 
         this.setState({
             pagination: pagination
@@ -351,6 +375,23 @@ module.exports = React.createClass({
         });
     },
 });
+
+function paginate(data, o) {
+    data = data || [];
+
+    // adapt to zero indexed logic
+    var page = o.page - 1 || 0;
+    var perPage = o.perPage;
+
+    var amountOfPages = Math.ceil(data.length / perPage);
+    var startPage = page < amountOfPages? page: 0;
+
+    return {
+        amount: amountOfPages,
+        data: data.slice(startPage * perPage, startPage * perPage + perPage),
+        page: startPage
+    };
+}
 
 function augmentWithTitles(o) {
     for (var property in o) {
