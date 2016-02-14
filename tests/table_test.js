@@ -152,6 +152,33 @@ describe('Table', function() {
         expect(tds[0]).to.have.property('innerHTML', 'fooContent0')
     })
 
+    it('should call cell functions for every column, even when column property conflicts', function(){
+        var columns = [
+            {
+                property: 'nestedData',
+                header: '',
+                cell: [v => <span>{v.key1}</span>]
+            },
+            {
+                property: 'nestedData',
+                header: '',
+                cell: [v => <span>{v.key2}</span>]
+            },
+        ];
+
+        var data = [
+            {nestedData: {key1: 'foo', key2: 'bar'}}
+        ];
+
+        var table = TestUtils.renderIntoDocument(
+            <Table columns={columns} data={data} />
+        );
+
+        var tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
+        expect(tds[0]).to.have.deep.property('childNodes[0].innerHTML', 'foo');
+        expect(tds[1]).to.have.deep.property('childNodes[0].innerHTML', 'bar');
+    });
+
     it('should render correctly with no properties', function() {
         var renderedTable = TestUtils.renderIntoDocument(
             <Table/>
