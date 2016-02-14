@@ -107,7 +107,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            columns: []
 	        };
 	    },
-	
 	    render: function render() {
 	        var columnNames = this.props.columnNames;
 	        var data = this.props.data;
@@ -158,7 +157,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    val = { value: val };
 	                                }
 	
-	                                return merge(v, val);
+	                                return merge({}, v, val);
 	                            }, { value: value, props: {} });
 	
 	                            content = content || {};
@@ -592,6 +591,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                // sort column - XXX: tidy up somehow, maybe
 	                // there should be access to header specific classes?
+	
+	
 	                className = className || '';
 	                className += ' ' + column.headerClass;
 	
@@ -613,6 +614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
 	var isNumber = __webpack_require__(2).isNumber;
 	var isString = __webpack_require__(2).isString;
 	var React = __webpack_require__(3);
@@ -636,14 +638,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            onChange: function onChange() {}
 	        };
 	    },
-	
 	    getInitialState: function getInitialState() {
 	        return {
 	            column: 'all',
 	            query: ''
 	        };
 	    },
-	
 	    getOptions: function getOptions() {
 	        var columns = this.props.columns;
 	        return [{
@@ -660,7 +660,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return column && !React.isValidElement(column.name);
 	        }));
 	    },
-	
 	    render: function render() {
 	        return React.createElement(
 	            'span',
@@ -679,7 +678,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            React.createElement('input', { onChange: this.onQueryChange, value: this.state.query })
 	        );
 	    },
-	
 	    onColumnChange: function onColumnChange(event) {
 	        var column = event.target.value;
 	        var query = this.state.query;
@@ -692,7 +690,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            query: query
 	        });
 	    },
-	
 	    onQueryChange: function onQueryChange(event) {
 	        var column = this.state.column;
 	        var query = event.target.value;
@@ -705,7 +702,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            query: query
 	        });
 	    },
-	
 	    componentDidMount: function componentDidMount() {
 	        this.props.onChange({
 	            column: this.state.column,
@@ -788,6 +784,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
 	var React = __webpack_require__(3);
 	
 	module.exports = function (getHighlights) {
@@ -953,7 +950,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	module.exports = function (columns, sortColumns, column, done) {
 	    var newSortCols = undefined;
@@ -1134,7 +1131,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                value: this.props.value
 	            };
 	        },
-	
 	        render: function render() {
 	            return React.createElement('input', _extends({
 	                value: this.state.value,
@@ -1144,29 +1140,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	                onBlur: this.done
 	            }, attrs));
 	        },
-	
 	        onFocus: function onFocus(e) {
 	            this.moveCaretToEnd(e.target);
 	        },
-	
 	        moveCaretToEnd: function moveCaretToEnd(field) {
 	            var length = field.value.length;
 	            field.selectionStart = length;
 	            field.selectionEnd = length;
 	        },
-	
 	        onChange: function onChange(e) {
 	            this.setState({
 	                value: e.target.value
 	            });
 	        },
-	
 	        keyUp: function keyUp(e) {
 	            if (e.keyCode === 13) {
 	                this.done();
 	            }
 	        },
-	
 	        done: function done() {
 	            this.props.onValue(this.getDOMNode().value);
 	        }
