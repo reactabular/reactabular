@@ -7,6 +7,8 @@ By default Reactabular operates using a column and a data definition. It doesn't
 
 The chosen approach pushes a lot of complexity out of the core. As a result it might take more code to achieve certain functionalities. This is the price of flexibility. And that's the primary design goal of Reactabular.
 
+> If you want to learn more about React, read [SurviveJS - Webpack and React](http://survivejs.com/).
+
 ## Documentation
 
 See `docs/`.
