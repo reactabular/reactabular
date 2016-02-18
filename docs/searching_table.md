@@ -47,7 +47,7 @@ onSearch(search) {
 
 Then at your `render` you could do:
 
-```jsx
+```javascript
 render() {
     var data = this.state.data;
 
@@ -66,7 +66,7 @@ render() {
     return (
         <div>
             <div className='search-container'>
-                Search <Search columns={columns} data={this.state.data} onChange={this.onSearch}></Search>
+                Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
             </div>
             <Table columns={columns} data={this.state.search.data} rowKey={'id'} />
         ...
@@ -80,6 +80,14 @@ render() {
 You can deal with filtering in an entirely different manner. The method shown here works if you need to filter local data. You can easily replace the solution with something Flux based for instance. Just operate based on that `onChange` hook.
 
 > IMPORTANT! It's preferable to set `rowKey`. It allows you to control React `key` per row leading to better performance. Object id works well for this for example.
+
+## i18n
+
+It's possible to i18n `Search` through `i18n` prop. It defaults to English if no translation is provided.
+
+```javascript
+<Search i18n={{all: 'Kaikki'}} ... />
+```
 
 ## Highlighting Search Results
 

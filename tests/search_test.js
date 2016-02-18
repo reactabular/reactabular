@@ -94,4 +94,14 @@ describe('Search', function() {
 
         TestUtils.Simulate.change(input);
     });
+
+    it('should allow i18n', function() {
+        var expected = 'Kaikki';
+        var search = TestUtils.renderIntoDocument(
+            <Search i18n={{all: expected}} />
+        );
+        var select = TestUtils.findRenderedDOMComponentWithTag(search, 'select')[0];
+
+        expect(select.text).to.equal(expected);
+    });
 });

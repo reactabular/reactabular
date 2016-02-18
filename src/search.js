@@ -14,6 +14,9 @@ module.exports = React.createClass({
         columns: React.PropTypes.array,
         data: React.PropTypes.array,
         onChange: React.PropTypes.func,
+        i18n: React.PropTypes.shape({
+            all: React.PropTypes.string
+        })
     },
 
     getDefaultProps() {
@@ -21,6 +24,9 @@ module.exports = React.createClass({
             columns: [],
             data: [],
             onChange: () => {},
+            i18n: {
+                all: 'All'
+            }
         };
     },
 
@@ -33,9 +39,11 @@ module.exports = React.createClass({
 
     getOptions() {
         var columns = this.props.columns;
+        var i18n = this.props.i18n;
+
         return [{
             value: 'all',
-            name: 'All'
+            name: i18n.all
         }].concat(columns.map((column) => {
             if(column.property && column.header) {
                 return {
