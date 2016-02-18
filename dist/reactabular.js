@@ -628,14 +628,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    propTypes: {
 	        columns: React.PropTypes.array,
 	        data: React.PropTypes.array,
-	        onChange: React.PropTypes.func
+	        onChange: React.PropTypes.func,
+	        i18n: React.PropTypes.shape({
+	            all: React.PropTypes.string
+	        })
 	    },
 	
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            columns: [],
 	            data: [],
-	            onChange: function onChange() {}
+	            onChange: function onChange() {},
+	            i18n: {
+	                all: 'All'
+	            }
 	        };
 	    },
 	    getInitialState: function getInitialState() {
@@ -646,9 +652,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    getOptions: function getOptions() {
 	        var columns = this.props.columns;
+	        var i18n = this.props.i18n;
+	
 	        return [{
 	            value: 'all',
-	            name: 'All'
+	            name: i18n.all
 	        }].concat(columns.map(function (column) {
 	            if (column.property && column.header) {
 	                return {
