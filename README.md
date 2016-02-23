@@ -40,6 +40,7 @@ Your changes will appear without reloading the browser like in [this video](http
 * [Johnson Liang](https://github.com/MrOrz) - Cleaned up cell prop/value merging and made it work correctly if only cell functions are provided. Fixed formatter logic for falsy values. Fixed cell data sharing issue related to nesting (#129).
 * [Jeff Sanchez](https://github.com/JeffSanchez) - Added support for multi-column sorting.
 * [Frederic Heem](https://github.com/FredericHeem) - Relaxed lodash version range.
+* [Trevor Rundell](https://github.com/trun) - Don't attempt to merge table cell values.
 
 ## Acknowledgments
 
