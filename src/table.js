@@ -75,7 +75,10 @@ module.exports = React.createClass({
                                     val = {value: val};
                                 }
 
-                                return merge({}, v, val);
+                                return {
+                                    value: isUndefined(val.value) ? v.value : val.value,
+                                    props: merge({}, v.props, val.props)
+                                };
                             }, {value: value, props: {}});
 
                             content = content || {};
