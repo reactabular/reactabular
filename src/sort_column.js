@@ -1,5 +1,7 @@
 'use strict';
 
+import {isString} from 'lodash';
+
 module.exports = (columns, column, done) => {
     // reset old classes
     columns.forEach(function (col) {
@@ -25,5 +27,10 @@ module.exports.sort = (data, column, sorter) => {
         return data;
     }
 
-    return sorter(data, [column.property], [column.sort]);
+    let sortFn = function (row) {
+        let value = row[column.property];
+        return isString(value) ? value.toLowerCase() : value;
+    };
+
+    return sorter(data, [sortFn], [column.sort]);
 };
