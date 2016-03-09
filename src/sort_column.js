@@ -20,8 +20,8 @@ module.exports = (columns, column, done) => {
     });
 };
 
-// sorter === lodash sortByOrder
-// https://lodash.com/docs#sortByOrder
+// sorter === lodash sortBy
+// https://lodash.com/docs#sortBy
 module.exports.sort = (data, column, sorter) => {
     if (!column) {
         return data;
