@@ -1,12 +1,10 @@
 'use strict';
 
-var _ = require('lodash');
-
-var merge = _.merge;
-var reduce = _.reduce;
-var isFunction = _.isFunction;
-var isPlainObject = _.isPlainObject;
-var isUndefined = _.isUndefined;
+var merge = require('lodash/merge');
+var reduce = require('lodash/reduce');
+var isFunction = require('lodash/isFunction');
+var isPlainObject = require('lodash/isPlainObject');
+var isUndefined = require('lodash/isUndefined');
 
 var React = require('react');
 var update = require('react/lib/update');

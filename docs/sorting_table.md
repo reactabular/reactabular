@@ -40,7 +40,7 @@ columnNames: {
 In addition we need to provide `columnNames` to our `Table` like this:
 
 ```jsx
-import {sortByOrder} from 'lodash';
+import orderBy from 'lodash/orderBy';
 
 render() {
     var columnNames = this.state.columnNames;
@@ -52,7 +52,7 @@ render() {
     }
 
     // sorting data here
-    data = sortColumn.sort(data, this.state.sortingColumn, sortByOrder);
+    data = sortColumn.sort(data, this.state.sortingColumn, orderBy);
 
     var paginated = Paginator.paginate(data, pagination);
 

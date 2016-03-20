@@ -1,6 +1,6 @@
 'use strict';
-var isNumber = require('lodash').isNumber;
-var isString = require('lodash').isString;
+var isNumber = require('lodash/isNumber');
+var isString = require('lodash/isString');
 var React = require('react');
 
 var formatters = require('./formatters');

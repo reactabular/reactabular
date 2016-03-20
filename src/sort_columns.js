@@ -35,8 +35,8 @@ module.exports = (columns, sortColumns, column, done) => {
     });
 };
 
-// sorter === lodash sortByOrder
-// https://lodash.com/docs#sortByOrder
+// sorter === lodash orderBy
+// https://lodash.com/docs#orderBy
 module.exports.sort = (data, sortColumns, sorter) => {
     if (!sortColumns) {
         return data;
