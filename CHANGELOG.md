@@ -1,3 +1,9 @@
+0.12.0 / 2016-03-22
+===================
+
+  * Breaking - Bump lodash minimum version to 4.0.
+  * Feature - Import only specific lodash functions. #134 @callahad
+
 0.11.2 / 2016-02-23
 ===================
 
@@ -41,7 +47,7 @@
   * Documentation - Fix object protocol example. #117 @arkon
   * Demo - Updated react-pagify
   * Demo - Add double click example for cell
-  * Feature - Replaced `className` with `headerClass`. #113 @goldensunliu
+  * Breaking - Replaced `className` with `headerClass`. #113 @goldensunliu
 
 0.9.2 / 2015-11-10
 ==================
