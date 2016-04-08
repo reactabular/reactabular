@@ -1,3 +1,8 @@
+0.12.1 / 2016-04-08
+==================
+
+  * Expand React peer dependency range to include React 15.
+
 0.12.0 / 2016-03-22
 ===================
 
