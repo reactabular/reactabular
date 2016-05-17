@@ -29,11 +29,13 @@ var sortColumns = require('reactabular').sortColumns;
 // state
 columnNames: {
     onClick: (column) => {
-        sortColumns(this.state.columns,
-        this.state.sortedColumns,
-        column,
-        this.setState.bind(this)
-    }
+        sortColumns(
+            this.state.columns,
+            this.state.sortedColumns,
+            column,
+            this.setState.bind(this)
+        );
+    },
 }
 ```
 
