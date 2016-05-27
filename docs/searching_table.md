@@ -14,16 +14,16 @@ This component lives outside your table and returns results that match the query
 
 #### Usage
 ```javascript
-    ...
-    return (
-        <div>
-            <div className='search-container'>
-                Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
-            </div>
-            <Table columns={columns} data={this.state.search.data} rowKey={'id'} />
-            ...
+...
+return (
+    <div>
+        <div className='search-container'>
+            Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
         </div>
-    );
+        <Table columns={columns} data={this.state.search.data} rowKey={'id'} />
+        ...
+    </div>
+);
 ```
 
 
@@ -36,26 +36,26 @@ This component is generally positioned in the header of the table and allows use
 
 #### Usage
 ```javascript
-    columnFilters() {
-        var headerConfig = this.state.header;
-        var columns = this.state.columns;
-        return (
-            <thead>
-                <ColumnNames config={headerConfig} columns={columns} />
-                <ColumnFilters columns={columns} onChange={this.onSearch} />
-            </thead>
-        );
-    },
+columnFilters() {
+    var headerConfig = this.state.header;
+    var columns = this.state.columns;
+    return (
+        <thead>
+            <ColumnNames config={headerConfig} columns={columns} />
+            <ColumnFilters columns={columns} onChange={this.onSearch} />
+        </thead>
+    );
+},
+...
+render() {
     ...
-    render() {
-        ...
-        return (
-            <div>
-                <Table columns={columns} data={this.state.search.data} columnNames={this.columnFilters} rowKey={'id'} />
-                ...
-            </div>
-        );
-    }
+    return (
+        <div>
+            <Table columns={columns} data={this.state.search.data} columnNames={this.columnFilters} rowKey={'id'} />
+            ...
+        </div>
+    );
+}
 
 ```
 
@@ -83,7 +83,6 @@ var columns = [
 
 Here is an example of handling a search callback:
 ```javascript
-The search filter can 
 getInitialState() {
     return {
         search: {
