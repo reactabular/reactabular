@@ -73,7 +73,7 @@ module.exports = React.createClass({
         };
 
         var highlighter = (column) => highlight((value) => {
-            return Search.matches(column, value, this.state.search.query[column]);
+            return Search.matches(column, value, this.state.search.filter[column]);
         });
 
         return {
@@ -81,7 +81,7 @@ module.exports = React.createClass({
             data: data,
             formatters: formatters,
             search: {
-                query: '',
+                filter: {},
             },
             header: {
                 onClick: (column) => {
@@ -146,6 +146,8 @@ module.exports = React.createClass({
                         }),
                         (active) => active && <span>&#10003;</span>
                     ],
+                    filterPlaceholder: 'lol',
+                    noFilter: true
                 },
                 {
                     cell: function(value, celldata, rowIndex) {
@@ -241,12 +243,10 @@ module.exports = React.createClass({
         };
     },
 
-    onSearch(query) {
+    onSearch(filter) {
         this.setState({
             editedCell: null, // reset edits
-            search: {
-                query
-            }
+            search: { filter }
         });
     },
 
@@ -269,11 +269,11 @@ module.exports = React.createClass({
 
         var data = this.state.data;
 
-        if (this.state.search.query) {
-            data = Search.searchMultiple(
+        if (this.state.search.filter) {
+            data = Search.search(
                 data,
                 columns,
-                this.state.search.query
+                this.state.search.filter
             );
         }
 

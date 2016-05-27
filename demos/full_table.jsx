@@ -72,7 +72,8 @@ module.exports = React.createClass({
         };
 
         var highlighter = (column) => highlight((value) => {
-            return Search.matches(column, value, this.state.search.query);
+            var { filter } = this.state.search;
+            return Search.matches(column, value, filter[Object.keys(filter).pop()]);
         });
 
         return {
@@ -80,8 +81,7 @@ module.exports = React.createClass({
             data: data,
             formatters: formatters,
             search: {
-                column: '',
-                query: ''
+                filter: {}
             },
             header: {
                 onClick: (column) => {
@@ -241,10 +241,10 @@ module.exports = React.createClass({
         };
     },
 
-    onSearch(search) {
+    onSearch(filter) {
         this.setState({
             editedCell: null, // reset edits
-            search: search
+            search: { filter }
         });
     },
 
@@ -266,14 +266,14 @@ module.exports = React.createClass({
 
         var data = this.state.data;
 
-        if (this.state.search.query) {
+        if (this.state.search.filter) {
             data = Search.search(
                 data,
                 columns,
-                this.state.search.column,
-                this.state.search.query
+                this.state.search.filter
             );
         }
+
 
         data = sortColumn.sort(data, this.state.sortingColumn, orderBy);
 
