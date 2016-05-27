@@ -102,7 +102,7 @@ module.exports = React.createClass({
     },
 });
 
-module.exports.search = (data, columns, column, query, options) => {
+var search = (data, columns, column, query, options) => {
     if(!query) {
         return data;
     }
@@ -143,6 +143,24 @@ module.exports.search = (data, columns, column, query, options) => {
 
         return predicate.evaluate(options.transform(formattedValue));
     }
+};
+module.exports.search = search;
+
+module.exports.searchMultiple = (data, columns, query, options) => {
+    if (!query) {
+        return data;
+    }
+
+    var searchColumns = Object.keys(query);
+
+    data = searchColumns.reduce(
+        (filteredData, column) => {
+            return search(filteredData, columns, column, query[column], options);
+        },
+        data
+    );
+
+    return data;
 };
 
 module.exports.matches = (column, value, query, options) => {

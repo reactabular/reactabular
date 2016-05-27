@@ -4,29 +4,57 @@ var _ = require('lodash');
 
 var React = require('react');
 
-module.exports = React.createClass({
-    displayName: 'ColumnFilters',
+// This is an example of a custom header component that applies a filter to
+// each column
+class ColumnFilters extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onQueryChange = this.onQueryChange.bind(this);
+        this.state = {
+            query: {}
+        };
+    }
 
-    propTypes: {
-        columns: React.PropTypes.array
-    },
+    /**
+     * Handles an input change on any of the filters.
+     */
+    onQueryChange(event) {
+        const { onChange } = this.props;
+        const { query } = this.state;
 
-    // this is just an example of a possible custom header component...
-    // inputs does nothing right now (but we can implement filtering or insertion here)
+        query[event.target.name] = event.target.value;
+
+        this.setState({ query }, () => {
+            onChange(this.state.query);
+        });
+    }
+
     render() {
-        const columns = this.props.columns;
+        const { columns } = this.props;
 
         return(
             <tr>
                 {columns.map((column, i) => {
                     return (
                         <td key={i + '-custom-header'}>
-                            {column.property ? <input className="header-input" placeholder={'Insert '+column.property} /> : ''}
+                            {column.property ?
+                              <input
+                                onChange={this.onQueryChange}
+                                className="header-input"
+                                name={column.property}
+                                placeholder={'Filter by '+column.property}
+                              />
+                            : ''}
                         </td>
                     );
                 })}
             </tr>
         );
     }
+}
+ColumnFilters.propTypes = {
+    columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    onChange: React.PropTypes.func.isRequired,
+};
 
-});
+module.exports = ColumnFilters;
