@@ -275,7 +275,6 @@ module.exports = React.createClass({
                 columns,
                 this.state.search.query
             );
-            console.log(data);
         }
 
         data = sortColumn.sort(data, this.state.sortingColumn, orderBy);
