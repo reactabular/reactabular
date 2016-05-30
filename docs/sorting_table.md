@@ -39,7 +39,7 @@ var sortUtility = require('reactabular').sortColumns;
       },
   },
   // or...
-  // for supporting sort against a multiple columns
+  // for supporting sort against multiple columns
   columnNames: {
       onClick: (column) => {
           sortUtility(
@@ -55,7 +55,7 @@ var sortUtility = require('reactabular').sortColumns;
 
 #### sort & render
 
-```js
+```jsx
 import orderBy from 'lodash/orderBy';
 
 render() {
