@@ -11,7 +11,7 @@ The general workflow is as follows:
 1. sort the data, pre-render
 1. feed in the sorted data to your `reactabular` table
 
-#### import the sort utility
+## Import the `sort` Utility
 
 ```js
 var sortUtility = require('reactabular').sortColumn;
@@ -23,7 +23,8 @@ or, if you want to support sorting against multiple columns:
 var sortUtility = require('reactabular').sortColumns;
 ```
 
-#### setup click handlers
+## Set Up Click Handlers
+
 ```js
 // place in getInitialState, or, if using es6 classes, `this.setState = ...`
 {
@@ -53,7 +54,7 @@ var sortUtility = require('reactabular').sortColumns;
 }
 ```
 
-#### sort & render
+## Sort and Render
 
 ```jsx
 import orderBy from 'lodash/orderBy';
@@ -86,6 +87,6 @@ The imported `sortUtility` sets either the `sort-asc` or `sort-desc` class for c
 
 You can get something basic styles (e.g. UP/DOWN arrows) by importing `./style.css`. In Webpack you can import it to your project using `require('reactabular/style.css')` provided you have appropriate loaders set up.
 
-##### sort events
+## Sort Events
 
 `header` key-value pairs will be applied as attributes to `th`'s. If you have an event handler (ie. something starting with `.on`), the first parameter provided will be the column in question. The second one will be React event.
