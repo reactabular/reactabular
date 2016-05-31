@@ -43,6 +43,7 @@ Your changes will appear without reloading the browser like in [this video](http
 * [Trevor Rundell](https://github.com/trun) - Don't attempt to merge table cell values.
 * [Dan Callahan](https://github.com/callahad) - Use specific methods from lodash + upgrade to lodash 4.0.
 * [devaublanc](https://github.com/devaublanc) - Fixed syntax at sorting documentation.
+* [Christopher Dieringer](https://github.com/cdaringe) - Improved sorting documentation.
 
 ## Acknowledgments
 
