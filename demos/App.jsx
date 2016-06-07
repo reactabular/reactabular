@@ -4,6 +4,7 @@ var React = require('react');
 var Fork = require('react-ghfork');
 
 var FullTable = require('./full_table.jsx');
+var FullTableMultipleFilters = require('./full_table_multiple_filters.jsx');
 var EditorsTable = require('./editors_table.jsx');
 var NestedTable = require('./nested_table.jsx');
 
@@ -34,6 +35,17 @@ module.exports = React.createClass({
                         </div>
 
                         <FullTable />
+                    </section>
+                    <section className="multiple-filters">
+                      <div className='description'>
+                          <h2>Multiple filters</h2>
+
+                          <p>The table below is identical to the example above with the exception that there is a filter for each column of data.</p>
+
+                          <p>This provides the flexibility to search across multiple columns using different filters.</p>
+                      </div>
+
+                      <FullTableMultipleFilters />
                     </section>
                     <section className='editors'>
                         <div className='description'>

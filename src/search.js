@@ -76,8 +76,7 @@ module.exports = React.createClass({
         });
 
         this.props.onChange({
-            column: column,
-            query: query,
+            [column]: query
         });
     },
 
@@ -87,22 +86,19 @@ module.exports = React.createClass({
         this.setState({
             query: query
         });
-
         this.props.onChange({
-            column: column,
-            query: query,
+            [column]: query
         });
     },
 
     componentDidMount() {
         this.props.onChange({
-            column: this.state.column,
-            query: this.state.query
+            [this.state.column]: this.state.query
         });
     },
 });
 
-module.exports.search = (data, columns, column, query, options) => {
+var searchColumn = (data, columns, column, query, options) => {
     if(!query) {
         return data;
     }
@@ -143,6 +139,24 @@ module.exports.search = (data, columns, column, query, options) => {
 
         return predicate.evaluate(options.transform(formattedValue));
     }
+};
+module.exports.searchColumn = searchColumn;
+
+module.exports.search = (data, columns, query, options) => {
+    if (!query) {
+        return data;
+    }
+
+    var searchColumns = Object.keys(query);
+
+    data = searchColumns.reduce(
+        (filteredData, column) => {
+            return searchColumn(filteredData, columns, column, query[column], options);
+        },
+        data
+    );
+
+    return data;
 };
 
 module.exports.matches = (column, value, query, options) => {

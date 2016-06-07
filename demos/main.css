@@ -129,7 +129,8 @@ table {
     float: right;
 }
 
-.header-input {
+.header-input,
+.column-filter-input {
     float: left;
     width: 100%;
 }

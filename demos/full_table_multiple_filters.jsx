@@ -20,6 +20,7 @@ var editors = require('../src/editors');
 var sortColumn = require('../src/sort_column');
 var cells = require('../src/cells');
 
+var ColumnFilters = require('./column_filters.jsx');
 var FieldWrapper = require('./field_wrapper.jsx');
 var SectionWrapper = require('./section_wrapper.jsx');
 var countries = require('./countries');
@@ -72,8 +73,7 @@ module.exports = React.createClass({
         };
 
         var highlighter = (column) => highlight((value) => {
-            var { filter } = this.state.search;
-            return Search.matches(column, value, filter[Object.keys(filter).pop()]);
+            return Search.matches(column, value, this.state.search.filter[column]);
         });
 
         return {
@@ -81,7 +81,7 @@ module.exports = React.createClass({
             data: data,
             formatters: formatters,
             search: {
-                filter: {}
+                filter: {},
             },
             header: {
                 onClick: (column) => {
@@ -146,6 +146,8 @@ module.exports = React.createClass({
                         }),
                         (active) => active && <span>&#10003;</span>
                     ],
+                    filterPlaceholder: 'lol',
+                    noFilter: true
                 },
                 {
                     cell: function(value, celldata, rowIndex) {
@@ -255,6 +257,7 @@ module.exports = React.createClass({
         return (
             <thead>
                 <ColumnNames config={headerConfig} columns={columns} />
+                <ColumnFilters columns={columns} onChange={this.onSearch} />
             </thead>
         );
     },
@@ -274,7 +277,6 @@ module.exports = React.createClass({
             );
         }
 
-
         data = sortColumn.sort(data, this.state.sortingColumn, orderBy);
 
         var paginated = paginate(data, pagination);
@@ -287,9 +289,6 @@ module.exports = React.createClass({
                 <div className='controls'>
                     <div className='per-page-container'>
                         Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
-                    </div>
-                    <div className='search-container'>
-                        Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
                     </div>
                 </div>
                 <Table

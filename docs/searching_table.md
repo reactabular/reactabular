@@ -1,77 +1,121 @@
 # Searching a Table
 
-`Reactabular` comes with a search helper that can be hooked up. See below:
+`Reactabular` comes with a two pre-built search helpers that can be hooked up to your table.
+
+## Components
+
+### Option 1: Searching all (or one) field dropdown + input
 
 ```javascript
 var Search = require('reactabular').Search;
+```
 
+This component lives outside your table and returns results that match the query in any of the columns, or if set, in a single column.
+
+#### Usage
+```javascript
 ...
+return (
+    <div>
+        <div className='search-container'>
+            Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
+        </div>
+        <Table columns={columns} data={this.state.search.data} rowKey={'id'} />
+        ...
+    </div>
+);
+```
 
 
-var columns = [
+### Option 2: A search field for each column
+```javascript
+var Search = require('reactabular').SearchMultiple;
+```
+
+This component is generally positioned in the header of the table and allows users to filter by individual columns.
+
+#### Usage
+```javascript
+columnFilters() {
+    var headerConfig = this.state.header;
+    var columns = this.state.columns;
+    return (
+        <thead>
+            <ColumnNames config={headerConfig} columns={columns} />
+            <ColumnFilters columns={columns} onChange={this.onSearch} />
+        </thead>
+    );
+},
+...
+render() {
     ...
+    return (
+        <div>
+            <Table columns={columns} data={this.state.search.data} columnNames={this.columnFilters} rowKey={'id'} />
+            ...
+        </div>
+    );
+}
+
+```
+
+
+## Handling search results
+
+A column becomes searchable when it has a unique 'property' property for each column.
+In the following example, the __Followers__ and __Tweets__ columns are searchable but __Actions__ is not.
+```javascript
+var columns = [
     {
         property: 'followers',
         header: 'Followers',
-        // accuracy per hundred is enough for demoing
-        cell: (followers) => followers - (followers % 100),
-        // search targets values by default. we can customize
-        // it by providing a custom data formatter to it to get
-        // matches you might expect
-        search: (followers) => followers - (followers % 100),
     },
-    ...
+    {
+        property: 'tweets',
+        header: 'Tweets',
+    },
+    {
+        // This column is NOT searched because it has no 'property' property
+        header: 'Actions',
+    }
 ];
+```
 
-...
-
+Here is an example of handling a search callback:
+```javascript
 getInitialState() {
     return {
-        ...
         search: {
-            column: '',
-            query: ''
+            filter: {}
         },
-        ...
     };
 }
 
-...
-
-onSearch(search) {
+onSearch(filter) {
     this.setState({
-        search: search
+        search: { filter }
     });
 },
 ```
 
-Then at your `render` you could do:
+In your `render` method, you could do something like the following:
 
 ```javascript
 render() {
     var data = this.state.data;
 
-    if (this.state.search.query) {
-        // apply search to data
-        // alternatively you could hit backend `onChange`
+    if (this.state.search.filter) {
+        // Apply the filter(s) to the data
+        // Alternatively you could hit a backend `onChange` method,
         // or push this part elsewhere depending on your needs
         data = Search.search(
             data,
             columns,
-            this.state.search.column,
-            this.state.search.query
+            this.state.search.filter,
         );
     }
 
-    return (
-        <div>
-            <div className='search-container'>
-                Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
-            </div>
-            <Table columns={columns} data={this.state.search.data} rowKey={'id'} />
-        ...
-        </div>
-    );
+    return (...);
 }
 ```
 
@@ -96,7 +140,13 @@ We can highlight individual search results by using a premade `highlight` helper
 ```javascript
 var highlight = require('reactabular/formatters/highlight');
 var highlighter = (column) => highlight((value) => {
-    return Search.matches(column, value, this.state.search.query);
+    var { filter } = this.state.search;
+    
+    // To highlight all matches based on a single filter (e.g. when using the search dropdown)
+    return Search.matches(column, value, filter[Object.keys(filter).pop()]);
+    
+    // To highlight matches only in the searched column
+    return Search.matches(column, value, this.state.search.filter[column]);
 });
 
 ...
