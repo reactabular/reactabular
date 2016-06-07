@@ -1,5 +1,10 @@
+0.13.0 / 2016-06-07
+===================
+
+  * Feature - Support for multiple saerch filters. #138 @szdc
+
 0.12.1 / 2016-04-08
-==================
+===================
 
   * Expand React peer dependency range to include React 15.
 
