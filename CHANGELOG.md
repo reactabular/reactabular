@@ -32,7 +32,7 @@
 0.10.4 / 2016-02-13
 ===================
 
-  * Feature - Relaxed about perr lodash version, now < 5. #128 @FredericHeem
+  * Feature - Relaxed about lodash peer version, now < 5. #128 @FredericHeem
 
 0.10.3 / 2016-01-31
 ===================
