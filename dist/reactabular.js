@@ -5424,6 +5424,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var isNumber = __webpack_require__(148);
 	var isString = __webpack_require__(59);
 	var React = __webpack_require__(140);
@@ -5502,10 +5504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            column: column
 	        });
 	
-	        this.props.onChange({
-	            column: column,
-	            query: query
-	        });
+	        this.props.onChange(_defineProperty({}, column, query));
 	    },
 	    onQueryChange: function onQueryChange(event) {
 	        var column = this.state.column;
@@ -5513,21 +5512,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setState({
 	            query: query
 	        });
-	
-	        this.props.onChange({
-	            column: column,
-	            query: query
-	        });
+	        this.props.onChange(_defineProperty({}, column, query));
 	    },
 	    componentDidMount: function componentDidMount() {
-	        this.props.onChange({
-	            column: this.state.column,
-	            query: this.state.query
-	        });
+	        this.props.onChange(_defineProperty({}, this.state.column, this.state.query));
 	    }
 	});
 	
-	module.exports.search = function (data, columns, column, query, options) {
+	var searchColumn = function searchColumn(data, columns, column, query, options) {
 	    if (!query) {
 	        return data;
 	    }
@@ -5567,6 +5559,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        return predicate.evaluate(options.transform(formattedValue));
 	    }
+	};
+	module.exports.searchColumn = searchColumn;
+	
+	module.exports.search = function (data, columns, query, options) {
+	    if (!query) {
+	        return data;
+	    }
+	
+	    var searchColumns = Object.keys(query);
+	
+	    data = searchColumns.reduce(function (filteredData, column) {
+	        return searchColumn(filteredData, columns, column, query[column], options);
+	    }, data);
+	
+	    return data;
 	};
 	
 	module.exports.matches = function (column, value, query, options) {
