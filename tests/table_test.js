@@ -31,7 +31,7 @@ describe('Table', function() {
             },
         ];
         var table = TestUtils.renderIntoDocument(
-            <Table columns={columns} />
+            <Table columns={columns} rowKey='id' />
         );
 
         var ths = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -56,12 +56,12 @@ describe('Table', function() {
             },
         ];
         var data = [
-            {name: 'foo'},
-            {position: 'demo'},
-            {age: 123}
+            {name: 'foo', id: 0},
+            {position: 'demo', id: 1},
+            {age: 123, id: 2}
         ];
         var table = TestUtils.renderIntoDocument(
-            <Table columns={columns} data={data} />
+            <Table columns={columns} data={data} rowKey='id' />
         );
 
         var trs = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -103,11 +103,12 @@ describe('Table', function() {
                 identity: 'ident',
                 math: 23, // deliberately chosen to make cell function return 0, a falsy value
                 complex: 'somestr',
-                jsx: {id: 'some_id_123', name: 'helloworld'}
+                jsx: {id: 'some_id_123', name: 'helloworld'},
+                id: 0
             },
         ];
         var table = TestUtils.renderIntoDocument(
-            <Table columns={columns} data={data} />
+            <Table columns={columns} data={data} rowKey='id' />
         );
 
         var tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
@@ -138,11 +139,14 @@ describe('Table', function() {
         ]
 
         var data = [
-            {someData: 0}
+            {
+                someData: 0,
+                id: 0
+            }
         ]
 
         var table = TestUtils.renderIntoDocument(
-            <Table columns={columns} data={data} />
+            <Table columns={columns} data={data} rowKey='id' />
         )
 
         var tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
@@ -167,11 +171,16 @@ describe('Table', function() {
         ];
 
         var data = [
-            {nestedData: {key1: 'foo', key2: 'bar'}}
+            {
+                nestedData: {
+                    key1: 'foo', key2: 'bar'
+                },
+                id: 0
+            }
         ];
 
         var table = TestUtils.renderIntoDocument(
-            <Table columns={columns} data={data} />
+            <Table columns={columns} data={data} rowKey='id' />
         );
 
         var tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
@@ -179,9 +188,9 @@ describe('Table', function() {
         expect(tds[1]).to.have.deep.property('childNodes[0].innerHTML', 'bar');
     });
 
-    it('should render correctly with no properties', function() {
+    it('should render correctly with only rowKey', function() {
         var renderedTable = TestUtils.renderIntoDocument(
-            <Table/>
+            <Table rowKey='id' />
         );
 
         expect(renderedTable.props.data).to.be.empty;
@@ -191,7 +200,7 @@ describe('Table', function() {
 
     it('should render children correctly', function() {
         var renderedTable = TestUtils.renderIntoDocument(
-            <Table>
+            <Table rowKey='id'>
                 <Footer/>
             </Table>
         );
