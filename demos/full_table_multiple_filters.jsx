@@ -1,35 +1,34 @@
-'use strict';
+import React from 'react';
+import Form from 'react-json-editor';
+import validate from 'plexus-validate';
+import SkyLight from 'react-skylight';
+import Paginator from 'react-pagify';
+import cx from 'classnames';
+import segmentize from 'segmentize';
 
-var React = require('react');
-var Form = require('react-json-editor');
-var validate = require('plexus-validate');
-var SkyLight = require('react-skylight').default;
-var generators = require('annogenerate');
-var Paginator = require('react-pagify').default;
-var titleCase = require('title-case');
-var findIndex = require('lodash/findIndex');
-var orderBy = require('lodash/orderBy');
-var sample = require('lodash/sample');
-var cx = require('classnames');
-var segmentize = require('segmentize');
+import findIndex from 'lodash/findIndex';
+import orderBy from 'lodash/orderBy';
 
-var Table = require('../src/table');
-var ColumnNames = require('../src/column_names');
-var Search = require('../src/search');
-var editors = require('../src/editors');
-var sortColumn = require('../src/sort_column');
-var cells = require('../src/cells');
+import Table from '../src/table';
+import ColumnNames from '../src/column_names';
+import Search from '../src/search';
+import editors from '../src/editors';
+import sortColumn from '../src/sort_column';
+import cells from '../src/cells';
 
-var ColumnFilters = require('./column_filters.jsx');
-var FieldWrapper = require('./field_wrapper.jsx');
-var SectionWrapper = require('./section_wrapper.jsx');
-var countries = require('./countries');
-var generateData = require('./generate_data');
+import ColumnFilters from './column_filters';
+import FieldWrapper from './field_wrapper';
+import SectionWrapper from './section_wrapper';
+import countries from './countries';
+import generateData from './generate_data';
 
-var highlight = require('../src/formatters/highlight');
+import highlight from '../src/formatters/highlight';
+import {
+    paginate, augmentWithTitles, getFieldGenerators, attachIds, find
+} from './common';
 
-module.exports = React.createClass({
-    displayName: 'FullTable',
+export default React.createClass({
+    displayName: 'FullTableWithMultipleFilters',
     getInitialState() {
         var countryValues = countries.map((c) => c.value);
         var properties = augmentWithTitles({
@@ -372,61 +371,3 @@ module.exports = React.createClass({
         });
     },
 });
-
-function paginate(data, o) {
-    data = data || [];
-
-    // adapt to zero indexed logic
-    var page = o.page - 1 || 0;
-    var perPage = o.perPage;
-
-    var amountOfPages = Math.ceil(data.length / perPage);
-    var startPage = page < amountOfPages? page: 0;
-
-    return {
-        amount: amountOfPages,
-        data: data.slice(startPage * perPage, startPage * perPage + perPage),
-        page: startPage
-    };
-}
-
-function augmentWithTitles(o) {
-    for (var property in o) {
-        o[property].title = titleCase(property);
-    }
-
-    return o;
-}
-
-function getFieldGenerators(countryValues) {
-    return {
-        name: function() {
-            var forenames = ['Jack', 'Bo', 'John', 'Jill', 'Angus', 'Janet', 'Cecilia',
-            'Daniel', 'Marge', 'Homer', 'Trevor', 'Fiona', 'Margaret', 'Ofelia'];
-            var surnames = ['MacGyver', 'Johnson', 'Jackson', 'Robertson', 'Hull', 'Hill'];
-
-            return sample(forenames) + ' ' + sample(surnames);
-        },
-        position: function() {
-            var positions = ['Boss', 'Contractor', 'Client', ''];
-
-            return sample(positions);
-        },
-        salary: generators.number.bind(null, 0, 2),
-        country: function() {
-            return sample(countryValues);
-        }
-    };
-}
-
-function attachIds(arr) {
-    return arr.map((o, i) => {
-        o.id = i;
-
-        return o;
-    });
-}
-
-function find(arr, key, value) {
-    return arr.reduce((a, b) => a[key] === value ? a : b[key] === value && b);
-}

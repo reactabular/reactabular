@@ -1,17 +1,14 @@
-'use strict';
+import React from 'react';
+import Fork from 'react-ghfork';
 
-var React = require('react');
-var Fork = require('react-ghfork');
+import FullTable from './full_table';
+import FullTableMultipleFilters from './full_table_multiple_filters';
+import EditorsTable from './editors_table';
+import NestedTable from './nested_table';
 
-var FullTable = require('./full_table.jsx');
-var FullTableMultipleFilters = require('./full_table_multiple_filters.jsx');
-var EditorsTable = require('./editors_table.jsx');
-var NestedTable = require('./nested_table.jsx');
+import readme from '../README.md';
 
-var readme = require('../README.md');
-
-
-module.exports = React.createClass({
+export default React.createClass({
     displayName: 'App',
     render() {
         return (

@@ -1,14 +1,11 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+import Table from '../src/table';
+import editors from '../src/editors';
 
-var Table = require('../src/table');
-var editors = require('../src/editors');
+import countries from './countries';
 
-var countries = require('./countries');
-
-
-module.exports = React.createClass({
+export default React.createClass({
     displayName: 'EditorsTable',
     getInitialState() {
         return {
