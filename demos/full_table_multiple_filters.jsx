@@ -45,9 +45,6 @@ export default React.createClass({
             },
             active: {
                 type: 'boolean'
-            },
-            id: {
-                type: 'string'
             }
         });
         var data = generateData({

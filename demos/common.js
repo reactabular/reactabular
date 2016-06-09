@@ -1,6 +1,5 @@
 import titleCase from 'title-case';
 import generators from 'annogenerate';
-import uuid from 'uuid';
 import sample from 'lodash/sample';
 
 export function paginate(data, o) {
@@ -45,9 +44,6 @@ export function getFieldGenerators(countryValues) {
         salary: generators.number.bind(null, 0, 2),
         country: function() {
             return sample(countryValues);
-        },
-        id: function() {
-            return uuid.v4();
         }
     };
 }
