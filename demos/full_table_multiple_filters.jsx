@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var Form = require('plexus-form');
+var Form = require('react-json-editor');
 var validate = require('plexus-validate');
 var SkyLight = require('react-skylight').default;
 var generators = require('annogenerate');
