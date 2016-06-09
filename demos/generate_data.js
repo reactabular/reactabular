@@ -1,11 +1,9 @@
-'use strict';
+import generators from 'annogenerate';
+import range from 'lodash/range';
 
-var generators = require('annogenerate');
-var range = require('lodash/range');
+import {properties2object} from 'schema2object';
 
-var properties2object = require('schema2object').properties2object;
-
-module.exports = function(o) {
+export default function(o) {
     return range(o.amount).map(() =>
         properties2object({
             generators: generators,
