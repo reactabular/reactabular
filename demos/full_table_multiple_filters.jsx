@@ -46,6 +46,9 @@ export default React.createClass({
             active: {
                 type: 'boolean'
             },
+            id: {
+                type: 'string'
+            }
         });
         var data = generateData({
             amount: 100,
@@ -282,6 +285,7 @@ export default React.createClass({
                             onClick: () => console.log('clicked row', d)
                         };
                     }}
+                    rowKey="id"
                 >
                     <tfoot>
                         <tr>

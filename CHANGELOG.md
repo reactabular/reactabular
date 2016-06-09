@@ -1,3 +1,8 @@
+0.14.0 / 2016-XX-XX
+===================
+
+  * Breaking - Force `rowKey` to be set. This helps with performance so better set that. #135
+
 0.13.0 / 2016-06-07
 ===================
 

@@ -22,7 +22,7 @@ module.exports = React.createClass({
         columns: React.PropTypes.array,
         row: React.PropTypes.func,
         children: React.PropTypes.object,
-        rowKey: React.PropTypes.string
+        rowKey: React.PropTypes.string.isRequired
     },
 
     getDefaultProps() {

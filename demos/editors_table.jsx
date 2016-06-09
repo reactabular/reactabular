@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid';
 
 import Table from '../src/table';
 import editors from '../src/editors';
@@ -15,12 +16,14 @@ export default React.createClass({
                     editor: editors.boolean(),
                     code: 'editors.boolean()',
                     description: 'If initial value is true, allows setting to false and vice versa. Demo value defaults to false always.',
+                    id: uuid.v4()
                 },
                 {
                     name: 'Dropdown',
                     editor: editors.dropdown(countries),
                     code: 'editors.dropdown(countries)',
-                    description: 'The dropdown expects an array of value-name object pairs and emits the selected one.'
+                    description: 'The dropdown expects an array of value-name object pairs and emits the selected one.',
+                    id: uuid.v4()
                 },
                 {
                     name: 'Customized dropdown',
@@ -30,13 +33,15 @@ export default React.createClass({
                         value: 'name'
                     }),
                     code: 'editors.dropdown(countries, {name: <name>, value: <value>})',
-                    description: 'This dropdown uses custom field definition.'
+                    description: 'This dropdown uses custom field definition.',
+                    id: uuid.v4()
                 },
                 {
                     name: 'Input',
                     editor: editors.input(),
                     code: 'editors.input()',
-                    description: 'Just a wrapper for a regular input.'
+                    description: 'Just a wrapper for a regular input.',
+                    id: uuid.v4()
                 },
             ],
             columns: [
@@ -72,7 +77,8 @@ export default React.createClass({
         return (
             <Table className='pure-table pure-table-striped'
                 columns={columns}
-                data={data} />
+                data={data}
+                rowKey='id' />
         );
     },
 });

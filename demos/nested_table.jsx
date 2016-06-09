@@ -1,11 +1,7 @@
-'use strict';
+import React from 'react';
+import Table from '../src/table';
 
-var React = require('react');
-
-var Table = require('../src/table');
-
-
-module.exports = React.createClass({
+export default React.createClass({
     displayName: 'NestedTable',
     getInitialState() {
         return {
@@ -60,7 +56,8 @@ module.exports = React.createClass({
         return (
             <Table className='pure-table pure-table-striped'
                 columns={columns}
-                data={data} />
+                data={data}
+                rowKey='id' />
         );
     },
 });
