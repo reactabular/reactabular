@@ -71,6 +71,9 @@ article h2 {
     margin-top: 2em;
 }
 
+.skylight-dialog {
+    overflow: auto;
+}
 .skylight-wrapper h2 {
     margin-top: 0;
 }

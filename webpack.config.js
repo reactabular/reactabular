@@ -65,6 +65,7 @@ var common = {
         ]
     },
     plugins: [
+        new webpack.IgnorePlugin(/^(buffertools)$/), // unwanted "deeper" dependency
         new HtmlwebpackPlugin({
             title: pkg.name + ' - ' + pkg.description
         })

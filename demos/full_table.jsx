@@ -1,6 +1,4 @@
 import React from 'react';
-import Form from 'react-json-editor';
-import validate from 'plexus-validate';
 import {SkyLightStateless} from 'react-skylight';
 import Paginator from 'react-pagify';
 import cx from 'classnames';
@@ -16,8 +14,7 @@ import editors from '../src/editors';
 import sortColumn from '../src/sort_column';
 import cells from '../src/cells';
 
-import FieldWrapper from './field_wrapper';
-import SectionWrapper from './section_wrapper';
+import EditCell from './edit_cell';
 import countries from './countries';
 import generateData from './generate_data';
 
@@ -41,6 +38,7 @@ export default React.createClass({
                 type: 'number'
             },
             country: {
+                type: 'string',
                 enum: countryValues,
                 enumNames: countries.map((c) => c.name),
             },
@@ -148,66 +146,46 @@ export default React.createClass({
                 },
                 {
                     cell: function(value, celldata, rowIndex) {
-                        var idx = findIndex(this.state.data, {
-                            id: celldata[rowIndex].id,
-                        });
-
                         var edit = () => {
-                            var schema = {
-                                type: 'object',
-                                properties: properties,
-                            };
-
-                            var onSubmit = (editData, editValue) => {
-                                this.state.modal.show = false;
-
-                                if(editValue === 'Cancel') {
-                                    return this.setState({
-                                        modal: this.state.modal
-                                    });
-                                }
-
-                                this.state.data[idx] = editData;
-
-                                this.setState({
-                                    modal: this.state.modal,
-                                    data: this.state.data
-                                });
-                            };
-
-                            var getButtons = (submit) => {
-                                return (
-                                    <span>
-                                        <input type='submit'
-                                            className='pure-button pure-button-primary ok-button'
-                                            key='ok' value='OK'
-                                            onClick={submit} />
-                                        <input type='submit'
-                                            className='pure-button cancel-button'
-                                            key='cancel' value='Cancel'
-                                            onClick={submit} />
-                                    </span>
-                                );
-                            };
+                            var idx = findIndex(this.state.data, {
+                                id: celldata[rowIndex].id,
+                            });
 
                             this.setState({
                                 modal: {
                                     show: true,
                                     title: 'Edit',
-                                    content: <Form
-                                        className='pure-form pure-form-aligned'
-                                        fieldWrapper={FieldWrapper}
-                                        sectionWrapper={SectionWrapper}
-                                        buttons={getButtons}
-                                        schema={schema}
-                                        validate={validate}
-                                        values={this.state.data[idx]}
-                                        onSubmit={onSubmit}/>
+                                    content: <EditCell
+                                        onSubmit={(formData) => {
+                                            this.state.modal.show = false;
+                                            this.state.data[idx] = formData;
+
+                                            this.setState({
+                                                modal: this.state.modal,
+                                                data: this.state.data
+                                            });
+                                        }}
+                                        onCancel={() => {
+                                            this.setState({
+                                                modal: Object.assign(
+                                                    {}, this.state.modal, {
+                                                        show: false
+                                                    }
+                                                )
+                                            });
+                                        }}
+                                        formData={this.state.data[idx]}
+                                        properties={properties}
+                                    />
                                 }
                             });
-                        };
+                        }
 
                         var remove = () => {
+                            var idx = findIndex(this.state.data, {
+                                id: celldata[rowIndex].id,
+                            });
+
                             // this could go through flux etc.
                             this.state.data.splice(idx, 1);
 
@@ -349,7 +327,15 @@ export default React.createClass({
                         </Paginator.Context>
                     </div>
                 </div>
-                <SkyLightStateless isVisible={this.state.modal.show} title={this.state.modal.title}>{this.state.modal.content}</SkyLightStateless>
+                <SkyLightStateless
+                    isVisible={this.state.modal.show}
+                    title={this.state.modal.title}
+                    onCloseClicked={() => this.setState({
+                        modal: Object.assign({}, this.state.modal, {
+                            show: false
+                        })
+                    })}
+                    >{this.state.modal.content}</SkyLightStateless>
             </div>
         );
     },
