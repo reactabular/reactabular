@@ -6,9 +6,9 @@ export default React.createClass({
     propTypes: {
         errors: React.PropTypes.array,
         classes: React.PropTypes.array,
-        key: React.PropTypes.string,
+        label: React.PropTypes.string,
         title: React.PropTypes.string,
-        children: React.PropTypes.object,
+        children: React.PropTypes.node,
     },
 
     render() {
@@ -20,8 +20,8 @@ export default React.createClass({
         classes.push('pure-control-group');
 
         return (
-            <div className={classes.join(' ')} key={this.props.key}>
-                <label htmlFor={this.props.key}>{this.props.title}</label>
+            <div className={classes.join(' ')} key={this.props.label}>
+                <label htmlFor={this.props.label}>{this.props.title}</label>
                 {this.props.children}
             </div>
         );

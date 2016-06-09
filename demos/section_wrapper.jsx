@@ -8,9 +8,9 @@ export default React.createClass({
         path: React.PropTypes.array,
         classes: React.PropTypes.array,
         description: React.PropTypes.string,
-        key: React.PropTypes.string,
+        label: React.PropTypes.string,
         title: React.PropTypes.string,
-        children: React.PropTypes.object,
+        children: React.PropTypes.node,
     },
 
     render() {
@@ -24,7 +24,7 @@ export default React.createClass({
         var errorClasses = 'form-error' + (errors ? '' : ' hidden');
 
         return (
-            <fieldset className={classes.join(' ')} key={this.props.key}>
+            <fieldset className={classes.join(' ')} key={this.props.label}>
                 <legend className="form-section-title">
                     {this.props.title}
                     <span className={helpClasses} title={this.props.description}>?</span>

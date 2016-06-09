@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from 'react-json-editor';
 import validate from 'plexus-validate';
-import SkyLight from 'react-skylight';
+import {SkyLightStateless} from 'react-skylight';
 import Paginator from 'react-pagify';
 import cx from 'classnames';
 import segmentize from 'segmentize';
@@ -161,15 +161,18 @@ export default React.createClass({
                             };
 
                             var onSubmit = (editData, editValue) => {
-                                this.refs.modal.hide();
+                                this.state.modal.show = false;
 
                                 if(editValue === 'Cancel') {
-                                    return;
+                                    return this.setState({
+                                        modal: this.state.modal
+                                    });
                                 }
 
                                 this.state.data[idx] = editData;
 
                                 this.setState({
+                                    modal: this.state.modal,
                                     data: this.state.data
                                 });
                             };
@@ -191,6 +194,7 @@ export default React.createClass({
 
                             this.setState({
                                 modal: {
+                                    show: true,
                                     title: 'Edit',
                                     content: <Form
                                         className='pure-form pure-form-aligned'
@@ -203,8 +207,6 @@ export default React.createClass({
                                         onSubmit={onSubmit}/>
                                 }
                             });
-
-                            this.refs.modal.show();
                         };
 
                         var remove = () => {
@@ -232,6 +234,7 @@ export default React.createClass({
                 },
             ],
             modal: {
+                show: false,
                 title: 'title',
                 content: 'content',
             },
@@ -345,7 +348,7 @@ export default React.createClass({
                         </Paginator.Context>
                     </div>
                 </div>
-                <SkyLight ref='modal' title={this.state.modal.title}>{this.state.modal.content}</SkyLight>
+                <SkyLightStateless isVisible={this.state.modal.show} title={this.state.modal.title}>{this.state.modal.content}</SkyLightStateless>
             </div>
         );
     },
