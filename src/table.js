@@ -1,6 +1,5 @@
 'use strict';
 
-var merge = require('lodash/merge');
 var reduce = require('lodash/reduce');
 var isFunction = require('lodash/isFunction');
 var isPlainObject = require('lodash/isPlainObject');
@@ -63,7 +62,7 @@ module.exports = React.createClass({
 
                                 return {
                                     value: isUndefined(val.value) ? v.value : val.value,
-                                    props: merge({}, v.props, val.props)
+                                    props: {...v.props, ...val.props}
                                 };
                             }, {value: value, props: {}});
 

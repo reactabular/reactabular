@@ -3,6 +3,7 @@
 
   * Breaking - Force `rowKey` to be set. This helps with performance so better set that. #135
   * Improvement - Drop dependency on `react/lib/update`. Smaller bundle this way too.
+  * Improvement - Drop dependency on `lodash/merge`.
 
 0.13.0 / 2016-06-07
 ===================
