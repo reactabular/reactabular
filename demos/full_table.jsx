@@ -5,11 +5,11 @@ var Form = require('react-json-editor');
 var validate = require('plexus-validate');
 var SkyLight = require('react-skylight').default;
 var generators = require('annogenerate');
-var math = require('annomath');
 var Paginator = require('react-pagify').default;
 var titleCase = require('title-case');
 var findIndex = require('lodash/findIndex');
 var orderBy = require('lodash/orderBy');
+var sample = require('lodash/sample');
 var cx = require('classnames');
 var segmentize = require('segmentize');
 
@@ -406,16 +406,16 @@ function getFieldGenerators(countryValues) {
             'Daniel', 'Marge', 'Homer', 'Trevor', 'Fiona', 'Margaret', 'Ofelia'];
             var surnames = ['MacGyver', 'Johnson', 'Jackson', 'Robertson', 'Hull', 'Hill'];
 
-            return math.pick(forenames) + ' ' + math.pick(surnames);
+            return sample(forenames) + ' ' + sample(surnames);
         },
         position: function() {
             var positions = ['Boss', 'Contractor', 'Client', ''];
 
-            return math.pick(positions);
+            return sample(positions);
         },
         salary: generators.number.bind(null, 0, 2),
         country: function() {
-            return math.pick(countryValues);
+            return sample(countryValues);
         }
     };
 }

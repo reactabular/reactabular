@@ -37,7 +37,6 @@
   "dependencies": {},
   "devDependencies": {
     "annogenerate": "^0.8.1",
-    "annomath": "^0.4.1",
     "babel-cli": "^6.9.0",
     "babel-core": "^6.9.1",
     "babel-eslint": "^6.0.4",
