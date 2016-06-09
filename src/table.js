@@ -7,7 +7,6 @@ var isPlainObject = require('lodash/isPlainObject');
 var isUndefined = require('lodash/isUndefined');
 
 var React = require('react');
-var update = require('react/lib/update');
 var ColumnNames = require('./column_names');
 
 module.exports = React.createClass({
@@ -29,34 +28,23 @@ module.exports = React.createClass({
         return {
             columnNames: {},
             data: [],
-            columns: []
+            columns: [],
+            row: () => {}
         };
     },
 
     render() {
-        var columnNames = this.props.columnNames;
-        var data = this.props.data;
-        var columns = this.props.columns;
-        var rowKey = this.props.rowKey;
-        var rowProps = this.props.row || noop;
-
-        var props = update(this.props, {
-            $merge: {
-                columnNames: undefined,
-                data: undefined,
-                columns: undefined
-            }
-        });
+        const {columnNames, data, columns, rowKey, row, ...props} = this.props;
 
         return (
             <table {...props}>
                 {isFunction(columnNames) ? columnNames(columns) : <thead><ColumnNames config={columnNames} columns={columns} /></thead>}
                 <tbody>
-                    {data.map((row, i) => <tr key={(row[rowKey] || i) + '-row'} {...rowProps(row, i)}>{
+                    {data.map((r, i) => <tr key={(r[rowKey] || i) + '-row'} {...row(r, i)}>{
                         columns.map((column, j) => {
                             var property = column.property;
-                            var value = row[property];
-                            var cell = column.cell || [id];
+                            var value = r[property];
+                            var cell = column.cell || [() => {}];
                             var content;
 
                             cell = isFunction(cell) ? [cell] : cell;
@@ -90,8 +78,3 @@ module.exports = React.createClass({
         );
     }
 });
-
-function id(a) {
-    return a;
-}
-function noop() {}
