@@ -23,6 +23,7 @@ module.exports = (attrs) => {
         render() {
             return (
                 <input
+                    ref='input'
                     value={this.state.value}
                     onFocus={this.onFocus}
                     onChange={this.onChange}
@@ -55,7 +56,7 @@ module.exports = (attrs) => {
         },
 
         done() {
-            this.props.onValue(this.getDOMNode().value);
+            this.props.onValue(this.refs.input.value);
         },
     });
 };

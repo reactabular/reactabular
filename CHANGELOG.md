@@ -1,3 +1,8 @@
+0.14.1 / 2016-06-11
+===================
+
+  * Bug fix - Use a ref at `input` editor over `this.getDOMNode()` given latter was deprecated in React 15.
+
 0.14.0 / 2016-06-09
 ===================
 
