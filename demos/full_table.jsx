@@ -228,9 +228,9 @@ export default React.createClass({
         });
     },
 
-    columnFilters() {
+    columnFilters(columns) {
         var headerConfig = this.state.header;
-        var columns = this.state.columns;
+
         // if you don't want an header, just return;
         return (
             <thead>
