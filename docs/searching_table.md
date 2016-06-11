@@ -12,7 +12,8 @@ var Search = require('reactabular').Search;
 
 This component lives outside your table and returns results that match the query in any of the columns, or if set, in a single column.
 
-#### Usage
+**Usage**
+
 ```javascript
 ...
 return (
@@ -28,14 +29,16 @@ return (
 
 
 ### Option 2: A search field for each column
+
 ```javascript
 var Search = require('reactabular').SearchMultiple;
 ```
 
 This component is generally positioned in the header of the table and allows users to filter by individual columns.
 
-#### Usage
-```javascript
+**Usage**
+
+```jsx
 columnFilters() {
     var headerConfig = this.state.header;
     var columns = this.state.columns;
@@ -56,14 +59,13 @@ render() {
         </div>
     );
 }
-
 ```
-
 
 ## Handling search results
 
 A column becomes searchable when it has a unique 'property' property for each column.
 In the following example, the __Followers__ and __Tweets__ columns are searchable but __Actions__ is not.
+
 ```javascript
 var columns = [
     {
@@ -82,6 +84,7 @@ var columns = [
 ```
 
 Here is an example of handling a search callback:
+
 ```javascript
 getInitialState() {
     return {
@@ -141,10 +144,10 @@ We can highlight individual search results by using a premade `highlight` helper
 var highlight = require('reactabular/formatters/highlight');
 var highlighter = (column) => highlight((value) => {
     var { filter } = this.state.search;
-    
+
     // To highlight all matches based on a single filter (e.g. when using the search dropdown)
     return Search.matches(column, value, filter[Object.keys(filter).pop()]);
-    
+
     // To highlight matches only in the searched column
     return Search.matches(column, value, this.state.search.filter[column]);
 });
