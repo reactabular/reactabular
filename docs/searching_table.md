@@ -14,19 +14,19 @@ This component lives outside your table and returns results that match the query
 
 **Usage**
 
-```javascript
+```jsx
 ...
 return (
-    <div>
-        <div className='search-container'>
-            Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
-        </div>
-        <Table columns={columns} data={this.state.search.data} rowKey={'id'} />
-        ...
+  <div>
+    <div className='search-container'>
+      <span>Search:</span>
+      <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
     </div>
+    <Table columns={columns} data={this.state.search.data} rowKey={'id'} />
+    ...
+  </div>
 );
 ```
-
 
 ### Option 2: A search field for each column
 
@@ -40,24 +40,24 @@ This component is generally positioned in the header of the table and allows use
 
 ```jsx
 columnFilters() {
-    var headerConfig = this.state.header;
-    var columns = this.state.columns;
-    return (
-        <thead>
-            <ColumnNames config={headerConfig} columns={columns} />
-            <ColumnFilters columns={columns} onChange={this.onSearch} />
-        </thead>
-    );
+  var headerConfig = this.state.header;
+  var columns = this.state.columns;
+  return (
+    <thead>
+      <ColumnNames config={headerConfig} columns={columns} />
+      <ColumnFilters columns={columns} onChange={this.onSearch} />
+    </thead>
+  );
 },
 ...
 render() {
-    ...
-    return (
-        <div>
-            <Table columns={columns} data={this.state.search.data} columnNames={this.columnFilters} rowKey={'id'} />
-            ...
-        </div>
-    );
+  ...
+  return (
+    <div>
+      <Table columns={columns} data={this.state.search.data} columnNames={this.columnFilters} rowKey={'id'} />
+      ...
+    </div>
+  );
 }
 ```
 
@@ -68,18 +68,18 @@ In the following example, the __Followers__ and __Tweets__ columns are searchabl
 
 ```javascript
 var columns = [
-    {
-        property: 'followers',
-        header: 'Followers',
-    },
-    {
-        property: 'tweets',
-        header: 'Tweets',
-    },
-    {
-        // This column is NOT searched because it has no 'property' property
-        header: 'Actions',
-    }
+  {
+    property: 'followers',
+    header: 'Followers',
+  },
+  {
+    property: 'tweets',
+    header: 'Tweets',
+  },
+  {
+    // This column is NOT searched because it has no 'property' property
+    header: 'Actions',
+  }
 ];
 ```
 
@@ -87,17 +87,17 @@ Here is an example of handling a search callback:
 
 ```javascript
 getInitialState() {
-    return {
-        search: {
-            filter: {}
-        },
-    };
+  return {
+    search: {
+      filter: {}
+    },
+  };
 }
 
 onSearch(filter) {
-    this.setState({
-        search: { filter }
-    });
+  this.setState({
+    search: { filter }
+  });
 },
 ```
 
@@ -105,20 +105,20 @@ In your `render` method, you could do something like the following:
 
 ```javascript
 render() {
-    var data = this.state.data;
+  var data = this.state.data;
 
-    if (this.state.search.filter) {
-        // Apply the filter(s) to the data
-        // Alternatively you could hit a backend `onChange` method,
-        // or push this part elsewhere depending on your needs
-        data = Search.search(
-            data,
-            columns,
-            this.state.search.filter,
-        );
-    }
+  if (this.state.search.filter) {
+    // Apply the filter(s) to the data
+    // Alternatively you could hit a backend `onChange` method,
+    // or push this part elsewhere depending on your needs
+    data = Search.search(
+      data,
+      columns,
+      this.state.search.filter,
+    );
+  }
 
-    return (...);
+  return (...);
 }
 ```
 
@@ -132,7 +132,7 @@ You can deal with filtering in an entirely different manner. The method shown he
 
 It's possible to i18n `Search` through `i18n` prop. It defaults to English if no translation is provided.
 
-```javascript
+```jsx
 <Search i18n={{all: 'Kaikki'}} ... />
 ```
 
@@ -143,25 +143,26 @@ We can highlight individual search results by using a premade `highlight` helper
 ```javascript
 var highlight = require('reactabular/formatters/highlight');
 var highlighter = (column) => highlight((value) => {
-    var { filter } = this.state.search;
+  var { filter } = this.state.search;
 
-    // To highlight all matches based on a single filter (e.g. when using the search dropdown)
-    return Search.matches(column, value, filter[Object.keys(filter).pop()]);
+  // To highlight all matches based on
+  // a single filter (e.g. when using the search dropdown)
+  return Search.matches(column, value, filter[Object.keys(filter).pop()]);
 
-    // To highlight matches only in the searched column
-    return Search.matches(column, value, this.state.search.filter[column]);
+  // To highlight matches only in the searched column
+  return Search.matches(column, value, this.state.search.filter[column]);
 });
 
 ...
 var columns = [
-    ...
-    {
-        property: 'followers',
-        header: 'Followers',
-        cell: [(followers) => followers - (followers % 100), highlighter('followers')],
-        search: (followers) => followers - (followers % 100),
-    },
-    ...
+  ...
+  {
+    property: 'followers',
+    header: 'Followers',
+    cell: [(followers) => followers - (followers % 100), highlighter('followers')],
+    search: (followers) => followers - (followers % 100),
+  },
+  ...
 ];
 ```
 
@@ -170,11 +171,11 @@ the data under evaluation 'noon moon', the following structure would be emitted:
 
 ```jsx
 <span className='search-result'>
-    <span>n</span>
-    <span className='highlight'>oo</span>
-    <span>n m</span>
-    <span className='highlight'>oo</span>
-    <span>n</span>
+  <span>n</span>
+  <span className='highlight'>oo</span>
+  <span>n m</span>
+  <span className='highlight'>oo</span>
+  <span>n</span>
 </span>
 ```
 

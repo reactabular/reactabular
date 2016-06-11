@@ -4,12 +4,12 @@ Sometimes you might want to apply some special props or logic per table row. Thi
 
 ```javascript
 <Table
-    row={(d, rowIndex) => {
-        return {
-            className: rowIndex % 2 ? 'odd-row' : 'even-row',
-            onClick: () => console.log('clicked row', d)
-        };
-    }}
+  row={(d, rowIndex) => {
+    return {
+      className: rowIndex % 2 ? 'odd-row' : 'even-row',
+      onClick: () => console.log('clicked row', d)
+    };
+  }}
 >
 ```
 

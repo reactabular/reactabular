@@ -12,16 +12,16 @@ cell: (active) => active && <span>&#10003;</span>,
 // return value and props
 // props will be attached to td itself
 cell: (v) => ({
-    value: v,
-    props: {
-        onClick: () => alert('hello world')
-    }
+  value: v,
+  props: {
+    onClick: () => alert('hello world')
+  }
 }),
 
 // return jsx as value
 cell: (v) => ({
-    value: <span>Content goes here</span>
-    // props are optional
+  value: <span>Content goes here</span>
+  // props are optional
 })
 ```
 
@@ -33,26 +33,28 @@ If you wanted to implement deletion to a cell, you could do something like this:
 
 ```javascript
 {
-    cell: (value, data, rowIndex, property) => {
-        var remove = () => {
-            // this could go through flux etc.
-            var idx = findIndex(this.state.data, {
-                id: celldata[rowIndex].id,
-            });
+  cell: (value, data, rowIndex, property) => {
+    var remove = () => {
+      // this could go through flux etc.
+      var idx = findIndex(this.state.data, {
+        id: celldata[rowIndex].id,
+      });
 
-            this.state.data.splice(idx, 1);
+      this.state.data.splice(idx, 1);
 
-            this.setState({
-                data: this.state.data
-            });
-        };
+      this.setState({
+        data: this.state.data
+      });
+    };
 
-        return {
-            value: <span>
-                <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
-            </span>
-        };
-    },
+    return {
+      value: (
+        <span>
+          <span onClick={remove.bind(this)} style={{cursor: 'pointer'}}>&#10007;</span>
+        </span>
+      )
+    };
+  }
 },
 ```
 
