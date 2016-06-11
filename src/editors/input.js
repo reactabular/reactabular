@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-
+var findDOMNode = require('react-dom').findDOMNode;
 
 module.exports = (attrs) => {
     attrs = attrs || {};
@@ -55,7 +55,7 @@ module.exports = (attrs) => {
         },
 
         done() {
-            this.props.onValue(this.getDOMNode().value);
+            this.props.onValue(findDOMNode(this).value);
         },
     });
 };
