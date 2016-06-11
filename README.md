@@ -14,6 +14,7 @@ The chosen approach pushes a lot of complexity out of the core. As a result it m
 * [Table Definition](https://github.com/bebraw/reactabular/blob/master/docs/table_definition.md)
 * [Sorting a Table](https://github.com/bebraw/reactabular/blob/master/docs/sorting_table.md)
 * [Searching a Table](https://github.com/bebraw/reactabular/blob/master/docs/searching_table.md)
+* [Styling a Table](https://github.com/bebraw/reactabular/blob/master/docs/styling_table.md)
 * [Paginating a Table](https://github.com/bebraw/reactabular/blob/master/docs/paginating_table.md)
 * [Inline Editing a Table](https://github.com/bebraw/reactabular/blob/master/docs/inline_editing.md)
 * [Customizing Cells](https://github.com/bebraw/reactabular/blob/master/docs/customizing_cells.md)
