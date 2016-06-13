@@ -3,7 +3,7 @@ import uuid from 'uuid';
 
 import {Table, editors} from '../src';
 
-import countries from './countries';
+import countries from './data/countries';
 
 const data = [
   {

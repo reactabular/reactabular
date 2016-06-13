@@ -11,8 +11,8 @@ import {
   CustomFooter, Modal, Paginator, PerPage, PrimaryControls
 } from './components';
 
+import countries from './data/countries';
 import EditCell from './EditCell';
-import countries from './countries';
 
 import {
   generateData, paginate, augmentWithTitles, getFieldGenerators, find
