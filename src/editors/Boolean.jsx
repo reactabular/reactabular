@@ -4,7 +4,7 @@ module.exports = () => {
   return React.createClass({
     displayName: 'Boolean',
     propTypes: {
-      value: React.PropTypes.string,
+      value: React.PropTypes.any,
       onClick: React.PropTypes.func,
       onValue: React.PropTypes.func,
     },
