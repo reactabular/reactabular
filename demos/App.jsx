@@ -6,9 +6,9 @@ import FullTable from './FullTable';
 import FullTableMultipleFilters from './FullTableMultipleFilters';
 import EditorsTable from './EditorsTable';
 import NestedTable from './NestedTable';
+*/
 
 import readme from '../README.md';
-*/
 
 const App = () => (
   <div className='pure-g'>
@@ -62,12 +62,12 @@ const App = () => (
 
         <NestedTable />
       </section>
+      */}
       <section className='documentation'>
         <h2>README</h2>
 
         <div dangerouslySetInnerHTML={{__html: readme}}></div>
       </section>
-      */}
     </article>
   </div>
 );
