@@ -1,4 +1,4 @@
 module.exports = {
-  infix: require('./infix'),
-  prefix: require('./prefix')
+  infix: require('./infix').default,
+  prefix: require('./prefix').default
 };
