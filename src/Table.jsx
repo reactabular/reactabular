@@ -31,8 +31,8 @@ const Header = ({header, children, ...props}, {columns}) => (
   <thead {...props}>
     <tr>
       {columns.map((column, i) => {
-          // Bind column to "on" handlers
-        var columnHeader = reduce(header, (result, v, k) => {
+        // Bind column to "on" handlers
+        const columnHeader = reduce(header, (result, v, k) => {
           result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
 
           return result;
