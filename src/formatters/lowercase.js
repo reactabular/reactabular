@@ -1,6 +1,1 @@
-'use strict';
-
-
-module.exports = (value) => {
-  return value.toLowerCase();
-};
+export default value => value.toLowerCase();
