@@ -5,7 +5,6 @@ export default (attrs={}) => {
     constructor(props) {
       super(props);
 
-      // TODO: capture initial value on mount too?
       this.state = {
         value: props.value
       };
