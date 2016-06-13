@@ -27,7 +27,7 @@ Context.childContextTypes = {
   data: React.PropTypes.array
 };
 
-const Header = ({header, ...props}, {columns}) => (
+const Header = ({header, children, ...props}, {columns}) => (
   <thead {...props}>
     <tr>
       {columns.map((column, i) => {
@@ -46,10 +46,12 @@ const Header = ({header, ...props}, {columns}) => (
         );
       })}
     </tr>
+    {children}
   </thead>
 );
 Header.propTypes = {
-  header: React.PropTypes.func
+  header: React.PropTypes.func,
+  children: React.PropTypes.any
 };
 Header.defaultProps = {
   header: () => {}

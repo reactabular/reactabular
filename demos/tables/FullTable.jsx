@@ -8,7 +8,7 @@ import {
 } from '../../src';
 
 import {
-  CustomFooter, EditCell, Modal, Paginator, PerPage, PrimaryControls
+  CustomFooter, ColumnFilters, EditCell, Modal, Paginator, PerPage, PrimaryControls
 } from '../components';
 import countries from '../data/countries';
 import {
@@ -238,7 +238,9 @@ export default React.createClass({
           <Table.Header
             header={(header, headerIndex) => ({
               onClick: this.onHeaderClick
-            })}/>
+            })}>
+            <ColumnFilters columns={columns} onChange={this.onSearch} />
+          </Table.Header>
 
           <Table.Body
             rowKey='id'

@@ -4,7 +4,6 @@ import Fork from 'react-ghfork';
 import {
   FullTable, EditorsTable, NestedTable
 } from './tables';
-//import FullTableMultipleFilters from './FullTableMultipleFilters';
 
 import readme from '../README.md';
 
@@ -30,19 +29,6 @@ const App = () => (
 
         <FullTable />
       </section>
-      {/*
-      <section className="multiple-filters">
-        <div className='description'>
-          <h2>Multiple filters</h2>
-
-          <p>The table below is identical to the example above with the exception that there is a filter for each column of data.</p>
-
-          <p>This provides the flexibility to search across multiple columns using different filters.</p>
-        </div>
-
-        <FullTableMultipleFilters />
-      </section>
-      */}
 
       <section className='editors'>
         <div className='description'>
