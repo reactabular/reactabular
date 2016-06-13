@@ -5,131 +5,138 @@ import React from 'react';
 import formatters from './formatters';
 import predicates from './predicates';
 
-const Search = React.createClass({
-  displayName: 'Search',
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
 
-  propTypes: {
-    columns: React.PropTypes.array,
-    data: React.PropTypes.array,
-    onChange: React.PropTypes.func,
-    i18n: React.PropTypes.shape({
-      all: React.PropTypes.string
-    })
-  },
-  getDefaultProps() {
-    return {
-      columns: [],
-      data: [],
-      onChange: () => {},
-      i18n: {
-        all: 'All'
-      }
-    };
-  },
-  getInitialState() {
-    return {
+    this.state = {
       column: 'all',
       query: ''
     };
-  },
+
+    this.onColumnChange = this.onColumnChange.bind(this);
+    this.onQueryChange = this.onQueryChange.bind(this);
+  }
   componentDidMount() {
     this.props.onChange({
       [this.state.column]: this.state.query
     });
-  },
-  getOptions() {
-    var columns = this.props.columns;
-    var i18n = this.props.i18n;
-
-    return [{
-      value: 'all',
-      name: i18n.all
-    }].concat(columns.map((column) => {
-      if(column.property && column.header) {
-        return {
-          value: column.property,
-          name: column.header
-        };
-      }
-    }).filter((column) => {
-      return column && !React.isValidElement(column.name);
-    }));
-  },
+  }
   render() {
+    const {columns, i18n, ...props} = this.props;
+
     return (
-      <span className='search'>
-        <select onChange={this.onColumnChange} value={this.state.column}>{this.getOptions().map((option) =>
-          <option key={option.value + '-option'} value={option.value}>{option.name}</option>
-        )
-        }</select>
+      <span {...props}>
+        <SearchOptions
+          onChange={this.onColumnChange} value={this.state.column}
+          columns={columns} i18n={i18n} />
         <input onChange={this.onQueryChange} value={this.state.query}></input>
       </span>
     );
-  },
+  }
   onColumnChange(event) {
-    var column = event.target.value;
-    var query = this.state.query;
-    this.setState({
-      column: column
-    });
+    const column = event.target.value;
+    const query = this.state.query;
 
+    this.setState({column});
     this.props.onChange({
       [column]: query
     });
-  },
+  }
   onQueryChange(event) {
-    var column = this.state.column;
-    var query = event.target.value;
-    this.setState({
-      query: query
-    });
+    const column = this.state.column;
+    const query = event.target.value;
+
+    this.setState({query});
     this.props.onChange({
       [column]: query
     });
-  },
-});
+  }
+}
+Search.propTypes = {
+  columns: React.PropTypes.array,
+  data: React.PropTypes.array,
+  onChange: React.PropTypes.func,
+  i18n: React.PropTypes.shape({
+    all: React.PropTypes.string
+  })
+};
+Search.defaultProps = {
+  columns: [],
+  data: [],
+  onChange: () => {},
+  i18n: {
+    all: 'All'
+  }
+};
 
-const searchColumn = (data, columns, column, query, options) => {
+const SearchOptions = ({columns, i18n, ...props}) => (
+  <select {...props}>{
+    getOptions(columns, i18n).map(({name, value}) =>
+      <option key={value + '-option'} value={value}>{name}</option>
+    )
+  }</select>
+);
+SearchOptions.propTypes = {
+  columns: React.PropTypes.array,
+  i18n: React.PropTypes.object
+};
+
+const getOptions = (columns, i18n) => {
+  return [{
+    value: 'all',
+    name: i18n.all
+  }].concat(columns.map(column => {
+    if(column.property && column.header) {
+      return {
+        value: column.property,
+        name: column.header
+      };
+    }
+  }).filter(
+    column => column && !React.isValidElement(column.name)
+  ));
+};
+
+const searchColumn = (data, columns, column, query, options = {
+  strategy: predicates.infix,
+  transform: formatters.lowercase
+}) => {
   if(!query) {
     return data;
   }
 
-  options = options || {
-    strategy: predicates.infix,
-    transform: formatters.lowercase
-  };
-
   if(column !== 'all') {
-    columns = columns.filter((col) =>
-      col.property === column
-    );
+    columns = columns.filter(col => col.property === column);
   }
 
-  return data.filter((row) =>
+  return data.filter(row =>
     columns.filter(isColumnVisible.bind(this, row)).length > 0
   );
+};
 
-  function isColumnVisible(row, col) {
-    var property = col.property;
-    var value = row[property];
-    var formatter = col.search || formatters.identity;
-    var formattedValue = formatter(value);
+const isColumnVisible = (row, col) => {
+  const property = col.property;
+  const value = row[property];
+  const formatter = col.search || formatters.identity;
+  let formattedValue = formatter(value);
 
-    if (!formattedValue && isNaN(formattedValue)) {
-      return false;
-    }
-
-    if (isNumber(formattedValue)) {
-      formattedValue = formattedValue.toString();
-    }
-    else if (!isString(formattedValue)) {
-      formattedValue = '';
-    }
-
-    var predicate = options.strategy(options.transform(query));
-
-    return predicate.evaluate(options.transform(formattedValue));
+  if (!formattedValue && isNaN(formattedValue)) {
+    return false;
   }
+
+  if (isNumber(formattedValue)) {
+    formattedValue = formattedValue.toString();
+  }
+  else if (!isString(formattedValue)) {
+    formattedValue = '';
+  }
+
+  return options.strategy(
+    options.transform(query)
+  ).evaluate(
+    options.transform(formattedValue)
+  );
 };
 
 const search = (data, columns, query, options) => {
@@ -137,31 +144,29 @@ const search = (data, columns, query, options) => {
     return data;
   }
 
-  var searchColumns = Object.keys(query);
-
-  data = searchColumns.reduce(
+  return Object.keys(query).reduce(
     (filteredData, column) => {
-      return searchColumn(filteredData, columns, column, query[column], options);
+      return searchColumn(
+        filteredData, columns, column, query[column], options
+      );
     },
     data
   );
-
-  return data;
 };
 
-const matches = (column, value, query, options) => {
+const matches = (column, value, query, options={
+  strategy: predicates.infix,
+  transform: formatters.lowercase
+}) => {
   if(!query) {
     return {};
   }
 
-  options = options || {
-    strategy: predicates.infix,
-    transform: formatters.lowercase
-  };
-
-  var predicate = options.strategy(options.transform(query));
-
-  return predicate.matches(options.transform(value));
+  return options.strategy(
+    options.transform(query)
+  ).matches(
+    options.transform(value)
+  );
 };
 
 Search.searchColumn = searchColumn;
