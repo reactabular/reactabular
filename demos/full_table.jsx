@@ -242,7 +242,10 @@ export default React.createClass({
                         Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
                     </div>
                 </div>
-                <Table.Context columns={columns} data={data} className='pure-table pure-table-striped'>
+                <Table.Context
+                    className='pure-table pure-table-striped'
+                    columns={columns}
+                    data={paginated.data}>
                     <Table.Header
                         header={(header, headerIndex) => ({
                             onClick: this.onHeaderClick
