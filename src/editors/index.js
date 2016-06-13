@@ -1,5 +1,5 @@
 module.exports = {
   boolean: require('./Boolean').default,
-  dropdown: require('./Dropdown'),
+  dropdown: require('./Dropdown').default,
   input: require('./Input'),
 };

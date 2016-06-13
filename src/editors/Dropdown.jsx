@@ -1,28 +1,27 @@
-const React = require('react');
+import React from 'react';
 
-module.exports = (options, fields={}) => {
-  const nameField = fields.name || 'name';
-  const valueField = fields.value || 'value';
+export default (options, fields={
+  name: 'name',
+  value: 'value'
+}) => {
+  const Dropdown = ({value, onValue}) => {
+    const edit = e => onValue(e.target.value);
 
-  return React.createClass({
-    displayName: 'Dropdown',
-    propTypes: {
-      value: React.PropTypes.string,
-      onValue: React.PropTypes.func,
-    },
-    render() {
-      const edit = (e) => this.props.onValue(e.target.value);
+    return (
+      <select onBlur={edit} onChange={edit} value={value}>
+        {options.map((option, i) =>
+          <option
+            key={i}
+            value={option[fields.value]}
+          >{option[fields.name]}</option>
+        )}
+      </select>
+    );
+  };
+  Dropdown.propTypes = {
+    value: React.PropTypes.string,
+    onValue: React.PropTypes.func,
+  };
 
-      return (
-        <select onBlur={edit} onChange={edit} value={this.props.value}>
-          {options.map((option, i) =>
-            <option
-              key={i}
-              value={option[valueField]}
-            >{option[nameField]}</option>
-          )}
-        </select>
-      );
-    }
-  });
-};
+  return Dropdown;
+}
