@@ -56,19 +56,46 @@ Table.defaultProps = {
     row: () => {}
 };
 
-const Context = () => (
+const Context = ({columns, data, ...props}) => (
     <div>table should go here</div>
 );
+Context.propTypes = {
+    columns: React.PropTypes.array,
+    data: React.PropTypes.array,
+    children: React.PropTypes.any
+};
+Context.childContextTypes = {
+    data: React.PropTypes.array
+};
 Table.Context = Context;
 
-const Header = () => (
-    <div>table header should go here</div>
+const Header = (props, {columns}) => (
+    <thead {...props}>table header should go here</thead>
 );
+Header.propTypes = {
+    header: React.PropTypes.func
+};
+Header.defaultProps = {
+    header: () => {}
+};
+Header.contextTypes = {
+    columns: React.PropTypes.array.isRequired
+};
 Table.Header = Header;
 
-const Rows = () => (
-    <div>table rows should go here</div>
+const Rows = (props, {data}) => (
+    <tbody {...props}>table rows should go here</tbody>
 );
+Rows.propTypes = {
+    row: React.PropTypes.func,
+    rowKey: React.PropTypes.string.isRequired
+};
+Rows.defaultProps = {
+    row: () => {}
+};
+Rows.contextTypes = {
+    data: React.PropTypes.array.isRequired
+};
 Table.Rows = Rows;
 
 export default Table;
