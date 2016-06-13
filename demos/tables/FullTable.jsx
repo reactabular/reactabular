@@ -5,15 +5,15 @@ import orderBy from 'lodash/orderBy';
 
 import {
   Table, Search, editors, sort, cells, formatters
-} from '../src';
+} from '../../src';
 
 import {
   CustomFooter, EditCell, Modal, Paginator, PerPage, PrimaryControls
-} from './components';
-import countries from './data/countries';
+} from '../components';
+import countries from '../data/countries';
 import {
   generateData, paginate, augmentWithTitles, getFieldGenerators, find
-} from './common';
+} from '../common';
 
 export default React.createClass({
   displayName: 'FullTable',

@@ -1,9 +1,9 @@
 import React from 'react';
 import uuid from 'uuid';
 
-import {Table, editors} from '../src';
+import {Table, editors} from '../../src';
 
-import countries from './data/countries';
+import countries from '../data/countries';
 
 const data = [
   {

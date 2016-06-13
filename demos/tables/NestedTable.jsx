@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Table
-} from '../src';
+} from '../../src';
 
 const data = [
   {
