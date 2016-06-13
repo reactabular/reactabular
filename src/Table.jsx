@@ -56,15 +56,26 @@ Table.defaultProps = {
     row: () => {}
 };
 
-const Context = ({columns, data, ...props}) => (
-    <div>table should go here</div>
-);
+class Context extends React.Component {
+    getChildContext() {
+        return {
+            columns: this.props.columns,
+            data: this.props.data
+        };
+    }
+    render() {
+        const {columns, data, children, ...props} = this.props;
+
+        return <table {...props}>{children}</table>
+    }
+}
 Context.propTypes = {
     columns: React.PropTypes.array,
     data: React.PropTypes.array,
     children: React.PropTypes.any
 };
 Context.childContextTypes = {
+    columns: React.PropTypes.array,
     data: React.PropTypes.array
 };
 Table.Context = Context;
