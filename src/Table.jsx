@@ -56,4 +56,19 @@ Table.defaultProps = {
     row: () => {}
 };
 
+const Context = () => (
+    <div>table should go here</div>
+);
+Table.Context = Context;
+
+const Header = () => (
+    <div>table header should go here</div>
+);
+Table.Header = Header;
+
+const Rows = () => (
+    <div>table rows should go here</div>
+);
+Table.Rows = Rows;
+
 export default Table;

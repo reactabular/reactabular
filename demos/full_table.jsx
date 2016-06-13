@@ -334,7 +334,7 @@ const Paginate = ({pagination, pages, onSelect}) => (
             beginPages: 3,
             endPages: 3,
             sidePages: 2
-        })} onSelect={this.onSelect}>
+        })} onSelect={onSelect}>
             <Paginator.Button page={pagination.page - 1}>Previous</Paginator.Button>
 
             <Paginator.Segment field="beginPages" />
