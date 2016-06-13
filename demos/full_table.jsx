@@ -80,21 +80,6 @@ export default React.createClass({
             search: {
                 filter: {}
             },
-            header: {
-                onClick: (column) => {
-                    // reset edits
-                    this.setState({
-                        editedCell: null
-                    });
-
-                    sortColumn(
-                        this.state.columns,
-                        column,
-                        this.setState.bind(this)
-                    );
-                },
-                className: cx(['header'])
-            },
             sortingColumn: null, // reference to sorting column
             columns: [
                 {
@@ -228,17 +213,6 @@ export default React.createClass({
         });
     },
 
-    columnFilters(columns) {
-        var headerConfig = this.state.header;
-
-        // if you don't want an header, just return;
-        return (
-            <thead>
-                <ColumnNames config={headerConfig} columns={columns} />
-            </thead>
-        );
-    },
-
     render() {
         var columns = this.state.columns;
 
@@ -272,19 +246,22 @@ export default React.createClass({
                         Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
                     </div>
                 </div>
-                <Table
-                    className='pure-table pure-table-striped'
-                    columnNames={this.columnFilters}
-                    columns={columns}
-                    data={paginated.data}
-                    row={(d, rowIndex) => {
-                        return {
-                            className: rowIndex % 2 ? 'odd-row' : 'even-row',
-                            onClick: () => console.log('clicked row', d)
-                        };
-                    }}
-                    rowKey="id"
-                >
+                <Table.Context columns={columns} data={data} className='pure-table pure-table-striped'>
+                    <thead>
+                        <Table.Header columns={columns} onClick={this.onHeaderClick} className='header' /> {/* ColumnNames */}
+                    </thead>
+
+                    <Table.Rows
+                        className='table-row'
+                        row={(d, rowIndex) => {
+                            return {
+                                className: rowIndex % 2 ? 'odd-row' : 'even-row',
+                                onClick: () => console.log('clicked row', d)
+                            };
+                        }}
+                        rowKey='id'
+                        />
+
                     <tfoot>
                         <tr>
                             <td>
@@ -297,36 +274,10 @@ export default React.createClass({
                             <td></td>
                         </tr>
                     </tfoot>
-                </Table>
+                </Table.Context>
+
                 <div className='controls'>
-                    <div className='pagination'>
-                        <Paginator.Context className="pagify-pagination"
-                        segments={segmentize({
-                            page: pagination.page,
-                            pages: pages,
-                            beginPages: 3,
-                            endPages: 3,
-                            sidePages: 2
-                        })} onSelect={this.onSelect}>
-                            <Paginator.Button page={pagination.page - 1}>Previous</Paginator.Button>
-
-                            <Paginator.Segment field="beginPages" />
-
-                            <Paginator.Ellipsis className="ellipsis"
-                              previousField="beginPages" nextField="previousPages" />
-
-                            <Paginator.Segment field="previousPages" />
-                            <Paginator.Segment field="centerPage" className="selected" />
-                            <Paginator.Segment field="nextPages" />
-
-                            <Paginator.Ellipsis className="ellipsis"
-                              previousField="nextPages" nextField="endPages" />
-
-                            <Paginator.Segment field="endPages" />
-
-                            <Paginator.Button page={pagination.page + 1}>Next</Paginator.Button>
-                        </Paginator.Context>
-                    </div>
+                    <Paginate pagination={pagination} pages={pages} onSelect={this.onSelect} />
                 </div>
                 <SkyLightStateless
                     isVisible={this.state.modal.show}
@@ -338,6 +289,19 @@ export default React.createClass({
                     })}
                     >{this.state.modal.content}</SkyLightStateless>
             </div>
+        );
+    },
+
+    onHeaderClick: (column) => {
+        // reset edits
+        this.setState({
+            editedCell: null
+        });
+
+        sortColumn(
+            this.state.columns,
+            column,
+            this.setState.bind(this)
         );
     },
 
@@ -362,3 +326,41 @@ export default React.createClass({
         });
     },
 })
+
+// TODO: push more bits here
+const Paginate = ({pagination, pages, onSelect}) => (
+    <div className='pagination'>
+        <Paginator.Context className="pagify-pagination"
+        segments={segmentize({
+            page: pagination.page,
+            pages: pages,
+            beginPages: 3,
+            endPages: 3,
+            sidePages: 2
+        })} onSelect={this.onSelect}>
+            <Paginator.Button page={pagination.page - 1}>Previous</Paginator.Button>
+
+            <Paginator.Segment field="beginPages" />
+
+            <Paginator.Ellipsis className="ellipsis"
+              previousField="beginPages" nextField="previousPages" />
+
+            <Paginator.Segment field="previousPages" />
+            <Paginator.Segment field="centerPage" className="selected" />
+            <Paginator.Segment field="nextPages" />
+
+            <Paginator.Ellipsis className="ellipsis"
+              previousField="nextPages" nextField="endPages" />
+
+            <Paginator.Segment field="endPages" />
+
+            <Paginator.Button page={pagination.page + 1}>Next</Paginator.Button>
+        </Paginator.Context>
+    </div>
+);
+Paginate.propTypes = {
+    pagination: React.PropTypes.object,
+    pages: React.PropTypes.number,
+    onSelect: React.PropTypes.func
+};
+
