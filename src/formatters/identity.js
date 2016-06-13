@@ -1,6 +1,1 @@
-'use strict';
-
-
-module.exports = (value) => {
-  return value;
-};
+export default value => value;
