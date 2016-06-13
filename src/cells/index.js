@@ -1,4 +1,4 @@
 module.exports = {
-  identity: require('./identity'),
+  identity: require('./identity').default,
   edit: require('./edit'),
 };
