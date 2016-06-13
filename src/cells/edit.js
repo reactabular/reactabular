@@ -4,49 +4,49 @@ var React = require('react');
 
 
 module.exports = function(editProperty, onValue, o) {
-    onValue = onValue || noop;
+  onValue = onValue || noop;
 
-    var context = this;
-    var editor = o.editor;
+  var context = this;
+  var editor = o.editor;
 
-    return (value, data, rowIndex, property) => {
-        var idx = rowIndex.toString() + '-' + property;
-        var editedCell = context.state[editProperty];
+  return (value, data, rowIndex, property) => {
+    var idx = rowIndex.toString() + '-' + property;
+    var editedCell = context.state[editProperty];
 
-        if(editedCell === idx) {
-            return {
-                value: React.createElement(editor, {
-                    value: value,
-                    onValue: (v) => {
-                        var state = {};
+    if(editedCell === idx) {
+      return {
+        value: React.createElement(editor, {
+          value: value,
+          onValue: (v) => {
+            var state = {};
 
-                        state[editProperty] = null;
+            state[editProperty] = null;
 
-                        context.setState(state);
+            context.setState(state);
 
-                        onValue(v, data, rowIndex, property);
-                    }
-                }),
-            };
+            onValue(v, data, rowIndex, property);
+          }
+        }),
+      };
+    }
+
+    if(editor) {
+      return {
+        value: value,
+        props: {
+          onClick: () => {
+            var state = {};
+
+            state[editProperty] = idx;
+
+            context.setState(state);
+          },
         }
+      };
+    }
 
-        if(editor) {
-            return {
-                value: value,
-                props: {
-                    onClick: () => {
-                        var state = {};
-
-                        state[editProperty] = idx;
-
-                        context.setState(state);
-                    },
-                }
-            };
-        }
-
-        return value;
-    };
+    return value;
+  };
 };
 
 function noop() {}

@@ -19,7 +19,7 @@
     "no-underscore-dangle": 0,
     "no-use-before-define": 0,
     "quotes": [2, "single"],
-    "indent": 2,
+    "indent": ["error", 2],
     "comma-dangle": 0,
     "jsx-quotes": 0,
     "react/display-name": 0,

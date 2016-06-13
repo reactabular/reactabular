@@ -1,8 +1,6 @@
-'use strict';
-
-
 module.exports = {
-    highlight: require('./highlight.js'),
-    identity: require('./identity.js'),
-    lowercase: require('./lowercase.js')
+  highlight: require('./highlight'),
+  identity: require('./identity'),
+  lowercase: require('./lowercase')
 };
+

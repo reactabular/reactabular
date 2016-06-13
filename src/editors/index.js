@@ -1,8 +1,5 @@
-'use strict';
-
-
 module.exports = {
-    boolean: require('./boolean'),
-    dropdown: require('./dropdown'),
-    input: require('./input'),
+  boolean: require('./Boolean'),
+  dropdown: require('./Dropdown'),
+  input: require('./Input'),
 };

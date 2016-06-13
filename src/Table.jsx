@@ -5,111 +5,111 @@ import isUndefined from 'lodash/isUndefined';
 import React from 'react';
 
 class Context extends React.Component {
-    getChildContext() {
-        return {
-            columns: this.props.columns,
-            data: this.props.data
-        };
-    }
-    render() {
-        const {columns, data, children, ...props} = this.props;
+  getChildContext() {
+    return {
+      columns: this.props.columns,
+      data: this.props.data
+    };
+  }
+  render() {
+    const {columns, data, children, ...props} = this.props;
 
-        return <table {...props}>{children}</table>
-    }
+    return <table {...props}>{children}</table>
+  }
 }
 Context.propTypes = {
-    columns: React.PropTypes.array,
-    data: React.PropTypes.array,
-    children: React.PropTypes.any
+  columns: React.PropTypes.array,
+  data: React.PropTypes.array,
+  children: React.PropTypes.any
 };
 Context.childContextTypes = {
-    columns: React.PropTypes.array,
-    data: React.PropTypes.array
+  columns: React.PropTypes.array,
+  data: React.PropTypes.array
 };
 
 const Header = ({header, ...props}, {columns}) => (
-    <thead {...props}>
-        <tr>
-            {columns.map((column, i) => {
-                // Bind column to "on" handlers
-                var columnHeader = reduce(header, (result, v, k) => {
-                    result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
+  <thead {...props}>
+    <tr>
+      {columns.map((column, i) => {
+          // Bind column to "on" handlers
+        var columnHeader = reduce(header, (result, v, k) => {
+          result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
 
-                    return result;
-                }, {});
+          return result;
+        }, {});
 
-                return (
-                    <th
-                        key={i + '-header'}
-                        {...columnHeader}
-                    >{column.header}</th>
-                );
-            })}
-        </tr>
-    </thead>
+        return (
+          <th
+            key={i + '-header'}
+            {...columnHeader}
+          >{column.header}</th>
+        );
+      })}
+    </tr>
+  </thead>
 );
 Header.propTypes = {
-    header: React.PropTypes.func
+  header: React.PropTypes.func
 };
 Header.defaultProps = {
-    header: () => {}
+  header: () => {}
 };
 Header.contextTypes = {
-    columns: React.PropTypes.array.isRequired
+  columns: React.PropTypes.array.isRequired
 };
 
 const Body = ({row, rowKey, ...props}, {columns, data}) => (
-    <tbody {...props}>{
-        data.map((r, i) => <tr key={(r[rowKey] || i) + '-row'} {...row(r, i)}>{
-            columns.map((column, j) => {
-                const property = column.property;
-                const value = r[property];
-                let cell = column.cell || [() => {}];
-                let content;
+  <tbody {...props}>{
+    data.map((r, i) => <tr key={(r[rowKey] || i) + '-row'} {...row(r, i)}>{
+      columns.map((column, j) => {
+        const property = column.property;
+        const value = r[property];
+        let cell = column.cell || [() => {}];
+        let content;
 
-                cell = isFunction(cell) ? [cell] : cell;
+        cell = isFunction(cell) ? [cell] : cell;
 
-                content = reduce(cell, (v, fn) => {
-                    if(React.isValidElement(v.value)) {
-                        return v;
-                    }
+        content = reduce(cell, (v, fn) => {
+          if(React.isValidElement(v.value)) {
+            return v;
+          }
 
-                    let val = fn(v.value, data, i, property);
+          let val = fn(v.value, data, i, property);
 
-                    if(!isPlainObject(val) || isUndefined(val.value)) {
-                        // formatter shortcut
-                        val = {value: val};
-                    }
+          if(!isPlainObject(val) || isUndefined(val.value)) {
+            // formatter shortcut
+            val = {value: val};
+          }
 
-                    return {
-                        value: isUndefined(val.value) ? v.value : val.value,
-                        props: {...v.props, ...val.props}
-                    };
-                }, {value: value, props: {}});
+          return {
+            value: isUndefined(val.value) ? v.value : val.value,
+            props: {...v.props, ...val.props}
+          };
+        }, {value: value, props: {}});
 
-                content = content || {};
+        content = content || {};
 
-                return <td key={j + '-cell'} {...content.props}>{content.value}</td>;
-            }
-        )}</tr>)
-    }</tbody>
+        return <td key={j + '-cell'} {...content.props}>{content.value}</td>;
+      }
+    )}</tr>)
+  }</tbody>
 );
 Body.propTypes = {
-    row: React.PropTypes.func,
-    rowKey: React.PropTypes.string.isRequired
+  row: React.PropTypes.func,
+  rowKey: React.PropTypes.string.isRequired
 };
 Body.defaultProps = {
-    row: () => {}
+  row: () => {}
 };
 Body.contextTypes = {
-    columns: React.PropTypes.array.isRequired,
-    data: React.PropTypes.array.isRequired
+  columns: React.PropTypes.array.isRequired,
+  data: React.PropTypes.array.isRequired
 };
 
 const Table = {
-    Context,
-    Header,
-    Body
+  Context,
+  Header,
+  Body
 };
 
 export default Table;

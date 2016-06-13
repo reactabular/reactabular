@@ -14,9 +14,9 @@ import App from './App.jsx';
 main();
 
 function main() {
-    const app = document.createElement('div');
+  const app = document.createElement('div');
 
-    document.body.appendChild(app);
+  document.body.appendChild(app);
 
-    ReactDOM.render(<App />, app);
+  ReactDOM.render(<App />, app);
 }

@@ -2,5 +2,5 @@
 
 
 module.exports = (value) => {
-    return value;
+  return value;
 };

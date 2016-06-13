@@ -4,14 +4,14 @@ var marked = require('marked');
 var highlight = require('highlight.js');
 
 marked.setOptions({
-    highlight: function(code) {
-        return highlight.highlightAuto(code).value;
-    }
+  highlight: function(code) {
+    return highlight.highlightAuto(code).value;
+  }
 });
 
 
 module.exports = function(markdown) {
-    this.cacheable();
+  this.cacheable();
 
-    return marked(markdown);
+  return marked(markdown);
 };
