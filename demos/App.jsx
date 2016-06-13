@@ -2,11 +2,13 @@ import React from 'react';
 import Fork from 'react-ghfork';
 
 import FullTable from './full_table';
+/*
 import FullTableMultipleFilters from './full_table_multiple_filters';
 import EditorsTable from './editors_table';
 import NestedTable from './nested_table';
 
 import readme from '../README.md';
+*/
 
 const App = () => (
     <div className='pure-g'>

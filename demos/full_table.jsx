@@ -7,12 +7,9 @@ import segmentize from 'segmentize';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
-import Table from '../src/table';
-import ColumnNames from '../src/column_names';
-import Search from '../src/search';
-import editors from '../src/editors';
-import sortColumn from '../src/sort_column';
-import cells from '../src/cells';
+import {
+    Table, Search, editors, sortColumn, cells
+} from '../src';
 
 import EditCell from './edit_cell';
 import countries from './countries';

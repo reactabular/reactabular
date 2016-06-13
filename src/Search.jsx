@@ -1,13 +1,11 @@
-'use strict';
-var isNumber = require('lodash/isNumber');
-var isString = require('lodash/isString');
-var React = require('react');
+import isNumber from 'lodash/isNumber';
+import isString from 'lodash/isString';
+import React from 'react';
 
-var formatters = require('./formatters');
-var predicates = require('./predicates');
+import formatters from './formatters';
+import predicates from './predicates';
 
-
-module.exports = React.createClass({
+const Search = React.createClass({
     displayName: 'Search',
 
     propTypes: {
@@ -98,7 +96,7 @@ module.exports = React.createClass({
     },
 });
 
-var searchColumn = (data, columns, column, query, options) => {
+const searchColumn = (data, columns, column, query, options) => {
     if(!query) {
         return data;
     }
@@ -140,9 +138,8 @@ var searchColumn = (data, columns, column, query, options) => {
         return predicate.evaluate(options.transform(formattedValue));
     }
 };
-module.exports.searchColumn = searchColumn;
 
-module.exports.search = (data, columns, query, options) => {
+const search = (data, columns, query, options) => {
     if (!query) {
         return data;
     }
@@ -159,7 +156,7 @@ module.exports.search = (data, columns, query, options) => {
     return data;
 };
 
-module.exports.matches = (column, value, query, options) => {
+const matches = (column, value, query, options) => {
     if(!query) {
         return {};
     }
@@ -173,3 +170,9 @@ module.exports.matches = (column, value, query, options) => {
 
     return predicate.matches(options.transform(value));
 };
+
+Search.searchColumn = searchColumn;
+Search.search = search;
+Search.matches = matches;
+
+export default Search;

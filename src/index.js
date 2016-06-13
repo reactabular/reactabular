@@ -1,10 +1,6 @@
-'use strict';
-
-
 module.exports = {
-    Table: require('./table'),
-    Search: require('./search'),
-    ColumnNames: require('./column_names'),
+    Table: require('./Table').default,
+    Search: require('./Search').default,
     sortColumn: require('./sort_column'),
     sortColumns: require('./sort_columns'),
     editors: require('./editors'),
