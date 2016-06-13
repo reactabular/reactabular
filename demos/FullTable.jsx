@@ -8,12 +8,9 @@ import {
 } from '../src';
 
 import {
-  CustomFooter, Modal, Paginator, PerPage, PrimaryControls
+  CustomFooter, EditCell, Modal, Paginator, PerPage, PrimaryControls
 } from './components';
-
 import countries from './data/countries';
-import EditCell from './EditCell';
-
 import {
   generateData, paginate, augmentWithTitles, getFieldGenerators, find
 } from './common';
