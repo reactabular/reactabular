@@ -5,8 +5,8 @@ import FullTable from './FullTable';
 /*
 import FullTableMultipleFilters from './FullTableMultipleFilters';
 import EditorsTable from './EditorsTable';
-import NestedTable from './NestedTable';
 */
+import NestedTable from './NestedTable';
 
 import readme from '../README.md';
 
@@ -53,6 +53,8 @@ const App = () => (
 
         <EditorsTable />
       </section>
+      */}
+
       <section>
         <div className='description'>
           <h2>Nested table</h2>
@@ -62,7 +64,7 @@ const App = () => (
 
         <NestedTable />
       </section>
-      */}
+
       <section className='documentation'>
         <h2>README</h2>
 
