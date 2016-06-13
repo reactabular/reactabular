@@ -1,6 +1,9 @@
 import titleCase from 'title-case';
 import generators from 'annogenerate';
 import sample from 'lodash/sample';
+import range from 'lodash/range';
+
+import {properties2object} from 'schema2object';
 
 export function paginate(data, o) {
   data = data || [];
@@ -48,7 +51,17 @@ export function getFieldGenerators(countryValues) {
   };
 }
 
-export function attachIds(arr) {
+export function generateData(o) {
+  return attachIds(range(o.amount).map(() =>
+    properties2object({
+      generators: generators,
+      fieldGenerators: o.fieldGenerators,
+      properties: o.properties
+    })
+  ));
+};
+
+function attachIds(arr) {
   return arr.map((o, i) => {
     o.id = i;
 

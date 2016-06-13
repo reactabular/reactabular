@@ -13,10 +13,9 @@ import {
 
 import EditCell from './EditCell';
 import countries from './countries';
-import generateData from './generate_data';
 
 import {
-  paginate, augmentWithTitles, getFieldGenerators, attachIds, find
+  generateData, paginate, augmentWithTitles, getFieldGenerators, find
 } from './common';
 
 export default React.createClass({
@@ -42,12 +41,11 @@ export default React.createClass({
         type: 'boolean'
       }
     });
-    let data = generateData({
+    const data = generateData({
       amount: 100,
       fieldGenerators: getFieldGenerators(countryValues),
-      properties: properties,
+      properties
     });
-    data = attachIds(data);
 
     const editable = cells.edit.bind(this, 'editedCell', (value, celldata, rowIndex, property) => {
       const idx = findIndex(this.state.data, {
