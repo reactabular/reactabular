@@ -81,7 +81,25 @@ Context.childContextTypes = {
 Table.Context = Context;
 
 const Header = ({cell, ...props}, {columns}) => (
-    <thead {...props}>table header should go here</thead>
+    <thead {...props}>
+        <tr>
+            {columns.map((column, i) => {
+                // Bind column to "on" handlers
+                var columnHeader = reduce(cell, (result, v, k) => {
+                    result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
+
+                    return result;
+                }, {});
+
+                return (
+                    <th
+                        key={i + '-header'}
+                        {...columnHeader}
+                    >{column.header}</th>
+                );
+            })}
+        </tr>
+    </thead>
 );
 Header.propTypes = {
     cell: React.PropTypes.func
