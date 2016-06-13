@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (columns, sortColumns, column, done) => {
+const byColumns = (columns, sortColumns, column, done) => {
   let newSortCols = undefined;
 
   if (typeof sortColumns === 'undefined') {
@@ -37,7 +35,7 @@ module.exports = (columns, sortColumns, column, done) => {
 
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy
-module.exports.sort = (data, sortColumns, sorter) => {
+byColumns.sort = (data, sortColumns, sorter) => {
   if (!sortColumns) {
     return data;
   }
@@ -53,3 +51,4 @@ module.exports.sort = (data, sortColumns, sorter) => {
   return sorter(data, propertyList, orderList);
 };
 
+export default byColumns

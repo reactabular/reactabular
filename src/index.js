@@ -1,8 +1,7 @@
 module.exports = {
   Table: require('./Table').default,
   Search: require('./Search').default,
-  sortColumn: require('./sort_column'),
-  sortColumns: require('./sort_columns'),
+  sort: require('./sort'),
   editors: require('./editors'),
   formatters: require('./formatters'),
   predicates: require('./predicates'),

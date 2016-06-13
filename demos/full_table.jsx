@@ -7,7 +7,7 @@ import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
 import {
-  Table, Search, editors, sortColumn, cells, formatters
+  Table, Search, editors, sort, cells, formatters
 } from '../src';
 
 import EditCell from './edit_cell';
@@ -217,7 +217,7 @@ export default React.createClass({
       );
     }
 
-    data = sortColumn.sort(data, this.state.sortingColumn, orderBy);
+    data = sort.byColumn.sort(data, this.state.sortingColumn, orderBy);
 
     var paginated = paginate(data, pagination);
     var pages = Math.ceil(data.length / Math.max(
@@ -295,7 +295,7 @@ export default React.createClass({
       editedCell: null
     });
 
-    sortColumn(
+    sort.byColumn(
       this.state.columns,
       column,
       this.setState.bind(this)

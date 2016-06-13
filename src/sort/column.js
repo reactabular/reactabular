@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (columns, column, done) => {
+const byColumn = (columns, column, done) => {
   // reset old classes
   columns.forEach((col) => {
     col.headerClass = null;
@@ -19,10 +17,12 @@ module.exports = (columns, column, done) => {
 
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy
-module.exports.sort = (data, column, sorter) => {
+byColumn.sort = (data, column, sorter) => {
   if (!column) {
     return data;
   }
 
   return sorter(data, [column.property], [column.sort]);
 };
+
+export default byColumn
