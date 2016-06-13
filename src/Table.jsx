@@ -50,11 +50,11 @@ const Header = ({header, children, ...props}, {columns}) => (
   </thead>
 );
 Header.propTypes = {
-  header: React.PropTypes.func,
+  header: React.PropTypes.object,
   children: React.PropTypes.any
 };
 Header.defaultProps = {
-  header: () => {}
+  header: {}
 };
 Header.contextTypes = {
   columns: React.PropTypes.array.isRequired
