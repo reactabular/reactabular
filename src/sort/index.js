@@ -1,4 +1,4 @@
 module.exports = {
-  byColumn: require('./column').default,
-  byColumns: require('./columns').default
+  byColumn: require('./byColumn').default,
+  byColumns: require('./byColumns').default
 };
