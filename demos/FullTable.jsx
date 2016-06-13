@@ -22,8 +22,8 @@ import {
 export default React.createClass({
   displayName: 'FullTable',
   getInitialState() {
-    var countryValues = countries.map((c) => c.value);
-    var properties = augmentWithTitles({
+    const countryValues = countries.map((c) => c.value);
+    const properties = augmentWithTitles({
       name: {
         type: 'string'
       },
@@ -42,26 +42,30 @@ export default React.createClass({
         type: 'boolean'
       }
     });
-    var data = generateData({
+    let data = generateData({
       amount: 100,
       fieldGenerators: getFieldGenerators(countryValues),
       properties: properties,
     });
     data = attachIds(data);
-    var editable = cells.edit.bind(this, 'editedCell', (value, celldata, rowIndex, property) => {
-      var idx = findIndex(this.state.data, {
+
+    const editable = cells.edit.bind(this, 'editedCell', (value, celldata, rowIndex, property) => {
+      const idx = findIndex(this.state.data, {
         id: celldata[rowIndex].id,
       });
 
       this.state.data[idx][property] = value;
 
-      this.setState({
-        data: data,
-      });
+      this.setState({data});
     });
-    var highlighter = (column) => formatters.highlight((value) => {
-      var { filter } = this.state.search;
-      return Search.matches(column, value, filter[Object.keys(filter).pop()]);
+    const highlighter = (column) => formatters.highlight((value) => {
+      const {filter} = this.state.search;
+
+      return Search.matches(
+        column,
+        value,
+        filter[Object.keys(filter).pop()]
+      );
     });
     const countryFormatter = (country) => find(countries, 'value', country).name;
 
@@ -128,8 +132,8 @@ export default React.createClass({
         },
         {
           cell: function(value, celldata, rowIndex) {
-            var edit = () => {
-              var idx = findIndex(this.state.data, {
+            const edit = () => {
+              const idx = findIndex(this.state.data, {
                 id: celldata[rowIndex].id,
               });
 
@@ -163,12 +167,12 @@ export default React.createClass({
               });
             }
 
-            var remove = () => {
-              var idx = findIndex(this.state.data, {
+            const remove = () => {
+              const idx = findIndex(this.state.data, {
                 id: celldata[rowIndex].id,
               });
 
-                            // this could go through flux etc.
+              // this could go through flux etc.
               this.state.data.splice(idx, 1);
 
               this.setState({
