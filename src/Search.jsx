@@ -23,7 +23,7 @@ class Search extends React.Component {
     });
   }
   render() {
-    const {columns, i18n, ...props} = this.props;
+    const {onChange, columns, data, i18n, ...props} = this.props;
 
     return (
       <span {...props}>
@@ -111,11 +111,11 @@ const searchColumn = (data, columns, column, query, options = {
   }
 
   return data.filter(row =>
-    columns.filter(isColumnVisible.bind(this, row)).length > 0
+    columns.filter(isColumnVisible.bind(this, options, query, row)).length > 0
   );
 };
 
-const isColumnVisible = (row, col) => {
+const isColumnVisible = (options, query, row, col) => {
   const property = col.property;
   const value = row[property];
   const formatter = col.search || formatters.identity;
