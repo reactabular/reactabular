@@ -1,4 +1,5 @@
 module.exports = {
+  ColumnFilters: require('./ColumnFilters').default,
   CustomFooter: require('./CustomFooter').default,
   EditCell: require('./EditCell').default,
   Modal: require('./Modal').default,
