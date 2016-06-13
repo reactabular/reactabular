@@ -1,28 +1,25 @@
-const React = require('react');
+import React from 'react';
 
-module.exports = () => {
-  return React.createClass({
-    displayName: 'Boolean',
-    propTypes: {
-      value: React.PropTypes.any,
-      onClick: React.PropTypes.func,
-      onValue: React.PropTypes.func,
-    },
-    render() {
-      return (
-        <span>
-          <button
-            disabled={this.props.value}
-            onClick={this.props.onValue.bind(null, true)}
-          >&#10003;
-          </button>
-          <button
-            disabled={!this.props.value}
-            onClick={this.props.onValue.bind(null, false)}
-          >&#10007;
-          </button>
-        </span>
-      );
-    }
-  });
-};
+export default () => {
+  const Boolean = ({value, onValue}) => (
+    <span>
+      <button
+        disabled={value}
+        onClick={() => onValue(true)}
+      >&#10003;
+      </button>
+      <button
+        disabled={!value}
+        onClick={() => onValue(false)}
+      >&#10007;
+      </button>
+    </span>
+  );
+  Boolean.propTypes = {
+    value: React.PropTypes.any,
+    onClick: React.PropTypes.func,
+    onValue: React.PropTypes.func,
+  };
+
+  return Boolean;
+}
