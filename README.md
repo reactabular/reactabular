@@ -54,6 +54,7 @@ Your changes will appear without reloading the browser like in [this video](http
 * [devaublanc](https://github.com/devaublanc) - Fixed syntax at sorting documentation.
 * [Christopher Dieringer](https://github.com/cdaringe) - Improved sorting documentation.
 * [szdc](https://github.com/szdc) - Added support for multiple search filters.
+* [Mark Stacey](https://github.com/Gudahtt) - Fixed `postinstall` script for Node 0.10.
 
 ## Acknowledgments
 
