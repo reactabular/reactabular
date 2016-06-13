@@ -4,58 +4,6 @@ import isPlainObject from 'lodash/isPlainObject';
 import isUndefined from 'lodash/isUndefined';
 import React from 'react';
 
-const Table = ({data, columns, rowKey, row, children, ...props}) => (
-    <table {...props}>
-        <tbody>
-            {data.map((r, i) => <tr key={(r[rowKey] || i) + '-row'} {...row(r, i)}>{
-                columns.map((column, j) => {
-                    var property = column.property;
-                    var value = r[property];
-                    var cell = column.cell || [() => {}];
-                    var content;
-
-                    cell = isFunction(cell) ? [cell] : cell;
-
-                    content = reduce(cell, (v, fn) => {
-                        if(React.isValidElement(v.value)) {
-                            return v;
-                        }
-
-                        var val = fn(v.value, data, i, property);
-
-                        if(!isPlainObject(val) || isUndefined(val.value)) {
-                            // formatter shortcut
-                            val = {value: val};
-                        }
-
-                        return {
-                            value: isUndefined(val.value) ? v.value : val.value,
-                            props: {...v.props, ...val.props}
-                        };
-                    }, {value: value, props: {}});
-
-                    content = content || {};
-
-                    return <td key={j + '-cell'} {...content.props}>{content.value}</td>;
-                }
-            )}</tr>)}
-        </tbody>
-        {children}
-    </table>
-);
-Table.propTypes = {
-    data: React.PropTypes.array,
-    columns: React.PropTypes.array,
-    row: React.PropTypes.func,
-    children: React.PropTypes.node,
-    rowKey: React.PropTypes.string.isRequired
-};
-Table.defaultProps = {
-    data: [],
-    columns: [],
-    row: () => {}
-};
-
 class Context extends React.Component {
     getChildContext() {
         return {
@@ -78,14 +26,13 @@ Context.childContextTypes = {
     columns: React.PropTypes.array,
     data: React.PropTypes.array
 };
-Table.Context = Context;
 
-const Header = ({cell, ...props}, {columns}) => (
+const Header = ({header, ...props}, {columns}) => (
     <thead {...props}>
         <tr>
             {columns.map((column, i) => {
                 // Bind column to "on" handlers
-                var columnHeader = reduce(cell, (result, v, k) => {
+                var columnHeader = reduce(header, (result, v, k) => {
                     result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
 
                     return result;
@@ -102,7 +49,7 @@ const Header = ({cell, ...props}, {columns}) => (
     </thead>
 );
 Header.propTypes = {
-    cell: React.PropTypes.func
+    header: React.PropTypes.func
 };
 Header.defaultProps = {
     header: () => {}
@@ -110,21 +57,59 @@ Header.defaultProps = {
 Header.contextTypes = {
     columns: React.PropTypes.array.isRequired
 };
-Table.Header = Header;
 
-const Rows = ({cell, cellKey, ...props}, {data}) => (
-    <tbody {...props}>table rows should go here</tbody>
+const Rows = ({row, rowKey, ...props}, {columns, data}) => (
+    <tbody {...props}>{
+        data.map((r, i) => <tr key={(r[rowKey] || i) + '-row'} {...row(r, i)}>{
+            columns.map((column, j) => {
+                const property = column.property;
+                const value = r[property];
+                let cell = column.cell || [() => {}];
+                let content;
+
+                cell = isFunction(cell) ? [cell] : cell;
+
+                content = reduce(cell, (v, fn) => {
+                    if(React.isValidElement(v.value)) {
+                        return v;
+                    }
+
+                    let val = fn(v.value, data, i, property);
+
+                    if(!isPlainObject(val) || isUndefined(val.value)) {
+                        // formatter shortcut
+                        val = {value: val};
+                    }
+
+                    return {
+                        value: isUndefined(val.value) ? v.value : val.value,
+                        props: {...v.props, ...val.props}
+                    };
+                }, {value: value, props: {}});
+
+                content = content || {};
+
+                return <td key={j + '-cell'} {...content.props}>{content.value}</td>;
+            }
+        )}</tr>)
+    }</tbody>
 );
 Rows.propTypes = {
-    cell: React.PropTypes.func,
-    cellKey: React.PropTypes.string.isRequired
+    row: React.PropTypes.func,
+    rowKey: React.PropTypes.string.isRequired
 };
 Rows.defaultProps = {
     row: () => {}
 };
 Rows.contextTypes = {
+    columns: React.PropTypes.array.isRequired,
     data: React.PropTypes.array.isRequired
 };
-Table.Rows = Rows;
+
+const Table = {
+    Context,
+    Header,
+    Rows
+};
 
 export default Table;

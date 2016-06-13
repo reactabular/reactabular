@@ -225,7 +225,6 @@ export default React.createClass({
             );
         }
 
-
         data = sortColumn.sort(data, this.state.sortingColumn, orderBy);
 
         var paginated = paginate(data, pagination);
@@ -245,13 +244,13 @@ export default React.createClass({
                 </div>
                 <Table.Context columns={columns} data={data} className='pure-table pure-table-striped'>
                     <Table.Header
-                        cell={(header, headerIndex) => ({
+                        header={(header, headerIndex) => ({
                             onClick: this.onHeaderClick
                         })}/>
 
                     <Table.Rows
-                        cellKey='id'
-                        cell={(row, rowIndex) => ({
+                        rowKey='id'
+                        row={(row, rowIndex) => ({
                             className: rowIndex % 2 ? 'odd-row' : 'even-row',
                             onClick: () => console.log('clicked row', row)
                         })}/>
