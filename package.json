@@ -82,7 +82,6 @@
     "schema2object": "^0.4.0",
     "segmentize": "^0.4.1",
     "style-loader": "^0.13.1",
-    "sync-exec": "^0.6.2",
     "title-case": "^1.1.2",
     "url-loader": "^0.5.7",
     "uuid": "^2.0.2",
