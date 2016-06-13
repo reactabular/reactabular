@@ -30,6 +30,7 @@ const App = () => (
 
                 <FullTable />
             </section>
+            {/*
             <section className="multiple-filters">
               <div className='description'>
                   <h2>Multiple filters</h2>
@@ -64,6 +65,7 @@ const App = () => (
 
                 <div dangerouslySetInnerHTML={{__html: readme}}></div>
             </section>
+            */}
         </article>
     </div>
 );
