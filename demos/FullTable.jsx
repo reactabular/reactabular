@@ -1,5 +1,4 @@
 import React from 'react';
-import {SkyLightStateless} from 'react-skylight';
 
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
@@ -9,7 +8,7 @@ import {
 } from '../src';
 
 import {
-  Paginator, PerPage
+  Modal, Paginator, PerPage
 } from './components';
 
 import EditCell from './EditCell';
@@ -205,7 +204,7 @@ export default React.createClass({
   },
 
   render() {
-    const {columns, pagination, sortingColumn} = this.state;
+    const {columns, modal, pagination, sortingColumn} = this.state;
     let data = this.state.data;
 
     if (this.state.search.filter) {
@@ -268,17 +267,21 @@ export default React.createClass({
           <Paginator pagination={pagination} pages={pages} onSelect={this.onSelect} />
         </div>
 
-        <SkyLightStateless
-          isVisible={this.state.modal.show}
-          title={this.state.modal.title}
-          onCloseClicked={() => this.setState({
-            modal: Object.assign({}, this.state.modal, {
-              show: false
-            })
-          })}
-          >{this.state.modal.content}</SkyLightStateless>
+        <Modal show={modal.show} title={modal.title} onCloseClicked={this.onModalClose}>
+          {modal.content}
+        </Modal>
       </div>
     );
+  },
+  onModalClose() {
+    this.setState({
+      modal: {
+        ...this.state.modal,
+        ...{
+          show: false
+        }
+      }
+    });
   },
   onSearch(filter) {
     this.setState({
