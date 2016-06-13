@@ -50,8 +50,7 @@ const columns = [
     header: 'Editor',
     cell: (value) => React.createElement(value, {
       value: '',
-      onValue: (v) =>
-                      console.log(v)
+      onValue: (v) => console.log(v)
     }),
   },
   {
