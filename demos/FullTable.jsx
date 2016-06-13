@@ -1,7 +1,5 @@
 import React from 'react';
 import {SkyLightStateless} from 'react-skylight';
-import Paginator from 'react-pagify';
-import segmentize from 'segmentize';
 
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
@@ -11,7 +9,7 @@ import {
 } from '../src';
 
 import {
-  PerPage
+  Paginator, PerPage
 } from './components';
 
 import EditCell from './EditCell';
@@ -207,11 +205,8 @@ export default React.createClass({
   },
 
   render() {
-    var columns = this.state.columns;
-
-    var pagination = this.state.pagination;
-
-    var data = this.state.data;
+    const {columns, pagination, sortingColumn} = this.state;
+    let data = this.state.data;
 
     if (this.state.search.filter) {
       data = Search.search(
@@ -221,10 +216,10 @@ export default React.createClass({
       );
     }
 
-    data = sort.byColumn.sort(data, this.state.sortingColumn, orderBy);
+    data = sort.byColumn.sort(data, sortingColumn, orderBy);
 
-    var paginated = paginate(data, pagination);
-    var pages = Math.ceil(data.length / Math.max(
+    const paginated = paginate(data, pagination);
+    const pages = Math.ceil(data.length / Math.max(
       isNaN(pagination.perPage) ? 1 : pagination.perPage, 1)
     );
 
@@ -270,7 +265,7 @@ export default React.createClass({
         </Table.Context>
 
         <div className='controls'>
-          <Paginate pagination={pagination} pages={pages} onSelect={this.onSelect} />
+          <Paginator pagination={pagination} pages={pages} onSelect={this.onSelect} />
         </div>
 
         <SkyLightStateless
@@ -285,14 +280,12 @@ export default React.createClass({
       </div>
     );
   },
-
   onSearch(filter) {
     this.setState({
       editedCell: null, // reset edits
-      search: { filter }
+      search: {filter}
     });
   },
-
   onHeaderClick: (column) => {
     // reset edits
     this.setState({
@@ -305,62 +298,24 @@ export default React.createClass({
       this.setState.bind(this)
     );
   },
-
   onSelect(page) {
-    var pagination = this.state.pagination || {};
-    var pages = Math.ceil(this.state.data.length / pagination.perPage);
+    var pages = Math.ceil(
+      this.state.data.length / this.state.pagination.perPage
+    );
 
-    pagination.page = Math.min(Math.max(page, 1), pages);
-
-    this.setState({
-      pagination: pagination
-    });
+    this.setState({pagination: {
+      ...this.state.pagination,
+      ...{
+        page: Math.min(Math.max(page, 1), pages)
+      }
+    }});
   },
-
   onPerPage(value) {
-    var pagination = this.state.pagination || {};
-
-    pagination.perPage = parseInt(value, 10);
-
-    this.setState({
-      pagination: pagination
-    });
+    this.setState({pagination: {
+      ...this.state.pagination,
+      ...{
+        perPage: parseInt(value, 10)
+      }
+    }});
   },
 })
-
-// TODO: push more bits here
-const Paginate = ({pagination, pages, onSelect}) => (
-  <div className='pagination'>
-    <Paginator.Context className="pagify-pagination"
-    segments={segmentize({
-      page: pagination.page,
-      pages: pages,
-      beginPages: 3,
-      endPages: 3,
-      sidePages: 2
-    })} onSelect={onSelect}>
-      <Paginator.Button page={pagination.page - 1}>Previous</Paginator.Button>
-
-      <Paginator.Segment field="beginPages" />
-
-      <Paginator.Ellipsis className="ellipsis"
-        previousField="beginPages" nextField="previousPages" />
-
-      <Paginator.Segment field="previousPages" />
-      <Paginator.Segment field="centerPage" className="selected" />
-      <Paginator.Segment field="nextPages" />
-
-      <Paginator.Ellipsis className="ellipsis"
-        previousField="nextPages" nextField="endPages" />
-
-      <Paginator.Segment field="endPages" />
-
-      <Paginator.Button page={pagination.page + 1}>Next</Paginator.Button>
-    </Paginator.Context>
-  </div>
-);
-Paginate.propTypes = {
-  pagination: React.PropTypes.object,
-  pages: React.PropTypes.number,
-  onSelect: React.PropTypes.func
-};
