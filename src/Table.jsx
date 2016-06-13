@@ -80,11 +80,11 @@ Context.childContextTypes = {
 };
 Table.Context = Context;
 
-const Header = (props, {columns}) => (
+const Header = ({cell, ...props}, {columns}) => (
     <thead {...props}>table header should go here</thead>
 );
 Header.propTypes = {
-    header: React.PropTypes.func
+    cell: React.PropTypes.func
 };
 Header.defaultProps = {
     header: () => {}
@@ -94,12 +94,12 @@ Header.contextTypes = {
 };
 Table.Header = Header;
 
-const Rows = (props, {data}) => (
+const Rows = ({cell, cellKey, ...props}, {data}) => (
     <tbody {...props}>table rows should go here</tbody>
 );
 Rows.propTypes = {
-    row: React.PropTypes.func,
-    rowKey: React.PropTypes.string.isRequired
+    cell: React.PropTypes.func,
+    cellKey: React.PropTypes.string.isRequired
 };
 Rows.defaultProps = {
     row: () => {}

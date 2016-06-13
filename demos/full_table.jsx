@@ -245,15 +245,13 @@ export default React.createClass({
                 </div>
                 <Table.Context columns={columns} data={data} className='pure-table pure-table-striped'>
                     <Table.Header
-                        className='header'
-                        header={(header, headerIndex) => ({
+                        cell={(header, headerIndex) => ({
                             onClick: this.onHeaderClick
                         })}/>
 
                     <Table.Rows
-                        className='table-row'
-                        rowKey='id'
-                        row={(row, rowIndex) => ({
+                        cellKey='id'
+                        cell={(row, rowIndex) => ({
                             className: rowIndex % 2 ? 'odd-row' : 'even-row',
                             onClick: () => console.log('clicked row', row)
                         })}/>
