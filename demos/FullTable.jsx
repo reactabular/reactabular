@@ -10,6 +10,10 @@ import {
   Table, Search, editors, sort, cells, formatters
 } from '../src';
 
+import {
+  PerPage
+} from './components';
+
 import EditCell from './EditCell';
 import countries from './countries';
 import generateData from './generate_data';
@@ -228,7 +232,7 @@ export default React.createClass({
       <div>
         <div className='controls'>
           <div className='per-page-container'>
-            Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
+            <PerPage value={pagination.perPage} onChange={this.onPerPage} />
           </div>
           <div className='search-container'>
             Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
@@ -313,10 +317,10 @@ export default React.createClass({
     });
   },
 
-  onPerPage(e) {
+  onPerPage(value) {
     var pagination = this.state.pagination || {};
 
-    pagination.perPage = parseInt(e.target.value, 10);
+    pagination.perPage = parseInt(value, 10);
 
     this.setState({
       pagination: pagination
