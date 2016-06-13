@@ -15,45 +15,38 @@ import {
   generateData, paginate, augmentWithTitles, getFieldGenerators, find
 } from '../common';
 
-export default React.createClass({
-  displayName: 'FullTable',
-  getInitialState() {
-    const countryValues = countries.map((c) => c.value);
-    const properties = augmentWithTitles({
-      name: {
-        type: 'string'
-      },
-      position: {
-        type: 'string'
-      },
-      salary: {
-        type: 'number'
-      },
-      country: {
-        type: 'string',
-        enum: countryValues,
-        enumNames: countries.map((c) => c.name),
-      },
-      active: {
-        type: 'boolean'
-      }
-    });
-    const data = generateData({
-      amount: 100,
-      fieldGenerators: getFieldGenerators(countryValues),
-      properties
-    });
+const countryValues = countries.map((c) => c.value);
+const properties = augmentWithTitles({
+  name: {
+    type: 'string'
+  },
+  position: {
+    type: 'string'
+  },
+  salary: {
+    type: 'number'
+  },
+  country: {
+    type: 'string',
+    enum: countryValues,
+    enumNames: countries.map((c) => c.name),
+  },
+  active: {
+    type: 'boolean'
+  }
+});
+const data = generateData({
+  amount: 100,
+  fieldGenerators: getFieldGenerators(countryValues),
+  properties
+});
+const countryFormatter = country => find(countries, 'value', country).name;
 
-    const editable = cells.edit.bind(this, 'editedCell', (value, celldata, rowIndex, property) => {
-      const idx = findIndex(this.state.data, {
-        id: celldata[rowIndex].id,
-      });
+class FullTable extends React.Component {
+  constructor(props) {
+    super(props);
 
-      this.state.data[idx][property] = value;
-
-      this.setState({data});
-    });
-    const highlighter = (column) => formatters.highlight((value) => {
+    const highlighter = column => formatters.highlight(value => {
       const {filter} = this.state.search;
 
       return Search.matches(
@@ -62,14 +55,26 @@ export default React.createClass({
         filter[Object.keys(filter).pop()]
       );
     });
-    const countryFormatter = (country) => find(countries, 'value', country).name;
+    const editable = cells.edit.bind(
+      this,
+      'editedCell',
+      (value, celldata, rowIndex, property) => {
+        const idx = findIndex(this.state.data, {
+          id: celldata[rowIndex].id,
+        });
 
-    return {
+        this.state.data[idx][property] = value;
+
+        this.setState({data});
+      }
+    );
+
+    this.state = {
       editedCell: null,
       data: data,
       formatters: {
         country: countryFormatter,
-              //salary: (salary) => parseFloat(salary).toFixed(2),
+        //salary: (salary) => parseFloat(salary).toFixed(2),
       },
       search: {
         filter: {}
@@ -126,7 +131,7 @@ export default React.createClass({
           ],
         },
         {
-          cell: function(value, celldata, rowIndex) {
+          cell: (value, celldata, rowIndex) => {
             const edit = () => {
               const idx = findIndex(this.state.data, {
                 id: celldata[rowIndex].id,
@@ -188,7 +193,7 @@ export default React.createClass({
                 </span>
               )
             };
-          }.bind(this),
+          }
         },
       ],
       modal: {
@@ -201,7 +206,13 @@ export default React.createClass({
         perPage: 10
       }
     };
-  },
+
+    this.onModalClose = this.onModalClose.bind(this);
+    this.onSearch = this.onSearch.bind(this);
+    this.onHeaderClick = this.onHeaderClick.bind(this);
+    this.onSelect = this.onSelect.bind(this);
+    this.onPerPage = this.onPerPage.bind(this);
+  }
   render() {
     const {columns, modal, pagination, sortingColumn} = this.state;
     let data = this.state.data;
@@ -261,7 +272,7 @@ export default React.createClass({
         </Modal>
       </div>
     );
-  },
+  }
   onModalClose() {
     this.setState({
       modal: {
@@ -271,14 +282,14 @@ export default React.createClass({
         }
       }
     });
-  },
+  }
   onSearch(filter) {
     this.setState({
       editedCell: null, // reset edits
       search: {filter}
     });
-  },
-  onHeaderClick: (column) => {
+  }
+  onHeaderClick(column) {
     // reset edits
     this.setState({
       editedCell: null
@@ -289,9 +300,9 @@ export default React.createClass({
       column,
       this.setState.bind(this)
     );
-  },
+  }
   onSelect(page) {
-    var pages = Math.ceil(
+    const pages = Math.ceil(
       this.state.data.length / this.state.pagination.perPage
     );
 
@@ -301,7 +312,7 @@ export default React.createClass({
         page: Math.min(Math.max(page, 1), pages)
       }
     }});
-  },
+  }
   onPerPage(value) {
     this.setState({
       pagination: {
@@ -311,5 +322,7 @@ export default React.createClass({
         }
       }
     });
-  },
-})
+  }
+}
+
+export default FullTable
