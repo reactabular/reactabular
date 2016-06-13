@@ -247,9 +247,9 @@ class FullTable extends React.Component {
           columns={columns}
           data={paginated.data}>
           <Table.Header
-            header={(header, headerIndex) => ({
+            header={{
               onClick: this.onHeaderClick
-            })}>
+            }}>
             <ColumnFilters columns={columns} onChange={this.onSearch} />
           </Table.Header>
 
