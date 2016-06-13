@@ -1,11 +1,11 @@
 import React from 'react';
 import Fork from 'react-ghfork';
 
-import FullTable from './full_table';
+import FullTable from './FullTable';
 /*
-import FullTableMultipleFilters from './full_table_multiple_filters';
-import EditorsTable from './editors_table';
-import NestedTable from './nested_table';
+import FullTableMultipleFilters from './FullTableMultipleFilters';
+import EditorsTable from './EditorsTable';
+import NestedTable from './NestedTable';
 
 import readme from '../README.md';
 */

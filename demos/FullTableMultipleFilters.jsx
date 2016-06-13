@@ -7,19 +7,21 @@ import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
 import {
-  Table, Search, editors, sort, cells, formatters
+  Table, Search, editors, sortColumn, cells, formatters
 } from '../src';
 
-import EditCell from './edit_cell';
+import EditCell from './EditCell';
+import ColumnFilters from './ColumnFilters';
 import countries from './countries';
 import generateData from './generate_data';
 
+import highlight from '../src/formatters/highlight';
 import {
-  paginate, augmentWithTitles, getFieldGenerators, attachIds, find
+    paginate, augmentWithTitles, getFieldGenerators, attachIds, find
 } from './common';
 
 export default React.createClass({
-  displayName: 'FullTable',
+  displayName: 'FullTableWithMultipleFilters',
   getInitialState() {
     var countryValues = countries.map((c) => c.value);
     var properties = augmentWithTitles({
@@ -58,21 +60,35 @@ export default React.createClass({
         data: data,
       });
     });
+    const countryFormatter = (country) => find(countries, 'value', country).name
+
     var highlighter = (column) => formatters.highlight((value) => {
-      var { filter } = this.state.search;
-      return Search.matches(column, value, filter[Object.keys(filter).pop()]);
+      return Search.matches(column, value, this.state.search.filter[column]);
     });
-    const countryFormatter = (country) => find(countries, 'value', country).name;
 
     return {
       editedCell: null,
       data: data,
       formatters: {
-        country: countryFormatter,
-              //salary: (salary) => parseFloat(salary).toFixed(2),
+        country: countryFormatter
       },
       search: {
-        filter: {}
+        filter: {},
+      },
+      header: {
+        onClick: (column) => {
+          // reset edits
+          this.setState({
+            editedCell: null
+          });
+
+          sortColumn(
+            this.state.columns,
+            column,
+            this.setState.bind(this)
+          );
+        },
+        className: 'header'
       },
       sortingColumn: null, // reference to sorting column
       columns: [
@@ -124,6 +140,8 @@ export default React.createClass({
             }),
             (active) => active && <span>&#10003;</span>
           ],
+          filterPlaceholder: 'lol',
+          noFilter: true
         },
         {
           cell: function(value, celldata, rowIndex) {
@@ -157,7 +175,7 @@ export default React.createClass({
                     }}
                     formData={this.state.data[idx]}
                     properties={properties}
-                  />
+                    />
                 }
               });
             }
@@ -167,7 +185,7 @@ export default React.createClass({
                 id: celldata[rowIndex].id,
               });
 
-                            // this could go through flux etc.
+              // this could go through flux etc.
               this.state.data.splice(idx, 1);
 
               this.setState({
@@ -202,22 +220,39 @@ export default React.createClass({
     };
   },
 
+  onSearch(filter) {
+    this.setState({
+      editedCell: null, // reset edits
+      search: { filter }
+    });
+  },
+
+  columnFilters(columns) {
+    var headerConfig = this.state.header;
+
+        // if you don't want an header, just return;
+    return (
+      <thead>
+        <ColumnNames config={headerConfig} columns={columns} />
+        <ColumnFilters columns={columns} onChange={this.onSearch} />
+      </thead>
+    );
+  },
+
   render() {
     var columns = this.state.columns;
-
     var pagination = this.state.pagination;
-
     var data = this.state.data;
 
     if (this.state.search.filter) {
       data = Search.search(
-          data,
-          columns,
-          this.state.search.filter
+        data,
+        columns,
+        this.state.search.filter
       );
     }
 
-    data = sort.byColumn.sort(data, this.state.sortingColumn, orderBy);
+    data = sortColumn.sort(data, this.state.sortingColumn, orderBy);
 
     var paginated = paginate(data, pagination);
     var pages = Math.ceil(data.length / Math.max(
@@ -230,45 +265,64 @@ export default React.createClass({
           <div className='per-page-container'>
             Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage}></input>
           </div>
-          <div className='search-container'>
-            Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
-          </div>
         </div>
-
-        <Table.Context
+        <Table
           className='pure-table pure-table-striped'
+          columnNames={this.columnFilters}
           columns={columns}
-          data={paginated.data}>
-          <Table.Header
-            header={(header, headerIndex) => ({
-              onClick: this.onHeaderClick
-            })}/>
-
-          <Table.Body
-            rowKey='id'
-            row={(row, rowIndex) => ({
+          data={paginated.data}
+          row={(d, rowIndex) => {
+            return {
               className: rowIndex % 2 ? 'odd-row' : 'even-row',
-              onClick: () => console.log('clicked row', row)
-            })}/>
-
+              onClick: () => console.log('clicked row', d)
+            };
+          }}
+          rowKey="id"
+        >
           <tfoot>
-            <tr>
-              <td>
-                You could show sums etc. here in the customizable footer.
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+              <tr>
+                  <td>
+                      You could show sums etc. here in the customizable footer.
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
           </tfoot>
-        </Table.Context>
+        </Table>
 
         <div className='controls'>
-          <Paginate pagination={pagination} pages={pages} onSelect={this.onSelect} />
-        </div>
+          <div className='pagination'>
+            <Paginator.Context className="pagify-pagination"
+            segments={segmentize({
+              page: pagination.page,
+              pages: pages,
+              beginPages: 3,
+              endPages: 3,
+              sidePages: 2
+            })} onSelect={this.onSelect}>
+                <Paginator.Button page={pagination.page - 1}>Previous</Paginator.Button>
 
+                <Paginator.Segment field="beginPages" />
+
+                <Paginator.Ellipsis className="ellipsis"
+                  previousField="beginPages" nextField="previousPages" />
+
+                <Paginator.Segment field="previousPages" />
+                <Paginator.Segment field="centerPage" className="selected" />
+                <Paginator.Segment field="nextPages" />
+
+                <Paginator.Ellipsis className="ellipsis"
+                  previousField="nextPages" nextField="endPages" />
+
+                <Paginator.Segment field="endPages" />
+
+                <Paginator.Button page={pagination.page + 1}>Next</Paginator.Button>
+            </Paginator.Context>
+          </div>
+        </div>
         <SkyLightStateless
           isVisible={this.state.modal.show}
           title={this.state.modal.title}
@@ -279,26 +333,6 @@ export default React.createClass({
           })}
           >{this.state.modal.content}</SkyLightStateless>
       </div>
-    );
-  },
-
-  onSearch(filter) {
-    this.setState({
-      editedCell: null, // reset edits
-      search: { filter }
-    });
-  },
-
-  onHeaderClick: (column) => {
-    // reset edits
-    this.setState({
-      editedCell: null
-    });
-
-    sort.byColumn(
-      this.state.columns,
-      column,
-      this.setState.bind(this)
     );
   },
 
@@ -322,41 +356,4 @@ export default React.createClass({
       pagination: pagination
     });
   },
-})
-
-// TODO: push more bits here
-const Paginate = ({pagination, pages, onSelect}) => (
-  <div className='pagination'>
-    <Paginator.Context className="pagify-pagination"
-    segments={segmentize({
-      page: pagination.page,
-      pages: pages,
-      beginPages: 3,
-      endPages: 3,
-      sidePages: 2
-    })} onSelect={onSelect}>
-      <Paginator.Button page={pagination.page - 1}>Previous</Paginator.Button>
-
-      <Paginator.Segment field="beginPages" />
-
-      <Paginator.Ellipsis className="ellipsis"
-        previousField="beginPages" nextField="previousPages" />
-
-      <Paginator.Segment field="previousPages" />
-      <Paginator.Segment field="centerPage" className="selected" />
-      <Paginator.Segment field="nextPages" />
-
-      <Paginator.Ellipsis className="ellipsis"
-        previousField="nextPages" nextField="endPages" />
-
-      <Paginator.Segment field="endPages" />
-
-      <Paginator.Button page={pagination.page + 1}>Next</Paginator.Button>
-    </Paginator.Context>
-  </div>
-);
-Paginate.propTypes = {
-  pagination: React.PropTypes.object,
-  pages: React.PropTypes.number,
-  onSelect: React.PropTypes.func
-};
+});
