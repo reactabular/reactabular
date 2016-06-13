@@ -42,7 +42,7 @@ class ColumnFilters extends React.Component {
               />
             : ''}
           </td>
-        )})}
+        ))}
       </tr>
     );
   }
