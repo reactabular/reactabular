@@ -8,7 +8,7 @@ import {
 } from '../src';
 
 import {
-  Modal, Paginator, PerPage
+  CustomFooter, Modal, Paginator, PerPage
 } from './components';
 
 import EditCell from './EditCell';
@@ -249,18 +249,7 @@ export default React.createClass({
               onClick: () => console.log('clicked row', row)
             })}/>
 
-          <tfoot>
-            <tr>
-              <td>
-                You could show sums etc. here in the customizable footer.
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tfoot>
+          <CustomFooter />
         </Table.Context>
 
         <div className='controls'>
