@@ -314,18 +314,14 @@ class FullTable extends React.Component {
 
     this.setState({ pagination: {
       ...this.state.pagination,
-      ...{
-        page: Math.min(Math.max(page, 1), pages),
-      },
+      page: Math.min(Math.max(page, 1), pages),
     } });
   }
   onPerPage(value) {
     this.setState({
       pagination: {
         ...this.state.pagination,
-        ...{
-          perPage: parseInt(value, 10),
-        },
+        perPage: parseInt(value, 10),
       },
     });
   }
