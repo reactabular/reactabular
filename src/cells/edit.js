@@ -1,13 +1,7 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-
-
-module.exports = function(editProperty, onValue, o) {
-  onValue = onValue || noop;
-
-  var context = this;
-  var editor = o.editor;
+export default function(editProperty, onValue=() => {}, {editor}) {
+  const context = this;
 
   return (value, data, rowIndex, property) => {
     var idx = rowIndex.toString() + '-' + property;
@@ -16,7 +10,7 @@ module.exports = function(editProperty, onValue, o) {
     if(editedCell === idx) {
       return {
         value: React.createElement(editor, {
-          value: value,
+          value,
           onValue: (v) => {
             var state = {};
 
@@ -32,7 +26,7 @@ module.exports = function(editProperty, onValue, o) {
 
     if(editor) {
       return {
-        value: value,
+        value,
         props: {
           onClick: () => {
             var state = {};
@@ -48,5 +42,3 @@ module.exports = function(editProperty, onValue, o) {
     return value;
   };
 };
-
-function noop() {}
