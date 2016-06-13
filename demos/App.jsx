@@ -2,10 +2,8 @@ import React from 'react';
 import Fork from 'react-ghfork';
 
 import FullTable from './FullTable';
-/*
-import FullTableMultipleFilters from './FullTableMultipleFilters';
+//import FullTableMultipleFilters from './FullTableMultipleFilters';
 import EditorsTable from './EditorsTable';
-*/
 import NestedTable from './NestedTable';
 
 import readme from '../README.md';
@@ -44,6 +42,8 @@ const App = () => (
 
         <FullTableMultipleFilters />
       </section>
+      */}
+
       <section className='editors'>
         <div className='description'>
           <h2>Editors</h2>
@@ -53,7 +53,6 @@ const App = () => (
 
         <EditorsTable />
       </section>
-      */}
 
       <section>
         <div className='description'>
