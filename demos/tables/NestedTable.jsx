@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Table
+  Table,
 } from '../../src';
 
 const data = [
@@ -9,19 +9,19 @@ const data = [
     name: 'Adam',
     dad: {
       id: 20,
-      name: 'John'
+      name: 'John',
     },
-    lovesBeeGees: true
+    lovesBeeGees: true,
   },
   {
     id: 101,
     name: 'Brian',
     dad: {
       id: 22,
-      name: 'George'
+      name: 'George',
     },
-    lovesBeeGees: false
-  }
+    lovesBeeGees: false,
+  },
 ];
 
 const columns = [
@@ -32,28 +32,29 @@ const columns = [
   {
     property: 'dad',
     header: 'Dad',
-    cell: (value) => {
-      return 'id: ' + value.id + ', name: ' + value.name;
-    },
+    cell: (value) => `id: ${value.id} , name: ${value.name}`,
   },
   {
     property: 'lovesBeeGees',
     header: 'Loves BeeGees',
-    cell: (lovesBeeGees) =>
-      lovesBeeGees ?
-      <span>Loves BeeGees</span> :
-      <span>Does not love BeeGees</span>
-  }
+    cell: lovesBeeGees => (
+      <span>
+        {lovesBeeGees ? 'Loves BeeGees' : 'Does not love BeeGees'}
+      </span>
+    ),
+  },
 ];
 
 const NestedTable = () => (
-  <Table.Context className='pure-table pure-table-striped'
+  <Table.Context
+    className="pure-table pure-table-striped"
     columns={columns}
-    data={data}>
+    data={data}
+  >
     <Table.Header />
 
-    <Table.Body rowKey='id' />
+    <Table.Body rowKey="id" />
   </Table.Context>
 );
 
-export default NestedTable
+export default NestedTable;

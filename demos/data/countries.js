@@ -1,9 +1,7 @@
-'use strict';
-
-module.exports = [
+export default [
   {
     value: 'none',
-    name: ''
+    name: '',
   },
   {
     value: 'de',

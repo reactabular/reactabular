@@ -15,4 +15,4 @@ const CustomFooter = () => (
   </tfoot>
 );
 
-export default CustomFooter
+export default CustomFooter;

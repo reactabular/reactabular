@@ -1,12 +1,12 @@
 import React from 'react';
 
-export default (attrs={}) => {
+export default (attrs = {}) => {
   class Input extends React.Component {
     constructor(props) {
       super(props);
 
       this.state = {
-        value: props.value
+        value: props.value,
       };
 
       this.onFocus = this.onFocus.bind(this);
@@ -17,31 +17,27 @@ export default (attrs={}) => {
     render() {
       return (
         <input
-          ref='input'
+          ref="input"
           value={this.state.value}
           onFocus={this.onFocus}
           onChange={this.onChange}
           onKeyUp={this.onKeyUp}
           onBlur={this.done}
-          {...attrs} />
+          {...attrs}
+        />
       );
     }
-    onFocus(e) {
-      this.moveCaretToEnd(e.target);
-    }
-    moveCaretToEnd(field) {
-      const length = field.value.length;
+    onFocus({ target }) {
+      const length = target.value.length;
 
-      field.selectionStart = length;
-      field.selectionEnd = length;
+      target.selectionStart = length; // eslint-disable-line no-param-reassign
+      target.selectionEnd = length; // eslint-disable-line no-param-reassign
     }
-    onChange(e) {
-      this.setState({
-        value: e.target.value,
-      });
+    onChange({ target: { value } }) {
+      this.setState({ value });
     }
-    onKeyUp(e) {
-      if(e.keyCode === 13) {
+    onKeyUp({ keyCode }) {
+      if (keyCode === 13) {
         this.done();
       }
     }
@@ -55,4 +51,4 @@ export default (attrs={}) => {
   };
 
   return Input;
-}
+};

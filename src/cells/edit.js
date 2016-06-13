@@ -1,44 +1,36 @@
 import React from 'react';
 
-export default function(editProperty, onValue=() => {}, {editor}) {
+export default function (editProperty, onValue = () => {}, { editor }) {
   const context = this;
 
   return (value, data, rowIndex, property) => {
-    var idx = rowIndex.toString() + '-' + property;
-    var editedCell = context.state[editProperty];
+    const idx = `${rowIndex.toString()}-${property}`;
+    const editedCell = context.state[editProperty];
 
-    if(editedCell === idx) {
+    if (editedCell === idx) {
       return {
         value: React.createElement(editor, {
           value,
           onValue: (v) => {
-            var state = {};
-
-            state[editProperty] = null;
-
-            context.setState(state);
+            context.setState({ [editProperty]: null });
 
             onValue(v, data, rowIndex, property);
-          }
+          },
         }),
       };
     }
 
-    if(editor) {
+    if (editor) {
       return {
         value,
         props: {
           onClick: () => {
-            var state = {};
-
-            state[editProperty] = idx;
-
-            context.setState(state);
+            context.setState({ [editProperty]: idx });
           },
-        }
+        },
       };
     }
 
     return value;
   };
-};
+}

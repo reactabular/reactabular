@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 module.exports = {
   ColumnFilters: require('./ColumnFilters').default,
   CustomFooter: require('./CustomFooter').default,
@@ -5,5 +6,5 @@ module.exports = {
   Modal: require('./Modal').default,
   Paginator: require('./Paginator').default,
   PerPage: require('./PerPage').default,
-  PrimaryControls: require('./PrimaryControls').default
+  PrimaryControls: require('./PrimaryControls').default,
 };

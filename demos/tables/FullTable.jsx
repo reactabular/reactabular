@@ -1,30 +1,31 @@
+/* eslint-disable no-console, no-alert */
 import React from 'react';
 
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
 import {
-  Table, Search, editors, sort, cells, formatters
+  Table, Search, editors, sort, cells, formatters,
 } from '../../src';
 
 import {
-  CustomFooter, ColumnFilters, EditCell, Modal, Paginator, PerPage, PrimaryControls
+  CustomFooter, ColumnFilters, EditCell, Modal, Paginator, PrimaryControls,
 } from '../components';
 import countries from '../data/countries';
 import {
-  generateData, paginate, augmentWithTitles, getFieldGenerators, find
+  generateData, paginate, augmentWithTitles, getFieldGenerators, find,
 } from '../common';
 
 const countryValues = countries.map((c) => c.value);
 const properties = augmentWithTitles({
   name: {
-    type: 'string'
+    type: 'string',
   },
   position: {
-    type: 'string'
+    type: 'string',
   },
   salary: {
-    type: 'number'
+    type: 'number',
   },
   country: {
     type: 'string',
@@ -32,13 +33,13 @@ const properties = augmentWithTitles({
     enumNames: countries.map((c) => c.name),
   },
   active: {
-    type: 'boolean'
-  }
+    type: 'boolean',
+  },
 });
 const data = generateData({
   amount: 100,
   fieldGenerators: getFieldGenerators(countryValues),
-  properties
+  properties,
 });
 const countryFormatter = country => find(countries, 'value', country).name;
 
@@ -47,7 +48,7 @@ class FullTable extends React.Component {
     super(props);
 
     const highlighter = column => formatters.highlight(value => {
-      const {filter} = this.state.search;
+      const { filter } = this.state.search;
 
       return Search.matches(
         column,
@@ -65,19 +66,19 @@ class FullTable extends React.Component {
 
         this.state.data[idx][property] = value;
 
-        this.setState({data});
+        this.setState({ data });
       }
     );
 
     this.state = {
       editedCell: null,
-      data: data,
+      data,
       formatters: {
         country: countryFormatter,
-        //salary: (salary) => parseFloat(salary).toFixed(2),
+        // salary: (salary) => parseFloat(salary).toFixed(2),
       },
       search: {
-        filter: {}
+        filter: {},
       },
       sortingColumn: null, // reference to sorting column
       columns: [
@@ -88,7 +89,8 @@ class FullTable extends React.Component {
               <input
                 type="checkbox"
                 onClick={() => console.log('clicked')}
-                style={{width:'20px'}}/>Name
+                style={{ width: '20px' }}
+              />Name
             </div>
           ),
           cell: [editable({
@@ -100,7 +102,7 @@ class FullTable extends React.Component {
           header: 'Position',
           cell: [editable({
             editor: editors.input(),
-          }), highlighter('position')]
+          }), highlighter('position')],
         },
         {
           property: 'country',
@@ -108,7 +110,7 @@ class FullTable extends React.Component {
           search: countryFormatter,
           cell: [editable({
             editor: editors.dropdown(countries),
-          }), countryFormatter, highlighter('country')]
+          }), countryFormatter, highlighter('country')],
         },
         {
           property: 'salary',
@@ -116,9 +118,9 @@ class FullTable extends React.Component {
           cell: [(v) => ({
             value: v,
             props: {
-              onDoubleClick: () => alert('salary is ' + v)
-            }
-          }), highlighter('salary')]
+              onDoubleClick: () => alert(`salary is ${v}`),
+            },
+          }), highlighter('salary')],
         },
         {
           property: 'active',
@@ -127,7 +129,7 @@ class FullTable extends React.Component {
             editable({
               editor: editors.boolean(),
             }),
-            (active) => active && <span>&#10003;</span>
+            (active) => active && <span>&#10003;</span>,
           ],
         },
         {
@@ -148,7 +150,7 @@ class FullTable extends React.Component {
 
                       this.setState({
                         modal: this.state.modal,
-                        data: this.state.data
+                        data: this.state.data,
                       });
                     }}
                     onCancel={() => {
@@ -156,17 +158,17 @@ class FullTable extends React.Component {
                         modal: {
                           ...this.state.modal,
                           ...{
-                            show: false
-                          }
-                        }
+                            show: false,
+                          },
+                        },
                       });
                     }}
                     formData={this.state.data[idx]}
                     properties={properties}
-                  />
-                }
+                  />,
+                },
               });
-            }
+            };
 
             const remove = () => {
               const idx = findIndex(this.state.data, {
@@ -177,23 +179,23 @@ class FullTable extends React.Component {
               this.state.data.splice(idx, 1);
 
               this.setState({
-                data: this.state.data
+                data: this.state.data,
               });
             };
 
             return {
               value: (
                 <span>
-                  <span className='edit' onClick={edit.bind(this)} style={{cursor: 'pointer'}}>
+                  <span className="edit" onClick={() => edit()} style={{ cursor: 'pointer' }}>
                     &#8665;
                   </span>
-                  <span className='remove' onClick={remove.bind(this)} style={{cursor: 'pointer'}}>
+                  <span className="remove" onClick={() => remove()} style={{ cursor: 'pointer' }}>
                     &#10007;
                   </span>
                 </span>
-              )
+              ),
             };
-          }
+          },
         },
       ],
       modal: {
@@ -203,8 +205,8 @@ class FullTable extends React.Component {
       },
       pagination: {
         page: 1,
-        perPage: 10
-      }
+        perPage: 10,
+      },
     };
 
     this.onModalClose = this.onModalClose.bind(this);
@@ -214,56 +216,60 @@ class FullTable extends React.Component {
     this.onPerPage = this.onPerPage.bind(this);
   }
   render() {
-    const {columns, modal, pagination, sortingColumn} = this.state;
-    let data = this.state.data;
+    const { columns, modal, pagination, sortingColumn } = this.state;
+    let d = this.state.data;
 
     if (this.state.search.filter) {
-      data = Search.search(
-          data,
-          columns,
-          this.state.search.filter
+      d = Search.search(
+        d,
+        columns,
+        this.state.search.filter
       );
     }
 
-    data = sort.byColumn.sort(data, sortingColumn, orderBy);
+    d = sort.byColumn.sort(d, sortingColumn, orderBy);
 
-    const paginated = paginate(data, pagination);
+    const paginated = paginate(d, pagination);
     const pages = Math.ceil(data.length / Math.max(
       isNaN(pagination.perPage) ? 1 : pagination.perPage, 1)
     );
 
     return (
       <div>
-        <PrimaryControls className='controls'
+        <PrimaryControls
+          className="controls"
           perPage={pagination.perPage}
           columns={columns}
           data={this.state.data}
           onPerPage={this.onPerPage}
           onSearch={this.onSearch}
-          />
+        />
 
         <Table.Context
-          className='pure-table pure-table-striped'
+          className="pure-table pure-table-striped"
           columns={columns}
-          data={paginated.data}>
+          data={paginated.data}
+        >
           <Table.Header
             header={{
-              onClick: this.onHeaderClick
-            }}>
+              onClick: this.onHeaderClick,
+            }}
+          >
             <ColumnFilters columns={columns} onChange={this.onSearch} />
           </Table.Header>
 
           <Table.Body
-            rowKey='id'
+            rowKey="id"
             row={(row, rowIndex) => ({
               className: rowIndex % 2 ? 'odd-row' : 'even-row',
-              onClick: () => console.log('clicked row', row)
-            })}/>
+              onClick: () => console.log('clicked row', row),
+            })}
+          />
 
           <CustomFooter />
         </Table.Context>
 
-        <div className='controls'>
+        <div className="controls">
           <Paginator pagination={pagination} pages={pages} onSelect={this.onSelect} />
         </div>
 
@@ -278,21 +284,21 @@ class FullTable extends React.Component {
       modal: {
         ...this.state.modal,
         ...{
-          show: false
-        }
-      }
+          show: false,
+        },
+      },
     });
   }
   onSearch(filter) {
     this.setState({
       editedCell: null, // reset edits
-      search: {filter}
+      search: { filter },
     });
   }
   onHeaderClick(column) {
     // reset edits
     this.setState({
-      editedCell: null
+      editedCell: null,
     });
 
     sort.byColumn(
@@ -306,23 +312,23 @@ class FullTable extends React.Component {
       this.state.data.length / this.state.pagination.perPage
     );
 
-    this.setState({pagination: {
+    this.setState({ pagination: {
       ...this.state.pagination,
       ...{
-        page: Math.min(Math.max(page, 1), pages)
-      }
-    }});
+        page: Math.min(Math.max(page, 1), pages),
+      },
+    } });
   }
   onPerPage(value) {
     this.setState({
       pagination: {
         ...this.state.pagination,
         ...{
-          perPage: parseInt(value, 10)
-        }
-      }
+          perPage: parseInt(value, 10),
+        },
+      },
     });
   }
 }
 
-export default FullTable
+export default FullTable;

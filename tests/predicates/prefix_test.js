@@ -1,27 +1,26 @@
-'use strict';
+import prefix from '../../src/predicates/prefix.js';
+import { expect } from 'chai';
 
-var prefix = require('../../src/predicates/prefix.js');
+describe('prefix', function () {
+  it('matches correctly', function () {
+    const queryTerm = 'lay';
+    const text = 'layout';
 
-describe('prefix', function() {
-  it('matches correctly', function() {
-    var queryTerm = 'lay';
-    var text = 'layout';
-
-    var predicate = prefix(queryTerm);
-    var expected = [{
+    const predicate = prefix(queryTerm);
+    const expected = [{
       startIndex: 0,
-      length: queryTerm.length
+      length: queryTerm.length,
     }];
 
     expect(predicate.evaluate(text)).to.equal(true);
     expect(predicate.matches(text)).to.deep.equal(expected);
   });
 
-  it('does not match', function() {
-    var queryTerm = 'lay';
-    var text = 'outlay';
+  it('does not match', function () {
+    const queryTerm = 'lay';
+    const text = 'outlay';
 
-    var predicate = prefix(queryTerm);
+    const predicate = prefix(queryTerm);
 
     expect(predicate.evaluate(text)).to.equal(false);
     expect(predicate.matches(text)).to.be.empty;

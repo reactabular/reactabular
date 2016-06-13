@@ -1,17 +1,17 @@
 import React from 'react';
-import {Search} from '../../src';
+import { Search } from '../../src';
 import PerPage from './PerPage';
 
 const PrimaryControls = ({
   perPage, columns, data,
   onPerPage, onSearch,
-  ...props
+  ...props,
 }) => (
   <div {...props}>
-    <div className='per-page-container'>
+    <div className="per-page-container">
       <PerPage value={perPage} onChange={onPerPage} />
     </div>
-    <div className='search-container'>
+    <div className="search-container">
       Search <Search columns={columns} data={data} onChange={onSearch} />
     </div>
   </div>
@@ -21,7 +21,7 @@ PrimaryControls.propTypes = {
   columns: React.PropTypes.array,
   data: React.PropTypes.array,
   onPerPage: React.PropTypes.func,
-  onSearch: React.PropTypes.func
-}
+  onSearch: React.PropTypes.func,
+};
 
-export default PrimaryControls
+export default PrimaryControls;

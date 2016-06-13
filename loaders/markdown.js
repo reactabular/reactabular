@@ -1,16 +1,13 @@
-'use strict';
-
-var marked = require('marked');
-var highlight = require('highlight.js');
+const marked = require('marked');
+const highlight = require('highlight.js');
 
 marked.setOptions({
-  highlight: function(code) {
+  highlight(code) {
     return highlight.highlightAuto(code).value;
-  }
+  },
 });
 
-
-module.exports = function(markdown) {
+module.exports = function (markdown) {
   this.cacheable();
 
   return marked(markdown);

@@ -7,11 +7,11 @@ const byColumn = (columns, column, done) => {
   column.sort = column.sort === 'asc' ? 'desc' : 'asc';
 
   // push sorting hint
-  column.headerClass = 'sort-' + column.sort;
+  column.headerClass = `sort-${column.sort}`;
 
   done({
     sortingColumn: column,
-    columns: columns
+    columns,
   });
 };
 
@@ -25,4 +25,4 @@ byColumn.sort = (data, column, sorter) => {
   return sorter(data, [column.property], [column.sort]);
 };
 
-export default byColumn
+export default byColumn;

@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default (options, fields={
+export default (options, fields = {
   name: 'name',
-  value: 'value'
+  value: 'value',
 }) => {
-  const Dropdown = ({value, onValue}) => {
+  const Dropdown = ({ value, onValue }) => {
     const edit = e => onValue(e.target.value);
 
     return (
@@ -24,4 +24,4 @@ export default (options, fields={
   };
 
   return Dropdown;
-}
+};

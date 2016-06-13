@@ -8,7 +8,7 @@ class ColumnFilters extends React.Component {
 
     this.onQueryChange = this.onQueryChange.bind(this);
     this.state = {
-      query: {}
+      query: {},
     };
   }
 
@@ -29,14 +29,14 @@ class ColumnFilters extends React.Component {
   render() {
     const { columns } = this.props;
 
-    return(
+    return (
       <tr>
         {columns.map((column, i) => (
-          <td key={i + '-column-filter'} className='column-filter'>
+          <td key={`${i}-column-filter`} className="column-filter">
             {column.property && !column.noFilter ?
               <input
                 onChange={this.onQueryChange}
-                className='column-filter-input'
+                className="column-filter-input"
                 name={column.property}
                 placeholder={column.filterPlaceholder || ''}
               />

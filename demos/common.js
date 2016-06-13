@@ -2,73 +2,77 @@ import titleCase from 'title-case';
 import generators from 'annogenerate';
 import sample from 'lodash/sample';
 import range from 'lodash/range';
+import mapValues from 'lodash/mapValues';
 
-import {properties2object} from 'schema2object';
+import { properties2object } from 'schema2object';
 
-export function paginate(data, o) {
-  data = data || [];
-
+export function paginate(data = [], o) {
     // adapt to zero indexed logic
   const page = o.page - 1 || 0;
   const perPage = o.perPage;
 
   const amountOfPages = Math.ceil(data.length / perPage);
-  const startPage = page < amountOfPages? page: 0;
+  const startPage = page < amountOfPages ? page : 0;
 
   return {
     amount: amountOfPages,
     data: data.slice(startPage * perPage, startPage * perPage + perPage),
-    page: startPage
+    page: startPage,
   };
 }
 
 export function augmentWithTitles(o) {
-  for (var property in o) {
-    o[property].title = titleCase(property);
-  }
-
-  return o;
+  return mapValues(o, (v, k) => ({
+    ...v,
+    title: titleCase(k),
+  }));
 }
 
 export function getFieldGenerators(countryValues) {
   return {
-    name: function() {
+    name() {
       const forenames = ['Jack', 'Bo', 'John', 'Jill', 'Angus', 'Janet', 'Cecilia',
         'Daniel', 'Marge', 'Homer', 'Trevor', 'Fiona', 'Margaret', 'Ofelia'];
       const surnames = ['MacGyver', 'Johnson', 'Jackson', 'Robertson', 'Hull', 'Hill'];
 
-      return sample(forenames) + ' ' + sample(surnames);
+      return `${sample(forenames)} ${sample(surnames)}`;
     },
-    position: function() {
+    position() {
       const positions = ['Boss', 'Contractor', 'Client', ''];
 
       return sample(positions);
     },
     salary: generators.number.bind(null, 0, 2),
-    country: function() {
+    country() {
       return sample(countryValues);
-    }
+    },
   };
 }
 
 export function generateData(o) {
   return attachIds(range(o.amount).map(() =>
     properties2object({
-      generators: generators,
-      fieldGenerators: o.fieldGenerators,
-      properties: o.properties
+      generators,
+      ...o,
     })
   ));
-};
+}
 
 function attachIds(arr) {
-  return arr.map((o, i) => {
-    o.id = i;
-
-    return o;
-  });
+  return arr.map((o, i) => (
+    {
+      ...o,
+      id: i,
+    }
+  ));
 }
 
 export function find(arr, key, value) {
-  return arr.reduce((a, b) => a[key] === value ? a : b[key] === value && b);
+  return arr.reduce((a, b) => {
+    if (a[key] === value) {
+      return a;
+    }
+
+    return b[key] === value && b;
+  });
 }

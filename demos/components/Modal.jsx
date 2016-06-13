@@ -1,18 +1,18 @@
 import React from 'react';
-import {SkyLightStateless} from 'react-skylight';
+import { SkyLightStateless } from 'react-skylight';
 
-const Modal = ({show, title, onCloseClicked, children}) => (
+const Modal = ({ show, title, onCloseClicked, children }) => (
   <SkyLightStateless
     isVisible={show}
     title={title}
     onCloseClicked={onCloseClicked}
-    >{children}</SkyLightStateless>
+  >{children}</SkyLightStateless>
 );
 Modal.propTypes = {
   show: React.PropTypes.bool,
   title: React.PropTypes.string,
   onCloseClicked: React.PropTypes.func,
-  children: React.PropTypes.any
+  children: React.PropTypes.any,
 };
 
-export default Modal
+export default Modal;

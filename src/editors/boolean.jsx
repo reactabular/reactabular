@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default () => {
-  const Boolean = ({value, onValue}) => (
+  const Boolean = ({ value, onValue }) => (
     <span>
       <button
         disabled={value}
@@ -22,4 +22,4 @@ export default () => {
   };
 
   return Boolean;
-}
+};

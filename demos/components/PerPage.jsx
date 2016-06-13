@@ -1,16 +1,18 @@
 import React from 'react';
 
-const PerPage = ({value, onChange}) => (
+const PerPage = ({ value, onChange }) => (
   <div>
     <span>Per page:</span>
-    <input type='text'
+    <input
+      type="text"
       defaultValue={value}
-      onChange={e => onChange(e.target.value)}></input>
+      onChange={e => onChange(e.target.value)}
+    ></input>
   </div>
 );
 PerPage.propTypes = {
   value: React.PropTypes.number,
-  onChange: React.PropTypes.func
+  onChange: React.PropTypes.func,
 };
 
-export default PerPage
+export default PerPage;

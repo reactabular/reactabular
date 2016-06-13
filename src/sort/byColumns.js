@@ -3,11 +3,9 @@ const byColumns = (columns, sortColumns, column, done) => {
 
   if (typeof sortColumns === 'undefined') {
     newSortCols = [column];
-  }
-  else if (sortColumns.includes(column)) {
+  } else if (sortColumns.includes(column)) {
     newSortCols = sortColumns;
-  }
-    else {
+  } else {
     newSortCols = [...sortColumns, column];
   }
 
@@ -19,17 +17,19 @@ const byColumns = (columns, sortColumns, column, done) => {
     column.sort = 'desc';
     column.headerClass = 'sort-desc';
   } else {
-    let idx = newSortCols.indexOf(column);
+    const idx = newSortCols.indexOf(column);
+
     if (idx > -1) {
       newSortCols.splice(idx, 1);
     }
+
     column.headerClass = null;
     column.sort = '';
   }
 
   done({
     sortingColumns: newSortCols,
-    columns: columns
+    columns,
   });
 };
 
@@ -40,8 +40,8 @@ byColumns.sort = (data, sortColumns, sorter) => {
     return data;
   }
 
-  let propertyList = [];
-  let orderList = [];
+  const propertyList = [];
+  const orderList = [];
 
   sortColumns.forEach((column) => {
     propertyList.push(column.property);
@@ -51,4 +51,4 @@ byColumns.sort = (data, sortColumns, sorter) => {
   return sorter(data, propertyList, orderList);
 };
 
-export default byColumns
+export default byColumns;

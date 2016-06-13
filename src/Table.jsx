@@ -8,39 +8,40 @@ class Context extends React.Component {
   getChildContext() {
     return {
       columns: this.props.columns,
-      data: this.props.data
+      data: this.props.data,
     };
   }
   render() {
-    const {columns, data, children, ...props} = this.props;
+    const {
+      columns, data, children, ...props, // eslint-disable-line no-unused-vars
+    } = this.props;
 
-    return <table {...props}>{children}</table>
+    return <table {...props}>{children}</table>;
   }
 }
 Context.propTypes = {
   columns: React.PropTypes.array,
   data: React.PropTypes.array,
-  children: React.PropTypes.any
+  children: React.PropTypes.any,
 };
 Context.childContextTypes = {
   columns: React.PropTypes.array,
-  data: React.PropTypes.array
+  data: React.PropTypes.array,
 };
 
-const Header = ({header, children, ...props}, {columns}) => (
+const Header = ({ header, children, ...props }, { columns }) => (
   <thead {...props}>
     <tr>
       {columns.map((column, i) => {
         // Bind column to "on" handlers
-        const columnHeader = reduce(header, (result, v, k) => {
-          result[k] = k.indexOf('on') === 0 ? v.bind(null, column) : v;
-
-          return result;
-        }, {});
+        const columnHeader = reduce(header, (result, v, k) => ({
+          ...result,
+          [k]: k.indexOf('on') === 0 ? v.bind(null, column) : v,
+        }), {});
 
         return (
           <th
-            key={i + '-header'}
+            key={`${i}-header`}
             {...columnHeader}
           >{column.header}</th>
         );
@@ -51,18 +52,18 @@ const Header = ({header, children, ...props}, {columns}) => (
 );
 Header.propTypes = {
   header: React.PropTypes.object,
-  children: React.PropTypes.any
+  children: React.PropTypes.any,
 };
 Header.defaultProps = {
-  header: {}
+  header: {},
 };
 Header.contextTypes = {
-  columns: React.PropTypes.array.isRequired
+  columns: React.PropTypes.array.isRequired,
 };
 
-const Body = ({row, rowKey, ...props}, {columns, data}) => (
+const Body = ({ row, rowKey, ...props }, { columns, data }) => (
   <tbody {...props}>{
-    data.map((r, i) => <tr key={(r[rowKey] || i) + '-row'} {...row(r, i)}>{
+    data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
       columns.map((column, j) => {
         const property = column.property;
         const value = r[property];
@@ -72,46 +73,46 @@ const Body = ({row, rowKey, ...props}, {columns, data}) => (
         cell = isFunction(cell) ? [cell] : cell;
 
         content = reduce(cell, (v, fn) => {
-          if(React.isValidElement(v.value)) {
+          if (React.isValidElement(v.value)) {
             return v;
           }
 
           let val = fn(v.value, data, i, property);
 
-          if(!isPlainObject(val) || isUndefined(val.value)) {
+          if (!isPlainObject(val) || isUndefined(val.value)) {
             // formatter shortcut
-            val = {value: val};
+            val = { value: val };
           }
 
           return {
             value: isUndefined(val.value) ? v.value : val.value,
-            props: {...v.props, ...val.props}
+            props: { ...v.props, ...val.props },
           };
-        }, {value: value, props: {}});
+        }, { value, props: {} });
 
         content = content || {};
 
-        return <td key={j + '-cell'} {...content.props}>{content.value}</td>;
+        return <td key={`${j}'-cell`} {...content.props}>{content.value}</td>;
       }
     )}</tr>)
   }</tbody>
 );
 Body.propTypes = {
   row: React.PropTypes.func,
-  rowKey: React.PropTypes.string.isRequired
+  rowKey: React.PropTypes.string.isRequired,
 };
 Body.defaultProps = {
-  row: () => {}
+  row: () => {},
 };
 Body.contextTypes = {
   columns: React.PropTypes.array.isRequired,
-  data: React.PropTypes.array.isRequired
+  data: React.PropTypes.array.isRequired,
 };
 
 const Table = {
   Context,
   Header,
-  Body
+  Body,
 };
 
 export default Table;

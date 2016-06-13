@@ -1,6 +1,6 @@
 export default (prefix) => ({
   evaluate(searchText) {
-    return searchText.indexOf(prefix) === 0
+    return searchText.indexOf(prefix) === 0;
   },
   matches(searchText) {
     const prefixIndex = searchText.indexOf(prefix);
@@ -9,11 +9,11 @@ export default (prefix) => ({
       return [
         {
           startIndex: 0,
-          length: prefix.length
-        }
+          length: prefix.length,
+        },
       ];
-    } else {
-      return [];
     }
-  }
-})
+
+    return [];
+  },
+});

@@ -1,41 +1,43 @@
-'use strict';
-var React = require('react');
-var TestUtils = require('react-addons-test-utils');
-var Search = require('../src/search');
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
+import Search from '../src/Search';
+import { expect } from 'chai';
 
-describe('Search', function() {
-  it('should have a dropdown with default `all` option', function() {
-    var search = TestUtils.renderIntoDocument(
-            <Search />
-        );
+describe('Search', function () {
+  it('should have a dropdown with default `all` option', function () {
+    const search = TestUtils.renderIntoDocument(
+      <Search />
+    );
 
-    var options = TestUtils.scryRenderedDOMComponentsWithTag(
-            search, 'option');
+    const options = TestUtils.scryRenderedDOMComponentsWithTag(
+      search, 'option'
+    );
 
     expect(options.length).to.equal(1);
     expect(options[0].value).to.equal('all');
   });
 
-  it('should have a dropdown that contain columns that have both property and header', function() {
-    var columns = [
+  it('should have a dropdown that contain columns that have both property and header', function () {
+    const columns = [
       {
         property: 'first',
         header: 'First',
       },
       {
-        property: 'second'
+        property: 'second',
       },
       {
-        header: 'Third'
+        header: 'Third',
       },
     ];
 
-    var search = TestUtils.renderIntoDocument(
-            <Search columns={columns} />
-        );
+    const search = TestUtils.renderIntoDocument(
+      <Search columns={columns} />
+    );
 
-    var options = TestUtils.scryRenderedDOMComponentsWithTag(
-            search, 'option');
+    const options = TestUtils.scryRenderedDOMComponentsWithTag(
+      search, 'option'
+    );
 
     expect(options.length).to.equal(2);
     expect(options[0].value).to.equal('all');
@@ -43,64 +45,64 @@ describe('Search', function() {
     expect(options[1].textContent).to.equal(columns[0].header);
   });
 
-  it('should be able to yield results', function() {
-    var columns = [
+  it('should be able to yield results', function () {
+    const columns = [
       {
         property: 'first',
         header: 'First',
       },
     ];
-    var value = 'demo';
-    var data = [
+    const value = 'demo';
+    const data = [
       {
-        first: value
+        first: value,
       },
     ];
-    var result = function(d) {
+    const result = function (d) {
       expect(d.data).to.equal(data);
     };
-    var search = TestUtils.renderIntoDocument(
-            <Search columns={columns} data={data} onResult={result} />
-        );
+    const search = TestUtils.renderIntoDocument(
+      <Search columns={columns} data={data} onResult={result} />
+    );
 
-    var input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
+    const input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
     input.value = value;
 
     TestUtils.Simulate.change(input);
   });
 
-  it('should be able to yield zero results', function() {
-    var columns = [
+  it('should be able to yield zero results', function () {
+    const columns = [
       {
         property: 'first',
-        header: 'First'
+        header: 'First',
       },
     ];
-    var value = 'demo';
-    var data = [
+    const value = 'demo';
+    const data = [
       {
-        first: value
+        first: value,
       },
     ];
-    var result = function(d) {
+    const result = function (d) {
       expect(d.data.length).to.equal(0);
     };
-    var search = TestUtils.renderIntoDocument(
-            <Search columns={columns} data={data} onResult={result} />
-        );
+    const search = TestUtils.renderIntoDocument(
+      <Search columns={columns} data={data} onResult={result} />
+    );
 
-    var input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
+    const input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
     input.value = value + value;
 
     TestUtils.Simulate.change(input);
   });
 
-  it('should allow i18n', function() {
-    var expected = 'Kaikki';
-    var search = TestUtils.renderIntoDocument(
-            <Search i18n={{all: expected}} />
-        );
-    var select = TestUtils.findRenderedDOMComponentWithTag(search, 'select')[0];
+  it('should allow i18n', function () {
+    const expected = 'Kaikki';
+    const search = TestUtils.renderIntoDocument(
+      <Search i18n={{ all: expected }} />
+    );
+    const select = TestUtils.findRenderedDOMComponentWithTag(search, 'select')[0];
 
     expect(select.text).to.equal(expected);
   });

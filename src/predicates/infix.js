@@ -4,13 +4,13 @@ export default infix => ({
   },
   matches(searchText) {
     const splitString = searchText.split(infix);
-    let matches = [];
+    const matches = [];
     let currentPosition = 0;
 
     for (let x = 0; x < splitString.length; x++) {
       matches.push({
         startIndex: currentPosition + splitString[x].length,
-        length: infix.length
+        length: infix.length,
       });
       currentPosition += splitString[x].length + infix.length;
     }
@@ -18,5 +18,5 @@ export default infix => ({
     matches.pop();
 
     return matches;
-  }
-})
+  },
+});

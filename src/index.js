@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 module.exports = {
   Table: require('./Table').default,
   Search: require('./Search').default,
