@@ -148,11 +148,12 @@ export default React.createClass({
                     }}
                     onCancel={() => {
                       this.setState({
-                        modal: Object.assign(
-                          {}, this.state.modal, {
+                        modal: {
+                          ...this.state.modal,
+                          ...{
                             show: false
                           }
-                        )
+                        }
                       });
                     }}
                     formData={this.state.data[idx]}
