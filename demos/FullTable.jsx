@@ -8,7 +8,7 @@ import {
 } from '../src';
 
 import {
-  CustomFooter, Modal, Paginator, PerPage
+  CustomFooter, Modal, Paginator, PerPage, PrimaryControls
 } from './components';
 
 import EditCell from './EditCell';
@@ -206,7 +206,6 @@ export default React.createClass({
       }
     };
   },
-
   render() {
     const {columns, modal, pagination, sortingColumn} = this.state;
     let data = this.state.data;
@@ -228,14 +227,13 @@ export default React.createClass({
 
     return (
       <div>
-        <div className='controls'>
-          <div className='per-page-container'>
-            <PerPage value={pagination.perPage} onChange={this.onPerPage} />
-          </div>
-          <div className='search-container'>
-            Search <Search columns={columns} data={this.state.data} onChange={this.onSearch} />
-          </div>
-        </div>
+        <PrimaryControls className='controls'
+          perPage={pagination.perPage}
+          columns={columns}
+          data={this.state.data}
+          onPerPage={this.onPerPage}
+          onSearch={this.onSearch}
+          />
 
         <Table.Context
           className='pure-table pure-table-striped'
@@ -307,11 +305,13 @@ export default React.createClass({
     }});
   },
   onPerPage(value) {
-    this.setState({pagination: {
-      ...this.state.pagination,
-      ...{
-        perPage: parseInt(value, 10)
+    this.setState({
+      pagination: {
+        ...this.state.pagination,
+        ...{
+          perPage: parseInt(value, 10)
+        }
       }
-    }});
+    });
   },
 })
