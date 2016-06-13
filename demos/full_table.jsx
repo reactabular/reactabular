@@ -251,7 +251,7 @@ export default React.createClass({
                             onClick: this.onHeaderClick
                         })}/>
 
-                    <Table.Rows
+                    <Table.Body
                         rowKey='id'
                         row={(row, rowIndex) => ({
                             className: rowIndex % 2 ? 'odd-row' : 'even-row',

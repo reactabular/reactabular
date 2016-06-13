@@ -58,7 +58,7 @@ Header.contextTypes = {
     columns: React.PropTypes.array.isRequired
 };
 
-const Rows = ({row, rowKey, ...props}, {columns, data}) => (
+const Body = ({row, rowKey, ...props}, {columns, data}) => (
     <tbody {...props}>{
         data.map((r, i) => <tr key={(r[rowKey] || i) + '-row'} {...row(r, i)}>{
             columns.map((column, j) => {
@@ -94,14 +94,14 @@ const Rows = ({row, rowKey, ...props}, {columns, data}) => (
         )}</tr>)
     }</tbody>
 );
-Rows.propTypes = {
+Body.propTypes = {
     row: React.PropTypes.func,
     rowKey: React.PropTypes.string.isRequired
 };
-Rows.defaultProps = {
+Body.defaultProps = {
     row: () => {}
 };
-Rows.contextTypes = {
+Body.contextTypes = {
     columns: React.PropTypes.array.isRequired,
     data: React.PropTypes.array.isRequired
 };
@@ -109,7 +109,7 @@ Rows.contextTypes = {
 const Table = {
     Context,
     Header,
-    Rows
+    Body
 };
 
 export default Table;
