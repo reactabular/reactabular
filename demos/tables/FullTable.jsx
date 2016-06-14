@@ -80,6 +80,7 @@ class FullTable extends React.Component {
       },
       sortingColumn: null, // reference to sorting column
       columns: [
+        // TODO: implement sortable() for header
         {
           property: 'name',
           header: (
@@ -248,16 +249,7 @@ class FullTable extends React.Component {
           columns={columns}
           data={paginated.data}
         >
-          <Table.Header
-            cell={[
-              (value, cellData, property) => ({
-                value,
-                props: {
-                  onClick: () => this.onHeaderClick(property),
-                },
-              }
-            )]}
-          >
+          <Table.Header>
             <ColumnFilters columns={columns} onChange={this.onSearch} />
           </Table.Header>
 
