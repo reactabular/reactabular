@@ -73,7 +73,6 @@ class FullTable extends React.Component {
       data,
       formatters: {
         country: countryFormatter,
-        // salary: (salary) => parseFloat(salary).toFixed(2),
       },
       search: {
         filter: {},
@@ -94,7 +93,8 @@ class FullTable extends React.Component {
           ),
           cell: editable({
             editor: editors.input(),
-          }), // highlighter('name'),
+            formatter: highlighter('name'),
+          }),
         },
         {
           property: 'position',
@@ -107,7 +107,7 @@ class FullTable extends React.Component {
           search: countryFormatter,
           cell: editable({
             editor: editors.dropdown(countries),
-            formatter: countryFormatter, // highlighter('country'),
+            formatter: v => highlighter('country')(countryFormatter(v)),
           }),
         },
         {
@@ -115,9 +115,9 @@ class FullTable extends React.Component {
           header: 'Salary',
           cell: ({ value }) => (
             <span onDoubleClick={() => alert(`salary is ${value}`)}>
-              {value}
+              {highlighter('salary')(value)}
             </span>
-          ), //highlighter('salary'),
+          ),
         },
         {
           property: 'active',
