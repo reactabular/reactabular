@@ -250,10 +250,10 @@ class FullTable extends React.Component {
         >
           <Table.Header
             cell={[
-              value => ({
+              (value, cellData, property) => ({
                 value,
                 props: {
-                  onClick: this.onHeaderClick,
+                  onClick: () => this.onHeaderClick(property),
                 },
               }
             )]}
@@ -299,8 +299,6 @@ class FullTable extends React.Component {
     });
   }
   onHeaderClick(column) {
-    return console.log('header clicked', column);
-
     // reset edits
     this.setState({
       editedCell: null,

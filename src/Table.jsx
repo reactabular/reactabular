@@ -86,15 +86,6 @@ Body.contextTypes = {
   data: React.PropTypes.array.isRequired,
 };
 
-/*
-// TODO
-// Bind column to "on" handlers
-const columnHeader = reduce(header, (result, v, k) => ({
-  ...result,
-  [k]: k.indexOf('on') === 0 ? v.bind(null, column) : v,
-}), {});
- */
-
 const Cell = ({
   type, column, cell, cellKey, cellData, value,
 }) => {
@@ -108,7 +99,7 @@ const Cell = ({
     let val;
 
     if (isFunction(fn)) {
-      val = fn(v.value, cellKey, cellData, property);
+      val = fn(v.value, cellData, property, cellKey);
     }
 
     if (!isPlainObject(val) || isUndefined(val.value)) {

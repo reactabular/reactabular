@@ -3,7 +3,7 @@ import React from 'react';
 export default function (editProperty, onValue = () => {}, { editor }) {
   const context = this;
 
-  return (value, cellKey, cellData, property) => {
+  return (value, cellData, property, cellKey) => {
     const idx = `${cellKey}-${property}`;
     const editedCell = context.state[editProperty];
 
