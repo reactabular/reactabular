@@ -92,44 +92,40 @@ class FullTable extends React.Component {
               />Name
             </div>
           ),
-          cell: [editable({
+          cell: editable({
             editor: editors.input(),
-          }), highlighter('name')],
+          }), // highlighter('name'),
         },
         {
           property: 'position',
           header: 'Position',
-          cell: [editable({
-            editor: editors.input(),
-          }), highlighter('position')],
+          cell: ({ value }) => value,
         },
         {
           property: 'country',
           header: 'Country',
           search: countryFormatter,
-          cell: [editable({
+          cell: editable({
             editor: editors.dropdown(countries),
-          }), countryFormatter, highlighter('country')],
+            formatter: countryFormatter, // highlighter('country'),
+          }),
         },
         {
           property: 'salary',
           header: 'Salary',
-          cell: [value => ({
-            value,
-            props: {
-              onDoubleClick: () => alert(`salary is ${value}`),
-            },
-          }), highlighter('salary')],
+          cell: ({ value }) => (
+            <span onDoubleClick={() => alert(`salary is ${value}`)}>
+              {value}
+            </span>
+          ), //highlighter('salary'),
         },
         {
           property: 'active',
           header: 'Active',
-          cell: [
-            editable({
-              editor: editors.boolean(),
-            }),
-            (active) => active && <span>&#10003;</span>,
-          ],
+          cell: editable({
+            editor: editors.boolean(),
+            formatter: value => value && <span>&#10003;</span>,
+          }),
         },
         {
           cell: (value, celldata, rowIndex) => {
@@ -182,18 +178,22 @@ class FullTable extends React.Component {
               });
             };
 
-            return {
-              value: (
-                <span>
-                  <span className="edit" onClick={() => edit()} style={{ cursor: 'pointer' }}>
-                    &#8665;
-                  </span>
-                  <span className="remove" onClick={() => remove()} style={{ cursor: 'pointer' }}>
-                    &#10007;
-                  </span>
+            return () => (
+              <span>
+                <span
+                  className="edit"
+                  onClick={() => edit()} style={{ cursor: 'pointer' }}
+                >
+                  &#8665;
                 </span>
-              ),
-            };
+                <span
+                  className="remove"
+                  onClick={() => remove()} style={{ cursor: 'pointer' }}
+                >
+                  &#10007;
+                </span>
+              </span>
+            );
           },
         },
       ],

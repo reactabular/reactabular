@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default getHighlights => value => {
+export default getHighlights => ({ value }) => {
   const val = String(value); // deals with arrays/numbers/...
 
   const highlights = getHighlights(val);

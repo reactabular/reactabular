@@ -1,7 +1,4 @@
-import reduce from 'lodash/reduce';
 import isFunction from 'lodash/isFunction';
-import isPlainObject from 'lodash/isPlainObject';
-import isUndefined from 'lodash/isUndefined';
 import React from 'react';
 
 class Context extends React.Component {
@@ -83,38 +80,17 @@ Body.contextTypes = {
 
 const Cell = ({
   type, column, cell, cellKey, cellData, value,
-}) => {
-  const property = column.property;
-  let content;
-
-  content = reduce(isFunction(cell) ? [cell] : cell, (v, fn) => {
-    if (React.isValidElement(v.value)) {
-      return v;
-    }
-    let val;
-
-    if (isFunction(fn)) {
-      val = fn(v.value, cellData, property, cellKey);
-    }
-
-    if (!isPlainObject(val) || isUndefined(val.value)) {
-      // formatter shortcut
-      val = { value: val };
-    }
-
-    return {
-      value: isUndefined(val.value) ? v.value : val.value,
-      props: { ...v.props, ...val.props },
-    };
-  }, { value, props: {} });
-
-  content = content || {};
-
-  return React.createElement(
-    type, content.props, content.value
-  );
-};
+}) => (
+  React.createElement(
+    type,
+    {},
+    isFunction(cell) ?
+      cell({ value, cellData, property: column.property, column, cellKey }) :
+      <span>{value}</span>
+  )
+);
 Cell.propTypes = {
+  // array of react elements, react element, number, string, ...
   cell: React.PropTypes.any.isRequired,
   cellKey: React.PropTypes.any.isRequired,
   type: React.PropTypes.string.isRequired,

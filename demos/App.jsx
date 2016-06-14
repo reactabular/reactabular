@@ -41,35 +41,6 @@ const App = () => (
 
         <FullTable />
       </section>
-
-      <section className="editors">
-        <div className="description">
-          <h2>Editors</h2>
-
-          <p>The table below contains some sample editors you can use.
-            It is possible to develop your own editors as long as you
-            follow the same interface (`value`, `onValue` props).
-          </p>
-        </div>
-
-        <EditorsTable />
-      </section>
-
-      <section>
-        <div className="description">
-          <h2>Nested table</h2>
-
-          <p>The table below contains some nested data.</p>
-        </div>
-
-        <NestedTable />
-      </section>
-
-      <section className="documentation">
-        <h2>README</h2>
-
-        <div dangerouslySetInnerHTML={{ __html: readme }}></div>
-      </section>
     </article>
   </div>
 );
