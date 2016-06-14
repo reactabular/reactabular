@@ -3,12 +3,6 @@ import TestUtils from 'react-addons-test-utils';
 import Table from '../src/Table';
 import { expect } from 'chai';
 
-const Footer = () => (
-  <tfoot>
-    <tr>Dancing is the poetry of the foot.</tr>
-  </tfoot>
-);
-
 describe('Table', function () {
   it('should render a header based on `header` fields', function () {
     const columns = [
@@ -26,7 +20,9 @@ describe('Table', function () {
       },
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} rowKey="id" />
+      <Table.Context columns={columns} data={[]}>
+        <Table.Header />
+      </Table.Context>
     );
 
     const ths = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -57,14 +53,16 @@ describe('Table', function () {
       { age: 123, id: 2 },
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={data} rowKey="id" />
+      <Table.Context columns={columns} data={data}>
+        <Table.Body rowKey="id" />
+      </Table.Context>
     );
 
     const trs = TestUtils.scryRenderedDOMComponentsWithTag(
       table, 'tr'
     );
 
-    expect(trs.length).to.equal(data.length + 1);
+    expect(trs.length).to.equal(data.length);
   });
 
   it('should allow manipulation of complex objects in cell functions', function () {
@@ -105,7 +103,9 @@ describe('Table', function () {
       },
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={data} rowKey="id" />
+      <Table.Context columns={columns} data={data}>
+        <Table.Body rowKey="id" />
+      </Table.Context>
     );
 
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
@@ -134,16 +134,16 @@ describe('Table', function () {
         ],
       },
     ];
-
     const data = [
       {
         someData: 0,
         id: 0,
       },
     ];
-
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={data} rowKey="id" />
+      <Table.Context columns={columns} data={data}>
+        <Table.Body rowKey="id" />
+      </Table.Context>
     );
 
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
@@ -167,7 +167,6 @@ describe('Table', function () {
         cell: [v => <span>{v.key2}</span>],
       },
     ];
-
     const data = [
       {
         nestedData: {
@@ -176,9 +175,10 @@ describe('Table', function () {
         id: 0,
       },
     ];
-
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={data} rowKey="id" />
+      <Table.Context columns={columns} data={data}>
+        <Table.Body rowKey="id" />
+      </Table.Context>
     );
 
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
@@ -186,23 +186,35 @@ describe('Table', function () {
     expect(tds[1]).to.have.deep.property('childNodes[0].innerHTML', 'bar');
   });
 
-  it('should render correctly with only rowKey', function () {
-    const renderedTable = TestUtils.renderIntoDocument(
-      <Table rowKey="id" />
-    );
-
-    expect(renderedTable.props.data).to.be.empty;
-    expect(renderedTable.props.columns).to.be.empty;
-    expect(renderedTable.props.header).to.be.empty;
-  });
-
   it('should render children correctly', function () {
-    const renderedTable = TestUtils.renderIntoDocument(
-      <Table rowKey="id">
-        <Footer />
-      </Table>
+    const columns = [
+      {
+        property: 'name',
+        header: 'Name',
+      },
+      {
+        property: 'position',
+        header: 'Position',
+      },
+      {
+        property: 'age',
+        header: 'Age',
+      },
+    ];
+    const data = [
+      { name: 'foo', id: 0 },
+      { position: 'demo', id: 1 },
+      { age: 123, id: 2 },
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Context columns={columns} data={data}>
+        <tfoot>
+          <tr>Dancing is the poetry of the foot.</tr>
+        </tfoot>
+      </Table.Context>
     );
 
-    TestUtils.findRenderedComponentWithType(renderedTable, Footer);
+    const tfoot = TestUtils.findRenderedDOMComponentWithTag(table, 'tfoot');
+    expect(tfoot).to.exist;
   });
 });
