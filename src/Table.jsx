@@ -64,37 +64,18 @@ Header.contextTypes = {
 const Body = ({ row, rowKey, ...props }, { columns, data }) => (
   <tbody {...props}>{
     data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
-      columns.map((column, j) => {
-        const property = column.property;
-        const value = r[property];
-        let cell = column.cell || [() => {}];
-        let content;
-
-        cell = isFunction(cell) ? [cell] : cell;
-
-        content = reduce(cell, (v, fn) => {
-          if (React.isValidElement(v.value)) {
-            return v;
-          }
-
-          let val = fn(v.value, data, i, property);
-
-          if (!isPlainObject(val) || isUndefined(val.value)) {
-            // formatter shortcut
-            val = { value: val };
-          }
-
-          return {
-            value: isUndefined(val.value) ? v.value : val.value,
-            props: { ...v.props, ...val.props },
-          };
-        }, { value, props: {} });
-
-        content = content || {};
-
-        return <td key={`${j}'-cell`} {...content.props}>{content.value}</td>;
-      }
-    )}</tr>)
+      columns.map(
+        (column, j) => (
+          <TableCell
+            key={`${j}-cell`}
+            data={data}
+            row={r}
+            column={column}
+            rowIndex={i}
+          />
+        )
+      )
+    }</tr>)
   }</tbody>
 );
 Body.propTypes = {
@@ -107,6 +88,45 @@ Body.defaultProps = {
 Body.contextTypes = {
   columns: React.PropTypes.array.isRequired,
   data: React.PropTypes.array.isRequired,
+};
+
+const TableCell = ({
+  data, column, row, rowIndex,
+}) => {
+  const property = column.property;
+  const value = row[property];
+  let cell = column.cell || [() => {}];
+  let content;
+
+  cell = isFunction(cell) ? [cell] : cell;
+
+  content = reduce(cell, (v, fn) => {
+    if (React.isValidElement(v.value)) {
+      return v;
+    }
+
+    let val = fn(v.value, data, rowIndex, property);
+
+    if (!isPlainObject(val) || isUndefined(val.value)) {
+      // formatter shortcut
+      val = { value: val };
+    }
+
+    return {
+      value: isUndefined(val.value) ? v.value : val.value,
+      props: { ...v.props, ...val.props },
+    };
+  }, { value, props: {} });
+
+  content = content || {};
+
+  return <td {...content.props}>{content.value}</td>;
+};
+TableCell.propTypes = {
+  data: React.PropTypes.array.isRequired,
+  column: React.PropTypes.object.isRequired,
+  row: React.PropTypes.object.isRequired,
+  rowIndex: React.PropTypes.number.isRequired,
 };
 
 const Table = {
