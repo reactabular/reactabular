@@ -59,7 +59,7 @@ class FullTable extends React.Component {
     const editable = cells.edit.bind(
       this,
       'editedCell',
-      (value, {id}, property) => {
+      (value, { id }, property) => {
         const idx = findIndex(this.state.data, { id });
 
         this.state.data[idx][property] = value;
@@ -113,10 +113,10 @@ class FullTable extends React.Component {
         {
           property: 'salary',
           header: 'Salary',
-          cell: [(v) => ({
-            value: v,
+          cell: [value => ({
+            value,
             props: {
-              onDoubleClick: () => alert(`salary is ${v}`),
+              onDoubleClick: () => alert(`salary is ${value}`),
             },
           }), highlighter('salary')],
         },
@@ -249,9 +249,14 @@ class FullTable extends React.Component {
           data={paginated.data}
         >
           <Table.Header
-            header={{
-              onClick: this.onHeaderClick,
-            }}
+            cell={[
+              value => ({
+                value,
+                props: {
+                  onClick: this.onHeaderClick,
+                },
+              }
+            )]}
           >
             <ColumnFilters columns={columns} onChange={this.onSearch} />
           </Table.Header>
@@ -294,6 +299,8 @@ class FullTable extends React.Component {
     });
   }
   onHeaderClick(column) {
+    return console.log('header clicked', column);
+
     // reset edits
     this.setState({
       editedCell: null,
