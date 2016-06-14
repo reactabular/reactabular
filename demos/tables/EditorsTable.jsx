@@ -53,7 +53,7 @@ const columns = [
   {
     property: 'editor',
     header: 'Editor',
-    cell: value => React.createElement(value, {
+    cell: ({ value }) => React.createElement(value, {
       value: '',
       onValue: v => console.log(v),
     }),

@@ -32,7 +32,7 @@ const columns = [
   {
     property: 'dad',
     header: 'Dad',
-    cell: (value) => `id: ${value.id} , name: ${value.name}`,
+    cell: ({ value }) => `id: ${value.id} , name: ${value.name}`,
   },
   {
     property: 'lovesBeeGees',
