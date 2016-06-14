@@ -59,10 +59,8 @@ class FullTable extends React.Component {
     const editable = cells.edit.bind(
       this,
       'editedCell',
-      (value, celldata, rowIndex, property) => {
-        const idx = findIndex(this.state.data, {
-          id: celldata[rowIndex].id,
-        });
+      (value, {id}, property) => {
+        const idx = findIndex(this.state.data, { id });
 
         this.state.data[idx][property] = value;
 

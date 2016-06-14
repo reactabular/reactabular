@@ -32,20 +32,16 @@ Context.childContextTypes = {
 const Header = ({ header, children, ...props }, { columns }) => (
   <thead {...props}>
     <tr>
-      {columns.map((column, i) => {
-        // Bind column to "on" handlers
-        const columnHeader = reduce(header, (result, v, k) => ({
-          ...result,
-          [k]: k.indexOf('on') === 0 ? v.bind(null, column) : v,
-        }), {});
-
-        return (
-          <th
-            key={`${i}-header`}
-            {...columnHeader}
-          >{column.header}</th>
-        );
-      })}
+      {columns.map((column, i) => (
+        <Cell
+          key={`${i}-header`}
+          type="th"
+          cell={column.header}
+          cellKey="header"
+          value={column.header}
+          column={column}
+        />
+      ))}
     </tr>
     {children}
   </thead>
@@ -64,17 +60,17 @@ Header.contextTypes = {
 const Body = ({ row, rowKey, ...props }, { columns, data }) => (
   <tbody {...props}>{
     data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
-      columns.map(
-        (column, j) => (
-          <TableCell
-            key={`${j}-cell`}
-            data={data}
-            row={r}
-            column={column}
-            rowIndex={i}
-          />
-        )
-      )
+      columns.map((column, j) => (
+        <Cell
+          key={`${j}-cell`}
+          type="td"
+          cell={column.cell}
+          cellKey={data[i][rowKey]}
+          cellData={data[i]}
+          value={r[column.property]}
+          column={column}
+        />
+      ))
     }</tr>)
   }</tbody>
 );
@@ -90,22 +86,30 @@ Body.contextTypes = {
   data: React.PropTypes.array.isRequired,
 };
 
-const TableCell = ({
-  data, column, row, rowIndex,
+/*
+// TODO
+// Bind column to "on" handlers
+const columnHeader = reduce(header, (result, v, k) => ({
+  ...result,
+  [k]: k.indexOf('on') === 0 ? v.bind(null, column) : v,
+}), {});
+ */
+
+const Cell = ({
+  type, column, cell, cellKey, cellData, value,
 }) => {
   const property = column.property;
-  const value = row[property];
-  let cell = column.cell || [() => {}];
   let content;
 
-  cell = isFunction(cell) ? [cell] : cell;
-
-  content = reduce(cell, (v, fn) => {
+  content = reduce(isFunction(cell) ? [cell] : cell, (v, fn) => {
     if (React.isValidElement(v.value)) {
       return v;
     }
+    let val;
 
-    let val = fn(v.value, data, rowIndex, property);
+    if (isFunction(fn)) {
+      val = fn(v.value, cellKey, cellData, property);
+    }
 
     if (!isPlainObject(val) || isUndefined(val.value)) {
       // formatter shortcut
@@ -120,13 +124,20 @@ const TableCell = ({
 
   content = content || {};
 
-  return <td {...content.props}>{content.value}</td>;
+  return React.createElement(
+    type, content.props, content.value
+  );
 };
-TableCell.propTypes = {
-  data: React.PropTypes.array.isRequired,
+Cell.propTypes = {
+  cell: React.PropTypes.any.isRequired,
+  cellKey: React.PropTypes.any.isRequired,
+  type: React.PropTypes.string.isRequired,
   column: React.PropTypes.object.isRequired,
-  row: React.PropTypes.object.isRequired,
-  rowIndex: React.PropTypes.number.isRequired,
+  value: React.PropTypes.any,
+  cellData: React.PropTypes.any,
+};
+Cell.defaultProps = {
+  cell: [() => {}],
 };
 
 const Table = {

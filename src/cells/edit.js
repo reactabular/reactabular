@@ -3,8 +3,8 @@ import React from 'react';
 export default function (editProperty, onValue = () => {}, { editor }) {
   const context = this;
 
-  return (value, data, rowIndex, property) => {
-    const idx = `${rowIndex.toString()}-${property}`;
+  return (value, cellKey, cellData, property) => {
+    const idx = `${cellKey}-${property}`;
     const editedCell = context.state[editProperty];
 
     if (editedCell === idx) {
@@ -14,7 +14,7 @@ export default function (editProperty, onValue = () => {}, { editor }) {
           onValue: (v) => {
             context.setState({ [editProperty]: null });
 
-            onValue(v, data, rowIndex, property);
+            onValue(v, cellData, property);
           },
         }),
       };
