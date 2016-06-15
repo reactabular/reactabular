@@ -33,6 +33,7 @@ const Header = ({ children, ...props }, { columns }) => (
         <Cell
           key={`${i}-header`}
           type="th"
+          cell={column.header}
           cellKey="header"
           value={column.header || ''}
           column={column}

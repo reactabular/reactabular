@@ -67,6 +67,18 @@ class FullTable extends React.Component {
         this.setState({ data });
       }
     );
+    const sortable = cells.sort.bind(
+      this,
+      column => {
+        // TODO: handle the ui tweaks - push logic to cells.sort rendering?
+        this.setState({
+          sortingColumn: {
+            property: column, // XXX
+            sort: 'asc', // XXX
+          },
+        });
+      }
+    );
 
     this.state = {
       editedCell: null,
@@ -79,10 +91,9 @@ class FullTable extends React.Component {
       },
       sortingColumn: null, // reference to sorting column
       columns: [
-        // TODO: implement sortable() for header
         {
           property: 'name',
-          header: (
+          header: sortable(
             <div>
               <input
                 type="checkbox"
@@ -99,12 +110,12 @@ class FullTable extends React.Component {
         },
         {
           property: 'position',
-          header: 'Position',
+          header: sortable('Position'),
           cell: ({ value }) => value,
         },
         {
           property: 'country',
-          header: 'Country',
+          header: sortable('Country'),
           search: countryFormatter,
           cell: editable({
             editor: editors.dropdown(countries),
@@ -113,7 +124,7 @@ class FullTable extends React.Component {
         },
         {
           property: 'salary',
-          header: 'Salary',
+          header: sortable('Salary'),
           cell: ({ value }) => (
             <span onDoubleClick={() => alert(`salary is ${value}`)}>
               {highlighter('salary')(value)}
@@ -122,7 +133,7 @@ class FullTable extends React.Component {
         },
         {
           property: 'active',
-          header: 'Active',
+          header: sortable('Active'),
           cell: editable({
             editor: editors.boolean(),
             formatter: value => value && <span>&#10003;</span>,
@@ -211,7 +222,6 @@ class FullTable extends React.Component {
 
     this.onModalClose = this.onModalClose.bind(this);
     this.onSearch = this.onSearch.bind(this);
-    this.onHeaderClick = this.onHeaderClick.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onPerPage = this.onPerPage.bind(this);
   }
@@ -291,27 +301,17 @@ class FullTable extends React.Component {
       search: { filter },
     });
   }
-  onHeaderClick(column) {
-    // reset edits
-    this.setState({
-      editedCell: null,
-    });
-
-    sort.byColumn(
-      this.state.columns,
-      column,
-      this.setState.bind(this)
-    );
-  }
   onSelect(page) {
     const pages = Math.ceil(
       this.state.data.length / this.state.pagination.perPage
     );
 
-    this.setState({ pagination: {
-      ...this.state.pagination,
-      page: Math.min(Math.max(page, 1), pages),
-    } });
+    this.setState({
+      pagination: {
+        ...this.state.pagination,
+        page: Math.min(Math.max(page, 1), pages),
+      },
+    });
   }
   onPerPage(value) {
     this.setState({
