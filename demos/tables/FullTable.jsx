@@ -69,8 +69,8 @@ class FullTable extends React.Component {
     );
     const sortable = cells.sort.bind(
       this,
+      'sortingColumn',
       column => {
-        // TODO: handle the ui tweaks - push logic to cells.sort rendering?
         this.setState({
           sortingColumn: {
             property: column, // XXX
