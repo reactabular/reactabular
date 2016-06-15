@@ -5,11 +5,9 @@ export default function (
   onValue = () => {},
   { editor, formatter = value => value }
 ) {
-  const context = this;
-
   return ({ value, cellData, property, column, cellKey }) => {
     const idx = `${cellKey}-${property}`;
-    const editedCell = context.state[editProperty];
+    const editedCell = this.state[editProperty];
 
     if (editedCell === idx) {
       return React.createElement(
@@ -17,7 +15,7 @@ export default function (
         {
           value,
           onValue: (v) => {
-            context.setState({ [editProperty]: null });
+            this.setState({ [editProperty]: null });
 
             onValue(v, cellData, property);
           },
@@ -27,7 +25,7 @@ export default function (
 
     if (editor) {
       return (
-        <span onClick={() => context.setState({ [editProperty]: idx })}>
+        <span onClick={() => this.setState({ [editProperty]: idx })}>
           {formatter(value)}
         </span>
       );
