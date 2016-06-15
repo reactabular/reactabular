@@ -71,6 +71,7 @@ class FullTable extends React.Component {
       this,
       'sortingColumn',
       column => {
+        // TODO: push this logic elsewhere
         this.setState({
           sortingColumn: {
             property: column, // XXX
