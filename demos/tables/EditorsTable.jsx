@@ -69,7 +69,7 @@ const columns = [
 ];
 
 const EditorsTable = () => (
-  <Table.Context
+  <Table
     className="pure-table pure-table-striped"
     columns={columns}
     data={data}
@@ -77,7 +77,7 @@ const EditorsTable = () => (
     <Table.Header />
 
     <Table.Body rowKey="id" />
-  </Table.Context>
+  </Table>
 );
 
 export default EditorsTable;

@@ -46,7 +46,7 @@ const columns = [
 ];
 
 const NestedTable = () => (
-  <Table.Context
+  <Table
     className="pure-table pure-table-striped"
     columns={columns}
     data={data}
@@ -54,7 +54,7 @@ const NestedTable = () => (
     <Table.Header />
 
     <Table.Body rowKey="id" />
-  </Table.Context>
+  </Table>
 );
 
 export default NestedTable;

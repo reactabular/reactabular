@@ -1,7 +1,7 @@
 import isFunction from 'lodash/isFunction';
 import React from 'react';
 
-class Context extends React.Component {
+class Table extends React.Component {
   getChildContext() {
     return {
       columns: this.props.columns,
@@ -16,12 +16,12 @@ class Context extends React.Component {
     return <table {...props}>{children}</table>;
   }
 }
-Context.propTypes = {
+Table.propTypes = {
   columns: React.PropTypes.array,
   data: React.PropTypes.array,
   children: React.PropTypes.any,
 };
-Context.childContextTypes = {
+Table.childContextTypes = {
   columns: React.PropTypes.array,
   data: React.PropTypes.array,
 };
@@ -102,10 +102,7 @@ Cell.defaultProps = {
   cell: [() => {}],
 };
 
-const Table = {
-  Context,
-  Header,
-  Body,
-};
+Table.Header = Header;
+Table.Body = Body;
 
 export default Table;

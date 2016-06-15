@@ -244,7 +244,7 @@ class FullTable extends React.Component {
           onSearch={this.onSearch}
         />
 
-        <Table.Context
+        <Table
           className="pure-table pure-table-striped"
           columns={columns}
           data={paginated.data}
@@ -262,7 +262,7 @@ class FullTable extends React.Component {
           />
 
           <CustomFooter />
-        </Table.Context>
+        </Table>
 
         <div className="controls">
           <Paginator pagination={pagination} pages={pages} onSelect={this.onSelect} />
