@@ -10,12 +10,12 @@ export default function (
     const headerClass = column.property === property ? `sort-${column.sort}` : '';
 
     return (
-      <span
+      <div
         className={headerClass}
         onClick={() => onSort(property)}
       >
         {header}
-      </span>
+      </div>
     );
   };
 }

@@ -1,18 +1,14 @@
-const byColumn = (columns, column, done) => {
-  // reset old classes
-  columns.forEach((col) => {
-    col.headerClass = null;
-  });
+const byColumn = (sortingColumn, selectedColumn) => {
+  let sort = 'asc';
 
-  column.sort = column.sort === 'asc' ? 'desc' : 'asc';
+  if (sortingColumn && sortingColumn.property === selectedColumn) {
+    sort = sortingColumn.sort === 'asc' ? 'desc' : 'asc';
+  }
 
-  // push sorting hint
-  column.headerClass = `sort-${column.sort}`;
-
-  done({
-    sortingColumn: column,
-    columns,
-  });
+  return {
+    property: selectedColumn,
+    sort,
+  };
 };
 
 // sorter === lodash orderBy
