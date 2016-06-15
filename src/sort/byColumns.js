@@ -1,3 +1,4 @@
+// TODO: reimplement using the new scheme. this shouldn't mutate!!!
 const byColumns = (columns, sortColumns, column, done) => {
   let newSortCols = undefined;
 
