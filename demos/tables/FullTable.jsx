@@ -139,6 +139,7 @@ class FullTable extends React.Component {
           }),
         },
         {
+          // TODO: restore + generalize
           cell: (value, celldata, rowIndex) => {
             const edit = () => {
               const idx = findIndex(this.state.data, {
