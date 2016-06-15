@@ -88,7 +88,8 @@ class FullTable extends React.Component {
                 type="checkbox"
                 onClick={() => console.log('clicked')}
                 style={{ width: '20px' }}
-              />Name
+              />
+              <span>Name</span>
             </div>
           ),
           cell: editable({
