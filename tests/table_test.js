@@ -65,7 +65,7 @@ describe('Table', function () {
     expect(trs.length).to.equal(data.length);
   });
 
-  it('should allow manipulation of complex objects in cell functions', function () {
+  it('should accept functions for customizing cell value', function () {
     const columns = [
       {
         property: 'basic',
@@ -74,22 +74,46 @@ describe('Table', function () {
       {
         property: 'identity',
         header: 'Identity',
-        cell: (v) => v,
+        cell: ({ value }) => value,
       },
       {
         property: 'math',
         header: 'Simple Math',
-        cell: (v) => v - 23,
+        cell: ({ value }) => value - 23,
       },
+    ];
+    const data = [
+      {
+        basic: 'basic',
+        identity: 'ident',
+        math: 23, // deliberately chosen to make cell function return 0, a falsy value
+        id: 0,
+      },
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Context columns={columns} data={data}>
+        <Table.Body rowKey="id" />
+      </Table.Context>
+    );
+
+    const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
+    expect(tds.length).to.equal(columns.length);
+    expect(tds[0].innerHTML).to.equal('<span>basic</span>');
+    expect(tds[1].innerHTML).to.equal('ident');
+    expect(tds[2].innerHTML).to.equal('0');
+  });
+
+  it('should accept function based React components for customizing value', function () {
+    const columns = [
       {
         property: 'complex',
         header: 'Cell Props',
-        cell: (v) => ({ value: v, props: { className: 'complex' } }),
+        cell: ({ value }) => <span className="complex">{value}</span>,
       },
       {
         property: 'jsx',
         header: 'JSX',
-        cell: (v) => (<a href={`http://${v.id}`}>{v.name}</a>),
+        cell: ({ value }) => <a href={`http://${value.id}`}>{value.name}</a>,
       },
     ];
     const data = [
@@ -110,80 +134,16 @@ describe('Table', function () {
 
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
     expect(tds.length).to.equal(columns.length);
-    expect(tds[0].innerHTML).to.equal('basic');
-    expect(tds[1].innerHTML).to.equal('ident');
-    expect(tds[2].innerHTML).to.equal('0');
 
-    expect(tds[3].className).to.equal('complex');
-    expect(tds[3].innerHTML).to.equal('somestr');
+    // TODO: should cell just return a td instead?
+    expect(tds[0].children[0].className).to.equal('complex');
 
+    /* TODO: push to a separate test
     const link = TestUtils.findRenderedDOMComponentWithTag(table, 'a');
     expect(link.parentNode).to.equal(tds[4]);
     expect(link.href).to.equal('http://some_id_123/');
     expect(link.innerHTML).to.equal('helloworld');
-  });
-
-  it('should aggregate returned props and values by the cell functions', function () {
-    const columns = [
-      {
-        property: 'someData',
-        header: '',
-        cell: [
-          v => ({ props: { className: 'fooClass' }, value: v }),
-          v => ({ props: { id: 'fooId' }, value: `fooContent${v}` }),
-        ],
-      },
-    ];
-    const data = [
-      {
-        someData: 0,
-        id: 0,
-      },
-    ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Context columns={columns} data={data}>
-        <Table.Body rowKey="id" />
-      </Table.Context>
-    );
-
-    const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
-    expect(tds).to.have.length(1);
-    expect(tds[0]).to.have.property('className', 'fooClass');
-    expect(tds[0]).to.have.property('id', 'fooId');
-    expect(tds[0]).to.have.property('innerHTML', 'fooContent0');
-  });
-
-  it(`should call cell functions for every column,
-    even when a column property conflicts`, function () {
-    const columns = [
-      {
-        property: 'nestedData',
-        header: '',
-        cell: [v => <span>{v.key1}</span>],
-      },
-      {
-        property: 'nestedData',
-        header: '',
-        cell: [v => <span>{v.key2}</span>],
-      },
-    ];
-    const data = [
-      {
-        nestedData: {
-          key1: 'foo', key2: 'bar',
-        },
-        id: 0,
-      },
-    ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Context columns={columns} data={data}>
-        <Table.Body rowKey="id" />
-      </Table.Context>
-    );
-
-    const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
-    expect(tds[0]).to.have.deep.property('childNodes[0].innerHTML', 'foo');
-    expect(tds[1]).to.have.deep.property('childNodes[0].innerHTML', 'bar');
+    */
   });
 
   it('should render children correctly', function () {
