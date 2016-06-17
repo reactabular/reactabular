@@ -42,6 +42,7 @@ const data = generateData({
   properties,
 });
 const countryFormatter = country => find(countries, 'value', country).name;
+const sorter = sort.byColumns; // sort.byColumn would work too
 
 class FullTable extends React.Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class FullTable extends React.Component {
       'sortingColumns',
       column => {
         this.setState({
-          sortingColumns: sort.byColumn(
+          sortingColumns: sorter(
             this.state.sortingColumns, column
           ),
         });
@@ -227,7 +228,7 @@ class FullTable extends React.Component {
       );
     }
 
-    d = sort.byColumn.sort(d, sortingColumns, orderBy);
+    d = sorter.sort(d, sortingColumns, orderBy);
 
     const paginated = paginate(d, pagination);
     const pages = Math.ceil(data.length / Math.max(

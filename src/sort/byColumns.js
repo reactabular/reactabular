@@ -1,50 +1,52 @@
-// TODO: reimplement using the new scheme. this shouldn't mutate!!!
-const byColumns = (columns, sortColumns, column, done) => {
-  let newSortCols = undefined;
+const byColumns = (sortingColumns, selectedColumn) => {
+  const index = sortingColumns && sortingColumns.map(
+    c => c.property
+  ).indexOf(selectedColumn);
+  let newSortingColumns = [];
 
-  if (typeof sortColumns === 'undefined') {
-    newSortCols = [column];
-  } else if (sortColumns.includes(column)) {
-    newSortCols = sortColumns;
-  } else {
-    newSortCols = [...sortColumns, column];
+  if (!sortingColumns) {
+    return [{
+      property: selectedColumn,
+      sort: 'asc',
+    }];
+  } else if (index >= 0) {
+    newSortingColumns = sortingColumns;
+
+    newSortingColumns[index] = {
+      property: selectedColumn,
+      sort: cycleSort(newSortingColumns[index].sort),
+    };
+
+    return newSortingColumns;
   }
 
-  // cycle through: asc, desc, no sort
-  if (typeof column.sort === 'undefined' || column.sort === '') {
-    column.sort = 'asc';
-    column.headerClass = 'sort-asc';
-  } else if (column.sort === 'asc') {
-    column.sort = 'desc';
-    column.headerClass = 'sort-desc';
-  } else {
-    const idx = newSortCols.indexOf(column);
-
-    if (idx > -1) {
-      newSortCols.splice(idx, 1);
-    }
-
-    column.headerClass = null;
-    column.sort = '';
-  }
-
-  done({
-    sortingColumns: newSortCols,
-    columns,
-  });
+  return [...sortingColumns, {
+    property: selectedColumn,
+    sort: 'asc',
+  }];
 };
+
+function cycleSort(sort) {
+  if (!sort) {
+    return 'asc';
+  } else if (sort === 'asc') {
+    return 'desc';
+  }
+
+  return '';
+}
 
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy
-byColumns.sort = (data, sortColumns, sorter) => {
-  if (!sortColumns) {
+byColumns.sort = (data, columns, sorter) => {
+  if (!columns) {
     return data;
   }
 
   const propertyList = [];
   const orderList = [];
 
-  sortColumns.forEach((column) => {
+  columns.forEach((column) => {
     propertyList.push(column.property);
     orderList.push(column.sort);
   });
