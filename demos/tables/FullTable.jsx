@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-alert */
+/* eslint-disable no-console, no-alert, no-shadow */
 import React from 'react';
 
 import findIndex from 'lodash/findIndex';
@@ -49,12 +49,12 @@ class FullTable extends React.Component {
     super(props);
 
     const highlighter = column => formatters.highlight(value => {
-      const { filter } = this.state.search;
+      const { search } = this.state;
 
       return Search.matches(
         column,
         value,
-        filter[Object.keys(filter).pop()]
+        search[Object.keys(search).pop()]
       );
     });
     const editable = behaviors.edit.bind(
@@ -91,9 +91,7 @@ class FullTable extends React.Component {
       formatters: {
         country: countryFormatter,
       },
-      search: {
-        filter: {},
-      },
+      search: {},
       sortingColumns: null, // reference to the sorting columns
       columns: [
         {
@@ -222,16 +220,10 @@ class FullTable extends React.Component {
     this.onPerPage = this.onPerPage.bind(this);
   }
   render() {
-    const { columns, modal, pagination, sortingColumns } = this.state;
-    let d = this.state.data;
-
-    if (this.state.search.filter) {
-      d = Search.search(
-        d,
-        columns,
-        this.state.search.filter
-      );
-    }
+    const {
+      columns, data, modal, pagination, sortingColumns, search
+    } = this.state;
+    let d = Search.search(data, columns, search);
 
     d = sorter.sort(d, sortingColumns, orderBy);
 
@@ -291,10 +283,10 @@ class FullTable extends React.Component {
       },
     });
   }
-  onSearch(filter) {
+  onSearch(search) {
     this.setState({
       editedCell: null, // reset edits
-      search: { filter },
+      search,
     });
   }
   onSelect(page) {

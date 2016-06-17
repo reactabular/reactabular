@@ -65,7 +65,7 @@ class DemoTable extends React.Component {
     );
 
     return (
-      <Table columns={columns} data={data}>
+      <Table columns={columns} data={sortedData}>
         <Table.Header />
 
         <Table.Body rowKey="id" />
