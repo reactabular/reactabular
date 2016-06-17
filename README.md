@@ -9,6 +9,46 @@ The chosen approach pushes a lot of complexity out of the core. As a result it m
 
 > If you want to learn more about React, read [SurviveJS - Webpack and React](http://survivejs.com/).
 
+## Example
+
+The following example illustrates the approach used by Reactabular:
+
+```jsx
+import { Table, editors } from '../../src';
+
+const data = [
+  {
+    name: 'Foo',
+    id: 100
+  },
+  {
+    name: 'Bar',
+    id: 101
+  }
+];
+
+const columns = [
+  {
+    property: 'name',
+    header: 'Name',
+    // Optional cell customizer
+    cell: ({ value }) => <span>{value}</span>
+  }
+];
+
+const DemoTable = () => (
+  <Table
+    className="pure-table pure-table-striped"
+    columns={columns}
+    data={data}
+  >
+    <Table.Header />
+
+    <Table.Body rowKey="id" />
+  </Table>
+);
+```
+
 ## Documentation
 
 * [Table Definition](https://github.com/bebraw/reactabular/blob/master/docs/table_definition.md)
