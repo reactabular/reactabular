@@ -5,7 +5,7 @@ export default function (
   onValue = () => {},
   { editor, formatter = value => value }
 ) {
-  return ({ value, cellData, property, column, cellKey }) => {
+  const Edit = ({ value, cellData, property, cellKey }) => {
     const idx = `${cellKey}-${property}`;
     const editedCell = this.state[editProperty];
 
@@ -33,4 +33,12 @@ export default function (
 
     return formatter(value);
   };
+  Edit.propTypes = {
+    value: React.PropTypes.any,
+    cellData: React.PropTypes.object.isRequired,
+    property: React.PropTypes.string.isRequired,
+    cellKey: React.PropTypes.string.isRequired,
+  };
+
+  return Edit;
 }

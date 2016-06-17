@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, react/prop-types */
 import React from 'react';
 import uuid from 'uuid';
 

@@ -5,7 +5,7 @@ export default function (
   onSort = () => {},
   header
 ) {
-  return ({ property }) => {
+  const Sort = ({ property }) => {
     const columns = this.state[sortingColumns] || [];
     const index = columns.map(c => c.property).indexOf(property);
     let headerClass = '';
@@ -23,4 +23,9 @@ export default function (
       </div>
     );
   };
+  Sort.propTypes = {
+    property: React.PropTypes.string.isRequired,
+  };
+
+  return Sort;
 }

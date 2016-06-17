@@ -39,7 +39,6 @@ const Header = ({ children, ...props }, { columns }) => (
             cell({
               cell,
               value,
-              column,
               property: column.property,
               cellKey: key,
             }) :
@@ -72,7 +71,6 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
               cell,
               value,
               cellData,
-              column,
               property: column.property,
               cellKey: cellData[rowKey],
             }) :
