@@ -221,7 +221,7 @@ class FullTable extends React.Component {
   }
   render() {
     const {
-      columns, data, modal, pagination, sortingColumns, search
+      columns, data, modal, pagination, sortingColumns, search,
     } = this.state;
     let d = Search.search(data, columns, search);
 
