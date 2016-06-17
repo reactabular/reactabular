@@ -94,7 +94,7 @@ class FullTable extends React.Component {
       search: {
         filter: {},
       },
-      sortingColumns: null, // reference to sorting column
+      sortingColumns: null, // reference to the sorting columns
       columns: [
         {
           property: 'name',
