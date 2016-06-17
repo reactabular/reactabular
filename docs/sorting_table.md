@@ -14,7 +14,7 @@ The general workflow is as follows:
 ```jsx
 ...
 import orderBy from 'lodash/orderBy';
-import { behaviors, sort } from 'reactabular';
+import { behaviors, sort, Table } from 'reactabular';
 
 const sorter = sort.byColumns; // sort.byColumn would work too
 
