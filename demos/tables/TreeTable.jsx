@@ -1,3 +1,4 @@
+/* eslint-disable no-console, no-alert, no-unused-vars, react/prop-types */
 import React from 'react';
 import {
   Table,
@@ -39,6 +40,15 @@ const columns = [
   {
     property: 'name',
     header: 'Name',
+    cell: ({ value }) => (
+      <span>
+        <span
+          className="show-more"
+          onClick={e => console.log('clicked', value)}
+        />
+        {value}
+      </span>
+    ),
   },
   {
     property: 'age',
@@ -54,7 +64,12 @@ const TreeTable = () => (
   >
     <Table.Header />
 
-    <Table.Body rowKey="id" />
+    <Table.Body
+      rowKey="id"
+      row={(row, rowIndex) => ({
+        className: rowIndex % 2 ? 'odd-row' : 'even-row',
+      })}
+    />
   </Table>
 );
 
