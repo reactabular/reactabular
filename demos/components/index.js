@@ -1,10 +1,7 @@
-/* eslint-disable global-require */
-module.exports = {
-  ColumnFilters: require('./ColumnFilters').default,
-  CustomFooter: require('./CustomFooter').default,
-  EditCell: require('./EditCell').default,
-  Modal: require('./Modal').default,
-  Paginator: require('./Paginator').default,
-  PerPage: require('./PerPage').default,
-  PrimaryControls: require('./PrimaryControls').default,
-};
+export { default as ColumnFilters } from './ColumnFilters';
+export { default as CustomFooter } from './CustomFooter';
+export { default as EditCell } from './EditCell';
+export { default as Modal } from './Modal';
+export { default as Paginator } from './Paginator';
+export { default as PerPage } from './PerPage';
+export { default as PrimaryControls } from './PrimaryControls';

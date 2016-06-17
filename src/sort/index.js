@@ -1,5 +1,4 @@
-/* eslint-disable global-require */
-module.exports = {
-  byColumn: require('./byColumn').default,
-  byColumns: require('./byColumns').default,
-};
+import { default as byColumn } from './byColumn';
+import { default as byColumns } from './byColumns';
+
+export default { byColumn, byColumns };

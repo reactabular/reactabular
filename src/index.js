@@ -1,10 +1,7 @@
-/* eslint-disable global-require */
-module.exports = {
-  Table: require('./Table').default,
-  Search: require('./Search').default,
-  sort: require('./sort'),
-  editors: require('./editors'),
-  formatters: require('./formatters'),
-  predicates: require('./predicates'),
-  cells: require('./cells'),
-};
+export { default as Table } from './Table';
+export { default as Search } from './Search';
+export { default as sort } from './sort';
+export { default as editors } from './editors';
+export { default as formatters } from './formatters';
+export { default as predicates } from './predicates';
+export { default as cells } from './cells';

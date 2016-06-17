@@ -1,5 +1,4 @@
-/* eslint-disable global-require */
-module.exports = {
-  infix: require('./infix').default,
-  prefix: require('./prefix').default,
-};
+import { default as infix } from './infix';
+import { default as prefix } from './prefix';
+
+export default { infix, prefix };

@@ -1,4 +1,4 @@
-export default (prefix) => ({
+export default prefix => ({
   evaluate(searchText) {
     return searchText.indexOf(prefix) === 0;
   },
