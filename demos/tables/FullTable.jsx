@@ -5,7 +5,7 @@ import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
 import {
-  Table, Search, editors, sort, cells, formatters,
+  Table, Search, editors, sort, behaviors, formatters,
 } from '../../src';
 
 import {
@@ -57,7 +57,7 @@ class FullTable extends React.Component {
         filter[Object.keys(filter).pop()]
       );
     });
-    const editable = cells.edit.bind(
+    const editable = behaviors.edit.bind(
       null,
       {
         getEditProperty: () => this.state.editedCell,
@@ -71,7 +71,7 @@ class FullTable extends React.Component {
         },
       }
     );
-    const sortable = cells.sort.bind(
+    const sortable = behaviors.sort.bind(
       null,
       {
         getSortingColumns: () => this.state.sortingColumns || [],

@@ -1,4 +1,4 @@
-import identity from '../../src/cells/identity.js';
+import identity from '../../src/behaviors/identity.js';
 import { expect } from 'chai';
 
 describe('identity', function () {
