@@ -1,43 +1,65 @@
 # Inline Editing a Table
 
-As you noticed in the custom column section above, Reactabular provides access to table cell rendering. This approach can be used to provide inline editing for tables.
+Reactabular supports inline editing through a behavior and specific `editors` that implement a small editing interface. Consider the example below:
 
-```javascript
-var cells = require('reactabular').cells;
-var editors = require('reactabular').editors;
-
-...
-
-// bind context at getInitialState, provide name of field where to store the index
-// of edited cell and deal with received data
-var editable = cells.edit.bind(this, 'editedCell', (value, celldata, rowIndex, property) => {
-    var idx = findIndex(this.state.data, {
-        id: celldata[rowIndex].id,
-    });
-
-    this.state.data[idx][property] = value;
-
-    this.setState({
-        data: data,
-    });
-});
+```jsx
+import { behaviors, editors, Table } from 'reactabular';
+import findIndex from 'lodash/findIndex';
 
 ...
 
-{
-    property: 'estimatedValue',
-    header: 'Estimated value',
-    cell: [
-        editable({
-            // editors.input() accepts custom attributes as an object
-            // example {autoFocus: true}
+class DemoTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const editable = behaviors.edit.bind(
+      null,
+      {
+        // Get the edited property
+        getEditProperty: () => this.state.editedCell,
+        // Set the property when the user tries to activate editing
+        onActivate: idx => this.setState({ editedCell: idx }),
+        // Capture the value when the user has finished
+        onValue: (value, { id }, property) => {
+          const idx = findIndex(this.state.data, { id });
+
+          this.state.data[idx][property] = value;
+
+          this.setState({ editedCell: null, data });
+        },
+      }
+    );
+
+    this.state = {
+      editedCell: null, // Track the edited cell somehow
+      columns: [
+        {
+          property: 'position',
+          header: 'Position',
+          cell: editable({
             editor: editors.input(),
-        }),
-        (estimatedValue) => parseFloat(estimatedValue).toFixed(2)
-    ],
-},
-```
+            // You can pass a custom formatter here
+            //formatter: highlighter('name')
+          })
+        },
+        ...
+      ],
+      data: [...]
+      ...
+    };
+  }
+  render() {
+    const { data } = this.state;
 
-The simplest way would be just to provide an editor to a cell directly. In this case we take the approach further and combine it with custom formatting. As you can see, `cell` accepts a list of functions. If the editor gets triggered, it will override any possible formatting after it in the rendering queue.
+    return (
+      <Table columns={columns} data={data}>
+        <Table.Header />
+
+        <Table.Body rowKey="id" />
+      </Table>
+    );
+  }
+}
+```
 
 The library comes with a couple of basic editors. As long as you follow the same interface (`value`, `onValue` properties), your editor should just work with the system.
