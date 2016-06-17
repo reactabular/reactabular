@@ -1,6 +1,7 @@
 /* eslint-disable no-console, no-alert, no-unused-vars, react/prop-types */
 import React from 'react';
 import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
 import {
   Table,
 } from '../../src';
@@ -11,21 +12,22 @@ class TreeTable extends React.Component {
 
     this.state = {
       data: [
+        // The data has been sorted so that children are after their parents
         {
           id: 100,
           name: 'Adam',
           age: 55,
         },
         {
-          id: 101,
-          name: 'Brian',
-          age: 62,
-        },
-        {
           id: 102,
           name: 'Joe',
           age: 12,
           parent: 100,
+        },
+        {
+          id: 101,
+          name: 'Brian',
+          age: 62,
         },
         {
           id: 103,
@@ -47,8 +49,15 @@ class TreeTable extends React.Component {
           cell: ({ value, cellData }) => (
             <span>
               {!cellData.parent && <span
-                className="show-more"
-                onClick={e => console.log('clicked', value)}
+                className={cellData.showChildren ? 'show-less' : 'show-more'}
+                onClick={e => {
+                  const data = this.state.data;
+                  const parentIndex = findIndex(data, { id: cellData.id });
+
+                  data[parentIndex].showChildren = !cellData.showChildren;
+
+                  this.setState({ data });
+                }}
               />}
               {value}
             </span>
