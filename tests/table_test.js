@@ -98,7 +98,7 @@ describe('Table', function () {
 
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
     expect(tds.length).to.equal(columns.length);
-    expect(tds[0].innerHTML).to.equal('<span>basic</span>');
+    expect(tds[0].innerHTML).to.equal('basic');
     expect(tds[1].innerHTML).to.equal('ident');
     expect(tds[2].innerHTML).to.equal('0');
   });

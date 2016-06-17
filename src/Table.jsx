@@ -29,16 +29,24 @@ Table.childContextTypes = {
 const Header = ({ children, ...props }, { columns }) => (
   <thead {...props}>
     <tr>
-      {columns.map((column, i) => (
-        <Cell
-          key={`${i}-header`}
-          type="th"
-          cell={column.header}
-          cellKey="header"
-          value={column.header || ''}
-          column={column}
-        />
-      ))}
+      {columns.map((column, i) => {
+        const cell = column.header;
+        const value = column.header || '';
+        const key = `${i}-header`;
+
+        return (
+          <th key={key}>{isFunction(cell) ?
+            cell({
+              cell,
+              value,
+              column,
+              property: column.property,
+              cellKey: key,
+            }) :
+            value
+          }</th>
+        );
+      })}
     </tr>
     {children}
   </thead>
@@ -53,17 +61,25 @@ Header.contextTypes = {
 const Body = ({ row, rowKey, ...props }, { columns, data }) => (
   <tbody {...props}>{
     data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
-      columns.map((column, j) => (
-        <Cell
-          key={`${j}-cell`}
-          type="td"
-          cell={column.cell}
-          cellKey={data[i][rowKey]}
-          cellData={data[i]}
-          value={r[column.property]}
-          column={column}
-        />
-      ))
+      columns.map((column, j) => {
+        const cell = column.cell;
+        const value = r[column.property];
+        const cellData = data[i];
+
+        return (
+          <td key={`${j}-cell`}>{isFunction(cell) ?
+            cell({
+              cell,
+              value,
+              cellData,
+              column,
+              property: column.property,
+              cellKey: cellData[rowKey],
+            }) :
+            value
+          }</td>
+        );
+      })
     }</tr>)
   }</tbody>
 );
@@ -77,30 +93,6 @@ Body.defaultProps = {
 Body.contextTypes = {
   columns: React.PropTypes.array.isRequired,
   data: React.PropTypes.array.isRequired,
-};
-
-const Cell = ({
-  type, column, cell, cellKey, cellData, value,
-}) => (
-  React.createElement(
-    type,
-    {},
-    isFunction(cell) ?
-      cell({ value, cellData, property: column.property, column, cellKey }) :
-      <span>{value}</span>
-  )
-);
-Cell.propTypes = {
-  // array of react elements, react element, number, string, ...
-  cell: React.PropTypes.any.isRequired,
-  cellKey: React.PropTypes.any.isRequired,
-  type: React.PropTypes.string.isRequired,
-  column: React.PropTypes.object.isRequired,
-  value: React.PropTypes.any,
-  cellData: React.PropTypes.any,
-};
-Cell.defaultProps = {
-  cell: [() => {}],
 };
 
 Table.Header = Header;
