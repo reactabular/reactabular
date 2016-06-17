@@ -5,30 +5,29 @@ The following example illustrates how to attach classes to various parts of a ta
 ```jsx
 
 // Cell styling. Other options too. See "customizing cells"
-columns: [
+const columns = [
   {
     property: 'name',
-    cell: (v) => ({
-      className: 'demo-cell',
-      value: <span>{v}</span>
-    })
-  },
-]
+    header: <span className="name-header">Name</span>
+    cell: ({ value }) => <span className="demo-cell">{value}</span>
+  }
+];
 
 ...
 
 <Table
-  className="table"
+  className="pure-table pure-table-striped"
   columns={columns}
-  data={paginated.data}
-  columnNames={
-    <thead>
-      <ColumnNames config={{className: 'table-header'}} columns={columns} />
-    </thead>
-  }
-  row={(d, rowIndex) => {
-      return {
-        className: rowIndex % 2 ? 'odd-row' : 'even-row'
-      };
-  }} />
+  data={data}
+>
+  <Table.Header className="header" />
+
+  <Table.Body
+    className="table-body"
+    rowKey="id"
+    row={(row, rowIndex) => ({
+      className: rowIndex % 2 ? 'odd-row' : 'even-row'
+    })}
+  />
+</Table>
 ```

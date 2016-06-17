@@ -37,7 +37,7 @@ We are also going to need a column definition to map the data to a table:
 const columns = [
   {
     property: 'name',
-    header: () => <span className="name-column">Name</span>
+    header: <span className="name-column">Name</span>
   },
   {
     property: 'type',
