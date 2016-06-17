@@ -139,24 +139,18 @@ class FullTable extends React.Component {
           }),
         },
         {
-          // TODO: restore + generalize
-          cell: (value, celldata, rowIndex) => {
+          cell: ({ cellData }) => {
             const edit = () => {
-              const idx = findIndex(this.state.data, {
-                id: celldata[rowIndex].id,
-              });
-
               this.setState({
                 modal: {
                   show: true,
                   title: 'Edit',
                   content: <EditCell
                     onSubmit={(formData) => {
-                      this.state.modal.show = false;
-                      this.state.data[idx] = formData;
+                      this.state.data[cellData.id] = formData;
 
                       this.setState({
-                        modal: this.state.modal,
+                        modal: { ...this.state.modal, show: false },
                         data: this.state.data,
                       });
                     }}
@@ -170,7 +164,7 @@ class FullTable extends React.Component {
                         },
                       });
                     }}
-                    formData={this.state.data[idx]}
+                    formData={cellData}
                     properties={properties}
                   />,
                 },
@@ -178,20 +172,16 @@ class FullTable extends React.Component {
             };
 
             const remove = () => {
-              const idx = findIndex(this.state.data, {
-                id: celldata[rowIndex].id,
-              });
-
               // this could go through flux etc.
-              this.state.data.splice(idx, 1);
+              this.state.data.splice(cellData.id, 1);
 
               this.setState({
                 data: this.state.data,
               });
             };
 
-            return () => (
-              <span>
+            return (
+              <div>
                 <span
                   className="edit"
                   onClick={() => edit()} style={{ cursor: 'pointer' }}
@@ -204,7 +194,7 @@ class FullTable extends React.Component {
                 >
                   &#10007;
                 </span>
-              </span>
+              </div>
             );
           },
         },
