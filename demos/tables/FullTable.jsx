@@ -69,11 +69,11 @@ class FullTable extends React.Component {
     );
     const sortable = cells.sort.bind(
       this,
-      'sortingColumn',
+      'sortingColumns',
       column => {
         this.setState({
-          sortingColumn: sort.byColumn(
-            this.state.sortingColumn, column
+          sortingColumns: sort.byColumn(
+            this.state.sortingColumns, column
           ),
         });
       }
@@ -88,7 +88,7 @@ class FullTable extends React.Component {
       search: {
         filter: {},
       },
-      sortingColumn: null, // reference to sorting column
+      sortingColumns: null, // reference to sorting column
       columns: [
         {
           property: 'name',
@@ -216,7 +216,7 @@ class FullTable extends React.Component {
     this.onPerPage = this.onPerPage.bind(this);
   }
   render() {
-    const { columns, modal, pagination, sortingColumn } = this.state;
+    const { columns, modal, pagination, sortingColumns } = this.state;
     let d = this.state.data;
 
     if (this.state.search.filter) {
@@ -227,7 +227,7 @@ class FullTable extends React.Component {
       );
     }
 
-    d = sort.byColumn.sort(d, sortingColumn, orderBy);
+    d = sort.byColumn.sort(d, sortingColumns, orderBy);
 
     const paginated = paginate(d, pagination);
     const pages = Math.ceil(data.length / Math.max(

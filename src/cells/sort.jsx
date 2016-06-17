@@ -1,14 +1,18 @@
 import React from 'react';
 
 export default function (
-  sortColumn,
+  sortingColumns,
   onSort = () => {},
   header
 ) {
   return ({ property }) => {
-    // TODO: generalize as an array so this works with byColumns too (multiple columns!)
-    const column = this.state[sortColumn] || {};
-    const headerClass = column.property === property ? `sort-${column.sort}` : '';
+    const columns = this.state[sortingColumns] || [];
+    const index = columns.map(c => c.property).indexOf(property);
+    let headerClass = '';
+
+    if (index >= 0) {
+      headerClass = `sort-${columns[index].sort}`;
+    }
 
     return (
       <div
