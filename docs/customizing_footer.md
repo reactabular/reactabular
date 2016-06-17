@@ -1,20 +1,22 @@
-# Customizing Footer
+# Customizing the Footer
 
 Adding a custom footer is simple. Just write the definition inside `Table` itself. In this particular case it's not very useful but you could easily generate things like sums and such here.
 
 ```jsx
-<Table columns={columns} header={header} data={paginated.data}>
-    <tfoot>
-        <tr>
-            <td>
-                You could show sums etc. here in the customizable footer.
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tfoot>
+# Customizing the Header
+
+Sometimes you might want to customize the table header. You can achieve it like this:
+
+```jsx
+<Table columns={columns} data={paginated.data}>
+  <Table.Header />
+
+  <Table.Body rowKey="id" />
+
+  <tfoot>
+    <tr>
+      Inject custom data here
+    </tr>
+  </tfoot>
 </Table>
 ```

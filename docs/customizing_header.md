@@ -1,27 +1,14 @@
-# Customizing Header
+# Customizing the Header
 
-Sometimes you might want to define a custom header (`thead`) for your table. This can be achieved through the `columnNames` prop like this:
-
-```jsx
-<Table columns={columns} data={paginated.data} columnNames={<thead>demo</thead>} />
-```
-
-You can also use a function to customize further:
+Sometimes you might want to customize the table header. You can achieve it like this:
 
 ```jsx
-columnFilters(columns) {
-  var headerConfig = this.state.header;
+<Table columns={columns} data={paginated.data}>
+  <Table.Header>
+    {/* Render custom rows here within the table header */}
+    <ColumnFilters columns={columns} onChange={this.onSearch} />
+  </Table.Header>
 
-  // Render column names and filters
-  return (
-    <thead>
-      <ColumnNames config={headerConfig} columns={columns} />
-      <ColumnFilters columns={columns} onChange={this.onSearch} />
-    </thead>
-  );
-},
-
-...
-
-<Table ... columnNames={this.columnFilters} />
+  <Table.Body rowKey="id" />
+</Table>
 ```
