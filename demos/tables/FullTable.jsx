@@ -69,8 +69,8 @@ class FullTable extends React.Component {
       }
     );
     const sortable = cells.sort.bind(
-      this,
-      'sortingColumns',
+      null,
+      () => this.state.sortingColumns || [],
       column => {
         this.setState({
           sortingColumns: sorter(

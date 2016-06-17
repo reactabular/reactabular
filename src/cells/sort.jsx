@@ -1,12 +1,12 @@
 import React from 'react';
 
 export default function (
-  sortingColumns,
+  getSortingColumns = () => {},
   onSort = () => {},
   header
 ) {
   const Sort = ({ property }) => {
-    const columns = this.state[sortingColumns] || [];
+    const columns = getSortingColumns();
     const index = columns.map(c => c.property).indexOf(property);
     let headerClass = '';
 
