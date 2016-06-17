@@ -1,3 +1,4 @@
+/* eslint-disable no-console, no-alert, no-unused-vars, react/prop-types */
 import React from 'react';
 import {
   Table,
@@ -37,9 +38,9 @@ const columns = [
   {
     property: 'lovesBeeGees',
     header: 'Loves BeeGees',
-    cell: lovesBeeGees => (
+    cell: ({ value }) => (
       <span>
-        {lovesBeeGees ? 'Loves BeeGees' : 'Does not love BeeGees'}
+        {value ? 'Loves BeeGees' : 'Does not love BeeGees'}
       </span>
     ),
   },
