@@ -1,8 +1,10 @@
 import React from 'react';
 
 export default function (
-  getSortingColumns = () => {},
-  onSort = () => {},
+  {
+    getSortingColumns = () => {},
+    onSort = () => {},
+  },
   header
 ) {
   const Sort = ({ property }) => {

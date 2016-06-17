@@ -1,37 +1,32 @@
 import React from 'react';
 
 export default function (
-  editProperty,
-  onValue = () => {},
+  {
+    getEditProperty = () => {},
+    onActivate = () => {},
+    onValue = () => {},
+  },
   { editor, formatter = value => value }
 ) {
   const Edit = ({ value, cellData, property, cellKey }) => {
     const idx = `${cellKey}-${property}`;
-    const editedCell = this.state[editProperty];
+    const editedCell = getEditProperty();
 
     if (editedCell === idx) {
       return React.createElement(
         editor,
         {
           value,
-          onValue: (v) => {
-            this.setState({ [editProperty]: null });
-
-            onValue(v, cellData, property);
-          },
+          onValue: v => onValue(v, cellData, property),
         }
       );
     }
 
-    if (editor) {
-      return (
-        <span onClick={() => this.setState({ [editProperty]: idx })}>
-          {formatter(value)}
-        </span>
-      );
-    }
-
-    return formatter(value);
+    return (
+      <span onClick={() => onActivate(idx)}>
+        {formatter(value)}
+      </span>
+    );
   };
   Edit.propTypes = {
     value: React.PropTypes.any,

@@ -58,25 +58,30 @@ class FullTable extends React.Component {
       );
     });
     const editable = cells.edit.bind(
-      this,
-      'editedCell',
-      (value, { id }, property) => {
-        const idx = findIndex(this.state.data, { id });
+      null,
+      {
+        getEditProperty: () => this.state.editedCell,
+        onActivate: idx => this.setState({ editedCell: idx }),
+        onValue: (value, { id }, property) => {
+          const idx = findIndex(this.state.data, { id });
 
-        this.state.data[idx][property] = value;
+          this.state.data[idx][property] = value;
 
-        this.setState({ data });
+          this.setState({ editedCell: null, data });
+        },
       }
     );
     const sortable = cells.sort.bind(
       null,
-      () => this.state.sortingColumns || [],
-      column => {
-        this.setState({
-          sortingColumns: sorter(
-            this.state.sortingColumns, column
-          ),
-        });
+      {
+        getSortingColumns: () => this.state.sortingColumns || [],
+        onSort: column => {
+          this.setState({
+            sortingColumns: sorter(
+              this.state.sortingColumns, column
+            ),
+          });
+        },
       }
     );
 
