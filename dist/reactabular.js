@@ -60,21 +60,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _Table = __webpack_require__(1);
+	var _table = __webpack_require__(1);
 	
 	Object.defineProperty(exports, 'Table', {
 	  enumerable: true,
 	  get: function get() {
-	    return _interopRequireDefault(_Table).default;
+	    return _interopRequireDefault(_table).default;
 	  }
 	});
 	
-	var _Search = __webpack_require__(5);
+	var _search = __webpack_require__(5);
 	
 	Object.defineProperty(exports, 'Search', {
 	  enumerable: true,
 	  get: function get() {
-	    return _interopRequireDefault(_Search).default;
+	    return _interopRequireDefault(_search).default;
 	  }
 	});
 	
