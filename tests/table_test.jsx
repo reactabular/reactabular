@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import Table from '../src/Table';
+import { Table } from '../src';
 import { expect } from 'chai';
 
 describe('Table', function () {

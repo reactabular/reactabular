@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import Search from '../src/Search';
+import { Search } from '../src';
 import { expect } from 'chai';
 
 describe('Search', function () {

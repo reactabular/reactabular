@@ -1,5 +1,5 @@
-export { default as Table } from './Table';
-export { default as Search } from './Search';
+export { default as Table } from './table';
+export { default as Search } from './search';
 export { default as sort } from './sort';
 export { default as editors } from './editors';
 export { default as formatters } from './formatters';
