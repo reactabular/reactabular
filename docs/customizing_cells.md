@@ -44,7 +44,7 @@ const columns = [
 
 ## Nested Data
 
-Sometimes you might be dealing with nested data. You can use a `value` handler like this to manipulate `value` passed to `cell`:
+Sometimes you might be dealing with nested data. Here's an example of how to access that:
 
 ```javascript
 const data = [
@@ -70,9 +70,8 @@ const data = [
 
 const columns = [
   {
-    property: 'dad',
+    property: 'dad.name',
     header: 'Dad',
-    value: value => value.name
   },
   ...
 ];

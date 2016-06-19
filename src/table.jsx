@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import React from 'react';
 
@@ -61,7 +62,7 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
   <tbody {...props}>{
     data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
       columns.map((column, j) => {
-        const propertyValue = r[column.property];
+        const propertyValue = get(r, column.property);
         const cell = column.cell;
         const value = column.value ? column.value(propertyValue) : propertyValue;
         const cellData = data[i];

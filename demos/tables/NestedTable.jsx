@@ -31,9 +31,8 @@ const columns = [
     header: 'Name',
   },
   {
-    property: 'dad',
+    property: 'dad.name',
     header: 'Dad',
-    value: value => value.name,
   },
   {
     property: 'lovesBeeGees',

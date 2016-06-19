@@ -124,10 +124,9 @@ class FullTable extends React.Component {
           header: sortable('Position'),
         },
         {
-          property: 'boss',
+          property: 'boss.name',
           header: sortable('Boss'),
           cell: ({ value }) => highlighter('boss')(value),
-          value: value => value.name,
         },
         {
           property: 'country',
