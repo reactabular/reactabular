@@ -30,6 +30,11 @@ export function augmentWithTitles(o) {
 
 export function getFieldGenerators(countryValues) {
   return {
+    boss() {
+      return {
+        name: this.name(),
+      };
+    },
     name() {
       const forenames = ['Jack', 'Bo', 'John', 'Jill', 'Angus', 'Janet', 'Cecilia',
         'Daniel', 'Marge', 'Homer', 'Trevor', 'Fiona', 'Margaret', 'Ofelia'];

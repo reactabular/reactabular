@@ -41,3 +41,41 @@ const columns = [
   }
 ];
 ```
+
+## Nested Data
+
+Sometimes you might be dealing with nested data. You can use a `value` handler like this to manipulate `value` passed to `cell`:
+
+```javascript
+const data = [
+  {
+    id: 100,
+    name: 'Adam',
+    dad: {
+      id: 20,
+      name: 'John',
+    },
+    lovesBeeGees: true,
+  },
+  {
+    id: 101,
+    name: 'Brian',
+    dad: {
+      id: 22,
+      name: 'George',
+    },
+    lovesBeeGees: false,
+  },
+];
+
+const columns = [
+  {
+    property: 'dad',
+    header: 'Dad',
+    value: value => value.name
+  },
+  ...
+];
+
+...
+```

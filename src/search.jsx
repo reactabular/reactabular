@@ -123,7 +123,8 @@ const searchColumn = (data, columns, column, query, options = {
 
 const isColumnVisible = (options, query, row, col) => {
   const property = col.property;
-  const value = row[property];
+  const propertyValue = row[property];
+  const value = col.value ? col.value(propertyValue) : propertyValue;
   const formatter = col.search || formatters.identity;
   let formattedValue = formatter(value);
 

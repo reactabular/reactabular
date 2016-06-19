@@ -11,6 +11,7 @@ const CustomFooter = () => (
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
     </tr>
   </tfoot>
 );

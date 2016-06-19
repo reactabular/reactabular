@@ -27,6 +27,14 @@ const properties = augmentWithTitles({
   salary: {
     type: 'number',
   },
+  boss: {
+    type: 'object',
+    properties: {
+      name: {
+        type: 'string',
+      },
+    },
+  },
   country: {
     type: 'string',
     enum: countryValues,
@@ -114,7 +122,12 @@ class FullTable extends React.Component {
         {
           property: 'position',
           header: sortable('Position'),
-          cell: ({ value }) => value,
+        },
+        {
+          property: 'boss',
+          header: sortable('Boss'),
+          cell: ({ value }) => highlighter('boss')(value),
+          value: value => value.name,
         },
         {
           property: 'country',
