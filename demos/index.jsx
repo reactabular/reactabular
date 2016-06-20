@@ -10,7 +10,7 @@ import '../style.css';
 import pkg from '../package.json';
 
 Catalog.render({
-  title: pkg.name,
+  title: `Reactabular v${pkg.version}`,
   pages: [
     {
       path: '/',
