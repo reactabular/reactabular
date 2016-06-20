@@ -75,6 +75,11 @@ const common = {
   },
   plugins: [
     new webpack.IgnorePlugin(/^(buffertools)$/), // unwanted "deeper" dependency
+  ],
+};
+
+const commonSite = {
+  plugins: [
     new HtmlwebpackPlugin({
       title: `${pkg.name} - ${pkg.description}`,
       template: 'lib/index_template.ejs',
@@ -86,7 +91,7 @@ const common = {
 };
 
 if (TARGET === 'start' || !TARGET) {
-  module.exports = merge(common, {
+  module.exports = merge(common, commonSite, {
     devtool: 'eval-source-map',
     entry: config.paths.demo,
     devServer: {
@@ -111,7 +116,7 @@ if (TARGET === 'start' || !TARGET) {
 }
 
 if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
-  module.exports = merge(common, {
+  module.exports = merge(common, commonSite, {
     entry: {
       app: config.paths.demo,
       vendors: [
