@@ -1,5 +1,3 @@
-# Contributing
-
 0. [Open an issue](https://github.com/bebraw/reactabular/issues) to discuss the feature you want to implement or need. This will help us to figure out how to fit it in and will avoid unnecessary work on your part.
 1. Implement whatever you want and write tests
 2. Make sure `npm test` passes. This will run your tests and lint the code.

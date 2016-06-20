@@ -42,7 +42,7 @@ Catalog.render({
       title: 'Contribution',
       pages: [
         {
-          path: 'contribution/contributing',
+          path: 'contribution/how-to',
           title: 'How to',
           src: '../CONTRIBUTING.md',
         },
@@ -51,12 +51,17 @@ Catalog.render({
           title: 'Contributors',
           src: '../CONTRIBUTORS.md',
         },
-        {
-          path: 'contribution/license',
-          title: 'License',
-          src: '../LICENSE.md',
-        },
       ],
+    },
+    {
+      path: 'changelog',
+      title: 'Changelog',
+      src: '../CHANGELOG.md',
+    },
+    {
+      path: 'license',
+      title: 'License',
+      src: '../LICENSE.md',
     },
   ],
 }, document.getElementById('app'));
