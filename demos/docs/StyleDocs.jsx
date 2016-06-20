@@ -1,12 +1,9 @@
-/* eslint-ignore no-console */
+/* eslint-disable no-console, max-len, react/prop-types */
 import React from 'react';
 import { Page, ReactSpecimen } from 'catalog';
 import {
   Table,
 } from '../../src';
-import {
-  ColumnFilters,
-} from '../components';
 
 const data = [
   {
@@ -48,7 +45,7 @@ export default () => (
         <Table.Body
           rowKey="id"
           row={(row, rowIndex) => ({
-            className: rowIndex % 2 ? 'odd-row' : 'even-row'
+            className: rowIndex % 2 ? 'odd-row' : 'even-row',
           })}
         />
       </Table>

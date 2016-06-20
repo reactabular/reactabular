@@ -1,3 +1,4 @@
+/* eslint-disable max-len, react/prop-types */
 import React from 'react';
 import { Page, ReactSpecimen } from 'catalog';
 import {

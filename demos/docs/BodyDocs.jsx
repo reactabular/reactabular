@@ -1,4 +1,4 @@
-/* eslint-ignore no-console */
+/* eslint-disable no-console, max-len, quotes */
 import React from 'react';
 import { Page, ReactSpecimen } from 'catalog';
 import {

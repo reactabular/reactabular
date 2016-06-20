@@ -4,7 +4,7 @@ import 'react-ghfork/gh-fork-ribbon.ie.css';
 import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
 import {
-  TableDocs, HeaderDocs, BodyDocs, StyleDocs
+  TableDocs, HeaderDocs, BodyDocs, StyleDocs,
 } from './docs';
 import './main.css';
 import './skylight.css';
