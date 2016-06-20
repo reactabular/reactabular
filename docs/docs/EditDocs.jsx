@@ -46,7 +46,7 @@ class EditableTable extends React.Component {
           cell: editable({
             editor: editors.input(),
             // You can pass a custom formatter here
-            //formatter: highlighter('name')
+            // formatter: highlighter('name')
           }),
         },
       ],

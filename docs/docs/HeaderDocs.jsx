@@ -1,13 +1,12 @@
 /* eslint-disable no-console, max-len */
 import React from 'react';
 import { ReactSpecimen } from 'catalog';
-import { CustomPage } from '../components';
+import {
+  CustomPage, ColumnFilters,
+} from '../components';
 import {
   Table,
 } from '../../src';
-import {
-  ColumnFilters,
-} from '../components';
 
 const data = [
   {
