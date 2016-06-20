@@ -11,7 +11,6 @@ const TARGET = process.env.npm_lifecycle_event;
 const ROOT_PATH = path.resolve(__dirname);
 const config = {
   paths: {
-    package: path.join(ROOT_PATH, 'package.json'),
     build: path.join(ROOT_PATH, 'build'),
     dist: path.join(ROOT_PATH, 'dist'),
     src: path.join(ROOT_PATH, 'src'),
@@ -26,7 +25,7 @@ process.env.BABEL_ENV = TARGET;
 const common = {
   entry: config.paths.documentation,
   resolve: {
-    extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg', '.json'],
+    extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg'],
   },
   output: {
     path: config.paths.build,
@@ -54,11 +53,6 @@ const common = {
         include: config.paths.src,
       },
       {
-        test: /\.json$/,
-        loader: 'json',
-        include: config.paths.package,
-      },
-      {
         test: require.resolve('catalog'),
         loader: 'expose?Catalog',
       },
@@ -77,6 +71,9 @@ const commonSite = {
     }),
     new webpack.ProvidePlugin({
       Catalog: 'catalog',
+    }),
+    new webpack.DefinePlugin({
+      'VERSION': JSON.stringify(pkg.version),
     }),
   ],
 };

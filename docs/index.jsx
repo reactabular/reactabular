@@ -14,10 +14,8 @@ import './main.css';
 import './skylight.css';
 import '../style.css';
 
-import pkg from '../package.json';
-
 Catalog.render({
-  title: `Reactabular v${pkg.version}`,
+  title: `Reactabular v${VERSION}`, // eslint-disable-line no-undef
   pages: [
     {
       path: '/',
