@@ -5,6 +5,7 @@ const HtmlwebpackPlugin = require('html-webpack-plugin');
 const Clean = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
 
+const catalogPkg = require('./node_modules/catalog/package.json');
 const pkg = require('./package.json');
 
 const TARGET = process.env.npm_lifecycle_event;
@@ -73,7 +74,7 @@ const commonSite = {
       Catalog: 'catalog',
     }),
     new webpack.DefinePlugin({
-      'VERSION': JSON.stringify(pkg.version),
+      VERSION: JSON.stringify(pkg.version),
     }),
   ],
 };
@@ -107,12 +108,9 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
   module.exports = merge(common, commonSite, {
     entry: {
       app: config.paths.documentation,
-      vendors: [
-        'react',
-        'react-router',
-        'js-yaml',
-        'lodash',
-      ],
+      vendors: Object.keys(catalogPkg.dependencies).concat([
+        'lodash', 'react', 'react-dom',
+      ]),
     },
     output: {
       path: config.paths.ghPages,
