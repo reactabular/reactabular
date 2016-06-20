@@ -5,6 +5,7 @@ import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
 import {
   TableDocs, HeaderDocs, BodyDocs, StyleDocs, PaginateDocs, EditDocs,
+  SearchDocs, HighlightDocs,
 } from './docs';
 import './main.css';
 import './skylight.css';
@@ -57,6 +58,16 @@ Catalog.render({
           path: 'how-to/edit',
           title: 'Edit',
           component: EditDocs,
+        },
+        {
+          path: 'how-to/search',
+          title: 'Search',
+          component: SearchDocs,
+        },
+        {
+          path: 'how-to/highlight-search',
+          title: 'Highlight Search Results',
+          component: HighlightDocs,
         },
       ],
     },
