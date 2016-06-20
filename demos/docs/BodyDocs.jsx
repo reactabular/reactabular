@@ -40,11 +40,11 @@ export default () => (
       >
         <Table.Header />
 
-        <Table.Body />
+        <Table.Body rowKey="id" />
 
         <Table.Header />
 
-        <Table.Body />
+        <Table.Body rowKey="id" />
       </Table>
     </ReactSpecimen>
   </Page>
