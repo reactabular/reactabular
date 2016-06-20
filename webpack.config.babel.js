@@ -32,20 +32,11 @@ const common = {
     path: config.paths.build,
     filename: 'bundle.js',
   },
-  resolveLoader: {
-    alias: {
-      markdown: path.join(ROOT_PATH, 'loaders/markdown'),
-    },
-  },
   module: {
     loaders: [
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
-      },
-      {
-        test: /\.md$/,
-        loaders: ['html', 'markdown'],
       },
       {
         test: /\.png$/,
@@ -110,6 +101,10 @@ if (TARGET === 'start' || !TARGET) {
           loaders: ['babel'],
           include: config.paths.demo,
         },
+        {
+          test: /\.md$/,
+          loaders: ['catalog/lib/loader', 'raw'],
+        },
       ],
     },
   });
@@ -153,6 +148,10 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
           test: /\.jsx?$/,
           loaders: ['babel'],
           include: config.paths.demo,
+        },
+        {
+          test: /\.md$/,
+          loaders: ['raw'],
         },
       ],
     },
