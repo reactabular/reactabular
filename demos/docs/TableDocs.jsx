@@ -47,7 +47,7 @@ const columns = [
 
 export default () => (
   <Page>
-    <h2>Table</h2>
+    <h2><code>Table</code></h2>
 
     <p>
       <code>Table</code> is the core of Reactabular. It sets up a <a href="https://facebook.github.io/react/docs/context.html">context and maps <code>column</code> and <code>data</code> definitions to its children components.</a>

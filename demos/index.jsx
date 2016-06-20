@@ -28,12 +28,12 @@ Catalog.render({
         },
         {
           path: 'header',
-          title: 'Header',
+          title: 'Table.Header',
           component: HeaderDocs,
         },
         {
           path: 'body',
-          title: 'Body',
+          title: 'Table.Body',
           component: BodyDocs,
         },
       ],
