@@ -21,7 +21,7 @@ Catalog.render({
     {
       path: '/',
       title: 'Introduction',
-      src: '../README.md',
+      component: require('catalog/lib/loader!raw!../README.md'),
     },
     {
       title: 'Components',
@@ -99,24 +99,24 @@ Catalog.render({
         {
           path: 'contribution/how-to',
           title: 'How to',
-          src: '../CONTRIBUTING.md',
+          component: require('catalog/lib/loader!raw!../CONTRIBUTING.md'),
         },
         {
           path: 'contribution/contributors',
           title: 'Contributors',
-          src: '../CONTRIBUTORS.md',
+          component: require('catalog/lib/loader!raw!../CONTRIBUTORS.md'),
         },
       ],
     },
     {
       path: 'changelog',
       title: 'Changelog',
-      src: '../CHANGELOG.md',
+      component: require('catalog/lib/loader!raw!../CHANGELOG.md'),
     },
     {
       path: 'license',
       title: 'License',
-      src: '../LICENSE.md',
+      component: require('catalog/lib/loader!raw!../LICENSE.md'),
     },
   ],
 }, document.getElementById('app'));

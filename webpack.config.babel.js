@@ -59,10 +59,6 @@ const common = {
         include: config.paths.package,
       },
       {
-        test: /\.md$/,
-        loaders: ['catalog/lib/loader', 'raw'],
-      },
-      {
         test: require.resolve('catalog'),
         loader: 'expose?Catalog',
       },
