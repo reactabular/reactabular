@@ -6,6 +6,7 @@ const Clean = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
 
 const catalogPkg = require('./node_modules/catalog/package.json');
+const reactJsonSchemaFormPkg = require('./node_modules/react-jsonschema-form/package.json');
 const pkg = require('./package.json');
 
 const TARGET = process.env.npm_lifecycle_event;
@@ -60,7 +61,8 @@ const common = {
     ],
   },
   plugins: [
-    new webpack.IgnorePlugin(/^(buffertools)$/), // unwanted "deeper" dependency
+    // Unwanted "deeper" dependency because of react-jsonschema-form
+    new webpack.IgnorePlugin(/^(buffertools)$/),
   ],
 };
 
@@ -108,8 +110,10 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
   module.exports = merge(common, commonSite, {
     entry: {
       app: config.paths.documentation,
-      vendors: Object.keys(catalogPkg.dependencies).concat([
-        'lodash', 'react', 'react-dom',
+      vendors: Object.keys(catalogPkg.dependencies).concat(
+        Object.keys(reactJsonSchemaFormPkg.dependencies)
+      ).concat([
+        'lodash', 'react', 'react-dom', 'react-jsonschema-form',
       ]),
     },
     output: {
