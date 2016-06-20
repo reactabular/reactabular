@@ -42,7 +42,7 @@ export default () => (
       >
         <Table.Header />
 
-        <Table.Body />
+        <Table.Body rowKey="id" />
 
         <Table.Header />
       </Table>
@@ -67,7 +67,7 @@ export default () => (
           />
         </Table.Header>
 
-        <Table.Body />
+        <Table.Body rowKey="id" />
       </Table>
     </ReactSpecimen>
 
