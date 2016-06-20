@@ -7,16 +7,16 @@ import './main.css';
 import './skylight.css';
 import '../style.css';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
+import pkg from '../package.json';
 
-main();
-
-function main() {
-  const app = document.createElement('div');
-
-  document.body.appendChild(app);
-
-  ReactDOM.render(<App />, app);
-}
+Catalog.render({
+  title: pkg.name,
+  pages: [
+    {
+      path: '/',
+      title: 'Introduction',
+      src: '../README.md'
+    },
+    // Other pages …
+  ],
+}, document.getElementById('app'));

@@ -11,6 +11,7 @@ const TARGET = process.env.npm_lifecycle_event;
 const ROOT_PATH = path.resolve(__dirname);
 const config = {
   paths: {
+    package: path.join(ROOT_PATH, 'package.json'),
     build: path.join(ROOT_PATH, 'build'),
     dist: path.join(ROOT_PATH, 'dist'),
     src: path.join(ROOT_PATH, 'src'),
@@ -25,7 +26,7 @@ process.env.BABEL_ENV = TARGET;
 const common = {
   entry: config.paths.demo,
   resolve: {
-    extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg'],
+    extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg', '.json'],
   },
   output: {
     path: config.paths.build,
@@ -61,12 +62,25 @@ const common = {
         loaders: ['babel'],
         include: config.paths.src,
       },
+      {
+        test: /\.json$/,
+        loader: 'json',
+        include: config.paths.package,
+      },
+      {
+        test: require.resolve('catalog'),
+        loader: 'expose?Catalog',
+      },
     ],
   },
   plugins: [
     new webpack.IgnorePlugin(/^(buffertools)$/), // unwanted "deeper" dependency
     new HtmlwebpackPlugin({
       title: `${pkg.name} - ${pkg.description}`,
+      template: 'lib/index_template.ejs',
+    }),
+    new webpack.ProvidePlugin({
+      Catalog: 'catalog',
     }),
   ],
 };
