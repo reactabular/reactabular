@@ -4,7 +4,7 @@ import orderBy from 'lodash/orderBy';
 import { ReactSpecimen } from 'catalog';
 import { CustomPage } from '../components';
 import {
-  behaviors, sort, Search, Table,
+  behaviors, sort, Table,
 } from '../../src';
 
 const sorter = sort.byColumns; // sort.byColumn would work too
@@ -62,14 +62,6 @@ class SortTable extends React.Component {
 
     return (
       <div>
-        <div className="search-container">
-          <span>Search</span>
-          <Search
-            columns={columns}
-            data={data}
-            onChange={search => this.setState({ search })}
-          />
-        </div>
         <Table columns={columns} data={sortedData}>
           <Table.Header />
 
