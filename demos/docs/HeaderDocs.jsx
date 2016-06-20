@@ -70,6 +70,5 @@ export default () => (
         <Table.Body rowKey="id" />
       </Table>
     </ReactSpecimen>
-
   </Page>
 );
