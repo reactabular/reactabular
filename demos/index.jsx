@@ -4,7 +4,7 @@ import 'react-ghfork/gh-fork-ribbon.ie.css';
 import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
 import {
-  TableDocs, HeaderDocs, BodyDocs, StyleDocs,
+  TableDocs, HeaderDocs, BodyDocs, StyleDocs, PaginateDocs,
 } from './docs';
 import './main.css';
 import './skylight.css';
@@ -47,6 +47,11 @@ Catalog.render({
           path: 'how-to/style',
           title: 'Style',
           component: StyleDocs,
+        },
+        {
+          path: 'how-to/paginate',
+          title: 'Paginate',
+          component: PaginateDocs,
         },
       ],
     },
