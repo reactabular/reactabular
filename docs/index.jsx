@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import 'purecss/build/pure.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
 import 'react-ghfork/gh-fork-ribbon.css';
