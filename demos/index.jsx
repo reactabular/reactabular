@@ -39,14 +39,24 @@ Catalog.render({
       ],
     },
     {
-      path: '/contributing',
-      title: 'Contributing',
-      src: '../CONTRIBUTING.md',
-    },
-    {
-      path: '/contributors',
-      title: 'Contributors',
-      src: '../CONTRIBUTORS.md',
+      title: 'Contribution',
+      pages: [
+        {
+          path: 'contribution/contributing',
+          title: 'How to',
+          src: '../CONTRIBUTING.md',
+        },
+        {
+          path: 'contribution/contributors',
+          title: 'Contributors',
+          src: '../CONTRIBUTORS.md',
+        },
+        {
+          path: 'contribution/license',
+          title: 'License',
+          src: '../LICENSE.md',
+        },
+      ],
     },
   ],
 }, document.getElementById('app'));
