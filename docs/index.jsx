@@ -94,15 +94,15 @@ Catalog.render({
       ],
     },
     {
-      title: 'Contribution',
+      title: 'Contributing',
       pages: [
         {
-          path: 'contribution/how-to',
+          path: 'contributing/how-to',
           title: 'How to',
           component: require('catalog/lib/loader!raw!../CONTRIBUTING.md'),
         },
         {
-          path: 'contribution/contributors',
+          path: 'contributing/contributors',
           title: 'Contributors',
           component: require('catalog/lib/loader!raw!../CONTRIBUTORS.md'),
         },
