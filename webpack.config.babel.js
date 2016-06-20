@@ -59,6 +59,10 @@ const common = {
         include: config.paths.package,
       },
       {
+        test: /\.md$/,
+        loaders: ['catalog/lib/loader', 'raw'],
+      },
+      {
         test: require.resolve('catalog'),
         loader: 'expose?Catalog',
       },
@@ -100,10 +104,6 @@ if (TARGET === 'start' || !TARGET) {
           test: /\.jsx?$/,
           loaders: ['babel'],
           include: config.paths.documentation,
-        },
-        {
-          test: /\.md$/,
-          loaders: ['catalog/lib/loader', 'raw'],
         },
       ],
     },
@@ -148,10 +148,6 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
           test: /\.jsx?$/,
           loaders: ['babel'],
           include: config.paths.documentation,
-        },
-        {
-          test: /\.md$/,
-          loaders: ['raw'],
         },
       ],
     },
