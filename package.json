@@ -7,7 +7,7 @@
     "test": "karma start",
     "tdd": "karma start --auto-watch --no-single-run",
     "gh-pages": "webpack",
-    "deploy-gh-pages": "node ./lib/deploy-gh-pages.js",
+    "deploy-gh-pages": "gh-pages -d gh-pages",
     "dist": "webpack",
     "dist-min": "webpack",
     "dist-modules": "babel ./src --out-dir ./dist-modules",
