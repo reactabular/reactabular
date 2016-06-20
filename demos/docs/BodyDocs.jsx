@@ -1,3 +1,4 @@
+/* eslint-ignore no-console */
 import React from 'react';
 import { Page, ReactSpecimen } from 'catalog';
 import {
@@ -12,6 +13,10 @@ const data = [
   {
     id: 101,
     name: 'Brian',
+  },
+  {
+    id: 102,
+    name: 'Jake',
   },
 ];
 
@@ -45,6 +50,30 @@ export default () => (
         <Table.Header />
 
         <Table.Body rowKey="id" />
+      </Table>
+    </ReactSpecimen>
+
+    <h2>Customizing <code>Table.Body</code> Rows</h2>
+
+    <p>
+      It is possible to customize body behavior on a row level. <code>row</code> prop accepts function <code>{`(row, rowIndex) => ({...})`}</code> that allows you to set custom attributes per each row.
+    </p>
+
+    <ReactSpecimen span={6}>
+      <Table
+        className="pure-table pure-table-striped"
+        columns={columns}
+        data={data}
+      >
+        <Table.Header />
+
+        <Table.Body
+          rowKey="id"
+          row={(row, rowIndex) => ({
+            className: rowIndex % 2 ? 'odd-row' : 'even-row',
+            onClick: () => console.log('clicked row', row),
+          })}
+        />
       </Table>
     </ReactSpecimen>
   </Page>
