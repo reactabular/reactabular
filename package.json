@@ -7,6 +7,7 @@
     "test": "karma start",
     "tdd": "karma start --auto-watch --no-single-run",
     "gh-pages": "webpack",
+    "stats": "webpack --json --profile > stats.json",
     "deploy-gh-pages": "gh-pages -d gh-pages",
     "dist": "webpack",
     "dist-min": "webpack",

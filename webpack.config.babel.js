@@ -106,7 +106,7 @@ if (TARGET === 'start' || !TARGET) {
   });
 }
 
-if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
+if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats') {
   module.exports = merge(common, commonSite, {
     entry: {
       app: config.paths.documentation,
