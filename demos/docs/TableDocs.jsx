@@ -131,5 +131,31 @@ export default () => (
         <Table.Body rowKey="id" />
       </Table>
     </ReactSpecimen>
+
+    <h2>Customizing <code>Table</code> Footer</h2>
+
+    <p>
+      Thanks to the <code>Table</code> it is possible to inject a custom footer easily.
+    </p>
+
+    <ReactSpecimen span={6}>
+      <Table
+        className="pure-table pure-table-striped"
+        columns={customizedColumns}
+        data={data}
+      >
+        <Table.Header />
+
+        <Table.Body rowKey="id" />
+
+        <tfoot>
+          <tr>
+            <td>Show custom data here</td>
+            <td>Show custom data here</td>
+            <td>Show custom data here</td>
+          </tr>
+        </tfoot>
+      </Table>
+    </ReactSpecimen>
   </Page>
 );
