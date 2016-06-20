@@ -7,6 +7,9 @@ import {
   TableDocs, HeaderDocs, BodyDocs, StyleDocs, PaginateDocs, EditDocs,
   SearchDocs, HighlightDocs, SortDocs,
 } from './docs';
+import {
+  FullExample, TreeExample,
+} from './examples';
 import './main.css';
 import './skylight.css';
 import '../style.css';
@@ -73,6 +76,21 @@ Catalog.render({
           path: 'how-to/highlight-search',
           title: 'Highlight Search Results',
           component: HighlightDocs,
+        },
+      ],
+    },
+    {
+      title: 'Examples',
+      pages: [
+        {
+          path: 'examples/all',
+          title: 'All Features',
+          component: FullExample,
+        },
+        {
+          path: 'examples/tree',
+          title: 'Tree View',
+          component: TreeExample,
         },
       ],
     },
