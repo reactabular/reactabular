@@ -3,6 +3,7 @@ import React from 'react';
 import { ReactSpecimen } from 'catalog';
 import findIndex from 'lodash/findIndex';
 import { CustomPage } from '../components';
+import { EditorsTable } from '../tables';
 import {
   behaviors, editors, Table,
 } from '../../src';
@@ -87,5 +88,9 @@ export default () => (
     <ReactSpecimen span={6}>
       <EditableTable />
     </ReactSpecimen>
+
+    <h2>Available Editors</h2>
+
+    <EditorsTable />
   </CustomPage>
 );
