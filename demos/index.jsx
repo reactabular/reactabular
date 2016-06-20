@@ -5,7 +5,7 @@ import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
 import {
   TableDocs, HeaderDocs, BodyDocs, StyleDocs, PaginateDocs, EditDocs,
-  SearchDocs, HighlightDocs,
+  SearchDocs, HighlightDocs, SortDocs,
 } from './docs';
 import './main.css';
 import './skylight.css';
@@ -53,6 +53,11 @@ Catalog.render({
           path: 'how-to/paginate',
           title: 'Paginate',
           component: PaginateDocs,
+        },
+        {
+          path: 'how-to/sort',
+          title: 'Sort',
+          component: SortDocs,
         },
         {
           path: 'how-to/edit',
