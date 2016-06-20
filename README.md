@@ -20,12 +20,12 @@ import { Table, editors } from 'reactabular';
 
 const data = [
   {
-    name: 'Foo',
-    id: 100
+    id: 100,
+    name: 'Foo'
   },
   {
-    name: 'Bar',
-    id: 101
+    id: 101,
+    name: 'Bar'
   }
 ];
 
