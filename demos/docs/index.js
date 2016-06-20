@@ -3,4 +3,3 @@ export { default as HeaderDocs } from './HeaderDocs';
 export { default as BodyDocs } from './BodyDocs';
 export { default as StyleDocs } from './StyleDocs';
 export { default as PaginateDocs } from './PaginateDocs';
-

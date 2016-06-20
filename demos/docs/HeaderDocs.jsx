@@ -1,6 +1,7 @@
 /* eslint-disable no-console, max-len */
 import React from 'react';
-import { Page, ReactSpecimen } from 'catalog';
+import { ReactSpecimen } from 'catalog';
+import { CustomPage } from '../components';
 import {
   Table,
 } from '../../src';
@@ -27,7 +28,7 @@ const columns = [
 ];
 
 export default () => (
-  <Page>
+  <CustomPage>
     <h2><code>Table.Header</code></h2>
 
     <p>
@@ -70,5 +71,5 @@ export default () => (
         <Table.Body rowKey="id" />
       </Table>
     </ReactSpecimen>
-  </Page>
+  </CustomPage>
 );

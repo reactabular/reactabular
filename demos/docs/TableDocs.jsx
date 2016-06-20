@@ -1,6 +1,7 @@
 /* eslint-disable max-len, react/prop-types */
 import React from 'react';
-import { Page, ReactSpecimen } from 'catalog';
+import { ReactSpecimen } from 'catalog';
+import { CustomPage } from '../components';
 import {
   Table,
 } from '../../src';
@@ -78,7 +79,7 @@ const customizedColumns = [
 ];
 
 export default () => (
-  <Page>
+  <CustomPage>
     <h2><code>Table</code></h2>
 
     <p>
@@ -158,5 +159,5 @@ export default () => (
         </tfoot>
       </Table>
     </ReactSpecimen>
-  </Page>
+  </CustomPage>
 );

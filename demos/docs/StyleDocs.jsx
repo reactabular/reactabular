@@ -1,6 +1,7 @@
 /* eslint-disable no-console, max-len, react/prop-types */
 import React from 'react';
-import { Page, ReactSpecimen } from 'catalog';
+import { ReactSpecimen } from 'catalog';
+import { CustomPage } from '../components';
 import {
   Table,
 } from '../../src';
@@ -25,7 +26,7 @@ const columns = [
 ];
 
 export default () => (
-  <Page>
+  <CustomPage>
     <p>
       Reactabular doesn't force you to style in any particular way. Instead, it provides enough flexibility for you to attach styling hooks to it as you see fit.
     </p>
@@ -50,5 +51,5 @@ export default () => (
         />
       </Table>
     </ReactSpecimen>
-  </Page>
+  </CustomPage>
 );

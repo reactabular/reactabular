@@ -1,5 +1,6 @@
 export { default as ColumnFilters } from './ColumnFilters';
 export { default as CustomFooter } from './CustomFooter';
+export { default as CustomPage } from './CustomPage';
 export { default as EditCell } from './EditCell';
 export { default as Modal } from './Modal';
 export { default as Paginator } from './Paginator';
