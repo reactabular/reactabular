@@ -16,7 +16,7 @@ const config = {
     dist: path.join(ROOT_PATH, 'dist'),
     src: path.join(ROOT_PATH, 'src'),
     ghPages: path.join(ROOT_PATH, 'gh-pages'),
-    demo: path.join(ROOT_PATH, 'demos'),
+    documentation: path.join(ROOT_PATH, 'docs'),
     test: path.join(ROOT_PATH, 'tests'),
   },
 };
@@ -24,7 +24,7 @@ const config = {
 process.env.BABEL_ENV = TARGET;
 
 const common = {
-  entry: config.paths.demo,
+  entry: config.paths.documentation,
   resolve: {
     extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg', '.json'],
   },
@@ -41,12 +41,12 @@ const common = {
       {
         test: /\.png$/,
         loaders: ['url?limit=100000&mimetype=image/png'],
-        include: config.paths.demo,
+        include: config.paths.documentation,
       },
       {
         test: /\.jpg$/,
         loaders: ['file'],
-        include: config.paths.demo,
+        include: config.paths.documentation,
       },
       {
         test: /\.jsx?$/,
@@ -84,7 +84,7 @@ const commonSite = {
 if (TARGET === 'start' || !TARGET) {
   module.exports = merge(common, commonSite, {
     devtool: 'eval-source-map',
-    entry: config.paths.demo,
+    entry: config.paths.documentation,
     devServer: {
       historyApiFallback: true,
       hot: true,
@@ -99,7 +99,7 @@ if (TARGET === 'start' || !TARGET) {
         {
           test: /\.jsx?$/,
           loaders: ['babel'],
-          include: config.paths.demo,
+          include: config.paths.documentation,
         },
         {
           test: /\.md$/,
@@ -113,7 +113,7 @@ if (TARGET === 'start' || !TARGET) {
 if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
   module.exports = merge(common, commonSite, {
     entry: {
-      app: config.paths.demo,
+      app: config.paths.documentation,
       vendors: [
         'react',
         'lodash',
@@ -147,7 +147,7 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
         {
           test: /\.jsx?$/,
           loaders: ['babel'],
-          include: config.paths.demo,
+          include: config.paths.documentation,
         },
         {
           test: /\.md$/,

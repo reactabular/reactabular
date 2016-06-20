@@ -14,6 +14,6 @@ npm start
 open http://localhost:8080
 ```
 
-Now edit `./demos`.
+Now edit `./docs`.
 
 There's also a TDD mode for testing. Run it through `npm run tdd` and develop while it's running.
