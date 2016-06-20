@@ -1,45 +1,3 @@
-body {
-    background: #fefefe;
-
-    font-family: Sans-Serif;
-
-    line-height: 1.5;
-}
-
-form label {
-    display: block;
-}
-
-header {
-    position: fixed;
-    padding: 0.5em;
-    top: 0;
-
-    text-align: center;
-
-    color: #333;
-    border: 0.1em solid #bbb;
-
-    background-image: url(./images/bgnoise_lg.png);
-}
-
-h1 {
-    margin: 0;
-}
-
-blockquote p {
-    padding: 1em;
-    background: rgba(255, 255, 0, 0.13);
-}
-
-header .description {
-    color: #888;
-}
-
-.highlight {
-    background: rgb(255, 255, 175);
-}
-
 .sticky {
     position: fixed;
     top: 0;
@@ -53,24 +11,6 @@ header .description {
     letter-spacing: 0.01em;
 }
 
-article {
-    display: block !important;
-
-    margin-top: 6em;
-    margin-left: auto;
-    margin-right: auto;
-
-    max-width: 768px;
-}
-
-article section {
-    margin-bottom: 2em;
-}
-
-article h2 {
-    margin-top: 2em;
-}
-
 .skylight-dialog {
     overflow: auto;
 }
@@ -78,36 +18,8 @@ article h2 {
     margin-top: 0;
 }
 
-textarea {
-    width: 100%;
-}
-
-pre {
-    background: #fafefe;
-    padding: 0.5em;
-}
-
-article .description {
-    margin: 1em;
-    padding: 1em;
-
-    max-width: 60em;
-
-    background: #fafafa;
-
-    border: 0.1em solid #eee;
-}
-
-article .description h2 {
-    margin: 0;
-}
-
 table {
     width: 100%;
-}
-
-.demonstration tfoot {
-    background: #fafafa;
 }
 
 .controls {
@@ -117,6 +29,9 @@ table {
     margin: 1em;
 
     float: left;
+}
+.per-page-container input {
+    margin-left: 1em;
 }
 .search-container {
     margin: 1em;
