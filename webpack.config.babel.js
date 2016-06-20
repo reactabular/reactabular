@@ -109,6 +109,8 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages') {
       app: config.paths.documentation,
       vendors: [
         'react',
+        'react-router',
+        'js-yaml',
         'lodash',
       ],
     },
