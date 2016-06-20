@@ -15,8 +15,17 @@ Catalog.render({
     {
       path: '/',
       title: 'Introduction',
-      src: '../README.md'
+      src: '../README.md',
     },
-    // Other pages …
+    {
+      path: '/contributing',
+      title: 'Contributing',
+      src: '../CONTRIBUTING.md',
+    },
+    {
+      path: '/contributors',
+      title: 'Contributors',
+      src: '../CONTRIBUTORS.md',
+    },
   ],
 }, document.getElementById('app'));
