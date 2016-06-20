@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import React from 'react';
 
@@ -56,13 +57,14 @@ Header.propTypes = {
 Header.contextTypes = {
   columns: React.PropTypes.array.isRequired,
 };
+Header.displayName = 'Table.Header';
 
 const Body = ({ row, rowKey, ...props }, { columns, data }) => (
   <tbody {...props}>{
     data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
       columns.map((column, j) => {
         const cell = column.cell;
-        const value = r[column.property];
+        const value = get(r, column.property);
         const cellData = data[i];
 
         return (
@@ -92,6 +94,7 @@ Body.contextTypes = {
   columns: React.PropTypes.array.isRequired,
   data: React.PropTypes.array.isRequired,
 };
+Body.displayName = 'Table.Body';
 
 Table.Header = Header;
 Table.Body = Body;

@@ -2,7 +2,7 @@ import React from 'react';
 import Fork from 'react-ghfork';
 
 import {
-  FullTable, EditorsTable, NestedTable, TreeTable,
+  FullTable, EditorsTable, TreeTable,
 } from './tables';
 
 import readme from '../README.md';
@@ -63,16 +63,6 @@ const App = () => (
         </div>
 
         <TreeTable />
-      </section>
-
-      <section>
-        <div className="description">
-          <h2>Nested table</h2>
-
-          <p>The table below contains some nested data.</p>
-        </div>
-
-        <NestedTable />
       </section>
 
       <section className="documentation">

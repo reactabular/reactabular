@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
 import React from 'react';
@@ -123,7 +124,7 @@ const searchColumn = (data, columns, column, query, options = {
 
 const isColumnVisible = (options, query, row, col) => {
   const property = col.property;
-  const value = row[property];
+  const value = get(row, property);
   const formatter = col.search || formatters.identity;
   let formattedValue = formatter(value);
 
