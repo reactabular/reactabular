@@ -3,6 +3,7 @@ import 'highlight.js/styles/github.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
 import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
+import { TableDocs, HeaderDocs, BodyDocs } from './docs';
 import './main.css';
 import './skylight.css';
 import '../style.css';
@@ -16,6 +17,26 @@ Catalog.render({
       path: '/',
       title: 'Introduction',
       src: '../README.md',
+    },
+    {
+      title: 'Components',
+      pages: [
+        {
+          path: 'table',
+          title: 'Table',
+          component: TableDocs
+        },
+        {
+          path: 'header',
+          title: 'Header',
+          component: HeaderDocs,
+        },
+        {
+          path: 'body',
+          title: 'Body',
+          component: BodyDocs,
+        },
+      ],
     },
     {
       path: '/contributing',
