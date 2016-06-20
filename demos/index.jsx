@@ -22,17 +22,17 @@ Catalog.render({
       title: 'Components',
       pages: [
         {
-          path: 'table',
+          path: 'components/table',
           title: 'Table',
-          component: TableDocs
+          component: TableDocs,
         },
         {
-          path: 'header',
+          path: 'components/header',
           title: 'Table.Header',
           component: HeaderDocs,
         },
         {
-          path: 'body',
+          path: 'components/body',
           title: 'Table.Body',
           component: BodyDocs,
         },
