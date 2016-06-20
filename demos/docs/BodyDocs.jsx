@@ -35,8 +35,6 @@ export default () => (
       <code>Table.Body</code> renders a table data within a <code>Table</code> context.
     </p>
 
-    <hr />
-
     <ReactSpecimen span={6}>
       <Table
         className="pure-table pure-table-striped"

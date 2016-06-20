@@ -34,8 +34,6 @@ export default () => (
       <code>Table.Header</code> renders a table header within a <code>Table</code> context.
     </p>
 
-    <hr />
-
     <ReactSpecimen span={6}>
       <Table
         className="pure-table pure-table-striped"
