@@ -3,7 +3,9 @@ import 'highlight.js/styles/github.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
 import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
-import { TableDocs, HeaderDocs, BodyDocs } from './docs';
+import {
+  TableDocs, HeaderDocs, BodyDocs, StyleDocs
+} from './docs';
 import './main.css';
 import './skylight.css';
 import '../style.css';
@@ -35,6 +37,16 @@ Catalog.render({
           path: 'components/body',
           title: 'Table.Body',
           component: BodyDocs,
+        },
+      ],
+    },
+    {
+      title: 'How to',
+      pages: [
+        {
+          path: 'how-to/style',
+          title: 'Style',
+          component: StyleDocs,
         },
       ],
     },
