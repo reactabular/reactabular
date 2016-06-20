@@ -64,6 +64,7 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
     data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
       columns.map((column, j) => {
         const cell = column.cell;
+        // TODO: give a warning if value is not found by `get`
         const value = get(r, column.property);
         const cellData = data[i];
 
