@@ -13,7 +13,9 @@ The chosen approach pushes a lot of complexity out of the core. As a result it m
 
 The following example illustrates the approach used by Reactabular:
 
-```jsx
+```code
+lang: jsx
+---
 import { Table, editors } from 'reactabular';
 
 const data = [
