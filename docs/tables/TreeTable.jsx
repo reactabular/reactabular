@@ -44,28 +44,36 @@ class TreeTable extends React.Component {
       ],
       columns: [
         {
-          property: 'name',
-          header: 'Name',
-          cell: ({ value, cellData }) => (
-            <span>
-              {!cellData.parent && <span
-                className={cellData.showChildren ? 'show-less' : 'show-more'}
-                onClick={e => {
-                  const data = this.state.data;
-                  const parentIndex = findIndex(data, { id: cellData.id });
+          header: {
+            value: 'Name',
+          },
+          cell: {
+            property: 'name',
+            value: (name, { cellData }) => (
+              <div>
+                {!cellData.parent && <span
+                  className={cellData.showChildren ? 'show-less' : 'show-more'}
+                  onClick={e => {
+                    const data = this.state.data;
+                    const parentIndex = findIndex(data, { id: cellData.id });
 
-                  data[parentIndex].showChildren = !cellData.showChildren;
+                    data[parentIndex].showChildren = !cellData.showChildren;
 
-                  this.setState({ data });
-                }}
-              />}
-              {value}
-            </span>
-          ),
+                    this.setState({ data });
+                  }}
+                />}
+                {name}
+              </div>
+            ),
+          },
         },
         {
-          property: 'age',
-          header: 'Age',
+          header: {
+            value: 'Age',
+          },
+          cell: {
+            property: 'age',
+          },
         },
       ],
     };

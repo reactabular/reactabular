@@ -88,12 +88,12 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
           props, // eslint-disable-line no-shadow
         } = column.cell;
         // TODO: give a warning if value is not found by `get`
-        const val = value(get(r, property));
         const extraParameters = {
           cellData: data[i],
           cellKey: data[i][rowKey],
           property,
         };
+        const val = value(get(r, property), extraParameters);
         const transformed = transform(extraParameters);
 
         return (

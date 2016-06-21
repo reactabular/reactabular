@@ -85,11 +85,11 @@ Catalog.render({
           title: 'All Features',
           component: FullExample,
         },
-        /*{
+        {
           path: 'examples/tree',
           title: 'Tree View',
           component: TreeExample,
-        },*/
+        },
       ],
     },
     {
