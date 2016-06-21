@@ -22,21 +22,49 @@ import { Table, editors } from 'reactabular';
 const data = [
   {
     id: 100,
-    name: 'Foo'
+    name: 'Foo',
+    active: true,
   },
   {
     id: 101,
-    name: 'Bar'
+    name: 'Bar',
+    active: false
   }
 ];
 
 const columns = [
   {
-    property: 'name',
-    header: 'Name',
-    // Optional cell customizer
-    cell: ({ value }) => <span>{value}</span>
-  }
+    header: {
+      value: 'Name',
+      transform: sortable('name'),
+      format: name => (
+        <div>
+          <input
+            type="checkbox"
+            onClick={() => console.log('clicked')}
+            style={{ width: '20px' }}
+          />
+          <span>{name}</span>
+        </div>
+      ),
+    },
+    cell: {
+      property: 'name',
+      transform: editable(editors.input()),
+      format: highlight('name'),
+    },
+  },
+  {
+    header: {
+      value: 'Active',
+      transform: sortable('active'),
+    },
+    cell: {
+      property: 'active',
+      transform: editable(editors.boolean()),
+      format: active => active && <span>&#10003;</span>,
+    },
+  },
 ];
 
 const DemoTable = () => (
