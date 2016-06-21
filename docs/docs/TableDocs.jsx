@@ -29,52 +29,71 @@ const data = [
 
 const simpleColumns = [
   {
-    property: 'name',
-    header: 'Name',
+    header: {
+      value: 'Name',
+    },
+    cell: {
+      property: 'name',
+    },
   },
   {
-    property: 'dad.name',
-    header: 'Dad',
-  },
-  {
-    property: 'lovesBeeGees',
-    header: 'Loves BeeGees',
-    cell: ({ value }) => (
-      <span>
-        {value ? 'Loves BeeGees' : 'Does not love BeeGees'}
-      </span>
-    ),
+    header: {
+      value: 'Dad',
+    },
+    cell: {
+      property: 'dad.name',
+    },
   },
 ];
 
 const nestedColumns = [
   {
-    property: 'name',
-    header: 'Name',
+    header: {
+      value: 'Name',
+    },
+    cell: {
+      property: 'name',
+    },
   },
   {
-    property: 'dad.name',
-    header: 'Dad',
+    header: {
+      value: 'Dad',
+    },
+    cell: {
+      property: 'dad.name',
+    },
   },
 ];
 
 const customizedColumns = [
   {
-    property: 'name',
-    header: 'Name',
+    header: {
+      value: 'Name',
+    },
+    cell: {
+      property: 'name',
+    },
   },
   {
-    property: 'dad.name',
-    header: 'Dad',
+    header: {
+      value: 'Dad',
+    },
+    cell: {
+      property: 'dad.name',
+    },
   },
   {
-    property: 'lovesBeeGees',
-    header: 'Loves BeeGees',
-    cell: ({ value }) => (
-      <span>
-        {value ? 'Loves BeeGees' : 'Does not love BeeGees'}
-      </span>
-    ),
+    header: {
+      value: 'Loves BeeGees',
+    },
+    cell: {
+      property: 'lovesBeeGees',
+      format: lovesBeeGees => (
+        <span>
+          {lovesBeeGees ? 'Loves BeeGees' : 'Does not love BeeGees'}
+        </span>
+      ),
+    },
   },
 ];
 
