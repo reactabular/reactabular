@@ -19,9 +19,15 @@ const data = [
 
 const columns = [
   {
-    property: 'name',
-    header: 'Name',
-    cell: ({ value }) => <span className="demo-cell">{value}</span>,
+    header: {
+      value: 'Name',
+    },
+    cell: {
+      property: 'name',
+      transform: () => ({
+        className: 'demo-cell',
+      }),
+    },
   },
 ];
 

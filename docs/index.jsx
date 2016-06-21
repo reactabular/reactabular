@@ -42,7 +42,7 @@ Catalog.render({
         },
       ],
     },
-    /*{
+    {
       title: 'How to',
       pages: [
         {
@@ -50,7 +50,7 @@ Catalog.render({
           title: 'Style',
           component: StyleDocs,
         },
-        {
+        /*{
           path: 'how-to/paginate',
           title: 'Paginate',
           component: PaginateDocs,
@@ -74,9 +74,9 @@ Catalog.render({
           path: 'how-to/highlight-search',
           title: 'Highlight Search Results',
           component: HighlightDocs,
-        },
+        },*/
       ],
-    },*/
+    },
     {
       title: 'Examples',
       pages: [
