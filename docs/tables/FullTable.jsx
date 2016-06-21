@@ -133,7 +133,7 @@ class FullTable extends React.Component {
           header: sortable('Country'),
           search: countryFormatter,
           cell: editable({
-            editor: editors.dropdown(countries),
+            editor: editors.dropdown({ options: countries }),
             formatter: v => highlighter('country')(countryFormatter(v)),
           }),
         },

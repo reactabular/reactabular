@@ -1,14 +1,18 @@
 import React from 'react';
 
-export default (options, fields = {
-  name: 'name',
-  value: 'value',
+export default ({
+  options,
+  fields = {
+    name: 'name',
+    value: 'value',
+  },
+  props,
 }) => {
   const Dropdown = ({ value, onValue }) => {
     const edit = ({ target: { value } }) => onValue(value); // eslint-disable-line max-len, no-shadow, react/prop-types
 
     return (
-      <select onBlur={edit} onChange={edit} value={value}>
+      <select onBlur={edit} onChange={edit} value={value} {...props}>
         {options.map((option, i) =>
           <option key={i} value={option[fields.value]}>
             {option[fields.name]}

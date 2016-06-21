@@ -22,7 +22,7 @@ describe('Dropdown', function () {
         name: 'Age',
       },
     ];
-    const Dropdown = dropdown(options);
+    const Dropdown = dropdown({ options });
     const result = TestUtils.renderIntoDocument(
       <Wrapper>
         <Dropdown value={'name'} onValue={() => {}} />
@@ -53,9 +53,12 @@ describe('Dropdown', function () {
         name: 'Age',
       },
     ];
-    const Dropdown = dropdown(options, {
-      name: 'value',
-      value: 'name',
+    const Dropdown = dropdown({
+      options,
+      fields: {
+        name: 'value',
+        value: 'name',
+      },
     });
     const result = TestUtils.renderIntoDocument(
       <Wrapper>
@@ -70,6 +73,31 @@ describe('Dropdown', function () {
     expect(renderedOptions.length).to.equal(options.length);
     expect(renderedOptions[0].text).to.equal(options[0].value);
     expect(renderedOptions[0].value).to.equal(options[0].name);
+  });
+
+  it('should accept custom props', function () {
+    const options = [
+      {
+        value: 'name',
+        name: 'Name',
+      },
+    ];
+    const testClassName = 'demo';
+    const Dropdown = dropdown({
+      options,
+      props: { className: testClassName },
+    });
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Dropdown value={'name'} onValue={() => {}} />
+      </Wrapper>
+    );
+
+    const renderedSelect = TestUtils.findRenderedDOMComponentWithTag(
+      result, 'select'
+    );
+
+    expect(renderedSelect.className).to.equal(testClassName);
   });
 });
 
