@@ -35,11 +35,11 @@ Catalog.render({
           title: 'Table.Header',
           component: HeaderDocs,
         },
-        /*{
+        {
           path: 'components/body',
           title: 'Table.Body',
           component: BodyDocs,
-        },*/
+        },
       ],
     },
     /*{

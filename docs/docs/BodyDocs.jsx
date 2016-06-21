@@ -23,8 +23,12 @@ const data = [
 
 const columns = [
   {
-    property: 'name',
-    header: 'Name',
+    header: {
+      value: 'Name',
+    },
+    cell: {
+      property: 'name',
+    },
   },
 ];
 
