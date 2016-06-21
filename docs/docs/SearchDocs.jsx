@@ -14,18 +14,42 @@ class SearchTable extends React.Component {
       search: {},
       columns: [
         {
-          property: 'name',
-          header: 'Name',
+          header: {
+            value: 'Name',
+          },
+          cell: {
+            property: 'name',
+          },
+        },
+        {
+          header: {
+            value: 'Age',
+          },
+          cell: {
+            property: 'age',
+          },
         },
       ],
       data: [
         {
           id: 100,
           name: 'Adam',
+          age: 12,
         },
         {
           id: 101,
           name: 'Brian',
+          age: 7,
+        },
+        {
+          id: 102,
+          name: 'Jake',
+          age: 88,
+        },
+        {
+          id: 103,
+          name: 'Jill',
+          age: 50,
         },
       ],
     };

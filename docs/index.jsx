@@ -65,12 +65,12 @@ Catalog.render({
           title: 'Edit',
           component: EditDocs,
         },
-        /*{
+        {
           path: 'how-to/search',
           title: 'Search',
           component: SearchDocs,
         },
-        {
+        /*{
           path: 'how-to/highlight-search',
           title: 'Highlight Search Results',
           component: HighlightDocs,
