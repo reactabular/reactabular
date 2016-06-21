@@ -4,7 +4,7 @@ import orderBy from 'lodash/orderBy';
 import { ReactSpecimen } from 'catalog';
 import { CustomPage } from '../components';
 import {
-  behaviors, sort, Table,
+  transforms, sort, Table,
 } from '../../src';
 
 const sorter = sort.byColumns; // sort.byColumn would work too
@@ -13,10 +13,10 @@ class SortTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const sortable = behaviors.sort.bind(
+    const sortable = transforms.sort.bind(
       null,
       {
-        // Point the behavior to your data. React state can work for this purpose
+        // Point the transform to your data. React state can work for this purpose
         // but you can use a state manager as well.
         getSortingColumns: () => this.state.sortingColumns || [],
 
@@ -79,7 +79,7 @@ export default () => (
     </p>
 
     <ol>
-      <li>Set up the sort behavior. Its purpose is to track when the user requests sorting and render possibly matching sorting condition as a class for styling.</li>
+      <li>Set up the sort transform. Its purpose is to track when the user requests sorting and render possibly matching sorting condition as a class for styling.</li>
       <li>Set up a sort helper. There are helpers for sorting per one column and one for sorting per multiple columns. The helpers handle managing sorting conditions and actual sorting. If you have a back-end, you can skip the latter.</li>
       <li>Sort the data before rendering.</li>
       <li>Feed the sorted data to a <code>Table</code>.</li>

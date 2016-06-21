@@ -5,14 +5,14 @@ import findIndex from 'lodash/findIndex';
 import { CustomPage } from '../components';
 import { EditorsTable } from '../tables';
 import {
-  behaviors, editors, Table,
+  transforms, editors, Table,
 } from '../../src';
 
 class EditableTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const editable = behaviors.edit.bind(
+    const editable = transforms.edit.bind(
       null,
       {
         // Get the edited property
@@ -78,7 +78,7 @@ class EditableTable extends React.Component {
 export default () => (
   <CustomPage>
     <p>
-      Reactabular supports inline editing through a behavior and specific <code>editors</code> that implement a small editing interface. The FullTable example illustrates how to achieve the same result using a modal.
+      Reactabular supports inline editing through a transform and specific <code>editors</code> that implement a small editing interface. The FullTable example illustrates how to achieve the same result using a modal.
     </p>
 
     <p>

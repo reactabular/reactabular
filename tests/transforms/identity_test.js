@@ -1,4 +1,4 @@
-import identity from '../../src/behaviors/identity.js';
+import identity from '../../src/transforms/identity.js';
 import { expect } from 'chai';
 
 describe('identity', function () {
