@@ -1,5 +1,5 @@
 node_modules/
 gh-pages/
 dist-modules/
-build/
+coverage/
 
