@@ -1,5 +1,4 @@
 import get from 'lodash/get';
-import isFunction from 'lodash/isFunction';
 import React from 'react';
 
 class Table extends React.Component {
