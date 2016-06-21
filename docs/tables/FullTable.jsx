@@ -148,7 +148,7 @@ class FullTable extends React.Component {
               editors.dropdown({ options: countries })
             ),
             format: highlight('country'),
-            value: country => find(countries, 'value', country).name,
+            resolve: country => find(countries, 'value', country).name,
           },
         },
         {

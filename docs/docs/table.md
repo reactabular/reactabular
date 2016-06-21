@@ -157,8 +157,8 @@ const customizedColumns = [
     cell: {
       property: 'country',
 
-      // Perform custom lookups through value
-      value: country => countries[country],
+      // Perform custom lookups through resolve
+      resolve: country => countries[country],
     },
   },
   {
@@ -198,7 +198,7 @@ const customizedColumns = [
 * `cell.property` - This should map to the property you want to extract from `data` and to show in the cell. This supports nested definitions so you can do `foo.bar.baz` and it will work.
 * `cell.transform` - Same idea as for `header.transform`.
 * `cell.format` - Same idea as for `header.format`.
-* `cell.value` - Sometimes you need to manipulate the data fetched from property somehow. For instance you might need to perform a lookup to map it to some other value. This is the place to do that. Search, etc. will pick this up.
+* `cell.resolve` - Sometimes you need to manipulate the data fetched from property somehow. For instance you might need to perform a lookup to `resolve` it to some other value. This is the place to do that. Search, etc. will pick this up.
 
 ## Customizing a `Table` Footer
 

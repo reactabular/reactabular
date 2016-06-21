@@ -29,6 +29,7 @@ Table.propTypes = {
         property: React.PropTypes.string,
         transform: React.PropTypes.any, // XXX
         format: React.PropTypes.func,
+        resolve: React.PropTypes.func,
         props: React.PropTypes.object,
       }),
     })
@@ -84,7 +85,7 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
           property,
           transform = a => a,
           format = a => a,
-          value = a => a,
+          resolve = a => a,
           props, // eslint-disable-line no-shadow
         } = column.cell;
         // TODO: give a warning if value is not found by `get`
@@ -93,7 +94,7 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
           cellKey: data[i][rowKey],
           property,
         };
-        const val = value(get(r, property), extraParameters);
+        const val = resolve(get(r, property), extraParameters);
         const transformed = transform(extraParameters);
 
         return (
