@@ -176,8 +176,11 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'active',
-            transform: editable(editors.boolean()),
-            format: active => active && <span>&#10003;</span>,
+            transform: (active, rest) => editable(
+              editors.boolean()
+            )(
+              active && <span>&#10003;</span>, rest
+            ),
           },
         },
         /*{

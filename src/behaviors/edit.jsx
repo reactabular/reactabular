@@ -23,9 +23,9 @@ export default function (
     }
 
     return (
-      <span onClick={() => onActivate(idx)}>
+      <div onClick={() => onActivate(idx)}>
         {value}
-      </span>
+      </div>
     );
   };
   Edit.propTypes = {
