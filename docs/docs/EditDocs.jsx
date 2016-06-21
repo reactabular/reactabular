@@ -41,13 +41,13 @@ class EditableTable extends React.Component {
       editedCell: null, // Track the edited cell somehow
       columns: [
         {
-          property: 'name',
-          header: 'Name',
-          cell: editable({
-            editor: editors.input(),
-            // You can pass a custom formatter here
-            // formatter: highlighter('name')
-          }),
+          header: {
+            value: 'Name',
+          },
+          cell: {
+            property: 'name',
+            transform: editable(editors.input()),
+          },
         },
       ],
       data: [

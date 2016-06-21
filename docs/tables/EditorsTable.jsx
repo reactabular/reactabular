@@ -52,24 +52,40 @@ const data = [
 
 const columns = [
   {
-    property: 'name',
-    header: 'Name',
+    header: {
+      value: 'Name',
+    },
+    cell: {
+      property: 'name',
+    },
   },
   {
-    property: 'editor',
-    header: 'Editor',
-    cell: ({ value }) => React.createElement(value, {
-      value: '',
-      onValue: v => console.log(v),
-    }),
+    header: {
+      value: 'Editor',
+    },
+    cell: {
+      property: 'editor',
+      format: value => React.createElement(value, {
+        value: '',
+        onValue: v => console.log(v),
+      }),
+    },
   },
   {
-    property: 'code',
-    header: 'Code',
+    header: {
+      value: 'Code',
+    },
+    cell: {
+      property: 'code',
+    },
   },
   {
-    property: 'description',
-    header: 'Description',
+    header: {
+      value: 'Description',
+    },
+    cell: {
+      property: 'description',
+    },
   },
 ];
 

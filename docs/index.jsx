@@ -60,12 +60,12 @@ Catalog.render({
           title: 'Sort',
           component: SortDocs,
         },
-        /*{
+        {
           path: 'how-to/edit',
           title: 'Edit',
           component: EditDocs,
         },
-        {
+        /*{
           path: 'how-to/search',
           title: 'Search',
           component: SearchDocs,
