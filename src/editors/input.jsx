@@ -12,17 +12,16 @@ export default (attrs = {}) => {
       this.onFocus = this.onFocus.bind(this);
       this.onChange = this.onChange.bind(this);
       this.onKeyUp = this.onKeyUp.bind(this);
-      this.done = this.done.bind(this);
+      this.onBlur = this.onBlur.bind(this);
     }
     render() {
       return (
         <input
-          ref="input"
           value={this.state.value}
           onFocus={this.onFocus}
           onChange={this.onChange}
           onKeyUp={this.onKeyUp}
-          onBlur={this.done}
+          onBlur={this.onBlur}
           {...attrs}
         />
       );
@@ -36,13 +35,13 @@ export default (attrs = {}) => {
     onChange({ target: { value } }) {
       this.setState({ value });
     }
-    onKeyUp({ keyCode }) {
+    onKeyUp({ target: { value }, keyCode }) {
       if (keyCode === 13) {
-        this.done();
+        this.props.onValue(value);
       }
     }
-    done() {
-      this.props.onValue(this.refs.input.value);
+    onBlur({ target: { value } }) {
+      this.props.onValue(value);
     }
   }
   Input.propTypes = {
