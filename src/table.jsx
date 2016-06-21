@@ -23,13 +23,13 @@ Table.propTypes = {
       header: React.PropTypes.shape({
         value: React.PropTypes.string,
         transform: React.PropTypes.any, // XXX
-        format: React.PropTypes.any, // XXX
+        format: React.PropTypes.func,
         props: React.PropTypes.object,
       }),
       cell: React.PropTypes.shape({
         property: React.PropTypes.string,
         transform: React.PropTypes.any, // XXX
-        format: React.PropTypes.any, // XXX
+        format: React.PropTypes.func,
         props: React.PropTypes.object,
       }),
     })

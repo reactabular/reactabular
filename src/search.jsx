@@ -104,6 +104,20 @@ const getOptions = (columns, i18n) => (
   ))
 );
 
+const search = (data, columns, query, options) => {
+  if (!query) {
+    return data;
+  }
+
+  return Object.keys(query).reduce(
+    (filteredData, column) =>
+      searchColumn(
+        filteredData, columns, column, query[column], options
+      ),
+    data
+  );
+};
+
 const searchColumn = (data, columns, column, query, options = {
   strategy: predicates.infix,
   transform: formatters.lowercase,
@@ -114,7 +128,7 @@ const searchColumn = (data, columns, column, query, options = {
   let ret = columns;
 
   if (column !== 'all') {
-    ret = columns.filter(col => col.property === column);
+    ret = columns.filter(col => col.cell && col.cell.property === column);
   }
 
   return data.filter(row =>
@@ -123,9 +137,9 @@ const searchColumn = (data, columns, column, query, options = {
 };
 
 const isColumnVisible = (options, query, row, col) => {
-  const property = col.property;
+  const property = col.cell.property;
   const value = get(row, property);
-  const formatter = col.search || formatters.identity;
+  const formatter = (col.cell && col.cell.format) || formatters.identity;
   let formattedValue = formatter(value);
 
   if (!formattedValue && isNaN(formattedValue)) {
@@ -142,20 +156,6 @@ const isColumnVisible = (options, query, row, col) => {
     options.transform(query)
   ).evaluate(
     options.transform(formattedValue)
-  );
-};
-
-const search = (data, columns, query, options) => {
-  if (!query) {
-    return data;
-  }
-
-  return Object.keys(query).reduce(
-    (filteredData, column) =>
-      searchColumn(
-        filteredData, columns, column, query[column], options
-      ),
-    data
   );
 };
 

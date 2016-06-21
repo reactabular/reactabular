@@ -101,8 +101,7 @@ class FullTable extends React.Component {
         {
           header: {
             value: 'Name',
-            transform: sortable('name'),
-            format: name => (
+            transform: name => sortable('name')(
               <div>
                 <input
                   type="checkbox"
@@ -115,8 +114,11 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'name',
-            transform: editable(editors.input()),
-            format: highlight('name'),
+            transform: (name, rest) => editable(
+              editors.input()
+            )(
+              highlight('name')(name), rest
+            ),
           },
         },
         {
@@ -135,7 +137,7 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'boss.name',
-            format: highlight('boss.name'),
+            transform: highlight('boss.name'),
           },
         },
         {
@@ -145,8 +147,12 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'country',
-            transform: editable(editors.dropdown({ options: countries })),
-            format: country => highlight('country')(find(countries, 'value', country).name),
+            transform: (country, rest) => editable(
+              editors.dropdown({ options: countries })
+            )(
+              highlight('country')(country), rest
+            ),
+            format: country => find(countries, 'value', country).name,
           },
         },
         {
@@ -156,7 +162,7 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'salary',
-            format: salary => (
+            transform: salary => (
               <span onDoubleClick={() => alert(`salary is ${salary}`)}>
                 {highlight('salary')(salary)}
               </span>
