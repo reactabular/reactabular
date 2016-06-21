@@ -5,21 +5,15 @@ export default (attrs = {}) => {
     constructor(props) {
       super(props);
 
-      this.state = {
-        value: props.value,
-      };
-
       this.onFocus = this.onFocus.bind(this);
-      this.onChange = this.onChange.bind(this);
       this.onKeyUp = this.onKeyUp.bind(this);
       this.onBlur = this.onBlur.bind(this);
     }
     render() {
       return (
         <input
-          value={this.state.value}
+          defaultValue={this.props.value}
           onFocus={this.onFocus}
-          onChange={this.onChange}
           onKeyUp={this.onKeyUp}
           onBlur={this.onBlur}
           {...attrs}
@@ -31,9 +25,6 @@ export default (attrs = {}) => {
 
       target.selectionStart = length; // eslint-disable-line no-param-reassign
       target.selectionEnd = length; // eslint-disable-line no-param-reassign
-    }
-    onChange({ target: { value } }) {
-      this.setState({ value });
     }
     onKeyUp({ target: { value }, keyCode }) {
       if (keyCode === 13) {
