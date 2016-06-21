@@ -1,4 +1,4 @@
-import prefix from '../../src/predicates/prefix.js';
+import prefix from '../../src/predicates/prefix';
 import { expect } from 'chai';
 
 describe('prefix', function () {

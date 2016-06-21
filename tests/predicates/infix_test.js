@@ -1,4 +1,4 @@
-import infix from '../../src/predicates/infix.js';
+import infix from '../../src/predicates/infix';
 import { expect } from 'chai';
 
 describe('infix', function () {
