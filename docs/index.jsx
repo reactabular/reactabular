@@ -30,12 +30,12 @@ Catalog.render({
           title: 'Table',
           component: TableDocs,
         },
-        /*{
+        {
           path: 'components/header',
           title: 'Table.Header',
           component: HeaderDocs,
         },
-        {
+        /*{
           path: 'components/body',
           title: 'Table.Body',
           component: BodyDocs,
