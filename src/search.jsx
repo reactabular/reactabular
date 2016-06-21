@@ -91,10 +91,12 @@ const getOptions = (columns, i18n) => (
     value: 'all',
     name: i18n.all,
   }].concat(columns.map(column => {
-    if (column.property && column.header) {
+    if (
+      (column.cell && column.cell.property) &&
+      (column.header && column.header.value)) {
       return {
-        value: column.property,
-        name: column.header,
+        value: column.cell.property,
+        name: column.header.value,
       };
     }
 
