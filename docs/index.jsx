@@ -50,12 +50,12 @@ Catalog.render({
           title: 'Style',
           component: StyleDocs,
         },
-        /*{
+        {
           path: 'how-to/paginate',
           title: 'Paginate',
           component: PaginateDocs,
         },
-        {
+        /*{
           path: 'how-to/sort',
           title: 'Sort',
           component: SortDocs,
