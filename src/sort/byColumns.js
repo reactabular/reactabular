@@ -12,10 +12,16 @@ const byColumns = (sortingColumns, selectedColumn) => {
   } else if (index >= 0) {
     newSortingColumns = sortingColumns;
 
-    newSortingColumns[index] = {
-      property: selectedColumn,
-      sort: cycleSort(newSortingColumns[index].sort),
-    };
+    const newSort = cycleSort(newSortingColumns[index].sort);
+
+    if (newSort) {
+      newSortingColumns[index] = {
+        property: selectedColumn,
+        sort: newSort,
+      };
+    } else {
+      newSortingColumns.splice(index, 1);
+    }
 
     return newSortingColumns;
   }
@@ -33,7 +39,7 @@ function cycleSort(sort) {
     return 'desc';
   }
 
-  return '';
+  return null;
 }
 
 // sorter === lodash orderBy
