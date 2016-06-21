@@ -1,7 +1,9 @@
 import orderBy from 'lodash/orderBy';
 import reverse from 'lodash/reverse';
 import { expect } from 'chai';
-import byColumn from '../../src/sort/byColumn';
+import { sort } from '../src';
+
+const { byColumns, byColumn, sorter } = sort;
 
 describe('byColumn', function () {
   it('sorts ascending by default', function () {
@@ -52,6 +54,20 @@ describe('byColumn', function () {
     expect(result).to.deep.equal(expected);
   });
 
+
+  it('removes sorting if descending the same first', function () {
+    const selectedColumn = 'test';
+    const sortingColumns = [{
+      property: selectedColumn,
+      sort: 'desc',
+    }];
+
+    const expected = [];
+    const result = byColumn(sortingColumns, selectedColumn);
+
+    expect(result).to.deep.equal(expected);
+  });
+
   it('sorts ascending if ascending another one first', function () {
     const selectedColumn = 'test';
     const sortingColumns = [{
@@ -71,7 +87,88 @@ describe('byColumn', function () {
   });
 });
 
-describe('byColumn.sort', function () {
+describe('byColumns', function () {
+  it('sorts ascending by default', function () {
+    const sortingColumns = null;
+    const selectedColumn = 'test';
+
+    const expected = [
+      {
+        property: selectedColumn,
+        sort: 'asc',
+      },
+    ];
+    const result = byColumns(sortingColumns, selectedColumn);
+
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('sorts ascending by default with an empty array', function () {
+    const sortingColumns = [];
+    const selectedColumn = 'test';
+
+    const expected = [
+      {
+        property: selectedColumn,
+        sort: 'asc',
+      },
+    ];
+    const result = byColumns(sortingColumns, selectedColumn);
+
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('sorts descending if ascending the same first', function () {
+    const selectedColumn = 'test';
+    const sortingColumns = [{
+      property: selectedColumn,
+      sort: 'asc',
+    }];
+
+    const expected = [
+      {
+        property: selectedColumn,
+        sort: 'desc',
+      },
+    ];
+    const result = byColumns(sortingColumns, selectedColumn);
+
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('removes sorting if descending the same first', function () {
+    const selectedColumn = 'test';
+    const sortingColumns = [{
+      property: selectedColumn,
+      sort: 'desc',
+    }];
+
+    const expected = [];
+    const result = byColumns(sortingColumns, selectedColumn);
+
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('sorts ascending if ascending another one first', function () {
+    const selectedColumn = 'test';
+    const sortingColumns = [{
+      property: 'another',
+      sort: 'asc',
+    }];
+
+    const expected = sortingColumns.concat([
+      {
+        property: selectedColumn,
+        sort: 'asc',
+      },
+    ]);
+    const result = byColumns(sortingColumns, selectedColumn);
+
+    expect(result).to.deep.equal(expected);
+  });
+});
+
+describe('sorter', function () {
   it('sorts ascending', function () {
     const data = [
       {
@@ -86,7 +183,7 @@ describe('byColumn.sort', function () {
       sort: 'asc',
     }];
 
-    const result = byColumn.sort(data, sortingColumns, orderBy);
+    const result = sorter(data, sortingColumns, orderBy);
 
     expect(result).to.deep.equal(data);
   });
@@ -105,7 +202,7 @@ describe('byColumn.sort', function () {
       sort: 'desc',
     }];
 
-    const result = byColumn.sort(data, sortingColumns, orderBy);
+    const result = sorter(data, sortingColumns, orderBy);
 
     expect(result).to.deep.equal(reverse(data));
   });
@@ -119,7 +216,7 @@ describe('byColumn.sort', function () {
         test: 'def',
       },
     ];
-    const result = byColumn.sort(data, null, orderBy);
+    const result = sorter(data, null, orderBy);
 
     expect(result).to.deep.equal(data);
   });
@@ -133,7 +230,7 @@ describe('byColumn.sort', function () {
         test: 'def',
       },
     ];
-    const result = byColumn.sort(data, [], orderBy);
+    const result = sorter(data, [], orderBy);
 
     expect(result).to.deep.equal(data);
   });

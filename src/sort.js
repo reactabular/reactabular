@@ -1,3 +1,25 @@
+const byColumn = (sortingColumns, selectedColumn) => {
+  const sortingColumn = sortingColumns && sortingColumns.length ?
+    sortingColumns[0] :
+    {};
+  let sort = 'asc';
+
+  if (sortingColumn.property === selectedColumn) {
+    sort = cycleSort(sortingColumn.sort);
+
+    if (!sort) {
+      return [];
+    }
+  }
+
+  return [
+    {
+      property: selectedColumn,
+      sort,
+    },
+  ];
+};
+
 const byColumns = (sortingColumns, selectedColumn) => {
   const index = sortingColumns && sortingColumns.map(
     c => c.property
@@ -44,7 +66,7 @@ function cycleSort(sort) {
 
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy
-byColumns.sort = (data, columns, sorter) => {
+const sorter = (data, columns, sort) => {
   if (!columns) {
     return data;
   }
@@ -57,7 +79,11 @@ byColumns.sort = (data, columns, sorter) => {
     orderList.push(column.sort);
   });
 
-  return sorter(data, propertyList, orderList);
+  return sort(data, propertyList, orderList);
 };
 
-export default byColumns;
+export default {
+  byColumn,
+  byColumns,
+  sorter,
+};
