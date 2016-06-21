@@ -82,7 +82,7 @@ const commonSite = {
   ],
 };
 
-if (TARGET === 'start' || !TARGET) {
+if (TARGET === 'start') {
   module.exports = merge(common, commonSite, {
     devtool: 'eval-source-map',
     entry: config.paths.documentation,
@@ -206,7 +206,7 @@ if (TARGET === 'dist-min') {
   });
 }
 
-if (TARGET === 'test' || TARGET === 'tdd') {
+if (TARGET === 'test' || TARGET === 'tdd' || !TARGET) {
   module.exports = merge(common, {
     entry: {}, // karma will set this
     output: {}, // karma will set this
