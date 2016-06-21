@@ -52,10 +52,12 @@ const Header = ({ children, ...props }, { columns }) => (
         const extraParameters = {
           cellKey: key,
         };
+        const transformed = transform(extraParameters);
 
+        // XXX: make sure that classNames get merged instead of overriding!
         return (
-          <th key={key} {...props}>
-            {transform(format(value, extraParameters), extraParameters)}
+          <th key={key} {...{ ...props, ...transformed }}>
+            {transformed.children ? transformed.children : format(value, extraParameters)}
           </th>
         );
       })}
@@ -76,19 +78,24 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
     data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
       columns.map((column, j) => {
         const {
-          property, transform = a => a, format = a => a, props, // eslint-disable-line no-shadow
+          property,
+          transform = a => a,
+          format = a => a,
+          value = a => a,
+          props, // eslint-disable-line no-shadow
         } = column.cell;
         // TODO: give a warning if value is not found by `get`
-        const value = get(r, property);
+        const val = value(get(r, property));
         const extraParameters = {
           cellData: data[i],
           cellKey: data[i][rowKey],
           property,
         };
+        const transformed = transform(extraParameters);
 
         return (
-          <td key={`${j}-cell`} {...props}>
-            {transform(format(value, extraParameters), extraParameters)}
+          <td key={`${j}-cell`} {...{ ...props, ...transformed }}>
+            {transformed.children ? transformed.children : format(val, extraParameters)}
           </td>
         );
       })

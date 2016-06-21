@@ -101,7 +101,8 @@ class FullTable extends React.Component {
         {
           header: {
             value: 'Name',
-            transform: name => sortable('name')(
+            transform: sortable('name'),
+            format: name => (
               <div>
                 <input
                   type="checkbox"
@@ -114,11 +115,8 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'name',
-            transform: (name, rest) => editable(
-              editors.input()
-            )(
-              highlight('name')(name), rest
-            ),
+            transform: editable(editors.input()),
+            format: highlight('name'),
           },
         },
         {
@@ -137,7 +135,7 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'boss.name',
-            transform: highlight('boss.name'),
+            format: highlight('boss.name'),
           },
         },
         {
@@ -147,12 +145,11 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'country',
-            transform: (country, rest) => editable(
+            transform: editable(
               editors.dropdown({ options: countries })
-            )(
-              highlight('country')(country), rest
             ),
-            format: country => find(countries, 'value', country).name,
+            format: highlight('country'),
+            value: country => find(countries, 'value', country).name,
           },
         },
         {
@@ -162,7 +159,7 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'salary',
-            transform: salary => (
+            format: salary => (
               <span onDoubleClick={() => alert(`salary is ${salary}`)}>
                 {highlight('salary')(salary)}
               </span>
@@ -176,11 +173,8 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'active',
-            transform: (active, rest) => editable(
-              editors.boolean()
-            )(
-              active && <span>&#10003;</span>, rest
-            ),
+            transform: editable(editors.boolean()),
+            format: active => active && <span>&#10003;</span>,
           },
         },
         /*{

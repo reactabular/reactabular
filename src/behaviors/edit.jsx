@@ -8,25 +8,25 @@ export default function (
   },
   editor
 ) {
-  const Edit = (value, { cellData, property, cellKey }) => {
+  const Edit = ({ cellData, property, cellKey }) => {
     const idx = `${cellKey}-${property}`;
     const editedCell = getEditProperty();
 
     if (editedCell === idx) {
-      return React.createElement(
-        editor,
-        {
-          value: cellData[property],
-          onValue: v => onValue(v, cellData, property),
-        }
-      );
+      return {
+        children: React.createElement(
+          editor,
+          {
+            value: cellData[property],
+            onValue: v => onValue(v, cellData, property),
+          }
+        ),
+      };
     }
 
-    return (
-      <div onClick={() => onActivate(idx)}>
-        {value}
-      </div>
-    );
+    return {
+      onClick: () => onActivate(idx),
+    };
   };
   Edit.propTypes = {
     value: React.PropTypes.any,

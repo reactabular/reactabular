@@ -139,7 +139,7 @@ const searchColumn = (data, columns, column, query, options = {
 const isColumnVisible = (options, query, row, col) => {
   const property = col.cell.property;
   const value = get(row, property);
-  const formatter = (col.cell && col.cell.format) || formatters.identity;
+  const formatter = (col.cell && col.cell.value) || formatters.identity;
   let formattedValue = formatter(value);
 
   if (!formattedValue && isNaN(formattedValue)) {

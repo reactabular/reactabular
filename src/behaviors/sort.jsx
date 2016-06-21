@@ -7,7 +7,7 @@ export default function (
   },
   property
 ) {
-  const Sort = value => {
+  const Sort = () => {
     const columns = getSortingColumns();
     const index = columns.map(c => c.property).indexOf(property);
     let headerClass = '';
@@ -16,14 +16,10 @@ export default function (
       headerClass = `sort-${columns[index].sort}`;
     }
 
-    return (
-      <div
-        className={headerClass}
-        onClick={() => onSort(property)}
-      >
-        {value}
-      </div>
-    );
+    return {
+      className: headerClass,
+      onClick: () => onSort(property),
+    };
   };
   Sort.propTypes = {
     property: React.PropTypes.string.isRequired,
