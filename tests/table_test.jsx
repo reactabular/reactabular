@@ -37,7 +37,6 @@ describe('Table', function () {
         <Table.Header />
       </Table>
     );
-
     const ths = TestUtils.scryRenderedDOMComponentsWithTag(
       table, 'th'
     );
@@ -82,7 +81,6 @@ describe('Table', function () {
         <Table.Body rowKey="id" />
       </Table>
     );
-
     const trs = TestUtils.scryRenderedDOMComponentsWithTag(
       table, 'tr'
     );
@@ -132,8 +130,8 @@ describe('Table', function () {
         <Table.Body rowKey="id" />
       </Table>
     );
-
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
+
     expect(tds.length).to.equal(columns.length);
     expect(tds[0].innerHTML).to.equal('basic');
     expect(tds[1].innerHTML).to.equal('ident');
@@ -221,8 +219,8 @@ describe('Table', function () {
         </tfoot>
       </Table>
     );
-
     const tfoot = TestUtils.findRenderedDOMComponentWithTag(table, 'tfoot');
+
     expect(tfoot).to.exist;
   });
 });
