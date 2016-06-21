@@ -10,7 +10,7 @@ class HighlightTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const highlighter = column => formatters.highlight(value => {
+    const highlight = column => formatters.highlight(value => {
       const { search } = this.state;
 
       return Search.matches(
@@ -24,19 +24,44 @@ class HighlightTable extends React.Component {
       search: {},
       columns: [
         {
-          property: 'name',
-          header: 'Name',
-          cell: ({ value }) => highlighter('name')(value),
+          header: {
+            value: 'Name',
+          },
+          cell: {
+            property: 'name',
+            format: highlight('name'),
+          },
+        },
+        {
+          header: {
+            value: 'Age',
+          },
+          cell: {
+            property: 'age',
+            format: highlight('name'),
+          },
         },
       ],
       data: [
         {
           id: 100,
           name: 'Adam',
+          age: 12,
         },
         {
           id: 101,
           name: 'Brian',
+          age: 7,
+        },
+        {
+          id: 102,
+          name: 'Jake',
+          age: 88,
+        },
+        {
+          id: 103,
+          name: 'Jill',
+          age: 50,
         },
       ],
     };
