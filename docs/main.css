@@ -65,3 +65,7 @@ table {
     content: "\25BE";
     font-size: small;
 }
+
+.highlight {
+    background: rgb(255, 255, 175);
+}
