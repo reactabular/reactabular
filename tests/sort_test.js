@@ -234,4 +234,84 @@ describe('sorter', function () {
 
     expect(result).to.deep.equal(data);
   });
+
+  it('sorts case-insensitively', function () {
+    const data = [
+      {
+        test: 'crep',
+      },
+      {
+        test: 'Bllop',
+      },
+      {
+        test: 'Dart',
+      },
+    ];
+    const expected = [
+      {
+        test: 'Bllop',
+      },
+      {
+        test: 'crep',
+      },
+      {
+        test: 'Dart',
+      },
+    ];
+    const sortingColumns = [{
+      property: 'test',
+      sort: 'asc',
+    }];
+    const result = sorter(data, sortingColumns, orderBy);
+
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('sorts numbers', function () {
+    const data = [
+      {
+        test: 1,
+      },
+      {
+        test: 2,
+      },
+      {
+        test: 3,
+      },
+    ];
+    const sortingColumns = [{
+      property: 'test',
+      sort: 'asc',
+    }];
+    const result = sorter(data, sortingColumns, orderBy);
+
+    expect(result).to.deep.equal(data);
+  });
+
+  it('sorts objects', function () {
+    const data = [
+      {
+        test: {
+          foo: 'bar',
+        },
+      },
+      {
+        test: {
+          foo: 'foo',
+        },
+      },
+      {
+        test: {
+          foo: 'zoo',
+        },
+      },
+    ];
+    const sortingColumns = [{
+      property: 'test.foo',
+      sort: 'asc',
+    }];
+    const result = sorter(data, sortingColumns, orderBy);
+
+    expect(result).to.deep.equal(data);
+  });
 });

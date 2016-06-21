@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 const byColumn = (sortingColumns, selectedColumn) => {
   const sortingColumn = sortingColumns && sortingColumns.length ?
     sortingColumns[0] :
@@ -75,7 +77,15 @@ const sorter = (data, columns, sort) => {
   const orderList = [];
 
   columns.forEach((column) => {
-    propertyList.push(column.property);
+    propertyList.push(row => {
+      const value = get(row, column.property);
+
+      if (value.toLowerCase) {
+        return value.toLowerCase();
+      }
+
+      return value;
+    });
     orderList.push(column.sort);
   });
 
