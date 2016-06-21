@@ -23,6 +23,58 @@ describe('Input', function () {
     expect(renderedInput.value).to.equal(testValue);
   });
 
+  it('should trigger onValue onBlur', function () {
+    let changedValue = false;
+    const Input = input();
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Input
+          value="name"
+          onValue={function () {
+            changedValue = true;
+          }}
+        />
+      </Wrapper>
+    );
+
+    const renderedInput = TestUtils.findRenderedDOMComponentWithTag(
+      result, 'input'
+    );
+    renderedInput.value = 'foobar';
+
+    TestUtils.Simulate.blur(renderedInput);
+
+    expect(changedValue).to.equal(true);
+  });
+
+  it('should trigger onValue onEnter', function () {
+    let changedValue = false;
+    const Input = input();
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Input
+          value="name"
+          onValue={function () {
+            changedValue = true;
+          }}
+        />
+      </Wrapper>
+    );
+
+    const renderedInput = TestUtils.findRenderedDOMComponentWithTag(
+      result, 'input'
+    );
+    renderedInput.value = 'foobar';
+
+    TestUtils.Simulate.keyUp(renderedInput, {
+      key: 'Enter',
+      keyCode: 13,
+      which: 13,
+    });
+
+    expect(changedValue).to.equal(true);
+  });
+
   it('should accept custom props', function () {
     const testClassName = 'demo';
     const Input = input({
