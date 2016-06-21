@@ -3,8 +3,10 @@ import 'purecss/build/pure.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
 import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
+import * as reactabular from '../src';
+import * as dataDefinitions from './data/definitions';
 import {
-  TableDocs, HeaderDocs, BodyDocs, StyleDocs, PaginateDocs, EditDocs,
+  HeaderDocs, BodyDocs, StyleDocs, PaginateDocs, EditDocs,
   SearchDocs, HighlightDocs, SortDocs,
 } from './docs';
 import {
@@ -28,7 +30,11 @@ Catalog.render({
         {
           path: 'components/table',
           title: 'Table',
-          component: TableDocs,
+          imports: {
+            ...reactabular,
+            ...dataDefinitions,
+          },
+          component: require('catalog/lib/loader!raw!./docs/table.md'),
         },
         {
           path: 'components/header',
