@@ -46,8 +46,11 @@ const Header = ({ children, ...props }, { columns }) => (
     <tr>
       {columns.map((column, i) => {
         const {
-          value, transform = a => a, format = a => a, props, // eslint-disable-line no-shadow
-        } = column.header;
+          value,
+          transform = a => a,
+          format = a => a,
+          props, // eslint-disable-line no-shadow
+        } = column.header || {};
         const key = `${i}-header`;
         const extraParameters = {
           cellKey: key,

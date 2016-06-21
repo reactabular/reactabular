@@ -5,4 +5,5 @@ export { default as EditCell } from './EditCell';
 export { default as Modal } from './Modal';
 export { default as Paginator } from './Paginator';
 export { default as PerPage } from './PerPage';
+export { default as rowEditor } from './rowEditor';
 export { default as PrimaryControls } from './PrimaryControls';

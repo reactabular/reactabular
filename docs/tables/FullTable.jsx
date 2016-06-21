@@ -1,6 +1,5 @@
 /* eslint-disable no-console, no-alert, no-shadow */
 import React from 'react';
-
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
@@ -9,7 +8,7 @@ import {
 } from '../../src';
 
 import {
-  CustomFooter, ColumnFilters, EditCell, Modal, Paginator, PrimaryControls,
+  CustomFooter, ColumnFilters, rowEditor, Paginator, PrimaryControls,
 } from '../components';
 import countries from '../data/countries';
 import {
@@ -177,31 +176,31 @@ class FullTable extends React.Component {
             format: active => active && <span>&#10003;</span>,
           },
         },
-        /*{
+        {
           cell: {
-            format: rowEditor
+            transform: rowEditor({
+              properties,
+              onConfirm: (id, data) => this.onConfirmEdit(id, data),
+              onRemove: id => this.onRemove(id),
+            }),
           },
-        },*/
+        },
       ],
-      modal: {
-        show: false,
-        title: 'title',
-        content: 'content',
-      },
       pagination: {
         page: 1,
         perPage: 10,
       },
     };
 
-    this.onModalClose = this.onModalClose.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onPerPage = this.onPerPage.bind(this);
+    this.onConfirmEdit = this.onConfirmEdit.bind(this);
+    this.onRemove = this.onRemove.bind(this);
   }
   render() {
     const {
-      columns, data, modal, pagination, sortingColumns, search,
+      columns, data, pagination, sortingColumns, search,
     } = this.state;
     let d = Search.search(data, columns, search);
 
@@ -246,22 +245,8 @@ class FullTable extends React.Component {
         <div className="controls">
           <Paginator pagination={pagination} pages={pages} onSelect={this.onSelect} />
         </div>
-
-        <Modal show={modal.show} title={modal.title} onCloseClicked={this.onModalClose}>
-          {modal.content}
-        </Modal>
       </div>
     );
-  }
-  onModalClose() {
-    this.setState({
-      modal: {
-        ...this.state.modal,
-        ...{
-          show: false,
-        },
-      },
-    });
   }
   onSearch(search) {
     this.setState({
@@ -289,67 +274,25 @@ class FullTable extends React.Component {
       },
     });
   }
-}
+  onConfirmEdit(id, data) {
+    const idx = findIndex(this.state.data, { id });
 
-/*
-({ cellData }) => {
-  const edit = () => {
-    this.setState({
-      modal: {
-        show: true,
-        title: 'Edit',
-        content: <EditCell
-          onSubmit={(formData) => {
-            this.state.data[cellData.id] = formData;
-
-            this.setState({
-              modal: { ...this.state.modal, show: false },
-              data: this.state.data,
-            });
-          }}
-          onCancel={() => {
-            this.setState({
-              modal: {
-                ...this.state.modal,
-                ...{
-                  show: false,
-                },
-              },
-            });
-          }}
-          formData={cellData}
-          properties={properties}
-        />,
-      },
-    });
-  };
-
-  const remove = () => {
-    // this could go through flux etc.
-    this.state.data.splice(cellData.id, 1);
+    this.state.data[idx] = data;
 
     this.setState({
       data: this.state.data,
     });
-  };
+  }
+  onRemove(id) {
+    const idx = findIndex(this.state.data, { id });
 
-  return (
-    <div>
-      <span
-        className="edit"
-        onClick={() => edit()} style={{ cursor: 'pointer' }}
-      >
-        &#8665;
-      </span>
-      <span
-        className="remove"
-        onClick={() => remove()} style={{ cursor: 'pointer' }}
-      >
-        &#10007;
-      </span>
-    </div>
-  );
-},
- */
+    // this could go through flux etc.
+    this.state.data.splice(idx, 1);
+
+    this.setState({
+      data: this.state.data,
+    });
+  }
+}
 
 export default FullTable;
