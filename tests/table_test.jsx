@@ -180,7 +180,6 @@ describe('Table', function () {
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
     expect(tds.length).to.equal(columns.length);
 
-    // TODO: should cell just return a td instead?
     expect(tds[0].children[0].className).to.equal('complex');
 
     /* TODO: push to a separate test
