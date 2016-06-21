@@ -6,9 +6,9 @@ export default function (
     onActivate = () => {},
     onValue = () => {},
   },
-  { editor, formatter = value => value }
+  editor
 ) {
-  const Edit = ({ value, cellData, property, cellKey }) => {
+  const Edit = (value, { cellData, property, cellKey }) => {
     const idx = `${cellKey}-${property}`;
     const editedCell = getEditProperty();
 
@@ -16,7 +16,7 @@ export default function (
       return React.createElement(
         editor,
         {
-          value,
+          value: cellData[property],
           onValue: v => onValue(v, cellData, property),
         }
       );
@@ -24,7 +24,7 @@ export default function (
 
     return (
       <span onClick={() => onActivate(idx)}>
-        {formatter(value)}
+        {value}
       </span>
     );
   };

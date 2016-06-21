@@ -17,7 +17,7 @@ import '../style.css';
 Catalog.render({
   title: `Reactabular v${VERSION}`, // eslint-disable-line no-undef
   pages: [
-    {
+    /*{
       path: '/',
       title: 'Introduction',
       component: require('catalog/lib/loader!raw!../README.md'),
@@ -76,7 +76,7 @@ Catalog.render({
           component: HighlightDocs,
         },
       ],
-    },
+    },*/
     {
       title: 'Examples',
       pages: [
@@ -85,11 +85,11 @@ Catalog.render({
           title: 'All Features',
           component: FullExample,
         },
-        {
+        /*{
           path: 'examples/tree',
           title: 'Tree View',
           component: TreeExample,
-        },
+        },*/
       ],
     },
     {

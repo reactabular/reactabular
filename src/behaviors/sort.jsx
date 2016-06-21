@@ -5,9 +5,9 @@ export default function (
     getSortingColumns = () => {},
     onSort = () => {},
   },
-  header
+  property
 ) {
-  const Sort = ({ property }) => {
+  const Sort = value => {
     const columns = getSortingColumns();
     const index = columns.map(c => c.property).indexOf(property);
     let headerClass = '';
@@ -21,7 +21,7 @@ export default function (
         className={headerClass}
         onClick={() => onSort(property)}
       >
-        {header}
+        {value}
       </div>
     );
   };

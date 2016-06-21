@@ -49,14 +49,13 @@ const data = generateData({
   fieldGenerators: getFieldGenerators(countryValues),
   properties,
 });
-const countryFormatter = country => find(countries, 'value', country).name;
 const sorter = sort.byColumns; // sort.byColumn would work too
 
 class FullTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const highlighter = column => formatters.highlight(value => {
+    const highlight = column => formatters.highlight(value => {
       const { search } = this.state;
 
       return Search.matches(
@@ -96,124 +95,90 @@ class FullTable extends React.Component {
     this.state = {
       editedCell: null,
       data,
-      formatters: {
-        country: countryFormatter,
-      },
       search: {},
       sortingColumns: null, // reference to the sorting columns
       columns: [
         {
-          property: 'name',
-          header: sortable(
-            <div>
-              <input
-                type="checkbox"
-                onClick={() => console.log('clicked')}
-                style={{ width: '20px' }}
-              />
-              <span>Name</span>
-            </div>
-          ),
-          cell: editable({
-            editor: editors.input(),
-            formatter: highlighter('name'),
-          }),
-        },
-        {
-          property: 'position',
-          header: sortable('Position'),
-        },
-        {
-          property: 'boss.name',
-          header: sortable('Boss'),
-          cell: ({ value }) => highlighter('boss')(value),
-        },
-        {
-          property: 'country',
-          header: sortable('Country'),
-          search: countryFormatter,
-          cell: editable({
-            editor: editors.dropdown({ options: countries }),
-            formatter: v => highlighter('country')(countryFormatter(v)),
-          }),
-        },
-        {
-          property: 'salary',
-          header: sortable('Salary'),
-          cell: ({ value }) => (
-            <span onDoubleClick={() => alert(`salary is ${value}`)}>
-              {highlighter('salary')(value)}
-            </span>
-          ),
-        },
-        {
-          property: 'active',
-          header: sortable('Active'),
-          cell: editable({
-            editor: editors.boolean(),
-            formatter: value => value && <span>&#10003;</span>,
-          }),
-        },
-        {
-          cell: ({ cellData }) => {
-            const edit = () => {
-              this.setState({
-                modal: {
-                  show: true,
-                  title: 'Edit',
-                  content: <EditCell
-                    onSubmit={(formData) => {
-                      this.state.data[cellData.id] = formData;
-
-                      this.setState({
-                        modal: { ...this.state.modal, show: false },
-                        data: this.state.data,
-                      });
-                    }}
-                    onCancel={() => {
-                      this.setState({
-                        modal: {
-                          ...this.state.modal,
-                          ...{
-                            show: false,
-                          },
-                        },
-                      });
-                    }}
-                    formData={cellData}
-                    properties={properties}
-                  />,
-                },
-              });
-            };
-
-            const remove = () => {
-              // this could go through flux etc.
-              this.state.data.splice(cellData.id, 1);
-
-              this.setState({
-                data: this.state.data,
-              });
-            };
-
-            return (
+          header: {
+            value: 'Name',
+            transform: sortable('name'),
+            format: name => (
               <div>
-                <span
-                  className="edit"
-                  onClick={() => edit()} style={{ cursor: 'pointer' }}
-                >
-                  &#8665;
-                </span>
-                <span
-                  className="remove"
-                  onClick={() => remove()} style={{ cursor: 'pointer' }}
-                >
-                  &#10007;
-                </span>
+                <input
+                  type="checkbox"
+                  onClick={() => console.log('clicked')}
+                  style={{ width: '20px' }}
+                />
+                <span>{name}</span>
               </div>
-            );
+            ),
+          },
+          cell: {
+            property: 'name',
+            transform: editable(editors.input()),
+            format: highlight('name'),
           },
         },
+        {
+          header: {
+            value: 'Position',
+            transform: sortable('position'),
+          },
+          cell: {
+            property: 'position',
+          },
+        },
+        {
+          header: {
+            value: 'Boss',
+            transform: sortable('boss.name'),
+          },
+          cell: {
+            property: 'boss.name',
+            format: highlight('boss.name'),
+          },
+        },
+        {
+          header: {
+            value: 'Country',
+            transform: sortable('country'),
+          },
+          cell: {
+            property: 'country',
+            transform: editable(editors.dropdown({ options: countries })),
+            format: country => highlight('country')(find(countries, 'value', country).name),
+          },
+        },
+        {
+          header: {
+            value: 'Salary',
+            transform: sortable('salary'),
+          },
+          cell: {
+            property: 'salary',
+            format: salary => (
+              <span onDoubleClick={() => alert(`salary is ${salary}`)}>
+                {highlight('salary')(salary)}
+              </span>
+            ),
+          },
+        },
+        {
+          header: {
+            value: 'Active',
+            transform: sortable('active'),
+          },
+          cell: {
+            property: 'active',
+            transform: editable(editors.boolean()),
+            format: active => active && <span>&#10003;</span>,
+          },
+        },
+        /*{
+          cell: {
+            format: rowEditor
+          },
+        },*/
       ],
       modal: {
         show: false,
@@ -322,5 +287,66 @@ class FullTable extends React.Component {
     });
   }
 }
+
+/*
+({ cellData }) => {
+  const edit = () => {
+    this.setState({
+      modal: {
+        show: true,
+        title: 'Edit',
+        content: <EditCell
+          onSubmit={(formData) => {
+            this.state.data[cellData.id] = formData;
+
+            this.setState({
+              modal: { ...this.state.modal, show: false },
+              data: this.state.data,
+            });
+          }}
+          onCancel={() => {
+            this.setState({
+              modal: {
+                ...this.state.modal,
+                ...{
+                  show: false,
+                },
+              },
+            });
+          }}
+          formData={cellData}
+          properties={properties}
+        />,
+      },
+    });
+  };
+
+  const remove = () => {
+    // this could go through flux etc.
+    this.state.data.splice(cellData.id, 1);
+
+    this.setState({
+      data: this.state.data,
+    });
+  };
+
+  return (
+    <div>
+      <span
+        className="edit"
+        onClick={() => edit()} style={{ cursor: 'pointer' }}
+      >
+        &#8665;
+      </span>
+      <span
+        className="remove"
+        onClick={() => remove()} style={{ cursor: 'pointer' }}
+      >
+        &#10007;
+      </span>
+    </div>
+  );
+},
+ */
 
 export default FullTable;
