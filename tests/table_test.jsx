@@ -176,18 +176,10 @@ describe('Table', function () {
         <Table.Body rowKey="id" />
       </Table>
     );
-
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
+
     expect(tds.length).to.equal(columns.length);
-
     expect(tds[0].children[0].className).to.equal('complex');
-
-    /* TODO: push to a separate test
-    const link = TestUtils.findRenderedDOMComponentWithTag(table, 'a');
-    expect(link.parentNode).to.equal(tds[4]);
-    expect(link.href).to.equal('http://some_id_123/');
-    expect(link.innerHTML).to.equal('helloworld');
-    */
   });
 
   it('should render children correctly', function () {
