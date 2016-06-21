@@ -25,7 +25,7 @@ describe('Boolean', function () {
     expect(renderedButtons[1].disabled).to.equal(!testValue);
   });
 
-  it('should trigger onValue', function () {
+  it('should trigger onValue when value is false', function () {
     let changedValue = false;
     const Boolean = boolean();
     const result = TestUtils.renderIntoDocument(
@@ -46,6 +46,29 @@ describe('Boolean', function () {
     TestUtils.Simulate.click(renderedButtons[0]);
 
     expect(changedValue).to.equal(true);
+  });
+
+  it('should trigger onValue when value is true', function () {
+    let changedValue = false;
+    const Boolean = boolean();
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Boolean
+          value
+          onValue={function () {
+            changedValue = false;
+          }}
+        />
+      </Wrapper>
+    );
+
+    const renderedButtons = TestUtils.scryRenderedDOMComponentsWithTag(
+      result, 'button'
+    );
+
+    TestUtils.Simulate.click(renderedButtons[1]);
+
+    expect(changedValue).to.equal(false);
   });
 
   it('should accept custom props', function () {
