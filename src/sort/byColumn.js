@@ -1,5 +1,7 @@
 const byColumn = (sortingColumns, selectedColumn) => {
-  const sortingColumn = sortingColumns ? sortingColumns[0] : {};
+  const sortingColumn = sortingColumns && sortingColumns.length ?
+    sortingColumns[0] :
+    {};
   let sort = 'asc';
 
   if (sortingColumn.property === selectedColumn) {
@@ -21,6 +23,10 @@ byColumn.sort = (data, columns, sorter) => {
     return data;
   }
   const column = columns[0]; // Sort based on the first one
+
+  if (!column || !column.property || !column.sort) {
+    return data;
+  }
 
   return sorter(data, [column.property], [column.sort]);
 };
