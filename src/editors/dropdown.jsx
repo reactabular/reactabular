@@ -5,22 +5,21 @@ export default (options, fields = {
   value: 'value',
 }) => {
   const Dropdown = ({ value, onValue }) => {
-    const edit = e => onValue(e.target.value);
+    const edit = ({ target: { value } }) => onValue(value); // eslint-disable-line max-len, no-shadow, react/prop-types
 
     return (
       <select onBlur={edit} onChange={edit} value={value}>
         {options.map((option, i) =>
-          <option
-            key={i}
-            value={option[fields.value]}
-          >{option[fields.name]}</option>
+          <option key={i} value={option[fields.value]}>
+            {option[fields.name]}
+          </option>
         )}
       </select>
     );
   };
   Dropdown.propTypes = {
-    value: React.PropTypes.string,
-    onValue: React.PropTypes.func,
+    value: React.PropTypes.string.isRequired,
+    onValue: React.PropTypes.func.isRequired,
   };
 
   return Dropdown;
