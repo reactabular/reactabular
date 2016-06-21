@@ -36,8 +36,13 @@ class SortTable extends React.Component {
       sortingColumns: null, // reference to the sorting columns
       columns: [
         {
-          property: 'name',
-          header: sortable('Name'),
+          header: {
+            value: 'Name',
+            transform: sortable('name'),
+          },
+          cell: {
+            property: 'name',
+          },
         },
       ],
       data: [
@@ -48,6 +53,14 @@ class SortTable extends React.Component {
         {
           id: 101,
           name: 'Brian',
+        },
+        {
+          id: 102,
+          name: 'Jake',
+        },
+        {
+          id: 103,
+          name: 'Jill',
         },
       ],
     };

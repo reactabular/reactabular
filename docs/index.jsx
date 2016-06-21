@@ -55,12 +55,12 @@ Catalog.render({
           title: 'Paginate',
           component: PaginateDocs,
         },
-        /*{
+        {
           path: 'how-to/sort',
           title: 'Sort',
           component: SortDocs,
         },
-        {
+        /*{
           path: 'how-to/edit',
           title: 'Edit',
           component: EditDocs,
