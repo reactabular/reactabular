@@ -93,7 +93,8 @@ const getOptions = (columns, i18n) => (
   }].concat(columns.map(column => {
     if (
       (column.cell && column.cell.property) &&
-      (column.header && column.header.value)) {
+      (column.header && column.header.value)
+    ) {
       return {
         value: column.cell.property,
         name: column.header.value,
@@ -101,9 +102,7 @@ const getOptions = (columns, i18n) => (
     }
 
     return null;
-  }).filter(
-    column => column && !React.isValidElement(column.name)
-  ))
+  }).filter(column => column))
 );
 
 const search = (data, columns, query, options) => {

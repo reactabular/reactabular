@@ -8,16 +8,28 @@ describe('Table', function () {
   it('should render a header based on `header` fields', function () {
     const columns = [
       {
-        property: 'name',
-        header: 'Name',
+        header: {
+          value: 'Name',
+        },
+        cell: {
+          property: 'name',
+        },
       },
       {
-        property: 'position',
-        header: 'Position',
+        header: {
+          value: 'Position',
+        },
+        cell: {
+          property: 'position',
+        },
       },
       {
-        property: 'age',
-        header: 'Age',
+        header: {
+          value: 'Age',
+        },
+        cell: {
+          property: 'age',
+        },
       },
     ];
     const table = TestUtils.renderIntoDocument(
@@ -36,16 +48,28 @@ describe('Table', function () {
   it('should render content based on data', function () {
     const columns = [
       {
-        property: 'name',
-        header: 'Name',
+        header: {
+          value: 'Name',
+        },
+        cell: {
+          property: 'name',
+        },
       },
       {
-        property: 'position',
-        header: 'Position',
+        header: {
+          value: 'Position',
+        },
+        cell: {
+          property: 'position',
+        },
       },
       {
-        property: 'age',
-        header: 'Age',
+        header: {
+          value: 'Age',
+        },
+        cell: {
+          property: 'age',
+        },
       },
     ];
     const data = [
@@ -66,21 +90,33 @@ describe('Table', function () {
     expect(trs.length).to.equal(data.length);
   });
 
-  it('should accept functions for customizing cell value', function () {
+  it('should accept formatters for customizing cell value', function () {
     const columns = [
       {
-        property: 'basic',
-        header: 'Basic',
+        header: {
+          value: 'Basic',
+        },
+        cell: {
+          property: 'basic',
+        },
       },
       {
-        property: 'identity',
-        header: 'Identity',
-        cell: ({ value }) => value,
+        header: {
+          value: 'Identity',
+        },
+        cell: {
+          property: 'identity',
+          format: value => value,
+        },
       },
       {
-        property: 'math',
-        header: 'Simple Math',
-        cell: ({ value }) => value - 23,
+        header: {
+          value: 'Simple Math',
+        },
+        cell: {
+          property: 'math',
+          format: value => value - 23,
+        },
       },
     ];
     const data = [
@@ -107,14 +143,22 @@ describe('Table', function () {
   it('should accept function based React components for customizing value', function () {
     const columns = [
       {
-        property: 'complex',
-        header: 'Cell Props',
-        cell: ({ value }) => <span className="complex">{value}</span>,
+        header: {
+          value: 'Cell Props',
+        },
+        cell: {
+          property: 'complex',
+          format: value => <span className="complex">{value}</span>,
+        },
       },
       {
-        property: 'jsx',
-        header: 'JSX',
-        cell: ({ value }) => <a href={`http://${value.id}`}>{value.name}</a>,
+        header: {
+          value: 'JSX',
+        },
+        cell: {
+          property: 'jsx',
+          format: value => <a href={`http://${value.id}`}>{value.name}</a>,
+        },
       },
     ];
     const data = [
@@ -150,16 +194,28 @@ describe('Table', function () {
   it('should render children correctly', function () {
     const columns = [
       {
-        property: 'name',
-        header: 'Name',
+        header: {
+          value: 'Name',
+        },
+        cell: {
+          property: 'name',
+        },
       },
       {
-        property: 'position',
-        header: 'Position',
+        header: {
+          value: 'Position',
+        },
+        cell: {
+          property: 'position',
+        },
       },
       {
-        property: 'age',
-        header: 'Age',
+        header: {
+          value: 'Age',
+        },
+        cell: {
+          property: 'age',
+        },
       },
     ];
     const data = [

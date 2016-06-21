@@ -17,17 +17,26 @@ describe('Search', function () {
     expect(options[0].value).to.equal('all');
   });
 
-  it('should have a dropdown that contain columns that have both property and header', function () {
+  it(`should have a dropdown that contains columns
+    which have both property and header`, function () {
     const columns = [
       {
-        property: 'first',
-        header: 'First',
+        header: {
+          value: 'First',
+        },
+        cell: {
+          property: 'first',
+        },
       },
       {
-        property: 'second',
+        cell: {
+          property: 'second',
+        },
       },
       {
-        header: 'Third',
+        header: {
+          value: 'Third',
+        },
       },
     ];
 
@@ -41,8 +50,8 @@ describe('Search', function () {
 
     expect(options.length).to.equal(2);
     expect(options[0].value).to.equal('all');
-    expect(options[1].value).to.equal(columns[0].property);
-    expect(options[1].textContent).to.equal(columns[0].header);
+    expect(options[1].value).to.equal(columns[0].cell.property);
+    expect(options[1].textContent).to.equal(columns[0].header.value);
   });
 
   it('should be able to yield results', function () {
