@@ -57,13 +57,7 @@ const byColumns = (sortingColumns, selectedColumn) => {
 };
 
 function cycleSort(sort) {
-  if (!sort) {
-    return 'asc';
-  } else if (sort === 'asc') {
-    return 'desc';
-  }
-
-  return null;
+  return sort === 'asc' && 'desc';
 }
 
 // sorter === lodash orderBy
