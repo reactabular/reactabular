@@ -1,8 +1,9 @@
 const path = require('path');
 
 const webpack = require('webpack');
-const HtmlwebpackPlugin = require('html-webpack-plugin');
-const Clean = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const merge = require('webpack-merge');
 
 const catalogPkg = require('./node_modules/catalog/package.json');
@@ -68,7 +69,7 @@ const common = {
 
 const commonSite = {
   plugins: [
-    new HtmlwebpackPlugin({
+    new HtmlWebpackPlugin({
       title: `${pkg.name} - ${pkg.description}`,
       template: 'lib/index_template.ejs',
     }),
@@ -121,7 +122,11 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
       filename: 'bundle.[chunkhash].js',
     },
     plugins: [
-      new Clean(['gh-pages']),
+      new CleanWebpackPlugin(['gh-pages']),
+      new CopyWebpackPlugin([{
+        from: './images',
+        to: './images',
+      }]),
       new webpack.DefinePlugin({
         'process.env': {
           // This has effect on the react lib size

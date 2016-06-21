@@ -52,6 +52,10 @@ const DemoTable = () => (
 );
 ```
 
+## Sponsors
+
+[![SurviveJS](./images/survivejs.png)](http://survivejs.com/) [![Kenandy](./images/kenandy.png)](http://www.kenandy.com/)
+
 ## License
 
 MIT. See LICENSE for details.
