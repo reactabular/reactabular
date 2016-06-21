@@ -25,7 +25,7 @@ describe('Dropdown', function () {
     const Dropdown = dropdown({ options });
     const result = TestUtils.renderIntoDocument(
       <Wrapper>
-        <Dropdown value={'name'} onValue={() => {}} />
+        <Dropdown value="name" onValue={() => {}} />
       </Wrapper>
     );
 
@@ -36,6 +36,35 @@ describe('Dropdown', function () {
     expect(renderedOptions.length).to.equal(options.length);
     expect(renderedOptions[0].text).to.equal(options[0].name);
     expect(renderedOptions[0].value).to.equal(options[0].value);
+  });
+
+  it('should trigger onValue', function () {
+    let changedValue = false;
+    const options = [
+      {
+        value: 'name',
+        name: 'Name',
+      },
+    ];
+    const Dropdown = dropdown({ options });
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Dropdown
+          value="name"
+          onValue={function () {
+            changedValue = true;
+          }}
+        />
+      </Wrapper>
+    );
+
+    const renderedOptions = TestUtils.scryRenderedDOMComponentsWithTag(
+      result, 'option'
+    );
+
+    TestUtils.Simulate.change(renderedOptions[0]);
+
+    expect(changedValue).to.equal(true);
   });
 
   it('should allow customizing fields', function () {
