@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default () => {
+export default ({ props } = {}) => {
   const Boolean = ({ value, onValue }) => (
-    <span>
+    <div {...props}>
       <button
         disabled={value}
         onClick={() => onValue(true)}
@@ -13,7 +13,7 @@ export default () => {
         onClick={() => onValue(false)}
       >&#10007;
       </button>
-    </span>
+    </div>
   );
   Boolean.propTypes = {
     value: React.PropTypes.any,
