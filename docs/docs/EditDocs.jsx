@@ -12,34 +12,31 @@ class EditableTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const editable = transforms.edit.bind(
-      null,
-      {
-        // Get unique editing id for a cell.
-        // You can tweak this from outside to control edit.
-        getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
+    const editable = transforms.edit({
+      // Get unique editing id for a cell.
+      // You can tweak this from outside to control edit.
+      getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
 
-        // Get the edited property
-        getEditProperty: () => this.state.editedCell,
+      // Get the edited property
+      getEditProperty: () => this.state.editedCell,
 
-        // Set the property when the user tries to activate editing
-        onActivate: idx => this.setState({
-          editedCell: idx,
-        }),
+      // Set the property when the user tries to activate editing
+      onActivate: idx => this.setState({
+        editedCell: idx,
+      }),
 
-        // Capture the value when the user has finished
-        onValue: (value, { id }, property) => {
-          const idx = findIndex(this.state.data, { id });
+      // Capture the value when the user has finished
+      onValue: (value, { id }, property) => {
+        const idx = findIndex(this.state.data, { id });
 
-          this.state.data[idx][property] = value;
+        this.state.data[idx][property] = value;
 
-          this.setState({
-            editedCell: null,
-            data: this.state.data,
-          });
-        },
-      }
-    );
+        this.setState({
+          editedCell: null,
+          data: this.state.data,
+        });
+      },
+    });
 
     this.state = {
       editedCell: null, // Track the edited cell somehow

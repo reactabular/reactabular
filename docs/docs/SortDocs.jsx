@@ -13,24 +13,21 @@ class SortTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const sortable = transforms.sort.bind(
-      null,
-      {
-        // Point the transform to your data. React state can work for this purpose
-        // but you can use a state manager as well.
-        getSortingColumns: () => this.state.sortingColumns || [],
+    const sortable = transforms.sort({
+      // Point the transform to your data. React state can work for this purpose
+      // but you can use a state manager as well.
+      getSortingColumns: () => this.state.sortingColumns || [],
 
-        // The user requested sorting, adjust the sorting state accordingly.
-        // This is a good chance to pass the request through a sorter.
-        onSort: column => {
-          this.setState({
-            sortingColumns: sorter(
-              this.state.sortingColumns, column
-            ),
-          });
-        },
-      }
-    );
+      // The user requested sorting, adjust the sorting state accordingly.
+      // This is a good chance to pass the request through a sorter.
+      onSort: column => {
+        this.setState({
+          sortingColumns: sorter(
+            this.state.sortingColumns, column
+          ),
+        });
+      },
+    });
 
     this.state = {
       sortingColumns: null, // reference to the sorting columns

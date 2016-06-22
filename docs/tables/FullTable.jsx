@@ -63,34 +63,28 @@ class FullTable extends React.Component {
         search[Object.keys(search).pop()]
       );
     });
-    const editable = transforms.edit.bind(
-      null,
-      {
-        getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
-        getEditProperty: () => this.state.editedCell,
-        onActivate: idx => this.setState({ editedCell: idx }),
-        onValue: (value, { id }, property) => {
-          const idx = findIndex(this.state.data, { id });
+    const editable = transforms.edit({
+      getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
+      getEditProperty: () => this.state.editedCell,
+      onActivate: idx => this.setState({ editedCell: idx }),
+      onValue: (value, { id }, property) => {
+        const idx = findIndex(this.state.data, { id });
 
-          this.state.data[idx][property] = value;
+        this.state.data[idx][property] = value;
 
-          this.setState({ editedCell: null, data });
-        },
-      }
-    );
-    const sortable = transforms.sort.bind(
-      null,
-      {
-        getSortingColumns: () => this.state.sortingColumns || [],
-        onSort: column => {
-          this.setState({
-            sortingColumns: sorter(
-              this.state.sortingColumns, column
-            ),
-          });
-        },
-      }
-    );
+        this.setState({ editedCell: null, data });
+      },
+    });
+    const sortable = transforms.sort({
+      getSortingColumns: () => this.state.sortingColumns || [],
+      onSort: column => {
+        this.setState({
+          sortingColumns: sorter(
+            this.state.sortingColumns, column
+          ),
+        });
+      },
+    });
 
     this.state = {
       editedCell: null,
