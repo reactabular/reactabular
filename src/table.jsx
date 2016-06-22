@@ -48,7 +48,7 @@ const Header = ({ children, ...props }, { columns }) => (
       {columns.map((column, i) => {
         const {
           value,
-          transform = a => a,
+          transform = a => ({}), // eslint-disable-line no-unused-vars
           format = a => a,
           props, // eslint-disable-line no-shadow
         } = column.header || {};
@@ -56,7 +56,7 @@ const Header = ({ children, ...props }, { columns }) => (
         const extraParameters = {
           cellKey: key,
         };
-        const transformed = transform(extraParameters);
+        const transformed = transform(value, extraParameters);
 
         // XXX: make sure that classNames get merged instead of overriding!
         return (
@@ -83,7 +83,7 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
       columns.map((column, j) => {
         const {
           property,
-          transform = a => a,
+          transform = a => ({}), // eslint-disable-line no-unused-vars
           format = a => a,
           resolve = a => a,
           props, // eslint-disable-line no-shadow
@@ -94,12 +94,13 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
           cellKey: data[i][rowKey],
           property,
         };
-        const val = resolve(get(r, property), extraParameters);
-        const transformed = transform(extraParameters);
+        const val = get(r, property);
+        const resolvedValue = resolve(val, extraParameters);
+        const transformed = transform(val, extraParameters);
 
         return (
           <td key={`${j}-cell`} {...{ ...props, ...transformed }}>
-            {transformed.children ? transformed.children : format(val, extraParameters)}
+            {transformed.children || format(resolvedValue, extraParameters)}
           </td>
         );
       })
