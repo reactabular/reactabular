@@ -3,7 +3,6 @@ import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
 import React from 'react';
 
-import formatters from './formatters';
 import predicates from './predicates';
 
 class Search extends React.Component {
@@ -121,7 +120,7 @@ const search = (data, columns, query, options) => {
 
 const searchColumn = (data, columns, column, query, options = {
   strategy: predicates.infix,
-  transform: formatters.lowercase,
+  transform: value => value.toLowerCase(),
 }) => {
   if (!query) {
     return data;
@@ -140,7 +139,7 @@ const searchColumn = (data, columns, column, query, options = {
 const isColumnVisible = (options, query, row, col) => {
   const property = col.cell.property;
   const value = get(row, property);
-  const formatter = (col.cell && col.cell.value) || formatters.identity;
+  const formatter = (col.cell && col.cell.value) || (a => a);
   let formattedValue = formatter(value);
 
   if (!formattedValue && isNaN(formattedValue)) {
@@ -162,7 +161,7 @@ const isColumnVisible = (options, query, row, col) => {
 
 const matches = (column, value, query, options = {
   strategy: predicates.infix,
-  transform: formatters.lowercase,
+  transform: value => value.toLowerCase(),
 }) => {
   if (!query) {
     return {};
