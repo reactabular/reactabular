@@ -1,11 +1,10 @@
-/* eslint-disable max-len, no-shadow */
-import React from 'react';
-import { ReactSpecimen } from 'catalog';
-import { CustomPage } from '../helpers';
-import {
-  Table, Search, formatters,
-} from '../../src';
+Matching search results can be be Highlighted using a specific `highlight` formatter.
 
+```react
+<HighlightTable />
+```
+
+```
 class HighlightTable extends React.Component {
   constructor(props) {
     super(props);
@@ -89,15 +88,4 @@ class HighlightTable extends React.Component {
     );
   }
 }
-
-export default () => (
-  <CustomPage>
-    <p>
-      Matching search results can be be Highlighted using a specific <code>highlight</code> formatter.
-    </p>
-
-    <ReactSpecimen span={6}>
-      <HighlightTable />
-    </ReactSpecimen>
-  </CustomPage>
-);
+```

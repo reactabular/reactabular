@@ -7,9 +7,6 @@ import * as reactabular from '../src';
 import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import * as customTables from './tables';
-import {
-  HighlightDocs,
-} from './docs';
 import './main.css';
 import './skylight.css';
 import '../style.css';
@@ -95,7 +92,8 @@ Catalog.render({
         {
           path: 'how-to/highlight-search',
           title: 'Highlight Search Results',
-          component: HighlightDocs,
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./how-to/highlight.md'),
         },
       ],
     },
