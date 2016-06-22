@@ -161,7 +161,7 @@ const isColumnVisible = (options, query, row, col) => {
 
 const matches = (column, value, query, options = {
   strategy: predicates.infix,
-  transform: value => value.toLowerCase(),
+  transform: v => v.toLowerCase(),
 }) => {
   if (!query) {
     return {};
