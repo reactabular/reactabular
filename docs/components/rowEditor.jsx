@@ -94,7 +94,7 @@ const rowEditor = ({
     cellData: React.PropTypes.object.isRequired,
   };
 
-  return props => ({
+  return (value, props) => ({
     children: React.createElement(RowEditor, props),
   });
 };
