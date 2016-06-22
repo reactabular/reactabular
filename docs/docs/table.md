@@ -189,16 +189,107 @@ const customizedColumns = [
 
 ### `header` Fields
 
-* `header.value` - This maps to the value displayed to the user. In addition search options are populated based on it so this should be a string.
-* `header.transform` - The idea of transforms is that they can inject `propTypes` to the current cell (same idea for header and content). In this case we inject `onClick` handler so that sorting works. If a transform returns `children`, it will override rendering behavior. This is useful for transforms like `edit`.
-* `header.format` - If manipulating `propTypes` isn't enough, you can `format` the output. This should return something React can display. Here we use it to inject an extra checkbox to the header cell.
+**`header.value = <string>`**
+
+`header.value` maps to the value displayed to the user. In addition search options are populated based on it so this should be a string.
+
+```code
+{
+  header: {
+    value: 'Name',
+  },
+}
+```
+
+**`header.transform = (<value>, { cellData: <value> }) => ({... props ...})`**
+
+The idea of transforms is that they can inject `propTypes` to the current cell (same idea for header and content). In this case we inject `onClick` handler so that sorting works. If a transform returns `children`, it will override rendering behavior. This is useful for transforms like `edit`.
+
+```code
+{
+  header: {
+    value: 'Name',
+    transform: sortable('name'),
+  },
+}
+```
+
+**`header.format = value => <string|React element>`**
+
+If manipulating `propTypes` isn't enough, you can `format` the output. This should return something React can display. Here we use it to inject an extra checkbox to the header cell.
+
+```code
+{
+  header: {
+    value: 'Name',
+    format: name => (
+      <div>
+        <input
+          type="checkbox"
+          onClick={() => console.log('clicked')}
+          style={{ width: '20px' }}
+        />
+        <span>{name}</span>
+      </div>
+    ),
+  },
+}
+```
 
 ### `cell` Fields
 
-* `cell.property` - This should map to the property you want to extract from `data` and to show in the cell. This supports nested definitions so you can do `foo.bar.baz` and it will work.
-* `cell.transform` - Same idea as for `header.transform`.
-* `cell.format` - Same idea as for `header.format`.
-* `cell.resolve` - Sometimes you need to manipulate the data fetched from property somehow. For instance you might need to perform a lookup to `resolve` it to some other value. This is the place to do that. Search, etc. will pick this up.
+**`cell.property = <string>`**
+
+`cell.property` should map to the property you want to extract from `data` and to show in the cell. This supports nested definitions so you can do `foo.bar.baz` and it will work.
+
+```code
+{
+  cell: {
+    property: 'name',
+  },
+}
+```
+
+**`cell.transform = (<value>, { cellData: <object>, property: <string> }) => ({... props ...})`**
+
+`cell.transform` follows the same idea as `header.transform`. This time `value` is the resolved `property` and we have extra data available.
+
+```code
+{
+  cell: {
+    transform: editable(editors.input()),
+  },
+}
+```
+
+**`cell.format = value => <string|React element>`**
+
+The same idea as for `header.format`.
+
+```code
+{
+  cell: {
+    property: 'salary',
+    format: salary => (
+      <span onDoubleClick={() => alert(`salary is ${salary}`)}>
+        {highlight('salary')(salary)}
+      </span>
+    ),
+  },
+}
+```
+
+**`cell.resolve = (value, { cellData: <object>, property: <string> }) => <string>`**
+
+Sometimes you need to manipulate the data fetched from property somehow. For instance you might need to perform a lookup to `resolve` it to some other value. This is the place to do that. Search, etc. will pick this up.
+
+```code
+{
+  cell: {
+    resolve: country => find(countries, 'value', country).name,
+  },
+}
+```
 
 ## Customizing a `Table` Footer
 
