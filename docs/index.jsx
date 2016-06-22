@@ -8,7 +8,7 @@ import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import * as customTables from './tables';
 import {
-  EditDocs, SearchDocs, HighlightDocs, SortDocs,
+  EditDocs, SearchDocs, HighlightDocs,
 } from './docs';
 import './main.css';
 import './skylight.css';
@@ -77,7 +77,8 @@ Catalog.render({
         {
           path: 'how-to/sort',
           title: 'Sort',
-          component: SortDocs,
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./how-to/sort.md'),
         },
         {
           path: 'how-to/edit',
