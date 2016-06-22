@@ -53,15 +53,12 @@ const Header = ({ children, ...props }, { columns }) => (
           props, // eslint-disable-line no-shadow
         } = column.header || {};
         const key = `${i}-header`;
-        const extraParameters = {
-          cellKey: key,
-        };
-        const transformed = transform(value, extraParameters);
+        const transformed = transform(value, {});
 
         // XXX: make sure that classNames get merged instead of overriding!
         return (
           <th key={key} {...{ ...props, ...transformed }}>
-            {transformed.children ? transformed.children : format(value, extraParameters)}
+            {transformed.children || format(value, {})}
           </th>
         );
       })}
@@ -89,11 +86,7 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
           props, // eslint-disable-line no-shadow
         } = column.cell;
         // TODO: give a warning if value is not found by `get`
-        const extraParameters = {
-          cellData: data[i],
-          cellKey: data[i][rowKey],
-          property,
-        };
+        const extraParameters = { cellData: data[i], property };
         const val = get(r, property);
         const resolvedValue = resolve(val, extraParameters);
         const transformed = transform(val, extraParameters);

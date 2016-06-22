@@ -66,6 +66,7 @@ class FullTable extends React.Component {
     const editable = transforms.edit.bind(
       null,
       {
+        getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
         getEditProperty: () => this.state.editedCell,
         onActivate: idx => this.setState({ editedCell: idx }),
         onValue: (value, { id }, property) => {

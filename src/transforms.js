@@ -2,14 +2,15 @@ import React from 'react';
 
 const edit = (
   {
+    getEditId = () => {},
     getEditProperty = () => {},
     onActivate = () => {},
     onValue = () => {},
   },
   editor
 ) => {
-  const Edit = (value, { cellData, property, cellKey }) => {
-    const idx = `${cellKey}-${property}`; // TODO: this needs a callback
+  const Edit = (value, { cellData, property }) => {
+    const idx = getEditId({ cellData, property });
     const editedCell = getEditProperty();
 
     if (editedCell === idx) {
@@ -32,7 +33,6 @@ const edit = (
     value: React.PropTypes.any,
     cellData: React.PropTypes.object.isRequired,
     property: React.PropTypes.string.isRequired,
-    cellKey: React.PropTypes.string.isRequired,
   };
 
   return Edit;
