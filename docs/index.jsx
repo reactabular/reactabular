@@ -55,6 +55,12 @@ Catalog.render({
       title: 'How to',
       pages: [
         {
+          path: 'how-to/customize-footer',
+          title: 'Customize Footer',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./docs/footer.md'),
+        },
+        {
           path: 'how-to/style',
           title: 'Style',
           component: StyleDocs,
