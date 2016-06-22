@@ -1,7 +1,7 @@
 /* eslint-disable no-console, max-len, react/prop-types */
 import React from 'react';
 import { ReactSpecimen } from 'catalog';
-import { CustomPage } from '../components';
+import { CustomPage } from '../helpers';
 import {
   Table,
 } from '../../src';

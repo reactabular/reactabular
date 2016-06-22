@@ -5,7 +5,7 @@ import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
 import * as reactabular from '../src';
 import * as dataDefinitions from './data/definitions';
-import * as customComponents from './components';
+import * as customHelpers from './helpers';
 import {
   BodyDocs, StyleDocs, PaginateDocs, EditDocs,
   SearchDocs, HighlightDocs, SortDocs,
@@ -20,7 +20,7 @@ import '../style.css';
 const documentationImports = {
   ...reactabular,
   ...dataDefinitions,
-  ...customComponents,
+  ...customHelpers,
 };
 
 Catalog.render({
@@ -39,13 +39,13 @@ Catalog.render({
           path: 'components/table',
           title: 'Table',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./docs/table.md'),
+          component: require('catalog/lib/loader!raw!./components/table.md'),
         },
         {
           path: 'components/header',
           title: 'Table.Header',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./docs/header.md'),
+          component: require('catalog/lib/loader!raw!./components/header.md'),
         },
         {
           path: 'components/body',
@@ -61,7 +61,7 @@ Catalog.render({
           path: 'how-to/customize-footer',
           title: 'Customize Footer',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./docs/footer.md'),
+          component: require('catalog/lib/loader!raw!./how-to/footer.md'),
         },
         {
           path: 'how-to/style',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomPage } from '../components';
+import { CustomPage } from '../helpers';
 import { TreeTable } from '../tables';
 
 export default () => (

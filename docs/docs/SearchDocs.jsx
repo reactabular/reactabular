@@ -1,7 +1,7 @@
 /* eslint-disable max-len, no-shadow, quotes */
 import React from 'react';
 import { ReactSpecimen } from 'catalog';
-import { CustomPage } from '../components';
+import { CustomPage } from '../helpers';
 import {
   Table, Search,
 } from '../../src';

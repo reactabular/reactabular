@@ -9,7 +9,7 @@ import {
 
 import {
   CustomFooter, ColumnFilters, rowEditor, Paginator, PrimaryControls,
-} from '../components';
+} from '../helpers';
 import countries from '../data/countries';
 import {
   generateData, paginate, augmentWithTitles, getFieldGenerators, find,

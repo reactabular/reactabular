@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { CustomPage } from '../components';
+import { CustomPage } from '../helpers';
 
 export default () => (
   <CustomPage>

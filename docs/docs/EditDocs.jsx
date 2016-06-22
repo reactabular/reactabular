@@ -2,7 +2,7 @@
 import React from 'react';
 import { ReactSpecimen } from 'catalog';
 import findIndex from 'lodash/findIndex';
-import { CustomPage } from '../components';
+import { CustomPage } from '../helpers';
 import { EditorsTable } from '../tables';
 import {
   transforms, editors, Table,

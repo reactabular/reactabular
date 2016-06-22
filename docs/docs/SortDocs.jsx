@@ -2,7 +2,7 @@
 import React from 'react';
 import orderBy from 'lodash/orderBy';
 import { ReactSpecimen } from 'catalog';
-import { CustomPage } from '../components';
+import { CustomPage } from '../helpers';
 import {
   transforms, sort, Table,
 } from '../../src';
