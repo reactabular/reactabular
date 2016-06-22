@@ -112,6 +112,12 @@ Catalog.render({
           imports: documentationImports,
           component: require('catalog/lib/loader!raw!./examples/tree-view.md'),
         },
+        {
+          path: 'examples/selection',
+          title: 'Selection',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/selection.md'),
+        },
       ],
     },
     {

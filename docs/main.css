@@ -69,3 +69,7 @@ table {
 .highlight {
     background: rgb(255, 255, 175);
 }
+
+.selected-row td {
+    background: rgb(255, 255, 175) !important; /* XXX */
+}
