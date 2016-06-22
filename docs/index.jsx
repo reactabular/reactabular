@@ -5,8 +5,9 @@ import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
 import * as reactabular from '../src';
 import * as dataDefinitions from './data/definitions';
+import * as customComponents from './components';
 import {
-  HeaderDocs, BodyDocs, StyleDocs, PaginateDocs, EditDocs,
+  BodyDocs, StyleDocs, PaginateDocs, EditDocs,
   SearchDocs, HighlightDocs, SortDocs,
 } from './docs';
 import {
@@ -19,6 +20,7 @@ import '../style.css';
 const documentationImports = {
   ...reactabular,
   ...dataDefinitions,
+  ...customComponents,
 };
 
 Catalog.render({
@@ -42,7 +44,8 @@ Catalog.render({
         {
           path: 'components/header',
           title: 'Table.Header',
-          component: HeaderDocs,
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./docs/header.md'),
         },
         {
           path: 'components/body',
