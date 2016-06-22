@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default getHighlights => value => {
+const highlight = getHighlights => value => {
   const val = String(value); // deals with arrays/numbers/...
 
   const highlights = getHighlights(val);
@@ -34,4 +34,8 @@ export default getHighlights => value => {
   );
 
   return <span className="search-result">{children}</span>;
+};
+
+export default {
+  highlight,
 };
