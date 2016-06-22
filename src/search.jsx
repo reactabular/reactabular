@@ -28,13 +28,13 @@ class Search extends React.Component {
     } = this.props;
 
     return (
-      <span {...props}>
+      <div {...props}>
         <SearchOptions
           onChange={this.onColumnChange} value={this.state.column}
           columns={columns} i18n={i18n}
         />
         <input onChange={this.onQueryChange} value={this.state.query}></input>
-      </span>
+      </div>
     );
   }
   onColumnChange(event) {
