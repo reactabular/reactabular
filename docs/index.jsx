@@ -8,7 +8,7 @@ import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import * as customTables from './tables';
 import {
-  SearchDocs, HighlightDocs,
+  HighlightDocs,
 } from './docs';
 import './main.css';
 import './skylight.css';
@@ -89,7 +89,8 @@ Catalog.render({
         {
           path: 'how-to/search',
           title: 'Search',
-          component: SearchDocs,
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./how-to/search.md'),
         },
         {
           path: 'how-to/highlight-search',
