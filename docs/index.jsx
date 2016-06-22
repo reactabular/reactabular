@@ -8,8 +8,7 @@ import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import * as customTables from './tables';
 import {
-  PaginateDocs, EditDocs,
-  SearchDocs, HighlightDocs, SortDocs,
+  EditDocs, SearchDocs, HighlightDocs, SortDocs,
 } from './docs';
 import './main.css';
 import './skylight.css';
@@ -72,7 +71,8 @@ Catalog.render({
         {
           path: 'how-to/paginate',
           title: 'Paginate',
-          component: PaginateDocs,
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./how-to/paginate.md'),
         },
         {
           path: 'how-to/sort',
