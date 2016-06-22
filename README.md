@@ -14,70 +14,68 @@ The chosen approach pushes a lot of complexity out of the core. As a result it m
 
 The following example illustrates the approach used by Reactabular:
 
-```code
-lang: jsx
----
-import { Table, editors } from 'reactabular';
-
+```react
 const data = [
   {
     id: 100,
-    name: 'Foo',
-    active: true,
+    name: 'John',
+    tools: {
+      hammer: true,
+    },
+    country: 'fi',
   },
   {
     id: 101,
-    name: 'Bar',
-    active: false
+    name: 'Jack',
+    tools: {
+      hammer: false,
+    },
+    country: 'dk',
   }
 ];
+const countries = {
+  fi: 'Finland',
+  dk: 'Denmark',
+};
 
 const columns = [
   {
     header: {
       value: 'Name',
-      transform: sortable('name'),
-      format: name => (
-        <div>
-          <input
-            type="checkbox"
-            onClick={() => console.log('clicked')}
-            style={{ width: '20px' }}
-          />
-          <span>{name}</span>
-        </div>
-      ),
     },
     cell: {
       property: 'name',
-      transform: editable(editors.input()),
-      format: highlight('name'),
     },
   },
   {
     header: {
       value: 'Active',
-      transform: sortable('active'),
     },
     cell: {
-      property: 'active',
-      transform: editable(editors.boolean()),
-      format: active => active && <span>&#10003;</span>,
+      property: 'tools.hammer',
+      format: hasHammer => hasHammer ? 'Hammertime' : 'nope',
+    },
+  },
+  {
+    header: {
+      value: 'Country',
+    },
+    cell: {
+      property: 'country',
+      resolve: country => countries[country],
     },
   },
 ];
 
-const DemoTable = () => (
-  <Table
-    className="pure-table pure-table-striped"
-    columns={columns}
-    data={data}
-  >
-    <Table.Header />
+<Table
+  className="pure-table pure-table-striped"
+  columns={columns}
+  data={data}
+>
+  <Table.Header />
 
-    <Table.Body rowKey="id" />
-  </Table>
-);
+  <Table.Body rowKey="id" />
+</Table>
 ```
 
 ## Sponsors

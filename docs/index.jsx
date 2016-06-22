@@ -16,12 +16,18 @@ import './main.css';
 import './skylight.css';
 import '../style.css';
 
+const documentationImports = {
+  ...reactabular,
+  ...dataDefinitions,
+};
+
 Catalog.render({
   title: `Reactabular v${VERSION}`, // eslint-disable-line no-undef
   pages: [
     {
       path: '/',
       title: 'Introduction',
+      imports: documentationImports,
       component: require('catalog/lib/loader!raw!../README.md'),
     },
     {
@@ -30,10 +36,7 @@ Catalog.render({
         {
           path: 'components/table',
           title: 'Table',
-          imports: {
-            ...reactabular,
-            ...dataDefinitions,
-          },
+          imports: documentationImports,
           component: require('catalog/lib/loader!raw!./docs/table.md'),
         },
         {
