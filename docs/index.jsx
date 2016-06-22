@@ -8,7 +8,7 @@ import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import * as customTables from './tables';
 import {
-  BodyDocs, StyleDocs, PaginateDocs, EditDocs,
+  StyleDocs, PaginateDocs, EditDocs,
   SearchDocs, HighlightDocs, SortDocs,
 } from './docs';
 import './main.css';
@@ -49,7 +49,8 @@ Catalog.render({
         {
           path: 'components/body',
           title: 'Table.Body',
-          component: BodyDocs,
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./components/body.md'),
         },
       ],
     },
