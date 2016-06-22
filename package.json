@@ -1,6 +1,6 @@
 {
   "name": "reactabular",
-  "version": "0.15.0-beta5",
+  "version": "0.15.0-beta6",
   "description": "Spectacular tables for React.js",
   "scripts": {
     "start": "webpack-dev-server",
