@@ -52,13 +52,14 @@ const Header = ({ children, ...props }, { columns }) => (
           format = a => a,
           props, // eslint-disable-line no-shadow
         } = column.header || {};
+        const extraParameters = { cellData: value };
         const key = `${i}-header`;
-        const transformed = transform(value, {});
+        const transformed = transform(value, extraParameters);
 
         // XXX: make sure that classNames get merged instead of overriding!
         return (
           <th key={key} {...{ ...props, ...transformed }}>
-            {transformed.children || format(value, {})}
+            {transformed.children || format(value, extraParameters)}
           </th>
         );
       })}
