@@ -8,7 +8,7 @@ import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import * as customTables from './tables';
 import {
-  StyleDocs, PaginateDocs, EditDocs,
+  PaginateDocs, EditDocs,
   SearchDocs, HighlightDocs, SortDocs,
 } from './docs';
 import './main.css';
@@ -66,7 +66,8 @@ Catalog.render({
         {
           path: 'how-to/style',
           title: 'Style',
-          component: StyleDocs,
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./how-to/style.md'),
         },
         {
           path: 'how-to/paginate',
