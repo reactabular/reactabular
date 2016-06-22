@@ -1,13 +1,12 @@
-/* eslint-disable max-len */
-import React from 'react';
-import { ReactSpecimen } from 'catalog';
-import findIndex from 'lodash/findIndex';
-import { CustomPage } from '../helpers';
-import { EditorsTable } from '../tables';
-import {
-  transforms, editors, Table,
-} from '../../src';
+Reactabular supports inline editing through a transform and specific `editors` that implement a small editing interface. The `FullTable` example illustrates how to achieve the same result using a modal.
 
+The library comes with a couple of basic editors. As long as you follow the same interface (`value`, `onValue` props), your editor should just work with the system.
+
+```react
+<EditableTable />
+```
+
+```
 class EditableTable extends React.Component {
   constructor(props) {
     super(props);
@@ -75,23 +74,10 @@ class EditableTable extends React.Component {
     );
   }
 }
+```
 
-export default () => (
-  <CustomPage>
-    <p>
-      Reactabular supports inline editing through a transform and specific <code>editors</code> that implement a small editing interface. The FullTable example illustrates how to achieve the same result using a modal.
-    </p>
+## Available Editors
 
-    <p>
-      The library comes with a couple of basic editors. As long as you follow the same interface (`value`, `onValue` properties), your editor should just work with the system.
-    </p>
-
-    <ReactSpecimen span={6}>
-      <EditableTable />
-    </ReactSpecimen>
-
-    <h2>Available Editors</h2>
-
-    <EditorsTable />
-  </CustomPage>
-);
+```react
+<EditorsTable />
+```

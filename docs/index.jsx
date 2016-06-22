@@ -8,7 +8,7 @@ import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import * as customTables from './tables';
 import {
-  EditDocs, SearchDocs, HighlightDocs,
+  SearchDocs, HighlightDocs,
 } from './docs';
 import './main.css';
 import './skylight.css';
@@ -83,7 +83,8 @@ Catalog.render({
         {
           path: 'how-to/edit',
           title: 'Edit',
-          component: EditDocs,
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./how-to/edit.md'),
         },
         {
           path: 'how-to/search',
