@@ -49,7 +49,7 @@ class TreeTable extends React.Component {
           },
           cell: {
             property: 'name',
-            value: (name, { cellData }) => (
+            resolve: (name, { cellData }) => (
               <div style={cellData.parent && { paddingLeft: '1em' }}>
                 {!cellData.parent && <span
                   className={cellData.showChildren ? 'show-less' : 'show-more'}

@@ -6,13 +6,11 @@ import 'react-pagify/style.css';
 import * as reactabular from '../src';
 import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
+import * as customTables from './tables';
 import {
   BodyDocs, StyleDocs, PaginateDocs, EditDocs,
   SearchDocs, HighlightDocs, SortDocs,
 } from './docs';
-import {
-  FullExample, TreeExample,
-} from './examples';
 import './main.css';
 import './skylight.css';
 import '../style.css';
@@ -21,6 +19,7 @@ const documentationImports = {
   ...reactabular,
   ...dataDefinitions,
   ...customHelpers,
+  ...customTables,
 };
 
 Catalog.render({
@@ -99,14 +98,16 @@ Catalog.render({
       title: 'Examples',
       pages: [
         {
-          path: 'examples/all',
+          path: 'examples/all-features',
           title: 'All Features',
-          component: FullExample,
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/all-features.md'),
         },
         {
-          path: 'examples/tree',
+          path: 'examples/tree-view',
           title: 'Tree View',
-          component: TreeExample,
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/tree-view.md'),
         },
       ],
     },
