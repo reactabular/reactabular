@@ -4,7 +4,12 @@ Matching search results can be be Highlighted using a specific `highlight` forma
 <HighlightTable />
 ```
 
-```
+```code
+lang: jsx
+---
+import React from 'react';
+import { Table, search, formatters } from 'reactabular';
+
 class HighlightTable extends React.Component {
   constructor(props) {
     super(props);

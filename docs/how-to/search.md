@@ -6,7 +6,12 @@ A column is considered searchable in case it has a unique `property` defined. It
 <SearchTable />
 ```
 
-```
+```code
+lang: jsx
+---
+import React from 'react';
+import { Table, search } from 'reactabular';
+
 class SearchTable extends React.Component {
   constructor(props) {
     super(props);
@@ -57,7 +62,7 @@ class SearchTable extends React.Component {
   }
   render() {
     const { data, columns, query } = this.state;
-    let searchedData = search.multipleColumns(data, columns, query);
+    let searchedData = search.multipleColumns({ data, columns, query });
 
     return (
       <div>

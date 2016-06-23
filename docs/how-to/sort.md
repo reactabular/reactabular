@@ -9,7 +9,12 @@ Reactabular comes with sorting helpers. The general workflow is as follows:
 <SortTable />
 ```
 
-```react
+```code
+lang: jsx
+---
+import React from 'react';
+import { Table, sort, transforms } from 'reactabular';
+
 const sorter = sort.byColumns; // sort.byColumn would work too
 
 class SortTable extends React.Component {
