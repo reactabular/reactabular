@@ -9,12 +9,12 @@ class HighlightTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const highlight = formatters.highlight(value => {
+    const highlight = column => formatters.highlight(value => {
       const { query } = this.state;
 
       return search.matches({
         value,
-        query: query[Object.keys(query).pop()],
+        query: query[column],
       });
     });
 
@@ -27,7 +27,7 @@ class HighlightTable extends React.Component {
           },
           cell: {
             property: 'name',
-            format: highlight,
+            format: highlight('name'),
           },
         },
         {
@@ -36,7 +36,7 @@ class HighlightTable extends React.Component {
           },
           cell: {
             property: 'age',
-            format: highlight,
+            format: highlight('age'),
           },
         },
       ],

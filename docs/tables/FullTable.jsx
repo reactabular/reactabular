@@ -55,12 +55,12 @@ class FullTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const highlight = formatters.highlight(value => {
+    const highlight = column => formatters.highlight(value => {
       const { query } = this.state;
 
       return search.matches({
         value,
-        query: query[Object.keys(query).pop()],
+        query: query[column],
       });
     });
     const editable = transforms.edit({
@@ -110,7 +110,7 @@ class FullTable extends React.Component {
           cell: {
             property: 'name',
             transform: editable(editors.input()),
-            format: highlight,
+            format: highlight('name'),
           },
         },
         {
@@ -129,7 +129,7 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'boss.name',
-            format: highlight,
+            format: highlight('boss.name'),
           },
         },
         {
@@ -142,7 +142,7 @@ class FullTable extends React.Component {
             transform: editable(
               editors.dropdown({ options: countries })
             ),
-            format: highlight,
+            format: highlight('country'),
             resolve: country => find(countries, 'value', country).name,
           },
         },
@@ -155,7 +155,7 @@ class FullTable extends React.Component {
             property: 'salary',
             format: salary => (
               <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-                {highlight(salary)}
+                {highlight('salary')(salary)}
               </span>
             ),
           },
