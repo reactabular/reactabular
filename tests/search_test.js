@@ -156,7 +156,7 @@ describe('search.singleColumn', function () {
 });
 
 describe('search.columnMatches', function () {
-  it('is visible', function () {
+  it('returns matching query', function () {
     const query = 'foo';
     const result = columnMatches({
       query,
@@ -173,7 +173,7 @@ describe('search.columnMatches', function () {
     expect(result).to.deep.equal(expected);
   });
 
-  it('is not visible', function () {
+  it('does not return missing query', function () {
     const query = 'zoo';
     const result = columnMatches({
       query,
@@ -181,6 +181,36 @@ describe('search.columnMatches', function () {
       row: { demo: 'foobar' },
     });
     const expected = [];
+
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('accepts alternative strategy', function () {
+    const query = 'oba';
+    const result = columnMatches({
+      query,
+      column: { cell: { property: 'demo' } },
+      row: { demo: 'foobar' },
+      strategy: prefix,
+    });
+
+    expect(result).to.deep.equal([]);
+  });
+
+  it('accepts alternative transform', function () {
+    const query = 'oba';
+    const result = columnMatches({
+      query,
+      column: { cell: { property: 'demo' } },
+      row: { demo: 'foobar' },
+      transform: v => v,
+    });
+    const expected = [
+      {
+        startIndex: 2,
+        length: 3,
+      },
+    ];
 
     expect(result).to.deep.equal(expected);
   });
