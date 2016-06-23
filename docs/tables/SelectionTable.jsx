@@ -69,7 +69,8 @@ class SelectionTable extends React.Component {
         const selected = this.state.selectedRowId;
         const idx = findIndex(data, { id: selected });
 
-        if (e.key === 'ArrowUp' && idx > 0) {
+        // Arrow Up
+        if (e.keyCode === 38 && idx > 0) {
           e.preventDefault();
 
           this.setState({
@@ -77,7 +78,8 @@ class SelectionTable extends React.Component {
           });
         }
 
-        if (e.key === 'ArrowDown' && idx < data.length - 1) {
+        // Arrow Down
+        if (e.keyCode === 40 && idx < data.length - 1) {
           e.preventDefault();
 
           this.setState({
