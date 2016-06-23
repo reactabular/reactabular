@@ -95,7 +95,7 @@ const Body = ({ row, rowKey, className, ...props }, { columns, data }) => (
           resolve = a => a,
           props, // eslint-disable-line no-shadow
         } = column.cell;
-        if (!has(r, property)) {
+        if (property && !has(r, property)) {
           console.warn(`Table.Body - Failed to find "${property}" property from`, r); // eslint-disable-line max-len, no-console
         }
 
