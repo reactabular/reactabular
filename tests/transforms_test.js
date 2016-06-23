@@ -70,6 +70,36 @@ describe('edit', function () {
 
     expect(receivedValue).to.equal(editorValue);
   });
+
+  it('passes cellData and property to getEditId', function () {
+    let passedCellData;
+    let passedProperty;
+    const testCellData = {
+      name: 'demo',
+    };
+    const testProperty = 'foo';
+    const editor = edit({
+      getEditId({ cellData, property }) {
+        passedCellData = cellData;
+        passedProperty = property;
+
+        return cellData.name + property;
+      },
+      getEditProperty() {
+        return testCellData.name + testProperty;
+      },
+    });
+    const editorValue = 'foobar';
+    const result = editor('div')('foo', {
+      cellData: testCellData,
+      property: testProperty,
+    });
+
+    result.children.props.onValue(editorValue);
+
+    expect(passedCellData).to.deep.equal(testCellData);
+    expect(passedProperty).to.equal(testProperty);
+  });
 });
 
 describe('sort', function () {
