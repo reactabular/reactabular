@@ -9,18 +9,17 @@ class HighlightTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const highlight = column => formatters.highlight(value => {
-      const { searchQuery } = this.state;
+    const highlight = formatters.highlight(value => {
+      const { query } = this.state;
 
-      return search.matches(
-        column,
+      return search.matches({
         value,
-        searchQuery[Object.keys(searchQuery).pop()]
-      );
+        query: query[Object.keys(query).pop()],
+      });
     });
 
     this.state = {
-      searchQuery: {},
+      query: {},
       columns: [
         {
           header: {
@@ -28,7 +27,7 @@ class HighlightTable extends React.Component {
           },
           cell: {
             property: 'name',
-            format: highlight('name'),
+            format: highlight,
           },
         },
         {
@@ -37,7 +36,7 @@ class HighlightTable extends React.Component {
           },
           cell: {
             property: 'age',
-            format: highlight('name'),
+            format: highlight,
           },
         },
       ],
@@ -66,8 +65,8 @@ class HighlightTable extends React.Component {
     };
   }
   render() {
-    const { data, columns, searchQuery } = this.state;
-    let searchedData = search(data, columns, searchQuery);
+    const { data, columns, query } = this.state;
+    let searchedData = search.multipleColumns({ data, columns, query });
 
     return (
       <div>
@@ -76,7 +75,7 @@ class HighlightTable extends React.Component {
           <Search
             columns={columns}
             data={data}
-            onChange={searchQuery => this.setState({ searchQuery })}
+            onChange={query => this.setState({ query })}
           />
         </div>
         <Table columns={columns} data={searchedData}>

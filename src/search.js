@@ -1,75 +1,77 @@
 import get from 'lodash/get';
-import isNumber from 'lodash/isNumber';
-import isString from 'lodash/isString';
 
-const search = (data, columns, query, options) => {
+const multipleColumns = ({
+  data, columns, query, strategy, transform,
+}) => {
   if (!query) {
     return data;
   }
 
   return Object.keys(query).reduce(
-    (filteredData, column) =>
-      searchColumn(
-        filteredData, columns, column, query[column], options
-      ),
+    (filteredData, searchedColumn) =>
+      singleColumn({
+        data: filteredData,
+        columns,
+        searchedColumn,
+        query: query[searchedColumn],
+        strategy,
+        transform,
+      }),
     data
   );
 };
 
-const searchColumn = (data, columns, column, query, options = {
-  strategy: predicates.infix,
-  transform: value => value.toLowerCase(),
+const singleColumn = ({
+  data, columns, searchColumn = 'all', query, strategy, transform,
 }) => {
   if (!query) {
     return data;
   }
+
   let ret = columns;
 
-  if (column !== 'all') {
-    ret = columns.filter(col => col.cell && col.cell.property === column);
+  if (searchColumn !== 'all') {
+    ret = columns.filter(col => col.cell && col.cell.property === searchColumn);
   }
 
-  return data.filter(row =>
-    ret.filter(isColumnVisible.bind(this, options, query, row)).length > 0
-  );
+  return data.filter(row => ret.filter(column => columnMatches({
+    query, column, strategy, transform, row,
+  }).length > 0).length > 0);
 };
 
-const isColumnVisible = (options, query, row, col) => {
-  const property = col.cell.property;
+const columnMatches = ({
+  query, column = { cell: {} }, row, strategy, transform,
+}) => {
+  const property = column.cell.property;
   const value = get(row, property);
-  const formatter = (col.cell && col.cell.value) || (a => a);
+  const formatter = column.cell.value || (a => a);
   let formattedValue = formatter(value);
 
-  if (!formattedValue && isNaN(formattedValue)) {
-    return false;
-  }
-
-  if (isNumber(formattedValue)) {
-    formattedValue = formattedValue.toString();
-  } else if (!isString(formattedValue)) {
+  if (typeof formattedValue === 'undefined') {
     formattedValue = '';
   }
 
-  return options.strategy(
-    options.transform(query)
-  ).evaluate(
-    options.transform(formattedValue)
-  );
+  formattedValue = formattedValue.toString ? formattedValue.toString() : '';
+
+  return matches({
+    value: formattedValue,
+    query,
+    strategy,
+    transform,
+  });
 };
 
-const matches = (column, value, query, options = {
-  strategy: predicates.infix,
-  transform: v => v.toLowerCase(),
-}) => {
+const matches = ({
+  value,
+  query,
+  strategy = predicates.infix,
+  transform = v => v.toLowerCase(),
+} = {}) => {
   if (!query) {
     return {};
   }
 
-  return options.strategy(
-    options.transform(query)
-  ).matches(
-    options.transform(value)
-  );
+  return strategy(transform(query)).matches(transform(value));
 };
 
 const infix = value => ({
@@ -121,8 +123,10 @@ const predicates = {
   prefix,
 };
 
-search.column = searchColumn;
-search.matches = matches;
-search.predicates = predicates;
-
-export default search;
+export default {
+  multipleColumns,
+  singleColumn,
+  columnMatches,
+  matches,
+  predicates,
+};

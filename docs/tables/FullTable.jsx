@@ -55,14 +55,13 @@ class FullTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const highlight = column => formatters.highlight(value => {
-      const { searchQuery } = this.state;
+    const highlight = formatters.highlight(value => {
+      const { query } = this.state;
 
-      return search.matches(
-        column,
+      return search.matches({
         value,
-        searchQuery[Object.keys(searchQuery).pop()]
-      );
+        query: query[Object.keys(query).pop()],
+      });
     });
     const editable = transforms.edit({
       getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
@@ -90,7 +89,7 @@ class FullTable extends React.Component {
     this.state = {
       editedCell: null,
       data,
-      searchQuery: {},
+      query: {},
       sortingColumns: null, // reference to the sorting columns
       columns: [
         {
@@ -111,7 +110,7 @@ class FullTable extends React.Component {
           cell: {
             property: 'name',
             transform: editable(editors.input()),
-            format: highlight('name'),
+            format: highlight,
           },
         },
         {
@@ -130,7 +129,7 @@ class FullTable extends React.Component {
           },
           cell: {
             property: 'boss.name',
-            format: highlight('boss.name'),
+            format: highlight,
           },
         },
         {
@@ -143,7 +142,7 @@ class FullTable extends React.Component {
             transform: editable(
               editors.dropdown({ options: countries })
             ),
-            format: highlight('country'),
+            format: highlight,
             resolve: country => find(countries, 'value', country).name,
           },
         },
@@ -156,7 +155,7 @@ class FullTable extends React.Component {
             property: 'salary',
             format: salary => (
               <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-                {highlight('salary')(salary)}
+                {highlight(salary)}
               </span>
             ),
           },
@@ -196,9 +195,9 @@ class FullTable extends React.Component {
   }
   render() {
     const {
-      columns, data, pagination, sortingColumns, searchQuery,
+      columns, data, pagination, sortingColumns, query,
     } = this.state;
-    let d = search(data, columns, searchQuery);
+    let d = search.multipleColumns({ data, columns, query });
 
     d = sort.sorter(d, sortingColumns, orderBy);
 
@@ -244,10 +243,10 @@ class FullTable extends React.Component {
       </div>
     );
   }
-  onSearch(searchQuery) {
+  onSearch(query) {
     this.setState({
       editedCell: null, // reset edits
-      searchQuery,
+      query,
     });
   }
   onSelect(page) {
