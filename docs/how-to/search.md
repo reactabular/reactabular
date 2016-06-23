@@ -1,6 +1,6 @@
 Reactabular comes with a search helper. It consists of a `Search` component and a search algorithm that can be applied to the data. Just like with sorting, you have to apply the algorithm to the data just before rendering. If you were sorting the data as well, you would probably want to apply the search algorithm before sorting.
 
-A column is considered searchable in case it has a unique `property` defined. It is possible to customize `Search` component further by passing a `i18n` prop to it (`{`<Search i18n={{all: 'Kaikki'}} ... />`}`).
+A column is considered searchable in case it has a unique `property` defined. It is possible to customize `Search` component further by passing a `i18n` prop to it (`{<Search i18n={{all: 'Kaikki'}} ... />}`).
 
 ```react
 <SearchTable />
