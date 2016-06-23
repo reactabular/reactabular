@@ -3,4 +3,5 @@ gh-pages/
 dist-modules/
 dist/
 build/
+coverage/
 
