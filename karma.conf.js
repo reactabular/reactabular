@@ -36,6 +36,7 @@ module.exports = function karmaConfig(config) {
       // Reference: https://github.com/webpack/karma-webpack
       // Convert files with webpack and load sourcemaps
       'tests/**/*_test.*': ['webpack', 'sourcemap'],
+      'src/**/*.*': 'coverage',
     },
 
     browsers: [
@@ -50,14 +51,19 @@ module.exports = function karmaConfig(config) {
       reporters: [
           // generates ./coverage/lcov.info
           {
-            type:'lcovonly',
-            subdir: '.'
+            type: 'lcovonly',
+            subdir: '.',
           },
           // generates ./coverage/coverage-final.json
           {
-            type:'json',
-            subdir: '.'
+            type: 'json',
+            subdir: '.',
           },
+          // generates ./coverage/index.html
+          {
+            type: 'html',
+            subdir: '.',
+          }
       ],
     },
 
