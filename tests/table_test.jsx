@@ -171,9 +171,9 @@ describe('Table', function () {
       },
     ];
     const data = [
-      { name: 'foo', id: 0 },
-      { position: 'demo', id: 1 },
-      { age: 123, id: 2 },
+      { position: 'foo', age: 111, name: 'foo', id: 0 },
+      { position: 'demo', age: 333, name: 'boo', id: 1 },
+      { position: 'demo 2', age: 123, name: 'demo', id: 2 },
     ];
     const table = TestUtils.renderIntoDocument(
       <Table columns={columns} data={data}>

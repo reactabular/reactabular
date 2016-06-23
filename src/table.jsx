@@ -1,4 +1,5 @@
 import get from 'lodash/get';
+import has from 'lodash/has';
 import React from 'react';
 
 class Table extends React.Component {
@@ -94,7 +95,10 @@ const Body = ({ row, rowKey, className, ...props }, { columns, data }) => (
           resolve = a => a,
           props, // eslint-disable-line no-shadow
         } = column.cell;
-        // TODO: give a warning if value is not found by `get`
+        if (!has(r, property)) {
+          console.warn(`Table.Body - Failed to find "${property}" property from`, r); // eslint-disable-line max-len, no-console
+        }
+
         const extraParameters = { cellData: data[i], property };
         const val = get(r, property);
         const resolvedValue = resolve(val, extraParameters);
