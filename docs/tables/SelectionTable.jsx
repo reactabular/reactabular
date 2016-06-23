@@ -60,37 +60,14 @@ class SelectionTable extends React.Component {
       ],
       selectedRowId: null,
     };
+
+    this.onKeyPressed = this.onKeyPressed.bind(this);
   }
   componentDidMount() {
-    window.addEventListener(
-      'keydown',
-      e => {
-        const data = this.state.data;
-        const selected = this.state.selectedRowId;
-        const idx = findIndex(data, { id: selected });
-
-        // Arrow Up
-        if (e.keyCode === 38 && idx > 0) {
-          e.preventDefault();
-
-          this.setState({
-            selectedRowId: data[idx - 1].id,
-          });
-        }
-
-        // Arrow Down
-        if (e.keyCode === 40 && idx < data.length - 1) {
-          e.preventDefault();
-
-          this.setState({
-            selectedRowId: data[idx + 1].id,
-          });
-        }
-      }
-    );
+    window.addEventListener('keydown', this.onKeyPressed);
   }
   componentWillUnmount() {
-    window.removeEventListener('keydown');
+    window.removeEventListener('keydown', this.onKeyPressed);
   }
   render() {
     const { columns, data, selectedRowId } = this.state;
@@ -125,6 +102,29 @@ class SelectionTable extends React.Component {
         </div>
       </div>
     );
+  }
+  onKeyPressed(e) {
+    const data = this.state.data;
+    const selected = this.state.selectedRowId;
+    const idx = findIndex(data, { id: selected });
+
+    // Arrow Up
+    if (e.keyCode === 38 && idx > 0) {
+      e.preventDefault();
+
+      this.setState({
+        selectedRowId: data[idx - 1].id,
+      });
+    }
+
+    // Arrow Down
+    if (e.keyCode === 40 && idx < data.length - 1) {
+      e.preventDefault();
+
+      this.setState({
+        selectedRowId: data[idx + 1].id,
+      });
+    }
   }
 }
 
