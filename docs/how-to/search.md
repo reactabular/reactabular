@@ -103,9 +103,9 @@ This is a more specialized version of `search.multipleColumns`. You can use it t
 
 ### Matchers
 
-**`search.columnMatches({ data: [<object>], column: [<object>], row: <object>, strategy: <strategy>, transform: <transform> }) => [{ startIndex: <number>, length: <number> }]`**
+**`search._columnMatches({ data: [<object>], column: [<object>], row: <object>, strategy: <strategy>, transform: <transform> }) => <boolean>`**
 
-This is a function that can be used to figure out all column specific matches.
+This is a function that can be used to figure out all column specific matches. It is meant only for **internal usage** of the library.
 
 **`search.matches({ value: <string>, query: <string>, strategy: <strategy>, transform: <transform> }) => [{ startIndex: <number>, length: <number> }]`**
 

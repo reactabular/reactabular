@@ -3,7 +3,7 @@ import { search } from '../src';
 
 const {
   multipleColumns, singleColumn,
-  strategies: { infix, prefix }, columnMatches, matches,
+  strategies: { infix, prefix }, _columnMatches, matches,
 } = search;
 
 describe('search.multipleColumns', function () {
@@ -155,120 +155,98 @@ describe('search.singleColumn', function () {
   });
 });
 
-describe('search.columnMatches', function () {
+describe('search._columnMatches', function () {
   it('returns matching query', function () {
     const query = 'foo';
-    const result = columnMatches({
+    const result = _columnMatches({
       query,
       column: { cell: { property: 'demo' } },
       row: { demo: 'foobar' },
     });
-    const expected = [
-      {
-        startIndex: 0,
-        length: query.length,
-      },
-    ];
 
-    expect(result).to.deep.equal(expected);
+    expect(result).to.equal(true);
   });
 
   it('does not return missing query', function () {
     const query = 'zoo';
-    const result = columnMatches({
+    const result = _columnMatches({
       query,
       column: { cell: { property: 'demo' } },
       row: { demo: 'foobar' },
     });
-    const expected = [];
 
-    expect(result).to.deep.equal(expected);
+    expect(result).to.equal(false);
   });
 
   it('accepts alternative strategy', function () {
     const query = 'oba';
-    const result = columnMatches({
+    const result = _columnMatches({
       query,
       column: { cell: { property: 'demo' } },
       row: { demo: 'foobar' },
       strategy: prefix,
     });
 
-    expect(result).to.deep.equal([]);
+    expect(result).to.equal(false);
   });
 
   it('accepts alternative transform', function () {
     const query = 'oba';
-    const result = columnMatches({
+    const result = _columnMatches({
       query,
       column: { cell: { property: 'demo' } },
       row: { demo: 'foobar' },
       transform: v => v,
     });
-    const expected = [
-      {
-        startIndex: 2,
-        length: 3,
-      },
-    ];
 
-    expect(result).to.deep.equal(expected);
+    expect(result).to.equal(true);
   });
 
   it('parses nested property', function () {
     const query = 'foo';
-    const result = columnMatches({
+    const result = _columnMatches({
       query,
       column: { cell: { property: 'demo.another' } },
       row: { demo: { another: 'foobar' } },
     });
-    const expected = [
-      {
-        startIndex: 0,
-        length: query.length,
-      },
-    ];
 
-    expect(result).to.deep.equal(expected);
+    expect(result).to.equal(true);
   });
 
   it('formats property', function () {
     const query = 'foo';
-    const result = columnMatches({
+    const result = _columnMatches({
       query,
       column: { cell: { property: 'demo', value: a => a.toUpperCase() } },
       row: { demo: 'foobar' },
       transform: v => v,
     });
-    const expected = [];
 
-    expect(result).to.deep.equal(expected);
+    expect(result).to.equal(false);
   });
 
   it('is not visible without a valid value', function () {
     const query = 'foo';
-    const result = columnMatches({
+    const result = _columnMatches({
       query,
       column: { cell: { property: 'demo' } },
       row: { demo: ['bar'] },
       transform: v => v,
     });
-    const expected = [];
 
-    expect(result).to.deep.equal(expected);
+    expect(result).to.equal(false);
   });
 
   it('is not visible with undefined', function () {
     const query = 'foo';
-    const result = columnMatches({
+    const result = _columnMatches({
       query,
       column: { cell: { property: 'demo' } },
       row: { demo: undefined },
       transform: v => v,
     });
-    const expected = [];
 
-    expect(result).to.deep.equal(expected);
+    expect(result).to.equal(false);
   });
 });
 

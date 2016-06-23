@@ -34,14 +34,14 @@ const singleColumn = ({
     ret = columns.filter(col => col.cell && col.cell.property === searchColumn);
   }
 
-  // XXX: optimize through .evaluate instead of .matches
-  return data.filter(row => ret.filter(column => columnMatches({
+  return data.filter(row => ret.filter(column => _columnMatches({
     query, column, strategy, transform, row,
-  }).length > 0).length > 0);
+  })).length > 0);
 };
 
-const columnMatches = ({
-  query, column = { cell: {} }, row, strategy, transform,
+const _columnMatches = ({ // eslint-disable-line no-underscore-dangle
+  query, column = { cell: {} }, row,
+  strategy = strategies.infix, transform = v => v.toLowerCase(),
 }) => {
   const property = column.cell.property;
   const value = get(row, property);
@@ -54,12 +54,7 @@ const columnMatches = ({
 
   formattedValue = formattedValue.toString ? formattedValue.toString() : '';
 
-  return matches({
-    value: formattedValue,
-    query,
-    strategy,
-    transform,
-  });
+  return strategy(transform(query)).evaluate(transform(formattedValue));
 };
 
 const matches = ({
@@ -124,7 +119,7 @@ const strategies = {
 export default {
   multipleColumns,
   singleColumn,
-  columnMatches,
+  _columnMatches,
   matches,
   strategies,
 };
