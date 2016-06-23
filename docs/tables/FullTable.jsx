@@ -4,11 +4,12 @@ import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
 import {
-  Table, Search, editors, sort, transforms, formatters,
+  Table, search, editors, sort, transforms, formatters,
 } from '../../src';
 
 import {
-  CustomFooter, ColumnFilters, rowEditor, Paginator, PrimaryControls,
+  CustomFooter, ColumnFilters, rowEditor,
+  Paginator, PrimaryControls,
 } from '../helpers';
 import countries from '../data/countries';
 import {
@@ -55,12 +56,12 @@ class FullTable extends React.Component {
     super(props);
 
     const highlight = column => formatters.highlight(value => {
-      const { search } = this.state;
+      const { searchQuery } = this.state;
 
-      return Search.matches(
+      return search.matches(
         column,
         value,
-        search[Object.keys(search).pop()]
+        searchQuery[Object.keys(searchQuery).pop()]
       );
     });
     const editable = transforms.edit({
@@ -89,7 +90,7 @@ class FullTable extends React.Component {
     this.state = {
       editedCell: null,
       data,
-      search: {},
+      searchQuery: {},
       sortingColumns: null, // reference to the sorting columns
       columns: [
         {
@@ -195,9 +196,9 @@ class FullTable extends React.Component {
   }
   render() {
     const {
-      columns, data, pagination, sortingColumns, search,
+      columns, data, pagination, sortingColumns, searchQuery,
     } = this.state;
-    let d = Search.search(data, columns, search);
+    let d = search(data, columns, searchQuery);
 
     d = sort.sorter(d, sortingColumns, orderBy);
 
@@ -243,10 +244,10 @@ class FullTable extends React.Component {
       </div>
     );
   }
-  onSearch(search) {
+  onSearch(searchQuery) {
     this.setState({
       editedCell: null, // reset edits
-      search,
+      searchQuery,
     });
   }
   onSelect(page) {

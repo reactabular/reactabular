@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search } from '../../src';
+import Search from './Search';
 import PerPage from './PerPage';
 
 const PrimaryControls = ({

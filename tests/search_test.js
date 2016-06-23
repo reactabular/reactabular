@@ -1,5 +1,7 @@
-import infix from '../../src/predicates/infix';
 import { expect } from 'chai';
+import { search } from '../src';
+
+const { predicates: { infix, prefix } } = search;
 
 describe('infix', function () {
   it('matches correctly', function () {
@@ -43,6 +45,32 @@ describe('infix', function () {
     const text = 'dark';
 
     const predicate = infix(queryTerm);
+
+    expect(predicate.evaluate(text)).to.equal(false);
+    expect(predicate.matches(text)).to.be.empty;
+  });
+});
+
+describe('prefix', function () {
+  it('matches correctly', function () {
+    const queryTerm = 'lay';
+    const text = 'layout';
+
+    const predicate = prefix(queryTerm);
+    const expected = [{
+      startIndex: 0,
+      length: queryTerm.length,
+    }];
+
+    expect(predicate.evaluate(text)).to.equal(true);
+    expect(predicate.matches(text)).to.deep.equal(expected);
+  });
+
+  it('does not match', function () {
+    const queryTerm = 'lay';
+    const text = 'outlay';
+
+    const predicate = prefix(queryTerm);
 
     expect(predicate.evaluate(text)).to.equal(false);
     expect(predicate.matches(text)).to.be.empty;

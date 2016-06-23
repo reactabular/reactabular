@@ -53,7 +53,10 @@ const common = {
       {
         test: /\.jsx?$/,
         loaders: ['babel'],
-        include: config.paths.src,
+        include: [
+          config.paths.src,
+          config.paths.documentation,
+        ],
       },
       {
         test: require.resolve('catalog'),
@@ -95,15 +98,6 @@ if (TARGET === 'start') {
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
     ],
-    module: {
-      loaders: [
-        {
-          test: /\.jsx?$/,
-          loaders: ['babel'],
-          include: config.paths.documentation,
-        },
-      ],
-    },
   });
 }
 
