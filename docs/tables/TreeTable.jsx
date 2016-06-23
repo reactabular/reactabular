@@ -149,11 +149,18 @@ function getParents(data, itemIndex) {
   let currentIndex = itemIndex;
   let cell = data[itemIndex];
   let previousParent;
+  let parentIndex;
 
-  while (cell.parent) {
+  while (cell) {
+    if (cell.id === previousParent) {
+      parents.push(cell);
+
+      if (!cell.parent) {
+        break;
+      }
+    }
+
     if (cell.parent !== previousParent) {
-      parents.push(cell.parent);
-
       previousParent = cell.parent;
     }
 
@@ -162,9 +169,7 @@ function getParents(data, itemIndex) {
     cell = data[currentIndex];
   }
 
-  // Resolve each parent to an actual item. It could be
-  // better to merge this with above logic.
-  return data.filter(d => parents.indexOf(d.id) >= 0);
+  return parents;
 }
 
 // This can be memoized for extra performance.
