@@ -12,7 +12,7 @@ class SearchTable extends React.Component {
     super(props);
 
     this.state = {
-      searchQuery: {},
+      query: {},
       columns: [
         {
           header: {
@@ -56,8 +56,8 @@ class SearchTable extends React.Component {
     };
   }
   render() {
-    const { data, columns, searchQuery } = this.state;
-    let searchedData = search(data, columns, searchQuery);
+    const { data, columns, query } = this.state;
+    let searchedData = search.multipleColumns(data, columns, query);
 
     return (
       <div>
@@ -66,7 +66,7 @@ class SearchTable extends React.Component {
           <Search
             columns={columns}
             data={data}
-            onChange={searchQuery => this.setState({ searchQuery })}
+            onChange={query => this.setState({ query })}
           />
         </div>
         <Table columns={columns} data={searchedData}>

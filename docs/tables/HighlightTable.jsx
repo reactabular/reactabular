@@ -19,7 +19,7 @@ export default class HighlightTable extends React.Component {
     });
 
     this.state = {
-      searchQuery: {},
+      query: {},
       columns: [
         {
           header: {
