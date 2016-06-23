@@ -44,6 +44,52 @@ describe('Table', function () {
     expect(ths.length).to.equal(columns.length);
   });
 
+  it('should allow header to be transformed', function () {
+    const headerClass = 'test-header';
+    const columns = [
+      {
+        header: {
+          value: 'Name',
+          transform: () => ({
+            className: headerClass,
+          }),
+        },
+      },
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[]}>
+        <Table.Header />
+      </Table>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th).to.exist;
+  });
+
+  it('should allow header to be formatted', function () {
+    const headerClass = 'test-header';
+    const columns = [
+      {
+        header: {
+          value: 'Name',
+          format: name => <span className={headerClass}>{name}</span>,
+        },
+      },
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[]}>
+        <Table.Header />
+      </Table>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th).to.exist;
+  });
+
   it('should render content based on data', function () {
     const columns = [
       {
