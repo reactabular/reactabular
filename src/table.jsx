@@ -42,7 +42,7 @@ Table.childContextTypes = {
   data: React.PropTypes.array,
 };
 
-const Header = ({ children, ...props }, { columns }) => (
+const Header = ({ children, className, ...props }, { columns }) => (
   <thead {...props}>
     <tr>
       {columns.map((column, i) => {
@@ -55,10 +55,17 @@ const Header = ({ children, ...props }, { columns }) => (
         const extraParameters = { cellData: value };
         const key = `${i}-header`;
         const transformed = transform(value, extraParameters);
+        const mergedClassName = mergeClassNames(
+          className, transformed.className
+        );
 
-        // XXX: make sure that classNames get merged instead of overriding!
         return (
-          <th key={key} {...{ ...props, ...transformed }}>
+          <th
+            key={key}
+            {
+              ...{ ...props, ...transformed, ...{ className: mergedClassName } }
+            }
+          >
             {transformed.children || format(value, extraParameters)}
           </th>
         );
@@ -69,13 +76,14 @@ const Header = ({ children, ...props }, { columns }) => (
 );
 Header.propTypes = {
   children: React.PropTypes.any,
+  className: React.PropTypes.string,
 };
 Header.contextTypes = {
   columns: React.PropTypes.array.isRequired,
 };
 Header.displayName = 'Table.Header';
 
-const Body = ({ row, rowKey, ...props }, { columns, data }) => (
+const Body = ({ row, rowKey, className, ...props }, { columns, data }) => (
   <tbody {...props}>{
     data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
       columns.map((column, j) => {
@@ -91,9 +99,17 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
         const val = get(r, property);
         const resolvedValue = resolve(val, extraParameters);
         const transformed = transform(val, extraParameters);
+        const mergedClassName = mergeClassNames(
+          className, transformed.className
+        );
 
         return (
-          <td key={`${j}-cell`} {...{ ...props, ...transformed }}>
+          <td
+            key={`${j}-cell`}
+            {
+              ...{ ...props, ...transformed, ...{ className: mergedClassName } }
+            }
+          >
             {transformed.children || format(resolvedValue, extraParameters)}
           </td>
         );
@@ -104,6 +120,7 @@ const Body = ({ row, rowKey, ...props }, { columns, data }) => (
 Body.propTypes = {
   row: React.PropTypes.func,
   rowKey: React.PropTypes.string.isRequired,
+  className: React.PropTypes.string,
 };
 Body.defaultProps = {
   row: () => {},
@@ -113,6 +130,15 @@ Body.contextTypes = {
   data: React.PropTypes.array.isRequired,
 };
 Body.displayName = 'Table.Body';
+
+function mergeClassNames(a, b) {
+  if (a && b) {
+    return `${a} ${b}`;
+  }
+
+  // Either a or b at this point
+  return (a || '') + (b || '');
+}
 
 Table.Header = Header;
 Table.Body = Body;

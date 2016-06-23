@@ -68,6 +68,59 @@ describe('Table', function () {
     expect(th).to.exist;
   });
 
+  it('allows header to be transformed while retaining classNames', function () {
+    const headerClass = 'test-header';
+    const anotherHeaderClass = 'another-header';
+    const columns = [
+      {
+        header: {
+          value: 'Name',
+          transform: () => ({
+            className: headerClass,
+          }),
+        },
+      },
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[]}>
+        <Table.Header className={anotherHeaderClass} />
+      </Table>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
+  });
+
+  it('allows body content to be transformed while retaining classNames', function () {
+    const cellClass = 'test-cell';
+    const anotherCellClass = 'another-cell';
+    const columns = [
+      {
+        header: {
+          value: 'Name',
+        },
+        cell: {
+          property: 'name',
+          transform: () => ({
+            className: cellClass,
+          }),
+        },
+      },
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[{ name: 'demo' }]}>
+        <Table.Body className={anotherCellClass} rowKey="name" />
+      </Table>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td.className).to.equal(`${anotherCellClass} ${cellClass}`);
+  });
+
   it('allows header to be formatted', function () {
     const headerClass = 'test-header';
     const columns = [
