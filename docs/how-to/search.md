@@ -11,6 +11,7 @@ lang: jsx
 ---
 import React from 'react';
 import { Table, search } from 'reactabular';
+import { Search } from './helpers';
 
 class SearchTable extends React.Component {
   constructor(props) {
@@ -84,6 +85,8 @@ class SearchTable extends React.Component {
   }
 }
 ```
+
+> You can find that `Search` helper from `docs/helpers`. It's not included in the core distribution.
 
 ## API
 
