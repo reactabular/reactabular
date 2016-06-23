@@ -34,6 +34,7 @@ const singleColumn = ({
     ret = columns.filter(col => col.cell && col.cell.property === searchColumn);
   }
 
+  // XXX: optimize through .evaluate instead of .matches
   return data.filter(row => ret.filter(column => columnMatches({
     query, column, strategy, transform, row,
   }).length > 0).length > 0);
@@ -62,10 +63,7 @@ const columnMatches = ({
 };
 
 const matches = ({
-  value,
-  query,
-  strategy = predicates.infix,
-  transform = v => v.toLowerCase(),
+  value, query, strategy = strategies.infix, transform = v => v.toLowerCase(),
 } = {}) => {
   if (!query) {
     return {};
@@ -74,22 +72,22 @@ const matches = ({
   return strategy(transform(query)).matches(transform(value));
 };
 
-const infix = value => ({
+const infix = queryTerm => ({
   evaluate(searchText) {
-    return searchText.indexOf(value) !== -1;
+    return searchText.indexOf(queryTerm) !== -1;
   },
   matches(searchText) {
-    const splitString = searchText.split(value);
+    const splitString = searchText.split(queryTerm);
     const result = [];
     let currentPosition = 0;
 
     for (let x = 0; x < splitString.length; x++) {
       result.push({
         startIndex: currentPosition + splitString[x].length,
-        length: value.length,
+        length: queryTerm.length,
       });
 
-      currentPosition += splitString[x].length + value.length;
+      currentPosition += splitString[x].length + queryTerm.length;
     }
 
     result.pop();
@@ -98,18 +96,18 @@ const infix = value => ({
   },
 });
 
-const prefix = value => ({
+const prefix = queryTerm => ({
   evaluate(searchText) {
-    return searchText.indexOf(value) === 0;
+    return searchText.indexOf(queryTerm) === 0;
   },
   matches(searchText) {
-    const prefixIndex = searchText.indexOf(value);
+    const prefixIndex = searchText.indexOf(queryTerm);
 
     if (prefixIndex === 0) {
       return [
         {
           startIndex: 0,
-          length: value.length,
+          length: queryTerm.length,
         },
       ];
     }
@@ -118,7 +116,7 @@ const prefix = value => ({
   },
 });
 
-const predicates = {
+const strategies = {
   infix,
   prefix,
 };
@@ -128,5 +126,5 @@ export default {
   singleColumn,
   columnMatches,
   matches,
-  predicates,
+  strategies,
 };

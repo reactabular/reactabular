@@ -3,7 +3,7 @@ import { search } from '../src';
 
 const {
   multipleColumns, singleColumn,
-  predicates: { infix, prefix }, columnMatches, matches,
+  strategies: { infix, prefix }, columnMatches, matches,
 } = search;
 
 describe('search.multipleColumns', function () {
@@ -341,7 +341,7 @@ describe('search.matches', function () {
   });
 });
 
-describe('search.predicates.infix', function () {
+describe('search.strategies.infix', function () {
   it('matches correctly', function () {
     const queryTerm = 'light';
     const text = 'enlighten';
@@ -389,7 +389,7 @@ describe('search.predicates.infix', function () {
   });
 });
 
-describe('search.predicates.prefix', function () {
+describe('search.strategies.prefix', function () {
   it('matches correctly', function () {
     const queryTerm = 'lay';
     const text = 'layout';
