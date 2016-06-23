@@ -5,7 +5,7 @@ import { Table } from '../src';
 import { expect } from 'chai';
 
 describe('Table', function () {
-  it('should render a header based on `header` fields', function () {
+  it('renders a header based on `header` fields', function () {
     const columns = [
       {
         header: {
@@ -44,7 +44,7 @@ describe('Table', function () {
     expect(ths.length).to.equal(columns.length);
   });
 
-  it('should allow header to be transformed', function () {
+  it('allows header to be transformed', function () {
     const headerClass = 'test-header';
     const columns = [
       {
@@ -68,7 +68,7 @@ describe('Table', function () {
     expect(th).to.exist;
   });
 
-  it('should allow header to be formatted', function () {
+  it('allows header to be formatted', function () {
     const headerClass = 'test-header';
     const columns = [
       {
@@ -90,7 +90,7 @@ describe('Table', function () {
     expect(th).to.exist;
   });
 
-  it('should render content based on data', function () {
+  it('renders content based on data', function () {
     const columns = [
       {
         header: {
@@ -134,7 +134,7 @@ describe('Table', function () {
     expect(trs.length).to.equal(data.length);
   });
 
-  it('should accept formatters for customizing cell value', function () {
+  it('accepts formatters for customizing cell value', function () {
     const columns = [
       {
         header: {
@@ -184,7 +184,7 @@ describe('Table', function () {
     expect(tds[2].innerHTML).to.equal('0');
   });
 
-  it('should accept function based React components for customizing value', function () {
+  it('accepts function based React components for customizing value', function () {
     const columns = [
       {
         header: {
@@ -226,7 +226,7 @@ describe('Table', function () {
     expect(tds[0].children[0].className).to.equal('complex');
   });
 
-  it('should render children correctly', function () {
+  it('renders children correctly', function () {
     const columns = [
       {
         header: {

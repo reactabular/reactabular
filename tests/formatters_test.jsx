@@ -7,7 +7,7 @@ import { expect } from 'chai';
 const highlight = formatters.highlight;
 
 describe('highlight', function () {
-  it('should not highlight if there is no match at all', function () {
+  it('does not highlight if there is no match at all', function () {
     const value = 'foobar';
     const highlighter = highlight(() => []);
     const result = TestUtils.renderIntoDocument(<Wrapper>{highlighter(value)}</Wrapper>);
@@ -18,7 +18,7 @@ describe('highlight', function () {
     expect(searchResult.children[0].innerHTML).to.equal(value);
   });
 
-  it('should highlight matching portion', function () {
+  it('highlights matching portion', function () {
     const value = 'foobar';
     const highlighter = highlight(() => [{
       startIndex: 0,
@@ -32,7 +32,7 @@ describe('highlight', function () {
     expect(highlightResult.innerHTML).to.equal(value.slice(0, 2));
   });
 
-  it('should highlight from the middle', function () {
+  it('highlights from the middle', function () {
     const value = 'foobar';
     const highlighter = highlight(() => [{
       startIndex: 2,
@@ -46,7 +46,7 @@ describe('highlight', function () {
     expect(highlightResult.innerHTML).to.equal(value.slice(2));
   });
 
-  it('should highlight whole if there is a full match', function () {
+  it('highlights whole if there is a full match', function () {
     const value = 'foobar';
     const highlighter = highlight(() => [{
       startIndex: 0,

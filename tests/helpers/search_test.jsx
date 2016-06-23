@@ -4,7 +4,7 @@ import { Search } from '../../docs/helpers/';
 import { expect } from 'chai';
 
 describe('Search', function () {
-  it('should have a dropdown with default `all` option', function () {
+  it('has a dropdown with default `all` option', function () {
     const search = TestUtils.renderIntoDocument(
       <Search />
     );
@@ -17,7 +17,7 @@ describe('Search', function () {
     expect(options[0].value).to.equal('all');
   });
 
-  it(`should have a dropdown that contains columns
+  it(`has a dropdown that contains columns
     which have both property and header`, function () {
     const columns = [
       {
@@ -54,7 +54,7 @@ describe('Search', function () {
     expect(options[1].textContent).to.equal(columns[0].header.value);
   });
 
-  it('should be able to yield results', function () {
+  it('yields results', function () {
     const columns = [
       {
         property: 'first',
@@ -80,7 +80,7 @@ describe('Search', function () {
     TestUtils.Simulate.change(input);
   });
 
-  it('should be able to yield zero results', function () {
+  it('yields zero results', function () {
     const columns = [
       {
         property: 'first',
@@ -106,7 +106,7 @@ describe('Search', function () {
     TestUtils.Simulate.change(input);
   });
 
-  it('should allow i18n', function () {
+  it('supports i18n', function () {
     const expected = 'Kaikki';
     const search = TestUtils.renderIntoDocument(
       <Search i18n={{ all: expected }} />

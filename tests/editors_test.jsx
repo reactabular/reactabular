@@ -7,7 +7,7 @@ import { expect } from 'chai';
 const { boolean, dropdown, input } = editors;
 
 describe('Boolean', function () {
-  it('should render given value', function () {
+  it('renders given value', function () {
     const testValue = false;
     const Boolean = boolean();
     const result = TestUtils.renderIntoDocument(
@@ -25,7 +25,7 @@ describe('Boolean', function () {
     expect(renderedButtons[1].disabled).to.equal(!testValue);
   });
 
-  it('should trigger onValue when value is false', function () {
+  it('triggers onValue when value is false', function () {
     let changedValue = false;
     const Boolean = boolean();
     const result = TestUtils.renderIntoDocument(
@@ -48,7 +48,7 @@ describe('Boolean', function () {
     expect(changedValue).to.equal(true);
   });
 
-  it('should trigger onValue when value is true', function () {
+  it('triggers onValue when value is true', function () {
     let changedValue = false;
     const Boolean = boolean();
     const result = TestUtils.renderIntoDocument(
@@ -71,7 +71,7 @@ describe('Boolean', function () {
     expect(changedValue).to.equal(false);
   });
 
-  it('should accept custom props', function () {
+  it('accepts custom props', function () {
     const testClassName = 'demo';
     const Boolean = boolean({
       props: { className: testClassName },
@@ -91,7 +91,7 @@ describe('Boolean', function () {
 });
 
 describe('Dropdown', function () {
-  it('should render given options', function () {
+  it('renders given options', function () {
     const options = [
       {
         value: 'name',
@@ -122,7 +122,7 @@ describe('Dropdown', function () {
     expect(renderedOptions[0].value).to.equal(options[0].value);
   });
 
-  it('should trigger onValue', function () {
+  it('triggers onValue', function () {
     let changedValue = false;
     const options = [
       {
@@ -151,7 +151,7 @@ describe('Dropdown', function () {
     expect(changedValue).to.equal(true);
   });
 
-  it('should allow customizing fields', function () {
+  it('allows customizing fields', function () {
     const options = [
       {
         value: 'name',
@@ -188,7 +188,7 @@ describe('Dropdown', function () {
     expect(renderedOptions[0].value).to.equal(options[0].name);
   });
 
-  it('should accept custom props', function () {
+  it('accepts custom props', function () {
     const options = [
       {
         value: 'name',
@@ -215,7 +215,7 @@ describe('Dropdown', function () {
 });
 
 describe('Input', function () {
-  it('should render given value', function () {
+  it('renders given value', function () {
     const testValue = 'name';
     const Input = input();
     const result = TestUtils.renderIntoDocument(
@@ -231,7 +231,7 @@ describe('Input', function () {
     expect(renderedInput.value).to.equal(testValue);
   });
 
-  it('should trigger onValue onBlur', function () {
+  it('triggers onValue onBlur', function () {
     let changedValue = false;
     const Input = input();
     const result = TestUtils.renderIntoDocument(
@@ -255,7 +255,7 @@ describe('Input', function () {
     expect(changedValue).to.equal(true);
   });
 
-  it('should trigger onValue onEnter', function () {
+  it('triggers onValue onEnter', function () {
     let changedValue = false;
     const Input = input();
     const result = TestUtils.renderIntoDocument(
@@ -283,7 +283,7 @@ describe('Input', function () {
     expect(changedValue).to.equal(true);
   });
 
-  it('should accept custom props', function () {
+  it('accepts custom props', function () {
     const testClassName = 'demo';
     const Input = input({
       props: { className: testClassName },
