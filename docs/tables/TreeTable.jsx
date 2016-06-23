@@ -48,6 +48,12 @@ class TreeTable extends React.Component {
           parent: 104,
         },
         {
+          id: 109,
+          name: 'Marge',
+          age: 11,
+          parent: 104,
+        },
+        {
           id: 106,
           name: 'Bob',
           age: 44,
@@ -75,15 +81,15 @@ class TreeTable extends React.Component {
             property: 'name',
             resolve: (name, { cellData }) => {
               const data = this.state.data;
+              // Optimization - Operate based on index for faster lookups
+              const cellIndex = findIndex(data, { id: cellData.id });
 
               return (
-                <div style={{ paddingLeft: `${getLevel(data, cellData) * 1}em` }}>
-                  {hasChildren(data, cellData.id) && <span
+                <div style={{ paddingLeft: `${getLevel(data, cellIndex) * 1}em` }}>
+                  {hasChildren(data, cellIndex) && <span
                     className={cellData.showChildren ? 'show-less' : 'show-more'}
                     onClick={e => {
-                      const parentIndex = findIndex(data, { id: cellData.id });
-
-                      data[parentIndex].showChildren = !cellData.showChildren;
+                      data[cellIndex].showChildren = !cellData.showChildren;
 
                       this.setState({ data });
                     }}
@@ -104,15 +110,13 @@ class TreeTable extends React.Component {
         },
       ],
     };
-
-    this.filterData = this.filterData.bind(this);
   }
   render() {
     return (
       <Table
         className="pure-table pure-table-striped"
         columns={this.state.columns}
-        data={this.filterData()}
+        data={filterTree(this.state.data)}
       >
         <Table.Header />
 
@@ -125,46 +129,81 @@ class TreeTable extends React.Component {
       </Table>
     );
   }
-  filterData() {
-    const data = this.state.data;
-
-    return data.filter(d => {
-      if (!d.parent) {
-        return true;
-      }
-      const parent = find(data, { id: d.parent });
-
-      return parent && parent.showChildren;
-    });
-  }
 }
 
-// This can be memoized for extra performance
-function getLevel(data, item) {
-  // Get parent of parent till there is no parent -> level
+function filterTree(data) {
+  return data.filter((item, i) => {
+    if (!item.parent) {
+      return true;
+    }
+
+    const parents = getParents(data, i);
+
+    return parents.filter(parent => parent.showChildren).length === parents.length;
+  });
+}
+
+// This can be memoized for extra performance.
+function getParents(data, itemIndex) {
+  const parents = [];
+  let currentIndex = itemIndex;
+  let cell = data[itemIndex];
+  let previousParent;
+
+  while (cell.parent) {
+    if (cell.parent !== previousParent) {
+      parents.push(cell.parent);
+
+      previousParent = cell.parent;
+    }
+
+    currentIndex--;
+
+    cell = data[currentIndex];
+  }
+
+  // Resolve each parent to an actual item. It could be
+  // better to merge this with above logic.
+  return data.filter(d => parents.indexOf(d.id) >= 0);
+}
+
+// This can be memoized for extra performance.
+function getLevel(data, itemIndex) {
+  // Get parent of parent till there is no parent -> level.
+  // This relies on data order!
   let level = 0;
-  let cell = item;
+  let currentIndex = itemIndex;
+  let cell = data[itemIndex];
+  let previousParent;
 
   while (cell) {
     if (cell.parent) {
-      level++;
+      if (previousParent !== cell.parent) {
+        level++;
+      }
+    } else {
+      break;
     }
 
-    // Micro-optimization - operate through index instead
-    // and rely on order. In the current structure it would
-    // be safe to take a peek at the previous item based on
-    // the index.
-    cell = find(data, { id: cell.parent });
+    currentIndex--;
+
+    previousParent = cell.parent;
+    cell = data[currentIndex];
   }
 
   return level;
 }
 
-// This can be memoized for extra performance
-function hasChildren(data, itemId) {
-  // Micro-optimization - take a peek at the next item
-  // based on index and see if it has children directly.
-  return !!find(data, { parent: itemId });
+// This can be memoized for extra performance.
+function hasChildren(data, itemIndex) {
+  // See if the next item points to the current one.
+  // This relies on data order!
+  const currentItem = data[itemIndex];
+  const nextItem = data[itemIndex + 1];
+
+  const ret = nextItem && currentItem.id === nextItem.parent;
+
+  return ret;
 }
 
 export default TreeTable;
