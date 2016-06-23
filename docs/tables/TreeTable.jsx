@@ -12,7 +12,7 @@ class TreeTable extends React.Component {
 
     this.state = {
       data: [
-        // The data has been sorted so that children are after their parents
+        // The data has been sorted so that children are directly after their parents
         {
           id: 100,
           name: 'Adam',
@@ -39,7 +39,31 @@ class TreeTable extends React.Component {
           id: 104,
           name: 'Jack',
           age: 33,
-          parent: 101,
+          parent: 103,
+        },
+        {
+          id: 105,
+          name: 'Jill',
+          age: 11,
+          parent: 104,
+        },
+        {
+          id: 106,
+          name: 'Bob',
+          age: 44,
+          parent: 104,
+        },
+        {
+          id: 107,
+          name: 'Peter',
+          age: 66,
+          parent: 106,
+        },
+        {
+          id: 108,
+          name: 'James',
+          age: 12,
+          parent: 107,
         },
       ],
       columns: [
@@ -49,22 +73,25 @@ class TreeTable extends React.Component {
           },
           cell: {
             property: 'name',
-            resolve: (name, { cellData }) => (
-              <div style={cellData.parent && { paddingLeft: '1em' }}>
-                {!cellData.parent && <span
-                  className={cellData.showChildren ? 'show-less' : 'show-more'}
-                  onClick={e => {
-                    const data = this.state.data;
-                    const parentIndex = findIndex(data, { id: cellData.id });
+            resolve: (name, { cellData }) => {
+              const data = this.state.data;
 
-                    data[parentIndex].showChildren = !cellData.showChildren;
+              return (
+                <div style={{ paddingLeft: `${getLevel(data, cellData) * 1}em` }}>
+                  {hasChildren(data, cellData.id) && <span
+                    className={cellData.showChildren ? 'show-less' : 'show-more'}
+                    onClick={e => {
+                      const parentIndex = findIndex(data, { id: cellData.id });
 
-                    this.setState({ data });
-                  }}
-                />}
-                {name}
-              </div>
-            ),
+                      data[parentIndex].showChildren = !cellData.showChildren;
+
+                      this.setState({ data });
+                    }}
+                  />}
+                  {name}
+                </div>
+              );
+            },
           },
         },
         {
@@ -110,6 +137,34 @@ class TreeTable extends React.Component {
       return parent && parent.showChildren;
     });
   }
+}
+
+// This can be memoized for extra performance
+function getLevel(data, item) {
+  // Get parent of parent till there is no parent -> level
+  let level = 0;
+  let cell = item;
+
+  while (cell) {
+    if (cell.parent) {
+      level++;
+    }
+
+    // Micro-optimization - operate through index instead
+    // and rely on order. In the current structure it would
+    // be safe to take a peek at the previous item based on
+    // the index.
+    cell = find(data, { id: cell.parent });
+  }
+
+  return level;
+}
+
+// This can be memoized for extra performance
+function hasChildren(data, itemId) {
+  // Micro-optimization - take a peek at the next item
+  // based on index and see if it has children directly.
+  return !!find(data, { parent: itemId });
 }
 
 export default TreeTable;
