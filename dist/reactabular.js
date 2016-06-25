@@ -194,7 +194,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Table.propTypes = {
 	  columns: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
 	    header: _react2.default.PropTypes.shape({
-	      value: _react2.default.PropTypes.string,
+	      label: _react2.default.PropTypes.string,
 	      transform: _react2.default.PropTypes.func,
 	      format: _react2.default.PropTypes.func,
 	      props: _react2.default.PropTypes.object
@@ -232,7 +232,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _ref3 = // eslint-disable-line no-shadow
 	        column.header || {};
 	
-	        var value = _ref3.value;
+	        var label = _ref3.label;
 	        var _ref3$transform = _ref3.transform;
 	        var transform = _ref3$transform === undefined ? function (a) {
 	          return {};
@@ -244,9 +244,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } : _ref3$format;
 	        var props = _ref3.props;
 	
-	        var extraParameters = { cellData: value };
+	        var extraParameters = { cellData: label };
 	        var key = i + '-header';
-	        var transformed = transform(value, extraParameters);
+	        var transformed = transform(label, extraParameters);
 	        var mergedClassName = mergeClassNames(className, transformed.className);
 	
 	        return _react2.default.createElement(
@@ -254,7 +254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _extends({
 	            key: key
 	          }, _extends({}, props, transformed, { className: mergedClassName })),
-	          transformed.children || format(value, extraParameters)
+	          transformed.children || format(label, extraParameters)
 	        );
 	      })
 	    ),
@@ -310,9 +310,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }
 	
 	          var extraParameters = { cellData: data[i], property: property };
-	          var val = (0, _get2.default)(r, property);
-	          var resolvedValue = resolve(val, extraParameters);
-	          var transformed = transform(val, extraParameters);
+	          var value = (0, _get2.default)(r, property);
+	          var resolvedValue = resolve(value, extraParameters);
+	          var transformed = transform(value, extraParameters);
 	          var mergedClassName = mergeClassNames(className, transformed.className);
 	
 	          return _react2.default.createElement(
@@ -2289,7 +2289,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  var property = column.cell.property;
 	  var value = (0, _get2.default)(row, property);
-	  var formatter = column.cell.value || function (a) {
+	  var formatter = column.cell.resolve || function (a) {
 	    return a;
 	  };
 	  var formattedValue = formatter(value);
