@@ -41,7 +41,7 @@ const countries = {
 const columns = [
   {
     header: {
-      value: 'Name',
+      label: 'Name',
     },
     cell: {
       property: 'name',
@@ -49,7 +49,7 @@ const columns = [
   },
   {
     header: {
-      value: 'Active',
+      label: 'Active',
     },
     cell: {
       property: 'tools.hammer',
@@ -58,7 +58,7 @@ const columns = [
   },
   {
     header: {
-      value: 'Country',
+      label: 'Country',
     },
     cell: {
       property: 'country',

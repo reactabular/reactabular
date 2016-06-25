@@ -9,7 +9,7 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          value: 'Name',
+          label: 'Name',
         },
         cell: {
           property: 'name',
@@ -17,7 +17,7 @@ describe('Table', function () {
       },
       {
         header: {
-          value: 'Position',
+          label: 'Position',
         },
         cell: {
           property: 'position',
@@ -25,7 +25,7 @@ describe('Table', function () {
       },
       {
         header: {
-          value: 'Age',
+          label: 'Age',
         },
         cell: {
           property: 'age',
@@ -49,7 +49,7 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          value: 'Name',
+          label: 'Name',
           transform: () => ({
             className: headerClass,
           }),
@@ -71,10 +71,11 @@ describe('Table', function () {
   it('allows header to be transformed while retaining classNames', function () {
     const headerClass = 'test-header';
     const anotherHeaderClass = 'another-header';
+    const label = 'Name';
     const columns = [
       {
         header: {
-          value: 'Name',
+          label,
           transform: () => ({
             className: headerClass,
           }),
@@ -90,6 +91,7 @@ describe('Table', function () {
       table, headerClass
     );
 
+    expect(th.innerHTML).to.equal(label);
     expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
   });
 
@@ -99,7 +101,7 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          value: 'Name',
+          label: 'Name',
         },
         cell: {
           property: 'name',
@@ -126,7 +128,7 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          value: 'Name',
+          label: 'Name',
           format: name => <span className={headerClass}>{name}</span>,
         },
       },
@@ -147,7 +149,7 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          value: 'Name',
+          label: 'Name',
         },
         cell: {
           property: 'name',
@@ -155,7 +157,7 @@ describe('Table', function () {
       },
       {
         header: {
-          value: 'Position',
+          label: 'Position',
         },
         cell: {
           property: 'position',
@@ -163,7 +165,7 @@ describe('Table', function () {
       },
       {
         header: {
-          value: 'Age',
+          label: 'Age',
         },
         cell: {
           property: 'age',
@@ -191,7 +193,7 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          value: 'Basic',
+          label: 'Basic',
         },
         cell: {
           property: 'basic',
@@ -199,7 +201,7 @@ describe('Table', function () {
       },
       {
         header: {
-          value: 'Identity',
+          label: 'Identity',
         },
         cell: {
           property: 'identity',
@@ -208,7 +210,7 @@ describe('Table', function () {
       },
       {
         header: {
-          value: 'Simple Math',
+          label: 'Simple Math',
         },
         cell: {
           property: 'math',
@@ -241,7 +243,7 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          value: 'Cell Props',
+          label: 'Cell Props',
         },
         cell: {
           property: 'complex',
@@ -250,7 +252,7 @@ describe('Table', function () {
       },
       {
         header: {
-          value: 'JSX',
+          label: 'JSX',
         },
         cell: {
           property: 'jsx',
@@ -283,7 +285,7 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          value: 'Name',
+          label: 'Name',
         },
         cell: {
           property: 'name',
@@ -291,7 +293,7 @@ describe('Table', function () {
       },
       {
         header: {
-          value: 'Position',
+          label: 'Position',
         },
         cell: {
           property: 'position',
@@ -299,7 +301,7 @@ describe('Table', function () {
       },
       {
         header: {
-          value: 'Age',
+          label: 'Age',
         },
         cell: {
           property: 'age',

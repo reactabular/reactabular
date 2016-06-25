@@ -14,7 +14,7 @@ export default class SearchTable extends React.Component {
       columns: [
         {
           header: {
-            value: 'Name',
+            label: 'Name',
           },
           cell: {
             property: 'name',
@@ -22,7 +22,7 @@ export default class SearchTable extends React.Component {
         },
         {
           header: {
-            value: 'Age',
+            label: 'Age',
           },
           cell: {
             property: 'age',

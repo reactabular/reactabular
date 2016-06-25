@@ -39,7 +39,7 @@ export default class EditableTable extends React.Component {
       columns: [
         {
           header: {
-            value: 'Name',
+            label: 'Name',
           },
           cell: {
             property: 'name',

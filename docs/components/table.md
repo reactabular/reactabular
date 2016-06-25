@@ -25,7 +25,7 @@ const data = [
 const columns = [
   {
     header: {
-      value: 'Name',
+      label: 'Name',
     },
     cell: {
       property: 'name',
@@ -33,7 +33,7 @@ const columns = [
   },
   {
     header: {
-      value: 'Dad',
+      label: 'Dad',
     },
     cell: {
       property: 'dad.name',
@@ -60,7 +60,7 @@ const columns = [
 const nestedColumns = [
   {
     header: {
-      value: 'Name',
+      label: 'Name',
     },
     cell: {
       property: 'name',
@@ -68,7 +68,7 @@ const nestedColumns = [
   },
   {
     header: {
-      value: 'Dad',
+      label: 'Dad',
     },
     cell: {
       property: 'dad.name',
@@ -122,7 +122,7 @@ const countries = {
 const customizedColumns = [
   {
     header: {
-      value: 'Name',
+      label: 'Name',
 
       // Customize formatting (jsx ok)
       format: name => name.toUpperCase(),
@@ -138,7 +138,7 @@ const customizedColumns = [
   },
   {
     header: {
-      value: 'Dad',
+      label: 'Dad',
     },
     cell: {
       // Nested lookup
@@ -147,7 +147,7 @@ const customizedColumns = [
   },
   {
     header: {
-      value: 'Country',
+      label: 'Country',
 
       // Attach custom propTypes
       transform: () => ({
@@ -163,7 +163,7 @@ const customizedColumns = [
   },
   {
     header: {
-      value: 'Loves BeeGees',
+      label: 'Loves BeeGees',
     },
     cell: {
       property: 'lovesBeeGees',
@@ -189,39 +189,39 @@ const customizedColumns = [
 
 ### `header` Fields
 
-**`header.value = <string>`**
+**`header.label = <string>`**
 
-`header.value` maps to the value displayed to the user. In addition search options are populated based on it so this should be a string.
+`header.label` is the value displayed to the user. In addition search options are populated based on it so this should be a string.
 
 ```code
 {
   header: {
-    value: 'Name',
+    label: 'Name',
   },
 }
 ```
 
-**`header.transform = (<value>, { cellData: <value> }) => ({... props ...})`**
+**`header.transform = (<label>, { cellData: <label> }) => ({... props ...})`**
 
 The idea of transforms is that they can inject `propTypes` to the current cell (same idea for header and content). In this case we inject `onClick` handler so that sorting works. If a transform returns `children`, it will override rendering behavior. This is useful for transforms like `edit`.
 
 ```code
 {
   header: {
-    value: 'Name',
+    label: 'Name',
     transform: sortable('name'),
   },
 }
 ```
 
-**`header.format = value => <string|React element>`**
+**`header.format = label => <string|React element>`**
 
 If manipulating `propTypes` isn't enough, you can `format` the output. This should return something React can display. Here we use it to inject an extra checkbox to the header cell.
 
 ```code
 {
   header: {
-    value: 'Name',
+    label: 'Name',
     format: name => (
       <div>
         <input

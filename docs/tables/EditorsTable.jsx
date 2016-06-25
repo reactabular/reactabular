@@ -53,7 +53,7 @@ const data = [
 const columns = [
   {
     header: {
-      value: 'Name',
+      label: 'Name',
     },
     cell: {
       property: 'name',
@@ -61,7 +61,7 @@ const columns = [
   },
   {
     header: {
-      value: 'Editor',
+      label: 'Editor',
     },
     cell: {
       property: 'editor',
@@ -73,7 +73,7 @@ const columns = [
   },
   {
     header: {
-      value: 'Code',
+      label: 'Code',
     },
     cell: {
       property: 'code',
@@ -81,7 +81,7 @@ const columns = [
   },
   {
     header: {
-      value: 'Description',
+      label: 'Description',
     },
     cell: {
       property: 'description',

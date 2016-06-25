@@ -42,7 +42,7 @@ class SortTable extends React.Component {
       columns: [
         {
           header: {
-            value: 'Name',
+            label: 'Name',
             transform: sortable('name'),
           },
           cell: {

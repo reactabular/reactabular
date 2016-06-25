@@ -28,7 +28,7 @@ class HighlightTable extends React.Component {
       columns: [
         {
           header: {
-            value: 'Name',
+            label: 'Name',
           },
           cell: {
             property: 'name',
@@ -37,7 +37,7 @@ class HighlightTable extends React.Component {
         },
         {
           header: {
-            value: 'Age',
+            label: 'Age',
           },
           cell: {
             property: 'age',

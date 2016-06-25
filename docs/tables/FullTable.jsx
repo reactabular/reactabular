@@ -94,7 +94,7 @@ class FullTable extends React.Component {
       columns: [
         {
           header: {
-            value: 'Name',
+            label: 'Name',
             transform: sortable('name'),
             format: name => (
               <div>
@@ -115,7 +115,7 @@ class FullTable extends React.Component {
         },
         {
           header: {
-            value: 'Position',
+            label: 'Position',
             transform: sortable('position'),
           },
           cell: {
@@ -124,7 +124,7 @@ class FullTable extends React.Component {
         },
         {
           header: {
-            value: 'Boss',
+            label: 'Boss',
             transform: sortable('boss.name'),
           },
           cell: {
@@ -134,7 +134,7 @@ class FullTable extends React.Component {
         },
         {
           header: {
-            value: 'Country',
+            label: 'Country',
             transform: sortable('country'),
           },
           cell: {
@@ -148,7 +148,7 @@ class FullTable extends React.Component {
         },
         {
           header: {
-            value: 'Salary',
+            label: 'Salary',
             transform: sortable('salary'),
           },
           cell: {
@@ -162,7 +162,7 @@ class FullTable extends React.Component {
         },
         {
           header: {
-            value: 'Active',
+            label: 'Active',
             transform: sortable('active'),
           },
           cell: {

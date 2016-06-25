@@ -21,7 +21,7 @@ Table.propTypes = {
   columns: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       header: React.PropTypes.shape({
-        value: React.PropTypes.string,
+        label: React.PropTypes.string,
         transform: React.PropTypes.func,
         format: React.PropTypes.func,
         props: React.PropTypes.object,
@@ -48,14 +48,14 @@ const Header = ({ children, className, ...props }, { columns }) => (
     <tr>
       {columns.map((column, i) => {
         const {
-          value,
+          label,
           transform = a => ({}), // eslint-disable-line no-unused-vars
           format = a => a,
           props, // eslint-disable-line no-shadow
         } = column.header || {};
-        const extraParameters = { cellData: value };
+        const extraParameters = { cellData: label };
         const key = `${i}-header`;
-        const transformed = transform(value, extraParameters);
+        const transformed = transform(label, extraParameters);
         const mergedClassName = mergeClassNames(
           className, transformed.className
         );
@@ -67,7 +67,7 @@ const Header = ({ children, className, ...props }, { columns }) => (
               ...{ ...props, ...transformed, ...{ className: mergedClassName } }
             }
           >
-            {transformed.children || format(value, extraParameters)}
+            {transformed.children || format(label, extraParameters)}
           </th>
         );
       })}
@@ -100,9 +100,9 @@ const Body = ({ row, rowKey, className, ...props }, { columns, data }) => (
         }
 
         const extraParameters = { cellData: data[i], property };
-        const val = get(r, property);
-        const resolvedValue = resolve(val, extraParameters);
-        const transformed = transform(val, extraParameters);
+        const value = get(r, property);
+        const resolvedValue = resolve(value, extraParameters);
+        const transformed = transform(value, extraParameters);
         const mergedClassName = mergeClassNames(
           className, transformed.className
         );
