@@ -217,7 +217,7 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo', value: a => a.toUpperCase() } },
+      column: { cell: { property: 'demo', resolve: a => a.toUpperCase() } },
       row: { demo: 'foobar' },
       transform: v => v,
     });
