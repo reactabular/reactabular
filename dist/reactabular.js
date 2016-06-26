@@ -166,7 +166,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function getChildContext() {
 	      return {
 	        columns: this.props.columns,
-	        data: this.props.data
+	        data: this.props.data,
+	        rowKey: this.props.rowKey
 	      };
 	    }
 	  }, {
@@ -208,11 +209,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    })
 	  })).isRequired,
 	  data: _react2.default.PropTypes.array.isRequired,
+	  rowKey: _react2.default.PropTypes.string.isRequired,
 	  children: _react2.default.PropTypes.any
 	};
 	Table.childContextTypes = {
 	  columns: _react2.default.PropTypes.array,
-	  data: _react2.default.PropTypes.array
+	  data: _react2.default.PropTypes.array,
+	  rowKey: _react2.default.PropTypes.string.isRequired
 	};
 	
 	var Header = function Header(_ref, _ref2) {
@@ -272,13 +275,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var Body = function Body(_ref4, _ref5) {
 	  var row = _ref4.row;
-	  var rowKey = _ref4.rowKey;
 	  var className = _ref4.className;
 	
-	  var props = _objectWithoutProperties(_ref4, ['row', 'rowKey', 'className']);
+	  var props = _objectWithoutProperties(_ref4, ['row', 'className']);
 	
 	  var columns = _ref5.columns;
 	  var data = _ref5.data;
+	  var rowKey = _ref5.rowKey;
 	  return _react2.default.createElement(
 	    'tbody',
 	    props,
@@ -329,7 +332,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	Body.propTypes = {
 	  row: _react2.default.PropTypes.func,
-	  rowKey: _react2.default.PropTypes.string.isRequired,
 	  className: _react2.default.PropTypes.string
 	};
 	Body.defaultProps = {
@@ -337,7 +339,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	Body.contextTypes = {
 	  columns: _react2.default.PropTypes.array.isRequired,
-	  data: _react2.default.PropTypes.array.isRequired
+	  data: _react2.default.PropTypes.array.isRequired,
+	  rowKey: _react2.default.PropTypes.string.isRequired
 	};
 	Body.displayName = 'Table.Body';
 	
@@ -2232,12 +2235,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return data;
 	  }
 	
-	  return Object.keys(query).reduce(function (filteredData, searchedColumn) {
+	  return Object.keys(query).reduce(function (filteredData, searchColumn) {
 	    return singleColumn({
 	      data: filteredData,
 	      columns: columns,
-	      searchedColumn: searchedColumn,
-	      query: query[searchedColumn],
+	      searchColumn: searchColumn,
+	      query: query[searchColumn],
 	      strategy: strategy,
 	      transform: transform
 	    });
@@ -2693,6 +2696,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _react = __webpack_require__(62);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -2711,11 +2716,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _onValue = _ref$onValue === undefined ? function () {} : _ref$onValue;
 	
 	  return function (editor) {
-	    var Edit = function Edit(value, _ref2) {
-	      var cellData = _ref2.cellData;
-	      var property = _ref2.property;
-	
-	      var idx = getEditId({ cellData: cellData, property: property });
+	    var Edit = function Edit(value, extraParameters) {
+	      var idx = getEditId(extraParameters);
 	      var editedCell = getEditProperty();
 	
 	      if (editedCell === idx) {
@@ -2723,7 +2725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          children: _react2.default.createElement(editor, {
 	            value: value,
 	            onValue: function onValue(v) {
-	              return _onValue(v, cellData, property);
+	              return _onValue(_extends({ value: v }, extraParameters));
 	            }
 	          })
 	        };
@@ -2737,21 +2739,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    Edit.propTypes = {
 	      value: _react2.default.PropTypes.any,
-	      cellData: _react2.default.PropTypes.object.isRequired,
-	      property: _react2.default.PropTypes.string.isRequired
+	      extraParameters: _react2.default.PropTypes.shape({
+	        cellData: _react2.default.PropTypes.object.isRequired,
+	        property: _react2.default.PropTypes.string.isRequired
+	      })
 	    };
 	
 	    return Edit;
 	  };
 	};
 	
-	var sort = function sort(_ref3) {
-	  var _ref3$getSortingColum = _ref3.getSortingColumns;
-	  var getSortingColumns = _ref3$getSortingColum === undefined ? function () {
+	var sort = function sort(_ref2) {
+	  var _ref2$getSortingColum = _ref2.getSortingColumns;
+	  var getSortingColumns = _ref2$getSortingColum === undefined ? function () {
 	    return [];
-	  } : _ref3$getSortingColum;
-	  var _ref3$onSort = _ref3.onSort;
-	  var onSort = _ref3$onSort === undefined ? function () {} : _ref3$onSort;
+	  } : _ref2$getSortingColum;
+	  var _ref2$onSort = _ref2.onSort;
+	  var onSort = _ref2$onSort === undefined ? function () {} : _ref2$onSort;
 	  return function (property) {
 	    var Sort = function Sort() {
 	      var columns = getSortingColumns();
