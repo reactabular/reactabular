@@ -17,7 +17,6 @@ import {
   Paginator, PrimaryControls,
 } from '../helpers';
 import countries from '../data/countries';
-import { paginate } from '../common';
 
 const schema = {
   type: 'object',
@@ -323,6 +322,21 @@ class FullTable extends React.Component {
       data: this.state.data,
     });
   }
+}
+
+function paginate(data = [], o) {
+    // adapt to zero indexed logic
+  const page = o.page - 1 || 0;
+  const perPage = o.perPage;
+
+  const amountOfPages = Math.ceil(data.length / perPage);
+  const startPage = page < amountOfPages ? page : 0;
+
+  return {
+    amount: amountOfPages,
+    data: data.slice(startPage * perPage, startPage * perPage + perPage),
+    page: startPage,
+  };
 }
 
 export default FullTable;
