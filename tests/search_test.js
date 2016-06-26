@@ -3,7 +3,7 @@ import { search } from '../src';
 
 const {
   multipleColumns, singleColumn,
-  strategies: { infix, prefix }, _columnMatches, matches,
+  strategies: { infix, prefix }, _columnMatches, matches
 } = search;
 
 describe('search.multipleColumns', function () {
@@ -14,8 +14,8 @@ describe('search.multipleColumns', function () {
       data,
       query,
       columns: [
-        { cell: { property: 'demo' } },
-      ],
+        { cell: { property: 'demo' } }
+      ]
     });
 
     expect(result).to.deep.equal(data);
@@ -29,8 +29,8 @@ describe('search.multipleColumns', function () {
       data,
       query,
       columns: [
-        { cell: { property: 'demo' } },
-      ],
+        { cell: { property: 'demo' } }
+      ]
     });
 
     expect(result).to.deep.equal([match]);
@@ -45,8 +45,8 @@ describe('search.multipleColumns', function () {
       query,
       columns: [
         { cell: { property: 'demo' } },
-        { cell: { property: 'another' } },
-      ],
+        { cell: { property: 'another' } }
+      ]
     });
 
     expect(result).to.deep.equal([match]);
@@ -59,8 +59,8 @@ describe('search.multipleColumns', function () {
       data,
       query,
       columns: [
-        { cell: { property: 'demo' } },
-      ],
+        { cell: { property: 'demo' } }
+      ]
     });
 
     expect(result).to.deep.equal([]);
@@ -71,8 +71,8 @@ describe('search.multipleColumns', function () {
     const result = multipleColumns({
       data,
       columns: [
-        { cell: { property: 'demo' } },
-      ],
+        { cell: { property: 'demo' } }
+      ]
     });
 
     expect(result).to.deep.equal(data);
@@ -87,9 +87,9 @@ describe('search.singleColumn', function () {
       data,
       query,
       columns: [
-        { cell: { property: 'demo' } },
+        { cell: { property: 'demo' } }
       ],
-      searchColumn: 'demo',
+      searchColumn: 'demo'
     });
 
     expect(result).to.deep.equal(data);
@@ -101,12 +101,12 @@ describe('search.singleColumn', function () {
     const result = singleColumn({
       data: [
         data,
-        { demo: 'zapzap' },
+        { demo: 'zapzap' }
       ],
       query,
       columns: [
-        { cell: { property: 'demo' } },
-      ],
+        { cell: { property: 'demo' } }
+      ]
     });
 
     expect(result).to.deep.equal([data]);
@@ -117,12 +117,12 @@ describe('search.singleColumn', function () {
     const data = { demo: 'zapzap' };
     const result = singleColumn({
       data: [
-        data,
+        data
       ],
       query,
       columns: [
-        { cell: { property: 'demo' } },
-      ],
+        { cell: { property: 'demo' } }
+      ]
     });
 
     expect(result).to.deep.equal([]);
@@ -135,9 +135,9 @@ describe('search.singleColumn', function () {
       data,
       query,
       columns: [
-        { cell: { property: 'demo' } },
+        { cell: { property: 'demo' } }
       ],
-      searchColumn: 'all',
+      searchColumn: 'all'
     });
 
     expect(result).to.deep.equal(data);
@@ -150,9 +150,9 @@ describe('search.singleColumn', function () {
       data,
       query,
       columns: [
-        { cell: { property: 'demo' } },
+        { cell: { property: 'demo' } }
       ],
-      searchColumn: 'all',
+      searchColumn: 'all'
     });
 
     expect(result).to.deep.equal(data);
@@ -163,8 +163,8 @@ describe('search.singleColumn', function () {
     const result = singleColumn({
       data,
       columns: [
-        { cell: { property: 'demo' } },
-      ],
+        { cell: { property: 'demo' } }
+      ]
     });
 
     expect(result).to.deep.equal(data);
@@ -177,7 +177,7 @@ describe('search._columnMatches', function () {
     const result = _columnMatches({
       query,
       column: { cell: { property: 'demo' } },
-      row: { demo: 'foobar' },
+      row: { demo: 'foobar' }
     });
 
     expect(result).to.equal(true);
@@ -188,7 +188,7 @@ describe('search._columnMatches', function () {
     const result = _columnMatches({
       query,
       column: { cell: { property: 'demo' } },
-      row: { demo: 'foobar' },
+      row: { demo: 'foobar' }
     });
 
     expect(result).to.equal(false);
@@ -200,7 +200,7 @@ describe('search._columnMatches', function () {
       query,
       column: { cell: { property: 'demo' } },
       row: { demo: 'foobar' },
-      strategy: prefix,
+      strategy: prefix
     });
 
     expect(result).to.equal(false);
@@ -212,7 +212,7 @@ describe('search._columnMatches', function () {
       query,
       column: { cell: { property: 'demo' } },
       row: { demo: 'foobar' },
-      transform: v => v,
+      transform: v => v
     });
 
     expect(result).to.equal(true);
@@ -223,7 +223,7 @@ describe('search._columnMatches', function () {
     const result = _columnMatches({
       query,
       column: { cell: { property: 'demo.another' } },
-      row: { demo: { another: 'foobar' } },
+      row: { demo: { another: 'foobar' } }
     });
 
     expect(result).to.equal(true);
@@ -235,7 +235,7 @@ describe('search._columnMatches', function () {
       query,
       column: { cell: { property: 'demo', resolve: a => a.toUpperCase() } },
       row: { demo: 'foobar' },
-      transform: v => v,
+      transform: v => v
     });
 
     expect(result).to.equal(false);
@@ -247,7 +247,7 @@ describe('search._columnMatches', function () {
       query,
       column: { cell: { property: 'demo' } },
       row: { demo: ['bar'] },
-      transform: v => v,
+      transform: v => v
     });
 
     expect(result).to.equal(false);
@@ -259,7 +259,7 @@ describe('search._columnMatches', function () {
       query,
       column: { cell: { property: 'demo' } },
       row: { demo: undefined },
-      transform: v => v,
+      transform: v => v
     });
 
     expect(result).to.equal(false);
@@ -271,13 +271,13 @@ describe('search.matches', function () {
     const query = 'oba';
     const result = matches({
       value: 'foobar',
-      query,
+      query
     });
     const expected = [
       {
         startIndex: 2,
-        length: query.length,
-      },
+        length: query.length
+      }
     ];
 
     expect(result).to.deep.equal(expected);
@@ -287,13 +287,13 @@ describe('search.matches', function () {
     const query = 'foo';
     const result = matches({
       value: 'FOOBAR',
-      query,
+      query
     });
     const expected = [
       {
         startIndex: 0,
-        length: query.length,
-      },
+        length: query.length
+      }
     ];
 
     expect(result).to.deep.equal(expected);
@@ -304,13 +304,13 @@ describe('search.matches', function () {
     const result = matches({
       value: 'foobar',
       query,
-      strategy: prefix,
+      strategy: prefix
     });
     const expected = [
       {
         startIndex: 0,
-        length: query.length,
-      },
+        length: query.length
+      }
     ];
 
     expect(result).to.deep.equal(expected);
@@ -321,7 +321,7 @@ describe('search.matches', function () {
     const result = matches({
       value: 'FOOBAR',
       query,
-      transform: a => a,
+      transform: a => a
     });
     const expected = [];
 
@@ -344,8 +344,8 @@ describe('search.strategies.infix', function () {
     const expected = [
       {
         startIndex: 2,
-        length: queryTerm.length,
-      },
+        length: queryTerm.length
+      }
     ];
 
     expect(predicate.evaluate(text)).to.equal(true);
@@ -360,12 +360,12 @@ describe('search.strategies.infix', function () {
     const expected = [
       {
         startIndex: 1,
-        length: queryTerm.length,
+        length: queryTerm.length
       },
       {
         startIndex: 9,
-        length: queryTerm.length,
-      },
+        length: queryTerm.length
+      }
     ];
 
     expect(predicate.evaluate(text)).to.equal(true);
@@ -391,7 +391,7 @@ describe('search.strategies.prefix', function () {
     const predicate = prefix(queryTerm);
     const expected = [{
       startIndex: 0,
-      length: queryTerm.length,
+      length: queryTerm.length
     }];
 
     expect(predicate.evaluate(text)).to.equal(true);

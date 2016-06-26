@@ -11,7 +11,7 @@ const Paginator = ({ pagination, pages, onSelect }) => (
         pages,
         beginPages: 3,
         endPages: 3,
-        sidePages: 2,
+        sidePages: 2
       })} onSelect={onSelect}
     >
       <Pagify.Button page={pagination.page - 1}>Previous</Pagify.Button>
@@ -43,7 +43,7 @@ const Paginator = ({ pagination, pages, onSelect }) => (
 Paginator.propTypes = {
   pagination: React.PropTypes.object,
   pages: React.PropTypes.number,
-  onSelect: React.PropTypes.func,
+  onSelect: React.PropTypes.func
 };
 
 export default Paginator;

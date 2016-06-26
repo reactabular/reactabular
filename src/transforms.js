@@ -4,7 +4,7 @@ const edit = ({
   getEditId = () => {},
   getEditProperty = () => {},
   onActivate = () => {},
-  onValue = () => {},
+  onValue = () => {}
 }) => editor => {
   const Edit = (value, extraParameters) => {
     const idx = getEditId(extraParameters);
@@ -18,22 +18,22 @@ const edit = ({
             value,
             onValue: v => onValue(
               { value: v, ...extraParameters }
-            ),
+            )
           }
-        ),
+        )
       };
     }
 
     return {
-      onClick: () => onActivate(idx),
+      onClick: () => onActivate(idx)
     };
   };
   Edit.propTypes = {
     value: React.PropTypes.any,
     extraParameters: React.PropTypes.shape({
       cellData: React.PropTypes.object.isRequired,
-      property: React.PropTypes.string.isRequired,
-    }),
+      property: React.PropTypes.string.isRequired
+    })
   };
 
   return Edit;
@@ -41,7 +41,7 @@ const edit = ({
 
 const sort = ({
   getSortingColumns = () => [],
-  onSort = () => {},
+  onSort = () => {}
 }) => property => {
   const Sort = () => {
     const columns = getSortingColumns();
@@ -54,11 +54,11 @@ const sort = ({
 
     return {
       className: headerClass,
-      onClick: () => onSort(property),
+      onClick: () => onSort(property)
     };
   };
   Sort.propTypes = {
-    property: React.PropTypes.string.isRequired,
+    property: React.PropTypes.string.isRequired
   };
 
   return Sort;
@@ -66,5 +66,5 @@ const sort = ({
 
 export default {
   edit,
-  sort,
+  sort
 };

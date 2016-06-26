@@ -19,8 +19,8 @@ const config = {
     src: path.join(ROOT_PATH, 'src'),
     ghPages: path.join(ROOT_PATH, 'gh-pages'),
     documentation: path.join(ROOT_PATH, 'docs'),
-    test: path.join(ROOT_PATH, 'tests'),
-  },
+    test: path.join(ROOT_PATH, 'tests')
+  }
 };
 
 process.env.BABEL_ENV = TARGET;
@@ -28,61 +28,61 @@ process.env.BABEL_ENV = TARGET;
 const common = {
   entry: config.paths.documentation,
   resolve: {
-    extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg'],
+    extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg']
   },
   output: {
     path: config.paths.build,
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
       {
         test: /\.css$/,
-        loaders: ['style', 'css'],
+        loaders: ['style', 'css']
       },
       {
         test: /\.png$/,
         loaders: ['url?limit=100000&mimetype=image/png'],
-        include: config.paths.documentation,
+        include: config.paths.documentation
       },
       {
         test: /\.jpg$/,
         loaders: ['file'],
-        include: config.paths.documentation,
+        include: config.paths.documentation
       },
       {
         test: /\.jsx?$/,
         loaders: ['babel'],
         include: [
           config.paths.src,
-          config.paths.documentation,
-        ],
+          config.paths.documentation
+        ]
       },
       {
         test: require.resolve('catalog'),
-        loader: 'expose?Catalog',
-      },
-    ],
+        loader: 'expose?Catalog'
+      }
+    ]
   },
   plugins: [
     // Unwanted "deeper" dependency because of react-jsonschema-form
-    new webpack.IgnorePlugin(/^(buffertools)$/),
-  ],
+    new webpack.IgnorePlugin(/^(buffertools)$/)
+  ]
 };
 
 const commonSite = {
   plugins: [
     new HtmlWebpackPlugin({
       title: `${pkg.name} - ${pkg.description}`,
-      template: 'lib/index_template.ejs',
+      template: 'lib/index_template.ejs'
     }),
     new webpack.ProvidePlugin({
-      Catalog: 'catalog',
+      Catalog: 'catalog'
     }),
     new webpack.DefinePlugin({
-      VERSION: JSON.stringify(pkg.version),
-    }),
-  ],
+      VERSION: JSON.stringify(pkg.version)
+    })
+  ]
 };
 
 if (TARGET === 'start') {
@@ -93,11 +93,11 @@ if (TARGET === 'start') {
       historyApiFallback: true,
       hot: true,
       inline: true,
-      progress: true,
+      progress: true
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-    ],
+      new webpack.HotModuleReplacementPlugin()
+    ]
   });
 }
 
@@ -108,45 +108,45 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
       vendors: Object.keys(catalogPkg.dependencies).concat(
         Object.keys(reactJsonSchemaFormPkg.dependencies)
       ).concat([
-        'lodash', 'react', 'react-dom', 'react-jsonschema-form',
-      ]),
+        'lodash', 'react', 'react-dom', 'react-jsonschema-form'
+      ])
     },
     output: {
       path: config.paths.ghPages,
-      filename: 'bundle.[chunkhash].js',
+      filename: 'bundle.[chunkhash].js'
     },
     plugins: [
       new CleanWebpackPlugin(['gh-pages']),
       new CopyWebpackPlugin([{
         from: './images',
-        to: './images',
+        to: './images'
       }]),
       new webpack.DefinePlugin({
         'process.env': {
           // This has effect on the react lib size
-          NODE_ENV: JSON.stringify('production'),
-        },
+          NODE_ENV: JSON.stringify('production')
+        }
       }),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
-          warnings: false,
-        },
+          warnings: false
+        }
       }),
       new webpack.optimize.CommonsChunkPlugin(
         'vendors',
         '[name].[chunkhash].js'
-      ),
+      )
     ],
     module: {
       loaders: [
         {
           test: /\.jsx?$/,
           loaders: ['babel'],
-          include: config.paths.documentation,
-        },
-      ],
-    },
+          include: config.paths.documentation
+        }
+      ]
+    }
   });
 }
 
@@ -158,15 +158,15 @@ const commonDist = merge(common, {
       commonjs: 'lodash',
       commonjs2: 'lodash',
       amd: '_',
-      root: '_',
+      root: '_'
     },
     react: {
       commonjs: 'react',
       commonjs2: 'react',
       amd: 'React',
-      root: 'React',
-    },
-  },
+      root: 'React'
+    }
+  }
 });
 
 if (TARGET === 'dist') {
@@ -176,8 +176,8 @@ if (TARGET === 'dist') {
       filename: 'reactabular.js',
       libraryTarget: 'umd',
       library: 'Reactabular',
-      sourceMapFilename: '[file].map',
-    },
+      sourceMapFilename: '[file].map'
+    }
   });
 }
 
@@ -188,15 +188,15 @@ if (TARGET === 'dist-min') {
       filename: 'reactabular.min.js',
       libraryTarget: 'umd',
       library: 'Reactabular',
-      sourceMapFilename: '[file].map',
+      sourceMapFilename: '[file].map'
     },
     plugins: [
       new webpack.optimize.UglifyJsPlugin({
         compress: {
-          warnings: false,
-        },
-      }),
-    ],
+          warnings: false
+        }
+      })
+    ]
   });
 }
 
@@ -207,24 +207,24 @@ if (TARGET === 'test' || TARGET === 'tdd' || !TARGET) {
     devtool: 'inline-source-map',
     resolve: {
       alias: {
-        src: config.paths.src,
-      },
+        src: config.paths.src
+      }
     },
     module: {
       preLoaders: [
         {
           test: /\.jsx?$/,
           loaders: ['isparta-instrumenter'],
-          include: config.paths.src,
-        },
+          include: config.paths.src
+        }
       ],
       loaders: [
         {
           test: /\.jsx?$/,
           loaders: ['babel'],
-          include: config.paths.test,
-        },
-      ],
-    },
+          include: config.paths.test
+        }
+      ]
+    }
   });
 }

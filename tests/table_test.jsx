@@ -9,28 +9,28 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          label: 'Name',
+          label: 'Name'
         },
         cell: {
-          property: 'name',
-        },
+          property: 'name'
+        }
       },
       {
         header: {
-          label: 'Position',
+          label: 'Position'
         },
         cell: {
-          property: 'position',
-        },
+          property: 'position'
+        }
       },
       {
         header: {
-          label: 'Age',
+          label: 'Age'
         },
         cell: {
-          property: 'age',
-        },
-      },
+          property: 'age'
+        }
+      }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table columns={columns} data={[]}>
@@ -51,10 +51,10 @@ describe('Table', function () {
         header: {
           label: 'Name',
           transform: () => ({
-            className: headerClass,
-          }),
-        },
-      },
+            className: headerClass
+          })
+        }
+      }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table columns={columns} data={[]}>
@@ -77,10 +77,10 @@ describe('Table', function () {
         header: {
           label,
           transform: () => ({
-            className: headerClass,
-          }),
-        },
-      },
+            className: headerClass
+          })
+        }
+      }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table columns={columns} data={[]}>
@@ -101,15 +101,15 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          label: 'Name',
+          label: 'Name'
         },
         cell: {
           property: 'name',
           transform: () => ({
-            className: cellClass,
-          }),
-        },
-      },
+            className: cellClass
+          })
+        }
+      }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table columns={columns} data={[{ name: 'demo' }]}>
@@ -129,9 +129,9 @@ describe('Table', function () {
       {
         header: {
           label: 'Name',
-          format: name => <span className={headerClass}>{name}</span>,
-        },
-      },
+          format: name => <span className={headerClass}>{name}</span>
+        }
+      }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table columns={columns} data={[]}>
@@ -149,33 +149,33 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          label: 'Name',
+          label: 'Name'
         },
         cell: {
-          property: 'name',
-        },
+          property: 'name'
+        }
       },
       {
         header: {
-          label: 'Position',
+          label: 'Position'
         },
         cell: {
-          property: 'position',
-        },
+          property: 'position'
+        }
       },
       {
         header: {
-          label: 'Age',
+          label: 'Age'
         },
         cell: {
-          property: 'age',
-        },
-      },
+          property: 'age'
+        }
+      }
     ];
     const data = [
       { position: 'foo', age: 111, name: 'foo', id: 0 },
       { position: 'demo', age: 333, name: 'boo', id: 1 },
-      { position: 'demo 2', age: 123, name: 'demo', id: 2 },
+      { position: 'demo 2', age: 123, name: 'demo', id: 2 }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table columns={columns} data={data}>
@@ -193,38 +193,38 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          label: 'Basic',
+          label: 'Basic'
         },
         cell: {
-          property: 'basic',
-        },
+          property: 'basic'
+        }
       },
       {
         header: {
-          label: 'Identity',
+          label: 'Identity'
         },
         cell: {
           property: 'identity',
-          format: value => value,
-        },
+          format: value => value
+        }
       },
       {
         header: {
-          label: 'Simple Math',
+          label: 'Simple Math'
         },
         cell: {
           property: 'math',
-          format: value => value - 23,
-        },
-      },
+          format: value => value - 23
+        }
+      }
     ];
     const data = [
       {
         basic: 'basic',
         identity: 'ident',
         math: 23, // deliberately chosen to make cell function return 0, a falsy value
-        id: 0,
-      },
+        id: 0
+      }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table columns={columns} data={data}>
@@ -243,22 +243,22 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          label: 'Cell Props',
+          label: 'Cell Props'
         },
         cell: {
           property: 'complex',
-          format: value => <span className="complex">{value}</span>,
-        },
+          format: value => <span className="complex">{value}</span>
+        }
       },
       {
         header: {
-          label: 'JSX',
+          label: 'JSX'
         },
         cell: {
           property: 'jsx',
-          format: value => <a href={`http://${value.id}`}>{value.name}</a>,
-        },
-      },
+          format: value => <a href={`http://${value.id}`}>{value.name}</a>
+        }
+      }
     ];
     const data = [
       {
@@ -267,8 +267,8 @@ describe('Table', function () {
         math: 23, // deliberately chosen to make cell function return 0, a falsy value
         complex: 'somestr',
         jsx: { id: 'some_id_123', name: 'helloworld' },
-        id: 0,
-      },
+        id: 0
+      }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table columns={columns} data={data}>
@@ -285,33 +285,33 @@ describe('Table', function () {
     const columns = [
       {
         header: {
-          label: 'Name',
+          label: 'Name'
         },
         cell: {
-          property: 'name',
-        },
+          property: 'name'
+        }
       },
       {
         header: {
-          label: 'Position',
+          label: 'Position'
         },
         cell: {
-          property: 'position',
-        },
+          property: 'position'
+        }
       },
       {
         header: {
-          label: 'Age',
+          label: 'Age'
         },
         cell: {
-          property: 'age',
-        },
-      },
+          property: 'age'
+        }
+      }
     ];
     const data = [
       { name: 'foo', id: 0 },
       { position: 'demo', id: 1 },
-      { age: 123, id: 2 },
+      { age: 123, id: 2 }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table columns={columns} data={data}>

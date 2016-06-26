@@ -9,12 +9,12 @@ import transform from 'lodash/transform';
 import jsf from 'json-schema-faker';
 
 import {
-  Table, search, editors, sort, transforms, formatters,
+  Table, search, editors, sort, transforms, formatters
 } from '../../src';
 
 import {
   CustomFooter, ColumnFilters, rowEditor,
-  Paginator, PrimaryControls,
+  Paginator, PrimaryControls
 } from '../helpers';
 import countries from '../data/countries';
 
@@ -23,31 +23,31 @@ const schema = {
   properties: {
     id: {
       type: 'string',
-      faker: 'random.uuid',
+      faker: 'random.uuid'
     },
     name: {
       type: 'string',
-      faker: 'name.findName',
+      faker: 'name.findName'
     },
     position: {
       type: 'string',
-      faker: 'name.jobType',
+      faker: 'name.jobType'
     },
     salary: {
-      $ref: '#/definitions/salary',
+      $ref: '#/definitions/salary'
     },
     boss: {
-      $ref: '#/definitions/boss',
+      $ref: '#/definitions/boss'
     },
     country: {
       type: 'string',
       enum: keys(countries),
-      enumNames: values(countries),
+      enumNames: values(countries)
     },
     active: {
       type: 'boolean',
-      faker: 'random.boolean',
-    },
+      faker: 'random.boolean'
+    }
   },
   // Setting `active` required breaks react-jsonschema-form
   required: ['id', 'name', 'position', 'salary', 'boss', 'country'],
@@ -57,18 +57,18 @@ const schema = {
       properties: {
         name: {
           type: 'string',
-          faker: 'name.findName',
-        },
+          faker: 'name.findName'
+        }
       },
-      required: ['name'],
+      required: ['name']
     },
     salary: {
       type: 'integer',
       minimum: 0,
       maximum: 10000,
-      exclusiveMinimum: true,
-    },
-  },
+      exclusiveMinimum: true
+    }
+  }
 };
 // Attach active flags as faker won't initialize those by default
 const data = range(100).map(() => jsf(schema)).map(o => ({ active: false, ...o }));
@@ -86,8 +86,8 @@ class FullTable extends React.Component {
       columns: this.getColumns(), // initial columns
       pagination: { // initial pagination settings
         page: 1,
-        perPage: 10,
-      },
+        perPage: 10
+      }
     };
 
     this.onSearch = this.onSearch.bind(this);
@@ -102,7 +102,7 @@ class FullTable extends React.Component {
 
       return search.matches({
         value,
-        query: query[column],
+        query: query[column]
       });
     });
     const editable = transforms.edit({
@@ -115,7 +115,7 @@ class FullTable extends React.Component {
         this.state.data[idx][property] = value;
 
         this.setState({ editedCell: null, data });
-      },
+      }
     });
     const sortable = transforms.sort({
       getSortingColumns: () => this.state.sortingColumns || [],
@@ -123,9 +123,9 @@ class FullTable extends React.Component {
         this.setState({
           sortingColumns: sorter(
             this.state.sortingColumns, column
-          ),
+          )
         });
-      },
+      }
     });
 
     return [
@@ -142,37 +142,37 @@ class FullTable extends React.Component {
               />
               <span>{name}</span>
             </div>
-          ),
+          )
         },
         cell: {
           property: 'name',
           transform: editable(editors.input()),
-          format: highlight('name'),
-        },
+          format: highlight('name')
+        }
       },
       {
         header: {
           label: 'Position',
-          transform: sortable('position'),
+          transform: sortable('position')
         },
         cell: {
-          property: 'position',
-        },
+          property: 'position'
+        }
       },
       {
         header: {
           label: 'Boss',
-          transform: sortable('boss.name'),
+          transform: sortable('boss.name')
         },
         cell: {
           property: 'boss.name',
-          format: highlight('boss.name'),
-        },
+          format: highlight('boss.name')
+        }
       },
       {
         header: {
           label: 'Country',
-          transform: sortable('country'),
+          transform: sortable('country')
         },
         cell: {
           property: 'country',
@@ -180,17 +180,17 @@ class FullTable extends React.Component {
             editors.dropdown({
               options: transform(countries, (result, name, value) => {
                 result.push({ value, name });
-              }, []),
+              }, [])
             })
           ),
           format: highlight('country'),
-          resolve: country => countries[country],
-        },
+          resolve: country => countries[country]
+        }
       },
       {
         header: {
           label: 'Salary',
-          transform: sortable('salary'),
+          transform: sortable('salary')
         },
         cell: {
           property: 'salary',
@@ -198,19 +198,19 @@ class FullTable extends React.Component {
             <span onDoubleClick={() => alert(`salary is ${salary}`)}>
               {highlight('salary')(salary)}
             </span>
-          ),
-        },
+          )
+        }
       },
       {
         header: {
           label: 'Active',
-          transform: sortable('active'),
+          transform: sortable('active')
         },
         cell: {
           property: 'active',
           transform: editable(editors.boolean()),
-          format: active => active && <span>&#10003;</span>,
-        },
+          format: active => active && <span>&#10003;</span>
+        }
       },
       {
         cell: {
@@ -221,18 +221,18 @@ class FullTable extends React.Component {
           transform: rowEditor({
             schema,
             uiSchema: {
-              id: { 'ui:widget': 'hidden' },
+              id: { 'ui:widget': 'hidden' }
             },
             onConfirm: (id, data) => this.onConfirmEdit(id, data),
-            onRemove: id => this.onRemove(id),
-          }),
-        },
-      },
+            onRemove: id => this.onRemove(id)
+          })
+        }
+      }
     ];
   }
   render() {
     const {
-      columns, data, pagination, sortingColumns, query,
+      columns, data, pagination, sortingColumns, query
     } = this.state;
     let d = search.multipleColumns({ data, columns, query });
 
@@ -267,7 +267,7 @@ class FullTable extends React.Component {
             rowKey="id"
             row={(row, rowIndex) => ({
               className: rowIndex % 2 ? 'odd-row' : 'even-row',
-              onClick: () => console.log('clicked row', row),
+              onClick: () => console.log('clicked row', row)
             })}
           />
 
@@ -283,7 +283,7 @@ class FullTable extends React.Component {
   onSearch(query) {
     this.setState({
       editedCell: null, // reset edits
-      query,
+      query
     });
   }
   onSelect(page) {
@@ -294,16 +294,16 @@ class FullTable extends React.Component {
     this.setState({
       pagination: {
         ...this.state.pagination,
-        page: Math.min(Math.max(page, 1), pages),
-      },
+        page: Math.min(Math.max(page, 1), pages)
+      }
     });
   }
   onPerPage(value) {
     this.setState({
       pagination: {
         ...this.state.pagination,
-        perPage: parseInt(value, 10),
-      },
+        perPage: parseInt(value, 10)
+      }
     });
   }
   onConfirmEdit(id, data) {
@@ -312,7 +312,7 @@ class FullTable extends React.Component {
     this.state.data[idx] = data;
 
     this.setState({
-      data: this.state.data,
+      data: this.state.data
     });
   }
   onRemove(id) {
@@ -322,7 +322,7 @@ class FullTable extends React.Component {
     this.state.data.splice(idx, 1);
 
     this.setState({
-      data: this.state.data,
+      data: this.state.data
     });
   }
 }
@@ -338,7 +338,7 @@ function paginate(data = [], o) {
   return {
     amount: amountOfPages,
     data: data.slice(startPage * perPage, startPage * perPage + perPage),
-    page: startPage,
+    page: startPage
   };
 }
 

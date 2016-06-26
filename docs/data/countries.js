@@ -5,5 +5,5 @@ export default {
   fi: 'Finland',
   it: 'Italy',
   pl: 'Poland',
-  se: 'Sweden',
+  se: 'Sweden'
 };

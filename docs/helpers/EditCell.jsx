@@ -33,7 +33,7 @@ EditCell.propTypes = {
   schema: React.PropTypes.object,
   uiSchema: React.PropTypes.object,
   onSubmit: React.PropTypes.func,
-  onCancel: React.PropTypes.func,
+  onCancel: React.PropTypes.func
 };
 
 export default EditCell;

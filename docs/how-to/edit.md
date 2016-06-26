@@ -26,7 +26,7 @@ class EditableTable extends React.Component {
 
       // Set the property when the user tries to activate editing
       onActivate: idx => this.setState({
-        editedCell: idx,
+        editedCell: idx
       }),
 
       // Capture the value when the user has finished
@@ -37,7 +37,7 @@ class EditableTable extends React.Component {
 
         this.setState({
           editedCell: null,
-          data: this.state.data,
+          data: this.state.data
         });
       },
     });
@@ -47,24 +47,24 @@ class EditableTable extends React.Component {
       columns: [
         {
           header: {
-            label: 'Name',
+            label: 'Name'
           },
           cell: {
             property: 'name',
-            transform: editable(editors.input()),
-          },
-        },
+            transform: editable(editors.input())
+          }
+        }
       ],
       data: [
         {
           id: 100,
-          name: 'Adam',
+          name: 'Adam'
         },
         {
           id: 101,
-          name: 'Brian',
-        },
-      ],
+          name: 'Brian'
+        }
+      ]
     };
   }
   render() {

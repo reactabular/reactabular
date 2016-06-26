@@ -74,7 +74,7 @@ describe('Boolean', function () {
   it('accepts custom props', function () {
     const testClassName = 'demo';
     const Boolean = boolean({
-      props: { className: testClassName },
+      props: { className: testClassName }
     });
     const result = TestUtils.renderIntoDocument(
       <Wrapper>
@@ -95,16 +95,16 @@ describe('Dropdown', function () {
     const options = [
       {
         value: 'name',
-        name: 'Name',
+        name: 'Name'
       },
       {
         value: 'position',
-        name: 'Position',
+        name: 'Position'
       },
       {
         value: 'age',
-        name: 'Age',
-      },
+        name: 'Age'
+      }
     ];
     const Dropdown = dropdown({ options });
     const result = TestUtils.renderIntoDocument(
@@ -127,8 +127,8 @@ describe('Dropdown', function () {
     const options = [
       {
         value: 'name',
-        name: 'Name',
-      },
+        name: 'Name'
+      }
     ];
     const Dropdown = dropdown({ options });
     const result = TestUtils.renderIntoDocument(
@@ -155,23 +155,23 @@ describe('Dropdown', function () {
     const options = [
       {
         value: 'name',
-        name: 'Name',
+        name: 'Name'
       },
       {
         value: 'position',
-        name: 'Position',
+        name: 'Position'
       },
       {
         value: 'age',
-        name: 'Age',
-      },
+        name: 'Age'
+      }
     ];
     const Dropdown = dropdown({
       options,
       fields: {
         name: 'value',
-        value: 'name',
-      },
+        value: 'name'
+      }
     });
     const result = TestUtils.renderIntoDocument(
       <Wrapper>
@@ -192,13 +192,13 @@ describe('Dropdown', function () {
     const options = [
       {
         value: 'name',
-        name: 'Name',
-      },
+        name: 'Name'
+      }
     ];
     const testClassName = 'demo';
     const Dropdown = dropdown({
       options,
-      props: { className: testClassName },
+      props: { className: testClassName }
     });
     const result = TestUtils.renderIntoDocument(
       <Wrapper>
@@ -277,7 +277,7 @@ describe('Input', function () {
     TestUtils.Simulate.keyUp(renderedInput, {
       key: 'Enter',
       keyCode: 13,
-      which: 13,
+      which: 13
     });
 
     expect(changedValue).to.equal(true);
@@ -286,7 +286,7 @@ describe('Input', function () {
   it('accepts custom props', function () {
     const testClassName = 'demo';
     const Input = input({
-      props: { className: testClassName },
+      props: { className: testClassName }
     });
     const result = TestUtils.renderIntoDocument(
       <Wrapper>

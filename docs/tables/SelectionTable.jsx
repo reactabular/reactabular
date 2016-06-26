@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import {
-  Table,
+  Table
 } from '../../src';
 
 class SelectionTable extends React.Component {
@@ -17,48 +17,48 @@ class SelectionTable extends React.Component {
         {
           id: 100,
           name: 'Adam',
-          age: 55,
+          age: 55
         },
         {
           id: 102,
           name: 'Joe',
-          age: 12,
+          age: 12
         },
         {
           id: 101,
           name: 'Brian',
-          age: 62,
+          age: 62
         },
         {
           id: 103,
           name: 'Mike',
-          age: 22,
+          age: 22
         },
         {
           id: 104,
           name: 'Jack',
-          age: 33,
-        },
+          age: 33
+        }
       ],
       columns: [
         {
           header: {
-            label: 'Name',
+            label: 'Name'
           },
           cell: {
-            property: 'name',
-          },
+            property: 'name'
+          }
         },
         {
           header: {
-            label: 'Age',
+            label: 'Age'
           },
           cell: {
-            property: 'age',
-          },
-        },
+            property: 'age'
+          }
+        }
       ],
-      selectedRowId: null,
+      selectedRowId: null
     };
 
     this.onKeyPressed = this.onKeyPressed.bind(this);
@@ -88,7 +88,7 @@ class SelectionTable extends React.Component {
                 rowIndex % 2 ? 'odd-row' : 'even-row',
                 row.id === selectedRowId && 'selected-row'
               ),
-              onClick: () => this.setState({ selectedRowId: row.id }),
+              onClick: () => this.setState({ selectedRowId: row.id })
             })}
           />
         </Table>
@@ -113,7 +113,7 @@ class SelectionTable extends React.Component {
       e.preventDefault();
 
       this.setState({
-        selectedRowId: data[idx - 1].id,
+        selectedRowId: data[idx - 1].id
       });
     }
 
@@ -122,7 +122,7 @@ class SelectionTable extends React.Component {
       e.preventDefault();
 
       this.setState({
-        selectedRowId: data[idx + 1].id,
+        selectedRowId: data[idx + 1].id
       });
     }
   }

@@ -18,18 +18,18 @@ const data = [
     description: `If initial value is true,
       allows setting to false and vice versa.
       Demo value defaults to false always.`,
-    id: uuid.v4(),
+    id: uuid.v4()
   },
   {
     name: 'Dropdown',
     editor: editors.dropdown({
-      options,
+      options
     }),
     code: 'editors.dropdown({ options: countries })',
     description: `The dropdown expects an array
       of value-name object pairs and emits
       the selected one.`,
-    id: uuid.v4(),
+    id: uuid.v4()
   },
   {
     name: 'Customized dropdown',
@@ -38,59 +38,59 @@ const data = [
       fields: {
         // reversing fields to show the API
         name: 'value',
-        value: 'name',
-      },
+        value: 'name'
+      }
     }),
     code: 'editors.dropdown({ options: countries, fields: {name: <name>, value: <value>} })',
     description: 'This dropdown uses custom field definition.',
-    id: uuid.v4(),
+    id: uuid.v4()
   },
   {
     name: 'Input',
     editor: editors.input(),
     code: 'editors.input()',
     description: 'Just a wrapper for a regular input.',
-    id: uuid.v4(),
-  },
+    id: uuid.v4()
+  }
 ];
 
 const columns = [
   {
     header: {
-      label: 'Name',
+      label: 'Name'
     },
     cell: {
-      property: 'name',
-    },
+      property: 'name'
+    }
   },
   {
     header: {
-      label: 'Editor',
+      label: 'Editor'
     },
     cell: {
       property: 'editor',
       format: value => React.createElement(value, {
         value: '',
-        onValue: v => console.log(v),
-      }),
-    },
+        onValue: v => console.log(v)
+      })
+    }
   },
   {
     header: {
-      label: 'Code',
+      label: 'Code'
     },
     cell: {
-      property: 'code',
-    },
+      property: 'code'
+    }
   },
   {
     header: {
-      label: 'Description',
+      label: 'Description'
     },
     cell: {
-      property: 'description',
-    },
-  },
+      property: 'description'
+    }
+  }
 ];
 
 const EditorsTable = () => (

@@ -4,41 +4,41 @@ const data = [
     name: 'Adam',
     dad: {
       id: 20,
-      name: 'John',
+      name: 'John'
     },
-    lovesBeeGees: true,
+    lovesBeeGees: true
   },
   {
     id: 101,
     name: 'Brian',
     dad: {
       id: 22,
-      name: 'George',
+      name: 'George'
     },
-    lovesBeeGees: false,
-  },
+    lovesBeeGees: false
+  }
 ];
 
 const columns = [
   {
     header: {
-      label: 'Name',
+      label: 'Name'
     },
     cell: {
-      property: 'name',
-    },
+      property: 'name'
+    }
   },
   {
     header: {
-      label: 'Dad',
+      label: 'Dad'
     },
     cell: {
-      property: 'dad.name',
-    },
-  },
+      property: 'dad.name'
+    }
+  }
 ];
 
 export {
   data,
-  columns,
+  columns
 };

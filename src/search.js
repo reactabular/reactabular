@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 
 const multipleColumns = ({
-  data, columns, query, strategy, transform,
+  data, columns, query, strategy, transform
 }) => {
   if (!query) {
     return data;
@@ -15,14 +15,14 @@ const multipleColumns = ({
         searchColumn,
         query: query[searchColumn],
         strategy,
-        transform,
+        transform
       }),
     data
   );
 };
 
 const singleColumn = ({
-  data, columns, searchColumn = 'all', query, strategy, transform,
+  data, columns, searchColumn = 'all', query, strategy, transform
 }) => {
   if (!query) {
     return data;
@@ -35,13 +35,13 @@ const singleColumn = ({
   }
 
   return data.filter(row => ret.filter(column => _columnMatches({
-    query, column, strategy, transform, row,
+    query, column, strategy, transform, row
   })).length > 0);
 };
 
 const _columnMatches = ({ // eslint-disable-line no-underscore-dangle
   query, column = { cell: {} }, row,
-  strategy = strategies.infix, transform = v => v.toLowerCase(),
+  strategy = strategies.infix, transform = v => v.toLowerCase()
 }) => {
   const property = column.cell.property;
   const value = get(row, property);
@@ -58,7 +58,7 @@ const _columnMatches = ({ // eslint-disable-line no-underscore-dangle
 };
 
 const matches = ({
-  value, query, strategy = strategies.infix, transform = v => v.toLowerCase(),
+  value, query, strategy = strategies.infix, transform = v => v.toLowerCase()
 } = {}) => {
   if (!query) {
     return {};
@@ -79,7 +79,7 @@ const infix = queryTerm => ({
     for (let x = 0; x < splitString.length; x++) {
       result.push({
         startIndex: currentPosition + splitString[x].length,
-        length: queryTerm.length,
+        length: queryTerm.length
       });
 
       currentPosition += splitString[x].length + queryTerm.length;
@@ -88,7 +88,7 @@ const infix = queryTerm => ({
     result.pop();
 
     return result;
-  },
+  }
 });
 
 const prefix = queryTerm => ({
@@ -102,18 +102,18 @@ const prefix = queryTerm => ({
       return [
         {
           startIndex: 0,
-          length: queryTerm.length,
-        },
+          length: queryTerm.length
+        }
       ];
     }
 
     return [];
-  },
+  }
 });
 
 const strategies = {
   infix,
-  prefix,
+  prefix
 };
 
 export default {
@@ -121,5 +121,5 @@ export default {
   singleColumn,
   _columnMatches,
   matches,
-  strategies,
+  strategies
 };

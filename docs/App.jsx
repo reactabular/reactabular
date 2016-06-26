@@ -1,9 +1,7 @@
 import React from 'react';
 import Fork from 'react-ghfork';
 
-import {
-  FullTable, EditorsTable, TreeTable,
-} from './tables';
+import { FullTable, EditorsTable, TreeTable } from './tables';
 
 import readme from '../README.md';
 

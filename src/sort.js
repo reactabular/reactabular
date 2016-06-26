@@ -17,8 +17,8 @@ const byColumn = (sortingColumns, selectedColumn) => {
   return [
     {
       property: selectedColumn,
-      sort,
-    },
+      sort
+    }
   ];
 };
 
@@ -31,7 +31,7 @@ const byColumns = (sortingColumns, selectedColumn) => {
   if (!sortingColumns) {
     return [{
       property: selectedColumn,
-      sort: 'asc',
+      sort: 'asc'
     }];
   } else if (index >= 0) {
     newSortingColumns = sortingColumns;
@@ -41,7 +41,7 @@ const byColumns = (sortingColumns, selectedColumn) => {
     if (newSort) {
       newSortingColumns[index] = {
         property: selectedColumn,
-        sort: newSort,
+        sort: newSort
       };
     } else {
       newSortingColumns.splice(index, 1);
@@ -52,7 +52,7 @@ const byColumns = (sortingColumns, selectedColumn) => {
 
   return [...sortingColumns, {
     property: selectedColumn,
-    sort: 'asc',
+    sort: 'asc'
   }];
 };
 
@@ -89,5 +89,5 @@ const sorter = (data, columns, sort) => {
 export default {
   byColumn,
   byColumns,
-  sorter,
+  sorter
 };

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Search } from '../helpers';
 import {
-  Table, search,
+  Table, search
 } from '../../src';
 
 export default class SearchTable extends React.Component {
@@ -14,43 +14,43 @@ export default class SearchTable extends React.Component {
       columns: [
         {
           header: {
-            label: 'Name',
+            label: 'Name'
           },
           cell: {
-            property: 'name',
-          },
+            property: 'name'
+          }
         },
         {
           header: {
-            label: 'Age',
+            label: 'Age'
           },
           cell: {
-            property: 'age',
-          },
-        },
+            property: 'age'
+          }
+        }
       ],
       data: [
         {
           id: 100,
           name: 'Adam',
-          age: 12,
+          age: 12
         },
         {
           id: 101,
           name: 'Brian',
-          age: 7,
+          age: 7
         },
         {
           id: 102,
           name: 'Jake',
-          age: 88,
+          age: 88
         },
         {
           id: 103,
           name: 'Jill',
-          age: 50,
-        },
-      ],
+          age: 50
+        }
+      ]
     };
   }
   render() {

@@ -5,7 +5,7 @@ import PerPage from './PerPage';
 const PrimaryControls = ({
   perPage, columns, data,
   onPerPage, onSearch,
-  ...props,
+  ...props
 }) => (
   <div {...props}>
     <div className="per-page-container">
@@ -21,7 +21,7 @@ PrimaryControls.propTypes = {
   columns: React.PropTypes.array,
   data: React.PropTypes.array,
   onPerPage: React.PropTypes.func,
-  onSearch: React.PropTypes.func,
+  onSearch: React.PropTypes.func
 };
 
 export default PrimaryControls;

@@ -7,38 +7,38 @@ const data = [
     name: 'Adam',
     dad: {
       id: 20,
-      name: 'John',
+      name: 'John'
     },
-    lovesBeeGees: true,
+    lovesBeeGees: true
   },
   {
     id: 101,
     name: 'Brian',
     dad: {
       id: 22,
-      name: 'George',
+      name: 'George'
     },
-    lovesBeeGees: false,
+    lovesBeeGees: false
   },
 ];
 
 const columns = [
   {
     header: {
-      label: 'Name',
+      label: 'Name'
     },
     cell: {
-      property: 'name',
-    },
+      property: 'name'
+    }
   },
   {
     header: {
-      label: 'Dad',
+      label: 'Dad'
     },
     cell: {
-      property: 'dad.name',
-    },
-  },
+      property: 'dad.name'
+    }
+  }
 ];
 
 <Table
@@ -60,20 +60,20 @@ const columns = [
 const nestedColumns = [
   {
     header: {
-      label: 'Name',
+      label: 'Name'
     },
     cell: {
-      property: 'name',
-    },
+      property: 'name'
+    }
   },
   {
     header: {
-      label: 'Dad',
+      label: 'Dad'
     },
     cell: {
-      property: 'dad.name',
-    },
-  },
+      property: 'dad.name'
+    }
+  }
 ];
 
 <Table
@@ -98,25 +98,25 @@ const data = [
     name: 'Adam',
     dad: {
       id: 20,
-      name: 'John',
+      name: 'John'
     },
     lovesBeeGees: true,
-    country: 'fi',
+    country: 'fi'
   },
   {
     id: 101,
     name: 'Brian',
     dad: {
       id: 22,
-      name: 'George',
+      name: 'George'
     },
     lovesBeeGees: false,
-    country: 'uk',
-  },
+    country: 'uk'
+  }
 ];
 const countries = {
   fi: 'Finland',
-  uk: 'United Kingdom',
+  uk: 'United Kingdom'
 };
 
 const customizedColumns = [
@@ -125,25 +125,25 @@ const customizedColumns = [
       label: 'Name',
 
       // Customize formatting (jsx ok)
-      format: name => name.toUpperCase(),
+      format: name => name.toUpperCase()
     },
     cell: {
       property: 'name',
 
       // Attach custom propTypes
       transform: () => ({
-        onClick: () => alert('clicked name'),
+        onClick: () => alert('clicked name')
       })
-    },
+    }
   },
   {
     header: {
-      label: 'Dad',
+      label: 'Dad'
     },
     cell: {
       // Nested lookup
-      property: 'dad.name',
-    },
+      property: 'dad.name'
+    }
   },
   {
     header: {
@@ -151,19 +151,19 @@ const customizedColumns = [
 
       // Attach custom propTypes
       transform: () => ({
-        onClick: () => alert('clicked country header'),
+        onClick: () => alert('clicked country header')
       })
     },
     cell: {
       property: 'country',
 
       // Perform custom lookups through resolve
-      resolve: country => countries[country],
-    },
+      resolve: country => countries[country]
+    }
   },
   {
     header: {
-      label: 'Loves BeeGees',
+      label: 'Loves BeeGees'
     },
     cell: {
       property: 'lovesBeeGees',
@@ -171,9 +171,9 @@ const customizedColumns = [
       // Customize formatting
       format: lovesBeeGees => {
         return lovesBeeGees ? 'loves' : 'loves not';
-      },
-    },
-  },
+      }
+    }
+  }
 ];
 
 <Table
@@ -196,8 +196,8 @@ const customizedColumns = [
 ```code
 {
   header: {
-    label: 'Name',
-  },
+    label: 'Name'
+  }
 }
 ```
 
@@ -209,8 +209,8 @@ The idea of transforms is that they can inject `propTypes` to the current cell (
 {
   header: {
     label: 'Name',
-    transform: sortable('name'),
-  },
+    transform: sortable('name')
+  }
 }
 ```
 
@@ -231,8 +231,8 @@ If manipulating `propTypes` isn't enough, you can `format` the output. This shou
         />
         <span>{name}</span>
       </div>
-    ),
-  },
+    )
+  }
 }
 ```
 
@@ -245,8 +245,8 @@ If manipulating `propTypes` isn't enough, you can `format` the output. This shou
 ```code
 {
   cell: {
-    property: 'name',
-  },
+    property: 'name'
+  }
 }
 ```
 
@@ -257,8 +257,8 @@ If manipulating `propTypes` isn't enough, you can `format` the output. This shou
 ```code
 {
   cell: {
-    transform: editable(editors.input()),
-  },
+    transform: editable(editors.input())
+  }
 }
 ```
 
@@ -274,8 +274,8 @@ The same idea as for `header.format`.
       <span onDoubleClick={() => alert(`salary is ${salary}`)}>
         {highlight('salary')(salary)}
       </span>
-    ),
-  },
+    )
+  }
 }
 ```
 
@@ -286,7 +286,7 @@ Sometimes you need to manipulate the data fetched from property somehow. For ins
 ```code
 {
   cell: {
-    resolve: country => find(countries, 'value', country).name,
-  },
+    resolve: country => find(countries, 'value', country).name
+  }
 }
 ```

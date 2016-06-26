@@ -12,7 +12,7 @@ const PerPage = ({ value, onChange }) => (
 );
 PerPage.propTypes = {
   value: React.PropTypes.number,
-  onChange: React.PropTypes.func,
+  onChange: React.PropTypes.func
 };
 
 export default PerPage;

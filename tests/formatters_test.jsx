@@ -22,7 +22,7 @@ describe('highlight', function () {
     const value = 'foobar';
     const highlighter = highlight(() => [{
       startIndex: 0,
-      length: 2,
+      length: 2
     }]);
     const result = TestUtils.renderIntoDocument(<Wrapper>{highlighter(value)}</Wrapper>);
     const highlightResult = TestUtils.findRenderedDOMComponentWithClass(
@@ -36,7 +36,7 @@ describe('highlight', function () {
     const value = 'foobar';
     const highlighter = highlight(() => [{
       startIndex: 2,
-      length: 4,
+      length: 4
     }]);
     const result = TestUtils.renderIntoDocument(<Wrapper>{highlighter(value)}</Wrapper>);
     const highlightResult = TestUtils.findRenderedDOMComponentWithClass(
@@ -50,7 +50,7 @@ describe('highlight', function () {
     const value = 'foobar';
     const highlighter = highlight(() => [{
       startIndex: 0,
-      length: value.length,
+      length: value.length
     }]);
     const result = TestUtils.renderIntoDocument(<Wrapper>{highlighter(value)}</Wrapper>);
     const highlightResult = TestUtils.findRenderedDOMComponentWithClass(

@@ -2,7 +2,7 @@ import React from 'react';
 import orderBy from 'lodash/orderBy';
 
 import {
-  Table, sort, transforms,
+  Table, sort, transforms
 } from '../../src';
 
 const sorter = sort.byColumns; // sort.byColumn would work too
@@ -22,9 +22,9 @@ export default class SortTable extends React.Component {
         this.setState({
           sortingColumns: sorter(
             this.state.sortingColumns, column
-          ),
+          )
         });
-      },
+      }
     });
 
     this.state = {
@@ -33,31 +33,31 @@ export default class SortTable extends React.Component {
         {
           header: {
             label: 'Name',
-            transform: sortable('name'),
+            transform: sortable('name')
           },
           cell: {
-            property: 'name',
-          },
-        },
+            property: 'name'
+          }
+        }
       ],
       data: [
         {
           id: 100,
-          name: 'Adam',
+          name: 'Adam'
         },
         {
           id: 101,
-          name: 'Brian',
+          name: 'Brian'
         },
         {
           id: 102,
-          name: 'Jake',
+          name: 'Jake'
         },
         {
           id: 103,
-          name: 'Jill',
-        },
-      ],
+          name: 'Jill'
+        }
+      ]
     };
   }
   render() {

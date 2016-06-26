@@ -12,7 +12,7 @@ Modal.propTypes = {
   show: React.PropTypes.bool,
   title: React.PropTypes.string,
   onCloseClicked: React.PropTypes.func,
-  children: React.PropTypes.any,
+  children: React.PropTypes.any
 };
 
 export default Modal;

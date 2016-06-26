@@ -3,7 +3,7 @@ import React from 'react';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import {
-  Table,
+  Table
 } from '../../src';
 
 class TreeTable extends React.Component {
@@ -16,66 +16,66 @@ class TreeTable extends React.Component {
         {
           id: 100,
           name: 'Adam',
-          age: 55,
+          age: 55
         },
         {
           id: 102,
           name: 'Joe',
           age: 12,
-          parent: 100,
+          parent: 100
         },
         {
           id: 101,
           name: 'Brian',
-          age: 62,
+          age: 62
         },
         {
           id: 103,
           name: 'Mike',
           age: 22,
-          parent: 101,
+          parent: 101
         },
         {
           id: 104,
           name: 'Jack',
           age: 33,
-          parent: 103,
+          parent: 103
         },
         {
           id: 105,
           name: 'Jill',
           age: 11,
-          parent: 104,
+          parent: 104
         },
         {
           id: 109,
           name: 'Marge',
           age: 11,
-          parent: 104,
+          parent: 104
         },
         {
           id: 106,
           name: 'Bob',
           age: 44,
-          parent: 104,
+          parent: 104
         },
         {
           id: 107,
           name: 'Peter',
           age: 66,
-          parent: 106,
+          parent: 106
         },
         {
           id: 108,
           name: 'James',
           age: 12,
-          parent: 107,
-        },
+          parent: 107
+        }
       ],
       columns: [
         {
           header: {
-            label: 'Name',
+            label: 'Name'
           },
           cell: {
             property: 'name',
@@ -97,18 +97,18 @@ class TreeTable extends React.Component {
                   {name}
                 </div>
               );
-            },
-          },
+            }
+          }
         },
         {
           header: {
-            label: 'Age',
+            label: 'Age'
           },
           cell: {
-            property: 'age',
-          },
-        },
-      ],
+            property: 'age'
+          }
+        }
+      ]
     };
   }
   render() {
@@ -123,7 +123,7 @@ class TreeTable extends React.Component {
         <Table.Body
           rowKey="id"
           row={(row, rowIndex) => ({
-            className: rowIndex % 2 ? 'odd-row' : 'even-row',
+            className: rowIndex % 2 ? 'odd-row' : 'even-row'
           })}
         />
       </Table>

@@ -13,11 +13,11 @@ describe('edit', function () {
       },
       onActivate(idx) {
         index = idx;
-      },
+      }
     });
     const result = editor('div')('foo', {
       cellData: {},
-      property: 'foo',
+      property: 'foo'
     });
 
     result.onClick();
@@ -33,13 +33,13 @@ describe('edit', function () {
       },
       getEditProperty() {
         return testIndex;
-      },
+      }
     });
     const value = 'foo';
     const editorElement = 'div';
     const result = editor(editorElement)(value, {
       cellData: {},
-      property: 'foo',
+      property: 'foo'
     });
 
     expect(result.children.type).to.equal(editorElement);
@@ -58,12 +58,12 @@ describe('edit', function () {
       },
       onValue({ value }) {
         receivedValue = value;
-      },
+      }
     });
     const editorValue = 'foobar';
     const result = editor('div')('foo', {
       cellData: {},
-      property: 'foo',
+      property: 'foo'
     });
 
     result.children.props.onValue(editorValue);
@@ -75,7 +75,7 @@ describe('edit', function () {
     let passedCellData;
     let passedProperty;
     const testCellData = {
-      name: 'demo',
+      name: 'demo'
     };
     const testProperty = 'foo';
     const editor = edit({
@@ -87,12 +87,12 @@ describe('edit', function () {
       },
       getEditProperty() {
         return testCellData.name + testProperty;
-      },
+      }
     });
     const editorValue = 'foobar';
     const result = editor('div')('foo', {
       cellData: testCellData,
-      property: testProperty,
+      property: testProperty
     });
 
     result.children.props.onValue(editorValue);
@@ -111,10 +111,10 @@ describe('sort', function () {
         return [
           {
             property: testProperty,
-            sort: sortDirection,
-          },
+            sort: sortDirection
+          }
         ];
-      },
+      }
     });
     const result = sorter(testProperty)();
 
@@ -127,7 +127,7 @@ describe('sort', function () {
     const sorter = sort({
       onSort(property) {
         sorted = property;
-      },
+      }
     });
     const result = sorter(testProperty)();
 

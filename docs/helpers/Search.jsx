@@ -6,7 +6,7 @@ export default class Search extends React.Component {
 
     this.state = {
       column: 'all',
-      query: '',
+      query: ''
     };
 
     this.onColumnChange = this.onColumnChange.bind(this);
@@ -14,12 +14,12 @@ export default class Search extends React.Component {
   }
   componentDidMount() {
     this.props.onChange({
-      [this.state.column]: this.state.query,
+      [this.state.column]: this.state.query
     });
   }
   render() {
     const {
-      onChange, columns, data, i18n, ...props, // eslint-disable-line no-unused-vars
+      onChange, columns, data, i18n, ...props // eslint-disable-line no-unused-vars
     } = this.props;
 
     return (
@@ -38,7 +38,7 @@ export default class Search extends React.Component {
 
     this.setState({ column });
     this.props.onChange({
-      [column]: query,
+      [column]: query
     });
   }
   onQueryChange(event) {
@@ -47,7 +47,7 @@ export default class Search extends React.Component {
 
     this.setState({ query });
     this.props.onChange({
-      [column]: query,
+      [column]: query
     });
   }
 }
@@ -56,16 +56,16 @@ Search.propTypes = {
   data: React.PropTypes.array,
   onChange: React.PropTypes.func,
   i18n: React.PropTypes.shape({
-    all: React.PropTypes.string,
-  }),
+    all: React.PropTypes.string
+  })
 };
 Search.defaultProps = {
   columns: [],
   data: [],
   onChange: () => {},
   i18n: {
-    all: 'All',
-  },
+    all: 'All'
+  }
 };
 
 const SearchOptions = ({ columns, i18n, ...props }) => (
@@ -77,13 +77,13 @@ const SearchOptions = ({ columns, i18n, ...props }) => (
 );
 SearchOptions.propTypes = {
   columns: React.PropTypes.array,
-  i18n: React.PropTypes.object,
+  i18n: React.PropTypes.object
 };
 
 const getOptions = (columns, i18n) => (
   [{
     value: 'all',
-    name: i18n.all,
+    name: i18n.all
   }].concat(columns.map(column => {
     if (
       (column.cell && column.cell.property) &&
@@ -91,7 +91,7 @@ const getOptions = (columns, i18n) => (
     ) {
       return {
         value: column.cell.property,
-        name: column.header.value,
+        name: column.header.value
       };
     }
 

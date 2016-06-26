@@ -13,8 +13,8 @@ describe('byColumn', function () {
     const expected = [
       {
         property: selectedColumn,
-        sort: 'asc',
-      },
+        sort: 'asc'
+      }
     ];
     const result = byColumn(sortingColumns, selectedColumn);
 
@@ -28,8 +28,8 @@ describe('byColumn', function () {
     const expected = [
       {
         property: selectedColumn,
-        sort: 'asc',
-      },
+        sort: 'asc'
+      }
     ];
     const result = byColumn(sortingColumns, selectedColumn);
 
@@ -40,14 +40,14 @@ describe('byColumn', function () {
     const selectedColumn = 'test';
     const sortingColumns = [{
       property: selectedColumn,
-      sort: 'asc',
+      sort: 'asc'
     }];
 
     const expected = [
       {
         property: selectedColumn,
-        sort: 'desc',
-      },
+        sort: 'desc'
+      }
     ];
     const result = byColumn(sortingColumns, selectedColumn);
 
@@ -59,7 +59,7 @@ describe('byColumn', function () {
     const selectedColumn = 'test';
     const sortingColumns = [{
       property: selectedColumn,
-      sort: 'desc',
+      sort: 'desc'
     }];
 
     const expected = [];
@@ -72,14 +72,14 @@ describe('byColumn', function () {
     const selectedColumn = 'test';
     const sortingColumns = [{
       property: 'another',
-      sort: 'asc',
+      sort: 'asc'
     }];
 
     const expected = [
       {
         property: selectedColumn,
-        sort: 'asc',
-      },
+        sort: 'asc'
+      }
     ];
     const result = byColumn(sortingColumns, selectedColumn);
 
@@ -95,8 +95,8 @@ describe('byColumns', function () {
     const expected = [
       {
         property: selectedColumn,
-        sort: 'asc',
-      },
+        sort: 'asc'
+      }
     ];
     const result = byColumns(sortingColumns, selectedColumn);
 
@@ -110,8 +110,8 @@ describe('byColumns', function () {
     const expected = [
       {
         property: selectedColumn,
-        sort: 'asc',
-      },
+        sort: 'asc'
+      }
     ];
     const result = byColumns(sortingColumns, selectedColumn);
 
@@ -122,14 +122,14 @@ describe('byColumns', function () {
     const selectedColumn = 'test';
     const sortingColumns = [{
       property: selectedColumn,
-      sort: 'asc',
+      sort: 'asc'
     }];
 
     const expected = [
       {
         property: selectedColumn,
-        sort: 'desc',
-      },
+        sort: 'desc'
+      }
     ];
     const result = byColumns(sortingColumns, selectedColumn);
 
@@ -140,7 +140,7 @@ describe('byColumns', function () {
     const selectedColumn = 'test';
     const sortingColumns = [{
       property: selectedColumn,
-      sort: 'desc',
+      sort: 'desc'
     }];
 
     const expected = [];
@@ -153,14 +153,14 @@ describe('byColumns', function () {
     const selectedColumn = 'test';
     const sortingColumns = [{
       property: 'another',
-      sort: 'asc',
+      sort: 'asc'
     }];
 
     const expected = sortingColumns.concat([
       {
         property: selectedColumn,
-        sort: 'asc',
-      },
+        sort: 'asc'
+      }
     ]);
     const result = byColumns(sortingColumns, selectedColumn);
 
@@ -172,15 +172,15 @@ describe('sorter', function () {
   it('sorts ascending', function () {
     const data = [
       {
-        test: 'abc',
+        test: 'abc'
       },
       {
-        test: 'def',
-      },
+        test: 'def'
+      }
     ];
     const sortingColumns = [{
       property: 'test',
-      sort: 'asc',
+      sort: 'asc'
     }];
 
     const result = sorter(data, sortingColumns, orderBy);
@@ -191,15 +191,15 @@ describe('sorter', function () {
   it('sorts descending', function () {
     const data = [
       {
-        test: 'abc',
+        test: 'abc'
       },
       {
-        test: 'def',
-      },
+        test: 'def'
+      }
     ];
     const sortingColumns = [{
       property: 'test',
-      sort: 'desc',
+      sort: 'desc'
     }];
 
     const result = sorter(data, sortingColumns, orderBy);
@@ -210,11 +210,11 @@ describe('sorter', function () {
   it('returns data if there is no sorting information', function () {
     const data = [
       {
-        test: 'abc',
+        test: 'abc'
       },
       {
-        test: 'def',
-      },
+        test: 'def'
+      }
     ];
     const result = sorter(data, null, orderBy);
 
@@ -224,11 +224,11 @@ describe('sorter', function () {
   it('returns data if there sorting information is missing', function () {
     const data = [
       {
-        test: 'abc',
+        test: 'abc'
       },
       {
-        test: 'def',
-      },
+        test: 'def'
+      }
     ];
     const result = sorter(data, [], orderBy);
 
@@ -238,29 +238,29 @@ describe('sorter', function () {
   it('sorts case-insensitively', function () {
     const data = [
       {
-        test: 'crep',
+        test: 'crep'
       },
       {
-        test: 'Bllop',
+        test: 'Bllop'
       },
       {
-        test: 'Dart',
-      },
+        test: 'Dart'
+      }
     ];
     const expected = [
       {
-        test: 'Bllop',
+        test: 'Bllop'
       },
       {
-        test: 'crep',
+        test: 'crep'
       },
       {
-        test: 'Dart',
-      },
+        test: 'Dart'
+      }
     ];
     const sortingColumns = [{
       property: 'test',
-      sort: 'asc',
+      sort: 'asc'
     }];
     const result = sorter(data, sortingColumns, orderBy);
 
@@ -270,18 +270,18 @@ describe('sorter', function () {
   it('sorts numbers', function () {
     const data = [
       {
-        test: 1,
+        test: 1
       },
       {
-        test: 2,
+        test: 2
       },
       {
-        test: 3,
-      },
+        test: 3
+      }
     ];
     const sortingColumns = [{
       property: 'test',
-      sort: 'asc',
+      sort: 'asc'
     }];
     const result = sorter(data, sortingColumns, orderBy);
 
@@ -292,23 +292,23 @@ describe('sorter', function () {
     const data = [
       {
         test: {
-          foo: 'bar',
-        },
+          foo: 'bar'
+        }
       },
       {
         test: {
-          foo: 'foo',
-        },
+          foo: 'foo'
+        }
       },
       {
         test: {
-          foo: 'zoo',
-        },
-      },
+          foo: 'zoo'
+        }
+      }
     ];
     const sortingColumns = [{
       property: 'test.foo',
-      sort: 'asc',
+      sort: 'asc'
     }];
     const result = sorter(data, sortingColumns, orderBy);
 

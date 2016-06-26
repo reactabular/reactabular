@@ -6,12 +6,12 @@ class Table extends React.Component {
   getChildContext() {
     return {
       columns: this.props.columns,
-      data: this.props.data,
+      data: this.props.data
     };
   }
   render() {
     const {
-      columns, data, children, ...props, // eslint-disable-line no-unused-vars
+      columns, data, children, ...props // eslint-disable-line no-unused-vars
     } = this.props;
 
     return <table {...props}>{children}</table>;
@@ -24,23 +24,23 @@ Table.propTypes = {
         label: React.PropTypes.string,
         transform: React.PropTypes.func,
         format: React.PropTypes.func,
-        props: React.PropTypes.object,
+        props: React.PropTypes.object
       }),
       cell: React.PropTypes.shape({
         property: React.PropTypes.string,
         transform: React.PropTypes.func,
         format: React.PropTypes.func,
         resolve: React.PropTypes.func,
-        props: React.PropTypes.object,
-      }),
+        props: React.PropTypes.object
+      })
     })
   ).isRequired,
   data: React.PropTypes.array.isRequired,
-  children: React.PropTypes.any,
+  children: React.PropTypes.any
 };
 Table.childContextTypes = {
   columns: React.PropTypes.array,
-  data: React.PropTypes.array,
+  data: React.PropTypes.array
 };
 
 const Header = ({ children, className, ...props }, { columns }) => (
@@ -51,7 +51,7 @@ const Header = ({ children, className, ...props }, { columns }) => (
           label,
           transform = a => ({}), // eslint-disable-line no-unused-vars
           format = a => a,
-          props, // eslint-disable-line no-shadow
+          props // eslint-disable-line no-shadow
         } = column.header || {};
         const extraParameters = { cellData: label };
         const key = `${i}-header`;
@@ -77,10 +77,10 @@ const Header = ({ children, className, ...props }, { columns }) => (
 );
 Header.propTypes = {
   children: React.PropTypes.any,
-  className: React.PropTypes.string,
+  className: React.PropTypes.string
 };
 Header.contextTypes = {
-  columns: React.PropTypes.array.isRequired,
+  columns: React.PropTypes.array.isRequired
 };
 Header.displayName = 'Table.Header';
 
@@ -93,7 +93,7 @@ const Body = ({ row, rowKey, className, ...props }, { columns, data }) => (
           transform = a => ({}), // eslint-disable-line no-unused-vars
           format = a => a,
           resolve = a => a,
-          props, // eslint-disable-line no-shadow
+          props // eslint-disable-line no-shadow
         } = column.cell;
         if (property && !has(r, property)) {
           console.warn(`Table.Body - Failed to find "${property}" property from`, r); // eslint-disable-line max-len, no-console
@@ -124,14 +124,14 @@ const Body = ({ row, rowKey, className, ...props }, { columns, data }) => (
 Body.propTypes = {
   row: React.PropTypes.func,
   rowKey: React.PropTypes.string.isRequired,
-  className: React.PropTypes.string,
+  className: React.PropTypes.string
 };
 Body.defaultProps = {
-  row: () => {},
+  row: () => {}
 };
 Body.contextTypes = {
   columns: React.PropTypes.array.isRequired,
-  data: React.PropTypes.array.isRequired,
+  data: React.PropTypes.array.isRequired
 };
 Body.displayName = 'Table.Body';
 

@@ -8,7 +8,7 @@ class ColumnFilters extends React.Component {
 
     this.onQueryChange = this.onQueryChange.bind(this);
     this.state = {
-      query: {},
+      query: {}
     };
   }
 
@@ -49,7 +49,7 @@ class ColumnFilters extends React.Component {
 }
 ColumnFilters.propTypes = {
   columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  onChange: React.PropTypes.func.isRequired
 };
 
 export default ColumnFilters;

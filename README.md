@@ -20,22 +20,22 @@ const data = [
     id: 100,
     name: 'John',
     tools: {
-      hammer: true,
+      hammer: true
     },
-    country: 'fi',
+    country: 'fi'
   },
   {
     id: 101,
     name: 'Jack',
     tools: {
-      hammer: false,
+      hammer: false
     },
-    country: 'dk',
+    country: 'dk'
   }
 ];
 const countries = {
   fi: 'Finland',
-  dk: 'Denmark',
+  dk: 'Denmark'
 };
 
 const columns = [
@@ -43,36 +43,36 @@ const columns = [
     header: {
       label: 'Name',
       transform: label => ({
-        onClick: () => alert(`clicked ${label}`),
-      }),
+        onClick: () => alert(`clicked ${label}`)
+      })
     },
     cell: {
-      property: 'name',
-    },
+      property: 'name'
+    }
   },
   {
     header: {
       label: 'Active',
       transform: label => ({
-        onClick: () => alert(`clicked ${label}`),
-      }),
+        onClick: () => alert(`clicked ${label}`)
+      })
     },
     cell: {
       property: 'tools.hammer',
-      format: hasHammer => hasHammer ? 'Hammertime' : 'nope',
-    },
+      format: hasHammer => hasHammer ? 'Hammertime' : 'nope'
+    }
   },
   {
     header: {
       label: 'Country',
       transform: label => ({
-        onClick: () => alert(`clicked ${label}`),
-      }),
+        onClick: () => alert(`clicked ${label}`)
+      })
     },
     cell: {
       property: 'country',
-      resolve: country => countries[country],
-    },
+      resolve: country => countries[country]
+    }
   },
 ];
 

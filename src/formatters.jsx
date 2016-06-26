@@ -37,5 +37,5 @@ const highlight = getHighlights => value => {
 };
 
 export default {
-  highlight,
+  highlight
 };

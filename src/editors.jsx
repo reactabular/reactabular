@@ -19,7 +19,7 @@ const boolean = ({ props } = {}) => {
   Boolean.propTypes = {
     value: React.PropTypes.any,
     onClick: React.PropTypes.func,
-    onValue: React.PropTypes.func,
+    onValue: React.PropTypes.func
   };
 
   return Boolean;
@@ -29,9 +29,9 @@ const dropdown = ({
   options,
   fields = {
     name: 'name',
-    value: 'value',
+    value: 'value'
   },
-  props,
+  props
 }) => {
   const Dropdown = ({ value, onValue }) => {
     const edit = ({ target: { value } }) => onValue(value); // eslint-disable-line max-len, no-shadow, react/prop-types
@@ -48,7 +48,7 @@ const dropdown = ({
   };
   Dropdown.propTypes = {
     value: React.PropTypes.string.isRequired,
-    onValue: React.PropTypes.func.isRequired,
+    onValue: React.PropTypes.func.isRequired
   };
 
   return Dropdown;
@@ -63,7 +63,7 @@ const input = ({ props } = {}) => {
   };
   Input.propTypes = {
     value: React.PropTypes.string,
-    onValue: React.PropTypes.func,
+    onValue: React.PropTypes.func
   };
 
   return Input;
@@ -72,5 +72,5 @@ const input = ({ props } = {}) => {
 export default {
   boolean,
   dropdown,
-  input,
+  input
 };

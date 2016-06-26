@@ -11,8 +11,8 @@ const rowEditor = ({ schema, uiSchema, onConfirm, onRemove }) => {
         modal: {
           show: false,
           title: 'title',
-          content: 'content',
-        },
+          content: 'content'
+        }
       };
 
       this.onModalClose = this.onModalClose.bind(this);
@@ -56,7 +56,7 @@ const rowEditor = ({ schema, uiSchema, onConfirm, onRemove }) => {
               onConfirm(cellData.id, formData);
 
               this.setState({
-                modal: { ...this.state.modal, show: false },
+                modal: { ...this.state.modal, show: false }
               });
             }}
             onCancel={() => {
@@ -64,16 +64,16 @@ const rowEditor = ({ schema, uiSchema, onConfirm, onRemove }) => {
                 modal: {
                   ...this.state.modal,
                   ...{
-                    show: false,
-                  },
-                },
+                    show: false
+                  }
+                }
               });
             }}
             formData={cellData}
             schema={schema}
             uiSchema={uiSchema}
-          />,
-        },
+          />
+        }
       });
     }
     onModalClose() {
@@ -81,18 +81,18 @@ const rowEditor = ({ schema, uiSchema, onConfirm, onRemove }) => {
         modal: {
           ...this.state.modal,
           ...{
-            show: false,
-          },
-        },
+            show: false
+          }
+        }
       });
     }
   }
   RowEditor.propTypes = {
-    cellData: React.PropTypes.object.isRequired,
+    cellData: React.PropTypes.object.isRequired
   };
 
   return (value, props) => ({
-    children: React.createElement(RowEditor, props),
+    children: React.createElement(RowEditor, props)
   });
 };
 

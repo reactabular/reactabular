@@ -22,22 +22,22 @@ describe('Search', function () {
     const columns = [
       {
         header: {
-          value: 'First',
+          value: 'First'
         },
         cell: {
-          property: 'first',
-        },
+          property: 'first'
+        }
       },
       {
         cell: {
-          property: 'second',
-        },
+          property: 'second'
+        }
       },
       {
         header: {
-          value: 'Third',
-        },
-      },
+          value: 'Third'
+        }
+      }
     ];
 
     const search = TestUtils.renderIntoDocument(
@@ -58,14 +58,14 @@ describe('Search', function () {
     const columns = [
       {
         property: 'first',
-        header: 'First',
-      },
+        header: 'First'
+      }
     ];
     const value = 'demo';
     const data = [
       {
-        first: value,
-      },
+        first: value
+      }
     ];
     const result = function (d) {
       expect(d.data).to.equal(data);
@@ -84,14 +84,14 @@ describe('Search', function () {
     const columns = [
       {
         property: 'first',
-        header: 'First',
-      },
+        header: 'First'
+      }
     ];
     const value = 'demo';
     const data = [
       {
-        first: value,
-      },
+        first: value
+      }
     ];
     const result = function (d) {
       expect(d.data.length).to.equal(0);
