@@ -2,6 +2,8 @@
 import React from 'react';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
+import range from 'lodash/range';
+import jsf from 'json-schema-faker';
 
 import {
   Table, search, editors, sort, transforms, formatters,
@@ -12,43 +14,63 @@ import {
   Paginator, PrimaryControls,
 } from '../helpers';
 import countries from '../data/countries';
-import {
-  generateData, paginate, augmentWithTitles, getFieldGenerators, find,
-} from '../common';
+import { paginate, find } from '../common';
 
 const countryValues = countries.map((c) => c.value);
-const properties = augmentWithTitles({
-  name: {
-    type: 'string',
-  },
-  position: {
-    type: 'string',
-  },
-  salary: {
-    type: 'number',
-  },
-  boss: {
-    type: 'object',
-    properties: {
-      name: {
-        type: 'string',
-      },
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string',
+      faker: 'random.uuid',
+    },
+    name: {
+      type: 'string',
+      faker: 'name.findName',
+    },
+    position: {
+      type: 'string',
+      faker: 'name.jobType',
+    },
+    salary: {
+      $ref: '#/definitions/salary',
+    },
+    boss: {
+      $ref: '#/definitions/boss',
+    },
+    country: {
+      type: 'string',
+      enum: countryValues,
+      enumNames: countries.map((c) => c.name),
+    },
+    active: {
+      type: 'boolean',
+      faker: 'random.boolean',
     },
   },
-  country: {
-    type: 'string',
-    enum: countryValues,
-    enumNames: countries.map((c) => c.name),
+  // Setting `active` required breaks react-jsonschema-form
+  required: ['id', 'name', 'position', 'salary', 'boss', 'country'],
+  definitions: {
+    boss: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          faker: 'name.findName',
+        },
+      },
+      required: ['name'],
+    },
+    salary: {
+      type: 'integer',
+      minimum: 0,
+      maximum: 10000,
+      exclusiveMinimum: true,
+    },
   },
-  active: {
-    type: 'boolean',
-  },
-});
-const data = generateData({
-  amount: 100,
-  fieldGenerators: getFieldGenerators(countryValues),
-  properties,
-});
+};
+// Attach active flags as faker won't initialize those by default
+const data = range(100).map(() => jsf(schema)).map(o => ({ active: false, ...o }));
 const sorter = sort.byColumns; // sort.byColumn would work too
 
 class FullTable extends React.Component {
@@ -67,8 +89,8 @@ class FullTable extends React.Component {
       getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
       getEditProperty: () => this.state.editedCell,
       onActivate: idx => this.setState({ editedCell: idx }),
-      onValue: (value, { id }, property) => {
-        const idx = findIndex(this.state.data, { id });
+      onValue: ({ value, cellData, property }) => {
+        const idx = findIndex(this.state.data, { id: cellData.id });
 
         this.state.data[idx][property] = value;
 
@@ -173,8 +195,15 @@ class FullTable extends React.Component {
         },
         {
           cell: {
+            // XXX: warning.js?8a56:44 Warning:
+            // Failed propType: Invalid prop `id` of type `object` supplied
+            // to `Wrapper`, expected `string`. Check the render method
+            // of `SchemaField`.
             transform: rowEditor({
-              properties,
+              schema,
+              uiSchema: {
+                id: { 'ui:widget': 'hidden' },
+              },
               onConfirm: (id, data) => this.onConfirmEdit(id, data),
               onRemove: id => this.onRemove(id),
             }),
@@ -202,7 +231,7 @@ class FullTable extends React.Component {
     d = sort.sorter(d, sortingColumns, orderBy);
 
     const paginated = paginate(d, pagination);
-    const pages = Math.ceil(data.length / Math.max(
+    const pages = Math.ceil(d.length / Math.max(
       isNaN(pagination.perPage) ? 1 : pagination.perPage, 1)
     );
 

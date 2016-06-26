@@ -56,7 +56,7 @@ describe('edit', function () {
       getEditProperty() {
         return testIndex;
       },
-      onValue(value) {
+      onValue({ value }) {
         receivedValue = value;
       },
     });

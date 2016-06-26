@@ -2,11 +2,7 @@ import React from 'react';
 
 import { EditCell, Modal } from './';
 
-const rowEditor = ({
-  properties,
-  onConfirm,
-  onRemove,
-}) => {
+const rowEditor = ({ schema, uiSchema, onConfirm, onRemove }) => {
   class RowEditor extends React.Component {
     constructor(props) {
       super(props);
@@ -74,7 +70,8 @@ const rowEditor = ({
               });
             }}
             formData={cellData}
-            properties={properties}
+            schema={schema}
+            uiSchema={uiSchema}
           />,
         },
       });

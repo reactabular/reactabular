@@ -6,8 +6,8 @@ const edit = ({
   onActivate = () => {},
   onValue = () => {},
 }) => editor => {
-  const Edit = (value, { cellData, property }) => {
-    const idx = getEditId({ cellData, property });
+  const Edit = (value, extraParameters) => {
+    const idx = getEditId(extraParameters);
     const editedCell = getEditProperty();
 
     if (editedCell === idx) {
@@ -16,7 +16,9 @@ const edit = ({
           editor,
           {
             value,
-            onValue: v => onValue(v, cellData, property),
+            onValue: v => onValue(
+              { value: v, ...extraParameters }
+            ),
           }
         ),
       };
@@ -28,8 +30,10 @@ const edit = ({
   };
   Edit.propTypes = {
     value: React.PropTypes.any,
-    cellData: React.PropTypes.object.isRequired,
-    property: React.PropTypes.string.isRequired,
+    extraParameters: React.PropTypes.shape({
+      cellData: React.PropTypes.object.isRequired,
+      property: React.PropTypes.string.isRequired,
+    }),
   };
 
   return Edit;

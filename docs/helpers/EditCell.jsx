@@ -2,13 +2,11 @@ import React from 'react';
 import Form from 'react-jsonschema-form';
 
 // TODO: write wrappers for purecss so that the styling works
-const EditCell = ({ formData, properties, onSubmit, onCancel, ...props }) => (
+const EditCell = ({ formData, schema, uiSchema, onSubmit, onCancel, ...props }) => (
   <Form
     className="pure-form pure-form-aligned"
-    schema={{
-      type: 'object',
-      properties,
-    }}
+    schema={schema}
+    uiSchema={uiSchema}
     formData={formData}
     onSubmit={({ formData }) => onSubmit(formData)} // eslint-disable-line no-shadow
     {...props}
@@ -32,7 +30,8 @@ const EditCell = ({ formData, properties, onSubmit, onCancel, ...props }) => (
 );
 EditCell.propTypes = {
   formData: React.PropTypes.object,
-  properties: React.PropTypes.object,
+  schema: React.PropTypes.object,
+  uiSchema: React.PropTypes.object,
   onSubmit: React.PropTypes.func,
   onCancel: React.PropTypes.func,
 };
