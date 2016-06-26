@@ -1,11 +1,15 @@
 /* eslint-disable no-console, react/prop-types */
 import React from 'react';
 import uuid from 'uuid';
+import transform from 'lodash/transform';
 
 import { Table, editors } from '../../src';
 
 import countries from '../data/countries';
 
+const options = transform(countries, (result, name, value) => {
+  result.push({ value, name });
+}, []);
 const data = [
   {
     name: 'Boolean',
@@ -19,7 +23,7 @@ const data = [
   {
     name: 'Dropdown',
     editor: editors.dropdown({
-      options: countries,
+      options,
     }),
     code: 'editors.dropdown({ options: countries })',
     description: `The dropdown expects an array
@@ -30,7 +34,7 @@ const data = [
   {
     name: 'Customized dropdown',
     editor: editors.dropdown({
-      options: countries,
+      options,
       fields: {
         // reversing fields to show the API
         name: 'value',

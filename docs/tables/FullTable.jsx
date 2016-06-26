@@ -3,6 +3,9 @@ import React from 'react';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import range from 'lodash/range';
+import keys from 'lodash/keys';
+import values from 'lodash/values';
+import transform from 'lodash/transform';
 import jsf from 'json-schema-faker';
 
 import {
@@ -14,9 +17,8 @@ import {
   Paginator, PrimaryControls,
 } from '../helpers';
 import countries from '../data/countries';
-import { paginate, find } from '../common';
+import { paginate } from '../common';
 
-const countryValues = countries.map((c) => c.value);
 const schema = {
   type: 'object',
   properties: {
@@ -40,8 +42,8 @@ const schema = {
     },
     country: {
       type: 'string',
-      enum: countryValues,
-      enumNames: countries.map((c) => c.name),
+      enum: keys(countries),
+      enumNames: values(countries),
     },
     active: {
       type: 'boolean',
@@ -162,10 +164,14 @@ class FullTable extends React.Component {
           cell: {
             property: 'country',
             transform: editable(
-              editors.dropdown({ options: countries })
+              editors.dropdown({
+                options: transform(countries, (result, name, value) => {
+                  result.push({ value, name });
+                }, []),
+              })
             ),
             format: highlight('country'),
-            resolve: country => find(countries, 'value', country).name,
+            resolve: country => countries[country],
           },
         },
         {

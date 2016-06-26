@@ -1,30 +1,9 @@
-export default [
-  {
-    value: 'none',
-    name: '',
-  },
-  {
-    value: 'de',
-    name: 'Germany',
-  },
-  {
-    value: 'gk',
-    name: 'Greece',
-  },
-  {
-    value: 'fi',
-    name: 'Finland',
-  },
-  {
-    value: 'it',
-    name: 'Italy',
-  },
-  {
-    value: 'pl',
-    name: 'Poland',
-  },
-  {
-    value: 'se',
-    name: 'Sweden',
-  },
-];
+export default {
+  none: '',
+  de: 'Germany',
+  gk: 'Greece',
+  fi: 'Finland',
+  it: 'Italy',
+  pl: 'Poland',
+  se: 'Sweden',
+};
