@@ -22,7 +22,7 @@ describe('Search', function () {
     const columns = [
       {
         header: {
-          value: 'First'
+          label: 'First'
         },
         cell: {
           property: 'first'
@@ -35,7 +35,7 @@ describe('Search', function () {
       },
       {
         header: {
-          value: 'Third'
+          label: 'Third'
         }
       }
     ];
@@ -51,7 +51,7 @@ describe('Search', function () {
     expect(options.length).to.equal(2);
     expect(options[0].value).to.equal('all');
     expect(options[1].value).to.equal(columns[0].cell.property);
-    expect(options[1].textContent).to.equal(columns[0].header.value);
+    expect(options[1].textContent).to.equal(columns[0].header.label);
   });
 
   it('yields results', function () {

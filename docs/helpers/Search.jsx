@@ -87,11 +87,11 @@ const getOptions = (columns, i18n) => (
   }].concat(columns.map(column => {
     if (
       (column.cell && column.cell.property) &&
-      (column.header && column.header.value)
+      (column.header && column.header.label)
     ) {
       return {
         value: column.cell.property,
-        name: column.header.value
+        name: column.header.label
       };
     }
 
