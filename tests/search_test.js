@@ -36,6 +36,22 @@ describe('search.multipleColumns', function () {
     expect(result).to.deep.equal([match]);
   });
 
+  it('does not match from other column', function () {
+    const query = { demo: 'foo' };
+    const match = { demo: 'foobar' };
+    const data = [match, { demo: 'bar', another: 'foobar' }];
+    const result = multipleColumns({
+      data,
+      query,
+      columns: [
+        { cell: { property: 'demo' } },
+        { cell: { property: 'another' } },
+      ],
+    });
+
+    expect(result).to.deep.equal([match]);
+  });
+
   it('matches none', function () {
     const query = { demo: 'foo' };
     const data = [{ demo: 'barbar' }, { demo: 'zappa' }];

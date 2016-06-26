@@ -8,12 +8,12 @@ const multipleColumns = ({
   }
 
   return Object.keys(query).reduce(
-    (filteredData, searchedColumn) =>
+    (filteredData, searchColumn) =>
       singleColumn({
         data: filteredData,
         columns,
-        searchedColumn,
-        query: query[searchedColumn],
+        searchColumn,
+        query: query[searchColumn],
         strategy,
         transform,
       }),
