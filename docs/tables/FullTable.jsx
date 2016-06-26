@@ -78,6 +78,25 @@ class FullTable extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      editedCell: null, // currently edited cell
+      data, // initial data
+      query: {}, // search query
+      sortingColumns: null, // reference to the sorting columns
+      columns: this.getColumns(), // initial columns
+      pagination: { // initial pagination settings
+        page: 1,
+        perPage: 10,
+      },
+    };
+
+    this.onSearch = this.onSearch.bind(this);
+    this.onSelect = this.onSelect.bind(this);
+    this.onPerPage = this.onPerPage.bind(this);
+    this.onConfirmEdit = this.onConfirmEdit.bind(this);
+    this.onRemove = this.onRemove.bind(this);
+  }
+  getColumns() {
     const highlight = column => formatters.highlight(value => {
       const { query } = this.state;
 
@@ -109,123 +128,107 @@ class FullTable extends React.Component {
       },
     });
 
-    this.state = {
-      editedCell: null,
-      data,
-      query: {},
-      sortingColumns: null, // reference to the sorting columns
-      columns: [
-        {
-          header: {
-            label: 'Name',
-            transform: sortable('name'),
-            format: name => (
-              <div>
-                <input
-                  type="checkbox"
-                  onClick={() => console.log('clicked')}
-                  style={{ width: '20px' }}
-                />
-                <span>{name}</span>
-              </div>
-            ),
-          },
-          cell: {
-            property: 'name',
-            transform: editable(editors.input()),
-            format: highlight('name'),
-          },
+    return [
+      {
+        header: {
+          label: 'Name',
+          transform: sortable('name'),
+          format: name => (
+            <div>
+              <input
+                type="checkbox"
+                onClick={() => console.log('clicked')}
+                style={{ width: '20px' }}
+              />
+              <span>{name}</span>
+            </div>
+          ),
         },
-        {
-          header: {
-            label: 'Position',
-            transform: sortable('position'),
-          },
-          cell: {
-            property: 'position',
-          },
+        cell: {
+          property: 'name',
+          transform: editable(editors.input()),
+          format: highlight('name'),
         },
-        {
-          header: {
-            label: 'Boss',
-            transform: sortable('boss.name'),
-          },
-          cell: {
-            property: 'boss.name',
-            format: highlight('boss.name'),
-          },
-        },
-        {
-          header: {
-            label: 'Country',
-            transform: sortable('country'),
-          },
-          cell: {
-            property: 'country',
-            transform: editable(
-              editors.dropdown({
-                options: transform(countries, (result, name, value) => {
-                  result.push({ value, name });
-                }, []),
-              })
-            ),
-            format: highlight('country'),
-            resolve: country => countries[country],
-          },
-        },
-        {
-          header: {
-            label: 'Salary',
-            transform: sortable('salary'),
-          },
-          cell: {
-            property: 'salary',
-            format: salary => (
-              <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-                {highlight('salary')(salary)}
-              </span>
-            ),
-          },
-        },
-        {
-          header: {
-            label: 'Active',
-            transform: sortable('active'),
-          },
-          cell: {
-            property: 'active',
-            transform: editable(editors.boolean()),
-            format: active => active && <span>&#10003;</span>,
-          },
-        },
-        {
-          cell: {
-            // XXX: warning.js?8a56:44 Warning:
-            // Failed propType: Invalid prop `id` of type `object` supplied
-            // to `Wrapper`, expected `string`. Check the render method
-            // of `SchemaField`.
-            transform: rowEditor({
-              schema,
-              uiSchema: {
-                id: { 'ui:widget': 'hidden' },
-              },
-              onConfirm: (id, data) => this.onConfirmEdit(id, data),
-              onRemove: id => this.onRemove(id),
-            }),
-          },
-        },
-      ],
-      pagination: {
-        page: 1,
-        perPage: 10,
       },
-    };
-
-    this.onSearch = this.onSearch.bind(this);
-    this.onSelect = this.onSelect.bind(this);
-    this.onPerPage = this.onPerPage.bind(this);
-    this.onConfirmEdit = this.onConfirmEdit.bind(this);
-    this.onRemove = this.onRemove.bind(this);
+      {
+        header: {
+          label: 'Position',
+          transform: sortable('position'),
+        },
+        cell: {
+          property: 'position',
+        },
+      },
+      {
+        header: {
+          label: 'Boss',
+          transform: sortable('boss.name'),
+        },
+        cell: {
+          property: 'boss.name',
+          format: highlight('boss.name'),
+        },
+      },
+      {
+        header: {
+          label: 'Country',
+          transform: sortable('country'),
+        },
+        cell: {
+          property: 'country',
+          transform: editable(
+            editors.dropdown({
+              options: transform(countries, (result, name, value) => {
+                result.push({ value, name });
+              }, []),
+            })
+          ),
+          format: highlight('country'),
+          resolve: country => countries[country],
+        },
+      },
+      {
+        header: {
+          label: 'Salary',
+          transform: sortable('salary'),
+        },
+        cell: {
+          property: 'salary',
+          format: salary => (
+            <span onDoubleClick={() => alert(`salary is ${salary}`)}>
+              {highlight('salary')(salary)}
+            </span>
+          ),
+        },
+      },
+      {
+        header: {
+          label: 'Active',
+          transform: sortable('active'),
+        },
+        cell: {
+          property: 'active',
+          transform: editable(editors.boolean()),
+          format: active => active && <span>&#10003;</span>,
+        },
+      },
+      {
+        cell: {
+          // XXX: warning.js?8a56:44 Warning:
+          // Failed propType: Invalid prop `id` of type `object` supplied
+          // to `Wrapper`, expected `string`. Check the render method
+          // of `SchemaField`.
+          transform: rowEditor({
+            schema,
+            uiSchema: {
+              id: { 'ui:widget': 'hidden' },
+            },
+            onConfirm: (id, data) => this.onConfirmEdit(id, data),
+            onRemove: id => this.onRemove(id),
+          }),
+        },
+      },
+    ];
   }
   render() {
     const {
