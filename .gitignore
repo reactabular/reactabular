@@ -3,4 +3,5 @@ gh-pages/
 dist-modules/
 coverage/
 stats.json
+.eslintcache
 

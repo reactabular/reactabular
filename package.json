@@ -12,7 +12,7 @@
     "dist": "webpack",
     "dist-min": "webpack",
     "dist-modules": "babel ./src --out-dir ./dist-modules",
-    "lint": "eslint . --ext .js --ext .jsx",
+    "lint": "eslint . --ext .js --ext .jsx --cache",
     "preversion": "npm run lint && npm run test && npm run dist && npm run dist-min && git commit --allow-empty -am \"Update dist\"",
     "prepublish": "npm run dist-modules",
     "postpublish": "npm run gh-pages && npm run deploy-gh-pages",
