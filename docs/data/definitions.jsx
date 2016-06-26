@@ -22,7 +22,7 @@ const data = [
 const columns = [
   {
     header: {
-      value: 'Name',
+      label: 'Name',
     },
     cell: {
       property: 'name',
@@ -30,7 +30,7 @@ const columns = [
   },
   {
     header: {
-      value: 'Dad',
+      label: 'Dad',
     },
     cell: {
       property: 'dad.name',
