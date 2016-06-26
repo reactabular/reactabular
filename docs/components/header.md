@@ -5,10 +5,11 @@
   className="pure-table pure-table-striped"
   columns={columns}
   data={data}
+  rowKey="id"
 >
   <Table.Header />
 
-  <Table.Body rowKey="id" />
+  <Table.Body />
 
   <Table.Header />
 </Table>
@@ -23,6 +24,7 @@ It is possible to customize a header by passing child components to it. This way
   className="pure-table pure-table-striped"
   columns={columns}
   data={data}
+  rowKey="id"
 >
   <Table.Header>
     <ColumnFilters
@@ -31,6 +33,6 @@ It is possible to customize a header by passing child components to it. This way
     />
   </Table.Header>
 
-  <Table.Body rowKey="id" />
+  <Table.Body />
 </Table>
 ```

@@ -258,13 +258,13 @@ class FullTable extends React.Component {
           className="pure-table pure-table-striped"
           columns={columns}
           data={paginated.data}
+          rowKey="id"
         >
           <Table.Header>
             <ColumnFilters columns={columns} onChange={this.onSearch} />
           </Table.Header>
 
           <Table.Body
-            rowKey="id"
             row={(row, rowIndex) => ({
               className: rowIndex % 2 ? 'odd-row' : 'even-row',
               onClick: () => console.log('clicked row', row)

@@ -78,11 +78,11 @@ class SelectionTable extends React.Component {
           className="pure-table pure-table-striped"
           columns={columns}
           data={data}
+          rowKey="id"
         >
           <Table.Header />
 
           <Table.Body
-            rowKey="id"
             row={(row, rowIndex) => ({
               className: classnames(
                 rowIndex % 2 ? 'odd-row' : 'even-row',

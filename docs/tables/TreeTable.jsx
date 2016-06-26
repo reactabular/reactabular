@@ -117,11 +117,11 @@ class TreeTable extends React.Component {
         className="pure-table pure-table-striped"
         columns={this.state.columns}
         data={filterTree(this.state.data)}
+        rowKey="id"
       >
         <Table.Header />
 
         <Table.Body
-          rowKey="id"
           row={(row, rowIndex) => ({
             className: rowIndex % 2 ? 'odd-row' : 'even-row'
           })}

@@ -80,10 +80,10 @@ class SortTable extends React.Component {
 
     return (
       <div>
-        <Table columns={columns} data={sortedData}>
+        <Table columns={columns} data={sortedData} rowKey="id">
           <Table.Header />
 
-          <Table.Body rowKey="id" />
+          <Table.Body />
         </Table>
       </div>
     );

@@ -5,14 +5,15 @@
   className="pure-table pure-table-striped"
   columns={columns}
   data={data}
+  rowKey="id"
 >
   <Table.Header />
 
-  <Table.Body rowKey="id" />
+  <Table.Body />
 
   <Table.Header />
 
-  <Table.Body rowKey="id" />
+  <Table.Body />
 </Table>
 ```
 
@@ -25,11 +26,11 @@ It is possible to customize body behavior on a row level. `row` prop accepts fun
   className="pure-table pure-table-striped"
   columns={columns}
   data={data}
+  rowKey="id"
 >
   <Table.Header />
 
   <Table.Body
-    rowKey="id"
     row={(row, rowIndex) => ({
       className: rowIndex % 2 ? 'odd-row' : 'even-row',
       onClick: () => console.log('clicked row', row),

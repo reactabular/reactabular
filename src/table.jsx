@@ -6,7 +6,8 @@ class Table extends React.Component {
   getChildContext() {
     return {
       columns: this.props.columns,
-      data: this.props.data
+      data: this.props.data,
+      rowKey: this.props.rowKey
     };
   }
   render() {
@@ -36,11 +37,13 @@ Table.propTypes = {
     })
   ).isRequired,
   data: React.PropTypes.array.isRequired,
+  rowKey: React.PropTypes.string.isRequired,
   children: React.PropTypes.any
 };
 Table.childContextTypes = {
   columns: React.PropTypes.array,
-  data: React.PropTypes.array
+  data: React.PropTypes.array,
+  rowKey: React.PropTypes.string.isRequired
 };
 
 const Header = ({ children, className, ...props }, { columns }) => (
@@ -84,7 +87,7 @@ Header.contextTypes = {
 };
 Header.displayName = 'Table.Header';
 
-const Body = ({ row, rowKey, className, ...props }, { columns, data }) => (
+const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
   <tbody {...props}>{
     data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
       columns.map((column, j) => {
@@ -123,7 +126,6 @@ const Body = ({ row, rowKey, className, ...props }, { columns, data }) => (
 );
 Body.propTypes = {
   row: React.PropTypes.func,
-  rowKey: React.PropTypes.string.isRequired,
   className: React.PropTypes.string
 };
 Body.defaultProps = {
@@ -131,7 +133,8 @@ Body.defaultProps = {
 };
 Body.contextTypes = {
   columns: React.PropTypes.array.isRequired,
-  data: React.PropTypes.array.isRequired
+  data: React.PropTypes.array.isRequired,
+  rowKey: React.PropTypes.string.isRequired
 };
 Body.displayName = 'Table.Body';
 

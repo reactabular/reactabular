@@ -71,10 +71,10 @@ class EditableTable extends React.Component {
     const { columns, data } = this.state;
 
     return (
-      <Table columns={columns} data={data}>
+      <Table columns={columns} data={data} rowKey="id">
         <Table.Header />
 
-        <Table.Body rowKey="id" />
+        <Table.Body />
       </Table>
     );
   }

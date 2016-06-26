@@ -33,7 +33,7 @@ describe('Table', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]}>
+      <Table columns={columns} data={[]} rowKey="name">
         <Table.Header />
       </Table>
     );
@@ -57,7 +57,7 @@ describe('Table', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]}>
+      <Table columns={columns} data={[]} rowKey="name">
         <Table.Header />
       </Table>
     );
@@ -83,7 +83,7 @@ describe('Table', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]}>
+      <Table columns={columns} data={[]} rowKey="name">
         <Table.Header className={anotherHeaderClass} />
       </Table>
     );
@@ -112,8 +112,8 @@ describe('Table', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[{ name: 'demo' }]}>
-        <Table.Body className={anotherCellClass} rowKey="name" />
+      <Table columns={columns} data={[{ name: 'demo' }]} rowKey="name">
+        <Table.Body className={anotherCellClass} />
       </Table>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -134,7 +134,7 @@ describe('Table', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]}>
+      <Table columns={columns} data={[]} rowKey="name">
         <Table.Header />
       </Table>
     );
@@ -178,8 +178,8 @@ describe('Table', function () {
       { position: 'demo 2', age: 123, name: 'demo', id: 2 }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={data}>
-        <Table.Body rowKey="id" />
+      <Table columns={columns} data={data} rowKey="id">
+        <Table.Body />
       </Table>
     );
     const trs = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -227,8 +227,8 @@ describe('Table', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={data}>
-        <Table.Body rowKey="id" />
+      <Table columns={columns} data={data} rowKey="id">
+        <Table.Body />
       </Table>
     );
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
@@ -271,8 +271,8 @@ describe('Table', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={data}>
-        <Table.Body rowKey="id" />
+      <Table columns={columns} data={data} rowKey="id">
+        <Table.Body />
       </Table>
     );
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
@@ -314,7 +314,7 @@ describe('Table', function () {
       { age: 123, id: 2 }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={data}>
+      <Table columns={columns} data={data} rowKey="name">
         <tfoot>
           <tr>Dancing is the poetry of the foot.</tr>
         </tfoot>

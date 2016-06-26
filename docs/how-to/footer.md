@@ -5,10 +5,11 @@ It is possible to inject a custom footer like this:
   className="pure-table pure-table-striped"
   columns={columns}
   data={data}
+  rowKey="id"
 >
   <Table.Header />
 
-  <Table.Body rowKey="id" />
+  <Table.Body />
 
   <tfoot>
     <tr>
