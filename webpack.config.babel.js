@@ -205,11 +205,6 @@ if (TARGET === 'test' || TARGET === 'tdd' || !TARGET) {
     entry: {}, // karma will set this
     output: {}, // karma will set this
     devtool: 'inline-source-map',
-    resolve: {
-      alias: {
-        src: config.paths.src
-      }
-    },
     module: {
       preLoaders: [
         {
