@@ -10,11 +10,9 @@ export default class HighlightTable extends React.Component {
     super(props);
 
     const highlight = column => formatters.highlight(value => {
-      const { query } = this.state;
-
       return search.matches({
         value,
-        query: query[column]
+        query: this.state.query[column] || this.state.query.all
       });
     });
 

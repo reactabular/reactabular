@@ -98,11 +98,9 @@ class FullTable extends React.Component {
   }
   getColumns() {
     const highlight = column => formatters.highlight(value => {
-      const { query } = this.state;
-
       return search.matches({
         value,
-        query: query[column]
+        query: this.state.query[column] || this.state.query.all
       });
     });
     const editable = transforms.edit({
