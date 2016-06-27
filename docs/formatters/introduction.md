@@ -1,4 +1,4 @@
-Formatters provide means to customize Reactabular column definition through `header` and `cell`:
+**Formatters** provide means to customize Reactabular column definition through `header` and `cell`:
 
 * `header.format = label => <string|React element>`
 * `cell.format = value => <string|React element>`

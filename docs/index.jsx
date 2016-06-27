@@ -83,10 +83,16 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./transforms/introduction.md')
         },
         {
-          path: 'transforms/api',
-          title: 'API',
+          path: 'transforms/edit',
+          title: 'Edit',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./transforms/api.md')
+          component: require('catalog/lib/loader!raw!./transforms/edit.md')
+        },
+        {
+          path: 'transforms/sort',
+          title: 'Sort',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./transforms/sort.md')
         }
       ]
     },

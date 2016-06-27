@@ -10,7 +10,7 @@ The library comes with a couple of basic editors. As long as you follow the same
 lang: jsx
 ---
 import React from 'react';
-import { Table, transforms } from 'reactabular';
+import { Table, transforms, editors } from 'reactabular';
 
 class EditableTable extends React.Component {
   constructor(props) {
