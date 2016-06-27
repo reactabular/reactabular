@@ -72,7 +72,6 @@ const schema = {
 };
 // Attach active flags as faker won't initialize those by default
 const data = range(100).map(() => jsf(schema)).map(o => ({ active: false, ...o }));
-const sorter = sort.byColumns; // sort.byColumn would work too
 
 class FullTable extends React.Component {
   constructor(props) {
@@ -117,11 +116,12 @@ class FullTable extends React.Component {
     });
     const sortable = transforms.sort({
       getSortingColumns: () => this.state.sortingColumns || [],
-      onSort: column => {
+      onSort: selectedColumn => {
         this.setState({
-          sortingColumns: sorter(
-            this.state.sortingColumns, column
-          )
+          sortingColumns: sort.byColumns({ // sort.byColumn would work too
+            sortingColumns: this.state.sortingColumns,
+            selectedColumn
+          })
         });
       }
     });
@@ -234,7 +234,7 @@ class FullTable extends React.Component {
     } = this.state;
     let d = search.multipleColumns({ data, columns, query });
 
-    d = sort.sorter(d, sortingColumns, orderBy);
+    d = sort.sorter({ data: d, sortingColumns, sort: orderBy });
 
     const paginated = paginate(d, pagination);
     const pages = Math.ceil(d.length / Math.max(

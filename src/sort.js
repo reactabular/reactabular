@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 
-const byColumn = (sortingColumns, selectedColumn) => {
+const byColumn = ({ sortingColumns, selectedColumn }) => {
   const sortingColumn = sortingColumns && sortingColumns.length ?
     sortingColumns[0] :
     {};
@@ -22,7 +22,7 @@ const byColumn = (sortingColumns, selectedColumn) => {
   ];
 };
 
-const byColumns = (sortingColumns, selectedColumn) => {
+const byColumns = ({ sortingColumns, selectedColumn }) => {
   const index = sortingColumns && sortingColumns.map(
     c => c.property
   ).indexOf(selectedColumn);
@@ -62,15 +62,15 @@ function cycleSort(sort) {
 
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy
-const sorter = (data, columns, sort) => {
-  if (!columns) {
+const sorter = ({ data, sortingColumns, sort }) => {
+  if (!sortingColumns) {
     return data;
   }
 
   const propertyList = [];
   const orderList = [];
 
-  columns.forEach((column) => {
+  sortingColumns.forEach((column) => {
     propertyList.push(row => {
       const value = get(row, column.property);
 

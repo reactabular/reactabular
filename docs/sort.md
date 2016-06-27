@@ -15,8 +15,6 @@ lang: jsx
 import React from 'react';
 import { Table, sort, transforms } from 'reactabular';
 
-const sorter = sort.byColumns; // sort.byColumn would work too
-
 class SortTable extends React.Component {
   constructor(props) {
     super(props);
@@ -28,11 +26,12 @@ class SortTable extends React.Component {
 
       // The user requested sorting, adjust the sorting state accordingly.
       // This is a good chance to pass the request through a sorter.
-      onSort: column => {
+      onSort: selectedColumn => {
         this.setState({
-          sortingColumns: sorter(
-            this.state.sortingColumns, column
-          )
+          sortingColumns: sort.byColumns({ // sort.byColumn would work too
+            sortingColumns: this.state.sortingColumns,
+            selectedColumn
+          })
         });
       }
     });
@@ -72,11 +71,7 @@ class SortTable extends React.Component {
   }
   render() {
     const { data, columns, sortingColumns } = this.state;
-    const sortedData = sort.sorter(
-      data,
-      sortingColumns,
-      orderBy
-    );
+    const sortedData = sort.sorter({ data, sortingColumns, sort: orderBy });
 
     return (
       <div>
