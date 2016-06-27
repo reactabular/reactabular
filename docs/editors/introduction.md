@@ -82,9 +82,3 @@ class EditableTable extends React.Component {
   }
 }
 ```
-
-## Available Editors
-
-```react
-<EditorsTable />
-```

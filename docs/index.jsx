@@ -97,16 +97,38 @@ Catalog.render({
       ]
     },
     {
-      path: 'editors',
       title: 'Editors',
-      imports: documentationImports,
-      component: require('catalog/lib/loader!raw!./editors.md')
+      pages: [
+        {
+          path: 'editors',
+          title: 'Introduction',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./editors/introduction.md')
+        },
+        {
+          path: 'editors/api',
+          title: 'API',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./editors/api.md')
+        }
+      ]
     },
     {
-      path: 'sort',
       title: 'Sort',
-      imports: documentationImports,
-      component: require('catalog/lib/loader!raw!./sort.md')
+      pages: [
+        {
+          path: 'sort',
+          title: 'Introduction',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./sort/introduction.md')
+        },
+        {
+          path: 'sort/api',
+          title: 'API',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./sort/api.md')
+        }
+      ]
     },
     {
       title: 'Search',
