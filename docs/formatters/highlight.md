@@ -14,12 +14,12 @@ class HighlightTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const highlight = column => formatters.highlight(value => {
-      return search.matches({
+    const highlight = column => formatters.highlight(value => (
+      search.matches({
         value,
         query: this.state.query[column] || this.state.query.all
-      });
-    });
+      })
+    ));
 
     this.state = {
       query: {},

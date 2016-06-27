@@ -97,12 +97,12 @@ class FullTable extends React.Component {
     this.onRemove = this.onRemove.bind(this);
   }
   getColumns() {
-    const highlight = column => formatters.highlight(value => {
-      return search.matches({
+    const highlight = column => formatters.highlight(value => (
+      search.matches({
         value,
         query: this.state.query[column] || this.state.query.all
-      });
-    });
+      })
+    ));
     const editable = transforms.edit({
       getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
       getEditProperty: () => this.state.editedCell,
