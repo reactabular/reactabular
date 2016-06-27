@@ -314,4 +314,24 @@ describe('sorter', function () {
 
     expect(result).to.deep.equal(data);
   });
+
+  it('does not fail if property is missing', function () {
+    const data = [
+      {
+        test: 1
+      },
+      {
+        test: 2
+      },
+      {
+        test: 3
+      }
+    ];
+    const sortingColumns = [{
+      sort: 'asc'
+    }];
+    const result = sorter({ data, sortingColumns, sort: orderBy });
+
+    expect(result).to.deep.equal(data);
+  });
 });

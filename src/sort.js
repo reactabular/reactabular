@@ -74,7 +74,7 @@ const sorter = ({ data, sortingColumns, sort }) => {
     propertyList.push(row => {
       const value = get(row, column.property);
 
-      if (value.toLowerCase) {
+      if (value && value.toLowerCase) {
         return value.toLowerCase();
       }
 
