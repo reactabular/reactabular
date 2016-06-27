@@ -59,8 +59,13 @@ const Header = ({ children, className, ...props }, { columns }) => (
         const extraParameters = { cellData: label };
         const key = `${i}-header`;
         const transformed = transform(label, extraParameters);
+
+        if (!transformed) {
+          console.warn('Table.Header - Failed to receive a transformed result', transformed); // eslint-disable-line max-len, no-console
+        }
+
         const mergedClassName = mergeClassNames(
-          className, transformed.className
+          className, transformed && transformed.className
         );
 
         return (
@@ -106,8 +111,13 @@ const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
         const value = get(r, property);
         const resolvedValue = resolve(value, extraParameters);
         const transformed = transform(value, extraParameters);
+
+        if (!transformed) {
+          console.warn('Table.Body - Failed to receive a transformed result', transformed); // eslint-disable-line max-len, no-console
+        }
+
         const mergedClassName = mergeClassNames(
-          className, transformed.className
+          className, transformed && transformed.className
         );
 
         return (
