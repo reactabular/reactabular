@@ -111,7 +111,10 @@ class FullTable extends React.Component {
 
         this.state.data[idx][property] = value;
 
-        this.setState({ editedCell: null, data });
+        this.setState({
+          editedCell: null,
+          data: this.state.data
+        });
       }
     });
     const sortable = transforms.sort({

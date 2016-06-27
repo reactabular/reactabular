@@ -2,6 +2,8 @@ Reactabular supports inline editing through a transform and specific `editors` t
 
 The library comes with a couple of basic editors. As long as you follow the same interface (`value`, `onValue` props), your editor should just work with the system.
 
+**Example:**
+
 ```react
 <EditableTable />
 ```
@@ -30,8 +32,8 @@ class EditableTable extends React.Component {
       }),
 
       // Capture the value when the user has finished
-      onValue: (value, { id }, property) => {
-        const idx = findIndex(this.state.data, { id });
+      onValue: ({ value, cellData, property }) => {
+        const idx = findIndex(this.state.data, { id: cellData.id });
 
         this.state.data[idx][property] = value;
 
@@ -39,7 +41,7 @@ class EditableTable extends React.Component {
           editedCell: null,
           data: this.state.data
         });
-      },
+      }
     });
 
     this.state = {

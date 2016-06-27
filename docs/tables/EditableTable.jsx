@@ -22,8 +22,8 @@ export default class EditableTable extends React.Component {
       }),
 
       // Capture the value when the user has finished
-      onValue: (value, { id }, property) => {
-        const idx = findIndex(this.state.data, { id });
+      onValue: ({ value, cellData, property }) => {
+        const idx = findIndex(this.state.data, { id: cellData.id });
 
         this.state.data[idx][property] = value;
 
