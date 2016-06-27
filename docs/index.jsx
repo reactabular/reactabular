@@ -163,6 +163,12 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./examples/all-features.md')
         },
         {
+          path: 'examples/sort-and-search',
+          title: 'Sort and Search',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/sort-and-search.md')
+        },
+        {
           path: 'examples/tree-view',
           title: 'Tree View',
           imports: documentationImports,

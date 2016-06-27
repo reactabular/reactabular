@@ -10,7 +10,7 @@ export default class SearchTable extends React.Component {
     super(props);
 
     this.state = {
-      query: {},
+      query: {}, // Search query
       columns: [
         {
           header: {
@@ -55,7 +55,7 @@ export default class SearchTable extends React.Component {
   }
   render() {
     const { data, columns, query } = this.state;
-    let searchedData = search.multipleColumns({ data, columns, query });
+    const searchedData = search.multipleColumns({ data, columns, query });
 
     return (
       <div>
