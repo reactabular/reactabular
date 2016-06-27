@@ -1,6 +1,8 @@
 The column definition is an array of objects. Each maps to a specific table column and describes what data it should display and how. It also manages headers. A minimal structure looks defining a column with header "Name" and fetching data using the `name` property looks like this:
 
 ```code
+lang: js
+---
 const columns = [
   {
     header: {
@@ -24,6 +26,8 @@ The `header` portion supports `label`, `transform` and `format` fields.
 **Example:**
 
 ```code
+lang: js
+---
 {
   header: {
     label: 'Name'
@@ -42,6 +46,8 @@ The idea of transforms is that they can inject `propTypes` to the current cell (
 **Example:**
 
 ```code
+lang: js
+---
 {
   header: {
     label: 'Name',
@@ -57,6 +63,8 @@ If manipulating `propTypes` isn't enough, you can `format` the output. This shou
 **Example:**
 
 ```code
+lang: js
+---
 {
   header: {
     label: 'Name',
@@ -85,6 +93,8 @@ You should define `cell.property` at minimum. It maps a field from `data` into s
 **Example:**
 
 ```code
+lang: js
+---
 {
   cell: {
     property: 'name'
@@ -99,6 +109,8 @@ You should define `cell.property` at minimum. It maps a field from `data` into s
 **Example:**
 
 ```code
+lang: js
+---
 {
   cell: {
     transform: editable(editors.input())
@@ -113,6 +125,8 @@ The idea here is the same as for `header.format`.
 **Example:**
 
 ```code
+lang: js
+---
 {
   cell: {
     property: 'salary',
@@ -132,6 +146,8 @@ Sometimes you need to manipulate the data fetched from property somehow. For ins
 **Example:**
 
 ```code
+lang: js
+---
 {
   cell: {
     resolve: country => countries[country]
