@@ -113,7 +113,7 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
       vendors: Object.keys(catalogPkg.dependencies).concat(
         Object.keys(reactJsonSchemaFormPkg.dependencies)
       ).concat([
-        'lodash', 'react', 'react-dom', 'react-jsonschema-form'
+        'json-schema-faker', 'lodash', 'react', 'react-dom', 'react-jsonschema-form'
       ])
     },
     output: {
