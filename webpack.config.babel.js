@@ -110,7 +110,7 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
   module.exports = merge(common, commonSite, {
     entry: {
       app: config.paths.documentation,
-      vendors: Object.keys(catalogPkg.dependencies).concat(
+      vendor: Object.keys(catalogPkg.dependencies).concat(
         Object.keys(reactJsonSchemaFormPkg.dependencies)
       ).concat([
         'json-schema-faker', 'lodash', 'react', 'react-dom', 'react-jsonschema-form'
@@ -139,7 +139,7 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
         }
       }),
       new webpack.optimize.CommonsChunkPlugin(
-        'vendors',
+        'vendor',
         '[name].[chunkhash].js'
       )
     ],
