@@ -19,7 +19,8 @@ const config = {
     src: path.join(ROOT_PATH, 'src'),
     ghPages: path.join(ROOT_PATH, 'gh-pages'),
     documentation: path.join(ROOT_PATH, 'docs'),
-    test: path.join(ROOT_PATH, 'tests')
+    test: path.join(ROOT_PATH, 'tests'),
+    'js-yaml': path.join(ROOT_PATH, 'node_modules', 'js-yaml')
   }
 };
 
@@ -28,7 +29,11 @@ process.env.BABEL_ENV = TARGET;
 const common = {
   entry: config.paths.documentation,
   resolve: {
-    extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg']
+    extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg'],
+    alias: {
+      'js-yaml/dist/js-yaml.min.js': config.paths['js-yaml'],
+      'js-yaml': config.paths['js-yaml']
+    }
   },
   output: {
     path: config.paths.build,
