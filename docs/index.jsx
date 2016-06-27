@@ -179,6 +179,12 @@ Catalog.render({
           title: 'Selection',
           imports: documentationImports,
           component: require('catalog/lib/loader!raw!./examples/selection.md')
+        },
+        {
+          path: 'examples/stateful-table',
+          title: 'Stateful Table',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/stateful-table.md')
         }
       ]
     },

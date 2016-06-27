@@ -7,4 +7,5 @@ export { default as PerPage } from './PerPage';
 export { default as rowEditor } from './rowEditor';
 export { default as PrimaryControls } from './PrimaryControls';
 export { default as Search } from './Search';
+export { default as StatefulTable } from './StatefulTable';
 

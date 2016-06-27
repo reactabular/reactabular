@@ -1,6 +1,5 @@
 import React from 'react';
 import orderBy from 'lodash/orderBy';
-
 import {
   Table, sort, transforms
 } from '../../src';
