@@ -250,7 +250,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var extraParameters = { cellData: label };
 	        var key = i + '-header';
 	        var transformed = transform(label, extraParameters);
-	        var mergedClassName = mergeClassNames(className, transformed.className);
+	
+	        if (!transformed) {
+	          console.warn('Table.Header - Failed to receive a transformed result', transformed); // eslint-disable-line max-len, no-console
+	        }
+	
+	        var mergedClassName = mergeClassNames(className, transformed && transformed.className);
 	
 	        return _react2.default.createElement(
 	          'th',
@@ -316,7 +321,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var value = (0, _get2.default)(r, property);
 	          var resolvedValue = resolve(value, extraParameters);
 	          var transformed = transform(value, extraParameters);
-	          var mergedClassName = mergeClassNames(className, transformed.className);
+	
+	          if (!transformed) {
+	            console.warn('Table.Body - Failed to receive a transformed result', transformed); // eslint-disable-line max-len, no-console
+	          }
+	
+	          var mergedClassName = mergeClassNames(className, transformed && transformed.className);
 	
 	          return _react2.default.createElement(
 	            'td',
@@ -2402,7 +2412,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
-	var byColumn = function byColumn(sortingColumns, selectedColumn) {
+	var byColumn = function byColumn(_ref) {
+	  var sortingColumns = _ref.sortingColumns;
+	  var selectedColumn = _ref.selectedColumn;
+	
 	  var sortingColumn = sortingColumns && sortingColumns.length ? sortingColumns[0] : {};
 	  var sort = 'asc';
 	
@@ -2420,7 +2433,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }];
 	};
 	
-	var byColumns = function byColumns(sortingColumns, selectedColumn) {
+	var byColumns = function byColumns(_ref2) {
+	  var sortingColumns = _ref2.sortingColumns;
+	  var selectedColumn = _ref2.selectedColumn;
+	
 	  var index = sortingColumns && sortingColumns.map(function (c) {
 	    return c.property;
 	  }).indexOf(selectedColumn);
@@ -2460,15 +2476,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	// sorter === lodash orderBy
 	// https://lodash.com/docs#orderBy
-	var sorter = function sorter(data, columns, sort) {
-	  if (!columns) {
+	var sorter = function sorter(_ref3) {
+	  var data = _ref3.data;
+	  var sortingColumns = _ref3.sortingColumns;
+	  var sort = _ref3.sort;
+	
+	  if (!sortingColumns) {
 	    return data;
 	  }
 	
 	  var propertyList = [];
 	  var orderList = [];
 	
-	  columns.forEach(function (column) {
+	  sortingColumns.forEach(function (column) {
 	    propertyList.push(function (row) {
 	      var value = (0, _get2.default)(row, column.property);
 	
