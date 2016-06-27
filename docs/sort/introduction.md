@@ -1,6 +1,6 @@
 Reactabular comes with sorting helpers that make it possible to manage sorting related classes and to sort data based on them.
 
-The general workflow is as follows:
+The general workflow goes as follows:
 
 1. Set up the sort transform. Its purpose is to track when the user requests sorting and render possibly matching sorting condition as a class for styling.
 2. Set up a sort helper. There are helpers for sorting per one column and one for sorting per multiple columns. The helpers handle managing sorting conditions and actual sorting. If you have a back-end, you can skip the latter.
