@@ -5,7 +5,75 @@ import { Table } from '../src';
 import { expect } from 'chai';
 
 describe('Table', function () {
-  it('renders a header based on `header` fields', function () {
+  it('renders children correctly', function () {
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name'
+        }
+      },
+      {
+        header: {
+          label: 'Position'
+        },
+        cell: {
+          property: 'position'
+        }
+      },
+      {
+        header: {
+          label: 'Age'
+        },
+        cell: {
+          property: 'age'
+        }
+      }
+    ];
+    const data = [
+      { name: 'foo', id: 0 },
+      { position: 'demo', id: 1 },
+      { age: 123, id: 2 }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={data} rowKey="name">
+        <tfoot>
+          <tr>Dancing is the poetry of the foot.</tr>
+        </tfoot>
+      </Table>
+    );
+    const tfoot = TestUtils.findRenderedDOMComponentWithTag(table, 'tfoot');
+
+    expect(tfoot).to.exist;
+  });
+});
+
+describe('Table.Header', function () {
+  it('can be formatted', function () {
+    const headerClass = 'test-header';
+    const columns = [
+      {
+        header: {
+          label: 'Name',
+          format: name => <span className={headerClass}>{name}</span>
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[]} rowKey="name">
+        <Table.Header />
+      </Table>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th).to.exist;
+  });
+
+  it('renders based on `header` fields', function () {
     const columns = [
       {
         header: {
@@ -44,7 +112,7 @@ describe('Table', function () {
     expect(ths.length).to.equal(columns.length);
   });
 
-  it('allows header to be transformed', function () {
+  it('can be transformed', function () {
     const headerClass = 'test-header';
     const columns = [
       {
@@ -68,7 +136,7 @@ describe('Table', function () {
     expect(th).to.exist;
   });
 
-  it('allows header to be transformed while retaining classNames', function () {
+  it('can be transformed while retaining classNames', function () {
     const headerClass = 'test-header';
     const anotherHeaderClass = 'another-header';
     const label = 'Name';
@@ -94,58 +162,10 @@ describe('Table', function () {
     expect(th.innerHTML).to.equal(label);
     expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
   });
+});
 
-  it('allows body content to be transformed while retaining classNames', function () {
-    const cellClass = 'test-cell';
-    const anotherCellClass = 'another-cell';
-    const columns = [
-      {
-        header: {
-          label: 'Name'
-        },
-        cell: {
-          property: 'name',
-          transform: () => ({
-            className: cellClass
-          })
-        }
-      }
-    ];
-    const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[{ name: 'demo' }]} rowKey="name">
-        <Table.Body className={anotherCellClass} />
-      </Table>
-    );
-    const td = TestUtils.findRenderedDOMComponentWithClass(
-      table, cellClass
-    );
-
-    expect(td.className).to.equal(`${anotherCellClass} ${cellClass}`);
-  });
-
-  it('allows header to be formatted', function () {
-    const headerClass = 'test-header';
-    const columns = [
-      {
-        header: {
-          label: 'Name',
-          format: name => <span className={headerClass}>{name}</span>
-        }
-      }
-    ];
-    const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]} rowKey="name">
-        <Table.Header />
-      </Table>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
-
-    expect(th).to.exist;
-  });
-
-  it('renders content based on data', function () {
+describe('Table.Body', function () {
+  it('displays data', function () {
     const columns = [
       {
         header: {
@@ -189,7 +209,7 @@ describe('Table', function () {
     expect(trs.length).to.equal(data.length);
   });
 
-  it('accepts formatters for customizing cell value', function () {
+  it('can be formatted', function () {
     const columns = [
       {
         header: {
@@ -239,7 +259,7 @@ describe('Table', function () {
     expect(tds[2].innerHTML).to.equal('0');
   });
 
-  it('accepts function based React components for customizing value', function () {
+  it('can be formatted using React components', function () {
     const columns = [
       {
         header: {
@@ -281,47 +301,31 @@ describe('Table', function () {
     expect(tds[0].children[0].className).to.equal('complex');
   });
 
-  it('renders children correctly', function () {
+  it('can be transformed while retaining classNames', function () {
+    const cellClass = 'test-cell';
+    const anotherCellClass = 'another-cell';
     const columns = [
       {
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name'
-        }
-      },
-      {
-        header: {
-          label: 'Position'
-        },
-        cell: {
-          property: 'position'
-        }
-      },
-      {
-        header: {
-          label: 'Age'
-        },
-        cell: {
-          property: 'age'
+          property: 'name',
+          transform: () => ({
+            className: cellClass
+          })
         }
       }
     ];
-    const data = [
-      { name: 'foo', id: 0 },
-      { position: 'demo', id: 1 },
-      { age: 123, id: 2 }
-    ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={data} rowKey="name">
-        <tfoot>
-          <tr>Dancing is the poetry of the foot.</tr>
-        </tfoot>
+      <Table columns={columns} data={[{ name: 'demo' }]} rowKey="name">
+        <Table.Body className={anotherCellClass} />
       </Table>
     );
-    const tfoot = TestUtils.findRenderedDOMComponentWithTag(table, 'tfoot');
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
 
-    expect(tfoot).to.exist;
+    expect(td.className).to.equal(`${anotherCellClass} ${cellClass}`);
   });
 });
