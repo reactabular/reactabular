@@ -17,6 +17,7 @@ The general workflow goes as follows:
 lang: jsx
 ---
 import React from 'react';
+import orderBy from 'lodash/orderBy';
 import { Table, sort, transforms } from 'reactabular';
 
 class SortTable extends React.Component {
