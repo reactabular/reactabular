@@ -76,6 +76,12 @@ const common = {
 };
 
 const commonSite = {
+  resolve: {
+    alias: {
+      react: 'react-lite',
+      'react-dom': 'react-lite'
+    }
+  },
   plugins: [
     new HtmlWebpackPlugin({
       title: `${pkg.name} - ${pkg.description}`,
