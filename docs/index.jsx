@@ -28,72 +28,100 @@ Catalog.render({
       component: require('catalog/lib/loader!raw!../README.md')
     },
     {
-      title: 'Components',
+      title: 'Table',
       pages: [
         {
-          path: 'components/table',
-          title: 'Table',
+          path: 'table',
+          title: 'Introduction',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./components/table.md')
+          component: require('catalog/lib/loader!raw!./table/introduction.md')
         },
         {
-          path: 'components/header',
+          path: 'table/header',
           title: 'Table.Header',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./components/header.md')
+          component: require('catalog/lib/loader!raw!./table/header.md')
         },
         {
-          path: 'components/body',
+          path: 'table/body',
           title: 'Table.Body',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./components/body.md')
+          component: require('catalog/lib/loader!raw!./table/body.md')
         }
       ]
     },
     {
-      title: 'How to',
+      title: 'Formatters',
       pages: [
         {
-          path: 'how-to/customize-footer',
-          title: 'Customize Footer',
+          path: 'formatters',
+          title: 'Introduction',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./how-to/footer.md')
+          component: require('catalog/lib/loader!raw!./formatters/introduction.md')
         },
         {
-          path: 'how-to/style',
-          title: 'Style',
+          path: 'formatters/api',
+          title: 'API',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./how-to/style.md')
+          component: require('catalog/lib/loader!raw!./formatters/api.md')
         },
         {
-          path: 'how-to/paginate',
-          title: 'Paginate',
+          path: 'formatters/highlight',
+          title: 'Highlight',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./how-to/paginate.md')
+          component: require('catalog/lib/loader!raw!./formatters/highlight.md')
+        }
+      ]
+    },
+    {
+      title: 'Transforms',
+      pages: [
+        {
+          path: 'transforms',
+          title: 'Introduction',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./transforms/introduction.md')
         },
         {
-          path: 'how-to/sort',
-          title: 'Sort',
+          path: 'transforms/api',
+          title: 'API',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./how-to/sort.md')
+          component: require('catalog/lib/loader!raw!./transforms/api.md')
+        }
+      ]
+    },
+    {
+      path: 'editors',
+      title: 'Editors',
+      imports: documentationImports,
+      component: require('catalog/lib/loader!raw!./editors.md')
+    },
+    {
+      path: 'sort',
+      title: 'Sort',
+      imports: documentationImports,
+      component: require('catalog/lib/loader!raw!./sort.md')
+    },
+    {
+      title: 'Search',
+      pages: [
+        {
+          path: 'search',
+          title: 'Introduction',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./search/introduction.md')
         },
         {
-          path: 'how-to/edit',
-          title: 'Edit',
+          path: 'search/api',
+          title: 'API',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./how-to/edit.md')
+          component: require('catalog/lib/loader!raw!./search/api.md')
         },
         {
-          path: 'how-to/search',
-          title: 'Search',
+          path: 'search/pagination',
+          title: 'Pagination',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./how-to/search.md')
-        },
-        {
-          path: 'how-to/highlight-search',
-          title: 'Highlight Search Results',
-          imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./how-to/highlight.md')
+          component: require('catalog/lib/loader!raw!./search/pagination.md')
         }
       ]
     },
