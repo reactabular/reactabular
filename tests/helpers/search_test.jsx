@@ -4,7 +4,7 @@ import { Search } from '../../docs/helpers/';
 import { expect } from 'chai';
 
 describe('Search', function () {
-  it('has a dropdown with default `all` option', function () {
+  it('does not render options without data', function () {
     const search = TestUtils.renderIntoDocument(
       <Search />
     );
@@ -13,8 +13,32 @@ describe('Search', function () {
       search, 'option'
     );
 
+    expect(options.length).to.equal(0);
+  });
+
+  it('does not have all option with a single column', function () {
+    const columns = [
+      {
+        header: {
+          label: 'First'
+        },
+        cell: {
+          property: 'first'
+        }
+      }
+    ];
+
+    const search = TestUtils.renderIntoDocument(
+      <Search columns={columns} />
+    );
+
+    const options = TestUtils.scryRenderedDOMComponentsWithTag(
+      search, 'option'
+    );
+
     expect(options.length).to.equal(1);
-    expect(options[0].value).to.equal('all');
+    expect(options[0].value).to.equal(columns[0].cell.property);
+    expect(options[0].textContent).to.equal(columns[0].header.label);
   });
 
   it(`has a dropdown that contains columns
@@ -107,9 +131,29 @@ describe('Search', function () {
   });
 
   it('supports i18n', function () {
+    const columns = [
+      {
+        header: {
+          label: 'First'
+        },
+        cell: {
+          property: 'first'
+        }
+      },
+      {
+        cell: {
+          property: 'second'
+        }
+      },
+      {
+        header: {
+          label: 'Third'
+        }
+      }
+    ];
     const expected = 'Kaikki';
     const search = TestUtils.renderIntoDocument(
-      <Search i18n={{ all: expected }} />
+      <Search columns={columns} i18n={{ all: expected }} />
     );
     const select = TestUtils.findRenderedDOMComponentWithTag(search, 'select')[0];
 
