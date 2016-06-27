@@ -37,6 +37,12 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./table/introduction.md')
         },
         {
+          path: 'table/column-definition',
+          title: 'Column Definition',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./table/column-definition.md')
+        },
+        {
           path: 'table/header',
           title: 'Table.Header',
           imports: documentationImports,

@@ -19,6 +19,8 @@
 
 It is possible to customize a header by passing child components to it. This way you can implement filtering per column for instance.
 
+Here `ColumnFilters` injects an additional row for the filter controls. An alternative way to handle it would be to push the problem to the column definition.
+
 ```react
 <Table
   className="pure-table pure-table-striped"
