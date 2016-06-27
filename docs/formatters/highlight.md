@@ -1,4 +1,6 @@
-Matching search results can be be Highlighted using a specific `highlight` formatter.
+To make it possible to highlight search results per column, there's a specific `highlight` formatter. It expects you to pass a highlighter function. That returns the highlighted portions using `[{ startIndex: <number>, length: <number> }]` kind of format. A search helper known as `search.matches` uses this format and works well with the highlighter.
+
+**Example:**
 
 ```react
 <HighlightTable />

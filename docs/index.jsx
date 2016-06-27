@@ -66,12 +66,6 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./formatters/introduction.md')
         },
         {
-          path: 'formatters/api',
-          title: 'API',
-          imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./formatters/api.md')
-        },
-        {
           path: 'formatters/highlight',
           title: 'Highlight',
           imports: documentationImports,
