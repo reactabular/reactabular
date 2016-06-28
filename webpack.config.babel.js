@@ -76,12 +76,6 @@ const common = {
 };
 
 const commonSite = {
-  resolve: {
-    alias: {
-      react: 'react-lite',
-      'react-dom': 'react-lite'
-    }
-  },
   plugins: [
     new HtmlWebpackPlugin({
       title: `${pkg.name} - ${pkg.description}`,
@@ -125,6 +119,12 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
     output: {
       path: config.paths.ghPages,
       filename: 'bundle.[chunkhash].js'
+    },
+    resolve: {
+      alias: {
+        react: 'react-lite',
+        'react-dom': 'react-lite'
+      }
     },
     plugins: [
       new CleanWebpackPlugin(['gh-pages']),
