@@ -128,20 +128,20 @@ class FullTable extends React.Component {
         });
       }
     });
+    const sortableHeader = sortHeader.bind(null, () => this.state.sortingColumns);
 
     return [
       {
         header: {
           label: 'Name',
-          format: name => (
+          format: (name, extraParameters) => (
             <div style={{ display: 'inline' }}>
               <input
                 type="checkbox"
                 onClick={() => console.log('clicked')}
                 style={{ width: '20px' }}
               />
-              <span>{name}</span>
-              {sortable('name').toFormatter()}
+              {sortableHeader(sortable('name'))(name, extraParameters)}
             </div>
           )
         },
@@ -154,12 +154,7 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Position',
-          format: name => (
-            <div style={{ display: 'inline' }}>
-              <span>{name}</span>
-              {sortable('position').toFormatter()}
-            </div>
-          )
+          format: sortableHeader(sortable('position'))
         },
         cell: {
           property: 'position'
@@ -168,7 +163,7 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Boss',
-          transforms: [sortable('boss.name')]
+          format: sortableHeader(sortable('boss.name'))
         },
         cell: {
           property: 'boss.name',
@@ -178,7 +173,7 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Country',
-          transforms: [sortable('country')]
+          format: sortableHeader(sortable('country'))
         },
         cell: {
           property: 'country',
@@ -196,7 +191,7 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Salary',
-          transforms: [sortable('salary')]
+          format: sortableHeader(sortable('salary'))
         },
         cell: {
           property: 'salary',
@@ -210,7 +205,7 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Active',
-          transforms: [sortable('active')]
+          format: sortableHeader(sortable('active'))
         },
         cell: {
           property: 'active',
@@ -333,6 +328,26 @@ class FullTable extends React.Component {
       data: this.state.data
     });
   }
+}
+
+function sortHeader(getSortingColumns, sortable) {
+  return (value, { column }) => {
+    const property = column.cell && column.cell.property;
+    const sortingColumns = getSortingColumns();
+    const idx = findIndex(sortingColumns, { property });
+
+    return (
+      <div style={{ display: 'inline' }}>
+        <span className="value">{value}</span>
+        {idx >= 0 &&
+          <span className="sort-order" style={{ marginLeft: '0.5em' }}>
+            {idx + 1}
+          </span>
+        }
+        {sortable.toFormatter()}
+      </div>
+    );
+  };
 }
 
 function paginate(data = [], o) {
