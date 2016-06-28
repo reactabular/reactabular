@@ -14,7 +14,7 @@ The chosen approach pushes a lot of complexity out of the core. As a result it m
 
 The following example illustrates the approach used by Reactabular:
 
-```react
+```jsx
 const data = [
   {
     id: 100,

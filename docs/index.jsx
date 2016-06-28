@@ -1,4 +1,5 @@
 /* eslint-disable global-require, import/no-unresolved */
+import React from 'react';
 import 'purecss/build/pure.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
 import 'react-ghfork/gh-fork-ribbon.css';
@@ -20,6 +21,9 @@ const documentationImports = {
 
 Catalog.render({
   title: `Reactabular v${VERSION}`, // eslint-disable-line no-undef
+  specimens: {
+    jsx: props => <Catalog.ReactSpecimen {...props} />
+  },
   pages: [
     {
       path: '/',
