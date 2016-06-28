@@ -1,13 +1,24 @@
 import get from 'lodash/get';
 
-const byColumn = ({ sortingColumns, selectedColumn }) => {
+const defaultOrder = {
+  FIRST: 'asc',
+  '': 'asc',
+  asc: 'desc',
+  desc: ''
+};
+
+const byColumn = ({
+  sortingColumns,
+  sortingOrder = defaultOrder,
+  selectedColumn
+}) => {
   const sortingColumn = sortingColumns && sortingColumns.length ?
     sortingColumns[0] :
     {};
-  let sort = 'asc';
+  let sort = sortingOrder.FIRST;
 
   if (sortingColumn.property === selectedColumn) {
-    sort = cycleSort(sortingColumn.sort);
+    sort = sortingOrder[sortingColumn.sort];
 
     if (!sort) {
       return [];
@@ -22,7 +33,11 @@ const byColumn = ({ sortingColumns, selectedColumn }) => {
   ];
 };
 
-const byColumns = ({ sortingColumns, selectedColumn }) => {
+const byColumns = ({
+  sortingColumns,
+  sortingOrder = defaultOrder,
+  selectedColumn
+}) => {
   const index = sortingColumns && sortingColumns.map(
     c => c.property
   ).indexOf(selectedColumn);
@@ -31,12 +46,13 @@ const byColumns = ({ sortingColumns, selectedColumn }) => {
   if (!sortingColumns) {
     return [{
       property: selectedColumn,
-      sort: 'asc'
+      sort: sortingOrder.FIRST
     }];
   } else if (index >= 0) {
-    newSortingColumns = sortingColumns;
+    // Clone to avoid mutating the original structure
+    newSortingColumns = sortingColumns.map(col => ({ ...col }));
 
-    const newSort = cycleSort(newSortingColumns[index].sort);
+    const newSort = sortingOrder[newSortingColumns[index].sort];
 
     if (newSort) {
       newSortingColumns[index] = {
@@ -52,13 +68,9 @@ const byColumns = ({ sortingColumns, selectedColumn }) => {
 
   return [...sortingColumns, {
     property: selectedColumn,
-    sort: 'asc'
+    sort: sortingOrder.FIRST
   }];
 };
-
-function cycleSort(sort) {
-  return sort === 'asc' && 'desc';
-}
 
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy

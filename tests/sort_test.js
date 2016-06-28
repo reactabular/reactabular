@@ -85,6 +85,44 @@ describe('byColumn', function () {
 
     expect(result).to.deep.equal(expected);
   });
+
+  it('allows sorting order to be customized', function () {
+    const sortingColumns = null;
+    const sortingOrder = {
+      FIRST: 'asc',
+      asc: 'desc',
+      desc: 'asc'
+    };
+    const selectedColumn = 'test';
+
+    const ascExpected = [
+      {
+        property: selectedColumn,
+        sort: 'asc'
+      }
+    ];
+    const descExpected = [
+      {
+        property: selectedColumn,
+        sort: 'desc'
+      }
+    ];
+    const firstResult = byColumn({ sortingColumns, sortingOrder, selectedColumn });
+    const secondResult = byColumn({
+      sortingColumns: firstResult,
+      sortingOrder,
+      selectedColumn
+    });
+    const thirdResult = byColumn({
+      sortingColumns: secondResult,
+      sortingOrder,
+      selectedColumn
+    });
+
+    expect(firstResult).to.deep.equal(ascExpected);
+    expect(secondResult).to.deep.equal(descExpected);
+    expect(thirdResult).to.deep.equal(ascExpected);
+  });
 });
 
 describe('byColumns', function () {
@@ -165,6 +203,44 @@ describe('byColumns', function () {
     const result = byColumns({ sortingColumns, selectedColumn });
 
     expect(result).to.deep.equal(expected);
+  });
+
+  it('allows sorting order to be customized', function () {
+    const sortingColumns = null;
+    const sortingOrder = {
+      FIRST: 'asc',
+      asc: 'desc',
+      desc: 'asc'
+    };
+    const selectedColumn = 'test';
+
+    const ascExpected = [
+      {
+        property: selectedColumn,
+        sort: 'asc'
+      }
+    ];
+    const descExpected = [
+      {
+        property: selectedColumn,
+        sort: 'desc'
+      }
+    ];
+    const firstResult = byColumns({ sortingColumns, sortingOrder, selectedColumn });
+    const secondResult = byColumns({
+      sortingColumns: firstResult,
+      sortingOrder,
+      selectedColumn
+    });
+    const thirdResult = byColumns({
+      sortingColumns: secondResult,
+      sortingOrder,
+      selectedColumn
+    });
+
+    expect(firstResult).to.deep.equal(ascExpected);
+    expect(secondResult).to.deep.equal(descExpected);
+    expect(thirdResult).to.deep.equal(ascExpected);
   });
 });
 
