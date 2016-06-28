@@ -3,6 +3,13 @@ table th {
     cursor: hand;
 }
 
+table .sort-none:after {
+    padding-left: 1em;
+
+    content: '\21D5';
+
+    font-size: 1em;
+}
 table .sort-asc:after {
     padding-left: 1em;
 
