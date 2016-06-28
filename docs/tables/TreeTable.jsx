@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-alert, no-unused-vars, react/prop-types */
+/* eslint-disable no-console, no-alert, no-shadow, no-unused-vars, react/prop-types */
 import React from 'react';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
@@ -6,110 +6,115 @@ import {
   Table
 } from '../../src';
 
+const data = [
+  // The data has been sorted so that children are directly after their parents
+  {
+    id: 100,
+    name: 'Adam',
+    age: 55
+  },
+  {
+    id: 102,
+    name: 'Joe',
+    age: 12,
+    parent: 100
+  },
+  {
+    id: 101,
+    name: 'Brian',
+    age: 62
+  },
+  {
+    id: 103,
+    name: 'Mike',
+    age: 22,
+    parent: 101
+  },
+  {
+    id: 104,
+    name: 'Jack',
+    age: 33,
+    parent: 103
+  },
+  {
+    id: 105,
+    name: 'Jill',
+    age: 11,
+    parent: 104
+  },
+  {
+    id: 109,
+    name: 'Marge',
+    age: 11,
+    parent: 104
+  },
+  {
+    id: 106,
+    name: 'Bob',
+    age: 44,
+    parent: 104
+  },
+  {
+    id: 107,
+    name: 'Peter',
+    age: 66,
+    parent: 106
+  },
+  {
+    id: 108,
+    name: 'James',
+    age: 12,
+    parent: 107
+  }
+];
+
 class TreeTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [
-        // The data has been sorted so that children are directly after their parents
-        {
-          id: 100,
-          name: 'Adam',
-          age: 55
-        },
-        {
-          id: 102,
-          name: 'Joe',
-          age: 12,
-          parent: 100
-        },
-        {
-          id: 101,
-          name: 'Brian',
-          age: 62
-        },
-        {
-          id: 103,
-          name: 'Mike',
-          age: 22,
-          parent: 101
-        },
-        {
-          id: 104,
-          name: 'Jack',
-          age: 33,
-          parent: 103
-        },
-        {
-          id: 105,
-          name: 'Jill',
-          age: 11,
-          parent: 104
-        },
-        {
-          id: 109,
-          name: 'Marge',
-          age: 11,
-          parent: 104
-        },
-        {
-          id: 106,
-          name: 'Bob',
-          age: 44,
-          parent: 104
-        },
-        {
-          id: 107,
-          name: 'Peter',
-          age: 66,
-          parent: 106
-        },
-        {
-          id: 108,
-          name: 'James',
-          age: 12,
-          parent: 107
-        }
-      ],
-      columns: [
-        {
-          header: {
-            label: 'Name'
-          },
-          cell: {
-            property: 'name',
-            resolve: (name, { cellData }) => {
-              const data = this.state.data;
-              // Optimization - Operate based on index for faster lookups
-              const cellIndex = findIndex(data, { id: cellData.id });
-
-              return (
-                <div style={{ paddingLeft: `${getLevel(data, cellIndex) * 1}em` }}>
-                  {hasChildren(data, cellIndex) && <span
-                    className={cellData.showChildren ? 'show-less' : 'show-more'}
-                    onClick={e => {
-                      data[cellIndex].showChildren = !cellData.showChildren;
-
-                      this.setState({ data });
-                    }}
-                  />}
-                  {name}
-                </div>
-              );
-            }
-          }
-        },
-        {
-          header: {
-            label: 'Age'
-          },
-          cell: {
-            property: 'age'
-          }
-        }
-      ]
+      data,
+      columns: this.getColumns()
     };
+  }
+  getColumns() {
+    return [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name',
+          resolve: (name, { cellData }) => {
+            const data = this.state.data;
+            // Optimization - Operate based on index for faster lookups
+            const cellIndex = findIndex(data, { id: cellData.id });
+
+            return (
+              <div style={{ paddingLeft: `${getLevel(data, cellIndex) * 1}em` }}>
+                {hasChildren(data, cellIndex) && <span
+                  className={cellData.showChildren ? 'show-less' : 'show-more'}
+                  onClick={e => {
+                    data[cellIndex].showChildren = !cellData.showChildren;
+
+                    this.setState({ data });
+                  }}
+                />}
+                {name}
+              </div>
+            );
+          }
+        }
+      },
+      {
+        header: {
+          label: 'Age'
+        },
+        cell: {
+          property: 'age'
+        }
+      }
+    ];
   }
   render() {
     return (
