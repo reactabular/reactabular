@@ -135,7 +135,7 @@ class FullTable extends React.Component {
           label: 'Name',
           transform: sortable('name'),
           format: name => (
-            <div>
+            <div style={{ display: 'inline' }}>
               <input
                 type="checkbox"
                 onClick={() => console.log('clicked')}
