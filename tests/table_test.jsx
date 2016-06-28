@@ -198,15 +198,13 @@ describe('Table.Header', function () {
     );
 
     expect(th).to.exist;
-    expect(th.className).to.equal(`${headerClass} ${anotherHeaderClass}`);
+    expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
   });
 
-  // TODO: should this retain?
-  // TODO: port as a column test too
-  it('does not retain objects with multiple transforms', function () {
+  it('does retain objects with multiple transforms', function () {
     const headerClass = 'test-header';
-    const headerStyle = { display: 'none' };
-    const anotherHeaderStyle = { color: 'red' };
+    const headerStyle = { color: 'blue' };
+    const anotherHeaderStyle = { color: 'red', display: 'none' };
     const columns = [
       {
         header: {
@@ -233,8 +231,8 @@ describe('Table.Header', function () {
     );
 
     expect(th).to.exist;
-    expect(th.style.display).to.equal(''); // headerStyle.display);
-    expect(th.style.color).to.equal(anotherHeaderStyle.color);
+    expect(th.style.display).to.equal(anotherHeaderStyle.display);
+    expect(th.style.color).to.equal(headerStyle.color);
   });
 
   it('can be transformed while retaining classNames', function () {
@@ -503,7 +501,7 @@ describe('Table.Body', function () {
     );
 
     expect(td).to.exist;
-    expect(td.className).to.equal(`${cellClass} ${anotherCellClass}`);
+    expect(td.className).to.equal(`${anotherCellClass} ${cellClass}`);
   });
 
   it('can be transformed while retaining classNames', function () {
@@ -534,5 +532,42 @@ describe('Table.Body', function () {
     );
 
     expect(td.className).to.equal(`${anotherCellClass} ${cellClass}`);
+  });
+
+  it('does retain objects with multiple transforms', function () {
+    const cellClass = 'test-cell';
+    const cellStyle = { color: 'blue' };
+    const anotherCellStyle = { color: 'red', display: 'none' };
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name',
+          transforms: [
+            () => ({
+              className: cellClass,
+              style: cellStyle
+            }),
+            () => ({
+              style: anotherCellStyle
+            })
+          ]
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[{ name: 'demo' }]} rowKey="name">
+        <Table.Body />
+      </Table>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(th).to.exist;
+    expect(th.style.display).to.equal(anotherCellStyle.display);
+    expect(th.style.color).to.equal(cellStyle.color);
   });
 });

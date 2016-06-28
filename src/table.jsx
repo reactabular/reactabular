@@ -1,5 +1,6 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
+import merge from 'lodash/merge';
 import React from 'react';
 
 class Table extends React.Component {
@@ -149,15 +150,13 @@ Body.contextTypes = {
 Body.displayName = 'Table.Body';
 
 function evaluateTransforms(transforms, value, extraParameters) {
-  return transforms.reduce(
+  return transforms.reduceRight(
     (a, t) => {
       const result = t(value, extraParameters);
 
-      return {
-        ...a,
-        ...result,
+      return merge({}, a, result, {
         className: mergeClassNames(a.className, result.className)
-      };
+      });
     },
     {}
   );
