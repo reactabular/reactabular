@@ -3,24 +3,20 @@ table th {
   cursor: hand;
 }
 
-table .sort-none:after {
+table .sort:after {
   padding-left: 1em;
 
+  font-size: 0.5em;
+}
+table .sort-none:after {
   content: '\21D5';
 
   font-size: 1em;
 }
 table .sort-asc:after {
-  padding-left: 1em;
-
   content: '\25BC';
 
-  font-size: 0.5em;
 }
 table .sort-desc:after {
-  padding-left: 1em;
-
   content: '\25B2';
-
-  font-size: 0.5em;
 }
