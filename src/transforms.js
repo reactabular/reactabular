@@ -5,45 +5,63 @@ const edit = ({
   getEditProperty = () => {},
   onActivate = () => {},
   onValue = () => {}
-}) => editor => (value, extraParameters) => {
-  const idx = getEditId(extraParameters);
-  const editedCell = getEditProperty();
+} = {}) => editor => {
+  const editTransform = (value, extraParameters) => {
+    const idx = getEditId(extraParameters);
+    const editedCell = getEditProperty();
 
-  if (editedCell === idx) {
+    if (editedCell === idx) {
+      return {
+        children: React.createElement(
+          editor,
+          {
+            value,
+            onValue: v => onValue(
+              { value: v, ...extraParameters }
+            )
+          }
+        )
+      };
+    }
+
     return {
-      children: React.createElement(
-        editor,
-        {
-          value,
-          onValue: v => onValue(
-            { value: v, ...extraParameters }
-          )
-        }
-      )
+      onClick: () => onActivate(idx)
     };
-  }
-
-  return {
-    onClick: () => onActivate(idx)
   };
+
+  editTransform.toFormatter = (value, extraParameters) => React.createElement(
+    'div', // This cannot return a span because it can have children
+    editTransform(value, extraParameters)
+  );
+
+  return editTransform;
 };
 
 const sort = ({
   getSortingColumns = () => [],
   onSort = () => {}
-} = {}) => property => () => {
-  const columns = getSortingColumns();
-  const index = columns.map(c => c.property).indexOf(property);
-  let headerClass = 'sort sort-none';
+} = {}) => property => {
+  const sortTransform = () => {
+    const columns = getSortingColumns();
+    const index = columns.map(c => c.property).indexOf(property);
+    let headerClass = 'sort sort-none';
 
-  if (index >= 0) {
-    headerClass = `sort sort-${columns[index].sort}`;
-  }
+    if (index >= 0) {
+      headerClass = `sort sort-${columns[index].sort}`;
+    }
 
-  return {
-    className: headerClass,
-    onClick: () => onSort(property)
+    return {
+      className: headerClass,
+      onClick: () => onSort(property)
+    };
   };
+
+  sortTransform.toFormatter = () => React.createElement(
+    'span',
+    sortTransform()
+  );
+
+  return sortTransform;
 };
 
 export default {

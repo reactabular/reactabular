@@ -133,7 +133,6 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Name',
-          transforms: [sortable('name')],
           format: name => (
             <div style={{ display: 'inline' }}>
               <input
@@ -142,6 +141,7 @@ class FullTable extends React.Component {
                 style={{ width: '20px' }}
               />
               <span>{name}</span>
+              {sortable('name').toFormatter()}
             </div>
           )
         },
@@ -154,7 +154,12 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Position',
-          transforms: [sortable('position')]
+          format: name => (
+            <div style={{ display: 'inline' }}>
+              <span>{name}</span>
+              {sortable('position').toFormatter()}
+            </div>
+          )
         },
         cell: {
           property: 'position'

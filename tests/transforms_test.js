@@ -1,3 +1,4 @@
+import React from 'react';
 import { expect } from 'chai';
 import { transforms } from '../src';
 
@@ -100,6 +101,13 @@ describe('edit', function () {
     expect(passedCellData).to.deep.equal(testCellData);
     expect(passedProperty).to.equal(testProperty);
   });
+
+  it('converts to a formatter', function () {
+    const editor = edit();
+    const formatter = editor('div').toFormatter();
+
+    expect(React.isValidElement(formatter)).to.equal(true);
+  });
 });
 
 describe('sort', function () {
@@ -141,5 +149,12 @@ describe('sort', function () {
     result.onClick();
 
     expect(sorted).to.equal(testProperty);
+  });
+
+  it('converts to a formatter', function () {
+    const sorter = sort();
+    const formatter = sorter('div').toFormatter();
+
+    expect(React.isValidElement(formatter)).to.equal(true);
   });
 });
