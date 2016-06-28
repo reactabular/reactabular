@@ -107,7 +107,7 @@ describe('sort', function () {
     const sorter = sort();
     const result = sorter('test')();
 
-    expect(result.className).to.equal('sort-none');
+    expect(result.className).to.equal('sort sort-none');
   });
 
   it('sets sorting class', function () {
@@ -125,7 +125,7 @@ describe('sort', function () {
     });
     const result = sorter(testProperty)();
 
-    expect(result.className).to.equal(`sort-${sortDirection}`);
+    expect(result.className).to.equal(`sort sort-${sortDirection}`);
   });
 
   it('triggers sorting on click', function () {

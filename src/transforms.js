@@ -46,10 +46,10 @@ const sort = ({
   const Sort = () => {
     const columns = getSortingColumns();
     const index = columns.map(c => c.property).indexOf(property);
-    let headerClass = 'sort-none';
+    let headerClass = 'sort sort-none';
 
     if (index >= 0) {
-      headerClass = `sort-${columns[index].sort}`;
+      headerClass = `sort sort-${columns[index].sort}`;
     }
 
     return {
