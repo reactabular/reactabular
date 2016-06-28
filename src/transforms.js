@@ -5,63 +5,45 @@ const edit = ({
   getEditProperty = () => {},
   onActivate = () => {},
   onValue = () => {}
-}) => editor => {
-  const Edit = (value, extraParameters) => {
-    const idx = getEditId(extraParameters);
-    const editedCell = getEditProperty();
+}) => editor => (value, extraParameters) => {
+  const idx = getEditId(extraParameters);
+  const editedCell = getEditProperty();
 
-    if (editedCell === idx) {
-      return {
-        children: React.createElement(
-          editor,
-          {
-            value,
-            onValue: v => onValue(
-              { value: v, ...extraParameters }
-            )
-          }
-        )
-      };
-    }
-
+  if (editedCell === idx) {
     return {
-      onClick: () => onActivate(idx)
+      children: React.createElement(
+        editor,
+        {
+          value,
+          onValue: v => onValue(
+            { value: v, ...extraParameters }
+          )
+        }
+      )
     };
-  };
-  Edit.propTypes = {
-    value: React.PropTypes.any,
-    extraParameters: React.PropTypes.shape({
-      cellData: React.PropTypes.object.isRequired,
-      property: React.PropTypes.string.isRequired
-    })
-  };
+  }
 
-  return Edit;
+  return {
+    onClick: () => onActivate(idx)
+  };
 };
 
 const sort = ({
   getSortingColumns = () => [],
   onSort = () => {}
-} = {}) => property => {
-  const Sort = () => {
-    const columns = getSortingColumns();
-    const index = columns.map(c => c.property).indexOf(property);
-    let headerClass = 'sort sort-none';
+} = {}) => property => () => {
+  const columns = getSortingColumns();
+  const index = columns.map(c => c.property).indexOf(property);
+  let headerClass = 'sort sort-none';
 
-    if (index >= 0) {
-      headerClass = `sort sort-${columns[index].sort}`;
-    }
+  if (index >= 0) {
+    headerClass = `sort sort-${columns[index].sort}`;
+  }
 
-    return {
-      className: headerClass,
-      onClick: () => onSort(property)
-    };
+  return {
+    className: headerClass,
+    onClick: () => onSort(property)
   };
-  Sort.propTypes = {
-    property: React.PropTypes.string.isRequired
-  };
-
-  return Sort;
 };
 
 export default {
