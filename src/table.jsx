@@ -29,7 +29,10 @@ Table.propTypes = {
         props: React.PropTypes.object
       }),
       cell: React.PropTypes.shape({
-        property: React.PropTypes.string,
+        property: React.PropTypes.oneOfType([
+          React.PropTypes.number,
+          React.PropTypes.string
+        ]),
         transforms: React.PropTypes.arrayOf(React.PropTypes.func),
         format: React.PropTypes.func,
         resolve: React.PropTypes.func,
@@ -38,6 +41,8 @@ Table.propTypes = {
     })
   ).isRequired,
   data: React.PropTypes.array.isRequired,
+  // TODO: if data is an array of arrays instead of an array of objects,
+  // then rowKey isn't required
   rowKey: React.PropTypes.string.isRequired,
   children: React.PropTypes.any
 };

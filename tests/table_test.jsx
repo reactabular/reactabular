@@ -48,6 +48,42 @@ describe('Table', function () {
 
     expect(tfoot).to.exist;
   });
+
+  it('accepts numbers as properties', function () {
+    const columns = [
+      {
+        header: {
+          label: 'A'
+        },
+        cell: {
+          property: 0
+        }
+      },
+      {
+        header: {
+          label: 'B'
+        },
+        cell: {
+          property: 1
+        }
+      }
+    ];
+    const data = [
+      ['123', '234'],
+      ['11', '1']
+    ];
+    // TODO: drop rowKey once table propType check has been fixed
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={data} rowKey="id">
+        <Table.Body />
+      </Table>
+    );
+    const tds = TestUtils.scryRenderedDOMComponentsWithTag(
+      table, 'td'
+    );
+
+    expect(tds.length).to.equal(4);
+  });
 });
 
 describe('Table.Header', function () {
