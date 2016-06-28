@@ -42,11 +42,11 @@ const edit = ({
 const sort = ({
   getSortingColumns = () => [],
   onSort = () => {}
-}) => property => {
+} = {}) => property => {
   const Sort = () => {
     const columns = getSortingColumns();
     const index = columns.map(c => c.property).indexOf(property);
-    let headerClass = '';
+    let headerClass = 'sort-none';
 
     if (index >= 0) {
       headerClass = `sort-${columns[index].sort}`;

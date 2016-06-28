@@ -103,6 +103,13 @@ describe('edit', function () {
 });
 
 describe('sort', function () {
+  it('defaults to sort-none class', function () {
+    const sorter = sort();
+    const result = sorter('test')();
+
+    expect(result.className).to.equal('sort-none');
+  });
+
   it('sets sorting class', function () {
     const testProperty = 'test';
     const sortDirection = 'asc';
