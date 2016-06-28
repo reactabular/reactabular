@@ -207,6 +207,51 @@ describe('sorter', function () {
     expect(result).to.deep.equal(reverse(data));
   });
 
+  it('sorts ascending and descending', function () {
+    const data = [
+      {
+        name: 'joe',
+        position: 'boss'
+      },
+      {
+        name: 'adam',
+        position: 'boss'
+      },
+      {
+        name: 'mike',
+        position: 'employee'
+      }
+    ];
+    const expected = [
+      {
+        name: 'adam',
+        position: 'boss'
+      },
+      {
+        name: 'joe',
+        position: 'boss'
+      },
+      {
+        name: 'mike',
+        position: 'employee'
+      }
+    ];
+    const sortingColumns = [
+      {
+        property: 'position',
+        sort: 'asc'
+      },
+      {
+        property: 'name',
+        sort: 'asc'
+      }
+    ];
+
+    const result = sorter({ data, sortingColumns, sort: orderBy });
+
+    expect(result).to.deep.equal(expected);
+  });
+
   it('returns data if there is no sorting information', function () {
     const data = [
       {
