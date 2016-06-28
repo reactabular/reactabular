@@ -185,6 +185,12 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./examples/selection.md')
         },
         {
+          path: 'examples/excel',
+          title: 'Excel',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/excel.md')
+        },
+        {
           path: 'examples/stateful-table',
           title: 'Stateful Table',
           imports: documentationImports,

@@ -4,6 +4,7 @@ export { default as TreeTable } from './TreeTable';
 export { default as SortTable } from './SortTable';
 export { default as SortAndSearchTable } from './SortAndSearchTable';
 export { default as EditableTable } from './EditableTable';
+export { default as ExcelTable } from './ExcelTable';
 export { default as SearchTable } from './SearchTable';
 export { default as HighlightTable } from './HighlightTable';
 export { default as SelectionTable } from './SelectionTable';
