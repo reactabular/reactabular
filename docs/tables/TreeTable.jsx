@@ -2,71 +2,40 @@
 import React from 'react';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
+import range from 'lodash/range';
+import jsf from 'json-schema-faker';
+
 import {
   Table
 } from '../../src';
 
-const data = [
-  // The data has been sorted so that children are directly after their parents
-  {
-    id: 100,
-    name: 'Adam',
-    age: 55
+
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string',
+      faker: 'random.uuid'
+    },
+    name: {
+      type: 'string',
+      faker: 'name.findName'
+    },
+    age: {
+      $ref: '#/definitions/age'
+    }
   },
-  {
-    id: 102,
-    name: 'Joe',
-    age: 12,
-    parent: 100
-  },
-  {
-    id: 101,
-    name: 'Brian',
-    age: 62
-  },
-  {
-    id: 103,
-    name: 'Mike',
-    age: 22,
-    parent: 101
-  },
-  {
-    id: 104,
-    name: 'Jack',
-    age: 33,
-    parent: 103
-  },
-  {
-    id: 105,
-    name: 'Jill',
-    age: 11,
-    parent: 104
-  },
-  {
-    id: 109,
-    name: 'Marge',
-    age: 11,
-    parent: 104
-  },
-  {
-    id: 106,
-    name: 'Bob',
-    age: 44,
-    parent: 104
-  },
-  {
-    id: 107,
-    name: 'Peter',
-    age: 66,
-    parent: 106
-  },
-  {
-    id: 108,
-    name: 'James',
-    age: 12,
-    parent: 107
+  required: ['id', 'name', 'age'],
+  definitions: {
+    age: {
+      type: 'integer',
+      minimum: 0,
+      maximum: 100,
+      exclusiveMinimum: true
+    }
   }
-];
+};
+const data = generateParents(range(1000).map(() => jsf(schema)));
 
 class TreeTable extends React.Component {
   constructor(props) {
@@ -134,6 +103,29 @@ class TreeTable extends React.Component {
       </Table>
     );
   }
+}
+
+function generateParents(data) {
+  let previousParent;
+
+  return data.map(d => {
+    const ret = {
+      ...d,
+      parent: previousParent
+    };
+
+    // Generate child instead of a sibling
+    if (previousParent && Math.random() > 0.8) {
+      // Do nothing
+    } else if (Math.random() > 0.8) {
+      // Back to root
+      previousParent = null;
+    } else {
+      previousParent = d.id;
+    }
+
+    return ret;
+  });
 }
 
 function filterTree(data) {
