@@ -2,8 +2,8 @@
 
 The API looks like this:
 
-* `header.transforms = [(<label>, { cellData: <label> }) => ({... props ...})]`
-* `cell.transforms = [(<value>, { cellData: <object>, property: <string> }) => ({... props ...})]`
+* `header.transforms = [(<label>, { cellData: <label>, column: <column> }) => ({... props ...})]`
+* `cell.transforms = [(<value>, { cellData: <object>, property: <string>, column: <column> }) => ({... props ...})]`
 
 ## Transforms as Formatters
 

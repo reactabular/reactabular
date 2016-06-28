@@ -265,6 +265,9 @@ describe('Table.Header', function () {
     expect(th.innerHTML).to.equal(label);
     expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
   });
+
+  // TODO: test that correct transform parameters are passed
+  // TODO: merge format/transform tests somehow given they are so similar
 });
 
 describe('Table.Body', function () {

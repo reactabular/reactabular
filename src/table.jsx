@@ -56,7 +56,7 @@ const Header = ({ children, className, ...props }, { columns }) => (
           format = a => a,
           props // eslint-disable-line no-shadow
         } = column.header || {};
-        const extraParameters = { cellData: label };
+        const extraParameters = { cellData: label, column };
         const key = `${i}-header`;
         const transformed = evaluateTransforms(transforms, label, extraParameters);
 
@@ -107,7 +107,7 @@ const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
           console.warn(`Table.Body - Failed to find "${property}" property from`, r); // eslint-disable-line max-len, no-console
         }
 
-        const extraParameters = { cellData: data[i], property };
+        const extraParameters = { cellData: data[i], column, property };
         const value = get(r, property);
         const resolvedValue = resolve(value, extraParameters);
         const transformed = evaluateTransforms(transforms, value, extraParameters);
