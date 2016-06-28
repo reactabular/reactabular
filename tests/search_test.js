@@ -242,15 +242,16 @@ describe('search._columnMatches', function () {
   });
 
   it('formats with all parameters', function () {
-    const property = 'demo';
+    const originalProperty = 'demo';
     const row = { demo: 'foobar' };
     let receivedCellData;
     let receivedProperty;
-    const result = _columnMatches({
+
+    _columnMatches({
       query: 'foo',
       column: {
         cell: {
-          property,
+          property: originalProperty,
           resolve: (a, { cellData, property }) => {
             receivedCellData = cellData;
             receivedProperty = property;
@@ -264,7 +265,7 @@ describe('search._columnMatches', function () {
     });
 
     expect(row).to.equal(receivedCellData);
-    expect(property).to.equal(receivedProperty);
+    expect(originalProperty).to.equal(receivedProperty);
   });
 
   it('is not visible without a valid value', function () {
