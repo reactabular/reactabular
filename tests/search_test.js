@@ -241,6 +241,32 @@ describe('search._columnMatches', function () {
     expect(result).to.equal(false);
   });
 
+  it('formats with all parameters', function () {
+    const property = 'demo';
+    const row = { demo: 'foobar' };
+    let receivedCellData;
+    let receivedProperty;
+    const result = _columnMatches({
+      query: 'foo',
+      column: {
+        cell: {
+          property,
+          resolve: (a, { cellData, property }) => {
+            receivedCellData = cellData;
+            receivedProperty = property;
+
+            return a;
+          }
+        }
+      },
+      row,
+      transform: v => v
+    });
+
+    expect(row).to.equal(receivedCellData);
+    expect(property).to.equal(receivedProperty);
+  });
+
   it('is not visible without a valid value', function () {
     const query = 'foo';
     const result = _columnMatches({
