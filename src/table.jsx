@@ -23,13 +23,13 @@ Table.propTypes = {
     React.PropTypes.shape({
       header: React.PropTypes.shape({
         label: React.PropTypes.string,
-        transform: React.PropTypes.func,
+        transforms: React.PropTypes.arrayOf(React.PropTypes.func),
         format: React.PropTypes.func,
         props: React.PropTypes.object
       }),
       cell: React.PropTypes.shape({
         property: React.PropTypes.string,
-        transform: React.PropTypes.func,
+        transforms: React.PropTypes.arrayOf(React.PropTypes.func),
         format: React.PropTypes.func,
         resolve: React.PropTypes.func,
         props: React.PropTypes.object
@@ -52,16 +52,16 @@ const Header = ({ children, className, ...props }, { columns }) => (
       {columns.map((column, i) => {
         const {
           label,
-          transform = a => ({}), // eslint-disable-line no-unused-vars
+          transforms = [() => ({})],
           format = a => a,
           props // eslint-disable-line no-shadow
         } = column.header || {};
         const extraParameters = { cellData: label };
         const key = `${i}-header`;
-        const transformed = transform(label, extraParameters);
+        const transformed = evaluateTransforms(transforms, label, extraParameters);
 
         if (!transformed) {
-          console.warn('Table.Header - Failed to receive a transformed result', transformed); // eslint-disable-line max-len, no-console
+          console.warn('Table.Header - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
         }
 
         const mergedClassName = mergeClassNames(
@@ -98,7 +98,7 @@ const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
       columns.map((column, j) => {
         const {
           property,
-          transform = a => ({}), // eslint-disable-line no-unused-vars
+          transforms = [() => ({})],
           format = a => a,
           resolve = a => a,
           props // eslint-disable-line no-shadow
@@ -110,10 +110,10 @@ const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
         const extraParameters = { cellData: data[i], property };
         const value = get(r, property);
         const resolvedValue = resolve(value, extraParameters);
-        const transformed = transform(value, extraParameters);
+        const transformed = evaluateTransforms(transforms, value, extraParameters);
 
         if (!transformed) {
-          console.warn('Table.Body - Failed to receive a transformed result', transformed); // eslint-disable-line max-len, no-console
+          console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
         }
 
         const mergedClassName = mergeClassNames(
@@ -147,6 +147,21 @@ Body.contextTypes = {
   rowKey: React.PropTypes.string.isRequired
 };
 Body.displayName = 'Table.Body';
+
+function evaluateTransforms(transforms, value, extraParameters) {
+  return transforms.reduce(
+    (a, t) => {
+      const result = t(value, extraParameters);
+
+      return {
+        ...a,
+        ...result,
+        className: mergeClassNames(a.className, result.className)
+      };
+    },
+    {}
+  );
+}
 
 function mergeClassNames(a, b) {
   if (a && b) {

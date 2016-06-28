@@ -118,9 +118,11 @@ describe('Table.Header', function () {
       {
         header: {
           label: 'Name',
-          transform: () => ({
-            className: headerClass
-          })
+          transforms: [
+            () => ({
+              className: headerClass
+            })
+          ]
         }
       }
     ];
@@ -136,6 +138,105 @@ describe('Table.Header', function () {
     expect(th).to.exist;
   });
 
+  it('can be transformed with multiple transforms', function () {
+    const headerClass = 'test-header';
+    const style = { display: 'none' };
+    const columns = [
+      {
+        header: {
+          label: 'Name',
+          transforms: [
+            () => ({
+              className: headerClass
+            }),
+            () => ({
+              style
+            })
+          ]
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[]} rowKey="name">
+        <Table.Header />
+      </Table>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th).to.exist;
+    expect(th.className).to.equal(headerClass);
+    expect(th.style.display).to.equal(style.display);
+  });
+
+  it('retains classNames with multiple transforms', function () {
+    const headerClass = 'test-header';
+    const anotherHeaderClass = 'another-test-header';
+    const columns = [
+      {
+        header: {
+          label: 'Name',
+          transforms: [
+            () => ({
+              className: headerClass
+            }),
+            () => ({
+              className: anotherHeaderClass
+            })
+          ]
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[]} rowKey="name">
+        <Table.Header />
+      </Table>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th).to.exist;
+    expect(th.className).to.equal(`${headerClass} ${anotherHeaderClass}`);
+  });
+
+  // TODO: should this retain?
+  // TODO: port as a column test too
+  it('does not retain objects with multiple transforms', function () {
+    const headerClass = 'test-header';
+    const headerStyle = { display: 'none' };
+    const anotherHeaderStyle = { color: 'red' };
+    const columns = [
+      {
+        header: {
+          label: 'Name',
+          transforms: [
+            () => ({
+              className: headerClass,
+              style: headerStyle
+            }),
+            () => ({
+              style: anotherHeaderStyle
+            })
+          ]
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[]} rowKey="name">
+        <Table.Header />
+      </Table>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th).to.exist;
+    expect(th.style.display).to.equal(''); // headerStyle.display);
+    expect(th.style.color).to.equal(anotherHeaderStyle.color);
+  });
+
   it('can be transformed while retaining classNames', function () {
     const headerClass = 'test-header';
     const anotherHeaderClass = 'another-header';
@@ -144,9 +245,11 @@ describe('Table.Header', function () {
       {
         header: {
           label,
-          transform: () => ({
-            className: headerClass
-          })
+          transforms: [
+            () => ({
+              className: headerClass
+            })
+          ]
         }
       }
     ];
@@ -301,6 +404,105 @@ describe('Table.Body', function () {
     expect(tds[0].children[0].className).to.equal('complex');
   });
 
+
+  it('can be transformed', function () {
+    const cellClass = 'test-class';
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name',
+          transforms: [
+            () => ({
+              className: cellClass
+            })
+          ]
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[{ name: 'demo' }]} rowKey="name">
+        <Table.Body />
+      </Table>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td).to.exist;
+  });
+
+  it('can be transformed with multiple transforms', function () {
+    const cellClass = 'test-class';
+    const style = { display: 'none' };
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name',
+          transforms: [
+            () => ({
+              className: cellClass
+            }),
+            () => ({
+              style
+            })
+          ]
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[{ name: 'demo' }]} rowKey="name">
+        <Table.Body />
+      </Table>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td).to.exist;
+    expect(td.className).to.equal(cellClass);
+    expect(td.style.display).to.equal(style.display);
+  });
+
+  it('can be transformed with multiple transforms', function () {
+    const cellClass = 'test-class';
+    const anotherCellClass = 'another-test-class';
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name',
+          transforms: [
+            () => ({
+              className: cellClass
+            }),
+            () => ({
+              className: anotherCellClass
+            })
+          ]
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table columns={columns} data={[{ name: 'demo' }]} rowKey="name">
+        <Table.Body />
+      </Table>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td).to.exist;
+    expect(td.className).to.equal(`${cellClass} ${anotherCellClass}`);
+  });
+
   it('can be transformed while retaining classNames', function () {
     const cellClass = 'test-cell';
     const anotherCellClass = 'another-cell';
@@ -311,9 +513,11 @@ describe('Table.Body', function () {
         },
         cell: {
           property: 'name',
-          transform: () => ({
-            className: cellClass
-          })
+          transforms: [
+            () => ({
+              className: cellClass
+            })
+          ]
         }
       }
     ];

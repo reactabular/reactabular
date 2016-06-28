@@ -34,7 +34,7 @@ columns: [
   {
     header: {
       label: 'name',
-      transform: sortable('name')
+      transforms: [sortable('name')]
     },
     cell: {
       property: 'name'

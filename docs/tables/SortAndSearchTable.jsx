@@ -34,7 +34,7 @@ export default class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'Name',
-            transform: sortable('name')
+            transforms: [sortable('name')]
           },
           cell: {
             property: 'name'

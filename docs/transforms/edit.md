@@ -47,7 +47,7 @@ columns: [
     },
     cell: {
       property: 'name',
-      transform: editable(editors.input())
+      transforms: [editable(editors.input())]
     }
   }
 ]

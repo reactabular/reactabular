@@ -53,7 +53,7 @@ class EditableTable extends React.Component {
           },
           cell: {
             property: 'name',
-            transform: editable(editors.input())
+            transforms: [editable(editors.input())]
           }
         }
       ],

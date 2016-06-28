@@ -133,7 +133,7 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Name',
-          transform: sortable('name'),
+          transforms: [sortable('name')],
           format: name => (
             <div style={{ display: 'inline' }}>
               <input
@@ -147,14 +147,14 @@ class FullTable extends React.Component {
         },
         cell: {
           property: 'name',
-          transform: editable(editors.input()),
+          transforms: [editable(editors.input())],
           format: highlight('name')
         }
       },
       {
         header: {
           label: 'Position',
-          transform: sortable('position')
+          transforms: [sortable('position')]
         },
         cell: {
           property: 'position'
@@ -163,7 +163,7 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Boss',
-          transform: sortable('boss.name')
+          transforms: [sortable('boss.name')]
         },
         cell: {
           property: 'boss.name',
@@ -173,17 +173,17 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Country',
-          transform: sortable('country')
+          transforms: [sortable('country')]
         },
         cell: {
           property: 'country',
-          transform: editable(
+          transforms: [editable(
             editors.dropdown({
               options: transform(countries, (result, name, value) => {
                 result.push({ value, name });
               }, [])
             })
-          ),
+          )],
           format: highlight('country'),
           resolve: country => countries[country]
         }
@@ -191,7 +191,7 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Salary',
-          transform: sortable('salary')
+          transforms: [sortable('salary')]
         },
         cell: {
           property: 'salary',
@@ -205,11 +205,11 @@ class FullTable extends React.Component {
       {
         header: {
           label: 'Active',
-          transform: sortable('active')
+          transforms: [sortable('active')]
         },
         cell: {
           property: 'active',
-          transform: editable(editors.boolean()),
+          transforms: [editable(editors.boolean())],
           format: active => active && <span>&#10003;</span>
         }
       },
@@ -219,14 +219,16 @@ class FullTable extends React.Component {
           // Failed propType: Invalid prop `id` of type `object` supplied
           // to `Wrapper`, expected `string`. Check the render method
           // of `SchemaField`.
-          transform: rowEditor({
-            schema,
-            uiSchema: {
-              id: { 'ui:widget': 'hidden' }
-            },
-            onConfirm: (id, data) => this.onConfirmEdit(id, data),
-            onRemove: id => this.onRemove(id)
-          })
+          transforms: [
+            rowEditor({
+              schema,
+              uiSchema: {
+                id: { 'ui:widget': 'hidden' }
+              },
+              onConfirm: (id, data) => this.onConfirmEdit(id, data),
+              onRemove: id => this.onRemove(id)
+            })
+          ]
         }
       }
     ];

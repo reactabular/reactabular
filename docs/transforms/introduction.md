@@ -2,6 +2,5 @@
 
 The API looks like this:
 
-* `header.transform = (<label>, { cellData: <label> }) => ({... props ...})`
-* `cell.transform = (<value>, { cellData: <object>, property: <string> }) => ({... props ...})`
-
+* `header.transforms = [(<label>, { cellData: <label> }) => ({... props ...})]`
+* `cell.transforms = [(<value>, { cellData: <object>, property: <string> }) => ({... props ...})]`
