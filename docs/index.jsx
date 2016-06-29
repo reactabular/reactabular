@@ -207,6 +207,12 @@ Catalog.render({
           title: 'All Features',
           imports: documentationImports,
           component: require('catalog/lib/loader!raw!./examples/all-features.md')
+        },
+        {
+          path: 'examples/fixed-width-table',
+          title: 'Fixed Width Table',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/fixed-width-table.md')
         }
       ]
     },
