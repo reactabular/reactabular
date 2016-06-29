@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 import React from 'react';
+import findIndex from 'lodash/findIndex';
 import { Search } from '../helpers';
 import orderBy from 'lodash/orderBy';
 import {
@@ -26,6 +27,13 @@ export default class SortAndSearchTable extends React.Component {
         });
       }
     });
+    const sortableHeader = sortHeader.bind(null, () => this.state.sortingColumns);
+
+    const resetable = () => () => ({
+      onDoubleClick: () => this.setState({
+        sortingColumns: []
+      })
+    });
 
     this.state = {
       query: {}, // Search query
@@ -34,7 +42,10 @@ export default class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'Name',
-            transforms: [sortable('name')]
+            // Resetable operates on cell level while sorting is handled by
+            // an element within -> no conflict between click and double click.
+            transforms: [resetable()],
+            format: sortableHeader(sortable('name'))
           },
           cell: {
             property: 'name'
@@ -43,7 +54,8 @@ export default class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'age',
-            transforms: [sortable('age')]
+            transforms: [resetable()],
+            format: sortableHeader(sortable('age'))
           },
           cell: {
             property: 'age'
@@ -107,4 +119,24 @@ export default class SortAndSearchTable extends React.Component {
       </div>
     );
   }
+}
+
+function sortHeader(getSortingColumns, sortable) {
+  return (value, { column }) => {
+    const property = column.cell && column.cell.property;
+    const sortingColumns = getSortingColumns();
+    const idx = findIndex(sortingColumns, { property });
+
+    return (
+      <div style={{ display: 'inline' }}>
+        <span className="value">{value}</span>
+        {idx >= 0 &&
+          <span className="sort-order" style={{ marginLeft: '0.5em' }}>
+            {idx + 1}
+          </span>
+        }
+        {sortable.toFormatter()}
+      </div>
+    );
+  };
 }
