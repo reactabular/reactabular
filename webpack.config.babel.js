@@ -121,12 +121,12 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
       path: config.paths.ghPages,
       filename: 'bundle.[chunkhash].js'
     },
-    resolve: {
+    /* resolve: {
       alias: {
         react: 'react-lite',
         'react-dom': 'react-lite'
       }
-    },
+    },*/
     plugins: [
       new CleanWebpackPlugin(['gh-pages']),
       new CopyWebpackPlugin([{
