@@ -1,4 +1,6 @@
 import React from 'react';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import findIndex from 'lodash/findIndex';
 import {
   transforms, editors, Table
@@ -72,4 +74,4 @@ class DragAndDropTable extends React.Component {
   }
 }
 
-export default DragAndDropTable;
+export default DragDropContext(HTML5Backend)(DragAndDropTable);
