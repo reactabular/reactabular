@@ -53,7 +53,7 @@ export default class SortAndSearchTable extends React.Component {
         },
         {
           header: {
-            label: 'age',
+            label: 'Age',
             transforms: [resetable()],
             format: sortableHeader(sortable('age'))
           },
