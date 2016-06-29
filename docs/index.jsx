@@ -161,12 +161,6 @@ Catalog.render({
       title: 'Examples',
       pages: [
         {
-          path: 'examples/all-features',
-          title: 'All Features',
-          imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./examples/all-features.md')
-        },
-        {
           path: 'examples/sort-and-search',
           title: 'Sort and Search',
           imports: documentationImports,
@@ -201,6 +195,12 @@ Catalog.render({
           title: 'Stateful Table',
           imports: documentationImports,
           component: require('catalog/lib/loader!raw!./examples/stateful-table.md')
+        },
+        {
+          path: 'examples/all-features',
+          title: 'All Features',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/all-features.md')
         }
       ]
     },
