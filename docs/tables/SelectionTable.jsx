@@ -61,6 +61,7 @@ class SelectionTable extends React.Component {
       selectedRowId: null
     };
 
+    this.onRowSelected = this.onRowSelected.bind(this);
     this.onKeyPressed = this.onKeyPressed.bind(this);
   }
   componentDidMount() {
@@ -88,7 +89,7 @@ class SelectionTable extends React.Component {
                 rowIndex % 2 ? 'odd-row' : 'even-row',
                 row.id === selectedRowId && 'selected-row'
               ),
-              onClick: () => this.setState({ selectedRowId: row.id })
+              onClick: () => this.onRowSelected(row)
             })}
           />
         </Table>
@@ -102,6 +103,9 @@ class SelectionTable extends React.Component {
         </div>
       </div>
     );
+  }
+  onRowSelected(row) {
+    this.setState({ selectedRowId: row.id });
   }
   onKeyPressed(e) {
     const data = this.state.data;

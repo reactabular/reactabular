@@ -89,6 +89,7 @@ class FullTable extends React.Component {
       }
     };
 
+    this.onRowSelected = this.onRowSelected.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onPerPage = this.onPerPage.bind(this);
@@ -270,7 +271,7 @@ class FullTable extends React.Component {
           <Table.Body
             row={(row, rowIndex) => ({
               className: rowIndex % 2 ? 'odd-row' : 'even-row',
-              onClick: () => console.log('clicked row', row)
+              onClick: () => this.onRowSelected(row)
             })}
           />
 
@@ -282,6 +283,9 @@ class FullTable extends React.Component {
         </div>
       </div>
     );
+  }
+  onRowSelected(row) {
+    console.log('clicked row', row);
   }
   onSearch(query) {
     this.setState({
