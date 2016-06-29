@@ -135,8 +135,9 @@ function evaluator(getData) {
   const resolveReference = (data, input) => {
     const x = characters.indexOf(input[0]); // Supports just one character
     const y = parseInt(input[1] - 1, 10); // Supports just one number
+    const yData = data[y] || [];
 
-    if (x >= 0 && y < data[y].length) {
+    if (x >= 0 && y < yData.length) {
       return data[y][x];
     }
 
