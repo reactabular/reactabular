@@ -50,7 +50,10 @@ class TreeTable extends React.Component {
     return [
       {
         header: {
-          label: 'Name'
+          label: 'Name',
+          props: {
+            style: { width: '200px' }
+          }
         },
         cell: {
           property: 'name',
@@ -72,15 +75,24 @@ class TreeTable extends React.Component {
                 {name}
               </div>
             );
+          },
+          props: {
+            style: { width: '200px' }
           }
         }
       },
       {
         header: {
-          label: 'Age'
+          label: 'Age',
+          props: {
+            style: { width: '300px' }
+          }
         },
         cell: {
-          property: 'age'
+          property: 'age',
+          props: {
+            style: { width: '300px' }
+          }
         }
       }
     ];
@@ -93,9 +105,14 @@ class TreeTable extends React.Component {
         data={filterTree(this.state.data)}
         rowKey="id"
       >
-        <Table.Header />
+        <Table.Header style={{ display: 'block' }} />
 
         <Table.Body
+          style={{
+            display: 'block',
+            overflow: 'auto',
+            maxHeight: '400px'
+          }}
           row={(row, rowIndex) => ({
             className: rowIndex % 2 ? 'odd-row' : 'even-row'
           })}
