@@ -14,7 +14,10 @@ class DragAndDropTable extends React.Component {
         {
           header: {
             label: 'Name',
-            component: DndHeader
+            component: DndHeader,
+            transforms: [() => ({
+              onMove: this.onMove
+            })]
           },
           cell: {
             property: 'name'
@@ -23,7 +26,10 @@ class DragAndDropTable extends React.Component {
         {
           header: {
             label: 'Age',
-            component: DndHeader
+            component: DndHeader,
+            transforms: [() => ({
+              onMove: this.onMove
+            })]
           },
           cell: {
             property: 'age'
@@ -32,7 +38,10 @@ class DragAndDropTable extends React.Component {
         {
           header: {
             label: 'Color',
-            component: DndHeader
+            component: DndHeader,
+            transforms: [() => ({
+              onMove: this.onMove
+            })]
           },
           cell: {
             property: 'color',
@@ -61,6 +70,8 @@ class DragAndDropTable extends React.Component {
         }
       ]
     };
+
+    this.onMove = this.onMove.bind(this);
   }
   render() {
     const { columns, data } = this.state;
@@ -72,6 +83,9 @@ class DragAndDropTable extends React.Component {
         <Table.Body />
       </Table>
     );
+  }
+  onMove({ sourceLabel, targetLabel }) {
+    console.log('drag and drop', sourceLabel, targetLabel);
   }
 }
 
@@ -92,10 +106,7 @@ const headerTarget = {
     const sourceLabel = sourceProps.label;
 
     if (sourceLabel !== targetLabel) {
-      console.log('dragging', sourceLabel, targetLabel);
-
-      // TODO
-      //onMove({sourceLabel, targetLabel});
+      targetProps.onMove({ sourceLabel, targetLabel });
     }
   }
 };
