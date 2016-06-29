@@ -35,7 +35,7 @@ const schema = {
     }
   }
 };
-const data = generateParents(range(1000).map(() => jsf(schema)));
+const data = generateParents(range(100).map(() => jsf(schema)));
 
 class TreeTable extends React.Component {
   constructor(props) {
