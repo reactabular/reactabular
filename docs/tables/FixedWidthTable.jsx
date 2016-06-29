@@ -11,6 +11,8 @@ function generateFixedWidthHeader(label) {
       this.state = { style: {} };
     }
     componentDidMount() {
+      // setTimeout is used to capture width correctly
+      // More info: github.com/facebook/react-native/issues/953
       setTimeout(() => {
         let width = this.refs.header.clientWidth;
         this.setState({ style: { width: width } });
