@@ -39,24 +39,47 @@ export default class SortAndSearchTable extends React.Component {
           cell: {
             property: 'name'
           }
+        },
+        {
+          header: {
+            label: 'age',
+            transforms: [sortable('age')]
+          },
+          cell: {
+            property: 'age'
+          }
         }
       ],
       data: [
         {
           id: 100,
-          name: 'Adam'
+          name: 'Adam',
+          age: 11
         },
         {
           id: 101,
-          name: 'Brian'
+          name: 'Brian',
+          age: 42
         },
         {
           id: 102,
-          name: 'Jake'
+          name: 'Brian',
+          age: 22
         },
         {
           id: 103,
-          name: 'Jill'
+          name: 'Jake',
+          age: 88
+        },
+        {
+          id: 104,
+          name: 'Jill',
+          age: 7
+        },
+        {
+          id: 105,
+          name: 'Jill',
+          age: 88
         }
       ]
     };
