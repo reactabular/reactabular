@@ -82,6 +82,23 @@ lang: js
 }
 ```
 
+**`header.component = <React element>`**
+
+It is possible to override the default `th` by passing a custom React component here. This is useful if you need to wrap the `th` for some reason (say drag and drop).
+
+**Example:**
+
+```code
+lang: js
+---
+{
+  header: {
+    label: 'Name',
+    component: DnDHeader
+  }
+}
+```
+
 ## `cell` Fields
 
 In addition to `header` customization, it's essential to define how the data should map to content. This is achieved through `cell` fields.
@@ -151,6 +168,22 @@ lang: js
 {
   cell: {
     resolve: country => countries[country]
+  }
+}
+```
+
+**`cell.component = <React element>`**
+
+It is possible to override the default `td` by passing a custom React component here. This is useful if you need to wrap the `td` for some reason (say drag and drop).
+
+**Example:**
+
+```code
+lang: js
+---
+{
+  cell: {
+    component: DnDCell
   }
 }
 ```
