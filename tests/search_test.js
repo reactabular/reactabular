@@ -291,6 +291,77 @@ describe('search._columnMatches', function () {
 
     expect(result).to.equal(false);
   });
+
+  it('does not crash with undefined data', function () {
+    const query = 'foo';
+    const result = _columnMatches({
+      query,
+      column: { cell: { property: 'demo' } },
+      row: { demo: undefined },
+      transform: v => v
+    });
+
+    expect(result).to.equal(false);
+  });
+
+  it('does not crash with null data', function () {
+    const query = 'foo';
+    const result = _columnMatches({
+      query,
+      column: { cell: { property: 'demo' } },
+      row: { demo: null },
+      transform: v => v
+    });
+
+    expect(result).to.equal(false);
+  });
+
+  it('does not crash if value is false', function () {
+    const query = 'foo';
+    const result = _columnMatches({
+      query,
+      column: { cell: { property: 'demo' } },
+      row: { demo: false }
+    });
+
+    expect(result).to.equal(false);
+  });
+
+  it('does not crash if transformed to undefined', function () {
+    const query = 'foo';
+    const result = _columnMatches({
+      query,
+      column: { cell: { property: 'demo' } },
+      row: { demo: 'foobar' },
+      resolve: () => undefined
+    });
+
+    expect(result).to.equal(true);
+  });
+
+  it('does not crash if transformed to null', function () {
+    const query = 'foo';
+    const result = _columnMatches({
+      query,
+      column: { cell: { property: 'demo' } },
+      row: { demo: 'foobar' },
+      resolve: () => null
+    });
+
+    expect(result).to.equal(true);
+  });
+
+  it('does not crash if transformed to false', function () {
+    const query = 'foo';
+    const result = _columnMatches({
+      query,
+      column: { cell: { property: 'demo' } },
+      row: { demo: 'foobar' },
+      resolve: () => null
+    });
+
+    expect(result).to.equal(true);
+  });
 });
 
 describe('search.matches', function () {
@@ -359,6 +430,15 @@ describe('search.matches', function () {
     const result = matches();
 
     expect(result).to.deep.equal({});
+  });
+
+  it('does not crash with undefined value', function () {
+    const result = matches({
+      value: undefined,
+      query: 'foo'
+    });
+
+    expect(result).to.deep.equal([]);
   });
 });
 

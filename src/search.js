@@ -48,7 +48,7 @@ const _columnMatches = ({ // eslint-disable-line no-underscore-dangle
   const formatter = column.cell.resolve || (a => a);
   let formattedValue = formatter(value, { cellData: row, property });
 
-  if (typeof formattedValue === 'undefined') {
+  if (typeof formattedValue === 'undefined' || formattedValue === null) {
     formattedValue = '';
   }
 
@@ -64,7 +64,9 @@ const matches = ({
     return {};
   }
 
-  return strategy(transform(query)).matches(transform(value));
+  const val = value && value.toString ? value.toString() : '';
+
+  return strategy(transform(query)).matches(transform(val));
 };
 
 const infix = queryTerm => ({
