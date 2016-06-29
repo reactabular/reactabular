@@ -89,6 +89,7 @@
     "react-lite": "^0.15.14",
     "react-pagify": "^2.0.4",
     "react-skylight": "^0.4.0",
+    "redux": "^3.5.2",
     "segmentize": "^0.4.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",

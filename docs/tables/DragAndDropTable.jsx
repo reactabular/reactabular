@@ -1,5 +1,6 @@
 /* eslint-disable new-cap */
 import React from 'react';
+import { compose } from 'redux';
 import { DragDropContext, DragSource, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { Table } from '../../src';
@@ -79,22 +80,41 @@ const DragTypes = {
 };
 const headerSource = {
   beginDrag(props) {
-    console.log('begin drag', props);
-
     return {
       label: props.children
     };
   }
 };
+const headerTarget = {
+  hover(targetProps, monitor) {
+    const targetLabel = targetProps.children;
+    const sourceProps = monitor.getItem();
+    const sourceLabel = sourceProps.label;
 
-const DndHeader = DragSource(
-  DragTypes.HEADER, headerSource, connect => ({
-    connectDragSource: connect.dragSource()
-  })
-)(({ connectDragSource, children, ...props }) => (
-  connectDragSource(
-    <th {...props}>{children}</th>
+    if (sourceLabel !== targetLabel) {
+      console.log('dragging', sourceLabel, targetLabel);
+
+      // TODO
+      //onMove({sourceLabel, targetLabel});
+    }
+  }
+};
+
+const DndHeader = compose(
+  DragSource(
+    DragTypes.HEADER, headerSource, connect => ({
+      connectDragSource: connect.dragSource()
+    })
+  ),
+  DropTarget(
+    DragTypes.HEADER, headerTarget, connect => ({
+      connectDropTarget: connect.dropTarget()
+    })
   )
+)(({ connectDragSource, connectDropTarget, children, ...props }) => (
+  connectDragSource(connectDropTarget(
+    <th {...props}>{children}</th>
+  ))
 ));
 
 export default DragDropContext(HTML5Backend)(DragAndDropTable);
