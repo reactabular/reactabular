@@ -14,7 +14,8 @@ export default class ToggleTable extends React.Component {
           },
           cell: {
             property: 'name'
-          }
+          },
+          visible: true
         },
         {
           header: {
@@ -22,7 +23,8 @@ export default class ToggleTable extends React.Component {
           },
           cell: {
             property: 'age'
-          }
+          },
+          visible: false
         },
         {
           header: {
@@ -31,7 +33,8 @@ export default class ToggleTable extends React.Component {
           cell: {
             property: 'color',
             transforms: [color => ({ style: { color } })]
-          }
+          },
+          visible: true
         }
       ],
       data: [
@@ -55,16 +58,52 @@ export default class ToggleTable extends React.Component {
         }
       ]
     };
+
+    this.onToggleColumn = this.onToggleColumn.bind(this);
   }
   render() {
     const { columns, data } = this.state;
 
     return (
-      <Table columns={columns} data={data} rowKey="id">
-        <Table.Header />
+      <div>
+        <div
+          className="visibility-toggles"
+          style={{ backgroundColor: '#ddd', padding: '1em', margin: '1em' }}
+        >
+          {columns.map(({ header: { label }, visible }, columnIndex) => (
+            <label
+              className="visibility-toggle"
+              style={{ marginRight: '1em' }}
+              key={label}
+            >
+              <span>{label}</span>
+              <input
+                type="checkbox"
+                style={{ marginLeft: '0.5em' }}
+                checked={visible}
+                onChange={() => this.onToggleColumn(columnIndex)}
+              />
+            </label>
+          ))}
+        </div>
 
-        <Table.Body />
-      </Table>
+        <Table
+          columns={columns.filter(column => column.visible)}
+          data={data}
+          rowKey="id"
+        >
+          <Table.Header />
+
+          <Table.Body />
+        </Table>
+      </div>
     );
+  }
+  onToggleColumn(columnIndex) {
+    const columns = this.state.columns;
+
+    columns[columnIndex].visible = !columns[columnIndex].visible;
+
+    this.setState({ columns });
   }
 }
