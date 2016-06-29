@@ -191,6 +191,12 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./examples/excel.md')
         },
         {
+          path: 'examples/drag-and-drop',
+          title: 'Drag and Drop',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/drag-and-drop.md')
+        },
+        {
           path: 'examples/stateful-table',
           title: 'Stateful Table',
           imports: documentationImports,

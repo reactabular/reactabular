@@ -8,4 +8,5 @@ export { default as ExcelTable } from './ExcelTable';
 export { default as SearchTable } from './SearchTable';
 export { default as HighlightTable } from './HighlightTable';
 export { default as SelectionTable } from './SelectionTable';
+export { default as DragAndDropTable } from './DragAndDropTable';
 
