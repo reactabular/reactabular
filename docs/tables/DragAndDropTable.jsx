@@ -1,6 +1,6 @@
 /* eslint-disable new-cap */
 import React from 'react';
-import { DragDropContext } from 'react-dnd';
+import { DragDropContext, DragSource, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { Table } from '../../src';
 
@@ -12,7 +12,8 @@ class DragAndDropTable extends React.Component {
       columns: [
         {
           header: {
-            label: 'Name'
+            label: 'Name',
+            component: DndHeader
           },
           cell: {
             property: 'name'
@@ -20,7 +21,8 @@ class DragAndDropTable extends React.Component {
         },
         {
           header: {
-            label: 'Age'
+            label: 'Age',
+            component: DndHeader
           },
           cell: {
             property: 'age'
@@ -28,7 +30,8 @@ class DragAndDropTable extends React.Component {
         },
         {
           header: {
-            label: 'Color'
+            label: 'Color',
+            component: DndHeader
           },
           cell: {
             property: 'color',
@@ -70,5 +73,28 @@ class DragAndDropTable extends React.Component {
     );
   }
 }
+
+const DragTypes = {
+  HEADER: 'header'
+};
+const headerSource = {
+  beginDrag(props) {
+    console.log('begin drag', props);
+
+    return {
+      label: props.children
+    };
+  }
+};
+
+const DndHeader = DragSource(
+  DragTypes.HEADER, headerSource, connect => ({
+    connectDragSource: connect.dragSource()
+  })
+)(({ connectDragSource, children, ...props }) => (
+  connectDragSource(
+    <th {...props}>{children}</th>
+  )
+));
 
 export default DragDropContext(HTML5Backend)(DragAndDropTable);

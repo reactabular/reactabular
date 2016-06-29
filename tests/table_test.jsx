@@ -302,6 +302,7 @@ describe('Table.Header', function () {
 
   // TODO: test that correct transform parameters are passed
   // TODO: merge format/transform tests somehow given they are so similar
+  // TODO: test component (custom wrapper)
 });
 
 describe('Table.Body', function () {

@@ -26,6 +26,7 @@ Table.propTypes = {
         label: React.PropTypes.string,
         transforms: React.PropTypes.arrayOf(React.PropTypes.func),
         format: React.PropTypes.func,
+        component: React.PropTypes.func,
         props: React.PropTypes.object
       }),
       cell: React.PropTypes.shape({
@@ -36,6 +37,7 @@ Table.propTypes = {
         transforms: React.PropTypes.arrayOf(React.PropTypes.func),
         format: React.PropTypes.func,
         resolve: React.PropTypes.func,
+        component: React.PropTypes.func,
         props: React.PropTypes.object
       })
     })
@@ -60,6 +62,7 @@ const Header = ({ children, className, ...props }, { columns }) => (
           label,
           transforms = [() => ({})],
           format = a => a,
+          component = 'th',
           props // eslint-disable-line no-shadow
         } = column.header || {};
         const extraParameters = {
@@ -78,15 +81,15 @@ const Header = ({ children, className, ...props }, { columns }) => (
           className, transformed && transformed.className
         );
 
-        return (
-          <th
-            key={key}
-            {
-              ...{ ...props, ...transformed, ...{ className: mergedClassName } }
-            }
-          >
-            {transformed.children || format(label, extraParameters)}
-          </th>
+        return React.createElement(
+          component,
+          {
+            key,
+            ...props,
+            ...transformed,
+            ...{ className: mergedClassName }
+          },
+          transformed.children || format(label, extraParameters)
         );
       })}
     </tr>
@@ -111,6 +114,7 @@ const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
           transforms = [() => ({})],
           format = a => a,
           resolve = a => a,
+          component = 'td',
           props // eslint-disable-line no-shadow
         } = column.cell;
         if (property && !has(r, property)) {
@@ -136,15 +140,15 @@ const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
           className, transformed && transformed.className
         );
 
-        return (
-          <td
-            key={`${j}-cell`}
-            {
-              ...{ ...props, ...transformed, ...{ className: mergedClassName } }
-            }
-          >
-            {transformed.children || format(resolvedValue, extraParameters)}
-          </td>
+        return React.createElement(
+          component,
+          {
+            key: `${j}-cell`,
+            ...props,
+            ...transformed,
+            ...{ className: mergedClassName }
+          },
+          transformed.children || format(resolvedValue, extraParameters)
         );
       })
     }</tr>)
