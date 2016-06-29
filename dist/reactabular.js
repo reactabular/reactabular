@@ -202,17 +202,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	      label: _react2.default.PropTypes.string,
 	      transforms: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.func),
 	      format: _react2.default.PropTypes.func,
+	      component: _react2.default.PropTypes.any, // XXX: too loose? createElement first param
 	      props: _react2.default.PropTypes.object
 	    }),
 	    cell: _react2.default.PropTypes.shape({
-	      property: _react2.default.PropTypes.string,
+	      property: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.number, _react2.default.PropTypes.string]),
 	      transforms: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.func),
 	      format: _react2.default.PropTypes.func,
 	      resolve: _react2.default.PropTypes.func,
+	      component: _react2.default.PropTypes.any, // XXX: too loose? createElement first param
 	      props: _react2.default.PropTypes.object
 	    })
 	  })).isRequired,
 	  data: _react2.default.PropTypes.array.isRequired,
+	  // TODO: if data is an array of arrays instead of an array of objects,
+	  // then rowKey isn't required
 	  rowKey: _react2.default.PropTypes.string.isRequired,
 	  children: _react2.default.PropTypes.any
 	};
@@ -248,9 +252,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var format = _ref3$format === undefined ? function (a) {
 	          return a;
 	        } : _ref3$format;
+	        var _ref3$component = _ref3.component;
+	        var component = _ref3$component === undefined ? 'th' : _ref3$component;
 	        var props = _ref3.props;
 	
-	        var extraParameters = { cellData: label, column: column };
+	        var extraParameters = {
+	          cellData: label,
+	          columnIndex: i,
+	          column: column
+	        };
 	        var key = i + '-header';
 	        var transformed = evaluateTransforms(transforms, label, extraParameters);
 	
@@ -260,13 +270,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        var mergedClassName = mergeClassNames(className, transformed && transformed.className);
 	
-	        return _react2.default.createElement(
-	          'th',
-	          _extends({
-	            key: key
-	          }, _extends({}, props, transformed, { className: mergedClassName })),
-	          transformed.children || format(label, extraParameters)
-	        );
+	        return _react2.default.createElement(component, _extends({
+	          key: key
+	        }, props, transformed, { className: mergedClassName }), transformed.children || format(label, extraParameters));
 	      })
 	    ),
 	    children
@@ -313,13 +319,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var resolve = _column$cell$resolve === undefined ? function (a) {
 	            return a;
 	          } : _column$cell$resolve;
+	          var _column$cell$componen = _column$cell.component;
+	          var component = _column$cell$componen === undefined ? 'td' : _column$cell$componen;
 	          var props = _column$cell.props;
 	
 	          if (property && !(0, _has2.default)(r, property)) {
 	            console.warn('Table.Body - Failed to find "' + property + '" property from', r); // eslint-disable-line max-len, no-console
 	          }
 	
-	          var extraParameters = { cellData: data[i], column: column, property: property };
+	          var extraParameters = {
+	            cellData: data[i],
+	            columnIndex: j,
+	            column: column,
+	            rowIndex: i,
+	            property: property
+	          };
 	          var value = (0, _get2.default)(r, property);
 	          var resolvedValue = resolve(value, extraParameters);
 	          var transformed = evaluateTransforms(transforms, value, extraParameters);
@@ -330,13 +344,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	          var mergedClassName = mergeClassNames(className, transformed && transformed.className);
 	
-	          return _react2.default.createElement(
-	            'td',
-	            _extends({
-	              key: j + '-cell'
-	            }, _extends({}, props, transformed, { className: mergedClassName })),
-	            transformed.children || format(resolvedValue, extraParameters)
-	          );
+	          return _react2.default.createElement(component, _extends({
+	            key: j + '-cell'
+	          }, props, transformed, { className: mergedClassName }), transformed.children || format(resolvedValue, extraParameters));
 	        })
 	      );
 	    })
@@ -4666,7 +4676,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	  var formattedValue = formatter(value, { cellData: row, property: property });
 	
-	  if (typeof formattedValue === 'undefined') {
+	  if (typeof formattedValue === 'undefined' || formattedValue === null) {
 	    formattedValue = '';
 	  }
 	
@@ -4691,7 +4701,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return {};
 	  }
 	
-	  return strategy(transform(query)).matches(transform(value));
+	  var val = value && value.toString ? value.toString() : '';
+	
+	  return strategy(transform(query)).matches(transform(val));
 	};
 	
 	var infix = function infix(queryTerm) {
