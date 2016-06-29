@@ -173,6 +173,12 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./examples/tree-view.md')
         },
         {
+          path: 'examples/toggle-columns',
+          title: 'Toggle Columns',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/toggle-columns.md')
+        },
+        {
           path: 'examples/selection',
           title: 'Selection',
           imports: documentationImports,

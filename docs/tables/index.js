@@ -9,4 +9,5 @@ export { default as SearchTable } from './SearchTable';
 export { default as HighlightTable } from './HighlightTable';
 export { default as SelectionTable } from './SelectionTable';
 export { default as DragAndDropTable } from './DragAndDropTable';
+export { default as ToggleTable } from './ToggleTable';
 
