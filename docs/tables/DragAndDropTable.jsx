@@ -1,8 +1,10 @@
 /* eslint-disable new-cap */
 import React from 'react';
 import { compose } from 'redux';
+import update from 'react-addons-update';
 import { DragDropContext, DragSource, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import findIndex from 'lodash/findIndex';
 import { Table } from '../../src';
 
 class DragAndDropTable extends React.Component {
@@ -85,7 +87,25 @@ class DragAndDropTable extends React.Component {
     );
   }
   onMove({ sourceLabel, targetLabel }) {
-    console.log('drag and drop', sourceLabel, targetLabel);
+    const columns = this.state.columns;
+    const sourceIndex = findIndex(
+      this.state.columns,
+      { header: { label: sourceLabel } }
+    );
+    const sourceColumn = columns[sourceIndex];
+    const targetIndex = findIndex(
+      this.state.columns,
+      { header: { label: targetLabel } }
+    );
+
+    this.setState({
+      columns: update(columns, {
+        $splice: [
+          [sourceIndex, 1],
+          [targetIndex, 0, sourceColumn]
+        ]
+      })
+    });
   }
 }
 
