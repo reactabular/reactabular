@@ -203,10 +203,16 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./examples/stateful-table.md')
         },
         {
-          path: 'examples/fixed-width-table',
-          title: 'Fixed Width Table',
+          path: 'examples/fixed-width-columns',
+          title: 'Fixed Width Columns',
           imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./examples/fixed-width-table.md')
+          component: require('catalog/lib/loader!raw!./examples/fixed-width-columns.md')
+        },
+        {
+          path: 'examples/resizable-columns',
+          title: 'Resizable Columns',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/resizable-columns.md')
         },
         {
           path: 'examples/all-features',
