@@ -48,7 +48,7 @@ class DragAndDropTable extends React.Component {
                 label: 'First Name',
                 component: DndHeader,
                 transforms: [() => ({
-                  onMove: this.onMove
+                  onMove: this.onChildMove
                 })]
               },
               cell: {
@@ -60,7 +60,7 @@ class DragAndDropTable extends React.Component {
                 label: 'Last Name',
                 component: DndHeader,
                 transforms: [() => ({
-                  onMove: this.onMove
+                  onMove: this.onChildMove
                 })]
               },
               cell: {
@@ -98,6 +98,7 @@ class DragAndDropTable extends React.Component {
     };
 
     this.onMove = this.onMove.bind(this);
+    this.onChildMove = this.onChildMove.bind(this);
   }
   render() {
     const { columns, data } = this.state;
@@ -110,42 +111,75 @@ class DragAndDropTable extends React.Component {
       </Table>
     );
   }
-  onMove({ sourceLabel, targetLabel }) {
+  onMove(labels) {
+    const movedColumns = move(this.state.columns, labels);
+
+    if (movedColumns) {
+      this.setState({ columns: movedColumns });
+    }
+  }
+  onChildMove(labels) {
+    const { sourceLabel, targetLabel } = labels;
     const columns = this.state.columns;
 
-    // XXX: this needs to do a recursive search
     const sourceIndex = findIndex(
-      this.state.columns,
-      { header: { label: sourceLabel } }
+      columns,
+      column => findIndex(column.header.children, { label: sourceLabel })
     );
 
     if (sourceIndex < 0) {
-      console.warn('sourceIndex was not found', sourceLabel);
-
       return;
     }
 
-    const sourceColumn = columns[sourceIndex];
     const targetIndex = findIndex(
-      this.state.columns,
-      { header: { label: targetLabel } }
+      columns,
+      column => findIndex(column.header.children, { label: targetLabel })
     );
 
     if (targetIndex < 0) {
-      console.warn('targetIndex was not found', targetLabel);
-
       return;
     }
 
-    this.setState({
-      columns: update(columns, {
-        $splice: [
-          [sourceIndex, 1],
-          [targetIndex, 0, sourceColumn]
-        ]
-      })
-    });
+    // Allow drag and drop only within the same column
+    if (sourceIndex !== targetIndex) {
+      return;
+    }
+
+    const movedChildren = move(columns[sourceIndex].children, labels);
+
+    if (movedChildren) {
+      columns[sourceIndex].children = movedChildren;
+
+      this.setState({ columns });
+    }
   }
+}
+
+function move(columns, { sourceLabel, targetLabel }) {
+  const sourceIndex = findIndex(
+    columns,
+    { header: { label: sourceLabel } }
+  );
+
+  if (sourceIndex < 0) {
+    return null;
+  }
+
+  const targetIndex = findIndex(
+    columns,
+    { header: { label: targetLabel } }
+  );
+
+  if (targetIndex < 0) {
+    return null;
+  }
+
+  return update(columns, {
+    $splice: [
+      [sourceIndex, 1],
+      [targetIndex, 0, columns[sourceIndex]]
+    ]
+  });
 }
 
 const DragTypes = {
