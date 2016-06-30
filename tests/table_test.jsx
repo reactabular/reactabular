@@ -303,6 +303,7 @@ describe('Table.Header', function () {
   // TODO: test that correct transform parameters are passed
   // TODO: merge format/transform tests somehow given they are so similar
   // TODO: test component (custom wrapper)
+  // TODO: test column.props for both header and body
 });
 
 describe('Table.Body', function () {

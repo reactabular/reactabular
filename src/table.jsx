@@ -58,6 +58,7 @@ const Header = ({ children, className, ...props }, { columns }) => (
   <thead {...props}>
     <tr>
       {columns.map((column, i) => {
+        const columnProps = column.props || {};
         const {
           label,
           transforms = [() => ({})],
@@ -85,6 +86,7 @@ const Header = ({ children, className, ...props }, { columns }) => (
           component,
           {
             key,
+            ...columnProps,
             ...props,
             ...transformed,
             ...{ className: mergedClassName }
@@ -109,6 +111,7 @@ const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
   <tbody {...props}>{
     data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
       columns.map((column, j) => {
+        const columnProps = column.props || {};
         const {
           property,
           transforms = [() => ({})],
@@ -144,6 +147,7 @@ const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
           component,
           {
             key: `${j}-cell`,
+            ...columnProps,
             ...props,
             ...transformed,
             ...{ className: mergedClassName }

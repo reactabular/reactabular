@@ -9,39 +9,29 @@ export default class ResizableColumnsTable extends React.Component {
     this.state = {
       columns: [
         {
-          header: {
-            label: 'Name',
-            props: {
-              style: {
-                width: 200
-              }
+          props: {
+            style: {
+              width: 200
             }
           },
+          header: {
+            label: 'Name'
+          },
           cell: {
-            property: 'name',
-            props: {
-              style: {
-                width: 200
-              }
-            }
+            property: 'name'
           }
         },
         {
-          header: {
-            label: 'Address',
-            props: {
-              style: {
-                width: 300
-              }
+          props: {
+            style: {
+              width: 300
             }
           },
+          header: {
+            label: 'Address'
+          },
           cell: {
-            property: 'address',
-            props: {
-              style: {
-                width: 300
-              }
-            }
+            property: 'address'
           }
         }
       ],
