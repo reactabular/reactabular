@@ -1,4 +1,4 @@
-/* eslint-disable new-cap, no-shadow */
+/* eslint-disable new-cap, no-shadow, no-console */
 import React from 'react';
 import { compose } from 'redux';
 import update from 'react-addons-update';
@@ -45,7 +45,11 @@ class DragAndDropTable extends React.Component {
           children: [
             {
               header: {
-                label: 'First Name'
+                label: 'First Name',
+                component: DndHeader,
+                transforms: [() => ({
+                  onMove: this.onMove
+                })]
               },
               cell: {
                 property: 'name.first'
@@ -53,7 +57,11 @@ class DragAndDropTable extends React.Component {
             },
             {
               header: {
-                label: 'Last Name'
+                label: 'Last Name',
+                component: DndHeader,
+                transforms: [() => ({
+                  onMove: this.onMove
+                })]
               },
               cell: {
                 property: 'name.last'
@@ -104,15 +112,30 @@ class DragAndDropTable extends React.Component {
   }
   onMove({ sourceLabel, targetLabel }) {
     const columns = this.state.columns;
+
+    // XXX: this needs to do a recursive search
     const sourceIndex = findIndex(
       this.state.columns,
       { header: { label: sourceLabel } }
     );
+
+    if (sourceIndex < 0) {
+      console.warn('sourceIndex was not found', sourceLabel);
+
+      return;
+    }
+
     const sourceColumn = columns[sourceIndex];
     const targetIndex = findIndex(
       this.state.columns,
       { header: { label: targetLabel } }
     );
+
+    if (targetIndex < 0) {
+      console.warn('targetIndex was not found', targetLabel);
+
+      return;
+    }
 
     this.setState({
       columns: update(columns, {
