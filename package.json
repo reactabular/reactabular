@@ -32,6 +32,7 @@
     "dist",
     "dist-modules",
     "src",
+    "LICENSE.md",
     "style.css"
   ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
