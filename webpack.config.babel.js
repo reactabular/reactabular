@@ -62,10 +62,6 @@ const common = {
           config.paths.src,
           config.paths.documentation
         ]
-      },
-      {
-        test: require.resolve('catalog'),
-        loader: 'expose?Catalog'
       }
     ]
   },

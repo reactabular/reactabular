@@ -4,6 +4,7 @@ import 'purecss/build/pure.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
 import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
+import * as Catalog from 'catalog';
 import * as reactabular from '../src';
 import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
