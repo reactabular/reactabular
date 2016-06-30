@@ -236,6 +236,11 @@ Catalog.render({
       ]
     },
     {
+      path: 'installing',
+      title: 'Installing',
+      component: require('catalog/lib/loader!raw!./installing.md')
+    },
+    {
       title: 'Contributing',
       pages: [
         {
