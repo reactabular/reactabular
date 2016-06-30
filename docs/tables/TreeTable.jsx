@@ -48,11 +48,11 @@ class TreeTable extends React.Component {
   getColumns() {
     return [
       {
+        props: {
+          style: { width: 200 }
+        },
         header: {
-          label: 'Name',
-          props: {
-            style: { width: '200px' }
-          }
+          label: 'Name'
         },
         cell: {
           property: 'name',
@@ -74,24 +74,18 @@ class TreeTable extends React.Component {
                 {name}
               </div>
             );
-          },
-          props: {
-            style: { width: '200px' }
           }
         }
       },
       {
+        props: {
+          style: { width: 300 }
+        },
         header: {
-          label: 'Age',
-          props: {
-            style: { width: '300px' }
-          }
+          label: 'Age'
         },
         cell: {
-          property: 'age',
-          props: {
-            style: { width: '300px' }
-          }
+          property: 'age'
         }
       }
     ];
