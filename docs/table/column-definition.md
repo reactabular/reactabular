@@ -103,7 +103,7 @@ lang: js
 
 **`header.component = <React element>`**
 
-It is possible to override the default `th` by passing a custom React component here. This is useful if you need to wrap the `th` for some reason (say drag and drop).
+It is possible to override the default `th` by passing a custom React component here. This is useful if you need to wrap the `th` for some reason (say drag and drop). It should render the passed `children` so that `label` and other fields work as you might expect.
 
 **Example:**
 
@@ -214,7 +214,7 @@ lang: js
 
 **`cell.component = <React element>`**
 
-It is possible to override the default `td` by passing a custom React component here. This is useful if you need to wrap the `td` for some reason (say drag and drop).
+It is possible to override the default `td` by passing a custom React component here. This is useful if you need to wrap the `td` for some reason (say drag and drop). It should render the passed `children` so that `label` and other fields work as you might expect.
 
 **Example:**
 
