@@ -9,7 +9,6 @@ import {
   Table
 } from '../../src';
 
-
 const schema = {
   type: 'object',
   properties: {
