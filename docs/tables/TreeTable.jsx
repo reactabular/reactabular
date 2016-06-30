@@ -98,14 +98,9 @@ class TreeTable extends React.Component {
         data={filterTree(this.state.data)}
         rowKey="id"
       >
-        <Table.Header style={{ display: 'block' }} />
+        <Table.Header />
 
         <Table.Body
-          style={{
-            display: 'block',
-            overflow: 'auto',
-            maxHeight: '400px'
-          }}
           row={(row, rowIndex) => ({
             className: rowIndex % 2 ? 'odd-row' : 'even-row'
           })}
