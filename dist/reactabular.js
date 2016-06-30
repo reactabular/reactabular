@@ -226,58 +226,85 @@ return /******/ (function(modules) { // webpackBootstrap
 	  rowKey: _react2.default.PropTypes.string.isRequired
 	};
 	
-	var Header = function Header(_ref, _ref2) {
-	  var children = _ref.children;
-	  var className = _ref.className;
+	// This has to be a React component instead of a function.
+	// Otherwise refs won't work.
 	
-	  var props = _objectWithoutProperties(_ref, ['children', 'className']);
+	var Header = function (_React$Component2) {
+	  _inherits(Header, _React$Component2);
 	
-	  var columns = _ref2.columns;
-	  return _react2.default.createElement(
-	    'thead',
-	    props,
-	    _react2.default.createElement(
-	      'tr',
-	      null,
-	      columns.map(function (column, i) {
-	        var _ref3 = // eslint-disable-line no-shadow
-	        column.header || {};
+	  function Header() {
+	    _classCallCheck(this, Header);
 	
-	        var label = _ref3.label;
-	        var _ref3$transforms = _ref3.transforms;
-	        var transforms = _ref3$transforms === undefined ? [function () {
-	          return {};
-	        }] : _ref3$transforms;
-	        var _ref3$format = _ref3.format;
-	        var format = _ref3$format === undefined ? function (a) {
-	          return a;
-	        } : _ref3$format;
-	        var _ref3$component = _ref3.component;
-	        var component = _ref3$component === undefined ? 'th' : _ref3$component;
-	        var props = _ref3.props;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+	  }
 	
-	        var extraParameters = {
-	          cellData: label,
-	          columnIndex: i,
-	          column: column
-	        };
-	        var key = i + '-header';
-	        var transformed = evaluateTransforms(transforms, label, extraParameters);
+	  _createClass(Header, [{
+	    key: 'render',
+	    // eslint-disable-line react/prefer-stateless-function
+	    value: function render() {
+	      var _props2 = this.props;
+	      var children = _props2.children;
+	      var className = _props2.className;
 	
-	        if (!transformed) {
-	          console.warn('Table.Header - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
-	        }
+	      var props = _objectWithoutProperties(_props2, ['children', 'className']);
 	
-	        var mergedClassName = mergeClassNames(className, transformed && transformed.className);
+	      var columns = this.context.columns;
 	
-	        return _react2.default.createElement(component, _extends({
-	          key: key
-	        }, props, transformed, { className: mergedClassName }), transformed.children || format(label, extraParameters));
-	      })
-	    ),
-	    children
-	  );
-	};
+	
+	      return _react2.default.createElement(
+	        'thead',
+	        props,
+	        resolveHeaderRows(columns).map(function (headerRow, i) {
+	          return _react2.default.createElement(
+	            'tr',
+	            { key: i + '-header-row' },
+	            headerRow.map(function (column, j) {
+	              var columnProps = column.props || {};
+	
+	              var _ref = // eslint-disable-line no-shadow
+	              column.header || {};
+	
+	              var label = _ref.label;
+	              var _ref$transforms = _ref.transforms;
+	              var transforms = _ref$transforms === undefined ? [function () {
+	                return {};
+	              }] : _ref$transforms;
+	              var _ref$format = _ref.format;
+	              var format = _ref$format === undefined ? function (a) {
+	                return a;
+	              } : _ref$format;
+	              var _ref$component = _ref.component;
+	              var component = _ref$component === undefined ? 'th' : _ref$component;
+	              var props = _ref.props;
+	
+	              var extraParameters = {
+	                cellData: label,
+	                columnIndex: j,
+	                column: column
+	              };
+	              var key = j + '-header';
+	              var transformed = evaluateTransforms(transforms, label, extraParameters);
+	
+	              if (!transformed) {
+	                console.warn('Table.Header - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
+	              }
+	
+	              var mergedClassName = mergeClassNames(className, transformed && transformed.className);
+	
+	              return _react2.default.createElement(component, _extends({
+	                key: key
+	              }, columnProps, props, transformed, { className: mergedClassName }), transformed.children || format(label, extraParameters));
+	            })
+	          );
+	        }),
+	        children
+	      );
+	    }
+	  }]);
+	
+	  return Header;
+	}(_react2.default.Component);
+	
 	Header.propTypes = {
 	  children: _react2.default.PropTypes.any,
 	  className: _react2.default.PropTypes.string
@@ -287,71 +314,147 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	Header.displayName = 'Table.Header';
 	
-	var Body = function Body(_ref4, _ref5) {
-	  var row = _ref4.row;
-	  var className = _ref4.className;
+	function resolveHeaderRows(columns) {
+	  var children = [];
 	
-	  var props = _objectWithoutProperties(_ref4, ['row', 'className']);
+	  var ret = columns.map(function (column) {
+	    if (column.children && column.children.length) {
+	      children = children.concat(resolveHeaderRows(column.children)[0]);
 	
-	  var columns = _ref5.columns;
-	  var data = _ref5.data;
-	  var rowKey = _ref5.rowKey;
-	  return _react2.default.createElement(
-	    'tbody',
-	    props,
-	    data.map(function (r, i) {
+	      return _extends({}, column, {
+	        props: _extends({}, column.props, {
+	          colSpan: countChildren(column.children)
+	        })
+	      });
+	    }
+	
+	    return _extends({}, column, {
+	      props: _extends({}, column.props, {
+	        rowSpan: countChildrenLevels(columns)
+	      })
+	    });
+	  });
+	
+	  if (children.length) {
+	    return [ret].concat([children]);
+	  }
+	
+	  return [ret];
+	}
+	
+	function countChildren(children) {
+	  if (children.children) {
+	    return children.length + countChildren(children.children);
+	  }
+	
+	  return children.length;
+	}
+	
+	function countChildrenLevels(columns) {
+	  var maximumCount = 0;
+	
+	  columns.forEach(function (column) {
+	    if (column.children) {
+	      maximumCount = Math.max(maximumCount, countChildrenLevels(column.children));
+	    }
+	  });
+	
+	  return maximumCount + 1;
+	}
+	
+	// This has to be a React component instead of a function.
+	// Otherwise refs won't work.
+	
+	var Body = function (_React$Component3) {
+	  _inherits(Body, _React$Component3);
+	
+	  function Body() {
+	    _classCallCheck(this, Body);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Body).apply(this, arguments));
+	  }
+	
+	  _createClass(Body, [{
+	    key: 'render',
+	    // eslint-disable-line react/prefer-stateless-function
+	    value: function render() {
+	      var _props3 = this.props;
+	      var row = _props3.row;
+	      var className = _props3.className;
+	
+	      var props = _objectWithoutProperties(_props3, ['row', 'className']);
+	
+	      var _context = this.context;
+	      var columns = _context.columns;
+	      var data = _context.data;
+	      var rowKey = _context.rowKey;
+	
+	      var dataColumns = resolveBodyColumns(columns);
+	
 	      return _react2.default.createElement(
-	        'tr',
-	        _extends({ key: (r[rowKey] || i) + '-row' }, row(r, i)),
-	        columns.map(function (column, j) {
-	          var _column$cell = // eslint-disable-line no-shadow
-	          column.cell;
-	          var property = _column$cell.property;
-	          var _column$cell$transfor = _column$cell.transforms;
-	          var transforms = _column$cell$transfor === undefined ? [function () {
-	            return {};
-	          }] : _column$cell$transfor;
-	          var _column$cell$format = _column$cell.format;
-	          var format = _column$cell$format === undefined ? function (a) {
-	            return a;
-	          } : _column$cell$format;
-	          var _column$cell$resolve = _column$cell.resolve;
-	          var resolve = _column$cell$resolve === undefined ? function (a) {
-	            return a;
-	          } : _column$cell$resolve;
-	          var _column$cell$componen = _column$cell.component;
-	          var component = _column$cell$componen === undefined ? 'td' : _column$cell$componen;
-	          var props = _column$cell.props;
+	        'tbody',
+	        props,
+	        data.map(function (r, i) {
+	          return _react2.default.createElement(
+	            'tr',
+	            _extends({ key: (r[rowKey] || i) + '-row' }, row(r, i)),
+	            dataColumns.map(function (column, j) {
+	              var columnProps = column.props || {};
 	
-	          if (property && !(0, _has2.default)(r, property)) {
-	            console.warn('Table.Body - Failed to find "' + property + '" property from', r); // eslint-disable-line max-len, no-console
-	          }
+	              var _ref2 = // eslint-disable-line no-shadow
+	              column.cell || {};
 	
-	          var extraParameters = {
-	            cellData: data[i],
-	            columnIndex: j,
-	            column: column,
-	            rowIndex: i,
-	            property: property
-	          };
-	          var value = (0, _get2.default)(r, property);
-	          var resolvedValue = resolve(value, extraParameters);
-	          var transformed = evaluateTransforms(transforms, value, extraParameters);
+	              var property = _ref2.property;
+	              var _ref2$transforms = _ref2.transforms;
+	              var transforms = _ref2$transforms === undefined ? [function () {
+	                return {};
+	              }] : _ref2$transforms;
+	              var _ref2$format = _ref2.format;
+	              var format = _ref2$format === undefined ? function (a) {
+	                return a;
+	              } : _ref2$format;
+	              var _ref2$resolve = _ref2.resolve;
+	              var resolve = _ref2$resolve === undefined ? function (a) {
+	                return a;
+	              } : _ref2$resolve;
+	              var _ref2$component = _ref2.component;
+	              var component = _ref2$component === undefined ? 'td' : _ref2$component;
+	              var props = _ref2.props;
 	
-	          if (!transformed) {
-	            console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
-	          }
+	              if (property && !(0, _has2.default)(r, property)) {
+	                console.warn('Table.Body - Failed to find "' + property + '" property from', r); // eslint-disable-line max-len, no-console
+	              }
 	
-	          var mergedClassName = mergeClassNames(className, transformed && transformed.className);
+	              var extraParameters = {
+	                cellData: data[i],
+	                columnIndex: j,
+	                column: column,
+	                rowIndex: i,
+	                property: property
+	              };
+	              var value = (0, _get2.default)(r, property);
+	              var resolvedValue = resolve(value, extraParameters);
+	              var transformed = evaluateTransforms(transforms, value, extraParameters);
 	
-	          return _react2.default.createElement(component, _extends({
-	            key: j + '-cell'
-	          }, props, transformed, { className: mergedClassName }), transformed.children || format(resolvedValue, extraParameters));
+	              if (!transformed) {
+	                console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
+	              }
+	
+	              var mergedClassName = mergeClassNames(className, transformed && transformed.className);
+	
+	              return _react2.default.createElement(component, _extends({
+	                key: j + '-cell'
+	              }, columnProps, props, transformed, { className: mergedClassName }), transformed.children || format(resolvedValue, extraParameters));
+	            })
+	          );
 	        })
 	      );
-	    })
-	  );
-	};
+	    }
+	  }]);
+	
+	  return Body;
+	}(_react2.default.Component);
+	
 	Body.propTypes = {
 	  row: _react2.default.PropTypes.func,
 	  className: _react2.default.PropTypes.string
@@ -365,6 +468,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	  rowKey: _react2.default.PropTypes.string.isRequired
 	};
 	Body.displayName = 'Table.Body';
+	
+	function resolveBodyColumns(columns) {
+	  var ret = [];
+	
+	  columns.forEach(function (column) {
+	    // If a column has children, skip cell specific configuration
+	    if (column.children) {
+	      ret = ret.concat(resolveBodyColumns(column.children));
+	    } else {
+	      ret.push(column);
+	    }
+	  });
+	
+	  return ret;
+	}
 	
 	function evaluateTransforms(transforms, value, extraParameters) {
 	  return transforms.reduceRight(function (a, t) {
