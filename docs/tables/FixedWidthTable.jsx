@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import { Search } from '../helpers';
 import {
@@ -14,16 +15,17 @@ function generateFixedWidthHeader(label) {
       // setTimeout is used to capture width correctly
       // More info: github.com/facebook/react-native/issues/953
       setTimeout(() => {
-        let width = this.refs.header.clientWidth;
-        this.setState({ style: { width: width } });
+        const width = this.refs.header.clientWidth;
+
+        this.setState({ style: { width } });
       });
     }
     render() {
       return (
-        <th style={this.state.style} ref='header'>{label}</th>
-      )
+        <th style={this.state.style} ref="header">{label}</th>
+      );
     }
-  }
+  };
 }
 
 export default class SearchTable extends React.Component {
