@@ -304,6 +304,8 @@ describe('Table.Header', function () {
   // TODO: merge format/transform tests somehow given they are so similar
   // TODO: test component (custom wrapper)
   // TODO: test column.props for both header and body
+  // TODO: test that cell definition can be missing
+  // TODO: test children
 });
 
 describe('Table.Body', function () {

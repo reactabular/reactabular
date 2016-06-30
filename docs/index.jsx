@@ -215,6 +215,12 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./examples/resizable-columns.md')
         },
         {
+          path: 'examples/nested-headers',
+          title: 'Nested Headers',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/nested-headers.md')
+        },
+        {
           path: 'examples/all-features',
           title: 'All Features',
           imports: documentationImports,

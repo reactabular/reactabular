@@ -119,7 +119,7 @@ const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
           resolve = a => a,
           component = 'td',
           props // eslint-disable-line no-shadow
-        } = column.cell;
+        } = column.cell || {};
         if (property && !has(r, property)) {
           console.warn(`Table.Body - Failed to find "${property}" property from`, r); // eslint-disable-line max-len, no-console
         }
