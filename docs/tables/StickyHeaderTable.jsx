@@ -1,7 +1,5 @@
-/* eslint-disable no-console, no-alert, no-shadow, no-unused-vars, react/prop-types */
+import ReactDOM from 'react-dom';
 import React from 'react';
-import find from 'lodash/find';
-import findIndex from 'lodash/findIndex';
 import range from 'lodash/range';
 import jsf from 'json-schema-faker';
 
@@ -52,6 +50,9 @@ export default class StickyHeaderTable extends React.Component {
       data,
       columns: this.getColumns()
     };
+
+    this.onHeaderScroll = this.onHeaderScroll.bind(this);
+    this.onBodyScroll = this.onBodyScroll.bind(this);
   }
   getColumns() {
     return [
@@ -115,6 +116,12 @@ export default class StickyHeaderTable extends React.Component {
             overflow: 'auto',
             maxWidth: 800
           }}
+          onScroll={this.onHeaderScroll}
+          ref={e => {
+            if (e) {
+              this.tableHeader = e;
+            }
+          }}
         />
 
         <Table.Body
@@ -127,8 +134,28 @@ export default class StickyHeaderTable extends React.Component {
           row={(row, rowIndex) => ({
             className: rowIndex % 2 ? 'odd-row' : 'even-row'
           })}
+          onScroll={this.onBodyScroll}
+          ref={e => {
+            if (e) {
+              this.tableBody = e;
+            }
+          }}
         />
       </Table>
     );
+  }
+  onHeaderScroll({ target: { scrollLeft } }) {
+    if (!this.tableBody) {
+      return;
+    }
+
+    ReactDOM.findDOMNode(this.tableBody).scrollLeft = scrollLeft;
+  }
+  onBodyScroll({ target: { scrollLeft } }) {
+    if (!this.tableHeader) {
+      return;
+    }
+
+    ReactDOM.findDOMNode(this.tableHeader).scrollLeft = scrollLeft;
   }
 }
