@@ -13,4 +13,5 @@ export { default as ToggleTable } from './ToggleTable';
 export { default as FixedWidthTable } from './FixedWidthTable';
 export { default as ResizableColumnsTable } from './ResizableColumnsTable';
 export { default as NestedHeadersTable } from './NestedHeadersTable';
+export { default as StickyHeaderTable } from './StickyHeaderTable';
 

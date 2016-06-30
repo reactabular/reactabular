@@ -221,6 +221,12 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./examples/nested-headers.md')
         },
         {
+          path: 'examples/sticky-header',
+          title: 'Sticky Header',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/sticky-header.md')
+        },
+        {
           path: 'examples/all-features',
           title: 'All Features',
           imports: documentationImports,
