@@ -129,7 +129,13 @@ function resolveHeaderRows(columns) {
       };
     }
 
-    return column;
+    return {
+      ...column,
+      props: {
+        ...column.props,
+        rowSpan: countChildrenLevels(columns)
+      }
+    };
   });
 
   if (children.length) {
@@ -145,6 +151,21 @@ function countChildren(children) {
   }
 
   return children.length;
+}
+
+function countChildrenLevels(columns) {
+  let maximumCount = 0;
+
+  columns.forEach(column => {
+    if (column.children) {
+      maximumCount = Math.max(
+        maximumCount,
+        countChildrenLevels(column.children)
+      );
+    }
+  });
+
+  return maximumCount + 1;
 }
 
 const Body = ({ row, className, ...props }, { columns, data, rowKey }) => {
