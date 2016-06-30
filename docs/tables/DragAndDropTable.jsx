@@ -9,22 +9,22 @@ import { Table } from '../../src';
 
 const data = [
   {
-    id: 100,
-    name: 'Adam',
-    age: 12,
-    color: 'red'
+    id: 1,
+    name: {
+      first: 'John',
+      last: 'Johnson'
+    },
+    company: 'John Inc.',
+    sentence: 'consequatur nihil minima corporis omnis nihil rem'
   },
   {
-    id: 101,
-    name: 'Brian',
-    age: 44,
-    color: 'green'
-  },
-  {
-    id: 102,
-    name: 'Mike',
-    age: 25,
-    color: 'blue'
+    id: 2,
+    name: {
+      first: 'Mike',
+      last: 'Mikeson'
+    },
+    company: 'Mike Inc.',
+    sentence: 'a sequi doloremque sed id quo voluptatem voluptatem ut voluptatibus'
   }
 ];
 
@@ -42,33 +42,47 @@ class DragAndDropTable extends React.Component {
               onMove: this.onMove
             })]
           },
-          cell: {
-            property: 'name'
-          }
+          children: [
+            {
+              header: {
+                label: 'First Name'
+              },
+              cell: {
+                property: 'name.first'
+              }
+            },
+            {
+              header: {
+                label: 'Last Name'
+              },
+              cell: {
+                property: 'name.last'
+              }
+            }
+          ]
         },
         {
           header: {
-            label: 'Age',
+            label: 'Company',
             component: DndHeader,
             transforms: [() => ({
               onMove: this.onMove
             })]
           },
           cell: {
-            property: 'age'
+            property: 'company'
           }
         },
         {
           header: {
-            label: 'Color',
+            label: 'Sentence',
             component: DndHeader,
             transforms: [() => ({
               onMove: this.onMove
             })]
           },
           cell: {
-            property: 'color',
-            transforms: [color => ({ style: { color } })]
+            property: 'sentence'
           }
         }
       ],
