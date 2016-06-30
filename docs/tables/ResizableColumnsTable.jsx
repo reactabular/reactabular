@@ -15,7 +15,8 @@ export default class ResizableColumnsTable extends React.Component {
             }
           },
           header: {
-            label: 'Name'
+            label: 'Name',
+            format: resizableColumn
           },
           cell: {
             property: 'name'
@@ -28,7 +29,8 @@ export default class ResizableColumnsTable extends React.Component {
             }
           },
           header: {
-            label: 'Address'
+            label: 'Address',
+            format: resizableColumn
           },
           cell: {
             property: 'address'
@@ -60,4 +62,21 @@ export default class ResizableColumnsTable extends React.Component {
       </Table>
     );
   }
+}
+
+function resizableColumn(label) {
+  return (
+    <div>
+      <span>{label}</span>
+      <span
+        className="resize-handle"
+        style={{
+          backgroundColor: '#aaa',
+          cursor: 'col-resize',
+          float: 'right',
+          width: '0.25em'
+        }}
+      >&nbsp;</span>
+    </div>
+  );
 }
