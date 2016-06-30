@@ -203,16 +203,16 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./examples/stateful-table.md')
         },
         {
-          path: 'examples/all-features',
-          title: 'All Features',
-          imports: documentationImports,
-          component: require('catalog/lib/loader!raw!./examples/all-features.md')
-        },
-        {
           path: 'examples/fixed-width-table',
           title: 'Fixed Width Table',
           imports: documentationImports,
           component: require('catalog/lib/loader!raw!./examples/fixed-width-table.md')
+        },
+        {
+          path: 'examples/all-features',
+          title: 'All Features',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./examples/all-features.md')
         }
       ]
     },
