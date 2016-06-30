@@ -15,6 +15,25 @@ const columns = [
 ];
 ```
 
+## `props`
+
+Root level `props` allows you to attach props to all header and content cells. The props injected by more specific configuration can override this .
+
+**Example:**
+
+```code
+lang: js
+---
+{
+  props: {
+    style: {
+      width: 100
+    }
+  },
+  ...
+}
+```
+
 ## `header` Fields
 
 The `header` portion supports `label`, `transform` and `format` fields.
@@ -95,6 +114,27 @@ lang: js
   header: {
     label: 'Name',
     component: DnDHeader
+  }
+}
+```
+
+**`header.props = <object>`**
+
+You can set header specific props through `props`.
+
+**Example:**
+
+```code
+lang: js
+---
+{
+  header: {
+    label: 'Name',
+    props: {
+      style: {
+        width: 100
+      }
+    }
   }
 }
 ```
@@ -184,6 +224,26 @@ lang: js
 {
   cell: {
     component: DnDCell
+  }
+}
+```
+
+**`cell.props = <object>`**
+
+You can set cell specific props through `props`.
+
+**Example:**
+
+```code
+lang: js
+---
+{
+  cell: {
+    props: {
+      style: {
+        width: 100
+      }
+    }
   }
 }
 ```
