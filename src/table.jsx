@@ -55,47 +55,51 @@ Table.childContextTypes = {
 };
 
 const Header = ({ children, className, ...props }, { columns }) => (
-  <thead {...props}>
-    <tr>
-      {columns.map((column, i) => {
-        const columnProps = column.props || {};
-        const {
-          label,
-          transforms = [() => ({})],
-          format = a => a,
-          component = 'th',
-          props // eslint-disable-line no-shadow
-        } = column.header || {};
-        const extraParameters = {
-          cellData: label,
-          columnIndex: i,
-          column
-        };
-        const key = `${i}-header`;
-        const transformed = evaluateTransforms(transforms, label, extraParameters);
+  <thead {...props}>{
+    resolveHeaderRows(columns).map((headerRow, i) => (
+      <tr key={`${i}-header-row`}>{
+        headerRow.map((column, j) => {
+          const columnProps = column.props || {};
+          const {
+            label,
+            transforms = [() => ({})],
+            format = a => a,
+            component = 'th',
+            props // eslint-disable-line no-shadow
+          } = column.header || {};
+          const extraParameters = {
+            cellData: label,
+            columnIndex: j,
+            column
+          };
+          const key = `${j}-header`;
+          const transformed = evaluateTransforms(transforms, label, extraParameters);
 
-        if (!transformed) {
-          console.warn('Table.Header - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
-        }
+          if (!transformed) {
+            console.warn('Table.Header - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
+          }
 
-        const mergedClassName = mergeClassNames(
-          className, transformed && transformed.className
-        );
+          const mergedClassName = mergeClassNames(
+            className, transformed && transformed.className
+          );
 
-        return React.createElement(
-          component,
-          {
-            key,
-            ...columnProps,
-            ...props,
-            ...transformed,
-            ...{ className: mergedClassName }
-          },
-          transformed.children || format(label, extraParameters)
-        );
-      })}
-    </tr>
-    {children}
+          return React.createElement(
+            component,
+            {
+              key,
+              ...columnProps,
+              ...props,
+              ...transformed,
+              ...{ className: mergedClassName }
+            },
+            transformed.children || format(label, extraParameters)
+          );
+        })
+      }
+      </tr>
+    )
+  )}
+  {children}
   </thead>
 );
 Header.propTypes = {
@@ -106,6 +110,42 @@ Header.contextTypes = {
   columns: React.PropTypes.array.isRequired
 };
 Header.displayName = 'Table.Header';
+
+function resolveHeaderRows(columns) {
+  let children = [];
+
+  const ret = columns.map(column => {
+    if (column.children && column.children.length) {
+      children = children.concat(
+        resolveHeaderRows(column.children)[0]
+      );
+
+      return {
+        ...column,
+        props: {
+          ...column.props,
+          colSpan: countChildren(column.children)
+        }
+      };
+    }
+
+    return column;
+  });
+
+  if (children.length) {
+    return [ret].concat([children]);
+  }
+
+  return [ret];
+}
+
+function countChildren(children) {
+  if (children.children) {
+    return children.length + countChildren(children.children);
+  }
+
+  return children.length;
+}
 
 const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
   <tbody {...props}>{
