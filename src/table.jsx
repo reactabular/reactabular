@@ -147,57 +147,61 @@ function countChildren(children) {
   return children.length;
 }
 
-const Body = ({ row, className, ...props }, { columns, data, rowKey }) => (
-  <tbody {...props}>{
-    data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
-      columns.map((column, j) => {
-        const columnProps = column.props || {};
-        const {
-          property,
-          transforms = [() => ({})],
-          format = a => a,
-          resolve = a => a,
-          component = 'td',
-          props // eslint-disable-line no-shadow
-        } = column.cell || {};
-        if (property && !has(r, property)) {
-          console.warn(`Table.Body - Failed to find "${property}" property from`, r); // eslint-disable-line max-len, no-console
-        }
+const Body = ({ row, className, ...props }, { columns, data, rowKey }) => {
+  const dataColumns = resolveBodyColumns(columns);
 
-        const extraParameters = {
-          cellData: data[i],
-          columnIndex: j,
-          column,
-          rowIndex: i,
-          property
-        };
-        const value = get(r, property);
-        const resolvedValue = resolve(value, extraParameters);
-        const transformed = evaluateTransforms(transforms, value, extraParameters);
+  return (
+    <tbody {...props}>{
+      data.map((r, i) => <tr key={`${r[rowKey] || i}-row`} {...row(r, i)}>{
+        dataColumns.map((column, j) => {
+          const columnProps = column.props || {};
+          const {
+            property,
+            transforms = [() => ({})],
+            format = a => a,
+            resolve = a => a,
+            component = 'td',
+            props // eslint-disable-line no-shadow
+          } = column.cell || {};
+          if (property && !has(r, property)) {
+            console.warn(`Table.Body - Failed to find "${property}" property from`, r); // eslint-disable-line max-len, no-console
+          }
 
-        if (!transformed) {
-          console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
-        }
+          const extraParameters = {
+            cellData: data[i],
+            columnIndex: j,
+            column,
+            rowIndex: i,
+            property
+          };
+          const value = get(r, property);
+          const resolvedValue = resolve(value, extraParameters);
+          const transformed = evaluateTransforms(transforms, value, extraParameters);
 
-        const mergedClassName = mergeClassNames(
-          className, transformed && transformed.className
-        );
+          if (!transformed) {
+            console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
+          }
 
-        return React.createElement(
-          component,
-          {
-            key: `${j}-cell`,
-            ...columnProps,
-            ...props,
-            ...transformed,
-            ...{ className: mergedClassName }
-          },
-          transformed.children || format(resolvedValue, extraParameters)
-        );
-      })
-    }</tr>)
-  }</tbody>
-);
+          const mergedClassName = mergeClassNames(
+            className, transformed && transformed.className
+          );
+
+          return React.createElement(
+            component,
+            {
+              key: `${j}-cell`,
+              ...columnProps,
+              ...props,
+              ...transformed,
+              ...{ className: mergedClassName }
+            },
+            transformed.children || format(resolvedValue, extraParameters)
+          );
+        })
+      }</tr>)
+    }</tbody>
+  );
+};
 Body.propTypes = {
   row: React.PropTypes.func,
   className: React.PropTypes.string
@@ -211,6 +215,21 @@ Body.contextTypes = {
   rowKey: React.PropTypes.string.isRequired
 };
 Body.displayName = 'Table.Body';
+
+function resolveBodyColumns(columns) {
+  let ret = [];
+
+  columns.forEach(column => {
+    // If a column has children, skip cell specific configuration
+    if (column.children) {
+      ret = ret.concat(resolveBodyColumns(column.children));
+    } else {
+      ret.push(column);
+    }
+  });
+
+  return ret;
+}
 
 function evaluateTransforms(transforms, value, extraParameters) {
   return transforms.reduceRight(
