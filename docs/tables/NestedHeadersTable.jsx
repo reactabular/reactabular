@@ -5,6 +5,14 @@ import { Table } from '../../src';
 const columns = [
   {
     header: {
+      label: 'Color'
+    },
+    cell: {
+      property: 'color'
+    }
+  },
+  {
+    header: {
       label: 'Name'
     },
     children: [
@@ -54,6 +62,7 @@ const columns = [
 const data = [
   {
     id: 1,
+    color: 'red',
     name: {
       first: 'John',
       last: 'Johnson'
@@ -63,6 +72,7 @@ const data = [
   },
   {
     id: 2,
+    color: 'blue',
     name: {
       first: 'Mike',
       last: 'Mikeson'
