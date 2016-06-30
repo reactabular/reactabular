@@ -5,33 +5,34 @@ import {
   Table, search
 } from '../../src';
 
-function generateFixedWidthHeader(label) {
-  return class FixedWidthHeader extends React.Component {
-    constructor(props) {
-      super(props);
+class FixedWidthHeader extends React.Component {
+  constructor(props) {
+    super(props);
 
-      this.state = {
-        style: {}
-      };
-    }
-    componentDidMount() {
-      // setTimeout is used to capture width correctly
-      // More info: github.com/facebook/react-native/issues/953
-      setTimeout(() => {
-        const width = this.refs.header.clientWidth;
+    this.state = {
+      style: {}
+    };
+  }
+  componentDidMount() {
+    // setTimeout is used to capture width correctly
+    // More info: github.com/facebook/react-native/issues/953
+    setTimeout(() => {
+      const width = this.refs.header.clientWidth;
 
-        this.setState({
-          style: { width }
-        });
+      this.setState({
+        style: { width }
       });
-    }
-    render() {
-      return (
-        <th style={this.state.style} ref="header">{label}</th>
-      );
-    }
-  };
+    });
+  }
+  render() {
+    return (
+      <th style={this.state.style} ref="header">{this.props.children}</th>
+    );
+  }
 }
+FixedWidthHeader.propTypes = {
+  children: React.PropTypes.any
+};
 
 export default class SearchTable extends React.Component {
   constructor(props) {
@@ -42,7 +43,8 @@ export default class SearchTable extends React.Component {
       columns: [
         {
           header: {
-            component: generateFixedWidthHeader('Name')
+            label: 'Name',
+            component: FixedWidthHeader
           },
           cell: {
             property: 'name'
@@ -50,7 +52,8 @@ export default class SearchTable extends React.Component {
         },
         {
           header: {
-            component: generateFixedWidthHeader('Address')
+            label: 'Address',
+            component: FixedWidthHeader
           },
           cell: {
             property: 'address'
