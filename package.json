@@ -28,6 +28,12 @@
     "table",
     "tables"
   ],
+  "files": [
+    "dist",
+    "dist-modules",
+    "src",
+    "style.css"
+  ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
   "main": "dist-modules",
