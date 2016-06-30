@@ -57,7 +57,7 @@ export default class StickyHeaderTable extends React.Component {
     return [
       {
         props: {
-          style: { width: 300 }
+          style: { minWidth: 300, width: 300 }
         },
         header: {
           label: 'Name'
@@ -68,7 +68,7 @@ export default class StickyHeaderTable extends React.Component {
       },
       {
         props: {
-          style: { width: 300 }
+          style: { minWidth: 100, width: 100 }
         },
         header: {
           label: 'Age'
@@ -79,7 +79,7 @@ export default class StickyHeaderTable extends React.Component {
       },
       {
         props: {
-          style: { width: 300 }
+          style: { minWidth: 400, width: 400 }
         },
         header: {
           label: 'Company'
@@ -90,7 +90,7 @@ export default class StickyHeaderTable extends React.Component {
       },
       {
         props: {
-          style: { width: 300 }
+          style: { minWidth: 400, width: 400 }
         },
         header: {
           label: 'Product'
@@ -109,13 +109,20 @@ export default class StickyHeaderTable extends React.Component {
         data={this.state.data}
         rowKey="id"
       >
-        <Table.Header style={{ display: 'block' }} />
+        <Table.Header
+          style={{
+            display: 'block',
+            overflow: 'auto',
+            maxWidth: 800
+          }}
+        />
 
         <Table.Body
           style={{
             display: 'block',
             overflow: 'auto',
-            maxHeight: '400px'
+            maxHeight: 400,
+            maxWidth: 800
           }}
           row={(row, rowIndex) => ({
             className: rowIndex % 2 ? 'odd-row' : 'even-row'
