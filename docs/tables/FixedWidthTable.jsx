@@ -7,9 +7,12 @@ import {
 
 function generateFixedWidthHeader(label) {
   return class FixedWidthHeader extends React.Component {
-    constructor() {
-      super();
-      this.state = { style: {} };
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        style: {}
+      };
     }
     componentDidMount() {
       // setTimeout is used to capture width correctly
@@ -17,7 +20,9 @@ function generateFixedWidthHeader(label) {
       setTimeout(() => {
         const width = this.refs.header.clientWidth;
 
-        this.setState({ style: { width } });
+        this.setState({
+          style: { width }
+        });
       });
     }
     render() {
