@@ -1,4 +1,4 @@
-/* eslint-disable new-cap */
+/* eslint-disable new-cap, no-shadow */
 import React from 'react';
 import { compose } from 'redux';
 import update from 'react-addons-update';
@@ -6,6 +6,27 @@ import { DragDropContext, DragSource, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import findIndex from 'lodash/findIndex';
 import { Table } from '../../src';
+
+const data = [
+  {
+    id: 100,
+    name: 'Adam',
+    age: 12,
+    color: 'red'
+  },
+  {
+    id: 101,
+    name: 'Brian',
+    age: 44,
+    color: 'green'
+  },
+  {
+    id: 102,
+    name: 'Mike',
+    age: 25,
+    color: 'blue'
+  }
+];
 
 class DragAndDropTable extends React.Component {
   constructor(props) {
@@ -51,26 +72,7 @@ class DragAndDropTable extends React.Component {
           }
         }
       ],
-      data: [
-        {
-          id: 100,
-          name: 'Adam',
-          age: 12,
-          color: 'red'
-        },
-        {
-          id: 101,
-          name: 'Brian',
-          age: 44,
-          color: 'green'
-        },
-        {
-          id: 102,
-          name: 'Mike',
-          age: 25,
-          color: 'blue'
-        }
-      ]
+      data
     };
 
     this.onMove = this.onMove.bind(this);
