@@ -1,13 +1,9 @@
-/* eslint-disable no-console, no-alert, no-shadow, no-unused-vars, react/prop-types */
+/* eslint-disable no-console, no-shadow, no-unused-vars, react/prop-types */
 import React from 'react';
-import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
-import range from 'lodash/range';
-import jsf from 'json-schema-faker';
 
-import {
-  Table
-} from '../../src';
+import { generateData } from '../helpers';
+import { Table } from '../../src';
 
 const schema = {
   type: 'object',
@@ -34,7 +30,7 @@ const schema = {
     }
   }
 };
-const data = generateParents(range(100).map(() => jsf(schema)));
+const data = generateParents(generateData(100, schema));
 
 class TreeTable extends React.Component {
   constructor(props) {

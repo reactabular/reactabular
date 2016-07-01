@@ -2,11 +2,9 @@
 import React from 'react';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
-import range from 'lodash/range';
 import keys from 'lodash/keys';
 import values from 'lodash/values';
 import transform from 'lodash/transform';
-import jsf from 'json-schema-faker';
 
 import {
   Table, search, editors, sort, transforms, formatters
@@ -14,7 +12,7 @@ import {
 
 import {
   CustomFooter, ColumnFilters, rowEditor,
-  Paginator, PrimaryControls
+  Paginator, PrimaryControls, generateData
 } from '../helpers';
 import countries from '../data/countries';
 
@@ -71,7 +69,7 @@ const schema = {
   }
 };
 // Attach active flags as faker won't initialize those by default
-const data = range(100).map(() => jsf(schema)).map(o => ({ active: false, ...o }));
+const data = generateData(100, schema).map(o => ({ active: false, ...o }));
 
 class FullTable extends React.Component {
   constructor(props) {

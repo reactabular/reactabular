@@ -1,8 +1,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import range from 'lodash/range';
-import jsf from 'json-schema-faker';
 
+import { generateData } from '../helpers';
 import {
   Table
 } from '../../src';
@@ -40,7 +39,7 @@ const schema = {
     }
   }
 };
-const data = range(100).map(() => jsf(schema));
+const data = generateData(100, schema);
 
 export default class StickyHeaderTable extends React.Component {
   constructor(props) {
