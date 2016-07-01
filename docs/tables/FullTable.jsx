@@ -11,8 +11,7 @@ import {
 } from '../../src';
 
 import {
-  CustomFooter, ColumnFilters, rowEditor,
-  Paginator, PrimaryControls, generateData
+  CustomFooter, ColumnFilters, Paginator, PrimaryControls, generateData
 } from '../helpers';
 import countries from '../data/countries';
 
@@ -43,8 +42,7 @@ const schema = {
       type: 'boolean'
     }
   },
-  // Setting `active` required breaks react-jsonschema-form
-  required: ['id', 'name', 'position', 'salary', 'boss', 'country'],
+  required: ['id', 'name', 'position', 'salary', 'boss', 'country', 'active'],
   definitions: {
     boss: {
       type: 'object',
@@ -79,8 +77,6 @@ class FullTable extends React.Component {
     this.onSearch = this.onSearch.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onPerPage = this.onPerPage.bind(this);
-    this.onConfirmEdit = this.onConfirmEdit.bind(this);
-    this.onRemove = this.onRemove.bind(this);
   }
   getColumns() {
     const highlight = column => formatters.highlight(value => (
@@ -199,24 +195,6 @@ class FullTable extends React.Component {
           transforms: [editable(editors.boolean())],
           format: active => active && <span>&#10003;</span>
         }
-      },
-      {
-        cell: {
-          // XXX: warning.js?8a56:44 Warning:
-          // Failed propType: Invalid prop `id` of type `object` supplied
-          // to `Wrapper`, expected `string`. Check the render method
-          // of `SchemaField`.
-          transforms: [
-            rowEditor({
-              schema,
-              uiSchema: {
-                id: { 'ui:widget': 'hidden' }
-              },
-              onConfirm: (id, data) => this.onConfirmEdit(id, data),
-              onRemove: id => this.onRemove(id)
-            })
-          ]
-        }
       }
     ];
   }
@@ -297,25 +275,6 @@ class FullTable extends React.Component {
         ...this.state.pagination,
         perPage: parseInt(value, 10)
       }
-    });
-  }
-  onConfirmEdit(id, data) {
-    const idx = findIndex(this.state.data, { id });
-
-    this.state.data[idx] = data;
-
-    this.setState({
-      data: this.state.data
-    });
-  }
-  onRemove(id) {
-    const idx = findIndex(this.state.data, { id });
-
-    // this could go through flux etc.
-    this.state.data.splice(idx, 1);
-
-    this.setState({
-      data: this.state.data
     });
   }
 }
