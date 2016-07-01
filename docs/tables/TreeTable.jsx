@@ -9,26 +9,16 @@ const schema = {
   type: 'object',
   properties: {
     id: {
-      type: 'string',
-      faker: 'random.uuid'
+      type: 'string'
     },
     name: {
-      type: 'string',
-      faker: 'name.findName'
+      type: 'string'
     },
     age: {
-      $ref: '#/definitions/age'
+      type: 'integer'
     }
   },
-  required: ['id', 'name', 'age'],
-  definitions: {
-    age: {
-      type: 'integer',
-      minimum: 0,
-      maximum: 100,
-      exclusiveMinimum: true
-    }
-  }
+  required: ['id', 'name', 'age']
 };
 const data = generateParents(generateData(100, schema));
 

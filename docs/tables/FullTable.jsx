@@ -20,19 +20,16 @@ const schema = {
   type: 'object',
   properties: {
     id: {
-      type: 'string',
-      faker: 'random.uuid'
+      type: 'string'
     },
     name: {
-      type: 'string',
-      faker: 'name.findName'
+      type: 'string'
     },
     position: {
-      type: 'string',
-      faker: 'name.jobType'
+      type: 'string'
     },
     salary: {
-      $ref: '#/definitions/salary'
+      type: 'integer'
     },
     boss: {
       $ref: '#/definitions/boss'
@@ -43,8 +40,7 @@ const schema = {
       enumNames: values(countries)
     },
     active: {
-      type: 'boolean',
-      faker: 'random.boolean'
+      type: 'boolean'
     }
   },
   // Setting `active` required breaks react-jsonschema-form
@@ -54,22 +50,14 @@ const schema = {
       type: 'object',
       properties: {
         name: {
-          type: 'string',
-          faker: 'name.findName'
+          type: 'string'
         }
       },
       required: ['name']
-    },
-    salary: {
-      type: 'integer',
-      minimum: 0,
-      maximum: 10000,
-      exclusiveMinimum: true
     }
   }
 };
-// Attach active flags as faker won't initialize those by default
-const data = generateData(100, schema).map(o => ({ active: false, ...o }));
+const data = generateData(30, schema);
 
 class FullTable extends React.Component {
   constructor(props) {

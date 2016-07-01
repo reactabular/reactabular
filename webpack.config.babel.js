@@ -109,8 +109,9 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
       vendor: Object.keys(catalogPkg.dependencies).concat(
         Object.keys(reactJsonSchemaFormPkg.dependencies)
       ).concat([
-        'json-schema-faker', 'lodash', 'react', 'react-dom', 'react-jsonschema-form',
-        'react-dnd', 'react-dnd-html5-backend', 'react-ghfork', 'redux', 'uuid'
+        'schema2object', 'lodash', 'react', 'react-dom', 'react-jsonschema-form',
+        'react-dnd', 'react-dnd-html5-backend', 'react-ghfork', 'redux', 'uuid',
+        'annogenerate'
       ])
     },
     output: {
