@@ -123,6 +123,9 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
       new CopyWebpackPlugin([{
         from: './images',
         to: './images'
+      }, {
+        from: './CNAME',
+        to: './'
       }]),
       new webpack.DefinePlugin({
         'process.env': {
