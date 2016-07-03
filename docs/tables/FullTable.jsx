@@ -77,6 +77,7 @@ class FullTable extends React.Component {
     this.onSearch = this.onSearch.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onPerPage = this.onPerPage.bind(this);
+    this.onRemove = this.onRemove.bind(this);
   }
   getColumns() {
     const highlight = column => formatters.highlight(value => (
@@ -195,6 +196,18 @@ class FullTable extends React.Component {
           transforms: [editable(editors.boolean())],
           format: active => active && <span>&#10003;</span>
         }
+      },
+      {
+        cell: {
+          format: (value, { cellData }) => (
+            <span
+              className="remove"
+              onClick={() => this.onRemove(cellData.id)} style={{ cursor: 'pointer' }}
+            >
+              &#10007;
+            </span>
+          )
+        }
       }
     ];
   }
@@ -275,6 +288,16 @@ class FullTable extends React.Component {
         ...this.state.pagination,
         perPage: parseInt(value, 10)
       }
+    });
+  }
+  onRemove(id) {
+    const idx = findIndex(this.state.data, { id });
+
+    // this could go through flux etc.
+    this.state.data.splice(idx, 1);
+
+    this.setState({
+      data: this.state.data
     });
   }
 }

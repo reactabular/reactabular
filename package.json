@@ -96,7 +96,6 @@
     "react-ghfork": "^0.3.3",
     "react-lite": "^0.15.14",
     "react-pagify": "^2.0.4",
-    "react-skylight": "^0.4.0",
     "redux": "^3.5.2",
     "schema2object": "^0.4.0",
     "segmentize": "^0.4.1",

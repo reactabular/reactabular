@@ -33,7 +33,7 @@ class ColumnFilters extends React.Component {
       <tr>
         {columns.map((column, i) => (
           <td key={`${i}-column-filter`} className="column-filter">
-            {column.cell.property ?
+            {column.cell && column.cell.property ?
               <input
                 onChange={this.onQueryChange}
                 className="column-filter-input"

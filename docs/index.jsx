@@ -10,7 +10,6 @@ import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import * as customTables from './tables';
 import './main.css';
-import './skylight.css';
 import '../style.css';
 
 const documentationImports = {
