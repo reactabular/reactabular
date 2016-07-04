@@ -103,4 +103,19 @@ describe('Table.Provider', function () {
 
     expect(div).to.exist;
   });
+
+  it('supports custom props', function () {
+    const customClass = 'demo';
+
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={[]} data={[]} className={customClass}>
+        <Table.Body />
+      </Table.Provider>
+    );
+    const renderedTable = TestUtils.findRenderedDOMComponentWithClass(
+      table, customClass
+    );
+
+    expect(renderedTable).to.exist;
+  });
 });
