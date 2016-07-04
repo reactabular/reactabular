@@ -42,7 +42,7 @@
   "bugs": {
     "url": "https://github.com/bebraw/reactabular/issues"
   },
-  "homepage": "https://bebraw.github.io/reactabular/",
+  "homepage": "http://reactabular.js.org/",
   "dependencies": {},
   "devDependencies": {
     "annogenerate": "^0.8.1",
