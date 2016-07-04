@@ -86,7 +86,7 @@ export default class ResizableColumnsTable extends React.Component {
     const { data, columns } = this.state;
 
     return (
-      <Table
+      <Table.Provider
         columns={columns}
         data={data}
         rowKey="id"
@@ -95,7 +95,7 @@ export default class ResizableColumnsTable extends React.Component {
         <Table.Header />
 
         <Table.Body />
-      </Table>
+      </Table.Provider>
     );
   }
 }

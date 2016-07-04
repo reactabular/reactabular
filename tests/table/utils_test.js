@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import {
   resolveHeaderRows, countRowSpan,
   resolveBodyColumns, evaluateTransforms, mergeClassNames
-} from '../src/utils';
+} from '../../src/table/utils';
 
 describe('resolveHeaderRows', function () {
   it('returns columns wrapped in an array', function () {

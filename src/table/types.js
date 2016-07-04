@@ -24,7 +24,8 @@ const arrayOfObjectColumns = React.PropTypes.arrayOf(
 );
 const arrayOfArrayColumns = React.PropTypes.arrayOf(React.PropTypes.array);
 const rowKeyType = (props, propName, componentName) => {
-  if (!arrayOfObjectColumns(props, 'data', componentName)) {
+  if (props.data && props.data.length &&
+    !arrayOfObjectColumns(props, 'data', componentName)) {
     return React.PropTypes.string.isRequired(props, propName, componentName);
   }
 

@@ -1,7 +1,7 @@
-`Table.Header` renders a table header within a `Table` context.
+`Table.Header` renders a table header within a `Table.Provider` context.
 
 ```react
-<Table
+<Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
   data={data}
@@ -12,7 +12,7 @@
   <Table.Body />
 
   <Table.Header />
-</Table>
+</Table.Provider>
 ```
 
 ## Customizing `Table.Header`
@@ -22,7 +22,7 @@ It is possible to customize a header by passing child components to it. This way
 Here `ColumnFilters` injects an additional row for the filter controls. An alternative way to handle it would be to push the problem to the column definition.
 
 ```react
-<Table
+<Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
   data={data}
@@ -36,5 +36,5 @@ Here `ColumnFilters` injects an additional row for the filter controls. An alter
   </Table.Header>
 
   <Table.Body />
-</Table>
+</Table.Provider>
 ```

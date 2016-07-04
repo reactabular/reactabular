@@ -76,7 +76,7 @@ const columns = [
   },
 ];
 
-<Table
+<Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
   data={data}
@@ -85,7 +85,7 @@ const columns = [
   <Table.Header />
 
   <Table.Body />
-</Table>
+</Table.Provider>
 ```
 
 ## Sponsors

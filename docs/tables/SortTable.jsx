@@ -64,11 +64,11 @@ export default class SortTable extends React.Component {
 
     return (
       <div>
-        <Table columns={columns} data={sortedData} rowKey="id">
+        <Table.Provider columns={columns} data={sortedData} rowKey="id">
           <Table.Header />
 
           <Table.Body />
-        </Table>
+        </Table.Provider>
       </div>
     );
   }

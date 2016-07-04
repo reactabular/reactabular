@@ -78,7 +78,7 @@ class TreeTable extends React.Component {
   }
   render() {
     return (
-      <Table
+      <Table.Provider
         className="pure-table pure-table-striped"
         columns={this.state.columns}
         data={filterTree(this.state.data)}
@@ -91,7 +91,7 @@ class TreeTable extends React.Component {
             className: rowIndex % 2 ? 'odd-row' : 'even-row'
           })}
         />
-      </Table>
+      </Table.Provider>
     );
   }
 }

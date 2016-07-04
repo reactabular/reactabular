@@ -75,7 +75,7 @@ class SelectionTable extends React.Component {
 
     return (
       <div>
-        <Table
+        <Table.Provider
           className="pure-table pure-table-striped"
           columns={columns}
           data={data}
@@ -92,7 +92,7 @@ class SelectionTable extends React.Component {
               onClick: () => this.onRowSelected(row)
             })}
           />
-        </Table>
+        </Table.Provider>
 
         <div className="details-container">
           <h2>Details</h2>

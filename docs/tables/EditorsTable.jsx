@@ -94,7 +94,7 @@ const columns = [
 ];
 
 const EditorsTable = () => (
-  <Table
+  <Table.Provider
     className="pure-table pure-table-striped"
     columns={columns}
     data={data}
@@ -103,7 +103,7 @@ const EditorsTable = () => (
     <Table.Header />
 
     <Table.Body />
-  </Table>
+  </Table.Provider>
 );
 
 export default EditorsTable;

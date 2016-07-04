@@ -67,11 +67,11 @@ export default class SearchTable extends React.Component {
             onChange={query => this.setState({ query })}
           />
         </div>
-        <Table columns={columns} data={searchedData} rowKey="id">
+        <Table.Provider columns={columns} data={searchedData} rowKey="id">
           <Table.Header />
 
           <Table.Body />
-        </Table>
+        </Table.Provider>
       </div>
     );
   }

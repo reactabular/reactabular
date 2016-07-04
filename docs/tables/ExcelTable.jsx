@@ -96,11 +96,11 @@ export default class ExcelTable extends React.Component {
     const { columns, data } = this.state;
 
     return (
-      <Table columns={columns} data={data} rowKey="id">
+      <Table.Provider columns={columns} data={data} rowKey="id">
         <Table.Header />
 
         <Table.Body />
-      </Table>
+      </Table.Provider>
     );
   }
 }

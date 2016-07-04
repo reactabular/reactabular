@@ -87,7 +87,7 @@ export default class ToggleTable extends React.Component {
           ))}
         </div>
 
-        <Table
+        <Table.Provider
           columns={columns.filter(column => column.visible)}
           data={data}
           rowKey="id"
@@ -95,7 +95,7 @@ export default class ToggleTable extends React.Component {
           <Table.Header />
 
           <Table.Body />
-        </Table>
+        </Table.Provider>
       </div>
     );
   }

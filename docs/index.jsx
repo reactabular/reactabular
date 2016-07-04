@@ -47,6 +47,12 @@ Catalog.render({
           component: require('catalog/lib/loader!raw!./table/column-definition.md')
         },
         {
+          path: 'table/provider',
+          title: 'Table.Provider',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./table/provider.md')
+        },
+        {
           path: 'table/header',
           title: 'Table.Header',
           imports: documentationImports,
@@ -57,6 +63,12 @@ Catalog.render({
           title: 'Table.Body',
           imports: documentationImports,
           component: require('catalog/lib/loader!raw!./table/body.md')
+        },
+        {
+          path: 'table/styling',
+          title: 'Styling',
+          imports: documentationImports,
+          component: require('catalog/lib/loader!raw!./table/styling.md')
         }
       ]
     },

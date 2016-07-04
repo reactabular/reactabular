@@ -91,7 +91,7 @@ export default class StickyHeaderTable extends React.Component {
   }
   render() {
     return (
-      <Table
+      <Table.Provider
         className="pure-table pure-table-striped"
         columns={this.state.columns}
         data={this.state.data}
@@ -128,7 +128,7 @@ export default class StickyHeaderTable extends React.Component {
             }
           }}
         />
-      </Table>
+      </Table.Provider>
     );
   }
   onHeaderScroll({ target: { scrollLeft } }) {

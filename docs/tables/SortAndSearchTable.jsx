@@ -113,11 +113,11 @@ export default class SortAndSearchTable extends React.Component {
             onChange={query => this.setState({ query })}
           />
         </div>
-        <Table columns={columns} data={sortedData} rowKey="id">
+        <Table.Provider columns={columns} data={sortedData} rowKey="id">
           <Table.Header />
 
           <Table.Body />
-        </Table>
+        </Table.Provider>
       </div>
     );
   }
