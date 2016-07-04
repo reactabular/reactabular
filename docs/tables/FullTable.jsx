@@ -141,7 +141,9 @@ class FullTable extends React.Component {
           format: sortableHeader(sortable('position'))
         },
         cell: {
-          property: 'position'
+          property: 'position',
+          transforms: [editable(editors.input())],
+          format: highlight('position')
         }
       },
       {
@@ -151,6 +153,7 @@ class FullTable extends React.Component {
         },
         cell: {
           property: 'boss.name',
+          transforms: [editable(editors.input())],
           format: highlight('boss.name')
         }
       },
