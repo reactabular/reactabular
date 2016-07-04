@@ -27,6 +27,29 @@ describe('Table.Header', function () {
     expect(th).to.exist;
   });
 
+  it('renders children', function () {
+    const testClass = 'test-header';
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={[]}>
+        <Table.Header>
+          <span className={testClass}>demo</span>
+        </Table.Header>
+      </Table.Provider>
+    );
+    const testElement = TestUtils.findRenderedDOMComponentWithClass(
+      table, testClass
+    );
+
+    expect(testElement).to.exist;
+  });
+
   it('renders based on `header` fields', function () {
     const columns = [
       {
@@ -223,5 +246,4 @@ describe('Table.Header', function () {
   // TODO: test component (custom wrapper)
   // TODO: test column.props for both header and body
   // TODO: test that cell definition can be missing
-  // TODO: test children
 });
