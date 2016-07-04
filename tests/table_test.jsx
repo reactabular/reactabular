@@ -72,9 +72,8 @@ describe('Table', function () {
       ['123', '234'],
       ['11', '1']
     ];
-    // TODO: drop rowKey once table propType check has been fixed
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={data} rowKey="id">
+      <Table columns={columns} data={data}>
         <Table.Body />
       </Table>
     );

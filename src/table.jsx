@@ -2,6 +2,7 @@ import get from 'lodash/get';
 import has from 'lodash/has';
 import merge from 'lodash/merge';
 import React from 'react';
+import tableTypes from './types';
 
 class Table extends React.Component {
   getChildContext() {
@@ -20,39 +21,10 @@ class Table extends React.Component {
   }
 }
 Table.propTypes = {
-  columns: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      header: React.PropTypes.shape({
-        label: React.PropTypes.string,
-        transforms: React.PropTypes.arrayOf(React.PropTypes.func),
-        format: React.PropTypes.func,
-        component: React.PropTypes.any, // XXX: too loose? createElement first param
-        props: React.PropTypes.object
-      }),
-      cell: React.PropTypes.shape({
-        property: React.PropTypes.oneOfType([
-          React.PropTypes.number,
-          React.PropTypes.string
-        ]),
-        transforms: React.PropTypes.arrayOf(React.PropTypes.func),
-        format: React.PropTypes.func,
-        resolve: React.PropTypes.func,
-        component: React.PropTypes.any, // XXX: too loose? createElement first param
-        props: React.PropTypes.object
-      })
-    })
-  ).isRequired,
-  data: React.PropTypes.array.isRequired,
-  // TODO: if data is an array of arrays instead of an array of objects,
-  // then rowKey isn't required
-  rowKey: React.PropTypes.string.isRequired,
+  ...tableTypes,
   children: React.PropTypes.any
 };
-Table.childContextTypes = {
-  columns: React.PropTypes.array,
-  data: React.PropTypes.array,
-  rowKey: React.PropTypes.string.isRequired
-};
+Table.childContextTypes = tableTypes;
 
 // This has to be a React component instead of a function.
 // Otherwise refs won't work.
@@ -112,11 +84,11 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
   }
 }
 Header.propTypes = {
-  children: React.PropTypes.any,
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  children: React.PropTypes.any
 };
 Header.contextTypes = {
-  columns: React.PropTypes.array.isRequired
+  columns: tableTypes.columns
 };
 Header.displayName = 'Table.Header';
 
@@ -245,11 +217,7 @@ Body.propTypes = {
 Body.defaultProps = {
   row: () => {}
 };
-Body.contextTypes = {
-  columns: React.PropTypes.array.isRequired,
-  data: React.PropTypes.array.isRequired,
-  rowKey: React.PropTypes.string.isRequired
-};
+Body.contextTypes = tableTypes;
 Body.displayName = 'Table.Body';
 
 function resolveBodyColumns(columns) {
