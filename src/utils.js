@@ -1,55 +1,57 @@
 import merge from 'lodash/merge';
 
 function resolveHeaderRows(columns) {
-  let children = [];
+  let resolvedChildren = [];
 
   const ret = columns.map(column => {
-    if (column.children && column.children.length) {
-      children = children.concat(
-        resolveHeaderRows(column.children)[0]
+    const { children, ...col } = column;
+
+    if (children && children.length) {
+      resolvedChildren = resolvedChildren.concat(
+        resolveHeaderRows(children)[0]
       );
 
       return {
-        ...column,
+        ...col,
         props: {
-          ...column.props,
-          colSpan: countChildren(column.children)
+          ...col.props,
+          colSpan: countColSpan(children)
         }
       };
     }
 
     return {
-      ...column,
+      ...col,
       props: {
-        ...column.props,
-        rowSpan: countChildrenLevels(columns)
+        ...col.props,
+        rowSpan: countRowSpan(columns)
       }
     };
   });
 
-  if (children.length) {
-    return [ret].concat([children]);
+  if (resolvedChildren.length) {
+    return [ret].concat([resolvedChildren]);
   }
 
   return [ret];
 }
 
-function countChildren(children) {
+function countColSpan(children) {
   if (children.children) {
-    return children.length + countChildren(children.children);
+    return children.length + countColSpan(children.children);
   }
 
   return children.length;
 }
 
-function countChildrenLevels(columns) {
+function countRowSpan(columns) {
   let maximumCount = 0;
 
   columns.forEach(column => {
     if (column.children) {
       maximumCount = Math.max(
         maximumCount,
-        countChildrenLevels(column.children)
+        countRowSpan(column.children)
       );
     }
   });
@@ -72,14 +74,17 @@ function resolveBodyColumns(columns) {
   return ret;
 }
 
-function evaluateTransforms(transforms, value, extraParameters) {
+function evaluateTransforms(transforms, value, extraParameters = {}) {
   return transforms.reduceRight(
     (a, t) => {
       const result = t(value, extraParameters);
+      const className = mergeClassNames(a.className, result.className);
 
-      return merge({}, a, result, {
-        className: mergeClassNames(a.className, result.className)
-      });
+      if (className) {
+        return merge({}, a, result, { className });
+      }
+
+      return merge({}, a, result);
     },
     {}
   );
@@ -96,8 +101,8 @@ function mergeClassNames(a, b) {
 
 export {
   resolveHeaderRows,
-  countChildren,
-  countChildrenLevels,
+  countColSpan,
+  countRowSpan,
   resolveBodyColumns,
   evaluateTransforms,
   mergeClassNames
