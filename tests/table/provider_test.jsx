@@ -83,4 +83,24 @@ describe('Table.Provider', function () {
 
     expect(tds.length).to.equal(4);
   });
+
+  it('allows table component to be overridden', function () {
+    const wrapperClass = 'wrapper';
+    const wrapper = ({ children }) => (
+      <div className={wrapperClass}>
+        {children}
+      </div>
+    );
+
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider component={wrapper} columns={[]} data={[]}>
+        <Table.Body />
+      </Table.Provider>
+    );
+    const div = TestUtils.findRenderedDOMComponentWithClass(
+      table, wrapperClass
+    );
+
+    expect(div).to.exist;
+  });
 });

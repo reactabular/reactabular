@@ -56,3 +56,17 @@ const columns = [
   <Table.Body />
 </Table.Provider>
 ```
+
+## Overriding Default `table`
+
+If you want to override the default `table` element for some reason, pass a React element through the `component` prop. It should render `children` like this:
+
+```code
+lang: jsx
+---
+const wrapper = ({ children }) => (
+  <div className="table">
+    {children}
+  </div>
+);
+```

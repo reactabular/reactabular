@@ -9,14 +9,19 @@ export default class Provider extends React.Component {
   }
   render() {
     const {
-      columns, data, children, ...props // eslint-disable-line no-unused-vars
+      columns,
+      component = 'table',
+      data,
+      children,
+      ...props // eslint-disable-line no-unused-vars
     } = this.props;
 
-    return <table {...props}>{children}</table>;
+    return React.createElement(component, props, children);
   }
 }
 Provider.propTypes = {
   ...tableTypes,
+  component: React.PropTypes.any,
   children: React.PropTypes.any
 };
 Provider.childContextTypes = tableTypes;
