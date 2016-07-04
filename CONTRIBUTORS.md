@@ -19,6 +19,7 @@
 * [Mark Stacey](https://github.com/Gudahtt) - Fixed `postinstall` script for Node 0.10.
 * [Sebastian Kosch](https://github.com/skosch) - Fixed `resolve` call at Search.
 * [Isaac Hinman](https://github.com/isaachinman) - Added `FixedWidthTable` demo.
+* [Julen Ruiz Aizpuru](https://github.com/julen) - Fixed a typo at documentation.
 
 ## Acknowledgments
 
