@@ -49,6 +49,61 @@ describe('Table.Body', function () {
     expect(trs.length).to.equal(data.length);
   });
 
+  it('resolves data', function () {
+    const lastName = 'foobar';
+    const columns = [
+      {
+        header: {
+          label: 'Last name'
+        },
+        cell: {
+          property: 'name',
+          resolve: name => name.last
+        }
+      }
+    ];
+    const data = [
+      { name: { last: lastName } }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={data} rowKey="id">
+        <Table.Body />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithTag(
+      table, 'td'
+    );
+
+    expect(td.innerHTML).to.equal(lastName);
+  });
+
+  it('works with dot notation', function () {
+    const lastName = 'foobar';
+    const columns = [
+      {
+        header: {
+          label: 'Last name'
+        },
+        cell: {
+          property: 'name.last'
+        }
+      }
+    ];
+    const data = [
+      { name: { last: lastName } }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={data} rowKey="id">
+        <Table.Body />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithTag(
+      table, 'td'
+    );
+
+    expect(td.innerHTML).to.equal(lastName);
+  });
+
   it('can be formatted', function () {
     const columns = [
       {
@@ -411,7 +466,6 @@ describe('Table.Body', function () {
     });
   });
 
-  // TODO: test resolve
   // TODO: test props
   // TODO: test column.props
 });
