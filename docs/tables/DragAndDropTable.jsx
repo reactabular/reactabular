@@ -35,6 +35,11 @@ class DragAndDropTable extends React.Component {
     this.state = {
       columns: [
         {
+          props: {
+            style: {
+              width: 100
+            }
+          },
           header: {
             label: 'Name',
             component: DndHeader,
@@ -44,6 +49,11 @@ class DragAndDropTable extends React.Component {
           },
           children: [
             {
+              props: {
+                style: {
+                  width: 50
+                }
+              },
               header: {
                 label: 'First Name',
                 component: DndHeader,
@@ -56,6 +66,11 @@ class DragAndDropTable extends React.Component {
               }
             },
             {
+              props: {
+                style: {
+                  width: 50
+                }
+              },
               header: {
                 label: 'Last Name',
                 component: DndHeader,
@@ -70,6 +85,11 @@ class DragAndDropTable extends React.Component {
           ]
         },
         {
+          props: {
+            style: {
+              width: 100
+            }
+          },
           header: {
             label: 'Company',
             component: DndHeader,
@@ -82,6 +102,11 @@ class DragAndDropTable extends React.Component {
           }
         },
         {
+          props: {
+            style: {
+              width: 300
+            }
+          },
           header: {
             label: 'Sentence',
             component: DndHeader,
@@ -115,7 +140,24 @@ class DragAndDropTable extends React.Component {
     const movedColumns = move(this.state.columns, labels);
 
     if (movedColumns) {
-      this.setState({ columns: movedColumns });
+      // Retain widths to avoid flashing while drag and dropping.
+      const source = movedColumns.data[movedColumns.sourceIndex];
+      const target = movedColumns.data[movedColumns.targetIndex];
+      const sourceWidth = source.props.style && source.props.style.width;
+      const targetWidth = target.props.style && target.props.style.width;
+
+      source.props.style = {
+        ...source.props.style,
+        width: targetWidth
+      };
+      target.props.style = {
+        ...target.props.style,
+        width: sourceWidth
+      };
+
+      this.setState({
+        columns: movedColumns.data
+      });
     }
   }
   onChildMove(labels) {
@@ -148,8 +190,9 @@ class DragAndDropTable extends React.Component {
     const movedChildren = move(columns[sourceIndex].children, labels);
 
     if (movedChildren) {
-      columns[sourceIndex].children = movedChildren;
+      columns[sourceIndex].children = movedChildren.data;
 
+      // Here we assume children have the same width.
       this.setState({ columns });
     }
   }
@@ -174,12 +217,16 @@ function move(columns, { sourceLabel, targetLabel }) {
     return null;
   }
 
-  return update(columns, {
-    $splice: [
-      [sourceIndex, 1],
-      [targetIndex, 0, columns[sourceIndex]]
-    ]
-  });
+  return {
+    sourceIndex,
+    targetIndex,
+    data: update(columns, {
+      $splice: [
+        [sourceIndex, 1],
+        [targetIndex, 0, columns[sourceIndex]]
+      ]
+    })
+  };
 }
 
 const DragTypes = {
