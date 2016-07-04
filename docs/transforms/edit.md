@@ -14,7 +14,7 @@ import { transforms, editors } from 'reactabular';
 const editable = transforms.edit({
   // Get unique editing id for a cell.
   // You can tweak this from outside to control edit.
-  getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
+  getEditId: ({ rowData, property }) => `${rowData.id}-${property}`,
 
   // Get the edited property
   getEditProperty: () => this.state.editedCell,

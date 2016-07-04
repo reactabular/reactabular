@@ -87,11 +87,11 @@ class FullTable extends React.Component {
       })
     ));
     const editable = transforms.edit({
-      getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
+      getEditId: ({ rowData, property }) => `${rowData.id}-${property}`,
       getEditProperty: () => this.state.editedCell,
       onActivate: idx => this.setState({ editedCell: idx }),
-      onValue: ({ value, cellData, property }) => {
-        const idx = findIndex(this.state.data, { id: cellData.id });
+      onValue: ({ value, rowData, property }) => {
+        const idx = findIndex(this.state.data, { id: rowData.id });
 
         this.state.data[idx][property] = value;
 
@@ -202,10 +202,10 @@ class FullTable extends React.Component {
       },
       {
         cell: {
-          format: (value, { cellData }) => (
+          format: (value, { rowData }) => (
             <span
               className="remove"
-              onClick={() => this.onRemove(cellData.id)} style={{ cursor: 'pointer' }}
+              onClick={() => this.onRemove(rowData.id)} style={{ cursor: 'pointer' }}
             >
               &#10007;
             </span>

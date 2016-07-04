@@ -42,17 +42,17 @@ class TreeTable extends React.Component {
         },
         cell: {
           property: 'name',
-          resolve: (name, { cellData }) => {
+          resolve: (name, { rowData }) => {
             const data = this.state.data;
             // Optimization - Operate based on index for faster lookups
-            const cellIndex = findIndex(data, { id: cellData.id });
+            const cellIndex = findIndex(data, { id: rowData.id });
 
             return (
               <div style={{ paddingLeft: `${getLevel(data, cellIndex) * 1}em` }}>
                 {hasChildren(data, cellIndex) && <span
-                  className={cellData.showChildren ? 'show-less' : 'show-more'}
+                  className={rowData.showChildren ? 'show-less' : 'show-more'}
                   onClick={e => {
-                    data[cellIndex].showChildren = !cellData.showChildren;
+                    data[cellIndex].showChildren = !rowData.showChildren;
 
                     this.setState({ data });
                   }}

@@ -244,7 +244,7 @@ describe('search._columnMatches', function () {
   it('formats with all parameters', function () {
     const originalProperty = 'demo';
     const row = { demo: 'foobar' };
-    let receivedCellData;
+    let receivedRowData;
     let receivedProperty;
 
     _columnMatches({
@@ -252,8 +252,8 @@ describe('search._columnMatches', function () {
       column: {
         cell: {
           property: originalProperty,
-          resolve: (a, { cellData, property }) => {
-            receivedCellData = cellData;
+          resolve: (a, { rowData, property }) => {
+            receivedRowData = rowData;
             receivedProperty = property;
 
             return a;
@@ -264,7 +264,7 @@ describe('search._columnMatches', function () {
       transform: v => v
     });
 
-    expect(row).to.equal(receivedCellData);
+    expect(row).to.equal(receivedRowData);
     expect(originalProperty).to.equal(receivedProperty);
   });
 

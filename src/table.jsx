@@ -50,9 +50,9 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
                 props // eslint-disable-line no-shadow
               } = column.header || {};
               const extraParameters = {
-                cellData: label,
                 columnIndex: j,
-                column
+                column,
+                rowData: label
               };
               const key = `${j}-header`;
               const transformed = evaluateTransforms(transforms, label, extraParameters);
@@ -121,9 +121,9 @@ class Body extends React.Component { // eslint-disable-line react/prefer-statele
             }
 
             const extraParameters = {
-              cellData: data[i],
               columnIndex: j,
               column,
+              rowData: data[i],
               rowIndex: i,
               property
             };

@@ -17,7 +17,7 @@ describe('edit', function () {
       }
     });
     const result = editor('div')('foo', {
-      cellData: {},
+      rowData: {},
       property: 'foo'
     });
 
@@ -39,7 +39,7 @@ describe('edit', function () {
     const value = 'foo';
     const editorElement = 'div';
     const result = editor(editorElement)(value, {
-      cellData: {},
+      rowData: {},
       property: 'foo'
     });
 
@@ -63,7 +63,7 @@ describe('edit', function () {
     });
     const editorValue = 'foobar';
     const result = editor('div')('foo', {
-      cellData: {},
+      rowData: {},
       property: 'foo'
     });
 
@@ -72,33 +72,33 @@ describe('edit', function () {
     expect(receivedValue).to.equal(editorValue);
   });
 
-  it('passes cellData and property to getEditId', function () {
-    let passedCellData;
+  it('passes rowData and property to getEditId', function () {
+    let passedRowData;
     let passedProperty;
-    const testCellData = {
+    const testRowData = {
       name: 'demo'
     };
     const testProperty = 'foo';
     const editor = edit({
-      getEditId({ cellData, property }) {
-        passedCellData = cellData;
+      getEditId({ rowData, property }) {
+        passedRowData = rowData;
         passedProperty = property;
 
-        return cellData.name + property;
+        return rowData.name + property;
       },
       getEditProperty() {
-        return testCellData.name + testProperty;
+        return testRowData.name + testProperty;
       }
     });
     const editorValue = 'foobar';
     const result = editor('div')('foo', {
-      cellData: testCellData,
+      rowData: testRowData,
       property: testProperty
     });
 
     result.children.props.onValue(editorValue);
 
-    expect(passedCellData).to.deep.equal(testCellData);
+    expect(passedRowData).to.deep.equal(testRowData);
     expect(passedProperty).to.equal(testProperty);
   });
 

@@ -56,7 +56,7 @@ lang: js
 
 Given you might want to attach custom functionality to a header, say sorting on click, it is possible to attach specific *transforms* to the header cell. The same idea works for table cells.
 
-**`header.transform = (<label>, { cellData: <label> }) => ({... props ...})`**
+**`header.transform = (<label>, { rowData: <label> }) => ({... props ...})`**
 
 A transform is expected to return an object containing props. We can for instance inject `onClick` handler and perform sorting based on that. If a transform returns `children`, it will override rendering behavior making it possible to implement editors.
 
@@ -159,7 +159,7 @@ lang: js
 }
 ```
 
-**`cell.transform = (<value>, { cellData: <object>, property: <string> }) => ({... props ...})`**
+**`cell.transform = (<value>, { rowData: <object>, property: <string> }) => ({... props ...})`**
 
 `cell.transform` follows the same idea as `header.transform`. This time `value` is the resolved `property` and we have extra data available.
 
@@ -196,7 +196,7 @@ lang: js
 }
 ```
 
-**`cell.resolve = (value, { cellData: <object>, property: <string> }) => <string>`**
+**`cell.resolve = (value, { rowData: <object>, property: <string> }) => <string>`**
 
 Sometimes you need to manipulate the data fetched from property somehow. For instance you might need to perform a lookup to `resolve` it to some other value. This is the place to do that. Other functionality will pick this up.
 

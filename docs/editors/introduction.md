@@ -21,7 +21,7 @@ class EditableTable extends React.Component {
     const editable = transforms.edit({
       // Get unique editing id for a cell.
       // You can tweak this from outside to control edit.
-      getEditId: ({ cellData, property }) => `${cellData.id}-${property}`,
+      getEditId: ({ rowData, property }) => `${rowData.id}-${property}`,
 
       // Get the edited property
       getEditProperty: () => this.state.editedCell,
@@ -32,8 +32,8 @@ class EditableTable extends React.Component {
       }),
 
       // Capture the value when the user has finished
-      onValue: ({ value, cellData, property }) => {
-        const idx = findIndex(this.state.data, { id: cellData.id });
+      onValue: ({ value, rowData, property }) => {
+        const idx = findIndex(this.state.data, { id: rowData.id });
 
         this.state.data[idx][property] = value;
 

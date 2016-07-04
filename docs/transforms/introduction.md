@@ -2,8 +2,8 @@
 
 The API looks like this:
 
-* `header.transforms = [(<label>, { cellData: <label>, column: <column>, columnIndex: <number> }) => ({... props ...})]`
-* `cell.transforms = [(<value>, { cellData: <object>, property: <string>, column: <column>, columnIndex: <number> }) => ({... props ...})]`
+* `header.transforms = [(<label>, { rowData: <label>, column: <column>, columnIndex: <number> }) => ({... props ...})]`
+* `cell.transforms = [(<value>, { rowData: <object>, property: <string>, column: <column>, columnIndex: <number> }) => ({... props ...})]`
 
 Transforms are evaluated from right to left. The values they return are [deep merged](https://lodash.com/docs#merge). `className`s are concatenated together. This means the leftmost value will win.
 

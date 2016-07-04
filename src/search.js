@@ -46,7 +46,7 @@ const _columnMatches = ({ // eslint-disable-line no-underscore-dangle
   const property = column.cell.property;
   const value = get(row, property);
   const formatter = column.cell.resolve || (a => a);
-  let formattedValue = formatter(value, { cellData: row, property });
+  let formattedValue = formatter(value, { rowData: row, property });
 
   if (typeof formattedValue === 'undefined' || formattedValue === null) {
     formattedValue = '';
