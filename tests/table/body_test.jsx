@@ -49,6 +49,142 @@ describe('Table.Body', function () {
     expect(trs.length).to.equal(data.length);
   });
 
+  it('supports root props', function () {
+    const cellClass = 'test-cell';
+    const columns = [
+      {
+        props: {
+          className: cellClass
+        },
+        header: {
+          label: 'Age'
+        },
+        cell: {
+          property: 'age'
+        }
+      }
+    ];
+    const data = [
+      { position: 'foo', age: 111, name: 'foo', id: 0 }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={data} rowKey="id">
+        <Table.Body />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td).to.exist;
+  });
+
+  it('supports cell props', function () {
+    const cellClass = 'test-cell';
+    const columns = [
+      {
+        header: {
+          label: 'Age'
+        },
+        cell: {
+          property: 'age',
+          props: {
+            className: cellClass
+          }
+        }
+      }
+    ];
+    const data = [
+      { position: 'foo', age: 111, name: 'foo', id: 0 }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={data} rowKey="id">
+        <Table.Body />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td).to.exist;
+  });
+
+  it('merges props', function () {
+    const cellClass = 'test-cell';
+    const color = 'red';
+    const backgroundColor = 'green';
+    const columns = [
+      {
+        props: {
+          style: {
+            color
+          }
+        },
+        header: {
+          label: 'Age'
+        },
+        cell: {
+          property: 'age',
+          props: {
+            className: cellClass,
+            style: {
+              backgroundColor
+            }
+          }
+        }
+      }
+    ];
+    const data = [
+      { position: 'foo', age: 111, name: 'foo', id: 0 }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={data} rowKey="id">
+        <Table.Body />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td.style.color).to.equal(color);
+    expect(td.style.backgroundColor).to.equal(backgroundColor);
+  });
+
+  // XXX: should this merge instead?
+  it('overrides classNames of props', function () {
+    const cellClass = 'test-cell';
+    const anotherCellClass = 'another-test-cell';
+    const columns = [
+      {
+        props: {
+          className: anotherCellClass
+        },
+        header: {
+          label: 'Age'
+        },
+        cell: {
+          property: 'age',
+          props: {
+            className: cellClass
+          }
+        }
+      }
+    ];
+    const data = [
+      { position: 'foo', age: 111, name: 'foo', id: 0 }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={data} rowKey="id">
+        <Table.Body />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td).to.exist;
+  });
+
   it('resolves data', function () {
     const lastName = 'foobar';
     const columns = [
@@ -480,7 +616,4 @@ describe('Table.Body', function () {
 
     expect(renderedTable).to.exist;
   });
-
-  // TODO: test props
-  // TODO: test column.props
 });
