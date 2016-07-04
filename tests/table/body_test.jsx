@@ -141,7 +141,6 @@ describe('Table.Body', function () {
     expect(tds[0].children[0].className).to.equal('complex');
   });
 
-
   it('can be transformed', function () {
     const cellClass = 'test-class';
     const columns = [
@@ -169,6 +168,51 @@ describe('Table.Body', function () {
     );
 
     expect(td).to.exist;
+  });
+
+  it(`accepts columnIndex, column, rowData, rowIndex and property
+    when transforming`, function () {
+    const initialValue = 'demo';
+    const initialProperty = 'name';
+    let receivedLabel;
+    let receivedValues;
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: initialProperty,
+          transforms: [
+            (label, extraValues) => {
+              receivedLabel = label;
+              receivedValues = extraValues;
+            }
+          ]
+        }
+      }
+    ];
+    const data = [
+      {
+        id: 0,
+        name: initialValue
+      }
+    ];
+
+    TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={data} rowKey="id">
+        <Table.Body />
+      </Table.Provider>
+    );
+
+    expect(receivedLabel).to.equal(initialValue);
+    expect(receivedValues).to.exist;
+    expect(receivedValues.columnIndex).to.equal(0);
+    expect(receivedValues.column.header).to.deep.equal(columns[0].header);
+    expect(receivedValues.column.cell).to.deep.equal(columns[0].cell);
+    expect(receivedValues.rowIndex).to.equal(0);
+    expect(receivedValues.rowData).to.deep.equal(data[0]);
+    expect(receivedValues.property).to.equal(initialProperty);
   });
 
   it('can be transformed with multiple transforms', function () {
@@ -306,6 +350,4 @@ describe('Table.Body', function () {
     expect(th.style.display).to.equal(anotherCellStyle.display);
     expect(th.style.color).to.equal(cellStyle.color);
   });
-
-  // TODO: test that correct transform parameters are passed
 });
