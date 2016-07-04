@@ -330,6 +330,7 @@ describe('Table.Header', function () {
     });
   });
 
+  // TODO: test resolve
   // TODO: test props
   // TODO: test column.props
 });

@@ -411,6 +411,7 @@ describe('Table.Body', function () {
     });
   });
 
+  // TODO: test resolve
   // TODO: test props
   // TODO: test column.props
 });
