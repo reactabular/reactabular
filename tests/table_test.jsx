@@ -97,7 +97,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]} rowKey="name">
+      <Table columns={columns} data={[]}>
         <Table.Header />
       </Table>
     );
@@ -136,7 +136,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]} rowKey="name">
+      <Table columns={columns} data={[]}>
         <Table.Header />
       </Table>
     );
@@ -162,7 +162,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]} rowKey="name">
+      <Table columns={columns} data={[]}>
         <Table.Header />
       </Table>
     );
@@ -192,7 +192,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]} rowKey="name">
+      <Table columns={columns} data={[]}>
         <Table.Header />
       </Table>
     );
@@ -224,7 +224,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]} rowKey="name">
+      <Table columns={columns} data={[]}>
         <Table.Header />
       </Table>
     );
@@ -257,7 +257,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]} rowKey="name">
+      <Table columns={columns} data={[]}>
         <Table.Header />
       </Table>
     );
@@ -287,7 +287,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table columns={columns} data={[]} rowKey="name">
+      <Table columns={columns} data={[]}>
         <Table.Header className={anotherHeaderClass} />
       </Table>
     );
