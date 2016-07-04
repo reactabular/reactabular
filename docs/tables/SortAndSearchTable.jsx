@@ -1,11 +1,32 @@
 /* eslint-disable no-shadow */
 import React from 'react';
 import findIndex from 'lodash/findIndex';
-import { Search } from '../helpers';
 import orderBy from 'lodash/orderBy';
+
+import { generateData, Search } from '../helpers';
 import {
   Table, sort, transforms, search
 } from '../../src';
+
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string'
+    },
+    name: {
+      type: 'string'
+    },
+    company: {
+      type: 'string'
+    },
+    age: {
+      type: 'integer'
+    }
+  },
+  required: ['id', 'name', 'company', 'age']
+};
+const data = generateData(20, schema);
 
 export default class SortAndSearchTable extends React.Component {
   constructor(props) {
@@ -53,6 +74,16 @@ export default class SortAndSearchTable extends React.Component {
         },
         {
           header: {
+            label: 'Company',
+            transforms: [resetable()],
+            format: sortableHeader(sortable('company'))
+          },
+          cell: {
+            property: 'company'
+          }
+        },
+        {
+          header: {
             label: 'Age',
             transforms: [resetable()],
             format: sortableHeader(sortable('age'))
@@ -62,38 +93,7 @@ export default class SortAndSearchTable extends React.Component {
           }
         }
       ],
-      data: [
-        {
-          id: 100,
-          name: 'Adam',
-          age: 11
-        },
-        {
-          id: 101,
-          name: 'Brian',
-          age: 42
-        },
-        {
-          id: 102,
-          name: 'Brian',
-          age: 22
-        },
-        {
-          id: 103,
-          name: 'Jake',
-          age: 88
-        },
-        {
-          id: 104,
-          name: 'Jill',
-          age: 7
-        },
-        {
-          id: 105,
-          name: 'Jill',
-          age: 88
-        }
-      ]
+      data
     };
   }
   render() {
