@@ -1,7 +1,7 @@
 import React from 'react';
 import tableTypes from './types';
 
-class Provider extends React.Component {
+export default class Provider extends React.Component {
   getChildContext() {
     const { columns, data, rowKey } = this.props;
 
@@ -20,5 +20,3 @@ Provider.propTypes = {
   children: React.PropTypes.any
 };
 Provider.childContextTypes = tableTypes;
-
-export default Provider;

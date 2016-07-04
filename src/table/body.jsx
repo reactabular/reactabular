@@ -8,7 +8,7 @@ import {
 
 // This has to be a React component instead of a function.
 // Otherwise refs won't work.
-class Body extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export default class Body extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
   render() {
     const { row, className, ...props } = this.props;
     const { columns, data, rowKey } = this.context;
@@ -75,5 +75,3 @@ Body.defaultProps = {
   row: () => {}
 };
 Body.contextTypes = tableTypes;
-
-export default Body;

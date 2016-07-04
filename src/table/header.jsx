@@ -6,7 +6,7 @@ import {
 
 // This has to be a React component instead of a function.
 // Otherwise refs won't work.
-class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export default class Header extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
   render() {
     const { children, className, ...props } = this.props;
     const { columns } = this.context;
@@ -68,5 +68,3 @@ Header.propTypes = {
 Header.contextTypes = {
   columns: tableTypes.columns
 };
-
-export default Header;
