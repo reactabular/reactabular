@@ -354,7 +354,63 @@ describe('Table.Body', function () {
     expect(th.style.color).to.equal(cellStyle.color);
   });
 
-  // TODO: test component (custom wrapper)
+  [
+    {
+      type: 'wrapper',
+      element: 'tbody'
+    },
+    {
+      type: 'row',
+      element: 'tr'
+    },
+    {
+      type: 'cell',
+      element: 'td'
+    }
+  ].forEach(({ type, element }) => {
+    it(`allows table ${type} to be overridden`, function () {
+      const wrapperClass = 'wrapper';
+      const wrapper = ({ children }) => (
+        React.createElement(
+          element, {
+            className: wrapperClass
+          },
+          children
+        )
+      );
+      const components = {
+        body: {}
+      };
+      components.body[type] = wrapper;
+
+      const columns = [
+        {
+          header: {
+            label: 'Demo'
+          },
+          cell: {
+            property: 'name'
+          }
+        }
+      ];
+      const data = [
+        {
+          name: 'Demo'
+        }
+      ];
+      const table = TestUtils.renderIntoDocument(
+        <Table.Provider components={components} columns={columns} data={data} rowKey="name">
+          <Table.Body />
+        </Table.Provider>
+      );
+      const div = TestUtils.findRenderedDOMComponentWithClass(
+        table, wrapperClass
+      );
+
+      expect(div).to.exist;
+    });
+  });
+
   // TODO: test props
   // TODO: test column.props
 });

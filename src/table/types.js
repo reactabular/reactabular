@@ -50,6 +50,11 @@ const tableDefaults = {
       wrapper: 'thead',
       row: 'tr',
       cell: 'th'
+    },
+    body: {
+      wrapper: 'tbody',
+      row: 'tr',
+      cell: 'td'
     }
   }
 };

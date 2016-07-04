@@ -62,3 +62,19 @@ It is possible to inject a custom footer like this:
   </tfoot>
 </Table.Provider>
 ```
+
+## Overriding Default Elements
+
+Just like with `Table.Provider` and `table`, it's possible to override the default elements. `Table.Body` follows the following configuration scheme:
+
+```code
+lang: js
+---
+const components = {
+  body: {
+    wrapper: 'tbody',
+    row: 'tr',
+    cell: 'td'
+  }
+};
+```

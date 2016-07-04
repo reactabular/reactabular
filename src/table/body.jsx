@@ -11,21 +11,22 @@ import {
 export default class Body extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
   render() {
     const { row, ...props } = this.props;
-    const { columns, data, rowKey } = this.context;
+    const { columns, components, data, rowKey } = this.context;
 
-    return (
-      <tbody {...props}>{
-        data.map((r, i) =>
-          <BodyRow
-            key={`${r[rowKey] || i}-row`}
-            row={r}
-            rowProps={row(r, i)}
-            rowIndex={i}
-            rowData={data[i]}
-            columns={columns}
-          />
-        )
-      }</tbody>
+    return React.createElement(
+      components.body.wrapper,
+      props,
+      data.map((r, i) =>
+        <BodyRow
+          key={`${r[rowKey] || i}-row`}
+          components={components.body}
+          row={r}
+          rowProps={row(r, i)}
+          rowIndex={i}
+          rowData={data[i]}
+          columns={columns}
+        />
+      )
     );
   }
 }
@@ -38,8 +39,10 @@ Body.defaultProps = {
 };
 Body.contextTypes = tableTypes;
 
-const BodyRow = ({ columns, row, rowProps, rowIndex, rowData }) => (
-  <tr {...rowProps}>{
+const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
+  React.createElement(
+    components.row,
+    rowProps,
     resolveBodyColumns(columns).map((column, j) => {
       const columnProps = column.props || {};
       const {
@@ -47,7 +50,6 @@ const BodyRow = ({ columns, row, rowProps, rowIndex, rowData }) => (
         transforms = [() => ({})],
         format = a => a,
         resolve = a => a,
-        component = 'td',
         props // eslint-disable-line no-shadow
       } = column.cell || {};
       if (property && !has(row, property)) {
@@ -70,7 +72,7 @@ const BodyRow = ({ columns, row, rowProps, rowIndex, rowData }) => (
       }
 
       return React.createElement(
-        component,
+        components.cell,
         {
           key: `${j}-cell`,
           ...columnProps,
@@ -80,10 +82,11 @@ const BodyRow = ({ columns, row, rowProps, rowIndex, rowData }) => (
         transformed.children || format(resolvedValue, extraParameters)
       );
     })
-  }</tr>
+  )
 );
 BodyRow.propTypes = {
   columns: React.PropTypes.array.isRequired,
+  components: React.PropTypes.object,
   row: React.PropTypes.oneOfType([
     React.PropTypes.array,
     React.PropTypes.object
