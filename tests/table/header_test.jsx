@@ -39,7 +39,7 @@ describe('Table.Header', function () {
     const table = TestUtils.renderIntoDocument(
       <Table.Provider columns={columns} data={[]}>
         <Table.Header>
-          <span className={testClass}>demo</span>
+          <tr className={testClass}>demo</tr>
         </Table.Header>
       </Table.Provider>
     );
