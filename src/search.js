@@ -40,8 +40,11 @@ const singleColumn = ({
 };
 
 const _columnMatches = ({ // eslint-disable-line no-underscore-dangle
-  query, column = { cell: {} }, row,
-  strategy = strategies.infix, transform = v => v.toLowerCase()
+  query,
+  column = { cell: {} },
+  row,
+  strategy = strategies.infix,
+  transform = v => v.toLowerCase()
 }) => {
   const property = column.cell.property;
   const value = get(row, property);
