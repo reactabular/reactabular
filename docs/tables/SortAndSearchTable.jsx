@@ -50,9 +50,11 @@ export default class SortAndSearchTable extends React.Component {
     });
     const sortableHeader = sortHeader.bind(null, () => this.state.sortingColumns);
 
-    const resetable = () => () => ({
+    const resetable = property => () => ({
       onDoubleClick: () => this.setState({
-        sortingColumns: []
+        sortingColumns: this.state.sortingColumns.filter(
+          sortable => sortable.property !== property
+        )
       })
     });
 
@@ -65,7 +67,7 @@ export default class SortAndSearchTable extends React.Component {
             label: 'Name',
             // Resetable operates on cell level while sorting is handled by
             // an element within -> no conflict between click and double click.
-            transforms: [resetable()],
+            transforms: [resetable('name')],
             format: sortableHeader(sortable('name'))
           },
           cell: {
@@ -75,7 +77,7 @@ export default class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'Company',
-            transforms: [resetable()],
+            transforms: [resetable('company')],
             format: sortableHeader(sortable('company'))
           },
           cell: {
@@ -85,7 +87,7 @@ export default class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'Age',
-            transforms: [resetable()],
+            transforms: [resetable('age')],
             format: sortableHeader(sortable('age'))
           },
           cell: {
