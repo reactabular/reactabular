@@ -330,6 +330,21 @@ describe('Table.Header', function () {
     });
   });
 
+  it('supports custom props', function () {
+    const customClass = 'demo';
+
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={[]} data={[]}>
+        <Table.Header className={customClass} />
+      </Table.Provider>
+    );
+    const renderedTable = TestUtils.findRenderedDOMComponentWithClass(
+      table, customClass
+    );
+
+    expect(renderedTable).to.exist;
+  });
+
   // TODO: test props
   // TODO: test column.props
 });
