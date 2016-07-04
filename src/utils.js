@@ -15,7 +15,7 @@ function resolveHeaderRows(columns) {
         ...col,
         props: {
           ...col.props,
-          colSpan: countColSpan(children)
+          colSpan: children.length
         }
       };
     }
@@ -34,14 +34,6 @@ function resolveHeaderRows(columns) {
   }
 
   return [ret];
-}
-
-function countColSpan(children) {
-  if (children.children) {
-    return children.length + countColSpan(children.children);
-  }
-
-  return children.length;
 }
 
 function countRowSpan(columns) {
@@ -101,7 +93,6 @@ function mergeClassNames(a, b) {
 
 export {
   resolveHeaderRows,
-  countColSpan,
   countRowSpan,
   resolveBodyColumns,
   evaluateTransforms,

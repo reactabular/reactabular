@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import {
-  resolveHeaderRows, countColSpan, countRowSpan,
+  resolveHeaderRows, countRowSpan,
   resolveBodyColumns, evaluateTransforms, mergeClassNames
 } from '../src/utils';
 
@@ -165,28 +165,6 @@ describe('resolveHeaderRows', function () {
     ];
 
     expect(resolveHeaderRows(columns)).to.deep.equal(expected);
-  });
-});
-
-describe('countColSpan', function () {
-  it('returns children length if children have no children', function () {
-    const children = [{
-      foo: 'bar'
-    }];
-
-    expect(countColSpan(children)).to.equal(1);
-  });
-
-  it('returns one if children have immediate children', function () {
-    const childColumns = [{
-      foo: 'bar'
-    }];
-    const children = [{
-      foo: 'bar',
-      children: childColumns
-    }];
-
-    expect(countColSpan(children)).to.equal(1);
   });
 });
 
