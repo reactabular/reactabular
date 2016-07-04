@@ -351,6 +351,16 @@ describe('search._columnMatches', function () {
     expect(result).to.equal(true);
   });
 
+  it('does not crash without column', function () {
+    const query = 'foo';
+    const result = _columnMatches({
+      query,
+      row: { demo: 'foobar' }
+    });
+
+    expect(result).to.equal(false);
+  });
+
   it('does not crash if transformed to false', function () {
     const query = 'foo';
     const result = _columnMatches({
