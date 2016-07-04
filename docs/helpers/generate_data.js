@@ -25,6 +25,16 @@ export default (amount, { definitions, properties }) => range(amount).map(
 
         return `${sample(forenames)} ${sample(surnames)}`;
       },
+      company() {
+        const first = ['App', 'No', 'Micro', 'Ora', 'Sun', 'Soft', 'Accen', 'Syman'];
+        const second = [
+          'le', 'kia', 'soft', 'cle', 'ice',
+          'ify', 'ture', 'tec', 'ware', ' Solutions'
+        ];
+        const third = ['Ltd.', 'Inc.'];
+
+        return `${sample(first)}${sample(second)} ${sample(third)}`;
+      },
       product() {
         const adjectives = ['Super', 'Hyper', 'Awesome', 'Lame', 'Standard'];
         const names = ['Apple', 'Pear', 'Strawberry', 'Pineapple', 'Potato', 'Tomato'];
