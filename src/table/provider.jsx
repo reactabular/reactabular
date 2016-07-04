@@ -1,27 +1,38 @@
 import React from 'react';
-import tableTypes from './types';
+import { tableTypes, tableDefaults } from './types';
 
 export default class Provider extends React.Component {
   getChildContext() {
-    const { columns, data, rowKey } = this.props;
+    const { columns, components, data, rowKey } = this.props;
 
-    return { columns, data, rowKey };
+    return {
+      columns,
+      components: { ...components, ...tableDefaults.components.table },
+      data,
+      rowKey
+    };
   }
   render() {
     const {
-      columns,
-      component = 'table',
-      data,
+      columns, // eslint-disable-line no-unused-vars
+      data, // eslint-disable-line no-unused-vars
+      components,
       children,
-      ...props // eslint-disable-line no-unused-vars
+      ...props
     } = this.props;
 
-    return React.createElement(component, props, children);
+    return React.createElement(
+      components.table || tableDefaults.components.table,
+      props,
+      children
+    );
   }
 }
 Provider.propTypes = {
   ...tableTypes,
-  component: React.PropTypes.any,
   children: React.PropTypes.any
+};
+Provider.defaultProps = {
+  ...tableDefaults
 };
 Provider.childContextTypes = tableTypes;

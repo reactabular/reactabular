@@ -93,7 +93,7 @@ describe('Table.Provider', function () {
     );
 
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider component={wrapper} columns={[]} data={[]}>
+      <Table.Provider components={{ table: wrapper }} columns={[]} data={[]}>
         <Table.Body />
       </Table.Provider>
     );

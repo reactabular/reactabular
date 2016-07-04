@@ -260,6 +260,9 @@ describe('Table.Header', function () {
           transforms: [
             () => ({
               className: headerClass
+            }),
+            () => ({
+              className: anotherHeaderClass
             })
           ]
         }
@@ -277,6 +280,40 @@ describe('Table.Header', function () {
     expect(th.innerHTML).to.equal(label);
     expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
   });
+
+  it('allows table header to be overridden', function () {
+    const wrapperClass = 'wrapper';
+    const wrapper = ({ children }) => (
+      <div className={wrapperClass}>
+        {children}
+      </div>
+    );
+
+    const components = {
+      header: wrapper
+    };
+    const columns = [
+      {
+        header: {
+          label: 'Demo'
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider components={components} columns={columns} data={[]}>
+        <Table.Header />
+      </Table.Provider>
+    );
+    const div = TestUtils.findRenderedDOMComponentWithClass(
+      table, wrapperClass
+    );
+
+    expect(div).to.exist;
+  });
+
+  // components.header
+  // components.row
+  // components.cell
 
   // TODO: test component (custom wrapper)
   // TODO: test props

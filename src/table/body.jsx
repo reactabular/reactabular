@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
 import React from 'react';
-import tableTypes from './types';
+import { tableTypes } from './types';
 import {
   evaluateTransforms, mergeClassNames, resolveBodyColumns
 } from './utils';

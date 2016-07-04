@@ -39,8 +39,18 @@ const dataType = React.PropTypes.oneOfType([
 ]);
 const tableTypes = {
   columns: React.PropTypes.array.isRequired,
+  components: React.PropTypes.object,
   data: dataType.isRequired,
   rowKey: rowKeyType
 };
+const tableDefaults = {
+  components: {
+    table: 'table',
+    header: 'thead'
+  }
+};
 
-export default tableTypes;
+export {
+  tableTypes,
+  tableDefaults
+};
