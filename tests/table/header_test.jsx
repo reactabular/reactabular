@@ -115,6 +115,43 @@ describe('Table.Header', function () {
     expect(th).to.exist;
   });
 
+  it('accepts columnIndex, column, and rowData when transforming', function () {
+    const initialLabel = 'Name';
+    let receivedLabel;
+    let receivedValues;
+    const columns = [
+      {
+        header: {
+          label: initialLabel,
+          transforms: [
+            (label, extraValues) => {
+              receivedLabel = label;
+              receivedValues = extraValues;
+            }
+          ]
+        }
+      }
+    ];
+    const data = [
+      {
+        id: 0,
+        name: 'demo'
+      }
+    ];
+
+    TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={data} rowKey="id">
+        <Table.Header />
+      </Table.Provider>
+    );
+
+    expect(receivedLabel).to.equal(initialLabel);
+    expect(receivedValues).to.exist;
+    expect(receivedValues.columnIndex).to.equal(0);
+    expect(receivedValues.column.header).to.deep.equal(columns[0].header);
+    expect(receivedValues.rowData).to.deep.equal(initialLabel);
+  });
+
   it('can be transformed with multiple transforms', function () {
     const headerClass = 'test-header';
     const style = { display: 'none' };
@@ -241,8 +278,6 @@ describe('Table.Header', function () {
     expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
   });
 
-  // TODO: test that correct transform parameters are passed
-  // TODO: merge format/transform tests somehow given they are so similar
   // TODO: test component (custom wrapper)
   // TODO: test column.props for both header and body
   // TODO: test that cell definition can be missing

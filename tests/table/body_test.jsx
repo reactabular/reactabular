@@ -306,4 +306,6 @@ describe('Table.Body', function () {
     expect(th.style.display).to.equal(anotherCellStyle.display);
     expect(th.style.color).to.equal(cellStyle.color);
   });
+
+  // TODO: test that correct transform parameters are passed
 });

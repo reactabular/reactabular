@@ -70,7 +70,7 @@ function evaluateTransforms(transforms, value, extraParameters = {}) {
   return transforms.reduceRight(
     (a, t) => {
       const result = t(value, extraParameters);
-      const className = mergeClassNames(a.className, result.className);
+      const className = mergeClassNames(a && a.className, result && result.className);
 
       if (className) {
         return merge({}, a, result, { className });
