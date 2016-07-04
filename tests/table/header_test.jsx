@@ -281,100 +281,53 @@ describe('Table.Header', function () {
     expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
   });
 
-  it('allows table wrapper to be overridden', function () {
-    const wrapperClass = 'wrapper';
-    const wrapper = ({ children }) => (
-      <thead className={wrapperClass}>
-        {children}
-      </thead>
-    );
+  [
+    {
+      type: 'wrapper',
+      element: 'thead'
+    },
+    {
+      type: 'row',
+      element: 'tr'
+    },
+    {
+      type: 'cell',
+      element: 'th'
+    }
+  ].forEach(({ type, element }) => {
+    it(`allows table ${type} to be overridden`, function () {
+      const wrapperClass = 'wrapper';
+      const wrapper = ({ children }) => (
+        React.createElement(
+          element, {
+            className: wrapperClass
+          },
+          children
+        )
+      );
+      const components = {
+        header: {}
+      };
+      components.header[type] = wrapper;
 
-    const components = {
-      header: {
-        wrapper
-      }
-    };
-    const columns = [
-      {
-        header: {
-          label: 'Demo'
+      const columns = [
+        {
+          header: {
+            label: 'Demo'
+          }
         }
-      }
-    ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider components={components} columns={columns} data={[]}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const div = TestUtils.findRenderedDOMComponentWithClass(
-      table, wrapperClass
-    );
+      ];
+      const table = TestUtils.renderIntoDocument(
+        <Table.Provider components={components} columns={columns} data={[]}>
+          <Table.Header />
+        </Table.Provider>
+      );
+      const div = TestUtils.findRenderedDOMComponentWithClass(
+        table, wrapperClass
+      );
 
-    expect(div).to.exist;
-  });
-
-  it('allows table row to be overridden', function () {
-    const wrapperClass = 'wrapper';
-    const wrapper = ({ children }) => (
-      <tr className={wrapperClass}>
-        {children}
-      </tr>
-    );
-
-    const components = {
-      header: {
-        row: wrapper
-      }
-    };
-    const columns = [
-      {
-        header: {
-          label: 'Demo'
-        }
-      }
-    ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider components={components} columns={columns} data={[]}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const div = TestUtils.findRenderedDOMComponentWithClass(
-      table, wrapperClass
-    );
-
-    expect(div).to.exist;
-  });
-
-  it('allows table row to be overridden', function () {
-    const wrapperClass = 'wrapper';
-    const wrapper = ({ children }) => (
-      <th className={wrapperClass}>
-        {children}
-      </th>
-    );
-
-    const components = {
-      header: {
-        cell: wrapper
-      }
-    };
-    const columns = [
-      {
-        header: {
-          label: 'Demo'
-        }
-      }
-    ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider components={components} columns={columns} data={[]}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const div = TestUtils.findRenderedDOMComponentWithClass(
-      table, wrapperClass
-    );
-
-    expect(div).to.exist;
+      expect(div).to.exist;
+    });
   });
 
   // TODO: test props
