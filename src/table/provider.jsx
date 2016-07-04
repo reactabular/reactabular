@@ -1,3 +1,4 @@
+import merge from 'lodash/merge';
 import React from 'react';
 import { tableTypes, tableDefaults } from './types';
 
@@ -7,7 +8,7 @@ export default class Provider extends React.Component {
 
     return {
       columns,
-      components: { ...components, ...tableDefaults.components.table },
+      components: merge({}, tableDefaults.components, components),
       data,
       rowKey
     };

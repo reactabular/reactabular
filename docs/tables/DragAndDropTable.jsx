@@ -33,6 +33,11 @@ class DragAndDropTable extends React.Component {
     super(props);
 
     this.state = {
+      components: {
+        header: {
+          cell: DndHeader
+        }
+      },
       columns: [
         {
           props: {
@@ -42,7 +47,6 @@ class DragAndDropTable extends React.Component {
           },
           header: {
             label: 'Name',
-            component: DndHeader,
             transforms: [() => ({
               onMove: this.onMove
             })]
@@ -56,7 +60,6 @@ class DragAndDropTable extends React.Component {
               },
               header: {
                 label: 'First Name',
-                component: DndHeader,
                 transforms: [() => ({
                   onMove: this.onChildMove
                 })]
@@ -73,7 +76,6 @@ class DragAndDropTable extends React.Component {
               },
               header: {
                 label: 'Last Name',
-                component: DndHeader,
                 transforms: [() => ({
                   onMove: this.onChildMove
                 })]
@@ -92,7 +94,6 @@ class DragAndDropTable extends React.Component {
           },
           header: {
             label: 'Company',
-            component: DndHeader,
             transforms: [() => ({
               onMove: this.onMove
             })]
@@ -109,7 +110,6 @@ class DragAndDropTable extends React.Component {
           },
           header: {
             label: 'Sentence',
-            component: DndHeader,
             transforms: [() => ({
               onMove: this.onMove
             })]
@@ -126,10 +126,10 @@ class DragAndDropTable extends React.Component {
     this.onChildMove = this.onChildMove.bind(this);
   }
   render() {
-    const { columns, data } = this.state;
+    const { components, columns, data } = this.state;
 
     return (
-      <Table.Provider columns={columns} data={data} rowKey="id">
+      <Table.Provider components={components} columns={columns} data={data} rowKey="id">
         <Table.Header />
 
         <Table.Body />

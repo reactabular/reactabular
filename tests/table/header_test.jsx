@@ -281,7 +281,7 @@ describe('Table.Header', function () {
     expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
   });
 
-  it('allows table header to be overridden', function () {
+  it('allows table wrapper to be overridden', function () {
     const wrapperClass = 'wrapper';
     const wrapper = ({ children }) => (
       <div className={wrapperClass}>
@@ -290,7 +290,9 @@ describe('Table.Header', function () {
     );
 
     const components = {
-      header: wrapper
+      header: {
+        wrapper
+      }
     };
     const columns = [
       {
@@ -311,11 +313,70 @@ describe('Table.Header', function () {
     expect(div).to.exist;
   });
 
-  // components.header
-  // components.row
-  // components.cell
+  it('allows table row to be overridden', function () {
+    const wrapperClass = 'wrapper';
+    const wrapper = ({ children }) => (
+      <div className={wrapperClass}>
+        {children}
+      </div>
+    );
 
-  // TODO: test component (custom wrapper)
+    const components = {
+      header: {
+        row: wrapper
+      }
+    };
+    const columns = [
+      {
+        header: {
+          label: 'Demo'
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider components={components} columns={columns} data={[]}>
+        <Table.Header />
+      </Table.Provider>
+    );
+    const div = TestUtils.findRenderedDOMComponentWithClass(
+      table, wrapperClass
+    );
+
+    expect(div).to.exist;
+  });
+
+  it('allows table row to be overridden', function () {
+    const wrapperClass = 'wrapper';
+    const wrapper = ({ children }) => (
+      <div className={wrapperClass}>
+        {children}
+      </div>
+    );
+
+    const components = {
+      header: {
+        cell: wrapper
+      }
+    };
+    const columns = [
+      {
+        header: {
+          label: 'Demo'
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider components={components} columns={columns} data={[]}>
+        <Table.Header />
+      </Table.Provider>
+    );
+    const div = TestUtils.findRenderedDOMComponentWithClass(
+      table, wrapperClass
+    );
+
+    expect(div).to.exist;
+  });
+
   // TODO: test props
   // TODO: test column.props
 });

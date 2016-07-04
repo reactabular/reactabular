@@ -38,3 +38,19 @@ Here `ColumnFilters` injects an additional row for the filter controls. An alter
   <Table.Body />
 </Table.Provider>
 ```
+
+## Overriding Default Elements
+
+Just like with `Table.Provider` and `table`, it's possible to override the default elements. `Table.Header` follows the following configuration scheme:
+
+```code
+lang: js
+---
+const components = {
+  header: {
+    wrapper: 'thead',
+    row: 'tr',
+    cell: 'th'
+  }
+};
+```

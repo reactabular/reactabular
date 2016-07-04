@@ -46,7 +46,11 @@ const tableTypes = {
 const tableDefaults = {
   components: {
     table: 'table',
-    header: 'thead'
+    header: {
+      wrapper: 'thead',
+      row: 'tr',
+      cell: 'th'
+    }
   }
 };
 

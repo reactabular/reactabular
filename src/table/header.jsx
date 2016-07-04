@@ -12,11 +12,12 @@ export default class Header extends React.Component { // eslint-disable-line max
     const { columns, components } = this.context;
 
     return React.createElement(
-      components.header,
+      components.header.wrapper,
       props,
       [resolveHeaderRows(columns).map((row, i) =>
         <HeaderRow
           key={`${i}-header-row`}
+          components={components.header}
           row={row}
         />
       )].concat(children)
@@ -31,15 +32,16 @@ Header.contextTypes = {
   components: React.PropTypes.object
 };
 
-const HeaderRow = ({ row }) => (
-  <tr>{
+const HeaderRow = ({ row, components }) => (
+  React.createElement(
+    components.row,
+    {},
     row.map((column, j) => {
       const columnProps = column.props || {};
       const {
         label,
         transforms = [() => ({})],
         format = a => a,
-        component = 'th',
         props // eslint-disable-line no-shadow
       } = column.header || {};
       const extraParameters = {
@@ -55,7 +57,7 @@ const HeaderRow = ({ row }) => (
       }
 
       return React.createElement(
-        component,
+        components.cell,
         {
           key,
           ...columnProps,
@@ -65,9 +67,9 @@ const HeaderRow = ({ row }) => (
         transformed.children || format(label, extraParameters)
       );
     })
-  }
-  </tr>
+  )
 );
 HeaderRow.propTypes = {
-  row: React.PropTypes.arrayOf(React.PropTypes.object)
+  row: React.PropTypes.arrayOf(React.PropTypes.object),
+  components: React.PropTypes.object
 };

@@ -57,9 +57,9 @@ const columns = [
 </Table.Provider>
 ```
 
-## Overriding Default `table`
+## Overriding Default Element
 
-If you want to override the default `table` element for some reason, pass a React element through the `components` prop. It should render `children` like this:
+If you want to override the default `table` element for some reason, pass a React component through the `components` prop. It should render `children` like this:
 
 ```code
 lang: jsx
