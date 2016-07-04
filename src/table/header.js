@@ -15,11 +15,11 @@ export default class Header extends React.Component { // eslint-disable-line max
       components.header.wrapper,
       props,
       [resolveHeaderRows(columns).map((row, i) =>
-        <HeaderRow
-          key={`${i}-header-row`}
-          components={components.header}
-          row={row}
-        />
+        React.createElement(HeaderRow, {
+          key: `${i}-header-row`,
+          components: components.header,
+          row
+        })
       )].concat(children)
     );
   }

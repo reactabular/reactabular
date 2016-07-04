@@ -17,15 +17,15 @@ export default class Body extends React.Component { // eslint-disable-line max-l
       components.body.wrapper,
       props,
       data.map((r, i) =>
-        <BodyRow
-          key={`${r[rowKey] || i}-row`}
-          components={components.body}
-          row={r}
-          rowProps={row(r, i)}
-          rowIndex={i}
-          rowData={data[i]}
-          columns={columns}
-        />
+        React.createElement(BodyRow, {
+          key: `${r[rowKey] || i}-row`,
+          components: components.body,
+          row: r,
+          rowProps: row(r, i),
+          rowIndex: i,
+          rowData: data[i],
+          columns
+        })
       )
     );
   }
