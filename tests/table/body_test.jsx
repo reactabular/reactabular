@@ -350,4 +350,8 @@ describe('Table.Body', function () {
     expect(th.style.display).to.equal(anotherCellStyle.display);
     expect(th.style.color).to.equal(cellStyle.color);
   });
+
+  // TODO: test component (custom wrapper)
+  // TODO: test props
+  // TODO: test column.props
 });

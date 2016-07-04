@@ -279,6 +279,6 @@ describe('Table.Header', function () {
   });
 
   // TODO: test component (custom wrapper)
-  // TODO: test column.props for both header and body
-  // TODO: test that cell definition can be missing
+  // TODO: test props
+  // TODO: test column.props
 });
