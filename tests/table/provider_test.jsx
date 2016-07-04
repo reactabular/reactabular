@@ -87,9 +87,9 @@ describe('Table.Provider', function () {
   it('allows table component to be overridden', function () {
     const wrapperClass = 'wrapper';
     const wrapper = ({ children }) => (
-      <div className={wrapperClass}>
+      <table className={wrapperClass}>
         {children}
-      </div>
+      </table>
     );
 
     const table = TestUtils.renderIntoDocument(

@@ -284,9 +284,9 @@ describe('Table.Header', function () {
   it('allows table wrapper to be overridden', function () {
     const wrapperClass = 'wrapper';
     const wrapper = ({ children }) => (
-      <div className={wrapperClass}>
+      <thead className={wrapperClass}>
         {children}
-      </div>
+      </thead>
     );
 
     const components = {
@@ -316,9 +316,9 @@ describe('Table.Header', function () {
   it('allows table row to be overridden', function () {
     const wrapperClass = 'wrapper';
     const wrapper = ({ children }) => (
-      <div className={wrapperClass}>
+      <tr className={wrapperClass}>
         {children}
-      </div>
+      </tr>
     );
 
     const components = {
@@ -348,9 +348,9 @@ describe('Table.Header', function () {
   it('allows table row to be overridden', function () {
     const wrapperClass = 'wrapper';
     const wrapper = ({ children }) => (
-      <div className={wrapperClass}>
+      <th className={wrapperClass}>
         {children}
-      </div>
+      </th>
     );
 
     const components = {
