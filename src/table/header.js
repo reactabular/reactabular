@@ -1,3 +1,4 @@
+import merge from 'lodash/merge';
 import React from 'react';
 import { tableTypes } from './types';
 import {
@@ -58,12 +59,7 @@ const HeaderRow = ({ row, components }) => (
 
       return React.createElement(
         components.cell,
-        {
-          key,
-          ...columnProps,
-          ...props,
-          ...transformed
-        },
+        merge({}, { key }, columnProps, props, transformed),
         transformed.children || format(label, extraParameters)
       );
     })

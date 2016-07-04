@@ -27,6 +27,118 @@ describe('Table.Header', function () {
     expect(th).to.exist;
   });
 
+  it('supports root props', function () {
+    const headerClass = 'test-header';
+    const columns = [
+      {
+        props: {
+          className: headerClass
+        },
+        header: {
+          label: 'Name'
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={[]}>
+        <Table.Header />
+      </Table.Provider>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th).to.exist;
+  });
+
+  it('supports header props', function () {
+    const headerClass = 'test-header';
+    const columns = [
+      {
+        header: {
+          label: 'Name',
+          props: {
+            className: headerClass
+          }
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={[]}>
+        <Table.Header />
+      </Table.Provider>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th).to.exist;
+  });
+
+  it('merges props', function () {
+    const headerClass = 'test-header';
+    const color = 'red';
+    const backgroundColor = 'green';
+    const columns = [
+      {
+        props: {
+          className: headerClass,
+          style: {
+            color
+          }
+        },
+        header: {
+          label: 'Name',
+          props: {
+            style: {
+              backgroundColor
+            }
+          }
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={[]}>
+        <Table.Header />
+      </Table.Provider>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th.style.color).to.equal(color);
+    expect(th.style.backgroundColor).to.equal(backgroundColor);
+  });
+
+  // XXX: should this merge instead?
+  it('overrides classNames of props', function () {
+    const headerClass = 'test-header';
+    const anotherClass = 'another-class';
+    const columns = [
+      {
+        props: {
+          className: anotherClass
+        },
+        header: {
+          label: 'Name',
+          props: {
+            className: headerClass
+          }
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={[]}>
+        <Table.Header />
+      </Table.Provider>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th.className).to.exist;
+  });
+
   it('renders children', function () {
     const testClass = 'test-header';
     const columns = [
@@ -344,7 +456,4 @@ describe('Table.Header', function () {
 
     expect(renderedTable).to.exist;
   });
-
-  // TODO: test props
-  // TODO: test column.props
 });
