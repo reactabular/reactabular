@@ -19,7 +19,7 @@
 
 ## Customizing `Table.Body` Rows
 
-It is possible to customize body behavior on a row level. `row` prop accepts function <`(row, rowIndex) => ({...})` that allows you to set custom attributes per each row.
+It is possible to customize body behavior on a row level. `row` prop accepts function `(row, rowIndex) => ({...})` that allows you to set custom attributes per each row.
 
 ```react
 <Table
