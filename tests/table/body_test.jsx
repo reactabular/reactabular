@@ -297,6 +297,9 @@ describe('Table.Body', function () {
           transforms: [
             () => ({
               className: cellClass
+            }),
+            () => ({
+              className: anotherCellClass
             })
           ]
         }
@@ -304,7 +307,7 @@ describe('Table.Body', function () {
     ];
     const table = TestUtils.renderIntoDocument(
       <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
-        <Table.Body className={anotherCellClass} />
+        <Table.Body />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
