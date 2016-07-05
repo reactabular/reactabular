@@ -3,7 +3,7 @@ Reactabular comes with search helpers. It consists of search algorithms that can
 The general workflow goes as follows:
 
 1. Set up a `Search` control that outputs a query in `{<column>: <query>}` format. If `<column>` is `all`, then the search will work against all columns. Otherwise it will respect the exact columns set.
-2. Before rendering the data, perform `search.multipleColumns({ data, columns, query })`. This will filter the data based on the passed `data`, `columns` definition, and `query`. A lazy way to do this is to filter at `render()` although you can do it elsewhere too to optimize rendering.
+2. Before rendering the data, perform `search.multipleColumns({ columns, query })(data)`. This will filter the data based on the passed `data`, `columns` definition, and `query`. A lazy way to do this is to filter at `render()` although you can do it elsewhere too to optimize rendering.
 3. Pass the filtered data to `Table`.
 
 **Example:**
@@ -69,7 +69,7 @@ class SearchTable extends React.Component {
   }
   render() {
     const { data, columns, query } = this.state;
-    let searchedData = search.multipleColumns({ data, columns, query });
+    let searchedData = search.multipleColumns({ columns, query })(data);
 
     return (
       <div>

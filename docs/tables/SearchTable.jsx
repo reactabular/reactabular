@@ -55,7 +55,7 @@ export default class SearchTable extends React.Component {
   }
   render() {
     const { data, columns, query } = this.state;
-    const searchedData = search.multipleColumns({ data, columns, query });
+    const searchedData = search.multipleColumns({ columns, query })(data);
 
     return (
       <div>

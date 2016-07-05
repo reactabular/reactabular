@@ -11,12 +11,11 @@ describe('search.multipleColumns', function () {
     const query = { demo: 'foo' };
     const data = [{ demo: 'foobar' }, { demo: 'foofoo' }];
     const result = multipleColumns({
-      data,
       query,
       columns: [
         { cell: { property: 'demo' } }
       ]
-    });
+    })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -26,12 +25,11 @@ describe('search.multipleColumns', function () {
     const match = { demo: 'foobar' };
     const data = [match, { demo: 'zappa' }];
     const result = multipleColumns({
-      data,
       query,
       columns: [
         { cell: { property: 'demo' } }
       ]
-    });
+    })(data);
 
     expect(result).to.deep.equal([match]);
   });
@@ -41,13 +39,12 @@ describe('search.multipleColumns', function () {
     const match = { demo: 'foobar' };
     const data = [match, { demo: 'bar', another: 'foobar' }];
     const result = multipleColumns({
-      data,
       query,
       columns: [
         { cell: { property: 'demo' } },
         { cell: { property: 'another' } }
       ]
-    });
+    })(data);
 
     expect(result).to.deep.equal([match]);
   });
@@ -56,12 +53,11 @@ describe('search.multipleColumns', function () {
     const query = { demo: 'foo' };
     const data = [{ demo: 'barbar' }, { demo: 'zappa' }];
     const result = multipleColumns({
-      data,
       query,
       columns: [
         { cell: { property: 'demo' } }
       ]
-    });
+    })(data);
 
     expect(result).to.deep.equal([]);
   });
@@ -69,11 +65,10 @@ describe('search.multipleColumns', function () {
   it('returns all data without a query', function () {
     const data = [{ demo: 'foobar' }, { demo: 'zappa' }];
     const result = multipleColumns({
-      data,
       columns: [
         { cell: { property: 'demo' } }
       ]
-    });
+    })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -84,13 +79,12 @@ describe('search.singleColumn', function () {
     const query = 'foo';
     const data = [{ demo: 'foobar' }];
     const result = singleColumn({
-      data,
       query,
       columns: [
         { cell: { property: 'demo' } }
       ],
       searchColumn: 'demo'
-    });
+    })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -99,15 +93,14 @@ describe('search.singleColumn', function () {
     const query = 'foo';
     const data = { demo: 'foobar' };
     const result = singleColumn({
-      data: [
-        data,
-        { demo: 'zapzap' }
-      ],
       query,
       columns: [
         { cell: { property: 'demo' } }
       ]
-    });
+    })([
+      data,
+      { demo: 'zapzap' }
+    ]);
 
     expect(result).to.deep.equal([data]);
   });
@@ -116,14 +109,13 @@ describe('search.singleColumn', function () {
     const query = 'foo';
     const data = { demo: 'zapzap' };
     const result = singleColumn({
-      data: [
-        data
-      ],
       query,
       columns: [
         { cell: { property: 'demo' } }
       ]
-    });
+    })([
+      data
+    ]);
 
     expect(result).to.deep.equal([]);
   });
@@ -132,13 +124,12 @@ describe('search.singleColumn', function () {
     const query = 'foo';
     const data = [{ demo: 'foobar' }];
     const result = singleColumn({
-      data,
       query,
       columns: [
         { cell: { property: 'demo' } }
       ],
       searchColumn: 'all'
-    });
+    })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -147,13 +138,12 @@ describe('search.singleColumn', function () {
     const query = 'foo';
     const data = [{ demo: 'foobar' }];
     const result = singleColumn({
-      data,
       query,
       columns: [
         { cell: { property: 'demo' } }
       ],
       searchColumn: 'all'
-    });
+    })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -161,11 +151,10 @@ describe('search.singleColumn', function () {
   it('returns all data without a query', function () {
     const data = [{ demo: 'foobar' }];
     const result = singleColumn({
-      data,
       columns: [
         { cell: { property: 'demo' } }
       ]
-    });
+    })(data);
 
     expect(result).to.deep.equal(data);
   });

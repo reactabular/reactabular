@@ -218,7 +218,7 @@ class FullTable extends React.Component {
     const {
       columns, data, pagination, sortingColumns, query
     } = this.state;
-    let d = search.multipleColumns({ data, columns, query });
+    let d = search.multipleColumns({ columns, query })(data);
 
     d = sort.sorter({ data: d, sortingColumns, sort: orderBy });
 

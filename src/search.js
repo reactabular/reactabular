@@ -1,29 +1,26 @@
 import get from 'lodash/get';
 
 const multipleColumns = ({
-  data, columns, query, strategy, transform
-}) => {
-  if (!query) {
-    return data;
-  }
-
-  return Object.keys(query).reduce(
-    (filteredData, searchColumn) =>
-      singleColumn({
-        data: filteredData,
-        columns,
-        searchColumn,
-        query: query[searchColumn],
-        strategy,
-        transform
-      }),
-    data
-  );
-};
+  columns, query, strategy, transform
+}) => data => (
+  query ?
+    Object.keys(query).reduce(
+      (filteredData, searchColumn) =>
+        singleColumn({
+          columns,
+          searchColumn,
+          query: query[searchColumn],
+          strategy,
+          transform
+        })(filteredData),
+      data
+    )
+  : data
+);
 
 const singleColumn = ({
-  data, columns, searchColumn = 'all', query, strategy, transform
-}) => {
+  columns, searchColumn = 'all', query, strategy, transform
+}) => data => {
   if (!query) {
     return data;
   }

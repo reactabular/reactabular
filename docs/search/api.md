@@ -2,13 +2,13 @@ The Search API consists of three parts. Out of these `search.multipleColumns` an
 
 ### Search
 
-**`search.multipleColumns({ data: [<object>], columns: [<object>], query: {<column>: <query>}, strategy: <strategy>, transform: <transform> }) => [<data>]`**
+**`search.multipleColumns({ columns: [<object>], query: {<column>: <query>}, strategy: <strategy>, transform: <transform> })([<data to query>]) => [<filtered data>]`**
 
 This is the highest level search function available. It expects `data` and `columns` in the same format the `Table` uses. `query` object describes column specific search queries.
 
 It uses `infix` strategy underneath although it is possible to change it. By default it matches in a case **insensitive** manner. If you want case sensitive behavior, pass `a => a`(identity function) as `transform`.
 
-**`search.singleColumn({ data: [<object>], columns: [<object>], searchColumn: <string>, query: <string>, strategy: <strategy>, transform: <transform> }) => [<data>]`**
+**`search.singleColumn({ columns: [<object>], searchColumn: <string>, query: <string>, strategy: <strategy>, transform: <transform> })([<data to query>]) => [<filtered data>]`**
 
 This is a more specialized version of `search.multipleColumns`. You can use it to search a specific column through `searchColumn` and `query`.
 

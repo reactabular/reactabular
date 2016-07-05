@@ -64,7 +64,7 @@ export default class HighlightTable extends React.Component {
   }
   render() {
     const { data, columns, query } = this.state;
-    let searchedData = search.multipleColumns({ data, columns, query });
+    let searchedData = search.multipleColumns({ columns, query })(data);
 
     return (
       <div>
