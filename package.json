@@ -55,7 +55,7 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
-    "catalog": "^2.2.9",
+    "catalog": "bebraw/catalog#reactabular",
     "chai": "^3.5.0",
     "classnames": "^2.2.5",
     "clean-webpack-plugin": "^0.1.9",

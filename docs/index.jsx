@@ -26,7 +26,15 @@ const documentationImports = {
 };
 
 Catalog.render({
-  inject: () => <Fork className="right" project="bebraw/reactabular" />,
+  inject: () => (
+    <Fork
+      className="right"
+      project="bebraw/reactabular"
+      style={{
+        backgroundColor: '#000'
+      }}
+    />
+  ),
   title: `Reactabular v${VERSION}`, // eslint-disable-line no-undef
   specimens: {
     jsx: props => <Catalog.ReactSpecimen {...props} />
