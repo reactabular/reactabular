@@ -67,19 +67,7 @@ function resolveBodyColumns(columns) {
 }
 
 function evaluateTransforms(transforms, value, extraParameters = {}) {
-  return transforms.reduceRight(
-    (a, t) => {
-      const result = t(value, extraParameters);
-      const className = mergeClassNames(a && a.className, result && result.className);
-
-      if (className) {
-        return merge({}, a, result, { className });
-      }
-
-      return merge({}, a, result);
-    },
-    {}
-  );
+  return mergeProps(transforms.map(transform => transform(value, extraParameters)));
 }
 
 function mergeProps(propCollections) {
