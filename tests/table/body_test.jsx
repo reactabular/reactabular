@@ -150,7 +150,7 @@ describe('Table.Body', function () {
     expect(td.style.backgroundColor).to.equal(backgroundColor);
   });
 
-  it('overrides classNames of props', function () {
+  it('merges classNames of props', function () {
     const cellClass = 'test-cell';
     const anotherCellClass = 'another-test-cell';
     const columns = [
@@ -182,6 +182,59 @@ describe('Table.Body', function () {
     );
 
     expect(td.className).to.equal(`${cellClass} ${anotherCellClass}`);
+  });
+
+  it('overrides styles in the right order', function () {
+    const cellClass = 'test-header';
+    const finalColor = 'red';
+    const finalBackgroundColor = 'green';
+    const finalDisplay = 'none';
+    const columns = [
+      {
+        props: {
+          style: {
+            color: finalColor
+          }
+        },
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'age',
+          props: {
+            className: cellClass,
+            style: {
+              color: 'yellow',
+              backgroundColor: finalBackgroundColor
+            }
+          },
+          transforms: [
+            () => ({
+              style: {
+                color: 'blue',
+                backgroundColor: 'black',
+                display: finalDisplay
+              }
+            })
+          ]
+        }
+      }
+    ];
+    const data = [
+      { position: 'foo', age: 111, name: 'foo', id: 0 }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={data}>
+        <Table.Body />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td.style.color).to.equal(finalColor);
+    expect(td.style.backgroundColor).to.equal(finalBackgroundColor);
+    expect(td.style.display).to.equal(finalDisplay);
   });
 
   it('resolves data', function () {

@@ -110,7 +110,7 @@ describe('Table.Header', function () {
     expect(th.style.backgroundColor).to.equal(backgroundColor);
   });
 
-  it('overrides classNames of props', function () {
+  it('merges classNames of props', function () {
     const headerClass = 'test-header';
     const anotherClass = 'another-class';
     const columns = [
@@ -136,6 +136,53 @@ describe('Table.Header', function () {
     );
 
     expect(th.className).to.equal(`${headerClass} ${anotherClass}`);
+  });
+
+  it('overrides styles in the right order', function () {
+    const headerClass = 'test-header';
+    const finalColor = 'red';
+    const finalBackgroundColor = 'green';
+    const finalDisplay = 'none';
+    const columns = [
+      {
+        props: {
+          style: {
+            color: finalColor
+          }
+        },
+        header: {
+          label: 'Name',
+          props: {
+            className: headerClass,
+            style: {
+              color: 'yellow',
+              backgroundColor: finalBackgroundColor
+            }
+          },
+          transforms: [
+            () => ({
+              style: {
+                color: 'blue',
+                backgroundColor: 'black',
+                display: finalDisplay
+              }
+            })
+          ]
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={[]}>
+        <Table.Header />
+      </Table.Provider>
+    );
+    const th = TestUtils.findRenderedDOMComponentWithClass(
+      table, headerClass
+    );
+
+    expect(th.style.color).to.equal(finalColor);
+    expect(th.style.backgroundColor).to.equal(finalBackgroundColor);
+    expect(th.style.display).to.equal(finalDisplay);
   });
 
   it('renders children', function () {
