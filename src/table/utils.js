@@ -82,6 +82,21 @@ function evaluateTransforms(transforms, value, extraParameters = {}) {
   );
 }
 
+function mergeProps(propCollections) {
+  return propCollections.filter(a => a).reduceRight(
+    (all, props) => {
+      const className = mergeClassNames(all.className, props.className);
+
+      if (className) {
+        return merge({}, all, props, { className });
+      }
+
+      return merge({}, all, props);
+    },
+    {}
+  );
+}
+
 function mergeClassNames(a, b) {
   if (a && b) {
     return `${a} ${b}`;
@@ -96,5 +111,6 @@ export {
   countRowSpan,
   resolveBodyColumns,
   evaluateTransforms,
+  mergeProps,
   mergeClassNames
 };

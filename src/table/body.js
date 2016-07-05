@@ -3,7 +3,7 @@ import has from 'lodash/has';
 import React from 'react';
 import { tableTypes } from './types';
 import {
-  evaluateTransforms, resolveBodyColumns
+  evaluateTransforms, resolveBodyColumns, mergeProps
 } from './utils';
 
 // This has to be a React component instead of a function.
@@ -75,11 +75,7 @@ const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
         components.cell,
         {
           key: `${j}-cell`,
-          ...evaluateTransforms([
-            () => columnProps,
-            () => props,
-            () => transformed
-          ])
+          ...mergeProps([columnProps, props, transformed])
         },
         transformed.children || format(
           resolve(value, extraParameters),
