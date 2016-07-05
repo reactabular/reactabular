@@ -110,7 +110,6 @@ describe('Table.Header', function () {
     expect(th.style.backgroundColor).to.equal(backgroundColor);
   });
 
-  // XXX: should this merge instead?
   it('overrides classNames of props', function () {
     const headerClass = 'test-header';
     const anotherClass = 'another-class';
@@ -136,7 +135,7 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th.className).to.exist;
+    expect(th.className).to.equal(`${headerClass} ${anotherClass}`);
   });
 
   it('renders children', function () {

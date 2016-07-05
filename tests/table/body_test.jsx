@@ -150,7 +150,6 @@ describe('Table.Body', function () {
     expect(td.style.backgroundColor).to.equal(backgroundColor);
   });
 
-  // XXX: should this merge instead?
   it('overrides classNames of props', function () {
     const cellClass = 'test-cell';
     const anotherCellClass = 'another-test-cell';
@@ -182,7 +181,7 @@ describe('Table.Body', function () {
       table, cellClass
     );
 
-    expect(td).to.exist;
+    expect(td.className).to.equal(`${cellClass} ${anotherCellClass}`);
   });
 
   it('resolves data', function () {

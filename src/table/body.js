@@ -1,6 +1,5 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
-import merge from 'lodash/merge';
 import React from 'react';
 import { tableTypes } from './types';
 import {
@@ -53,6 +52,7 @@ const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
         resolve = a => a,
         props // eslint-disable-line no-shadow
       } = column.cell || {};
+
       if (property && !has(row, property)) {
         console.warn(`Table.Body - Failed to find "${property}" property from`, row); // eslint-disable-line max-len, no-console
       }
@@ -74,7 +74,12 @@ const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
 
       return React.createElement(
         components.cell,
-        merge({}, { key: `${j}-cell` }, columnProps, props, transformed),
+        evaluateTransforms([
+          () => ({ key: `${j}-cell` }),
+          () => columnProps,
+          () => props,
+          () => transformed
+        ]),
         transformed.children || format(resolvedValue, extraParameters)
       );
     })
