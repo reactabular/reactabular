@@ -74,7 +74,7 @@ const byColumns = ({
 
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy
-const sorter = ({ data, sortingColumns, sort }) => {
+const sorter = ({ sortingColumns, sort } = {}) => data => {
   if (!sortingColumns) {
     return data;
   }

@@ -60,7 +60,7 @@ export default class SortTable extends React.Component {
   }
   render() {
     const { data, columns, sortingColumns } = this.state;
-    const sortedData = sort.sorter({ data, sortingColumns, sort: orderBy });
+    const sortedData = sort.sorter({ sortingColumns, sort: orderBy })(data);
 
     return (
       <div>

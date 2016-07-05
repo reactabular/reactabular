@@ -259,7 +259,7 @@ describe('sorter', function () {
       sort: 'asc'
     }];
 
-    const result = sorter({ data, sortingColumns, sort: orderBy });
+    const result = sorter({ sortingColumns, sort: orderBy })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -278,7 +278,7 @@ describe('sorter', function () {
       sort: 'desc'
     }];
 
-    const result = sorter({ data, sortingColumns, sort: orderBy });
+    const result = sorter({ sortingColumns, sort: orderBy })(data);
 
     expect(result).to.deep.equal(reverse(data));
   });
@@ -323,7 +323,7 @@ describe('sorter', function () {
       }
     ];
 
-    const result = sorter({ data, sortingColumns, sort: orderBy });
+    const result = sorter({ sortingColumns, sort: orderBy })(data);
 
     expect(result).to.deep.equal(expected);
   });
@@ -337,7 +337,7 @@ describe('sorter', function () {
         test: 'def'
       }
     ];
-    const result = sorter({ data, sort: orderBy });
+    const result = sorter({ sort: orderBy })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -351,7 +351,7 @@ describe('sorter', function () {
         test: 'def'
       }
     ];
-    const result = sorter({ data });
+    const result = sorter()(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -383,7 +383,7 @@ describe('sorter', function () {
       property: 'test',
       sort: 'asc'
     }];
-    const result = sorter({ data, sortingColumns, sort: orderBy });
+    const result = sorter({ sortingColumns, sort: orderBy })(data);
 
     expect(result).to.deep.equal(expected);
   });
@@ -404,7 +404,7 @@ describe('sorter', function () {
       property: 'test',
       sort: 'asc'
     }];
-    const result = sorter({ data, sortingColumns, sort: orderBy });
+    const result = sorter({ sortingColumns, sort: orderBy })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -431,7 +431,7 @@ describe('sorter', function () {
       property: 'test.foo',
       sort: 'asc'
     }];
-    const result = sorter({ data, sortingColumns, sort: orderBy });
+    const result = sorter({ sortingColumns, sort: orderBy })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -451,7 +451,7 @@ describe('sorter', function () {
     const sortingColumns = [{
       sort: 'asc'
     }];
-    const result = sorter({ data, sortingColumns, sort: orderBy });
+    const result = sorter({ sortingColumns, sort: orderBy })(data);
 
     expect(result).to.deep.equal(data);
   });

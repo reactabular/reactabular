@@ -219,8 +219,7 @@ class FullTable extends React.Component {
       columns, data, pagination, sortingColumns, query
     } = this.state;
     let d = search.multipleColumns({ columns, query })(data);
-
-    d = sort.sorter({ data: d, sortingColumns, sort: orderBy });
+    d = sort.sorter({ sortingColumns, sort: orderBy })(d);
 
     const paginated = paginate(d, pagination);
     const pages = Math.ceil(d.length / Math.max(

@@ -101,7 +101,7 @@ export default class SortAndSearchTable extends React.Component {
   render() {
     const { data, columns, sortingColumns, query } = this.state;
     const searchedData = search.multipleColumns({ columns, query })(data);
-    const sortedData = sort.sorter({ data: searchedData, sortingColumns, sort: orderBy });
+    const sortedData = sort.sorter({ sortingColumns, sort: orderBy })(searchedData);
 
     return (
       <div>

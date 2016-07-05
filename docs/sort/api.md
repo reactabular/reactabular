@@ -8,7 +8,7 @@ The Sort API consists of three functions. `sort.byColumn` and `sort.byColumns` a
 
 `sort.byColumns` is like `sort.byColumn` except it doesn't discard possible existing sort state. This allows you to perform sorting over multiple columns.
 
-**`sort.sorter({ data: [{...}], sortingColumns: <sort.byColumn|sort.byColumns>, sort: <function>}) => [{...}]`**
+**`sort.sorter({ sortingColumns: <sort.byColumn|sort.byColumns>, sort: <function>})([<data to sort>]) => [<sorted data>]`**
 
 `sort.sorter` sorts the passed `data` using a `sortingColumns` definitions and a `sort` function. It has been designed to work based on [lodash.orderBy](https://lodash.com/docs#orderBy) signature.
 
