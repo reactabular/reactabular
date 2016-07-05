@@ -45,16 +45,16 @@ const _columnMatches = ({ // eslint-disable-line no-underscore-dangle
 }) => {
   const property = column.cell.property;
   const value = get(row, property);
-  const formatter = column.cell.resolve || (a => a);
-  let formattedValue = formatter(value, { rowData: row, property });
+  const resolver = column.cell.resolve || (a => a);
+  let resolvedValue = resolver(value, { rowData: row, property });
 
-  if (typeof formattedValue === 'undefined' || formattedValue === null) {
-    formattedValue = '';
+  if (typeof resolvedValue === 'undefined' || resolvedValue === null) {
+    resolvedValue = '';
   }
 
-  formattedValue = formattedValue.toString ? formattedValue.toString() : '';
+  resolvedValue = resolvedValue.toString ? resolvedValue.toString() : '';
 
-  return strategy(transform(query)).evaluate(transform(formattedValue));
+  return strategy(transform(query)).evaluate(transform(resolvedValue));
 };
 
 const matches = ({
