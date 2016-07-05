@@ -39,11 +39,11 @@ class StatefulTable extends React.Component {
 
     return (
       <div>
-        <Table columns={columns} data={sortedData} rowKey={rowKey}>
+        <Table.Provider columns={columns} data={sortedData} rowKey={rowKey}>
           <Table.Header />
 
           <Table.Body />
-        </Table>
+        </Table.Provider>
       </div>
     );
   }
