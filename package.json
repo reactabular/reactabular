@@ -94,7 +94,7 @@
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.1.0",
-    "react-ghfork": "^0.3.3",
+    "react-ghfork": "^0.3.5",
     "react-pagify": "^2.0.4",
     "redux": "^3.5.2",
     "schema2object": "^0.4.0",

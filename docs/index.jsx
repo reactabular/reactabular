@@ -1,14 +1,16 @@
 /* eslint-disable global-require, import/no-unresolved */
 import React from 'react';
-import 'purecss/build/pure.css';
-import 'react-ghfork/gh-fork-ribbon.ie.css';
-import 'react-ghfork/gh-fork-ribbon.css';
-import 'react-pagify/style.css';
+import Fork from 'react-ghfork';
 import * as Catalog from 'catalog';
 import * as reactabular from '../src';
 import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import * as customTables from './tables';
+
+import 'purecss/build/pure.css';
+import 'react-ghfork/gh-fork-ribbon.ie.css';
+import 'react-ghfork/gh-fork-ribbon.css';
+import 'react-pagify/style.css';
 import './main.css';
 import '../style.css';
 
@@ -24,6 +26,7 @@ const documentationImports = {
 };
 
 Catalog.render({
+  inject: () => <Fork className="right" project="bebraw/reactabular" />,
   title: `Reactabular v${VERSION}`, // eslint-disable-line no-undef
   specimens: {
     jsx: props => <Catalog.ReactSpecimen {...props} />
