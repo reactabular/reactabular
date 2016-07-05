@@ -1,5 +1,6 @@
 /* eslint-disable no-console, no-alert, no-shadow */
 import React from 'react';
+import { compose } from 'redux';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import keys from 'lodash/keys';
@@ -218,8 +219,10 @@ class FullTable extends React.Component {
     const {
       columns, data, pagination, sortingColumns, query
     } = this.state;
-    let d = search.multipleColumns({ columns, query })(data);
-    d = sort.sorter({ sortingColumns, sort: orderBy })(d);
+    const d = compose(
+      sort.sorter({ sortingColumns, sort: orderBy }),
+      search.multipleColumns({ columns, query })
+    )(data);
 
     const paginated = paginate(pagination)(d);
     const pages = Math.ceil(d.length / Math.max(
