@@ -221,7 +221,7 @@ class FullTable extends React.Component {
     let d = search.multipleColumns({ columns, query })(data);
     d = sort.sorter({ sortingColumns, sort: orderBy })(d);
 
-    const paginated = paginate(d, pagination);
+    const paginated = paginate(pagination)(d);
     const pages = Math.ceil(d.length / Math.max(
       isNaN(pagination.perPage) ? 1 : pagination.perPage, 1)
     );
@@ -324,18 +324,20 @@ function sortHeader(getSortingColumns, sortable) {
   };
 }
 
-function paginate(data = [], o) {
+function paginate(o) {
+  return (data = []) => {
     // adapt to zero indexed logic
-  const page = o.page - 1 || 0;
-  const perPage = o.perPage;
+    const page = o.page - 1 || 0;
+    const perPage = o.perPage;
 
-  const amountOfPages = Math.ceil(data.length / perPage);
-  const startPage = page < amountOfPages ? page : 0;
+    const amountOfPages = Math.ceil(data.length / perPage);
+    const startPage = page < amountOfPages ? page : 0;
 
-  return {
-    amount: amountOfPages,
-    data: data.slice(startPage * perPage, startPage * perPage + perPage),
-    page: startPage
+    return {
+      amount: amountOfPages,
+      data: data.slice(startPage * perPage, startPage * perPage + perPage),
+      page: startPage
+    };
   };
 }
 
