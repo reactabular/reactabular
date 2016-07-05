@@ -455,4 +455,46 @@ describe('sorter', function () {
 
     expect(result).to.deep.equal(data);
   });
+
+  it('resolves fields', function () {
+    const countries = {
+      de: 'Germany',
+      fi: 'Finland'
+    };
+    const data = [
+      {
+        id: 0,
+        country: 'de'
+      },
+      {
+        id: 1,
+        country: 'fi'
+      }
+    ];
+    const expected = [
+      {
+        id: 1,
+        country: 'fi'
+      },
+      {
+        id: 0,
+        country: 'de'
+      }
+    ];
+    const columns = [
+      {
+        cell: {
+          property: 'country',
+          resolve: country => countries[country]
+        }
+      }
+    ];
+    const sortingColumns = [{
+      property: 'country',
+      sort: 'asc'
+    }];
+    const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
+
+    expect(result).to.deep.equal(expected);
+  });
 });

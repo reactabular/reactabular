@@ -8,6 +8,7 @@ The npm version doesn't have any direct dependencies. Instead, it relies on `pee
 
 Even though Lodash range goes to 3, you will need to tweak your build a little to make it work as Reactabular relies on Lodash 4 style imports listed below:
 
+* `import find from 'lodash/find';`
 * `import get from 'lodash/get';`
 * `import has from 'lodash/has';`
 * `import merge from 'lodash/merge';`

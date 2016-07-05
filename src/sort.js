@@ -1,3 +1,4 @@
+import find from 'lodash/find';
 import get from 'lodash/get';
 
 const defaultOrder = {
@@ -74,7 +75,11 @@ const byColumns = ({
 
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy
-const sorter = ({ sortingColumns, sort } = {}) => data => {
+const sorter = ({
+  columns = {},
+  sortingColumns,
+  sort
+} = {}) => data => {
   if (!sortingColumns) {
     return data;
   }
@@ -82,17 +87,22 @@ const sorter = ({ sortingColumns, sort } = {}) => data => {
   const propertyList = [];
   const orderList = [];
 
-  sortingColumns.forEach((column) => {
-    propertyList.push(row => {
-      const value = get(row, column.property);
+  sortingColumns.forEach(({ property, sort }) => { // eslint-disable-line no-shadow
+    const realColumn = find(columns, { cell: { property } });
+    const resolver = realColumn && realColumn.cell && realColumn.cell.resolve || (a => a);
 
-      if (value && value.toLowerCase) {
-        return value.toLowerCase();
+    propertyList.push(row => {
+      const value = get(row, property);
+      const resolvedValue = resolver(value, { rowData: row, property });
+
+      if (resolvedValue && resolvedValue.toLowerCase) {
+        return resolvedValue.toLowerCase();
       }
 
       return value;
     });
-    orderList.push(column.sort);
+
+    orderList.push(sort);
   });
 
   return sort(data, propertyList, orderList);
