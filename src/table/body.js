@@ -73,12 +73,14 @@ const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
 
       return React.createElement(
         components.cell,
-        evaluateTransforms([
-          () => ({ key: `${j}-cell` }),
-          () => columnProps,
-          () => props,
-          () => transformed
-        ]),
+        {
+          key: `${j}-cell`,
+          ...evaluateTransforms([
+            () => columnProps,
+            () => props,
+            () => transformed
+          ])
+        },
         transformed.children || format(
           resolve(value, extraParameters),
           extraParameters

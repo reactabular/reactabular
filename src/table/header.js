@@ -57,12 +57,14 @@ const HeaderRow = ({ row, components }) => (
 
       return React.createElement(
         components.cell,
-        evaluateTransforms([
-          () => ({ key: `${j}-header` }),
-          () => columnProps,
-          () => props,
-          () => transformed
-        ]),
+        {
+          key: `${j}-header`,
+          ...evaluateTransforms([
+            () => columnProps,
+            () => props,
+            () => transformed
+          ])
+        },
         transformed.children || format(label, extraParameters)
       );
     })
