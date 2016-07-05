@@ -59,7 +59,7 @@ const HeaderRow = ({ row, components }) => (
         components.cell,
         {
           key: `${j}-header`,
-          ...mergeProps([columnProps, props, transformed])
+          ...mergeProps([transformed, props, columnProps])
         },
         transformed.children || format(label, extraParameters)
       );

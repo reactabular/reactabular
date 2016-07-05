@@ -471,7 +471,7 @@ describe('Table.Body', function () {
     );
 
     expect(td).to.exist;
-    expect(td.className).to.equal(`${anotherCellClass} ${cellClass}`);
+    expect(td.className).to.equal(`${cellClass} ${anotherCellClass}`);
   });
 
   it('can be transformed while retaining classNames', function () {
@@ -504,7 +504,7 @@ describe('Table.Body', function () {
       table, cellClass
     );
 
-    expect(td.className).to.equal(`${anotherCellClass} ${cellClass}`);
+    expect(td.className).to.equal(`${cellClass} ${anotherCellClass}`);
   });
 
   it('does retain objects with multiple transforms', function () {

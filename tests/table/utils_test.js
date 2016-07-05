@@ -247,11 +247,11 @@ describe('evaluateTransforms', function () {
     });
   });
 
-  it('merges from right to left', function () {
+  it('merges from left to right', function () {
     const output = 'foobar';
     const transforms = [
-      () => ({ foo: output }),
-      () => ({ foo: 'foo' })
+      () => ({ foo: 'foo' }),
+      () => ({ foo: output })
     ];
 
     expect(evaluateTransforms(transforms)).to.deep.equal({
@@ -282,7 +282,7 @@ describe('evaluateTransforms', function () {
     ];
 
     expect(evaluateTransforms(transforms)).to.deep.equal({
-      className: 'baz bar foo'
+      className: 'foo bar baz'
     });
   });
 });

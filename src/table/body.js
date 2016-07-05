@@ -75,7 +75,7 @@ const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
         components.cell,
         {
           key: `${j}-cell`,
-          ...mergeProps([columnProps, props, transformed])
+          ...mergeProps([transformed, props, columnProps])
         },
         transformed.children || format(
           resolve(value, extraParameters),

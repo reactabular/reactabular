@@ -323,7 +323,7 @@ describe('Table.Header', function () {
     );
 
     expect(th).to.exist;
-    expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
+    expect(th.className).to.equal(`${headerClass} ${anotherHeaderClass}`);
   });
 
   it('does retain objects with multiple transforms', function () {
@@ -389,7 +389,7 @@ describe('Table.Header', function () {
     );
 
     expect(th.innerHTML).to.equal(label);
-    expect(th.className).to.equal(`${anotherHeaderClass} ${headerClass}`);
+    expect(th.className).to.equal(`${headerClass} ${anotherHeaderClass}`);
   });
 
   [
