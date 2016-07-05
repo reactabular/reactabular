@@ -9,9 +9,6 @@
   "plugins": [
     "react"
   ],
-  "globals": {
-    "Catalog": true
-  },
   "rules": {
     "comma-dangle": ["error", "never"],
     "prefer-arrow-callback": 0,
