@@ -1,9 +1,11 @@
 /* eslint-disable no-console, no-shadow, no-unused-vars, react/prop-types */
 import React from 'react';
 import findIndex from 'lodash/findIndex';
+import orderBy from 'lodash/orderBy';
+import { compose } from 'redux';
 
 import { generateData } from '../helpers';
-import { Table } from '../../src';
+import { Table, sort, transforms } from '../../src';
 
 const schema = {
   type: 'object',
@@ -27,18 +29,37 @@ class TreeTable extends React.Component {
     super(props);
 
     this.state = {
+      sortingColumns: null,
       data,
       columns: this.getColumns()
     };
   }
   getColumns() {
+    const sortable = transforms.sort({
+      // Point the transform to your data. React state can work for this purpose
+      // but you can use a state manager as well.
+      getSortingColumns: () => this.state.sortingColumns || [],
+
+      // The user requested sorting, adjust the sorting state accordingly.
+      // This is a good chance to pass the request through a sorter.
+      onSort: selectedColumn => {
+        this.setState({
+          sortingColumns: sort.byColumns({ // sort.byColumn would work too
+            sortingColumns: this.state.sortingColumns,
+            selectedColumn
+          })
+        });
+      }
+    });
+
     return [
       {
         props: {
           style: { width: 200 }
         },
         header: {
-          label: 'Name'
+          label: 'Name',
+          transforms: [sortable('name')]
         },
         cell: {
           property: 'name',
@@ -77,11 +98,17 @@ class TreeTable extends React.Component {
     ];
   }
   render() {
+    const { columns, sortingColumns, data } = this.state;
+    const d = compose(
+      filterTree,
+      sortTree(sortingColumns)
+    )(data);
+
     return (
       <Table.Provider
         className="pure-table pure-table-striped"
-        columns={this.state.columns}
-        data={filterTree(this.state.data)}
+        columns={columns}
+        data={d}
         rowKey="id"
       >
         <Table.Header />
@@ -94,6 +121,59 @@ class TreeTable extends React.Component {
       </Table.Provider>
     );
   }
+}
+
+function sortTree(sortingColumns) {
+  return compose(
+    unpackTree,
+    sort.sorter({
+      sortingColumns,
+      sort: orderBy
+    }),
+    packTree
+  );
+}
+
+// Folds children inside root parents
+function packTree(data) {
+  const ret = [];
+  let pack = [];
+  let previousParent;
+
+  data.forEach(row => {
+    if (row.parent) {
+      pack.push(row);
+    } else {
+      ret.push(row);
+
+      if (previousParent && pack) {
+        previousParent._pack = pack; // eslint-disable-line no-underscore-dangle
+
+        pack = [];
+      }
+
+      previousParent = row;
+    }
+  });
+
+  if (pack) {
+    previousParent._pack = pack; // eslint-disable-line no-underscore-dangle
+  }
+
+  return ret;
+}
+
+// Extracts children from data
+function unpackTree(data) {
+  let ret = [];
+
+  data.forEach(row => {
+    const { _pack, ...rest } = row;
+
+    ret = ret.concat([rest]).concat(_pack);
+  });
+
+  return ret;
 }
 
 function generateParents(data) {
