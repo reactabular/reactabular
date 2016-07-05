@@ -44,7 +44,12 @@ Catalog.render({
       path: '/',
       title: 'Introduction',
       imports: documentationImports,
-      component: require('catalog/lib/loader!raw!../README.md')
+      component: require('catalog/lib/loader!raw!../README.md'),
+      props: {
+        style: {
+          borderBottom: '2px solid #ddd'
+        }
+      }
     },
     {
       title: 'Table',
@@ -186,6 +191,11 @@ Catalog.render({
     },
     {
       title: 'Examples',
+      props: {
+        style: {
+          borderTop: '2px solid #ddd'
+        }
+      },
       pages: [
         {
           path: 'examples/sort-and-search',
