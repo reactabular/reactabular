@@ -17,6 +17,7 @@ export default class Provider extends React.Component {
     const {
       columns, // eslint-disable-line no-unused-vars
       data, // eslint-disable-line no-unused-vars
+      rowKey, // eslint-disable-line no-unused-vars
       components,
       children,
       ...props
