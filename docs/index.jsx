@@ -12,6 +12,10 @@ import * as customTables from './tables';
 import './main.css';
 import '../style.css';
 
+if (process.env.NODE_ENV !== 'production') {
+  React.Perf = require('react-addons-perf');
+}
+
 const documentationImports = {
   ...reactabular,
   ...dataDefinitions,

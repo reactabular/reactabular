@@ -93,7 +93,15 @@ if (TARGET === 'start') {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
-    ]
+    ],
+    module: {
+      loaders: [
+        {
+          test: require.resolve('react'),
+          loader: 'expose?React'
+        }
+      ]
+    }
   });
 }
 

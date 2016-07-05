@@ -88,6 +88,7 @@
     "purecss": "^0.6.0",
     "raw-loader": "^0.5.1",
     "react": "^15.1.0",
+    "react-addons-perf": "^15.2.0",
     "react-addons-test-utils": "^15.1.0",
     "react-addons-update": "^15.1.0",
     "react-dnd": "^2.1.4",
