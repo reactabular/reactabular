@@ -89,7 +89,8 @@ class TreeTable extends React.Component {
           style: { width: 300 }
         },
         header: {
-          label: 'Age'
+          label: 'Age',
+          transforms: [sortable('age')]
         },
         cell: {
           property: 'age'
