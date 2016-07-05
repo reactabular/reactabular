@@ -65,7 +65,6 @@ const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
         property
       };
       const value = get(row, property);
-      const resolvedValue = resolve(value, extraParameters);
       const transformed = evaluateTransforms(transforms, value, extraParameters);
 
       if (!transformed) {
@@ -80,7 +79,10 @@ const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
           () => props,
           () => transformed
         ]),
-        transformed.children || format(resolvedValue, extraParameters)
+        transformed.children || format(
+          resolve(value, extraParameters),
+          extraParameters
+        )
       );
     })
   )
