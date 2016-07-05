@@ -40,7 +40,7 @@ const HeaderRow = ({ row, components }) => (
       const columnProps = column.props || {};
       const {
         label,
-        transforms = [() => ({})],
+        transforms = [],
         format = a => a,
         props // eslint-disable-line no-shadow
       } = column.header || {};

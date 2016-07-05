@@ -47,7 +47,7 @@ const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
       const columnProps = column.props || {};
       const {
         property,
-        transforms = [() => ({})],
+        transforms = [],
         format = a => a,
         resolve = a => a,
         props // eslint-disable-line no-shadow
