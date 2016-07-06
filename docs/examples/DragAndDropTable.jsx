@@ -262,7 +262,9 @@ const DndHeader = compose(
       connectDropTarget: connect.dropTarget()
     })
   )
-)(({ connectDragSource, connectDropTarget, children, ...props }) => (
+)(({
+  connectDragSource, connectDropTarget, children, onMove, ...props // eslint-disable-line max-len, no-unused-vars
+}) => (
   connectDragSource(connectDropTarget(
     <th {...props}>{children}</th>
   ))
