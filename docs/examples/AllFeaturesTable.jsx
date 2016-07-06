@@ -330,12 +330,12 @@ function sortHeader(getSortingColumns) {
     return (
       <div style={{ display: 'inline' }}>
         <span className="value">{value}</span>
+        {sortable.toFormatter({ props: { style: { float: 'right' } } })}
         {idx >= 0 &&
-          <span className="sort-order" style={{ marginLeft: '0.5em' }}>
+          <span className="sort-order" style={{ marginLeft: '0.5em', float: 'right' }}>
             {idx + 1}
           </span>
         }
-        {sortable.toFormatter()}
       </div>
     );
   };

@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
+import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import { transforms } from '../src';
+import { transforms, editors } from '../src';
 
 const { edit, sort } = transforms;
 
@@ -108,6 +110,72 @@ describe('edit', function () {
 
     expect(React.isValidElement(formatter)).to.equal(true);
   });
+
+  it('converted version accepts value', function () {
+    const testIndex = 'testIndex';
+    let receivedValue;
+    const editor = edit({
+      getEditId() {
+        return testIndex;
+      },
+      getEditProperty() {
+        return testIndex;
+      },
+      onValue({ value }) {
+        receivedValue = value;
+      }
+    });
+    const formatter = editor(editors.boolean()).toFormatter({ value: true });
+    const element = TestUtils.renderIntoDocument(
+      React.createElement(Wrapper, {}, formatter)
+    );
+    const buttons = TestUtils.scryRenderedDOMComponentsWithTag(
+      element, 'button'
+    );
+
+    TestUtils.Simulate.click(buttons[1]);
+
+    expect(receivedValue).to.equal(false);
+  });
+
+  it('converted version accepts extra parameters', function () {
+    const extraParameters = { foo: 'bar' };
+    let receivedValue;
+    const editor = edit({
+      getEditId(extras) {
+        receivedValue = extras;
+      }
+    });
+    const formatter = editor(editors.boolean()).toFormatter({ extraParameters });
+    const element = TestUtils.renderIntoDocument(
+      React.createElement(Wrapper, {}, formatter)
+    );
+    const buttons = TestUtils.scryRenderedDOMComponentsWithTag(
+      element, 'button'
+    );
+
+    TestUtils.Simulate.click(buttons[1]);
+
+    expect(receivedValue).to.deep.equal(extraParameters);
+  });
+
+  it('converted version accepts props', function () {
+    const className = 'demo-class';
+    const editor = edit({
+      getEditId() {
+        return 'foo';
+      }
+    });
+    const formatter = editor(editors.boolean()).toFormatter({ props: { className } });
+    const element = TestUtils.renderIntoDocument(
+      React.createElement(Wrapper, {}, formatter)
+    );
+    const elem = TestUtils.findRenderedDOMComponentWithClass(
+      element, className
+    );
+
+    expect(elem).to.exist;
+  });
 });
 
 describe('sort', function () {
@@ -153,8 +221,28 @@ describe('sort', function () {
 
   it('converts to a formatter', function () {
     const sorter = sort();
-    const formatter = sorter('div').toFormatter();
+    const formatter = sorter('property').toFormatter();
 
     expect(React.isValidElement(formatter)).to.equal(true);
   });
+
+  it('converted version accepts props', function () {
+    const className = 'demo-class';
+    const sorter = sort();
+    const formatter = sorter('property').toFormatter({ props: { className } });
+    const element = TestUtils.renderIntoDocument(
+      React.createElement(Wrapper, {}, formatter)
+    );
+    const elem = TestUtils.findRenderedDOMComponentWithClass(
+      element, className
+    );
+
+    expect(elem).to.exist;
+  });
 });
+
+class Wrapper extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  render() {
+    return React.createElement('div', this.props);
+  }
+}
