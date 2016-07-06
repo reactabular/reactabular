@@ -42,9 +42,11 @@ const columns = [
   {
     header: {
       label: 'Name',
-      transform: label => ({
-        onClick: () => alert(`clicked ${label}`)
-      })
+      transforms: [
+        label => ({
+          onClick: () => alert(`clicked ${label}`)
+        })
+      ]
     },
     cell: {
       property: 'name'
@@ -53,9 +55,11 @@ const columns = [
   {
     header: {
       label: 'Active',
-      transform: label => ({
-        onClick: () => alert(`clicked ${label}`)
-      })
+      transforms: [
+        label => ({
+          onClick: () => alert(`clicked ${label}`)
+        })
+      ]
     },
     cell: {
       property: 'tools.hammer',
@@ -65,9 +69,11 @@ const columns = [
   {
     header: {
       label: 'Country',
-      transform: label => ({
-        onClick: () => alert(`clicked ${label}`)
-      })
+      transforms: [
+        label => ({
+          onClick: () => alert(`clicked ${label}`)
+        })
+      ]
     },
     cell: {
       property: 'country',
