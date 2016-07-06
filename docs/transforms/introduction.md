@@ -22,10 +22,10 @@ import { transforms } from 'reactabular';
 ...
 header: {
   label: 'Position',
-  format: name => (
+  format: (name, extraParameters) => (
     <div style={{ display: 'inline' }}>
       <span>{name}</span>
-      {sortable('position').toFormatter()}
+      {sortable().toFormatter(name, extraParameters)}
     </div>
   )
 },

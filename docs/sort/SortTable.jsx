@@ -11,7 +11,7 @@ export default class SortTable extends React.Component {
     const sortable = transforms.sort({
       // Point the transform to your data. React state can work for this purpose
       // but you can use a state manager as well.
-      getSortingColumns: () => this.state.sortingColumns || [],
+      getSortingColumns: () => this.state.sortingColumns || {},
 
       // The user requested sorting, adjust the sorting state accordingly.
       // This is a good chance to pass the request through a sorter.
@@ -31,7 +31,7 @@ export default class SortTable extends React.Component {
         {
           header: {
             label: 'Name',
-            transforms: [sortable('name')]
+            transforms: [sortable()]
           },
           cell: {
             property: 'name'
@@ -60,7 +60,7 @@ export default class SortTable extends React.Component {
   }
   render() {
     const { data, columns, sortingColumns } = this.state;
-    const sortedData = sort.sorter({ sortingColumns, sort: orderBy })(data);
+    const sortedData = sort.sorter({ columns: this.state.columns, sortingColumns, sort: orderBy })(data);
 
     return (
       <div>

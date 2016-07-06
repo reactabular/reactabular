@@ -35,7 +35,7 @@ export default class SortAndSearchTable extends React.Component {
     const sortable = transforms.sort({
       // Point the transform to your data. React state can work for this purpose
       // but you can use a state manager as well.
-      getSortingColumns: () => this.state.sortingColumns || [],
+      getSortingColumns: () => this.state.sortingColumns || {},
 
       // The user requested sorting, adjust the sorting state accordingly.
       // This is a good chance to pass the request through a sorter.
@@ -50,12 +50,14 @@ export default class SortAndSearchTable extends React.Component {
     });
     const sortableHeader = sortHeader(() => this.state.sortingColumns);
 
-    const resetable = property => () => ({
-      onDoubleClick: () => this.setState({
-        sortingColumns: this.state.sortingColumns.filter(
-          sortable => sortable.property !== property
-        )
-      })
+    const resettable = () => (value, {columnIndex}) => ({
+      onDoubleClick: () => {
+        let sortingColumns = this.state.sortingColumns;
+        delete sortingColumns[columnIndex];
+        this.setState({
+          sortingColumns,
+        });
+      }
     });
 
     this.state = {
@@ -67,8 +69,8 @@ export default class SortAndSearchTable extends React.Component {
             label: 'Name',
             // Resetable operates on cell level while sorting is handled by
             // an element within -> no conflict between click and double click.
-            transforms: [resetable('name')],
-            format: sortableHeader(sortable('name'))
+            transforms: [resettable()],
+            format: sortableHeader(sortable())
           },
           cell: {
             property: 'name'
@@ -77,8 +79,8 @@ export default class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'Company',
-            transforms: [resetable('company')],
-            format: sortableHeader(sortable('company'))
+            transforms: [resettable()],
+            format: sortableHeader(sortable())
           },
           cell: {
             property: 'company'
@@ -87,8 +89,8 @@ export default class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'Age',
-            transforms: [resetable('age')],
-            format: sortableHeader(sortable('age'))
+            transforms: [resettable()],
+            format: sortableHeader(sortable())
           },
           cell: {
             property: 'age'
@@ -101,7 +103,7 @@ export default class SortAndSearchTable extends React.Component {
   render() {
     const { data, columns, sortingColumns, query } = this.state;
     const searchedData = search.multipleColumns({ columns, query })(data);
-    const sortedData = sort.sorter({ sortingColumns, sort: orderBy })(searchedData);
+    const sortedData = sort.sorter({ columns, sortingColumns, sort: orderBy })(searchedData);
 
     return (
       <div>
@@ -124,10 +126,10 @@ export default class SortAndSearchTable extends React.Component {
 }
 
 function sortHeader(getSortingColumns) {
-  return sortable => (value, { column }) => {
+  return sortable => (value, { column, columnIndex }) => {
     const property = column.cell && column.cell.property;
     const sortingColumns = getSortingColumns();
-    const idx = findIndex(sortingColumns, { property });
+    const idx = columnIndex;
 
     return (
       <div style={{ display: 'inline' }}>
@@ -137,7 +139,7 @@ function sortHeader(getSortingColumns) {
             {idx + 1}
           </span>
         }
-        {sortable.toFormatter()}
+        {sortable.toFormatter(value, {columnIndex})}
       </div>
     );
   };

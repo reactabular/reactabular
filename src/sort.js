@@ -13,25 +13,20 @@ const byColumn = ({
   sortingOrder = defaultOrder,
   selectedColumn
 }) => {
-  const sortingColumn = sortingColumns && sortingColumns.length ?
-    sortingColumns[0] :
-    {};
+
   let sort = sortingOrder.FIRST;
 
-  if (sortingColumn.property === selectedColumn) {
-    sort = sortingOrder[sortingColumn.sort];
+  if (sortingColumns && sortingColumns.hasOwnProperty(selectedColumn)) {
+    sort = sortingOrder[sortingColumns[selectedColumn]];
 
     if (!sort) {
-      return [];
+      return {};
     }
   }
 
-  return [
-    {
-      property: selectedColumn,
-      sort
-    }
-  ];
+  return {
+    [selectedColumn]: sort
+  };
 };
 
 const byColumns = ({
@@ -39,38 +34,31 @@ const byColumns = ({
   sortingOrder = defaultOrder,
   selectedColumn
 }) => {
-  const index = sortingColumns && sortingColumns.map(
-    c => c.property
-  ).indexOf(selectedColumn);
-  let newSortingColumns = [];
+  let newSortingColumns = {};
 
   if (!sortingColumns) {
-    return [{
-      property: selectedColumn,
+    return {
+     [selectedColumn]: sortingOrder.FIRST
+    }/*[{
+      columnIndex: selectedColumn,
       sort: sortingOrder.FIRST
-    }];
-  } else if (index >= 0) {
+    }]*/;
+  } else if (sortingColumns.hasOwnProperty(selectedColumn)) {
     // Clone to avoid mutating the original structure
-    newSortingColumns = sortingColumns.map(col => ({ ...col }));
-
-    const newSort = sortingOrder[newSortingColumns[index].sort];
+    //newSortingColumns = sortingColumns.map(col => ({ ...col }));
+    newSortingColumns = {...sortingColumns};
+    const newSort = sortingOrder[newSortingColumns[selectedColumn]];
 
     if (newSort) {
-      newSortingColumns[index] = {
-        property: selectedColumn,
-        sort: newSort
-      };
+      newSortingColumns[selectedColumn] = newSort;
     } else {
-      newSortingColumns.splice(index, 1);
+      delete newSortingColumns[selectedColumn];
     }
-
     return newSortingColumns;
   }
 
-  return [...sortingColumns, {
-    property: selectedColumn,
-    sort: sortingOrder.FIRST
-  }];
+  return {...sortingColumns, 
+    [selectedColumn]: sortingOrder.FIRST};
 };
 
 // sorter === lodash orderBy
@@ -84,16 +72,17 @@ const sorter = ({
     return data;
   }
 
-  const propertyList = [];
+  const columnIndexList = [];
   const orderList = [];
 
-  sortingColumns.forEach(({ property, sort }) => { // eslint-disable-line no-shadow
-    const realColumn = find(columns, { cell: { property } });
+  Object.keys(sortingColumns).forEach((columnIndex) => { // eslint-disable-line no-shadow
+    const sort = sortingColumns[columnIndex];
+    const realColumn = columns[columnIndex];
     const resolver = realColumn && realColumn.cell && realColumn.cell.resolve || (a => a);
 
-    propertyList.push(row => {
-      const value = get(row, property);
-      const resolvedValue = resolver(value, { rowData: row, property });
+    columnIndexList.push(row => {
+      const value = get(row, realColumn.cell.property);
+      const resolvedValue = resolver(value, { rowData: row, property: realColumn.cell.property });
 
       if (resolvedValue && resolvedValue.toLowerCase) {
         return resolvedValue.toLowerCase();
@@ -105,7 +94,7 @@ const sorter = ({
     orderList.push(sort);
   });
 
-  return sort(data, propertyList, orderList);
+  return sort(data, columnIndexList, orderList);
 };
 
 export default {

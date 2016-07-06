@@ -13,7 +13,7 @@ import { transforms, sort } from 'reactabular';
 const sortable = transforms.sort({
   // Point the transform to your data. React state can work for this purpose
   // but you can use a state manager as well.
-  getSortingColumns: () => this.state.sortingColumns || [],
+  getSortingColumns: () => this.state.sortingColumns || {},
 
   // The user requested sorting, adjust the sorting state accordingly.
   // This is a good chance to pass the request through a sorter.
@@ -34,7 +34,7 @@ columns: [
   {
     header: {
       label: 'name',
-      transforms: [sortable('name')]
+      transforms: [sortable()]
     },
     cell: {
       property: 'name'

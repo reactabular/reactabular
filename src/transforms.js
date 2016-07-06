@@ -40,25 +40,24 @@ const edit = ({
 const sort = ({
   getSortingColumns = () => [],
   onSort = () => {}
-} = {}) => property => {
-  const sortTransform = () => {
+} = {}) => () => {
+  const sortTransform = (_value, {columnIndex: index}) => {
     const columns = getSortingColumns();
-    const index = columns.map(c => c.property).indexOf(property);
     let headerClass = 'sort sort-none';
 
-    if (index >= 0) {
-      headerClass = `sort sort-${columns[index].sort}`;
+    if (columns[index] !== undefined) {
+      headerClass = `sort sort-${columns[index]}`;
     }
 
     return {
       className: headerClass,
-      onClick: () => onSort(property)
+      onClick: () => onSort(index)
     };
   };
 
-  sortTransform.toFormatter = () => React.createElement(
+  sortTransform.toFormatter = (value, extraParameters) => React.createElement(
     'span',
-    sortTransform()
+    sortTransform(value, extraParameters)
   );
 
   return sortTransform;
