@@ -14,7 +14,7 @@ const data = [
   {
     name: 'Boolean',
     editor: editors.boolean(),
-    code: 'editors.boolean()',
+    code: 'editors.boolean({ props: <props> })',
     description: `If initial value is true,
       allows setting to false and vice versa.
       Demo value defaults to false always.`,
@@ -22,10 +22,8 @@ const data = [
   },
   {
     name: 'Dropdown',
-    editor: editors.dropdown({
-      options
-    }),
-    code: 'editors.dropdown({ options: countries })',
+    editor: editors.dropdown({ options }),
+    code: 'editors.dropdown({ options: [[<value>, <name>]], props: <props> })',
     description: `The dropdown expects an array
       of value-name object pairs and emits
       the selected one.`,
@@ -41,14 +39,20 @@ const data = [
         value: 'name'
       }
     }),
-    code: 'editors.dropdown({ options: countries, fields: {name: <name>, value: <value>} })',
+    code: `editors.dropdown(
+      {
+        options: [[<value>, <name>]],
+        fields: {name: <name>, value: <value>},
+        props: <props>
+      }
+    )`,
     description: 'This dropdown uses custom field definition.',
     id: uuid.v4()
   },
   {
     name: 'Input',
     editor: editors.input(),
-    code: 'editors.input()',
+    code: 'editors.input({ props: <props> })',
     description: 'Just a wrapper for a regular input.',
     id: uuid.v4()
   }
