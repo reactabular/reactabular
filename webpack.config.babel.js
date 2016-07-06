@@ -89,7 +89,9 @@ if (TARGET === 'start') {
       historyApiFallback: true,
       hot: true,
       inline: true,
-      progress: true
+      progress: true,
+      noInfo: true,
+      stats: 'errors-only'
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
