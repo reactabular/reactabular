@@ -5,35 +5,6 @@ import {
   Table, search
 } from '../../src';
 
-class FixedWidthHeader extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      style: {}
-    };
-  }
-  componentDidMount() {
-    // setTimeout is used to capture width correctly
-    // More info: github.com/facebook/react-native/issues/953
-    setTimeout(() => {
-      const width = this.refs.header.clientWidth;
-
-      this.setState({
-        style: { width }
-      });
-    });
-  }
-  render() {
-    return (
-      <th style={this.state.style} ref="header">{this.props.children}</th>
-    );
-  }
-}
-FixedWidthHeader.propTypes = {
-  children: React.PropTypes.any
-};
-
 export default class FixedWidthColumnsTable extends React.Component {
   constructor(props) {
     super(props);
@@ -43,8 +14,7 @@ export default class FixedWidthColumnsTable extends React.Component {
       columns: [
         {
           header: {
-            label: 'Name',
-            component: FixedWidthHeader
+            label: 'Name'
           },
           cell: {
             property: 'name'
@@ -52,8 +22,7 @@ export default class FixedWidthColumnsTable extends React.Component {
         },
         {
           header: {
-            label: 'Address',
-            component: FixedWidthHeader
+            label: 'Address'
           },
           cell: {
             property: 'address'
@@ -75,6 +44,11 @@ export default class FixedWidthColumnsTable extends React.Component {
     };
   }
   render() {
+    const components = {
+      header: {
+        cell: FixedWidthHeader
+      }
+    };
     const { data, columns, query } = this.state;
     const searchedData = search.multipleColumns({ columns, query })(data);
 
@@ -88,7 +62,12 @@ export default class FixedWidthColumnsTable extends React.Component {
             onChange={query => this.setState({ query })}
           />
         </div>
-        <Table.Provider columns={columns} data={searchedData} rowKey="id">
+        <Table.Provider
+          components={components}
+          columns={columns}
+          data={searchedData}
+          rowKey="id"
+        >
           <Table.Header />
 
           <Table.Body />
@@ -97,3 +76,38 @@ export default class FixedWidthColumnsTable extends React.Component {
     );
   }
 }
+
+class FixedWidthHeader extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.widthSet = false;
+    this.state = {
+      style: {}
+    };
+  }
+  componentDidUpdate() {
+    if (this.widthSet) {
+      return;
+    }
+
+    const width = this.refs.header.clientWidth;
+
+    // Wait till width is available and set then
+    if (width) {
+      this.widthSet = true;
+
+      this.setState({ // eslint-disable-line react/no-did-update-set-state
+        style: { width }
+      });
+    }
+  }
+  render() {
+    return (
+      <th style={this.state.style} ref="header">{this.props.children}</th>
+    );
+  }
+}
+FixedWidthHeader.propTypes = {
+  children: React.PropTypes.any
+};
