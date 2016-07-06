@@ -56,13 +56,27 @@ const dropdown = ({
 
 const input = ({ props } = {}) => {
   const Input = ({ value, onValue }) => {
-    const onKeyUp = ({ key, target: { value } }) => key === 'Enter' && onValue(value);
-    const onBlur = ({ target }) => onValue(target.value); // eslint-disable-line react/prop-types
+    const onKeyUp = ({ key, target: { value } }) => {
+      if (key === 'Enter') {
+        onValue(parseValue(value));
+      }
+    };
+    const onBlur = ({ target: { value } }) => { // eslint-disable-line react/prop-types
+      onValue(parseValue(value));
+    };
+    const parseValue = v => (value === parseFloat(value) ? parseFloat(v) : v);
 
-    return <input defaultValue={value} onKeyUp={onKeyUp} onBlur={onBlur} {...props} />;
+    return (
+      <input
+        defaultValue={value}
+        onKeyUp={onKeyUp}
+        onBlur={onBlur}
+        {...props}
+      />
+    );
   };
   Input.propTypes = {
-    value: React.PropTypes.string,
+    value: React.PropTypes.any,
     onValue: React.PropTypes.func
   };
 

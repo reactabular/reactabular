@@ -32,7 +32,7 @@ describe('Boolean', function () {
       <Wrapper>
         <Boolean
           value={false}
-          onValue={function () {
+          onValue={() => {
             changedValue = true;
           }}
         />
@@ -55,7 +55,7 @@ describe('Boolean', function () {
       <Wrapper>
         <Boolean
           value
-          onValue={function () {
+          onValue={() => {
             changedValue = false;
           }}
         />
@@ -135,7 +135,7 @@ describe('Dropdown', function () {
       <Wrapper>
         <Dropdown
           value="name"
-          onValue={function () {
+          onValue={() => {
             changedValue = true;
           }}
         />
@@ -238,7 +238,7 @@ describe('Input', function () {
       <Wrapper>
         <Input
           value="name"
-          onValue={function () {
+          onValue={() => {
             changedValue = true;
           }}
         />
@@ -262,7 +262,7 @@ describe('Input', function () {
       <Wrapper>
         <Input
           value="name"
-          onValue={function () {
+          onValue={() => {
             changedValue = true;
           }}
         />
@@ -282,6 +282,36 @@ describe('Input', function () {
 
     expect(changedValue).to.equal(true);
   });
+
+  it('returns a number if passed value was a number', function () {
+    const newValue = 321;
+    let receivedValue;
+    const Input = input();
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Input
+          value={123}
+          onValue={v => {
+            receivedValue = v;
+          }}
+        />
+      </Wrapper>
+    );
+
+    const renderedInput = TestUtils.findRenderedDOMComponentWithTag(
+      result, 'input'
+    );
+    renderedInput.value = newValue;
+
+    TestUtils.Simulate.keyUp(renderedInput, {
+      key: 'Enter',
+      keyCode: 13,
+      which: 13
+    });
+
+    expect(receivedValue).to.equal(newValue);
+  });
+
 
   it('accepts custom props', function () {
     const testClassName = 'demo';
