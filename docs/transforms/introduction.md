@@ -5,7 +5,7 @@ The API looks like this:
 * `header.transforms = [(<label>, { rowData: <label>, column: <column>, columnIndex: <number> }) => ({... props ...})]`
 * `cell.transforms = [(<value>, { rowData: <object>, property: <string>, column: <column>, columnIndex: <number> }) => ({... props ...})]`
 
-Transforms are evaluated from right to left. The values they return are [deep merged](https://lodash.com/docs#merge). `className`s are concatenated together. This means the leftmost value will win.
+Transforms are evaluated from left to right from general `props` to `header/cell.props` and finally `header/cell.transforms`. The values they return are [deep merged](https://lodash.com/docs#merge). `className`s are concatenated together. This means the rightmost value will win.
 
 ## Transforms as Formatters
 

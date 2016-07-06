@@ -135,7 +135,7 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th.className).to.equal(`${headerClass} ${anotherClass}`);
+    expect(th.className).to.equal(`${anotherClass} ${headerClass}`);
   });
 
   it('overrides styles in the right order', function () {
@@ -147,7 +147,9 @@ describe('Table.Header', function () {
       {
         props: {
           style: {
-            color: finalColor
+            backgroundColor: 'black',
+            color: finalColor,
+            display: 'none'
           }
         },
         header: {
@@ -155,16 +157,19 @@ describe('Table.Header', function () {
           props: {
             className: headerClass,
             style: {
-              color: 'yellow',
-              backgroundColor: finalBackgroundColor
+              backgroundColor: 'red',
+              display: finalDisplay
             }
           },
           transforms: [
             () => ({
               style: {
-                color: 'blue',
-                backgroundColor: 'black',
-                display: finalDisplay
+                backgroundColor: 'orange'
+              }
+            }),
+            () => ({
+              style: {
+                backgroundColor: finalBackgroundColor
               }
             })
           ]

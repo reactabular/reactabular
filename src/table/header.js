@@ -49,9 +49,9 @@ const HeaderRow = ({ row, components }) => (
         column,
         rowData: label
       };
-      const transformed = evaluateTransforms(transforms, label, extraParameters);
+      const transformedProps = evaluateTransforms(transforms, label, extraParameters);
 
-      if (!transformed) {
+      if (!transformedProps) {
         console.warn('Table.Header - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
       }
 
@@ -59,9 +59,9 @@ const HeaderRow = ({ row, components }) => (
         components.cell,
         {
           key: `${j}-header`,
-          ...mergeProps([transformed, props, columnProps])
+          ...mergeProps([columnProps, props, transformedProps])
         },
-        transformed.children || format(label, extraParameters)
+        transformedProps.children || format(label, extraParameters)
       );
     })
   )

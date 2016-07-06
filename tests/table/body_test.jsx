@@ -181,7 +181,7 @@ describe('Table.Body', function () {
       table, cellClass
     );
 
-    expect(td.className).to.equal(`${cellClass} ${anotherCellClass}`);
+    expect(td.className).to.equal(`${anotherCellClass} ${cellClass}`);
   });
 
   it('overrides styles in the right order', function () {
@@ -193,7 +193,9 @@ describe('Table.Body', function () {
       {
         props: {
           style: {
-            color: finalColor
+            backgroundColor: 'black',
+            color: 'yellow',
+            display: finalDisplay
           }
         },
         header: {
@@ -204,16 +206,19 @@ describe('Table.Body', function () {
           props: {
             className: cellClass,
             style: {
-              color: 'yellow',
-              backgroundColor: finalBackgroundColor
+              backgroundColor: finalBackgroundColor,
+              color: 'blue'
             }
           },
           transforms: [
             () => ({
               style: {
-                color: 'blue',
-                backgroundColor: 'black',
-                display: finalDisplay
+                color: 'purple'
+              }
+            }),
+            () => ({
+              style: {
+                color: finalColor
               }
             })
           ]
