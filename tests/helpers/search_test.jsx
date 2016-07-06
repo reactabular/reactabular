@@ -91,11 +91,8 @@ describe('Search', function () {
         first: value
       }
     ];
-    const result = function (d) {
-      expect(d.data).to.equal(data);
-    };
     const search = TestUtils.renderIntoDocument(
-      <Search columns={columns} data={data} onResult={result} />
+      <Search columns={columns} data={data} />
     );
 
     const input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
@@ -117,11 +114,8 @@ describe('Search', function () {
         first: value
       }
     ];
-    const result = function (d) {
-      expect(d.data.length).to.equal(0);
-    };
     const search = TestUtils.renderIntoDocument(
-      <Search columns={columns} data={data} onResult={result} />
+      <Search columns={columns} data={data} />
     );
 
     const input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
