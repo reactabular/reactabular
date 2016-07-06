@@ -52,7 +52,7 @@ const byColumns = ({
   }
 
   return {
-    ...sortingColumns, 
+    ...sortingColumns,
     [selectedColumn]: sortingOrder.FIRST
   };
 };
@@ -86,7 +86,7 @@ const sorter = ({
       return value;
     });
 
-    orderList.push(sort);
+    orderList.push(sortingColumns[columnIndex]);
   });
 
   return sort(data, columnIndexList, orderList);

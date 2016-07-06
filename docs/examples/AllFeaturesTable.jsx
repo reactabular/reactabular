@@ -113,7 +113,7 @@ class AllFeaturesTable extends React.Component {
         });
       }
     });
-    const sortableHeader = sortHeader(() => this.state.sortingColumns);
+    const sortableHeader = sortHeader();
 
     return [
       {
@@ -307,7 +307,7 @@ class AllFeaturesTable extends React.Component {
   }
 }
 
-function sortHeader(getSortingColumns) {
+function sortHeader() {
   return sortable => (value, { columnIndex }) => {
     const idx = columnIndex;
 

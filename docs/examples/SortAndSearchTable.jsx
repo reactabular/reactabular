@@ -47,7 +47,7 @@ export default class SortAndSearchTable extends React.Component {
         });
       }
     });
-    const sortableHeader = sortHeader(() => this.state.sortingColumns);
+    const sortableHeader = sortHeader();
 
     const resettable = () => (value, { columnIndex }) => ({
       onDoubleClick: () => {
@@ -124,8 +124,8 @@ export default class SortAndSearchTable extends React.Component {
   }
 }
 
-function sortHeader(getSortingColumns) {
-  return sortable => (value, { column, columnIndex }) => {
+function sortHeader() {
+  return sortable => (value, { columnIndex }) => {
     const idx = columnIndex;
 
     return (
