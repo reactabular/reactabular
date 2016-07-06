@@ -33,11 +33,6 @@ class DragAndDropTable extends React.Component {
     super(props);
 
     this.state = {
-      components: {
-        header: {
-          cell: DndHeader
-        }
-      },
       columns: [
         {
           props: {
@@ -126,7 +121,12 @@ class DragAndDropTable extends React.Component {
     this.onChildMove = this.onChildMove.bind(this);
   }
   render() {
-    const { components, columns, data } = this.state;
+    const components = {
+      header: {
+        cell: DndHeader
+      }
+    };
+    const { columns, data } = this.state;
 
     return (
       <Table.Provider components={components} columns={columns} data={data} rowKey="id">
