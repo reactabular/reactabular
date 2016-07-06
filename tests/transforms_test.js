@@ -113,7 +113,7 @@ describe('edit', function () {
 describe('sort', function () {
   it('defaults to sort-none class', function () {
     const sorter = sort();
-    const result = sorter()("testValue", {columnIndex: 0});
+    const result = sorter()('testValue', { columnIndex: 0 });
 
     expect(result.className).to.equal('sort sort-none');
   });
@@ -126,9 +126,9 @@ describe('sort', function () {
         return {
           [testColumnIndex]: sortDirection
         };
-      }, // sort = default
+      }
     });
-    const result = sorter()("testValue", {columnIndex: testColumnIndex});
+    const result = sorter()('testValue', { columnIndex: testColumnIndex });
 
     expect(result.className).to.equal(`sort sort-${sortDirection}`);
   });
@@ -141,7 +141,7 @@ describe('sort', function () {
         sorted = columnIndex;
       }
     });
-    const result = sorter()("testValue", {columnIndex: testColumnIndex});
+    const result = sorter()('testValue', { columnIndex: testColumnIndex });
 
     result.onClick();
 
@@ -150,7 +150,7 @@ describe('sort', function () {
 
   it('converts to a formatter', function () {
     const sorter = sort();
-    const formatter = sorter().toFormatter("testValue", {columnIndex: 0});
+    const formatter = sorter().toFormatter('testValue', { columnIndex: 0 });
 
     expect(React.isValidElement(formatter)).to.equal(true);
   });

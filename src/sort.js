@@ -1,4 +1,3 @@
-import find from 'lodash/find';
 import get from 'lodash/get';
 
 const defaultOrder = {
@@ -13,7 +12,6 @@ const byColumn = ({
   sortingOrder = defaultOrder,
   selectedColumn
 }) => {
-
   let sort = sortingOrder.FIRST;
 
   if (sortingColumns && sortingColumns.hasOwnProperty(selectedColumn)) {
@@ -38,15 +36,11 @@ const byColumns = ({
 
   if (!sortingColumns) {
     return {
-     [selectedColumn]: sortingOrder.FIRST
-    }/*[{
-      columnIndex: selectedColumn,
-      sort: sortingOrder.FIRST
-    }]*/;
+      [selectedColumn]: sortingOrder.FIRST
+    };
   } else if (sortingColumns.hasOwnProperty(selectedColumn)) {
     // Clone to avoid mutating the original structure
-    //newSortingColumns = sortingColumns.map(col => ({ ...col }));
-    newSortingColumns = {...sortingColumns};
+    newSortingColumns = { ...sortingColumns };
     const newSort = sortingOrder[newSortingColumns[selectedColumn]];
 
     if (newSort) {
@@ -57,8 +51,10 @@ const byColumns = ({
     return newSortingColumns;
   }
 
-  return {...sortingColumns, 
-    [selectedColumn]: sortingOrder.FIRST};
+  return {
+    ...sortingColumns, 
+    [selectedColumn]: sortingOrder.FIRST
+  };
 };
 
 // sorter === lodash orderBy
@@ -76,7 +72,6 @@ const sorter = ({
   const orderList = [];
 
   Object.keys(sortingColumns).forEach((columnIndex) => { // eslint-disable-line no-shadow
-    const sort = sortingColumns[columnIndex];
     const realColumn = columns[columnIndex];
     const resolver = realColumn && realColumn.cell && realColumn.cell.resolve || (a => a);
 

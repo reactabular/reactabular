@@ -41,17 +41,17 @@ const sort = ({
   getSortingColumns = () => [],
   onSort = () => {}
 } = {}) => () => {
-  const sortTransform = (_value, {columnIndex: index}) => {
+  const sortTransform = (_value, { columnIndex }) => {
     const columns = getSortingColumns();
     let headerClass = 'sort sort-none';
 
-    if (columns[index] !== undefined) {
-      headerClass = `sort sort-${columns[index]}`;
+    if (columns[columnIndex] !== undefined) {
+      headerClass = `sort sort-${columns[columnIndex]}`;
     }
 
     return {
       className: headerClass,
-      onClick: () => onSort(index)
+      onClick: () => onSort(columnIndex)
     };
   };
 

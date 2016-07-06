@@ -308,8 +308,7 @@ class AllFeaturesTable extends React.Component {
 }
 
 function sortHeader(getSortingColumns) {
-  return sortable => (value, { column, columnIndex }) => {
-    const sortingColumns = getSortingColumns();
+  return sortable => (value, { columnIndex }) => {
     const idx = columnIndex;
 
     return (
@@ -320,7 +319,7 @@ function sortHeader(getSortingColumns) {
             {idx + 1}
           </span>
         }
-        {sortable.toFormatter(value, {columnIndex})}
+        {sortable.toFormatter(value, { columnIndex })}
       </div>
     );
   };

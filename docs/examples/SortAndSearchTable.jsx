@@ -1,6 +1,5 @@
 /* eslint-disable no-shadow */
 import React from 'react';
-import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
 import { generateData, Search } from '../helpers';
@@ -50,12 +49,12 @@ export default class SortAndSearchTable extends React.Component {
     });
     const sortableHeader = sortHeader(() => this.state.sortingColumns);
 
-    const resettable = () => (value, {columnIndex}) => ({
+    const resettable = () => (value, { columnIndex }) => ({
       onDoubleClick: () => {
-        let sortingColumns = this.state.sortingColumns;
+        const sortingColumns = this.state.sortingColumns;
         delete sortingColumns[columnIndex];
         this.setState({
-          sortingColumns,
+          sortingColumns
         });
       }
     });
@@ -127,8 +126,6 @@ export default class SortAndSearchTable extends React.Component {
 
 function sortHeader(getSortingColumns) {
   return sortable => (value, { column, columnIndex }) => {
-    const property = column.cell && column.cell.property;
-    const sortingColumns = getSortingColumns();
     const idx = columnIndex;
 
     return (
@@ -139,7 +136,7 @@ function sortHeader(getSortingColumns) {
             {idx + 1}
           </span>
         }
-        {sortable.toFormatter(value, {columnIndex})}
+        {sortable.toFormatter(value, { columnIndex })}
       </div>
     );
   };

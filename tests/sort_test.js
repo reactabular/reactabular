@@ -33,7 +33,7 @@ describe('byColumn', function () {
   it('sorts descending if ascending the same first', function () {
     const selectedColumn = 0;
     const sortingColumns = {
-      [selectedColumn]: 'asc',
+      [selectedColumn]: 'asc'
     };
 
     const expected = {
@@ -48,7 +48,7 @@ describe('byColumn', function () {
   it('removes sorting if descending the same first', function () {
     const selectedColumn = 0;
     const sortingColumns = {
-      [selectedColumn]: 'desc',
+      [selectedColumn]: 'desc'
     };
 
     const expected = {};
@@ -61,7 +61,7 @@ describe('byColumn', function () {
     const selectedColumn = 0;
     const otherColumn = 1;
     const sortingColumns = {
-      [otherColumn]: 'asc',
+      [otherColumn]: 'asc'
     };
 
     const expected = {
@@ -133,11 +133,11 @@ describe('byColumns', function () {
   it('sorts descending if ascending the same first', function () {
     const selectedColumn = 0;
     const sortingColumns = {
-      [selectedColumn]: 'asc',
+      [selectedColumn]: 'asc'
     };
 
     const expected = {
-      [selectedColumn]: 'desc',
+      [selectedColumn]: 'desc'
     };
     const result = byColumns({ sortingColumns, selectedColumn });
 
@@ -147,7 +147,7 @@ describe('byColumns', function () {
   it('removes sorting if descending the same first', function () {
     const selectedColumn = 0;
     const sortingColumns = {
-      [selectedColumn]: 'desc',
+      [selectedColumn]: 'desc'
     };
 
     const expected = {};
@@ -159,11 +159,11 @@ describe('byColumns', function () {
   it('sorts ascending if ascending another one first', function () {
     const selectedColumn = 1;
     const sortingColumns = {
-      0: 'asc',
+      0: 'asc'
     };
 
     const expected = {
-      ...sortingColumns, 
+      ...sortingColumns,
       [selectedColumn]: 'asc'
     };
     const result = byColumns({ sortingColumns, selectedColumn });
@@ -181,7 +181,7 @@ describe('byColumns', function () {
     const selectedColumn = 1;
 
     const ascExpected = {
-      [selectedColumn]: 'asc',
+      [selectedColumn]: 'asc'
     };
     const descExpected = {
       [selectedColumn]: 'desc'
@@ -295,7 +295,7 @@ describe('sorter', function () {
     ];
     const sortingColumns = {
       0: 'asc',
-      1: 'asc',
+      1: 'asc'
     };
 
     const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
@@ -361,7 +361,7 @@ describe('sorter', function () {
       }
     ];
     const sortingColumns = {
-      0: 'asc',
+      0: 'asc'
     };
     const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
 
