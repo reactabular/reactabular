@@ -224,7 +224,7 @@ describe('Table.Body', function () {
       { position: 'foo', age: 111, name: 'foo', id: 0 }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data}>
+      <Table.Provider columns={columns} data={data} rowKey="id">
         <Table.Body />
       </Table.Provider>
     );
