@@ -115,19 +115,13 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
         'schema2object', 'lodash', 'react', 'react-dom',
         'react-dnd', 'react-dnd-html5-backend',
         'react-ghfork', 'redux', 'uuid',
-        'annogenerate'
+        'annogenerate', 'react-addons-update'
       ])
     },
     output: {
       path: config.paths.ghPages,
       filename: 'bundle.[chunkhash].js'
     },
-    /* resolve: {
-      alias: {
-        react: 'react-lite',
-        'react-dom': 'react-lite'
-      }
-    },*/
     plugins: [
       new CleanWebpackPlugin(['gh-pages']),
       new CopyWebpackPlugin([{
