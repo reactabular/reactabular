@@ -58,7 +58,7 @@ const schema = {
 };
 const data = generateData(30, schema);
 
-class FullTable extends React.Component {
+class AllFeaturesTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -344,4 +344,4 @@ function paginate(o) {
   };
 }
 
-export default FullTable;
+export default AllFeaturesTable;

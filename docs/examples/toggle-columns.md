@@ -1,3 +1,3 @@
 ```react
-<ToggleTable />
+<ToggleColumnsTable />
 ```

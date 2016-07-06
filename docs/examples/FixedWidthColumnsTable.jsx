@@ -34,7 +34,7 @@ FixedWidthHeader.propTypes = {
   children: React.PropTypes.any
 };
 
-export default class SearchTable extends React.Component {
+export default class FixedWidthColumnsTable extends React.Component {
   constructor(props) {
     super(props);
 

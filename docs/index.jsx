@@ -5,7 +5,11 @@ import * as Catalog from 'catalog';
 import * as reactabular from '../src';
 import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
-import * as customTables from './tables';
+import * as editorTables from './editors';
+import * as examplesTables from './examples';
+import * as formatterTables from './formatters';
+import * as searchTables from './search';
+import * as sortTables from './sort';
 
 import 'purecss/build/pure.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
@@ -22,7 +26,11 @@ const documentationImports = {
   ...reactabular,
   ...dataDefinitions,
   ...customHelpers,
-  ...customTables
+  ...editorTables,
+  ...examplesTables,
+  ...formatterTables,
+  ...searchTables,
+  ...sortTables
 };
 
 Catalog.render({

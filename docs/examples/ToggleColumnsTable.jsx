@@ -2,7 +2,7 @@
 import React from 'react';
 import { Table } from '../../src';
 
-export default class ToggleTable extends React.Component {
+export default class ToggleColumnsTable extends React.Component {
   constructor(props) {
     super(props);
 
