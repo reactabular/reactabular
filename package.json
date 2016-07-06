@@ -11,7 +11,7 @@
     "deploy-gh-pages": "gh-pages -d gh-pages",
     "dist": "webpack",
     "dist-min": "webpack",
-    "dist-modules": "babel ./src --out-dir ./dist-modules",
+    "dist-modules": "rm -rf ./dist-modules && babel ./src --out-dir ./dist-modules",
     "lint": "eslint . --ext .js --ext .jsx --cache",
     "preversion": "npm run lint && npm run test && npm run dist && npm run dist-min && git commit --allow-empty -am \"Update dist\"",
     "prepublish": "npm run dist-modules",
