@@ -11,7 +11,7 @@ import {
   Table, search, editors, sort, transforms, formatters
 } from '../../src';
 import {
-  CustomFooter, ColumnFilters, Paginator, PrimaryControls, generateData, paginate
+  ColumnFilters, Paginator, PrimaryControls, generateData, paginate
 } from '../helpers';
 import countries from '../data/countries';
 
@@ -182,6 +182,7 @@ class AllFeaturesTable extends React.Component {
         },
         cell: {
           property: 'salary',
+          transforms: [editable(editors.input({ props: { type: 'number' } }))],
           format: salary => (
             <span onDoubleClick={() => alert(`salary is ${salary}`)}>
               {highlight('salary')(salary)}
@@ -252,7 +253,21 @@ class AllFeaturesTable extends React.Component {
             })}
           />
 
-          <CustomFooter />
+          <tfoot>
+            <tr>
+              <td>
+                You could show sums etc. here in the customizable footer.
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Total salary: {
+                paginated.data.reduce((a, b) => a + b.salary, 0)
+              }</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
         </Table.Provider>
 
         <div className="controls">
