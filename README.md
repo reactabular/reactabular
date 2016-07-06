@@ -94,6 +94,12 @@ const columns = [
 </Table.Provider>
 ```
 
+## Testimonials
+
+> If you've struggled with other React table components, you'll see why this one is the best! - [Tim Dorr](https://twitter.com/timdorr/status/750346565374455808)
+
+If you are using Reactabular and want to endorse it, [let me know](https://github.com/bebraw/reactabular/issues/new).
+
 ## Sponsors
 
 [![SurviveJS](./images/survivejs.png)](http://survivejs.com/) [![Kenandy](./images/kenandy.png)](http://www.kenandy.com/)
