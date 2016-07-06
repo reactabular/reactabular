@@ -10,9 +10,8 @@ import transform from 'lodash/transform';
 import {
   Table, search, editors, sort, transforms, formatters
 } from '../../src';
-
 import {
-  CustomFooter, ColumnFilters, Paginator, PrimaryControls, generateData
+  CustomFooter, ColumnFilters, Paginator, PrimaryControls, generateData, paginate
 } from '../helpers';
 import countries from '../data/countries';
 
@@ -56,7 +55,7 @@ const schema = {
     }
   }
 };
-const data = generateData(30, schema);
+const data = generateData(100, schema);
 
 class AllFeaturesTable extends React.Component {
   constructor(props) {
@@ -219,15 +218,11 @@ class AllFeaturesTable extends React.Component {
     const {
       columns, data, pagination, sortingColumns, query
     } = this.state;
-    const d = compose(
+    const paginated = compose(
+      paginate(pagination),
       sort.sorter({ columns, sortingColumns, sort: orderBy }),
       search.multipleColumns({ columns, query })
     )(data);
-
-    const paginated = paginate(pagination)(d);
-    const pages = Math.ceil(d.length / Math.max(
-      isNaN(pagination.perPage) ? 1 : pagination.perPage, 1)
-    );
 
     return (
       <div>
@@ -235,7 +230,7 @@ class AllFeaturesTable extends React.Component {
           className="controls"
           perPage={pagination.perPage}
           columns={columns}
-          data={this.state.data}
+          data={data}
           onPerPage={this.onPerPage}
           onSearch={this.onSearch}
         />
@@ -261,7 +256,11 @@ class AllFeaturesTable extends React.Component {
         </Table.Provider>
 
         <div className="controls">
-          <Paginator pagination={pagination} pages={pages} onSelect={this.onSelect} />
+          <Paginator
+            pagination={pagination}
+            pages={paginated.amount}
+            onSelect={this.onSelect}
+          />
         </div>
       </div>
     );
@@ -324,23 +323,6 @@ function sortHeader(getSortingColumns) {
         {sortable.toFormatter()}
       </div>
     );
-  };
-}
-
-function paginate(o) {
-  return (data = []) => {
-    // adapt to zero indexed logic
-    const page = o.page - 1 || 0;
-    const perPage = o.perPage;
-
-    const amountOfPages = Math.ceil(data.length / perPage);
-    const startPage = page < amountOfPages ? page : 0;
-
-    return {
-      amount: amountOfPages,
-      data: data.slice(startPage * perPage, startPage * perPage + perPage),
-      page: startPage
-    };
   };
 }
 
