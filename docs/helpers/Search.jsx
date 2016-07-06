@@ -28,7 +28,7 @@ export default class Search extends React.Component {
           onChange={this.onColumnChange} value={this.state.column}
           columns={columns} i18n={i18n}
         />
-        <input onChange={this.onQueryChange} value={this.state.query}></input>
+        <input onChange={this.onQueryChange} value={this.state.query}/>
       </div>
     );
   }
