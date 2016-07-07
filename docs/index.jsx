@@ -262,12 +262,6 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/stateful-table.md')
       },
       {
-        path: 'examples/resizable-columns',
-        title: 'Resizable Columns',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/resizable-columns.md')
-      },
-      {
         path: 'examples/sticky-header',
         title: 'Sticky Header',
         imports: documentationImports,
