@@ -262,12 +262,6 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/stateful-table.md')
       },
       {
-        path: 'examples/fixed-width-columns',
-        title: 'Fixed Width Columns',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/fixed-width-columns.md')
-      },
-      {
         path: 'examples/resizable-columns',
         title: 'Resizable Columns',
         imports: documentationImports,
