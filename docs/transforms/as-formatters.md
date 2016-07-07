@@ -14,7 +14,7 @@ header: {
   format: name => (
     <div style={{ display: 'inline' }}>
       <span>{name}</span>
-      {sortable('position').toFormatter({ props: { className: 'demo' } })}
+      {sortable().toFormatter({ props: { className: 'demo' } })}
     </div>
   )
 },
