@@ -159,7 +159,7 @@ lang: js
 }
 ```
 
-**`cell.transforms = [(<value>, { rowData: <object>, property: <string> }) => ({... props ...})[`**
+**`cell.transforms = [(<value>, { columnIndex: <number>, column: <object>, rowData: <object>, rowIndex: <number>, property: <string> }) => ({... props ...})[`**
 
 `cell.transforms` follows the same idea as `header.transforms`. This time `value` is the resolved `property` and we have extra data available.
 
