@@ -112,6 +112,11 @@ class SelectionTable extends React.Component {
     const selected = this.state.selectedRowId;
     const idx = findIndex(data, { id: selected });
 
+    // No selection yet, escape
+    if (idx < 0) {
+      return;
+    }
+
     // Arrow Up
     if (e.keyCode === 38 && idx > 0) {
       e.preventDefault();
