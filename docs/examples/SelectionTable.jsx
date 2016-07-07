@@ -108,9 +108,8 @@ class SelectionTable extends React.Component {
     this.setState({ selectedRowId: row.id });
   }
   onKeyPressed(e) {
-    const data = this.state.data;
-    const selected = this.state.selectedRowId;
-    const idx = findIndex(data, { id: selected });
+    const { data, selectedRowId } = this.state;
+    const idx = findIndex(data, { id: selectedRowId });
 
     // No selection yet, escape
     if (idx < 0) {
