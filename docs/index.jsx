@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Fork from 'react-ghfork';
-import { Catalog } from 'catalog';
+import { Catalog, ReactSpecimen } from 'catalog';
 import * as reactabular from '../src';
 import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
@@ -316,6 +316,9 @@ ReactDOM.render(
     <Catalog
       title={title}
       pages={pages}
+      specimens={{
+        jsx: props => <ReactSpecimen {...props} />
+      }}
     />
   </div>,
   document.getElementById('app')
