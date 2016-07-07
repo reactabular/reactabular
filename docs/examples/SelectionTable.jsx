@@ -72,6 +72,7 @@ class SelectionTable extends React.Component {
   }
   render() {
     const { columns, data, selectedRowId } = this.state;
+    const selectedRow = find(data, { id: selectedRowId }) || {};
 
     return (
       <div>
@@ -92,15 +93,14 @@ class SelectionTable extends React.Component {
               onClick: () => this.onRowSelected(row)
             })}
           />
+
+          <tfoot>
+            <tr>
+              <td>Selected: {selectedRow.name}</td>
+              <td></td>
+            </tr>
+          </tfoot>
         </Table.Provider>
-
-        <div className="details-container">
-          <h2>Details</h2>
-
-          <div className="details">
-            {JSON.stringify(find(data, { id: selectedRowId }), null, 2)}
-          </div>
-        </div>
       </div>
     );
   }
