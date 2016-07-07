@@ -49,6 +49,41 @@ const pages = [
     }
   },
   {
+    title: 'Column Definition',
+    pages: [
+      {
+        path: 'column-definition',
+        title: 'Introduction',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./column-definition/introduction.md')
+      },
+      {
+        path: 'column-definition/props',
+        title: 'Props',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./column-definition/props.md')
+      },
+      {
+        path: 'column-definition/header',
+        title: 'Header',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./column-definition/header.md')
+      },
+      {
+        path: 'column-definition/cell',
+        title: 'Cell',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./column-definition/cell.md')
+      },
+      {
+        path: 'column-definition/nested-columns',
+        title: 'Nested Columns',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./column-definition/nested-columns.md')
+      }
+    ]
+  },
+  {
     title: 'Table',
     pages: [
       {
@@ -56,18 +91,6 @@ const pages = [
         title: 'Introduction',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./table/introduction.md')
-      },
-      {
-        path: 'table/column-definition',
-        title: 'Column Definition',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/column-definition.md')
-      },
-      {
-        path: 'table/nested-columns',
-        title: 'Nested Columns',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/nested-columns.md')
       },
       {
         path: 'table/provider',
