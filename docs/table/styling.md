@@ -18,3 +18,5 @@ The project root contains a file, **style.css**, which you can import to your pr
   />
 </Table.Provider>
 ```
+
+If you need even more control, override the default elements as discussed in the `Table.Provider` documentation.
