@@ -34,7 +34,7 @@ class StatefulTable extends React.Component {
   render() {
     const { rowKey } = this.props;
     const { data, columns, sortingColumns } = this.state;
-    const sortedData = sort.sorter({ sortingColumns, sort: orderBy })(data);
+    const sortedData = sort.sorter({ columns, sortingColumns, sort: orderBy })(data);
 
     return (
       <div>
