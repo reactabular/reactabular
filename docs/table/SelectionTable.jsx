@@ -134,5 +134,3 @@ export default class SelectionTable extends React.Component {
     }
   }
 }
-
-export default SelectionTable;
