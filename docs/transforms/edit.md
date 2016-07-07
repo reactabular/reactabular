@@ -6,25 +6,31 @@ The `edit` transform has been designed to allow inline editing. It expects you t
 lang: jsx
 ---
 ...
+import findIndex from 'lodash/findIndex';
 import { transforms, editors } from 'reactabular';
 
 ...
 
-// Define how to manipulate data through edit.
+// Define how to manipulate data through edit. As Reactabular doesn't
+// manage state, you'll need to define how to do it.
 const editable = transforms.edit({
-  // Get unique editing id for a cell.
-  // You can tweak this from outside to control edit.
+  // Generate a unique editing id for a cell.
+  // You can tweak this from outside to control which cell is being
+  // edited.
   getEditId: ({ rowData, property }) => `${rowData.id}-${property}`,
 
-  // Get the edited property
+  // Get the edited property from application state.
   getEditProperty: () => this.state.editedCell,
 
-  // Set the property when the user tries to activate editing
+  // When the user tries to activate editing, capture the editing
+  // index to application state. This way the transform is able to
+  // tell whether or not something is being edited.
   onActivate: idx => this.setState({
     editedCell: idx
   }),
 
-  // Capture the value when the user has finished
+  // Capture the value when the user has finished and update
+  // application state.
   onValue: (value, { id }, property) => {
     const idx = findIndex(this.state.data, { id });
 
@@ -60,3 +66,5 @@ An editor should follow the following interface:
 * `({ value, onValue }) => <React element>`
 
 It will receive the current `value` and is expected to emit the result through `onValue` upon completion.
+
+There's a separate section covering editors that implement this interface.
