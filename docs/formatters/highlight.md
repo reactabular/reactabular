@@ -17,6 +17,10 @@ class HighlightTable extends React.Component {
     super(props);
 
     const highlight = column => formatters.highlight(value => (
+      // We have an individual cell value here. For the highlighting
+      // algorithm to work we'll need to figure out possible matches.
+      // The highlighter is able to return proper elements based on
+      // this information.
       search.matches({
         value,
         query: this.state.query[column] || this.state.query.all
