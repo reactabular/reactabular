@@ -57,65 +57,64 @@ const schema = {
 };
 const data = generateData(100, schema);
 
+const columns = [
+  {
+    props: {
+      style: { minWidth: 300, width: 300 }
+    },
+    header: {
+      label: 'Name'
+    },
+    cell: {
+      property: 'name'
+    }
+  },
+  {
+    props: {
+      style: { minWidth: 100, width: 100 }
+    },
+    header: {
+      label: 'Age'
+    },
+    cell: {
+      property: 'age'
+    }
+  },
+  {
+    props: {
+      style: { minWidth: 400, width: 400 }
+    },
+    header: {
+      label: 'Company'
+    },
+    cell: {
+      property: 'company'
+    }
+  },
+  {
+    props: {
+      style: { minWidth: 400, width: 400 }
+    },
+    header: {
+      label: 'Product'
+    },
+    cell: {
+      property: 'product'
+    }
+  }
+];
+
 export default class StickyHeaderTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       data,
-      columns: this.getColumns()
+      columns
     };
 
     this.onHeaderScroll = this.onHeaderScroll.bind(this);
     this.onBodyScroll = this.onBodyScroll.bind(this);
-  }
-  getColumns() {
-    return [
-      {
-        props: {
-          style: { minWidth: 300, width: 300 }
-        },
-        header: {
-          label: 'Name'
-        },
-        cell: {
-          property: 'name'
-        }
-      },
-      {
-        props: {
-          style: { minWidth: 100, width: 100 }
-        },
-        header: {
-          label: 'Age'
-        },
-        cell: {
-          property: 'age'
-        }
-      },
-      {
-        props: {
-          style: { minWidth: 400, width: 400 }
-        },
-        header: {
-          label: 'Company'
-        },
-        cell: {
-          property: 'company'
-        }
-      },
-      {
-        props: {
-          style: { minWidth: 400, width: 400 }
-        },
-        header: {
-          label: 'Product'
-        },
-        cell: {
-          property: 'product'
-        }
-      }
-    ];
   }
   render() {
     return (
