@@ -36,7 +36,7 @@ lang: js
 
 ## `header` Fields
 
-The `header` portion supports `label`, `transform` and `format` fields.
+The `header` portion supports `label`, `transforms` and `format` fields.
 
 **`header.label = <string>`**
 
@@ -56,7 +56,7 @@ lang: js
 
 Given you might want to attach custom functionality to a header, say sorting on click, it is possible to attach specific *transforms* to the header cell. The same idea works for table cells.
 
-**`header.transform = (<label>, { rowData: <label> }) => ({... props ...})`**
+**`header.transforms = [(<label>, { rowData: <label> }) => ({... props ...})]`**
 
 A transform is expected to return an object containing props. We can for instance inject `onClick` handler and perform sorting based on that. If a transform returns `children`, it will override rendering behavior making it possible to implement editors.
 
@@ -70,7 +70,7 @@ lang: js
 {
   header: {
     label: 'Name',
-    transform: sortable('name')
+    transforms: [sortable('name')]
   }
 }
 ```
@@ -142,9 +142,9 @@ lang: js
 }
 ```
 
-**`cell.transform = (<value>, { rowData: <object>, property: <string> }) => ({... props ...})`**
+**`cell.transforms = [(<value>, { rowData: <object>, property: <string> }) => ({... props ...})[`**
 
-`cell.transform` follows the same idea as `header.transform`. This time `value` is the resolved `property` and we have extra data available.
+`cell.transforms` follows the same idea as `header.transforms`. This time `value` is the resolved `property` and we have extra data available.
 
 **Example:**
 
@@ -153,7 +153,7 @@ lang: js
 ---
 {
   cell: {
-    transform: editable(editors.input())
+    transforms: [editable(editors.input())]
   }
 }
 ```
