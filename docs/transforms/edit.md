@@ -75,7 +75,7 @@ There's a separate section covering editors that implement this interface.
 <ExcelTable />
 ```
 
-```
+```code
 lang: jsx
 ---
 import React from 'react';
