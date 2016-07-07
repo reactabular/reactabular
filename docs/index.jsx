@@ -13,6 +13,7 @@ import * as searchTables from './search';
 import * as sortTables from './sort';
 import * as tableTables from './table';
 import * as transformsTables from './transforms';
+import * as columnDefinitionTables from './column-definition';
 
 import 'purecss/build/pure.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
@@ -35,7 +36,8 @@ const documentationImports = {
   ...searchTables,
   ...sortTables,
   ...tableTables,
-  ...transformsTables
+  ...transformsTables,
+  ...columnDefinitionTables
 };
 const title = `Reactabular v${VERSION}`; // eslint-disable-line no-undef
 const pages = [
@@ -260,12 +262,6 @@ const pages = [
         title: 'Stateful Table',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./examples/stateful-table.md')
-      },
-      {
-        path: 'examples/sticky-header',
-        title: 'Sticky Header',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/sticky-header.md')
       },
       {
         path: 'examples/all-features',
