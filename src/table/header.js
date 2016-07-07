@@ -46,8 +46,7 @@ const HeaderRow = ({ row, components }) => (
       } = column.header || {};
       const extraParameters = {
         columnIndex: j,
-        column,
-        rowData: label
+        column
       };
       const transformedProps = evaluateTransforms(transforms, label, extraParameters);
 

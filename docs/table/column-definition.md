@@ -56,7 +56,7 @@ lang: js
 
 Given you might want to attach custom functionality to a header, say sorting on click, it is possible to attach specific *transforms* to the header cell. The same idea works for table cells.
 
-**`header.transforms = [(<label>, { rowData: <label> }) => ({... props ...})]`**
+**`header.transforms = [(<label>, { columnIndex: <number>, column: <object> }) => ({... props ...})]`**
 
 A transform is expected to return an object containing props. We can for instance inject `onClick` handler and perform sorting based on that. If a transform returns `children`, it will override rendering behavior making it possible to implement editors.
 
@@ -71,6 +71,23 @@ lang: js
   header: {
     label: 'Name',
     transforms: [sortable('name')]
+  }
+}
+```
+
+To give you a concrete example of overriding, consider the example below:
+
+```code
+lang: js
+---
+{
+  header: {
+    label: 'Name',
+    transforms: [
+      () => ({
+        children: <span>override to show instead of value</span>
+      })
+    ]
   }
 }
 ```

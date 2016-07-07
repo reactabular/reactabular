@@ -278,7 +278,7 @@ describe('Table.Header', function () {
     expect(th).to.exist;
   });
 
-  it('accepts columnIndex, column, and rowData when transforming', function () {
+  it('accepts columnIndex and column when transforming', function () {
     const initialLabel = 'Name';
     let receivedLabel;
     let receivedValues;
@@ -312,7 +312,6 @@ describe('Table.Header', function () {
     expect(receivedValues).to.exist;
     expect(receivedValues.columnIndex).to.equal(0);
     expect(receivedValues.column.header).to.deep.equal(columns[0].header);
-    expect(receivedValues.rowData).to.deep.equal(initialLabel);
   });
 
   it('can be transformed with multiple transforms', function () {
