@@ -82,7 +82,7 @@ const data = [
   }
 ];
 
-const NestedHeadersTable = () => (
+const NestedColumnsTable = () => (
   <Table.Provider columns={columns} data={data} rowKey="id">
     <Table.Header />
 
@@ -90,4 +90,4 @@ const NestedHeadersTable = () => (
   </Table.Provider>
 );
 
-export default NestedHeadersTable;
+export default NestedColumnsTable;

@@ -11,6 +11,7 @@ import * as examplesTables from './examples';
 import * as formatterTables from './formatters';
 import * as searchTables from './search';
 import * as sortTables from './sort';
+import * as tableTables from './table';
 
 import 'purecss/build/pure.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
@@ -31,7 +32,8 @@ const documentationImports = {
   ...examplesTables,
   ...formatterTables,
   ...searchTables,
-  ...sortTables
+  ...sortTables,
+  ...tableTables
 };
 const title = `Reactabular v${VERSION}`; // eslint-disable-line no-undef
 const pages = [
@@ -257,12 +259,6 @@ const pages = [
         title: 'Resizable Columns',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./examples/resizable-columns.md')
-      },
-      {
-        path: 'examples/nested-headers',
-        title: 'Nested Headers',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/nested-headers.md')
       },
       {
         path: 'examples/sticky-header',

@@ -2,7 +2,6 @@ export { default as AllFeaturesTable } from './AllFeaturesTable';
 export { default as DragAndDropTable } from './DragAndDropTable';
 export { default as ExcelTable } from './ExcelTable';
 export { default as FixedWidthColumnsTable } from './FixedWidthColumnsTable';
-export { default as NestedHeadersTable } from './NestedHeadersTable';
 export { default as ResizableColumnsTable } from './ResizableColumnsTable';
 export { default as SelectionTable } from './SelectionTable';
 export { default as SortAndSearchTable } from './SortAndSearchTable';
