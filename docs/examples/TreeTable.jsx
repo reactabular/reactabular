@@ -24,7 +24,7 @@ const schema = {
 };
 const data = generateParents(generateData(100, schema));
 
-class TreeTable extends React.Component {
+export default class TreeTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -279,5 +279,3 @@ function hasChildren(data, itemIndex) {
 
   return ret;
 }
-
-export default TreeTable;
