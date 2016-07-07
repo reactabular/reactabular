@@ -1,5 +1,3 @@
-import merge from 'lodash/merge';
-
 function resolveHeaderRows(columns) {
   let resolvedChildren = [];
 
@@ -71,30 +69,15 @@ function evaluateTransforms(transforms, value, extraParameters = {}) {
 }
 
 function mergeProps(propCollections) {
-  const collections = propCollections.filter(a => a);
-
-  return merge.apply(null, collections.concat([
-    mergeAllClassNames(collections)
-  ]));
-}
-
-function mergeAllClassNames(propCollections) {
-  const ret = propCollections.reduce(
-    (all, props) => {
-      const className = mergeClassNames(all.className, props.className);
-
-      return {
-        className
-      };
-    },
+  return propCollections.filter(p => p).reduce(
+    (all, props) => ({
+      ...all,
+      ...props,
+      style: { ...all.style, ...props.style },
+      className: mergeClassNames(all.className, props.className)
+    }),
     {}
   );
-
-  if (ret.className) {
-    return ret;
-  }
-
-  return {};
 }
 
 function mergeClassNames(a, b) {

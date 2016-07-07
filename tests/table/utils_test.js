@@ -230,9 +230,7 @@ describe('evaluateTransforms', function () {
     const output = 10;
     const transforms = [value => ({ value })];
 
-    expect(evaluateTransforms(transforms, input)).to.deep.equal({
-      value: output
-    });
+    expect(evaluateTransforms(transforms, input).value).to.equal(output);
   });
 
   it('accepts extra parameters passed to transforms', function () {
@@ -242,9 +240,7 @@ describe('evaluateTransforms', function () {
 
     expect(evaluateTransforms(
       transforms, input, { result: output }
-    )).to.deep.equal({
-      result: output
-    });
+    ).result).to.equal(output);
   });
 
   it('merges from left to right', function () {
@@ -254,23 +250,31 @@ describe('evaluateTransforms', function () {
       () => ({ foo: output })
     ];
 
-    expect(evaluateTransforms(transforms)).to.deep.equal({
-      foo: output
-    });
+    expect(evaluateTransforms(transforms).foo).to.equal(output);
   });
 
-  it('performs a deep merge', function () {
+  it('performs a shallow merge', function () {
     const output = 'foobar';
     const transforms = [
       () => ({ foo: { bar: output } }),
       () => ({ foo: { zoo: output } })
     ];
 
-    expect(evaluateTransforms(transforms)).to.deep.equal({
-      foo: {
-        bar: output,
-        zoo: output
-      }
+    expect(evaluateTransforms(transforms).foo).to.deep.equal({
+      zoo: output
+    });
+  });
+
+  it('performs a deep merge for style', function () {
+    const output = 'foobar';
+    const transforms = [
+      () => ({ style: { bar: output } }),
+      () => ({ style: { zoo: output } })
+    ];
+
+    expect(evaluateTransforms(transforms).style).to.deep.equal({
+      bar: output,
+      zoo: output
     });
   });
 
@@ -281,9 +285,7 @@ describe('evaluateTransforms', function () {
       () => ({ className: 'baz' })
     ];
 
-    expect(evaluateTransforms(transforms)).to.deep.equal({
-      className: 'foo bar baz'
-    });
+    expect(evaluateTransforms(transforms).className).to.equal('foo bar baz');
   });
 });
 

@@ -409,7 +409,7 @@ describe('Table.Header', function () {
 
     expect(th).to.exist;
     expect(th.style.display).to.equal(anotherHeaderStyle.display);
-    expect(th.style.color).to.equal(headerStyle.color);
+    expect(th.style.color).to.equal(anotherHeaderStyle.color);
   });
 
   it('can be transformed while retaining classNames', function () {

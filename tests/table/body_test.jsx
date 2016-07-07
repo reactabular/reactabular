@@ -599,7 +599,7 @@ describe('Table.Body', function () {
 
     expect(th).to.exist;
     expect(th.style.display).to.equal(anotherCellStyle.display);
-    expect(th.style.color).to.equal(cellStyle.color);
+    expect(th.style.color).to.equal(anotherCellStyle.color);
   });
 
   [
