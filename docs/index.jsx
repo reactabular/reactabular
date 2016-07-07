@@ -12,6 +12,7 @@ import * as formatterTables from './formatters';
 import * as searchTables from './search';
 import * as sortTables from './sort';
 import * as tableTables from './table';
+import * as transformsTables from './transforms';
 
 import 'purecss/build/pure.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
@@ -33,7 +34,8 @@ const documentationImports = {
   ...formatterTables,
   ...searchTables,
   ...sortTables,
-  ...tableTables
+  ...tableTables,
+  ...transformsTables
 };
 const title = `Reactabular v${VERSION}`; // eslint-disable-line no-undef
 const pages = [
@@ -258,12 +260,6 @@ const pages = [
         title: 'Selection',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./examples/selection.md')
-      },
-      {
-        path: 'examples/excel',
-        title: 'Excel',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/excel.md')
       },
       {
         path: 'examples/drag-and-drop',
