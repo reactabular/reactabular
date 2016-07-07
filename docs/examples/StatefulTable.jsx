@@ -17,7 +17,6 @@ class StatefulTable extends React.Component {
 
     this.bindColumns = this.bindColumns.bind(this);
   }
-  // TODO: test this somehow to make sure the checks work
   componentWillReceiveProps(nextProps) {
     if (this.state.originalColumns !== nextProps.columns) {
       this.setState({
