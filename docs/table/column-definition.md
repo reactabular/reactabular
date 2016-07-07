@@ -17,7 +17,7 @@ const columns = [
 
 ## `props`
 
-Root level `props` allows you to attach props to all header and content cells. The props injected by more specific configuration can override this .
+Root level `props` allows you to attach props to all header and content cells. The `props` injected by more specific configuration can override these:
 
 **Example:**
 
@@ -38,7 +38,7 @@ lang: js
 
 The `header` portion supports `label`, `transforms` and `format` fields.
 
-**`header.label = <string>`**
+### **`header.label = <string>`**
 
 `label` is the most essential as it describes the value displayer to the user. This should be a string. For example search options are populated based on this.
 
@@ -56,7 +56,18 @@ lang: js
 
 Given you might want to attach custom functionality to a header, say sorting on click, it is possible to attach specific *transforms* to the header cell. The same idea works for table cells.
 
-**`header.transforms = [(<label>, { columnIndex: <number>, column: <object> }) => ({... props ...})]`**
+### **`header.transforms`**
+
+```code
+lang: js
+---
+header.transforms = [
+  (<label>, {
+    columnIndex: <number>,
+    column: <object>
+  }
+) => ({... props ...})]
+```
 
 A transform is expected to return an object containing props. We can for instance inject `onClick` handler and perform sorting based on that. If a transform returns `children`, it will override rendering behavior making it possible to implement editors.
 
@@ -92,7 +103,7 @@ lang: js
 }
 ```
 
-**`header.format = label => <string|React element>`**
+### **`header.format = label => <string|React element>`**
 
 If manipulating `propTypes` isn't enough, you can `format` the output. This should return something React can display. Here we use it to inject an extra checkbox to the header cell.
 
@@ -118,7 +129,7 @@ lang: js
 }
 ```
 
-**`header.props = <object>`**
+### **`header.props = <object>`**
 
 You can set header specific props through `props`.
 
@@ -143,7 +154,7 @@ lang: js
 
 In addition to `header` customization, it's essential to define how the data should map to content. This is achieved through `cell` fields.
 
-**`cell.property = <string>`**
+### **`cell.property = <string>`**
 
 You should define `cell.property` at minimum. It maps a field from `data` into something you can display to the user. This supports nested definitions so you can do `foo.bar.baz` in addition to simple `foo` type definitions.
 
@@ -159,7 +170,23 @@ lang: js
 }
 ```
 
-**`cell.transforms = [(<value>, { columnIndex: <number>, column: <object>, rowData: <object>, rowIndex: <number>, property: <string> }) => ({... props ...})[`**
+### **`cell.transforms`**
+
+```code
+lang: js
+---
+cell.transforms = [
+  (
+    <value>, {
+      columnIndex: <number>,
+      column: <object>,
+      rowData: <object>,
+      rowIndex: <number>,
+      property: <string>
+    }
+  ) => ({... props ...})
+]
+```
 
 `cell.transforms` follows the same idea as `header.transforms`. This time `value` is the resolved `property` and we have extra data available.
 
@@ -175,7 +202,7 @@ lang: js
 }
 ```
 
-**`cell.format = value => <string|React element>`**
+### **`cell.format = value => <string|React element>`**
 
 The idea here is the same as for `header.format`.
 
@@ -196,7 +223,21 @@ lang: js
 }
 ```
 
-**`cell.resolve = (value, { rowData: <object>, property: <string> }) => <string>`**
+### **`cell.resolve`**
+
+```code
+lang: js
+---
+cell.resolve = (
+  value, {
+    columnIndex: <number>,
+    column: <object>,
+    rowData: <object>,
+    rowIndex: <number>,
+    property: <string>
+  }
+) => <string>
+```
 
 Sometimes you need to manipulate the data fetched from property somehow. For instance you might need to perform a lookup to `resolve` it to some other value. This is the place to do that. Other functionality will pick this up.
 
@@ -212,7 +253,7 @@ lang: js
 }
 ```
 
-**`cell.props = <object>`**
+### **`cell.props = <object>`**
 
 You can set cell specific props through `props`.
 
