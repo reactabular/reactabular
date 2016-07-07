@@ -250,12 +250,6 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/toggle-columns.md')
       },
       {
-        path: 'examples/selection',
-        title: 'Selection',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/selection.md')
-      },
-      {
         path: 'examples/drag-and-drop',
         title: 'Drag and Drop',
         imports: documentationImports,

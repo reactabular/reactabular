@@ -7,13 +7,12 @@ import {
   Table
 } from '../../src';
 
-class SelectionTable extends React.Component {
+export default class SelectionTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       data: [
-        // The data has been sorted so that children are after their parents
         {
           id: 100,
           name: 'Adam',
