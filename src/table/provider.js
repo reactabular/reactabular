@@ -1,6 +1,7 @@
-import merge from 'lodash/merge';
 import React from 'react';
 import { tableTypes, tableDefaults } from './types';
+
+const componentDefaults = tableDefaults.components;
 
 export default class Provider extends React.Component {
   getChildContext() {
@@ -8,7 +9,11 @@ export default class Provider extends React.Component {
 
     return {
       columns,
-      components: merge({}, tableDefaults.components, components),
+      components: {
+        table: components.table || componentDefaults.table,
+        header: { ...componentDefaults.header, ...components.header },
+        body: { ...componentDefaults.body, ...components.body }
+      },
       data,
       rowKey
     };
