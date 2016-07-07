@@ -1,4 +1,4 @@
-Root level `props` allows you to attach props to all header and content cells. The `props` injected by more specific configuration can override these:
+Root level `props` allows you to attach props to all header and content cells. The `props` injected by more specific configuration can override these.
 
 **Example:**
 
