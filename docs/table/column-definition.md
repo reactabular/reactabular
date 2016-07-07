@@ -105,7 +105,9 @@ lang: js
 
 ### **`header.format = label => <string|React element>`**
 
-If manipulating `propTypes` isn't enough, you can `format` the output. This should return something React can display. Here we use it to inject an extra checkbox to the header cell.
+If manipulating `propTypes` isn't enough, you can `format` the output. This should return something React can display. The result will be displayed **within** a table cell.
+
+In the following example we use it to inject an extra checkbox to the header cell.
 
 **Example:**
 
