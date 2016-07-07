@@ -62,6 +62,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./table/column-definition.md')
       },
       {
+        path: 'table/nested-columns',
+        title: 'Nested Columns',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./table/nested-columns.md')
+      },
+      {
         path: 'table/provider',
         title: 'Table.Provider',
         imports: documentationImports,
