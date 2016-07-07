@@ -120,7 +120,7 @@ class AllFeaturesTable extends React.Component {
         });
       }
     });
-    const sortableHeader = sortHeader();
+    const sortableHeader = sortHeader(sortable);
 
     return [
       {
@@ -133,7 +133,7 @@ class AllFeaturesTable extends React.Component {
                 onClick={() => console.log('clicked')}
                 style={{ width: '20px' }}
               />
-              {sortableHeader(sortable())(name, extraParameters)}
+              {sortableHeader(name, extraParameters)}
             </div>
           )
         },
@@ -146,7 +146,7 @@ class AllFeaturesTable extends React.Component {
       {
         header: {
           label: 'Position',
-          format: sortableHeader(sortable())
+          format: sortableHeader
         },
         cell: {
           property: 'position',
@@ -157,7 +157,7 @@ class AllFeaturesTable extends React.Component {
       {
         header: {
           label: 'Boss',
-          format: sortableHeader(sortable())
+          format: sortableHeader
         },
         cell: {
           property: 'boss.name',
@@ -168,7 +168,7 @@ class AllFeaturesTable extends React.Component {
       {
         header: {
           label: 'Country',
-          format: sortableHeader(sortable())
+          format: sortableHeader
         },
         cell: {
           property: 'country',
@@ -186,7 +186,7 @@ class AllFeaturesTable extends React.Component {
       {
         header: {
           label: 'Salary',
-          format: sortableHeader(sortable())
+          format: sortableHeader
         },
         cell: {
           property: 'salary',
@@ -201,7 +201,7 @@ class AllFeaturesTable extends React.Component {
       {
         header: {
           label: 'Active',
-          format: sortableHeader(sortable())
+          format: sortableHeader
         },
         cell: {
           property: 'active',
@@ -329,8 +329,8 @@ class AllFeaturesTable extends React.Component {
   }
 }
 
-function sortHeader() {
-  return sortable => (value, { columnIndex }) => (
+function sortHeader(sortable) {
+  return (value, { columnIndex }) => (
     <div style={{ display: 'inline' }}>
       <span className="value">{value}</span>
       {sortable.toFormatter({

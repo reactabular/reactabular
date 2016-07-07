@@ -53,7 +53,6 @@ columns: [
 lang: jsx
 ---
 import React from 'react';
-import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
 import { generateData, Search } from './helpers';
@@ -101,7 +100,7 @@ export default class SortAndSearchTable extends React.Component {
         });
       }
     });
-    const sortableHeader = sortHeader();
+    const sortableHeader = sortHeader(sortable);
 
     const resetable = () => (value, { columnIndex }) => ({
       onDoubleClick: () => {
@@ -125,7 +124,7 @@ export default class SortAndSearchTable extends React.Component {
             // Resetable operates on cell level while sorting is handled by
             // an element within -> no conflict between click and double click.
             transforms: [resetable()],
-            format: sortableHeader(sortable())
+            format: sortableHeader
           },
           cell: {
             property: 'name'
@@ -135,7 +134,7 @@ export default class SortAndSearchTable extends React.Component {
           header: {
             label: 'Company',
             transforms: [resetable()],
-            format: sortableHeader(sortable())
+            format: sortableHeader
           },
           cell: {
             property: 'company'
@@ -145,7 +144,7 @@ export default class SortAndSearchTable extends React.Component {
           header: {
             label: 'Age',
             transforms: [resetable()],
-            format: sortableHeader(sortable())
+            format: sortableHeader
           },
           cell: {
             property: 'age'
@@ -184,8 +183,8 @@ export default class SortAndSearchTable extends React.Component {
   }
 }
 
-function sortHeader() {
-  return sortable => (value, { columnIndex }) => (
+function sortHeader(sortable) {
+  return (value, { columnIndex }) => (
     <div style={{ display: 'inline' }}>
       <span className="value">{value}</span>
       {columnIndex >= 0 &&

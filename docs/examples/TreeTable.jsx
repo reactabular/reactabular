@@ -59,7 +59,7 @@ export default class TreeTable extends React.Component {
         },
         header: {
           label: 'Name',
-          transforms: [sortable()]
+          transforms: [sortable]
         },
         cell: {
           property: 'name',
@@ -90,7 +90,7 @@ export default class TreeTable extends React.Component {
         },
         header: {
           label: 'Age',
-          transforms: [sortable()]
+          transforms: [sortable]
         },
         cell: {
           property: 'age'

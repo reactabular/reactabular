@@ -43,7 +43,7 @@ lang: js
 {
   header: {
     label: 'Name',
-    transforms: [sortable()]
+    transforms: [sortable]
   }
 }
 ```

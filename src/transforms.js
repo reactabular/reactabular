@@ -43,7 +43,7 @@ const edit = ({
 const sort = ({
   getSortingColumns = () => [],
   onSort = () => {}
-} = {}) => () => {
+} = {}) => {
   const sortTransform = (_value, { columnIndex }, { className, ...props } = {}) => {
     const columns = getSortingColumns();
     let headerClass = 'sort sort-none';

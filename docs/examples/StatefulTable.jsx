@@ -75,7 +75,7 @@ class StatefulTable extends React.Component {
             ...column.header,
             transforms: [
               (v, extra) => (
-                existingTransform(sortable()(v, extra), extra)
+                existingTransform(sortable(v, extra), extra)
               )
             ]
           }

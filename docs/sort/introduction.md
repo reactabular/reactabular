@@ -49,7 +49,7 @@ export default class SortTable extends React.Component {
         {
           header: {
             label: 'Name',
-            transforms: [sortable()]
+            transforms: [sortable]
           },
           cell: {
             property: 'name'
