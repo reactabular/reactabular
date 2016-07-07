@@ -84,6 +84,12 @@ const pages = [
         title: 'Styling',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./table/styling.md')
+      },
+      {
+        path: 'table/overriding-default-elements',
+        title: 'Overriding Default Elements',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./table/overriding-default-elements.md')
       }
     ]
   },
