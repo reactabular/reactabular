@@ -38,7 +38,7 @@ export default class TreeTable extends React.Component {
     const sortable = transforms.sort({
       // Point the transform to your data. React state can work for this purpose
       // but you can use a state manager as well.
-      getSortingColumns: () => this.state.sortingColumns || [],
+      getSortingColumns: () => this.state.sortingColumns || {},
 
       // The user requested sorting, adjust the sorting state accordingly.
       // This is a good chance to pass the request through a sorter.
@@ -59,7 +59,7 @@ export default class TreeTable extends React.Component {
         },
         header: {
           label: 'Name',
-          transforms: [sortable('name')]
+          transforms: [sortable()]
         },
         cell: {
           property: 'name',
@@ -90,7 +90,7 @@ export default class TreeTable extends React.Component {
         },
         header: {
           label: 'Age',
-          transforms: [sortable('age')]
+          transforms: [sortable()]
         },
         cell: {
           property: 'age'
@@ -102,7 +102,7 @@ export default class TreeTable extends React.Component {
     const { columns, sortingColumns, data } = this.state;
     const d = compose(
       filterTree,
-      sortTree(sortingColumns)
+      sortTree(columns, sortingColumns)
     )(data);
 
     return (
@@ -124,10 +124,11 @@ export default class TreeTable extends React.Component {
   }
 }
 
-function sortTree(sortingColumns) {
+function sortTree(columns, sortingColumns) {
   return compose(
     unpackTree,
     sort.sorter({
+      columns,
       sortingColumns,
       sort: orderBy
     }),

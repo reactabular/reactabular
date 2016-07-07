@@ -120,7 +120,7 @@ class AllFeaturesTable extends React.Component {
         });
       }
     });
-    const sortableHeader = sortHeader(() => this.state.sortingColumns);
+    const sortableHeader = sortHeader();
 
     return [
       {
@@ -133,7 +133,7 @@ class AllFeaturesTable extends React.Component {
                 onClick={() => console.log('clicked')}
                 style={{ width: '20px' }}
               />
-              {sortableHeader(sortable('name'))(name, extraParameters)}
+              {sortableHeader(sortable())(name, extraParameters)}
             </div>
           )
         },
@@ -146,7 +146,7 @@ class AllFeaturesTable extends React.Component {
       {
         header: {
           label: 'Position',
-          format: sortableHeader(sortable('position'))
+          format: sortableHeader(sortable())
         },
         cell: {
           property: 'position',
@@ -157,7 +157,7 @@ class AllFeaturesTable extends React.Component {
       {
         header: {
           label: 'Boss',
-          format: sortableHeader(sortable('boss.name'))
+          format: sortableHeader(sortable())
         },
         cell: {
           property: 'boss.name',
@@ -168,7 +168,7 @@ class AllFeaturesTable extends React.Component {
       {
         header: {
           label: 'Country',
-          format: sortableHeader(sortable('country'))
+          format: sortableHeader(sortable())
         },
         cell: {
           property: 'country',
@@ -186,7 +186,7 @@ class AllFeaturesTable extends React.Component {
       {
         header: {
           label: 'Salary',
-          format: sortableHeader(sortable('salary'))
+          format: sortableHeader(sortable())
         },
         cell: {
           property: 'salary',
@@ -201,7 +201,7 @@ class AllFeaturesTable extends React.Component {
       {
         header: {
           label: 'Active',
-          format: sortableHeader(sortable('active'))
+          format: sortableHeader(sortable())
         },
         cell: {
           property: 'active',
@@ -329,24 +329,26 @@ class AllFeaturesTable extends React.Component {
   }
 }
 
-function sortHeader(getSortingColumns) {
-  return sortable => (value, { column }) => {
-    const property = column.cell && column.cell.property;
-    const sortingColumns = getSortingColumns();
-    const idx = findIndex(sortingColumns, { property });
-
-    return (
-      <div style={{ display: 'inline' }}>
-        <span className="value">{value}</span>
-        {sortable.toFormatter({ props: { style: { float: 'right' } } })}
-        {idx >= 0 &&
-          <span className="sort-order" style={{ marginLeft: '0.5em', float: 'right' }}>
-            {idx + 1}
-          </span>
+function sortHeader() {
+  return sortable => (value, { columnIndex }) => (
+    <div style={{ display: 'inline' }}>
+      <span className="value">{value}</span>
+      {sortable.toFormatter({
+        value,
+        extraParameters: {
+          columnIndex
+        },
+        props: {
+          style: { float: 'right' }
         }
-      </div>
-    );
-  };
+      })}
+      {columnIndex >= 0 &&
+        <span className="sort-order" style={{ marginLeft: '0.5em', float: 'right' }}>
+          {columnIndex + 1}
+        </span>
+      }
+    </div>
+  );
 }
 
 export default AllFeaturesTable;

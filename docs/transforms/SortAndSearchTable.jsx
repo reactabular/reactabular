@@ -35,7 +35,7 @@ export default class SortAndSearchTable extends React.Component {
     const sortable = transforms.sort({
       // Point the transform to your data. React state can work for this purpose
       // but you can use a state manager as well.
-      getSortingColumns: () => this.state.sortingColumns || [],
+      getSortingColumns: () => this.state.sortingColumns || {},
 
       // The user requested sorting, adjust the sorting state accordingly.
       // This is a good chance to pass the request through a sorter.
@@ -48,14 +48,18 @@ export default class SortAndSearchTable extends React.Component {
         });
       }
     });
-    const sortableHeader = sortHeader(() => this.state.sortingColumns);
+    const sortableHeader = sortHeader();
 
-    const resetable = property => () => ({
-      onDoubleClick: () => this.setState({
-        sortingColumns: this.state.sortingColumns.filter(
-          sortable => sortable.property !== property
-        )
-      })
+    const resetable = () => (value, { columnIndex }) => ({
+      onDoubleClick: () => {
+        const sortingColumns = this.state.sortingColumns;
+
+        delete sortingColumns[columnIndex];
+
+        this.setState({
+          sortingColumns
+        });
+      }
     });
 
     this.state = {
@@ -67,8 +71,8 @@ export default class SortAndSearchTable extends React.Component {
             label: 'Name',
             // Resetable operates on cell level while sorting is handled by
             // an element within -> no conflict between click and double click.
-            transforms: [resetable('name')],
-            format: sortableHeader(sortable('name'))
+            transforms: [resetable()],
+            format: sortableHeader(sortable())
           },
           cell: {
             property: 'name'
@@ -77,8 +81,8 @@ export default class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'Company',
-            transforms: [resetable('company')],
-            format: sortableHeader(sortable('company'))
+            transforms: [resetable()],
+            format: sortableHeader(sortable())
           },
           cell: {
             property: 'company'
@@ -87,8 +91,8 @@ export default class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'Age',
-            transforms: [resetable('age')],
-            format: sortableHeader(sortable('age'))
+            transforms: [resetable()],
+            format: sortableHeader(sortable())
           },
           cell: {
             property: 'age'
@@ -101,7 +105,11 @@ export default class SortAndSearchTable extends React.Component {
   render() {
     const { data, columns, sortingColumns, query } = this.state;
     const searchedData = search.multipleColumns({ columns, query })(data);
-    const sortedData = sort.sorter({ sortingColumns, sort: orderBy })(searchedData);
+    const sortedData = sort.sorter({
+      columns,
+      sortingColumns,
+      sort: orderBy
+    })(searchedData);
 
     return (
       <div>
@@ -123,22 +131,19 @@ export default class SortAndSearchTable extends React.Component {
   }
 }
 
-function sortHeader(getSortingColumns) {
-  return sortable => (value, { column }) => {
-    const property = column.cell && column.cell.property;
-    const sortingColumns = getSortingColumns();
-    const idx = findIndex(sortingColumns, { property });
-
-    return (
-      <div style={{ display: 'inline' }}>
-        <span className="value">{value}</span>
-        {idx >= 0 &&
-          <span className="sort-order" style={{ marginLeft: '0.5em' }}>
-            {idx + 1}
-          </span>
-        }
-        {sortable.toFormatter()}
-      </div>
-    );
-  };
+function sortHeader() {
+  return sortable => (value, { columnIndex }) => (
+    <div style={{ display: 'inline' }}>
+      <span className="value">{value}</span>
+      {columnIndex >= 0 &&
+        <span className="sort-order" style={{ marginLeft: '0.5em' }}>
+          {columnIndex + 1}
+        </span>
+      }
+      {sortable.toFormatter({
+        value,
+        extraParameters: { columnIndex }
+      })}
+    </div>
+  );
 }

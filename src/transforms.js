@@ -43,26 +43,26 @@ const edit = ({
 const sort = ({
   getSortingColumns = () => [],
   onSort = () => {}
-} = {}) => property => {
-  const sortTransform = (value, extraParameters, { className, ...props } = {}) => {
+} = {}) => () => {
+  const sortTransform = (_value, { columnIndex }, { className, ...props } = {}) => {
     const columns = getSortingColumns();
-    const index = columns.map(c => c.property).indexOf(property);
     let headerClass = 'sort sort-none';
 
-    if (index >= 0) {
-      headerClass = `sort sort-${columns[index].sort}`;
+    if (columns[columnIndex] !== undefined) {
+      headerClass = `sort sort-${columns[columnIndex]}`;
     }
 
     return {
       ...props,
       className: mergeClassNames(className, headerClass),
-      onClick: () => onSort(property)
+      onClick: () => onSort(columnIndex)
     };
   };
 
-  sortTransform.toFormatter = ({ props } = {}) => React.createElement( // eslint-disable-line max-len, react/prop-types
+  sortTransform.toFormatter = ({ value, extraParameters, props } = {}
+  ) => React.createElement( // eslint-disable-line react/prop-types
     'span',
-    sortTransform(null, null, props)
+    sortTransform(value, extraParameters, props)
   );
 
   return sortTransform;

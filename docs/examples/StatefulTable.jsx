@@ -50,7 +50,7 @@ class StatefulTable extends React.Component {
     const sortable = transforms.sort({
       // Point the transform to your data. React state can work for this purpose
       // but you can use a state manager as well.
-      getSortingColumns: () => this.state.sortingColumns || [],
+      getSortingColumns: () => this.state.sortingColumns || {},
 
       // The user requested sorting, adjust the sorting state accordingly.
       // This is a good chance to pass the request through a sorter.
@@ -75,7 +75,7 @@ class StatefulTable extends React.Component {
             ...column.header,
             transforms: [
               (v, extra) => (
-                existingTransform(sortable(column.cell.property)(v, extra), extra)
+                existingTransform(sortable()(v, extra), extra)
               )
             ]
           }

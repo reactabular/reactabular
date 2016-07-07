@@ -181,47 +181,54 @@ describe('edit', function () {
 describe('sort', function () {
   it('defaults to sort-none class', function () {
     const sorter = sort();
-    const result = sorter('test')();
+    const result = sorter()('testValue', { columnIndex: 0 });
 
     expect(result.className).to.equal('sort sort-none');
   });
 
   it('sets sorting class', function () {
+    const testColumnIndex = 0;
     const testProperty = 'test';
     const sortDirection = 'asc';
     const sorter = sort({
       getSortingColumns() {
-        return [
-          {
-            property: testProperty,
-            sort: sortDirection
-          }
-        ];
+        return {
+          [testColumnIndex]: sortDirection
+        };
       }
     });
-    const result = sorter(testProperty)();
+    const result = sorter(testProperty)('testValue', {
+      columnIndex: testColumnIndex
+    });
 
     expect(result.className).to.equal(`sort sort-${sortDirection}`);
   });
 
   it('triggers sorting on click', function () {
-    const testProperty = 'test';
+    const testColumnIndex = 0;
     let sorted;
     const sorter = sort({
-      onSort(property) {
-        sorted = property;
+      onSort(columnIndex) {
+        sorted = columnIndex;
       }
     });
-    const result = sorter(testProperty)();
+    const result = sorter()('testValue', {
+      columnIndex: testColumnIndex
+    });
 
     result.onClick();
 
-    expect(sorted).to.equal(testProperty);
+    expect(sorted).to.equal(testColumnIndex);
   });
 
   it('converts to a formatter', function () {
     const sorter = sort();
-    const formatter = sorter('property').toFormatter();
+    const formatter = sorter().toFormatter({
+      value: 'testValue',
+      extraParameters: {
+        columnIndex: 0
+      }
+    });
 
     expect(React.isValidElement(formatter)).to.equal(true);
   });
@@ -229,7 +236,15 @@ describe('sort', function () {
   it('converted version accepts props', function () {
     const className = 'demo-class';
     const sorter = sort();
-    const formatter = sorter('property').toFormatter({ props: { className } });
+    const formatter = sorter().toFormatter({
+      value: 'testValue',
+      extraParameters: {
+        columnIndex: 0
+      },
+      props: {
+        className
+      }
+    });
     const element = TestUtils.renderIntoDocument(
       React.createElement(Wrapper, {}, formatter)
     );
