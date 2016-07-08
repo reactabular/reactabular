@@ -62,10 +62,14 @@ const byColumns = ({
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy
 const sorter = ({
-  columns = {},
+  columns,
   sortingColumns,
   sort
 } = {}) => data => {
+  if (!columns) {
+    throw new Error('sort.sorter - Missing columns!');
+  }
+
   if (!sortingColumns) {
     return data;
   }

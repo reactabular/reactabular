@@ -305,6 +305,12 @@ describe('sorter', function () {
   });
 
   it('returns data if there is no sorting information', function () {
+    const columns = [{
+      header: {},
+      cell: {
+        property: 'test'
+      }
+    }];
     const data = [
       {
         test: 'abc'
@@ -313,12 +319,18 @@ describe('sorter', function () {
         test: 'def'
       }
     ];
-    const result = sorter({ sort: orderBy })(data);
+    const result = sorter({ columns, sort: orderBy })(data);
 
     expect(result).to.deep.equal(data);
   });
 
   it('returns data if only data is passed', function () {
+    const columns = [{
+      header: {},
+      cell: {
+        property: 'test'
+      }
+    }];
     const data = [
       {
         test: 'abc'
@@ -327,7 +339,7 @@ describe('sorter', function () {
         test: 'def'
       }
     ];
-    const result = sorter()(data);
+    const result = sorter({ columns })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -428,6 +440,12 @@ describe('sorter', function () {
   });
 
   it('does not fail if property is missing', function () {
+    const columns = [{
+      header: {},
+      cell: {
+        property: 'test'
+      }
+    }];
     const data = [
       {
         test: 1
@@ -442,7 +460,7 @@ describe('sorter', function () {
     const sortingColumns = {
       0: 'asc'
     };
-    const result = sorter({ sortingColumns, sort: orderBy })(data);
+    const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
 
     expect(result).to.deep.equal(data);
   });
@@ -486,5 +504,9 @@ describe('sorter', function () {
     const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
 
     expect(result).to.deep.equal(expected);
+  });
+
+  it('throws an error if columns are not passed', function () {
+    expect(sorter()).to.throw(Error);
   });
 });
