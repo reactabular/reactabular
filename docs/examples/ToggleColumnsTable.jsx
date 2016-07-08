@@ -1,5 +1,5 @@
-/* eslint-disable new-cap */
 import React from 'react';
+import { VisibilityToggles } from '../helpers';
 import { Table } from '../../src';
 
 export default class ToggleColumnsTable extends React.Component {
@@ -66,26 +66,10 @@ export default class ToggleColumnsTable extends React.Component {
 
     return (
       <div>
-        <div
-          className="visibility-toggles"
-          style={{ backgroundColor: '#ddd', padding: '1em', margin: '1em' }}
-        >
-          {columns.map(({ header: { label }, visible }, columnIndex) => (
-            <label
-              className="visibility-toggle"
-              style={{ marginRight: '1em' }}
-              key={label}
-            >
-              <span>{label}</span>
-              <input
-                type="checkbox"
-                style={{ marginLeft: '0.5em' }}
-                checked={visible}
-                onChange={() => this.onToggleColumn(columnIndex)}
-              />
-            </label>
-          ))}
-        </div>
+        <VisibilityToggles
+          columns={columns}
+          onToggleColumn={this.onToggleColumn}
+        />
 
         <Table.Provider
           columns={columns.filter(column => column.visible)}
