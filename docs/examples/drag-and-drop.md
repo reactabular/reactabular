@@ -9,7 +9,6 @@ lang: jsx
 ---
 import React from 'react';
 import { compose } from 'redux';
-import update from 'react-addons-update';
 import { DragDropContext, DragSource, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import findIndex from 'lodash/findIndex';
@@ -225,15 +224,26 @@ function move(columns, { sourceLabel, targetLabel }) {
     return null;
   }
 
+  // Idea
+  // a, b, c, d, e -> move(b, d) -> a, c, d, b, e
+  // a, b, c, d, e -> move(d, a) -> d, a, b, c, e
+  // a, b, c, d, e -> move(a, d) -> b, c, d, a, e
+  const sourceItem = columns[sourceIndex];
+
+  // 1. detach - a, c, d, e - a, b, c, e, - b, c, d, e
+  let cols = columns.slice(0, sourceIndex).concat(
+    columns.slice(sourceIndex + 1)
+  );
+
+  // 2. attach - a, c, d, b, e - d, a, b, c, e - b, c, d, a, e
+  cols = cols.slice(0, targetIndex).concat([sourceItem]).concat(
+    cols.slice(targetIndex)
+  );
+
   return {
     sourceIndex,
     targetIndex,
-    data: update(columns, {
-      $splice: [
-        [sourceIndex, 1],
-        [targetIndex, 0, columns[sourceIndex]]
-      ]
-    })
+    data: cols
   };
 }
 

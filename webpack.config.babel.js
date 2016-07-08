@@ -115,7 +115,7 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
         'schema2object', 'lodash', 'react', 'react-dom',
         'react-dnd', 'react-dnd-html5-backend',
         'react-ghfork', 'redux', 'uuid',
-        'annogenerate', 'react-addons-update'
+        'annogenerate'
       ])
     },
     output: {

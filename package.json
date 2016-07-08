@@ -90,7 +90,6 @@
     "react": "^15.2.0",
     "react-addons-perf": "^15.2.0",
     "react-addons-test-utils": "^15.2.0",
-    "react-addons-update": "^15.2.0",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.2.0",
