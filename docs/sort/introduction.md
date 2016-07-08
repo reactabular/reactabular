@@ -22,6 +22,29 @@ import {
   Table, sort, transforms
 } from 'reactabular';
 
+const initialData = [
+  {
+    id: 100,
+    name: 'Adam',
+    age: 10
+  },
+  {
+    id: 101,
+    name: 'Brian',
+    age: 43
+  },
+  {
+    id: 102,
+    name: 'Jake',
+    age: 33
+  },
+  {
+    id: 103,
+    name: 'Jill',
+    age: 63
+  }
+];
+
 export default class SortTable extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +67,11 @@ export default class SortTable extends React.Component {
     });
 
     this.state = {
-      sortingColumns: null, // reference to the sorting columns
+      // Sort the first column in a descending way by default.
+      // "asc" would work too and you can set multiple if you want.
+      sortingColumns: {
+        0: 'desc'
+      },
       columns: [
         {
           header: {
@@ -54,26 +81,18 @@ export default class SortTable extends React.Component {
           cell: {
             property: 'name'
           }
+        },
+        {
+          header: {
+            label: 'Age',
+            transforms: [sortable]
+          },
+          cell: {
+            property: 'age'
+          }
         }
       ],
-      data: [
-        {
-          id: 100,
-          name: 'Adam'
-        },
-        {
-          id: 101,
-          name: 'Brian'
-        },
-        {
-          id: 102,
-          name: 'Jake'
-        },
-        {
-          id: 103,
-          name: 'Jill'
-        }
-      ]
+      data: initialData
     };
   }
   render() {
