@@ -15,7 +15,7 @@ const byColumn = ({
   let sort = sortingOrder.FIRST;
 
   if (sortingColumns && sortingColumns.hasOwnProperty(selectedColumn)) {
-    sort = sortingOrder[sortingColumns[selectedColumn]];
+    sort = sortingOrder[sortingColumns[selectedColumn].direction];
 
     if (!sort) {
       return {};
@@ -23,7 +23,10 @@ const byColumn = ({
   }
 
   return {
-    [selectedColumn]: sort
+    [selectedColumn]: {
+      direction: sort,
+      position: 0
+    }
   };
 };
 
@@ -36,16 +39,22 @@ const byColumns = ({
 
   if (!sortingColumns) {
     return {
-      [selectedColumn]: sortingOrder.FIRST
+      [selectedColumn]: {
+        direction: sortingOrder.FIRST,
+        position: 0
+      }
     };
   } else if (sortingColumns.hasOwnProperty(selectedColumn)) {
     // Clone to avoid mutating the original structure
     newSortingColumns = { ...sortingColumns };
 
-    const newSort = sortingOrder[newSortingColumns[selectedColumn]];
+    const newSort = sortingOrder[newSortingColumns[selectedColumn].direction];
 
     if (newSort) {
-      newSortingColumns[selectedColumn] = newSort;
+      newSortingColumns[selectedColumn] = {
+        direction: newSort,
+        position: newSortingColumns[selectedColumn].position
+      };
     } else {
       delete newSortingColumns[selectedColumn];
     }
@@ -55,7 +64,10 @@ const byColumns = ({
 
   return {
     ...sortingColumns,
-    [selectedColumn]: sortingOrder.FIRST
+    [selectedColumn]: {
+      direction: sortingOrder.FIRST,
+      position: Object.keys(sortingColumns).length
+    }
   };
 };
 
@@ -74,14 +86,15 @@ const sorter = ({
     return data;
   }
 
-  const columnIndexList = [];
-  const orderList = [];
+  const columnIndexList = new Array(sortingColumns.length);
+  const orderList = new Array(sortingColumns.length);
 
   Object.keys(sortingColumns).forEach(columnIndex => {
     const realColumn = columns[columnIndex] || { cell: {} };
     const resolver = realColumn.cell && realColumn.cell.resolve || (a => a);
+    const sortingColumn = sortingColumns[columnIndex];
 
-    columnIndexList.push(row => {
+    columnIndexList[sortingColumn.position] = row => {
       const value = get(row, realColumn.cell.property);
       const resolvedValue = resolver(value, {
         rowData: row,
@@ -93,9 +106,9 @@ const sorter = ({
       }
 
       return value;
-    });
+    };
 
-    orderList.push(sortingColumns[columnIndex]);
+    orderList[sortingColumn.position] = sortingColumn.direction;
   });
 
   return sort(data, columnIndexList, orderList);

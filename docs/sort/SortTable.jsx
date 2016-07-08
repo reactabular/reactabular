@@ -17,11 +17,16 @@ const initialData = [
   },
   {
     id: 102,
+    name: 'Brian',
+    age: 23
+  },
+  {
+    id: 103,
     name: 'Jake',
     age: 33
   },
   {
-    id: 103,
+    id: 104,
     name: 'Jill',
     age: 63
   }
@@ -52,7 +57,10 @@ export default class SortTable extends React.Component {
       // Sort the first column in a descending way by default.
       // "asc" would work too and you can set multiple if you want.
       sortingColumns: {
-        0: 'desc'
+        0: {
+          direction: 'desc',
+          position: 0
+        }
       },
       columns: [
         {

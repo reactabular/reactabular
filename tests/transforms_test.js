@@ -192,7 +192,10 @@ describe('sort', function () {
     const sorter = sort({
       getSortingColumns() {
         return {
-          [testColumnIndex]: sortDirection
+          [testColumnIndex]: {
+            direction: sortDirection,
+            position: 0
+          }
         };
       }
     });

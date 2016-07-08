@@ -112,7 +112,7 @@ class AllFeaturesTable extends React.Component {
         });
       }
     });
-    const sortableHeader = sortHeader(sortable);
+    const sortableHeader = sortHeader(sortable, () => this.state.sortingColumns);
 
     return [
       {
@@ -321,26 +321,30 @@ class AllFeaturesTable extends React.Component {
   }
 }
 
-function sortHeader(sortable) {
-  return (value, { columnIndex }) => (
-    <div style={{ display: 'inline' }}>
-      <span className="value">{value}</span>
-      {sortable.toFormatter({
-        value,
-        extraParameters: {
-          columnIndex
-        },
-        props: {
-          style: { float: 'right' }
+function sortHeader(sortable, getSortingColumns) {
+  return (value, { columnIndex }) => {
+    const sortingColumns = getSortingColumns() || [];
+
+    return (
+      <div style={{ display: 'inline' }}>
+        <span className="value">{value}</span>
+        {sortable.toFormatter({
+          value,
+          extraParameters: {
+            columnIndex
+          },
+          props: {
+            style: { float: 'right' }
+          }
+        })}
+        {sortingColumns[columnIndex] &&
+          <span className="sort-order" style={{ marginLeft: '0.5em', float: 'right' }}>
+            {sortingColumns[columnIndex].position + 1}
+          </span>
         }
-      })}
-      {columnIndex >= 0 &&
-        <span className="sort-order" style={{ marginLeft: '0.5em', float: 'right' }}>
-          {columnIndex + 1}
-        </span>
-      }
-    </div>
-  );
+      </div>
+    );
+  };
 }
 
 export default AllFeaturesTable;

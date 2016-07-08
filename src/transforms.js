@@ -48,8 +48,9 @@ const sort = ({
     const columns = getSortingColumns();
     let headerClass = 'sort sort-none';
 
+    // Check against undefined to allow zero
     if (columns[columnIndex] !== undefined) {
-      headerClass = `sort sort-${columns[columnIndex]}`;
+      headerClass = `sort sort-${columns[columnIndex].direction}`;
     }
 
     return {
