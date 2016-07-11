@@ -418,6 +418,69 @@ describe('Table.Body', function () {
     expect(td).to.exist;
   });
 
+  it('can replace contents based on transform children', function () {
+    const demoText = 'foobar';
+    const cellClass = 'test-class';
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name',
+          transforms: [
+            () => ({
+              children: <div className={cellClass}>{demoText}</div>
+            })
+          ]
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
+        <Table.Body />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td.innerHTML).to.equal(demoText);
+  });
+
+  it('can replace contents based on the first transform children', function () {
+    const demoText = 'foobar';
+    const cellClass = 'test-class';
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name',
+          transforms: [
+            () => ({
+              children: <div className={cellClass}>{demoText}</div>
+            }),
+            () => ({
+              children: <div>another</div>
+            })
+          ]
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
+        <Table.Body />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(td.innerHTML).to.equal(demoText);
+  });
+
   it(`accepts columnIndex, column, rowData, rowIndex and property
     when transforming`, function () {
     const initialValue = 'demo';

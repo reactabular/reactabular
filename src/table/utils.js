@@ -69,15 +69,23 @@ function evaluateTransforms(transforms, value, extraParameters = {}) {
 }
 
 function mergeProps(propCollections) {
-  return propCollections.filter(p => p).reduce(
+  const ret = propCollections.filter(p => p).reduce(
     (all, props) => ({
       ...all,
       ...props,
+      children: { ...props.children, ...all.children }, // Reverse order
       style: { ...all.style, ...props.style },
       className: mergeClassNames(all.className, props.className)
     }),
     {}
-  );
+  ) || {};
+
+  // Do not allow empty children
+  if (ret.children && !Object.keys(ret.children).length) {
+    delete ret.children;
+  }
+
+  return ret;
 }
 
 function mergeClassNames(a, b) {
