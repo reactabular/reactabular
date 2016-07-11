@@ -6,4 +6,5 @@ export { default as Search } from './Search';
 export { default as generateData } from './generate_data';
 export { default as paginate } from './paginate';
 export { default as VisibilityToggles } from './VisibilityToggles';
+export { default as resizableColumn } from './resizable_column';
 
