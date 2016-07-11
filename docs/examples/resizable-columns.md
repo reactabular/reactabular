@@ -1,5 +1,7 @@
 The following example implements a formatter that provides handles for altering column widths.
 
+Note that the current implementation doesn't constrain the total width of the table. That would require additional logic as you would have to check for this while altering a column width.
+
 ```jsx
 /*
 import React from 'react';
