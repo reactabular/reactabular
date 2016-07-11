@@ -93,3 +93,7 @@ class SearchTable extends React.Component {
 ```
 
 > You can find the `Search` helper from `docs/helpers` to get the basic idea. It's not included in the core distribution.
+
+## See Also
+
+* [Sort and Search](/examples/sort-and-search)
