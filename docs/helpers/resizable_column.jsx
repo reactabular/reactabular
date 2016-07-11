@@ -27,6 +27,7 @@ const resizableColumn = (
       return (
         <div style={{ width }}>
           <div
+            className="resize-value"
             style={{
               display: 'inline-block',
               overflow: 'hidden',
@@ -79,6 +80,6 @@ const resizableColumn = (
   }
 
   return React.createElement(ResizableColumn);
-}
+};
 
 export default resizableColumn;

@@ -7,6 +7,7 @@ import orderBy from 'lodash/orderBy';
 import {
   Table, sort, transforms
 } from 'reactabular';
+import { resizableColumn } from './helpers';
 */
 
 const data = [
@@ -52,10 +53,16 @@ const columns = [
   {
     header: {
       label: 'Name',
-      sortable: true
+      sortable: true,
+      resizable: true
     },
     cell: {
       property: 'name'
+    },
+    props: {
+      style: {
+        width: 200
+      }
     }
   },
   {
@@ -112,6 +119,21 @@ class StatefulTable extends React.Component {
     );
   }
   bindColumns(columns) {
+    const resizable = resizableColumn({
+      getWidth: column => column.props.style.width,
+      onDrag: (width, { columnIndex }) => {
+        const columns = this.state.columns;
+        const column = columns[columnIndex];
+
+        column.props.style = {
+          ...column.props.style,
+          width
+        };
+
+        this.setState({ columns });
+      }
+    });
+
     const sortable = transforms.sort({
       // Point the transform to your data. React state can work for this purpose
       // but you can use a state manager as well.
@@ -130,19 +152,26 @@ class StatefulTable extends React.Component {
     });
 
     return columns.map(column => {
-      if (column.header && column.header.sortable &&
-        column.cell && column.cell.property) {
-        const existingTransform = column.header.transform || (v => v);
+      if (column.header && column.cell && column.cell.property) {
+        const existingFormat = column.header.format || (v => v);
+        const existingTransforms = column.header.transforms || [];
+        let newFormat = existingFormat;
+        let newTransforms = existingTransforms;
+
+        if (column.header.sortable) {
+          newTransforms = existingTransforms.concat([sortable]);
+        }
+
+        if (column.header.resizable) {
+          newFormat = (v, extra) => resizable(existingFormat(v, extra), extra);
+        }
 
         return {
           ...column,
           header: {
             ...column.header,
-            transforms: [
-              (v, extra) => (
-                existingTransform(sortable(v, extra), extra)
-              )
-            ]
+            format: newFormat,
+            transforms: newTransforms
           }
         };
       }
