@@ -260,6 +260,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/drag-and-drop.md')
       },
       {
+        path: 'examples/excel',
+        title: 'Excel',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./examples/excel.md')
+      },
+      {
         path: 'examples/fixed-width-columns',
         title: 'Fixed Width Columns',
         imports: documentationImports,
