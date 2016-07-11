@@ -15,7 +15,8 @@ import {
 
 import {
   ColumnFilters, Paginator, PrimaryControls,
-  generateData, paginate, VisibilityToggles
+  generateData, paginate, VisibilityToggles,
+  resizableColumn
 } from './helpers';
 import countries from './data/countries';
 */
@@ -119,12 +120,31 @@ class AllFeaturesTable extends React.Component {
       }
     });
     const sortableHeader = sortHeader(sortable, () => this.state.sortingColumns);
+    const resizable = resizableColumn({
+      getWidth: column => column.props.style.width,
+      onDrag: (width, { columnIndex }) => {
+        const columns = this.state.columns;
+        const column = columns[columnIndex];
+
+        column.props.style = {
+          ...column.props.style,
+          width
+        };
+
+        this.setState({ columns });
+      }
+    });
 
     return [
       {
+        props: {
+          style: {
+            width: 200
+          }
+        },
         header: {
           label: 'Name',
-          format: (name, extraParameters) => (
+          format: (name, extraParameters) => resizable(
             <div style={{ display: 'inline' }}>
               <input
                 type="checkbox"
@@ -132,7 +152,8 @@ class AllFeaturesTable extends React.Component {
                 style={{ width: '20px' }}
               />
               {sortableHeader(name, extraParameters)}
-            </div>
+            </div>,
+            extraParameters
           )
         },
         cell: {
@@ -143,9 +164,14 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
+        props: {
+          style: {
+            width: 100
+          }
+        },
         header: {
           label: 'Position',
-          format: sortableHeader
+          format: (v, extra) => resizable(sortableHeader(v, extra), extra)
         },
         cell: {
           property: 'position',
@@ -155,6 +181,11 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
+        props: {
+          style: {
+            width: 100
+          }
+        },
         header: {
           label: 'Boss',
           format: sortableHeader
@@ -167,6 +198,11 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
+        props: {
+          style: {
+            width: 100
+          }
+        },
         header: {
           label: 'Country',
           format: sortableHeader
@@ -186,6 +222,11 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
+        props: {
+          style: {
+            width: 100
+          }
+        },
         header: {
           label: 'Salary',
           format: sortableHeader
@@ -202,6 +243,11 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
+        props: {
+          style: {
+            width: 100
+          }
+        },
         header: {
           label: 'Active',
           format: sortableHeader
@@ -214,6 +260,11 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
+        props: {
+          style: {
+            width: 50
+          }
+        },
         cell: {
           format: (value, { rowData }) => (
             <span
