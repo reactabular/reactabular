@@ -286,6 +286,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/fixed-width-columns.md')
       },
       {
+        path: 'examples/infinite-scrolling',
+        title: 'Infinite Scrolling',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./examples/infinite-scrolling.md')
+      },
+      {
         path: 'examples/resizable-columns',
         title: 'Resizable Columns',
         imports: documentationImports,
