@@ -284,6 +284,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/selection.md')
       },
       {
+        path: 'examples/sort-and-search',
+        title: 'Sort and Search',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./examples/sort-and-search.md')
+      },
+      {
         path: 'examples/stateful-table',
         title: 'Stateful Table',
         imports: documentationImports,
