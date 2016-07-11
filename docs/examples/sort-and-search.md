@@ -1,4 +1,4 @@
-The following example shows how to combine sorting with search.
+The following example shows how to combine sorting with search. It is possible to reset sorting by double clicking on a header.
 
 ```jsx
 /*
@@ -53,14 +53,29 @@ class SortAndSearchTable extends React.Component {
     });
     const sortableHeader = sortHeader(sortable);
 
-    const resetable = () => (value, { columnIndex }) => ({
+    const resetable = (value, { columnIndex }) => ({
       onDoubleClick: () => {
         const sortingColumns = this.state.sortingColumns;
+        const position = sortingColumns[columnIndex].position;
+        const newSortingColumns = {};
 
         delete sortingColumns[columnIndex];
 
+        Object.keys(sortingColumns).forEach(k => {
+            const column = sortingColumns[k];
+
+            if (column.position > position) {
+                newSortingColumns[k] = {
+                    ...column,
+                    position: column.position - 1,
+                };
+            } else {
+                newSortingColumns[k] = column;
+            }
+        });
+
         this.setState({
-          sortingColumns
+            sortingColumns: newSortingColumns
         });
       }
     });
@@ -74,7 +89,7 @@ class SortAndSearchTable extends React.Component {
             label: 'Name',
             // Resetable operates on cell level while sorting is handled by
             // an element within -> no conflict between click and double click.
-            transforms: [resetable()],
+            transforms: [resetable],
             format: sortableHeader
           },
           cell: {
@@ -84,7 +99,7 @@ class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'Company',
-            transforms: [resetable()],
+            transforms: [resetable],
             format: sortableHeader
           },
           cell: {
@@ -94,7 +109,7 @@ class SortAndSearchTable extends React.Component {
         {
           header: {
             label: 'Age',
-            transforms: [resetable()],
+            transforms: [resetable],
             format: sortableHeader
           },
           cell: {
