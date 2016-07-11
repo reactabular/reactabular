@@ -58,12 +58,12 @@ class ResizableColumnsTable extends React.Component {
         {
           props: {
             style: {
-              width: 150
+              minWidth: 100,
+              width: '100%'
             }
           },
           header: {
-            label: 'Age',
-            format: resizable
+            label: 'Age'
           },
           cell: {
             property: 'age'
@@ -129,7 +129,7 @@ const resizableColumn = (
       const width = getWidth(extraParameters.column);
 
       return (
-        <div>
+        <div style={{ width }}>
           <div
             style={{
               display: 'inline-block',
