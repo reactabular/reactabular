@@ -260,6 +260,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/drag-and-drop.md')
       },
       {
+        path: 'examples/fixed-width-columns',
+        title: 'Fixed Width Columns',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./examples/fixed-width-columns.md')
+      },
+      {
         path: 'examples/selection',
         title: 'Selection',
         imports: documentationImports,
