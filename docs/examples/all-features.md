@@ -405,15 +405,18 @@ function sortHeader(sortable, getSortingColumns) {
     return (
       <div style={{ display: 'inline' }}>
         <span className="value">{value}</span>
-        {sortable.toFormatter({
-          value,
-          extraParameters: {
-            columnIndex
-          },
-          props: {
-            style: { float: 'right' }
-          }
-        })}
+        {transforms.toFormatter(
+          sortable(
+            value,
+            {
+              columnIndex
+            },
+            {
+              style: { float: 'right' }
+            }
+          ),
+          'span'
+        )}
         {sortingColumns[columnIndex] &&
           <span className="sort-order" style={{ marginLeft: '0.5em', float: 'right' }}>
             {sortingColumns[columnIndex].position + 1}

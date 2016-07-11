@@ -1,4 +1,4 @@
-It is possible to convert a transform as a formatter (a React component) if it implements a `toFormatter()` method. This provides extra flexibility and allows you to use a transform within `format` configuration. You can also pass custom `props` here to customize the resulting component further.
+It is possible to convert a transform as a formatter (a React component) using `transforms.toFormatter`. It wraps a transform as a React component which you can use as a formatter then.
 
 **Example:**
 
@@ -11,10 +11,13 @@ import { transforms } from 'reactabular';
 ...
 header: {
   label: 'Position',
-  format: name => (
+  format: (name, extra) => (
     <div style={{ display: 'inline' }}>
       <span>{name}</span>
-      {sortable.toFormatter({ props: { className: 'demo' } })}
+      {toFormatter(
+        sortable(name, extra, { className: 'demo' }),
+        'span'
+      )}
     </div>
   )
 },

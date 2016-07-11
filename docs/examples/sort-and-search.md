@@ -143,10 +143,15 @@ function sortHeader(sortable) {
           {columnIndex + 1}
         </span>
       }
-      {sortable.toFormatter({
-        value,
-        extraParameters: { columnIndex }
-      })}
+      {transforms.toFormatter(
+        sortable(
+          value,
+          {
+            columnIndex
+          }
+        ),
+        'span'
+      )}
     </div>
   );
 }

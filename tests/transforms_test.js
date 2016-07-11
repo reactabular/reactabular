@@ -2,9 +2,9 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import { transforms, editors } from '../src';
+import { transforms } from '../src';
 
-const { edit, sort } = transforms;
+const { edit, sort, toFormatter } = transforms;
 
 describe('edit', function () {
   it('activates editing', function () {
@@ -103,79 +103,6 @@ describe('edit', function () {
     expect(passedRowData).to.deep.equal(testRowData);
     expect(passedProperty).to.equal(testProperty);
   });
-
-  it('converts to a formatter', function () {
-    const editor = edit();
-    const formatter = editor('div').toFormatter();
-
-    expect(React.isValidElement(formatter)).to.equal(true);
-  });
-
-  it('converted version accepts value', function () {
-    const testIndex = 'testIndex';
-    let receivedValue;
-    const editor = edit({
-      getEditId() {
-        return testIndex;
-      },
-      getEditProperty() {
-        return testIndex;
-      },
-      onValue({ value }) {
-        receivedValue = value;
-      }
-    });
-    const formatter = editor(editors.boolean()).toFormatter({ value: true });
-    const element = TestUtils.renderIntoDocument(
-      React.createElement(Wrapper, {}, formatter)
-    );
-    const buttons = TestUtils.scryRenderedDOMComponentsWithTag(
-      element, 'button'
-    );
-
-    TestUtils.Simulate.click(buttons[1]);
-
-    expect(receivedValue).to.equal(false);
-  });
-
-  it('converted version accepts extra parameters', function () {
-    const extraParameters = { foo: 'bar' };
-    let receivedValue;
-    const editor = edit({
-      getEditId(extras) {
-        receivedValue = extras;
-      }
-    });
-    const formatter = editor(editors.boolean()).toFormatter({ extraParameters });
-    const element = TestUtils.renderIntoDocument(
-      React.createElement(Wrapper, {}, formatter)
-    );
-    const buttons = TestUtils.scryRenderedDOMComponentsWithTag(
-      element, 'button'
-    );
-
-    TestUtils.Simulate.click(buttons[1]);
-
-    expect(receivedValue).to.deep.equal(extraParameters);
-  });
-
-  it('converted version accepts props', function () {
-    const className = 'demo-class';
-    const editor = edit({
-      getEditId() {
-        return 'foo';
-      }
-    });
-    const formatter = editor(editors.boolean()).toFormatter({ props: { className } });
-    const element = TestUtils.renderIntoDocument(
-      React.createElement(Wrapper, {}, formatter)
-    );
-    const elem = TestUtils.findRenderedDOMComponentWithClass(
-      element, className
-    );
-
-    expect(elem).to.exist;
-  });
 });
 
 describe('sort', function () {
@@ -222,31 +149,43 @@ describe('sort', function () {
 
     expect(sorted).to.equal(testColumnIndex);
   });
+});
 
-  it('converts to a formatter', function () {
-    const sorter = sort();
-    const formatter = sorter.toFormatter({
-      value: 'testValue',
-      extraParameters: {
-        columnIndex: 0
-      }
-    });
+describe('toFormatter', function () {
+  it('converts edit to a formatter', function () {
+    const editor = edit()('div');
+    const formatter = toFormatter(editor());
 
     expect(React.isValidElement(formatter)).to.equal(true);
   });
 
-  it('converted version accepts props', function () {
+  it('converts sort to a formatter', function () {
+    const sorter = sort();
+    const formatter = toFormatter(
+      sorter(
+        'testValue',
+        {
+          columnIndex: 0
+        }
+      )
+    );
+
+    expect(React.isValidElement(formatter)).to.equal(true);
+  });
+
+  it('converted sort accepts props', function () {
     const className = 'demo-class';
     const sorter = sort();
-    const formatter = sorter.toFormatter({
-      value: 'testValue',
-      extraParameters: {
-        columnIndex: 0
-      },
-      props: {
-        className
-      }
-    });
+    const formatter = toFormatter(
+      sorter(
+        'testValue', {
+          columnIndex: 0
+        },
+        {
+          className
+        }
+      )
+    );
     const element = TestUtils.renderIntoDocument(
       React.createElement(Wrapper, {}, formatter)
     );
