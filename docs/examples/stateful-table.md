@@ -160,13 +160,13 @@ class StatefulTable extends React.Component {
 
         if (column.header.sortable && column.header.resizable) {
           newFormat = (v, extra) => resizable(
-            [
-              <span>{existingFormat(v, extra)}</span>,
-              transforms.toFormatter(
+            <div>
+              <span>{existingFormat(v, extra)}</span>
+              {transforms.toFormatter(
                 sortable(null, extra),
                 'span'
-              )
-            ],
+              )}
+            </div>,
             extra
           );
         }
