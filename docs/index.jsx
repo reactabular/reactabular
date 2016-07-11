@@ -196,6 +196,12 @@ const pages = [
         title: 'API',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./editors/api.md')
+      },
+      {
+        path: 'editors/customizing',
+        title: 'Customizing',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./editors/customizing.md')
       }
     ]
   },
