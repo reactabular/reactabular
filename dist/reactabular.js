@@ -515,14 +515,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function mergeProps(propCollections) {
-	  return propCollections.filter(function (p) {
+	  var ret = propCollections.filter(function (p) {
 	    return p;
 	  }).reduce(function (all, props) {
 	    return _extends({}, all, props, {
+	      children: _extends({}, props.children, all.children), // Reverse order
 	      style: _extends({}, all.style, props.style),
 	      className: mergeClassNames(all.className, props.className)
 	    });
-	  }, {});
+	  }, {}) || {};
+	
+	  // Do not allow empty children
+	  if (ret.children && !Object.keys(ret.children).length) {
+	    delete ret.children;
+	  }
+	
+	  return ret;
 	}
 	
 	function mergeClassNames(a, b) {
@@ -2749,14 +2757,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var sort = sortingOrder.FIRST;
 	
 	  if (sortingColumns && sortingColumns.hasOwnProperty(selectedColumn)) {
-	    sort = sortingOrder[sortingColumns[selectedColumn]];
+	    sort = sortingOrder[sortingColumns[selectedColumn].direction];
 	
 	    if (!sort) {
 	      return {};
 	    }
 	  }
 	
-	  return _defineProperty({}, selectedColumn, sort);
+	  return _defineProperty({}, selectedColumn, {
+	    direction: sort,
+	    position: 0
+	  });
 	};
 	
 	var byColumns = function byColumns(_ref3) {
@@ -2768,15 +2779,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var newSortingColumns = {};
 	
 	  if (!sortingColumns) {
-	    return _defineProperty({}, selectedColumn, sortingOrder.FIRST);
+	    return _defineProperty({}, selectedColumn, {
+	      direction: sortingOrder.FIRST,
+	      position: 0
+	    });
 	  } else if (sortingColumns.hasOwnProperty(selectedColumn)) {
 	    // Clone to avoid mutating the original structure
 	    newSortingColumns = _extends({}, sortingColumns);
 	
-	    var newSort = sortingOrder[newSortingColumns[selectedColumn]];
+	    var newSort = sortingOrder[newSortingColumns[selectedColumn].direction];
 	
 	    if (newSort) {
-	      newSortingColumns[selectedColumn] = newSort;
+	      newSortingColumns[selectedColumn] = {
+	        direction: newSort,
+	        position: newSortingColumns[selectedColumn].position
+	      };
 	    } else {
 	      delete newSortingColumns[selectedColumn];
 	    }
@@ -2784,7 +2801,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return newSortingColumns;
 	  }
 	
-	  return _extends({}, sortingColumns, _defineProperty({}, selectedColumn, sortingOrder.FIRST));
+	  return _extends({}, sortingColumns, _defineProperty({}, selectedColumn, {
+	    direction: sortingOrder.FIRST,
+	    position: Object.keys(sortingColumns).length
+	  }));
 	};
 	
 	// sorter === lodash orderBy
@@ -2792,25 +2812,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	var sorter = function sorter() {
 	  var _ref5 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	
-	  var _ref5$columns = _ref5.columns;
-	  var columns = _ref5$columns === undefined ? {} : _ref5$columns;
+	  var columns = _ref5.columns;
 	  var sortingColumns = _ref5.sortingColumns;
 	  var sort = _ref5.sort;
 	  return function (data) {
+	    if (!columns) {
+	      throw new Error('sort.sorter - Missing columns!');
+	    }
+	
 	    if (!sortingColumns) {
 	      return data;
 	    }
 	
-	    var columnIndexList = [];
-	    var orderList = [];
+	    var columnIndexList = new Array(sortingColumns.length);
+	    var orderList = new Array(sortingColumns.length);
 	
 	    Object.keys(sortingColumns).forEach(function (columnIndex) {
 	      var realColumn = columns[columnIndex] || { cell: {} };
 	      var resolver = realColumn.cell && realColumn.cell.resolve || function (a) {
 	        return a;
 	      };
+	      var sortingColumn = sortingColumns[columnIndex];
 	
-	      columnIndexList.push(function (row) {
+	      columnIndexList[sortingColumn.position] = function (row) {
 	        var value = (0, _get2.default)(row, realColumn.cell.property);
 	        var resolvedValue = resolver(value, {
 	          rowData: row,
@@ -2822,9 +2846,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	
 	        return value;
-	      });
+	      };
 	
-	      orderList.push(sortingColumns[columnIndex]);
+	      orderList[sortingColumn.position] = sortingColumn.direction;
 	    });
 	
 	    return sort(data, columnIndexList, orderList);
@@ -3080,7 +3104,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _onValue = _ref$onValue === undefined ? function () {} : _ref$onValue;
 	
 	  return function (editor) {
-	    var editTransform = function editTransform(value, extraParameters) {
+	    return function (value, extraParameters) {
 	      var props = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 	
 	      var idx = getEditId(extraParameters);
@@ -3103,46 +3127,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      });
 	    };
-	
-	    editTransform.toFormatter = function () {
-	      var _ref2 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	
-	      var value = _ref2.value;
-	      var extraParameters = _ref2.extraParameters;
-	      var props = _ref2.props;
-	      return _react2.default.createElement( // eslint-disable-line max-len, react/prop-types
-	      'div', // This cannot return a span because it can have children
-	      editTransform(value, extraParameters, props));
-	    };
-	
-	    return editTransform;
 	  };
 	};
 	
 	var sort = function sort() {
-	  var _ref3 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var _ref2 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	
-	  var _ref3$getSortingColum = _ref3.getSortingColumns;
-	  var getSortingColumns = _ref3$getSortingColum === undefined ? function () {
+	  var _ref2$getSortingColum = _ref2.getSortingColumns;
+	  var getSortingColumns = _ref2$getSortingColum === undefined ? function () {
 	    return [];
-	  } : _ref3$getSortingColum;
-	  var _ref3$onSort = _ref3.onSort;
-	  var onSort = _ref3$onSort === undefined ? function () {} : _ref3$onSort;
+	  } : _ref2$getSortingColum;
+	  var _ref2$onSort = _ref2.onSort;
+	  var onSort = _ref2$onSort === undefined ? function () {} : _ref2$onSort;
+	  return function (_value, _ref3) {
+	    var columnIndex = _ref3.columnIndex;
 	
-	  var sortTransform = function sortTransform(_value, _ref4) {
-	    var columnIndex = _ref4.columnIndex;
+	    var _ref4 = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 	
-	    var _ref5 = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+	    var className = _ref4.className;
 	
-	    var className = _ref5.className;
-	
-	    var props = _objectWithoutProperties(_ref5, ['className']);
+	    var props = _objectWithoutProperties(_ref4, ['className']);
 	
 	    var columns = getSortingColumns();
 	    var headerClass = 'sort sort-none';
 	
+	    // Check against undefined to allow zero
 	    if (columns[columnIndex] !== undefined) {
-	      headerClass = 'sort sort-' + columns[columnIndex];
+	      headerClass = 'sort sort-' + columns[columnIndex].direction;
 	    }
 	
 	    return _extends({}, props, {
@@ -3152,23 +3163,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    });
 	  };
+	};
 	
-	  sortTransform.toFormatter = function () {
-	    var _ref6 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	
-	    var value = _ref6.value;
-	    var extraParameters = _ref6.extraParameters;
-	    var props = _ref6.props;
-	    return _react2.default.createElement( // eslint-disable-line react/prop-types
-	    'span', sortTransform(value, extraParameters, props));
-	  };
-	
-	  return sortTransform;
+	var toFormatter = function toFormatter(transform) {
+	  var element = arguments.length <= 1 || arguments[1] === undefined ? 'div' : arguments[1];
+	  return _react2.default.createElement(element, transform);
 	};
 	
 	exports.default = {
 	  edit: edit,
-	  sort: sort
+	  sort: sort,
+	  toFormatter: toFormatter
 	};
 
 /***/ }
