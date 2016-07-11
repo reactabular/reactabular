@@ -248,16 +248,10 @@ const pages = [
     },
     pages: [
       {
-        path: 'examples/tree-view',
-        title: 'Tree View',
+        path: 'examples/all-features',
+        title: 'All Features',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/tree-view.md')
-      },
-      {
-        path: 'examples/toggle-columns',
-        title: 'Toggle Columns',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/toggle-columns.md')
+        component: require('catalog/lib/loader!raw!./examples/all-features.md')
       },
       {
         path: 'examples/drag-and-drop',
@@ -272,10 +266,22 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/stateful-table.md')
       },
       {
-        path: 'examples/all-features',
-        title: 'All Features',
+        path: 'examples/sticky-headers',
+        title: 'Sticky Headers',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/all-features.md')
+        component: require('catalog/lib/loader!raw!./examples/sticky-headers.md')
+      },
+      {
+        path: 'examples/toggle-columns',
+        title: 'Toggle Columns',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./examples/toggle-columns.md')
+      },
+      {
+        path: 'examples/tree-view',
+        title: 'Tree View',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./examples/tree-view.md')
       }
     ]
   },
