@@ -44,6 +44,8 @@ const documentationImports = {
   orderBy,
   transform,
   countries,
+  React,
+  ReactDOM,
   ...dataDefinitions,
   ...customHelpers
 };
