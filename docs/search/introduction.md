@@ -8,23 +8,21 @@ The general workflow goes as follows:
 
 **Example:**
 
-```react
-<SearchTable />
-```
-
-```code
-lang: jsx
----
+```jsx
+/*
 import React from 'react';
-import { Table, search } from 'reactabular';
 import { Search } from './helpers';
+import {
+  Table, search
+} from 'reactabular';
+*/
 
 class SearchTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      query: {},
+      query: {}, // Search query
       columns: [
         {
           header: {
@@ -69,7 +67,7 @@ class SearchTable extends React.Component {
   }
   render() {
     const { data, columns, query } = this.state;
-    let searchedData = search.multipleColumns({ columns, query })(data);
+    const searchedData = search.multipleColumns({ columns, query })(data);
 
     return (
       <div>
@@ -90,6 +88,8 @@ class SearchTable extends React.Component {
     );
   }
 }
+
+<SearchTable />
 ```
 
 > You can find the `Search` helper from `docs/helpers` to get the basic idea. It's not included in the core distribution.

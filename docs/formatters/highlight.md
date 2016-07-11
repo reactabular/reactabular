@@ -2,25 +2,20 @@ To make it possible to highlight search results per column, there's a specific `
 
 **Example:**
 
-```react
-<HighlightTable />
-```
-
-```code
-lang: jsx
----
+```jsx
+/*
 import React from 'react';
-import { Table, search, formatters } from 'reactabular';
+import { Search } from './helpers';
+import {
+  Table, search, formatters
+} from 'reactabular';
+*/
 
 class HighlightTable extends React.Component {
   constructor(props) {
     super(props);
 
     const highlight = column => formatters.highlight(value => (
-      // We have an individual cell value here. For the highlighting
-      // algorithm to work we'll need to figure out possible matches.
-      // The highlighter is able to return proper elements based on
-      // this information.
       search.matches({
         value,
         query: this.state.query[column] || this.state.query.all
@@ -75,7 +70,7 @@ class HighlightTable extends React.Component {
   }
   render() {
     const { data, columns, query } = this.state;
-    let searchedData = search.multipleColumns({ data, columns, query });
+    let searchedData = search.multipleColumns({ columns, query })(data);
 
     return (
       <div>
@@ -96,4 +91,6 @@ class HighlightTable extends React.Component {
     );
   }
 }
+
+<HighlightTable />
 ```

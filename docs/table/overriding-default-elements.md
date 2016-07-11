@@ -43,19 +43,15 @@ lang: js
 Depending on the content of your datasets, you may encounter issues with column widths jumping as certain data is filtered in or out. This table mitigates such issues by explicitly setting its width after mounting.
 
 ```jsx
-<FixedWidthColumnsTable />
-```
-
-```code
-lang: jsx
----
+/*
 import React from 'react';
-import { Search } from '../helpers';
+import { Search } from './helpers';
 import {
   Table, search
-} from '../../src';
+} from 'reactabular';
+*/
 
-export default class FixedWidthColumnsTable extends React.Component {
+class FixedWidthColumnsTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -147,7 +143,7 @@ class FixedWidthHeader extends React.Component {
     if (width) {
       this.widthSet = true;
 
-      this.setState({
+      this.setState({ // eslint-disable-line react/no-did-update-set-state
         style: { width }
       });
     }
@@ -162,4 +158,5 @@ FixedWidthHeader.propTypes = {
   children: React.PropTypes.any
 };
 
+<FixedWidthColumnsTable />
 ```

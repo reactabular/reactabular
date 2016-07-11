@@ -1,6 +1,14 @@
 This demonstration shows how to implement a stateful wrapper on top of Reactabular. The technique is handy if you want to wrap boilerplate and push abstraction level of the column definition higher.
 
-```react
+```jsx
+/*
+import React from 'react';
+import orderBy from 'lodash/orderBy';
+import {
+  Table, sort, transforms
+} from 'reactabular';
+*/
+
 const data = [
   {
     id: 100,
@@ -60,18 +68,6 @@ const columns = [
     }
   }
 ];
-
-<StatefulTable data={data} columns={columns} rowKey="id" />
-```
-
-```code
-lang: jsx
----
-import React from 'react';
-import orderBy from 'lodash/orderBy';
-import {
-  Table, sort, transforms
-} from 'reactabular';
 
 class StatefulTable extends React.Component {
   constructor(props) {
@@ -161,5 +157,5 @@ StatefulTable.propTypes = {
   rowKey: React.PropTypes.string.isRequired
 };
 
-export default StatefulTable;
+<StatefulTable data={data} columns={columns} rowKey="id" />
 ```

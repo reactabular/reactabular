@@ -12,16 +12,12 @@ Reactabular provides a formatter to make it easier to highlight search results. 
 The following example implements a formatter that provides handles for altering column widths.
 
 ```jsx
-<ResizableColumnsTable />
-```
-
-```code
-lang: jsx
----
+/*
 import React from 'react';
 import { Table } from 'reactabular';
+*/
 
-export default class ResizableColumnsTable extends React.Component {
+class ResizableColumnsTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -63,7 +59,7 @@ export default class ResizableColumnsTable extends React.Component {
             }
           },
           header: {
-            label: 'Address',
+            label: 'Really Long Address Header',
             format: resizable
           },
           cell: {
@@ -120,7 +116,14 @@ export default class ResizableColumnsTable extends React.Component {
 }
 
 // Adapted from https://stackoverflow.com/questions/20926551/recommended-way-of-making-react-component-div-draggable
-const resizableColumn = ({ getWidth, onDrag }) => (label, extraParameters) => {
+const resizableColumn = (
+  {
+    getWidth,
+    onDrag,
+    handleWidth = 5,
+    minWidth = 100
+  }
+) => (label, extraParameters) => {
   class ResizableColumn extends React.Component {
     constructor(props) {
       super(props);
@@ -134,16 +137,26 @@ const resizableColumn = ({ getWidth, onDrag }) => (label, extraParameters) => {
       this.onMouseUp = this.onMouseUp.bind(this);
     }
     render() {
+      const width = getWidth(extraParameters.column);
+
       return (
         <div>
-          <span>{label}</span>
+          <div
+            style={{
+              display: 'inline-block',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              width: width - handleWidth
+            }}
+          >{label}</div>
           <span
             className="resize-handle"
             style={{
               backgroundColor: '#aaa',
               cursor: 'col-resize',
               float: 'right',
-              width: '0.25em'
+              width: handleWidth
             }}
             onMouseDown={this.onMouseDown}
           >&nbsp;</span>
@@ -167,7 +180,7 @@ const resizableColumn = ({ getWidth, onDrag }) => (label, extraParameters) => {
       const offset = this.startX - e.clientX;
 
       onDrag(
-        Math.max(this.startWidth - offset, 1), // Do not allow non-zero widths
+        Math.max(this.startWidth - offset, minWidth),
         extraParameters
       );
     }
@@ -182,4 +195,6 @@ const resizableColumn = ({ getWidth, onDrag }) => (label, extraParameters) => {
 
   return React.createElement(ResizableColumn);
 };
+
+<ResizableColumnsTable />
 ```

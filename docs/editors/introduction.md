@@ -4,15 +4,14 @@ The library comes with a couple of basic editors. As long as you follow the same
 
 **Example:**
 
-```react
-<EditableTable />
-```
-
-```code
-lang: jsx
----
+```jsx
+/*
 import React from 'react';
-import { Table, transforms, editors } from 'reactabular';
+import findIndex from 'lodash/findIndex';
+import {
+  transforms, editors, Table
+} from 'reactabular';
+*/
 
 class EditableTable extends React.Component {
   constructor(props) {
@@ -81,4 +80,6 @@ class EditableTable extends React.Component {
     );
   }
 }
+
+<EditableTable />
 ```

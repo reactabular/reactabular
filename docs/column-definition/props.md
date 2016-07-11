@@ -20,12 +20,7 @@ lang: js
 The following example implements sticky headers within a fixed viewport through `props`.
 
 ```jsx
-<StickyHeaderTable />
-```
-
-```code
-lang: jsx
----
+/*
 import ReactDOM from 'react-dom';
 import React from 'react';
 
@@ -33,6 +28,7 @@ import { generateData } from './helpers';
 import {
   Table
 } from 'reactabular';
+*/
 
 const schema = {
   type: 'object',
@@ -104,7 +100,7 @@ const columns = [
   }
 ];
 
-export default class StickyHeaderTable extends React.Component {
+class StickyHeaderTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -173,4 +169,6 @@ export default class StickyHeaderTable extends React.Component {
     ReactDOM.findDOMNode(this.tableHeader).scrollLeft = scrollLeft;
   }
 }
+
+<StickyHeaderTable />
 ```

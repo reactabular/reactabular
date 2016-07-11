@@ -3,17 +3,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Fork from 'react-ghfork';
 import { Catalog, ReactSpecimen } from 'catalog';
+import * as reactDnd from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import classnames from 'classnames';
+import { compose } from 'redux';
+import uuid from 'uuid';
+import keys from 'lodash/keys';
+import values from 'lodash/values';
+import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
+import orderBy from 'lodash/orderBy';
+import transform from 'lodash/transform';
 import * as reactabular from '../src';
 import * as dataDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
-import * as editorTables from './editors';
-import * as examplesTables from './examples';
-import * as formatterTables from './formatters';
-import * as searchTables from './search';
-import * as sortTables from './sort';
-import * as tableTables from './table';
-import * as transformsTables from './transforms';
-import * as columnDefinitionTables from './column-definition';
+import countries from './data/countries';
 
 import 'purecss/build/pure.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
@@ -28,16 +32,20 @@ if (process.env.NODE_ENV !== 'production') {
 
 const documentationImports = {
   ...reactabular,
+  ...reactDnd,
+  HTML5Backend,
+  classnames,
+  compose,
+  uuid,
+  find,
+  findIndex,
+  keys,
+  values,
+  orderBy,
+  transform,
+  countries,
   ...dataDefinitions,
-  ...customHelpers,
-  ...editorTables,
-  ...examplesTables,
-  ...formatterTables,
-  ...searchTables,
-  ...sortTables,
-  ...tableTables,
-  ...transformsTables,
-  ...columnDefinitionTables
+  ...customHelpers
 };
 const title = `Reactabular v${VERSION}`; // eslint-disable-line no-undef
 const pages = [

@@ -72,18 +72,14 @@ There's a separate section covering editors that implement this interface.
 ## Excel Example
 
 ```jsx
-<ExcelTable />
-```
-
-```code
-lang: jsx
----
+/*
 import React from 'react';
 import {
   transforms, editors, Table
 } from 'reactabular';
+*/
 
-export default class ExcelTable extends React.Component {
+class ExcelTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -232,7 +228,7 @@ function evaluator(getData) {
 
       if (result) {
         try {
-          return <span style={{ fontWeight: 'bold' }}>{eval(result)}</span>;
+          return <span style={{ fontWeight: 'bold' }}>{eval(result)}</span>; // eslint-disable-line no-eval, max-len
         } catch (err) {
           console.error(err); // eslint-disable-line no-console
         }
@@ -244,4 +240,6 @@ function evaluator(getData) {
     return input;
   };
 }
+
+<ExcelTable />
 ```

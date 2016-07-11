@@ -46,12 +46,7 @@ columns: [
 ## Sort and Search Example
 
 ```jsx
-<SortAndSearchTable />
-```
-
-```code
-lang: jsx
----
+/*
 import React from 'react';
 import orderBy from 'lodash/orderBy';
 
@@ -59,6 +54,7 @@ import { generateData, Search } from './helpers';
 import {
   Table, sort, transforms, search
 } from 'reactabular';
+*/
 
 const schema = {
   type: 'object',
@@ -80,7 +76,7 @@ const schema = {
 };
 const data = generateData(20, schema);
 
-export default class SortAndSearchTable extends React.Component {
+class SortAndSearchTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -199,4 +195,6 @@ function sortHeader(sortable) {
     </div>
   );
 }
+
+<SortAndSearchTable />
 ```

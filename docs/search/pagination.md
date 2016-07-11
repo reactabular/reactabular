@@ -2,21 +2,17 @@ Reactabular doesn't come with pagination. Instead you can use an external librar
 
 **Example:**
 
-```react
-<PaginationTable />
-```
-
-```code
-lang: jsx
----
+```jsx
+/*
 import React from 'react';
 import { compose } from 'redux';
 import {
-  Paginator, paginate, Search, generateData
-} from './helpers';
-import {
   Table, search
 } from 'reactabular';
+import {
+  Paginator, paginate, Search, generateData
+} from './helpers';
+*/
 
 const schema = {
   type: 'object',
@@ -116,4 +112,6 @@ export default class PaginationTable extends React.Component {
     });
   }
 }
+
+<PaginationTable />
 ```

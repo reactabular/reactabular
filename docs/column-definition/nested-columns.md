@@ -2,15 +2,11 @@ Given sometimes you might want to display data in a nested manner, there's a `ch
 
 **Example:**
 
-```react
-<NestedColumnsTable />
-```
-
-```code
-lang: js
----
+```jsx
+/*
 import React from 'react';
 import { Table } from 'reactabular';
+*/
 
 const columns = [
   {
@@ -99,4 +95,6 @@ const NestedColumnsTable = () => (
     <Table.Body />
   </Table.Provider>
 );
+
+<NestedColumnsTable />
 ```

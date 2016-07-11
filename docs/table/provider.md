@@ -1,6 +1,6 @@
 `Table.Provider` is the core of Reactabular. It sets up a [context](https://facebook.github.io/react/docs/context.html) and maps `column` and `data` definitions to its children components. The following example illustrates the basic idea:
 
-```react
+```jsx
 /*
 import { Table } from 'reactabular';
 */

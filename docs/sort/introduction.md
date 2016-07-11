@@ -9,18 +9,14 @@ The general workflow goes as follows:
 
 **Example:**
 
-```react
-<SortTable />
-```
-
-```code
-lang: jsx
----
+```jsx
+/*
 import React from 'react';
 import orderBy from 'lodash/orderBy';
 import {
   Table, sort, transforms
 } from 'reactabular';
+*/
 
 const initialData = [
   {
@@ -50,7 +46,7 @@ const initialData = [
   }
 ];
 
-export default class SortTable extends React.Component {
+class SortTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -122,4 +118,6 @@ export default class SortTable extends React.Component {
     );
   }
 }
+
+<SortTable />
 ```

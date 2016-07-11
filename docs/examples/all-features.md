@@ -1,12 +1,7 @@
 The following example uses majority of Reactabular's features and combines them into a single example.
 
-```react
-<AllFeaturesTable />
-```
-
-```code
-lang: jsx
----
+```jsx
+/*
 import React from 'react';
 import { compose } from 'redux';
 import findIndex from 'lodash/findIndex';
@@ -14,14 +9,16 @@ import orderBy from 'lodash/orderBy';
 import keys from 'lodash/keys';
 import values from 'lodash/values';
 import transform from 'lodash/transform';
-
 import {
   Table, search, editors, sort, transforms, formatters
 } from 'reactabular';
+
 import {
-  ColumnFilters, Paginator, PrimaryControls, generateData, paginate
+  ColumnFilters, Paginator, PrimaryControls,
+  generateData, paginate, VisibilityToggles
 } from './helpers';
 import countries from './data/countries';
+*/
 
 const schema = {
   type: 'object',
@@ -86,6 +83,7 @@ class AllFeaturesTable extends React.Component {
     this.onSelect = this.onSelect.bind(this);
     this.onPerPage = this.onPerPage.bind(this);
     this.onRemove = this.onRemove.bind(this);
+    this.onToggleColumn = this.onToggleColumn.bind(this);
   }
   getColumns() {
     const highlight = column => formatters.highlight(value => (
@@ -141,7 +139,8 @@ class AllFeaturesTable extends React.Component {
           property: 'name',
           transforms: [editable(editors.input())],
           format: highlight('name')
-        }
+        },
+        visible: true
       },
       {
         header: {
@@ -152,7 +151,8 @@ class AllFeaturesTable extends React.Component {
           property: 'position',
           transforms: [editable(editors.input())],
           format: highlight('position')
-        }
+        },
+        visible: true
       },
       {
         header: {
@@ -163,7 +163,8 @@ class AllFeaturesTable extends React.Component {
           property: 'boss.name',
           transforms: [editable(editors.input())],
           format: highlight('boss.name')
-        }
+        },
+        visible: true
       },
       {
         header: {
@@ -181,7 +182,8 @@ class AllFeaturesTable extends React.Component {
           )],
           format: highlight('country'),
           resolve: country => countries[country]
-        }
+        },
+        visible: true
       },
       {
         header: {
@@ -196,7 +198,8 @@ class AllFeaturesTable extends React.Component {
               {highlight('salary')(salary)}
             </span>
           )
-        }
+        },
+        visible: true
       },
       {
         header: {
@@ -207,7 +210,8 @@ class AllFeaturesTable extends React.Component {
           property: 'active',
           transforms: [editable(editors.boolean())],
           format: active => active && <span>&#10003;</span>
-        }
+        },
+        visible: true
       },
       {
         cell: {
@@ -219,7 +223,8 @@ class AllFeaturesTable extends React.Component {
               &#10007;
             </span>
           )
-        }
+        },
+        visible: true
       }
     ];
   }
@@ -227,18 +232,24 @@ class AllFeaturesTable extends React.Component {
     const {
       columns, data, pagination, sortingColumns, query
     } = this.state;
+    const cols = columns.filter(column => column.visible);
     const paginated = compose(
       paginate(pagination),
-      sort.sorter({ columns, sortingColumns, sort: orderBy }),
-      search.multipleColumns({ columns, query })
+      sort.sorter({ columns: cols, sortingColumns, sort: orderBy }),
+      search.multipleColumns({ columns: cols, query })
     )(data);
 
     return (
       <div>
+        <VisibilityToggles
+          columns={columns}
+          onToggleColumn={this.onToggleColumn}
+        />
+
         <PrimaryControls
           className="controls"
           perPage={pagination.perPage}
-          columns={columns}
+          columns={cols}
           data={data}
           onPerPage={this.onPerPage}
           onSearch={this.onSearch}
@@ -246,12 +257,12 @@ class AllFeaturesTable extends React.Component {
 
         <Table.Provider
           className="pure-table pure-table-striped"
-          columns={columns}
+          columns={cols}
           data={paginated.data}
           rowKey="id"
         >
           <Table.Header>
-            <ColumnFilters columns={columns} onChange={this.onSearch} />
+            <ColumnFilters columns={cols} onChange={this.onSearch} />
           </Table.Header>
 
           <Table.Body
@@ -327,6 +338,13 @@ class AllFeaturesTable extends React.Component {
       data: this.state.data
     });
   }
+  onToggleColumn(columnIndex) {
+    const columns = this.state.columns;
+
+    columns[columnIndex].visible = !columns[columnIndex].visible;
+
+    this.setState({ columns });
+  }
 }
 
 function sortHeader(sortable, getSortingColumns) {
@@ -355,5 +373,5 @@ function sortHeader(sortable, getSortingColumns) {
   };
 }
 
-export default AllFeaturesTable;
+<AllFeaturesTable />
 ```

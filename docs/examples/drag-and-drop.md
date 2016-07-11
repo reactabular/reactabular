@@ -1,18 +1,14 @@
 You can change the position of the columns by dragging them in the example below (mouse only). "First Name" and "Last Name" have been constrained within their parent.
 
-```react
-<DragAndDropTable />
-```
-
-```code
-lang: jsx
----
+```jsx
+/*
 import React from 'react';
 import { compose } from 'redux';
 import { DragDropContext, DragSource, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import findIndex from 'lodash/findIndex';
 import { Table } from 'reactabular';
+*/
 
 const data = [
   {
@@ -281,12 +277,14 @@ const DndHeader = compose(
     })
   )
 )(({
-  connectDragSource, connectDropTarget, children, onMove, ...props
+  connectDragSource, connectDropTarget, children, onMove, ...props // eslint-disable-line max-len, no-unused-vars
 }) => (
   connectDragSource(connectDropTarget(
     <th {...props}>{children}</th>
   ))
 ));
 
-export default DragDropContext(HTML5Backend)(DragAndDropTable);
+const DragAndDrop = DragDropContext(HTML5Backend)(DragAndDropTable);
+
+<DragAndDrop />
 ```

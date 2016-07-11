@@ -71,9 +71,8 @@ You can select a row by clicking in the following example. If there's a selectio
 <SelectionTable />
 ```
 
-```code
-lang: jsx
----
+```jsx
+/*
 import React from 'react';
 import classnames from 'classnames';
 import find from 'lodash/find';
@@ -81,8 +80,9 @@ import findIndex from 'lodash/findIndex';
 import {
   Table
 } from 'reactabular';
+*/
 
-export default class SelectionTable extends React.Component {
+class SelectionTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -209,4 +209,6 @@ export default class SelectionTable extends React.Component {
     }
   }
 }
+
+<SelectionTable />
 ```

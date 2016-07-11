@@ -1,19 +1,15 @@
 This example shows you how to render trees using Reactabular. It relies on a flat and specifically ordered data and a set of custom operations designed for it.
 
-```react
-<TreeTable />
-```
-
-```code
-lang: jsx
----
+```jsx
+/*
 import React from 'react';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import { compose } from 'redux';
+import { Table, sort, transforms } from 'reactabular';
 
 import { generateData } from './helpers';
-import { Table, sort, transforms } from 'reactabular';
+*/
 
 const schema = {
   type: 'object',
@@ -32,7 +28,7 @@ const schema = {
 };
 const data = generateParents(generateData(100, schema));
 
-export default class TreeTable extends React.Component {
+class TreeTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -288,4 +284,6 @@ function hasChildren(data, itemIndex) {
 
   return ret;
 }
+
+<TreeTable />
 ```
