@@ -238,6 +238,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./search/api.md')
       },
       {
+        path: 'search/customizing',
+        title: 'Customizing',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./search/customizing.md')
+      },
+      {
         path: 'search/pagination',
         title: 'Pagination',
         imports: documentationImports,
