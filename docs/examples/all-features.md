@@ -61,7 +61,6 @@ const schema = {
     }
   }
 };
-const data = generateData(100, schema);
 
 class AllFeaturesTable extends React.Component {
   constructor(props) {
@@ -69,7 +68,7 @@ class AllFeaturesTable extends React.Component {
 
     this.state = {
       editedCell: null, // currently edited cell
-      data, // initial data
+      data: generateData(100, schema), // initial data
       query: {}, // search query
       sortingColumns: null, // reference to the sorting columns
       columns: this.getColumns(), // initial columns
