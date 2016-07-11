@@ -370,6 +370,7 @@ ReactDOM.render(
     />
     <Catalog
       title={title}
+      logoSrc="../images/logo.png"
       pages={pages}
       specimens={{
         jsx: props => <ReactSpecimen {...props} />
