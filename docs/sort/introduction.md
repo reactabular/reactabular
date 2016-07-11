@@ -121,3 +121,7 @@ class SortTable extends React.Component {
 
 <SortTable />
 ```
+
+## See Also
+
+* [Sort and Search](/examples/sort-and-search)
