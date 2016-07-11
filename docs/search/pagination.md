@@ -49,7 +49,7 @@ const columns = [
   }
 ];
 
-export default class PaginationTable extends React.Component {
+class PaginationTable extends React.Component {
   constructor(props) {
     super(props);
 
