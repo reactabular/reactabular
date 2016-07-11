@@ -15,7 +15,7 @@ You should alias these imports so that they work in your environment. In Webpack
 
 ## Consuming as a Standalone
 
-The [source repository](https://github.com/bebraw/reactabular) contains a `dist` directory. It's actually included within the npm version as well if you want to alias to it instead of the default version (separate modules). The `dist` comes in non-minified (`.js`) and minified (`.min.js`) variants and both have sourcemaps available.
+The [source repository](https://github.com/reactabular/reactabular) contains a `dist` directory. It's actually included within the npm version as well if you want to alias to it instead of the default version (separate modules). The `dist` comes in non-minified (`.js`) and minified (`.min.js`) variants and both have sourcemaps available.
 
 Reactabular has been packaged in the UMD format. This means you can consume it from CommonJS, AMD, and global environment. If you use the global environment, you'll find Reactabular there as `Reactabular`.
 
@@ -23,7 +23,7 @@ Reactabular has been packaged in the UMD format. This means you can consume it f
 
 If you want to build Reactabular from the source, follow the instructions below:
 
-1. `git clone https://github.com/bebraw/reactabular.git`
+1. `git clone https://github.com/reactabular/reactabular.git`
 2. `npm install`
 3. `npm run dist`, `npm run dist-min`, or `npm run dist-modules`
 

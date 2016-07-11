@@ -39,4 +39,4 @@ Here `ColumnFilters` injects an additional row for the filter controls. An alter
 </Table.Provider>
 ```
 
-> `ColumnFilters` isn't included in the standard distribution. You can [find it at the project repository](https://github.com/bebraw/reactabular/blob/master/docs/helpers/ColumnFilters.jsx).
+> `ColumnFilters` isn't included in the standard distribution. You can [find it at the project repository](https://github.com/reactabular/reactabular/blob/master/docs/helpers/ColumnFilters.jsx).

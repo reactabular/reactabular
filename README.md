@@ -1,4 +1,4 @@
-[![Join the chat at https://gitter.im/bebraw/reactabular](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bebraw/reactabular) [![build status](https://secure.travis-ci.org/bebraw/reactabular.svg)](http://travis-ci.org/bebraw/reactabular) [![bitHound Score](https://www.bithound.io/github/bebraw/reactabular/badges/score.svg)](https://www.bithound.io/github/bebraw/reactabular) [![Dependency Status](https://david-dm.org/bebraw/reactabular.svg)](https://david-dm.org/bebraw/reactabular) [![codecov](https://codecov.io/gh/bebraw/reactabular/branch/master/graph/badge.svg)](https://codecov.io/gh/bebraw/reactabular)
+[![Join the chat at https://gitter.im/reactabular/reactabular](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/reactabular/reactabular) [![build status](https://secure.travis-ci.org/reactabular/reactabular.svg)](http://travis-ci.org/reactabular/reactabular) [![bitHound Score](https://www.bithound.io/github/reactabular/reactabular/badges/score.svg)](https://www.bithound.io/github/reactabular/reactabular) [![Dependency Status](https://david-dm.org/reactabular/reactabular.svg)](https://david-dm.org/reactabular/reactabular) [![codecov](https://codecov.io/gh/reactabular/reactabular/branch/master/graph/badge.svg)](https://codecov.io/gh/reactabular/reactabular)
 
 # Reactabular - Spectacular tables for React
 
@@ -98,7 +98,7 @@ const columns = [
 
 > If you've struggled with other React table components, you'll see why this one is the best! - [Tim Dorr](https://twitter.com/timdorr/status/750346565374455808)
 
-If you are using Reactabular and want to endorse it, [let me know](https://github.com/bebraw/reactabular/issues/new).
+If you are using Reactabular and want to endorse it, [let me know](https://github.com/reactabular/reactabular/issues/new).
 
 ## Sponsors
 

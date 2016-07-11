@@ -351,7 +351,7 @@ ReactDOM.render(
   <div>
     <Fork
       className="right"
-      project="bebraw/reactabular"
+      project="reactabular/reactabular"
       style={{
         backgroundColor: '#000'
       }}

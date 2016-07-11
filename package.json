@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bebraw/reactabular.git"
+    "url": "https://github.com/reactabular/reactabular.git"
   },
   "keywords": [
     "react",
@@ -40,7 +40,7 @@
   "license": "MIT",
   "main": "dist-modules",
   "bugs": {
-    "url": "https://github.com/bebraw/reactabular/issues"
+    "url": "https://github.com/reactabular/reactabular/issues"
   },
   "homepage": "http://reactabular.js.org/",
   "dependencies": {},
