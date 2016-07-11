@@ -266,6 +266,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/fixed-width-columns.md')
       },
       {
+        path: 'examples/resizable-columns',
+        title: 'Resizable Columns',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./examples/resizable-columns.md')
+      },
+      {
         path: 'examples/selection',
         title: 'Selection',
         imports: documentationImports,
