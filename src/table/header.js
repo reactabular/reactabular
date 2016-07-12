@@ -1,5 +1,5 @@
 import React from 'react';
-import { tableTypes } from './types';
+import { tableContextTypes } from './types';
 import {
   resolveHeaderRows, evaluateTransforms, mergeProps
 } from './utils';
@@ -9,12 +9,12 @@ import {
 export default class Header extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
   render() {
     const { children, ...props } = this.props;
-    const { columns, components } = this.context;
+    const { headerColumns, components } = this.context;
 
     return React.createElement(
       components.header.wrapper,
       props,
-      [resolveHeaderRows(columns).map((row, i) =>
+      [resolveHeaderRows(headerColumns).map((row, i) =>
         React.createElement(HeaderRow, {
           key: `${i}-header-row`,
           components: components.header,
@@ -28,7 +28,7 @@ Header.propTypes = {
   children: React.PropTypes.any
 };
 Header.contextTypes = {
-  columns: tableTypes.columns,
+  headerColumns: tableContextTypes.headerColumns,
   components: React.PropTypes.object
 };
 
@@ -37,16 +37,15 @@ const HeaderRow = ({ row, components }) => (
     components.row,
     {},
     row.map((column, j) => {
-      const columnProps = column.props || {};
       const {
         label,
         transforms = [],
         format = a => a,
         props // eslint-disable-line no-shadow
-      } = column.header || {};
+      } = column;
       const extraParameters = {
         columnIndex: j,
-        column
+        column: column.column
       };
       const transformedProps = evaluateTransforms(transforms, label, extraParameters);
 
@@ -58,7 +57,7 @@ const HeaderRow = ({ row, components }) => (
         components.cell,
         {
           key: `${j}-header`,
-          ...mergeProps([columnProps, props, transformedProps])
+          ...mergeProps([props, transformedProps])
         },
         transformedProps.children || format(label, extraParameters)
       );

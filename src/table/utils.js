@@ -1,4 +1,4 @@
-function resolveHeaderRows(columns) {
+function resolveHeaderRows(columns = []) {
   let resolvedChildren = [];
 
   const ret = columns.map(column => {
@@ -68,6 +68,7 @@ function evaluateTransforms(transforms, value, extraParameters = {}) {
   return mergeProps(transforms.map(transform => transform(value, extraParameters)));
 }
 
+// XXX: this can be made to work with two -> skip filter and reduce
 function mergeProps(propCollections) {
   const ret = propCollections.filter(p => p).reduce(
     (all, props) => ({

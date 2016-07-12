@@ -43,6 +43,17 @@ const tableTypes = {
   data: dataType.isRequired,
   rowKey: rowKeyType
 };
+const tableContextTypes = {
+  headerColumns: React.PropTypes.array.isRequired,
+  bodyColumns: React.PropTypes.array.isRequired,
+
+  // XXX
+  columns: React.PropTypes.array.isRequired,
+
+  components: React.PropTypes.object,
+  data: dataType.isRequired,
+  rowKey: rowKeyType
+};
 const tableDefaults = {
   components: {
     table: 'table',
@@ -61,5 +72,6 @@ const tableDefaults = {
 
 export {
   tableTypes,
+  tableContextTypes,
   tableDefaults
 };
