@@ -4,6 +4,7 @@ The following example uses majority of Reactabular's features and combines them 
 /*
 import React from 'react';
 import { compose } from 'redux';
+import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import keys from 'lodash/keys';
@@ -67,7 +68,6 @@ class AllFeaturesTable extends React.Component {
     super(props);
 
     this.state = {
-      editedCell: null, // currently edited cell
       data: generateData(100, schema), // initial data
       query: {}, // search query
       sortingColumns: null, // reference to the sorting columns
@@ -94,18 +94,23 @@ class AllFeaturesTable extends React.Component {
       })
     ));
     const editable = transforms.edit({
-      getEditId: ({ rowData, property }) => `${rowData.id}-${property}`,
-      getEditProperty: () => this.state.editedCell,
-      onActivate: idx => this.setState({ editedCell: idx }),
+      isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
+      onActivate: ({ columnIndex, rowData }) => {
+        const index = findIndex(this.state.data, { id: rowData.id });
+        const data = cloneDeep(this.state.data);
+
+        data[index].editing = columnIndex;
+
+        this.setState({ data });
+      },
       onValue: ({ value, rowData, property }) => {
-        const idx = findIndex(this.state.data, { id: rowData.id });
+        const index = findIndex(this.state.data, { id: rowData.id });
+        const data = cloneDeep(this.state.data);
 
-        this.state.data[idx][property] = value;
+        data[index][property] = value;
+        data[index].editing = false;
 
-        this.setState({
-          editedCell: null,
-          data: this.state.data
-        });
+        this.setState({ data });
       }
     });
     const sortable = transforms.sort({
@@ -356,7 +361,6 @@ class AllFeaturesTable extends React.Component {
   }
   onSearch(query) {
     this.setState({
-      editedCell: null, // reset edits
       query
     });
   }

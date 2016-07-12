@@ -8,6 +8,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import classnames from 'classnames';
 import { compose } from 'redux';
 import uuid from 'uuid';
+import cloneDeep from 'lodash/cloneDeep';
 import keys from 'lodash/keys';
 import values from 'lodash/values';
 import find from 'lodash/find';
@@ -37,6 +38,7 @@ const documentationImports = {
   classnames,
   compose,
   uuid,
+  cloneDeep,
   find,
   findIndex,
   keys,

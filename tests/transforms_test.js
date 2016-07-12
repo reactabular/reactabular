@@ -8,34 +8,27 @@ const { edit, sort, toFormatter } = transforms;
 
 describe('edit', function () {
   it('activates editing', function () {
-    const testIndex = 'test';
-    let index;
+    const testProperty = 'test';
+    let receivedProperty;
     const editor = edit({
-      getEditId() {
-        return testIndex;
-      },
-      onActivate(idx) {
-        index = idx;
+      onActivate({ property }) {
+        receivedProperty = property;
       }
     });
     const result = editor('div')('foo', {
       rowData: {},
-      property: 'foo'
+      property: testProperty
     });
 
     result.onClick();
 
-    expect(index).to.equal(testIndex);
+    expect(receivedProperty).to.equal(testProperty);
   });
 
   it('returns an editor', function () {
-    const testIndex = 'test';
     const editor = edit({
-      getEditId() {
-        return testIndex;
-      },
-      getEditProperty() {
-        return testIndex;
+      isEditing() {
+        return true;
       }
     });
     const value = 'foo';
@@ -50,58 +43,28 @@ describe('edit', function () {
   });
 
   it('passes onValue to an editor', function () {
-    const testIndex = 'test';
     let receivedValue;
+    let receivedProperty;
     const editor = edit({
-      getEditId() {
-        return testIndex;
+      isEditing() {
+        return true;
       },
-      getEditProperty() {
-        return testIndex;
-      },
-      onValue({ value }) {
+      onValue({ value, property }) {
         receivedValue = value;
+        receivedProperty = property;
       }
     });
+    const editorProperty = 'foo';
     const editorValue = 'foobar';
     const result = editor('div')('foo', {
       rowData: {},
-      property: 'foo'
+      property: editorProperty
     });
 
     result.children.props.onValue(editorValue);
 
     expect(receivedValue).to.equal(editorValue);
-  });
-
-  it('passes rowData and property to getEditId', function () {
-    let passedRowData;
-    let passedProperty;
-    const testRowData = {
-      name: 'demo'
-    };
-    const testProperty = 'foo';
-    const editor = edit({
-      getEditId({ rowData, property }) {
-        passedRowData = rowData;
-        passedProperty = property;
-
-        return rowData.name + property;
-      },
-      getEditProperty() {
-        return testRowData.name + testProperty;
-      }
-    });
-    const editorValue = 'foobar';
-    const result = editor('div')('foo', {
-      rowData: testRowData,
-      property: testProperty
-    });
-
-    result.children.props.onValue(editorValue);
-
-    expect(passedRowData).to.deep.equal(testRowData);
-    expect(passedProperty).to.equal(testProperty);
+    expect(receivedProperty).to.equal(editorProperty);
   });
 });
 

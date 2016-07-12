@@ -2,34 +2,28 @@ import React from 'react';
 import { mergeClassNames } from './table/utils';
 
 const edit = ({
-  getEditId = () => {},
-  getEditProperty = () => {},
+  isEditing = () => {},
   onActivate = () => {},
   onValue = () => {}
-} = {}) => editor => (value, extraParameters, props = {}) => {
-  const idx = getEditId(extraParameters);
-  const editedCell = getEditProperty();
-
-  if (editedCell === idx) {
-    return {
-      children: React.createElement(
-        editor,
-        {
-          ...props,
-          value,
-          onValue: v => onValue(
-            { value: v, ...extraParameters }
-          )
-        }
-      )
-    };
-  }
-
-  return {
+} = {}) => editor => (value, extraParameters, props = {}) => (
+  isEditing(extraParameters) ?
+  {
+    children: React.createElement(
+      editor,
+      {
+        ...props,
+        value,
+        onValue: v => onValue(
+          { value: v, ...extraParameters }
+        )
+      }
+    )
+  } :
+  {
     ...props,
-    onClick: () => onActivate(idx)
-  };
-};
+    onClick: () => onActivate(extraParameters)
+  }
+);
 
 const sort = ({
   getSortingColumns = () => [],

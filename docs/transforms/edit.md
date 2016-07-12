@@ -6,6 +6,7 @@ The `edit` transform has been designed to allow inline editing. It expects you t
 lang: jsx
 ---
 ...
+import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import { transforms, editors } from 'reactabular';
 
@@ -14,33 +15,32 @@ import { transforms, editors } from 'reactabular';
 // Define how to manipulate data through edit. As Reactabular doesn't
 // manage state, you'll need to define how to do it.
 const editable = transforms.edit({
-  // Generate a unique editing id for a cell.
-  // You can tweak this from outside to control which cell is being
-  // edited.
-  getEditId: ({ rowData, property }) => `${rowData.id}-${property}`,
+  // Determine whether the current cell is being edited or not.
+  isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
 
-  // Get the edited property from application state.
-  getEditProperty: () => this.state.editedCell,
+  // The user requested activation, mark the current cell as edited.
+  // IMPORTANT! If you stash the data at this.state.data, DON'T
+  // mutate it as that will break Table.Body optimization check.
+  onActivate: ({ columnIndex, rowData }) => {
+    const index = findIndex(this.state.data, { id: rowData.id });
+    const data = cloneDeep(this.state.data);
 
-  // When the user tries to activate editing, capture the editing
-  // index to application state. This way the transform is able to
-  // tell whether or not something is being edited.
-  onActivate: idx => this.setState({
-    editedCell: idx
-  }),
+    data[index].editing = columnIndex;
+
+    this.setState({ data });
+  },
 
   // Capture the value when the user has finished and update
   // application state.
-  onValue: (value, { id }, property) => {
-    const idx = findIndex(this.state.data, { id });
+  onValue: ({ value, rowData, property }) => {
+    const index = findIndex(this.state.data, { id: rowData.id });
+    const data = cloneDeep(this.state.data);
 
-    this.state.data[idx][property] = value;
+    data[index][property] = value;
+    data[index].editing = false;
 
-    this.setState({
-      editedCell: null,
-      data: this.state.data
-    });
-  },
+    this.setState({ data });
+  }
 });
 
 ...
