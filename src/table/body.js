@@ -43,51 +43,64 @@ Body.defaultProps = {
 };
 Body.contextTypes = tableBodyContextTypes;
 
-const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
-  React.createElement(
-    components.row,
-    rowProps,
-    resolveBodyColumns(columns).map((column, j) => {
-      const {
-        property,
-        transforms = [],
-        format = a => a,
-        resolve = a => a,
-        props // eslint-disable-line no-shadow
-      } = column;
+class BodyRow extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    const previousProps = this.props;
 
-      if (property && !has(row, property)) {
-        console.warn(`Table.Body - Failed to find "${property}" property from`, row); // eslint-disable-line max-len, no-console
-      }
+    return !(
+      isEqual(previousProps.row, nextProps.row) &&
+      isEqual(previousProps.rowProps, nextProps.rowProps) &&
+      isEqual(previousProps.rowData, nextProps.rowData)
+    );
+  }
+  render() {
+    const { columns, components, row, rowProps, rowIndex, rowData } = this.props;
 
-      const extraParameters = {
-        columnIndex: j,
-        column: column.column,
-        rowData,
-        rowIndex,
-        property
-      };
-      const value = get(row, property);
-      const transformed = evaluateTransforms(transforms, value, extraParameters);
+    return React.createElement(
+      components.row,
+      rowProps,
+      resolveBodyColumns(columns).map((column, j) => {
+        const {
+          property,
+          transforms = [],
+          format = a => a,
+          resolve = a => a,
+          props // eslint-disable-line no-shadow
+        } = column;
 
-      if (!transformed) {
-        console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
-      }
+        if (property && !has(row, property)) {
+          console.warn(`Table.Body - Failed to find "${property}" property from`, row); // eslint-disable-line max-len, no-console
+        }
 
-      return React.createElement(
-        components.cell,
-        {
-          key: `${j}-cell`,
-          ...mergePropPair(props, transformed)
-        },
-        transformed.children || format(
-          resolve(value, extraParameters),
-          extraParameters
-        )
-      );
-    })
-  )
-);
+        const extraParameters = {
+          columnIndex: j,
+          column: column.column,
+          rowData,
+          rowIndex,
+          property
+        };
+        const value = get(row, property);
+        const transformed = evaluateTransforms(transforms, value, extraParameters);
+
+        if (!transformed) {
+          console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
+        }
+
+        return React.createElement(
+          components.cell,
+          {
+            key: `${j}-cell`,
+            ...mergePropPair(props, transformed)
+          },
+          transformed.children || format(
+            resolve(value, extraParameters),
+            extraParameters
+          )
+        );
+      })
+    );
+  }
+}
 BodyRow.propTypes = {
   columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object,
