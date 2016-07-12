@@ -34,13 +34,13 @@ class ResizableColumnsTable extends React.Component {
     super(props);
 
     const resizable = resizableColumn({
-      getWidth: column => column.props.style.width,
+      getWidth: column => column.header.props.style.width,
       onDrag: (width, { columnIndex }) => {
         const columns = this.state.columns;
         const column = columns[columnIndex];
 
-        column.props.style = {
-          ...column.props.style,
+        column.header.props.style = {
+          ...column.header.props.style,
           width
         };
 
@@ -51,42 +51,42 @@ class ResizableColumnsTable extends React.Component {
     this.state = {
       columns: [
         {
-          props: {
-            style: {
-              width: 200
-            }
-          },
           header: {
             label: 'Name',
-            format: resizable
+            format: resizable,
+            props: {
+              style: {
+                width: 200
+              }
+            }
           },
           cell: {
             property: 'name'
           }
         },
         {
-          props: {
-            style: {
-              width: 300
-            }
-          },
           header: {
             label: 'Really Long Address Header',
-            format: resizable
+            format: resizable,
+            props: {
+              style: {
+                width: 300
+              }
+            }
           },
           cell: {
             property: 'address'
           }
         },
         {
-          props: {
-            style: {
-              minWidth: 100,
-              width: '100%'
-            }
-          },
           header: {
-            label: 'Age'
+            label: 'Age',
+            props: {
+              style: {
+                minWidth: 100,
+                width: '100%'
+              }
+            }
           },
           cell: {
             property: 'age'

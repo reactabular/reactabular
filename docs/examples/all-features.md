@@ -120,13 +120,13 @@ class AllFeaturesTable extends React.Component {
     });
     const sortableHeader = sortHeader(sortable, () => this.state.sortingColumns);
     const resizable = resizableColumn({
-      getWidth: column => column.props.style.width,
+      getWidth: column => column.header.props.style.width,
       onDrag: (width, { columnIndex }) => {
         const columns = this.state.columns;
         const column = columns[columnIndex];
 
-        column.props.style = {
-          ...column.props.style,
+        column.header.props.style = {
+          ...column.header.props.style,
           width
         };
 
@@ -136,11 +136,6 @@ class AllFeaturesTable extends React.Component {
 
     return [
       {
-        props: {
-          style: {
-            width: 200
-          }
-        },
         header: {
           label: 'Name',
           format: (name, extraParameters) => resizable(
@@ -153,7 +148,12 @@ class AllFeaturesTable extends React.Component {
               {sortableHeader(name, extraParameters)}
             </div>,
             extraParameters
-          )
+          ),
+          props: {
+            style: {
+              width: 200
+            }
+          }
         },
         cell: {
           property: 'name',
@@ -163,14 +163,14 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
-        props: {
-          style: {
-            width: 100
-          }
-        },
         header: {
           label: 'Position',
-          format: (v, extra) => resizable(sortableHeader(v, extra), extra)
+          format: (v, extra) => resizable(sortableHeader(v, extra), extra),
+          props: {
+            style: {
+              width: 100
+            }
+          }
         },
         cell: {
           property: 'position',
@@ -180,14 +180,14 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
-        props: {
-          style: {
-            width: 100
-          }
-        },
         header: {
           label: 'Boss',
-          format: sortableHeader
+          format: sortableHeader,
+          props: {
+            style: {
+              width: 100
+            }
+          }
         },
         cell: {
           property: 'boss.name',
@@ -197,14 +197,14 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
-        props: {
-          style: {
-            width: 100
-          }
-        },
         header: {
           label: 'Country',
-          format: sortableHeader
+          format: sortableHeader,
+          props: {
+            style: {
+              width: 100
+            }
+          }
         },
         cell: {
           property: 'country',
@@ -221,14 +221,14 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
-        props: {
-          style: {
-            width: 100
-          }
-        },
         header: {
           label: 'Salary',
-          format: sortableHeader
+          format: sortableHeader,
+          props: {
+            style: {
+              width: 100
+            }
+          }
         },
         cell: {
           property: 'salary',
@@ -242,14 +242,14 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
-        props: {
-          style: {
-            width: 100
-          }
-        },
         header: {
           label: 'Active',
-          format: sortableHeader
+          format: sortableHeader,
+          props: {
+            style: {
+              width: 100
+            }
+          }
         },
         cell: {
           property: 'active',
