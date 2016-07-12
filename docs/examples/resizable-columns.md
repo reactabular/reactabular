@@ -6,8 +6,28 @@ Note that the current implementation doesn't constrain the total width of the ta
 /*
 import React from 'react';
 import { Table } from 'reactabular';
-import { resizableColumn } from './helpers';
+import { generateData, resizableColumn } from './helpers';
 */
+
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string'
+    },
+    name: {
+      type: 'string'
+    },
+    address: {
+      type: 'string'
+    },
+    age: {
+      type: 'integer'
+    }
+  },
+  required: ['id', 'name', 'age']
+};
+const data = generateData(200, schema);
 
 class ResizableColumnsTable extends React.Component {
   constructor(props) {
@@ -73,20 +93,7 @@ class ResizableColumnsTable extends React.Component {
           }
         }
       ],
-      data: [
-        {
-          id: 1,
-          name: 'This is a very long title that goes on and on',
-          address: '85 Peachfield Road',
-          age: 55
-        },
-        {
-          id: 2,
-          name: 'Here is a shorter one',
-          address: '77 Newmarket Road',
-          age: 42
-        }
-      ]
+      data
     };
   }
   render() {

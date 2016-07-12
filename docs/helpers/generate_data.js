@@ -6,6 +6,8 @@ import generators from 'annogenerate';
 
 const generate = schema2object.properties2object;
 
+const adjectives = ['Super', 'Hyper', 'Awesome', 'Lame', 'Standard'];
+
 export default (amount, { definitions, properties }) => range(amount).map(
   () => generate({
     generators,
@@ -36,13 +38,18 @@ export default (amount, { definitions, properties }) => range(amount).map(
         return `${sample(first)}${sample(second)} ${sample(third)}`;
       },
       product() {
-        const adjectives = ['Super', 'Hyper', 'Awesome', 'Lame', 'Standard'];
         const names = ['Apple', 'Pear', 'Strawberry', 'Pineapple', 'Potato', 'Tomato'];
 
         return `${sample(adjectives)} ${sample(names)}`;
       },
       position() {
         return sample(['Boss', 'Contractor', 'Client', '']);
+      },
+      address() {
+        const suffixes = ['street', 'road', ' Road', 'Street', 'ton', ' Village', ''];
+        const number = generators.number(1, 2000);
+
+        return `${sample(adjectives)}${sample(suffixes)} ${number}`;
       },
       salary: generators.number.bind(null, 0, 10000),
       age: generators.number.bind(null, 1, 100),
