@@ -122,9 +122,6 @@ class StickyHeaderTable extends React.Component {
             maxHeight: 400,
             maxWidth: 800
           }}
-          row={(row, rowIndex) => ({
-            className: rowIndex % 2 ? 'odd-row' : 'even-row'
-          })}
           onScroll={this.onBodyScroll}
           ref={e => {
             if (e) {

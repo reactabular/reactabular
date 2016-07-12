@@ -1,5 +1,6 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
+import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { tableBodyContextTypes } from './types';
 import {
@@ -9,6 +10,9 @@ import {
 // This has to be a React component instead of a function.
 // Otherwise refs won't work.
 export default class Body extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return !(isEqual(this.props, nextProps) && isEqual(this.context, nextContext));
+  }
   render() {
     const { row, ...props } = this.props;
     const { bodyColumns, components, data, rowKey } = this.context;

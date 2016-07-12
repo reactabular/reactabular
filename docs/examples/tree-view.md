@@ -118,13 +118,14 @@ class TreeTable extends React.Component {
       >
         <Table.Header />
 
-        <Table.Body
-          row={(row, rowIndex) => ({
-            className: rowIndex % 2 ? 'odd-row' : 'even-row'
-          })}
-        />
+        <Table.Body row={this.onRow} />
       </Table.Provider>
     );
+  }
+  onRow(row, rowIndex) {
+    return {
+      className: rowIndex % 2 ? 'odd-row' : 'even-row'
+    };
   }
 }
 

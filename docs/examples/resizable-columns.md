@@ -27,7 +27,7 @@ const schema = {
   },
   required: ['id', 'name', 'age']
 };
-const data = generateData(200, schema);
+const data = generateData(100, schema);
 
 class ResizableColumnsTable extends React.Component {
   constructor(props) {
@@ -109,13 +109,14 @@ class ResizableColumnsTable extends React.Component {
       >
         <Table.Header />
 
-        <Table.Body
-          row={(row, rowIndex) => ({
-            className: rowIndex % 2 ? 'odd-row' : 'even-row',
-          })}
-        />
+        <Table.Body row={this.onRow} />
       </Table.Provider>
     );
+  }
+  onRow(row, rowIndex) {
+    return {
+      className: rowIndex % 2 ? 'odd-row' : 'even-row',
+    };
   }
 }
 

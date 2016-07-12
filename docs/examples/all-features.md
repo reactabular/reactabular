@@ -78,6 +78,7 @@ class AllFeaturesTable extends React.Component {
       }
     };
 
+    this.onRow = this.onRow.bind(this);
     this.onRowSelected = this.onRowSelected.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onSelect = this.onSelect.bind(this);
@@ -315,12 +316,7 @@ class AllFeaturesTable extends React.Component {
             <ColumnFilters columns={cols} onChange={this.onSearch} />
           </Table.Header>
 
-          <Table.Body
-            row={(row, rowIndex) => ({
-              className: rowIndex % 2 ? 'odd-row' : 'even-row',
-              onClick: () => this.onRowSelected(row)
-            })}
-          />
+          <Table.Body row={this.onRow} />
 
           <tfoot>
             <tr>
@@ -348,6 +344,12 @@ class AllFeaturesTable extends React.Component {
         </div>
       </div>
     );
+  }
+  onRow(row, rowIndex) {
+    return {
+      className: rowIndex % 2 ? 'odd-row' : 'even-row',
+      onClick: () => this.onRowSelected(row)
+    };
   }
   onRowSelected(row) {
     console.log('clicked row', row);

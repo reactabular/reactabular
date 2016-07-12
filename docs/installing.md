@@ -10,6 +10,7 @@ Even though Lodash range goes to 3, you will need to tweak your build a little t
 
 * `import get from 'lodash/get';`
 * `import has from 'lodash/has';`
+* `import isEqual from 'lodash/isEqual';
 
 You should alias these imports so that they work in your environment. In Webpack you can achieve this through the [resolve.alias](https://webpack.github.io/docs/configuration.html#resolve-alias) field.
 
