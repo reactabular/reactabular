@@ -56,7 +56,6 @@ describe('byColumn', function () {
     expect(result).to.deep.equal(expected);
   });
 
-
   it('removes sorting if descending the same first', function () {
     const selectedColumn = 0;
     const sortingColumns = {
