@@ -49,6 +49,41 @@ describe('Table.Provider', function () {
     expect(tfoot).to.exist;
   });
 
+  it('renders without headers', function () {
+    const columns = [
+      {
+        cell: {
+          property: 'name'
+        }
+      },
+      {
+        cell: {
+          property: 'position'
+        }
+      },
+      {
+        cell: {
+          property: 'age'
+        }
+      }
+    ];
+    const data = [
+      { name: 'foo', id: 0 },
+      { position: 'demo', id: 1 },
+      { age: 123, id: 2 }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={data} rowKey="name">
+        <tfoot>
+          <tr>Dancing is the poetry of the foot.</tr>
+        </tfoot>
+      </Table.Provider>
+    );
+    const tfoot = TestUtils.findRenderedDOMComponentWithTag(table, 'tfoot');
+
+    expect(tfoot).to.exist;
+  });
+
   it('accepts numbers as properties', function () {
     const columns = [
       {
