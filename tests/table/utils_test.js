@@ -287,6 +287,10 @@ describe('evaluateTransforms', function () {
 
     expect(evaluateTransforms(transforms).className).to.equal('foo bar baz');
   });
+
+  it('returns an object without any input', function () {
+    expect(evaluateTransforms()).to.deep.equal({});
+  });
 });
 
 describe('mergeClassNames', function () {

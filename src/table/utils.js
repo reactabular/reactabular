@@ -64,7 +64,7 @@ function resolveBodyColumns(columns) {
   return ret;
 }
 
-function evaluateTransforms(transforms, value, extraParameters = {}) {
+function evaluateTransforms(transforms = [], value, extraParameters = {}) {
   return transforms.
     map(transform => transform(value, extraParameters)).
     filter(p => p).
