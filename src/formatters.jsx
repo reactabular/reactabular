@@ -1,9 +1,16 @@
 import React from 'react';
 
-const highlight = getHighlights => value => {
+const highlighted = (value, { rowData, property } = { rowData: { _highlights: {} } }) => (
+  highlightValue(value, rowData._highlights[property]) // eslint-disable-line max-len, no-underscore-dangle
+);
+
+const highlightValue = (value, highlights) => {
+  if (!highlights) {
+    return <span>{value}</span>;
+  }
+
   const val = String(value); // deals with arrays/numbers/...
 
-  const highlights = getHighlights(val);
   let children = [];
   let currentPosition = 0;
   let x = 0;
@@ -37,5 +44,6 @@ const highlight = getHighlights => value => {
 };
 
 export default {
-  highlight
+  highlighted,
+  highlightValue
 };

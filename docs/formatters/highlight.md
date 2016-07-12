@@ -5,9 +5,10 @@ To make it possible to highlight search results per column, there's a specific `
 ```jsx
 /*
 import React from 'react';
+import { compose } from 'redux';
 import { Search } from './helpers';
 import {
-  Table, search, formatters
+  Table, search, formatters, highlight
 } from 'reactabular';
 */
 
@@ -15,12 +16,7 @@ class HighlightTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const highlight = column => formatters.highlight(value => (
-      search.matches({
-        value,
-        query: this.state.query[column] || this.state.query.all
-      })
-    ));
+    const highlighted = formatters.highlighted;
 
     this.state = {
       query: {},
@@ -31,7 +27,7 @@ class HighlightTable extends React.Component {
           },
           cell: {
             property: 'name',
-            format: highlight('name')
+            format: highlighted
           }
         },
         {
@@ -40,7 +36,7 @@ class HighlightTable extends React.Component {
           },
           cell: {
             property: 'age',
-            format: highlight('age')
+            format: highlighted
           }
         }
       ],
@@ -70,7 +66,10 @@ class HighlightTable extends React.Component {
   }
   render() {
     const { data, columns, query } = this.state;
-    let searchedData = search.multipleColumns({ columns, query })(data);
+    const filteredData = compose(
+      highlight({ matches: search.matches, query }),
+      search.multipleColumns({ columns, query })
+    )(data);
 
     return (
       <div>
@@ -82,7 +81,7 @@ class HighlightTable extends React.Component {
             onChange={query => this.setState({ query })}
           />
         </div>
-        <Table.Provider columns={columns} data={searchedData} rowKey="id">
+        <Table.Provider columns={columns} data={filteredData} rowKey="id">
           <Table.Header />
 
           <Table.Body />

@@ -11,7 +11,7 @@ import keys from 'lodash/keys';
 import values from 'lodash/values';
 import transform from 'lodash/transform';
 import {
-  Table, search, editors, sort, transforms, formatters
+  Table, search, editors, sort, transforms, formatters, highlight
 } from 'reactabular';
 
 import {
@@ -87,12 +87,6 @@ class AllFeaturesTable extends React.Component {
     this.onToggleColumn = this.onToggleColumn.bind(this);
   }
   getColumns() {
-    const highlight = column => formatters.highlight(value => (
-      search.matches({
-        value,
-        query: this.state.query[column] || this.state.query.all
-      })
-    ));
     const editable = transforms.edit({
       isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
       onActivate: ({ columnIndex, rowData }) => {
@@ -139,6 +133,7 @@ class AllFeaturesTable extends React.Component {
         this.setState({ columns });
       }
     });
+    const highlighted = formatters.highlighted;
 
     return [
       {
@@ -164,7 +159,7 @@ class AllFeaturesTable extends React.Component {
         cell: {
           property: 'name',
           transforms: [editable(editors.input())],
-          format: highlight('name')
+          format: highlighted
         },
         visible: true
       },
@@ -181,7 +176,7 @@ class AllFeaturesTable extends React.Component {
         cell: {
           property: 'position',
           transforms: [editable(editors.input())],
-          format: highlight('position')
+          format: highlighted
         },
         visible: true
       },
@@ -198,7 +193,7 @@ class AllFeaturesTable extends React.Component {
         cell: {
           property: 'boss.name',
           transforms: [editable(editors.input())],
-          format: highlight('boss.name')
+          format: highlighted
         },
         visible: true
       },
@@ -221,7 +216,7 @@ class AllFeaturesTable extends React.Component {
               }, [])
             })
           )],
-          format: highlight('country'),
+          format: highlighted,
           resolve: country => countries[country]
         },
         visible: true
@@ -241,7 +236,7 @@ class AllFeaturesTable extends React.Component {
           transforms: [editable(editors.input({ props: { type: 'number' } }))],
           format: salary => (
             <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-              {highlight('salary')(salary)}
+              {highlighted(salary)}
             </span>
           )
         },
@@ -292,6 +287,7 @@ class AllFeaturesTable extends React.Component {
     const paginated = compose(
       paginate(pagination),
       sort.sorter({ columns: cols, sortingColumns, sort: orderBy }),
+      highlight({ matches: search.matches, query }),
       search.multipleColumns({ columns: cols, query })
     )(data);
 

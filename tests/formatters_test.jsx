@@ -4,13 +4,48 @@ import TestUtils from 'react-addons-test-utils';
 import { formatters } from '../src';
 import { expect } from 'chai';
 
-const highlight = formatters.highlight;
+const { highlighted, highlightValue } = formatters;
 
-describe('highlight', function () {
+// TODO: test with nested data (i.e., has/get)
+describe('highlighted', function () {
+  it('digs data from _highlights of the row', function () {
+    const value = 'foobar';
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{highlighted(value, {
+        rowData: {
+          _highlights: {
+            demo: [{ startIndex: 0, length: value.length }]
+          }
+        },
+        property: 'demo'
+      })}</Wrapper>
+    );
+    const highlightedResult = TestUtils.findRenderedDOMComponentWithClass(
+      result, 'highlight'
+    );
+
+    expect(highlightedResult.innerHTML).to.equal(value);
+  });
+
+  it('does not crash if only value is provided', function () {
+    const value = 'foobar';
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{highlighted(value)}</Wrapper>
+    );
+    const resultElement = TestUtils.findRenderedDOMComponentWithTag(
+      result, 'span'
+    );
+
+    expect(resultElement.innerHTML).to.equal(value);
+  });
+});
+
+describe('highlightValue', function () {
   it('does not highlight if there is no match at all', function () {
     const value = 'foobar';
-    const highlighter = highlight(() => []);
-    const result = TestUtils.renderIntoDocument(<Wrapper>{highlighter(value)}</Wrapper>);
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{highlightValue(value, [])}</Wrapper>
+    );
     const searchResult = TestUtils.findRenderedDOMComponentWithClass(
       result, 'search-result'
     );
@@ -20,11 +55,9 @@ describe('highlight', function () {
 
   it('highlights matching portion', function () {
     const value = 'foobar';
-    const highlighter = highlight(() => [{
-      startIndex: 0,
-      length: 2
-    }]);
-    const result = TestUtils.renderIntoDocument(<Wrapper>{highlighter(value)}</Wrapper>);
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{highlightValue(value, [{ startIndex: 0, length: 2 }])}</Wrapper>
+    );
     const highlightResult = TestUtils.findRenderedDOMComponentWithClass(
       result, 'highlight'
     );
@@ -34,11 +67,9 @@ describe('highlight', function () {
 
   it('highlights from the middle', function () {
     const value = 'foobar';
-    const highlighter = highlight(() => [{
-      startIndex: 2,
-      length: 4
-    }]);
-    const result = TestUtils.renderIntoDocument(<Wrapper>{highlighter(value)}</Wrapper>);
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{highlightValue(value, [{ startIndex: 2, length: 4 }])}</Wrapper>
+    );
     const highlightResult = TestUtils.findRenderedDOMComponentWithClass(
       result, 'highlight'
     );
@@ -48,16 +79,26 @@ describe('highlight', function () {
 
   it('highlights whole if there is a full match', function () {
     const value = 'foobar';
-    const highlighter = highlight(() => [{
-      startIndex: 0,
-      length: value.length
-    }]);
-    const result = TestUtils.renderIntoDocument(<Wrapper>{highlighter(value)}</Wrapper>);
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{highlightValue(value, [{ startIndex: 0, length: value.length }])}</Wrapper>
+    );
     const highlightResult = TestUtils.findRenderedDOMComponentWithClass(
       result, 'highlight'
     );
 
     expect(highlightResult.innerHTML).to.equal(value);
+  });
+
+  it('does not crash without highlights', function () {
+    const value = 'foobar';
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{highlightValue(value)}</Wrapper>
+    );
+    const resultElement = TestUtils.findRenderedDOMComponentWithTag(
+      result, 'span'
+    );
+
+    expect(resultElement.innerHTML).to.equal(value);
   });
 });
 
