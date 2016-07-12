@@ -9,7 +9,7 @@ import {
 
 // This has to be a React component instead of a function.
 // Otherwise refs won't work.
-export default class Body extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
+export default class Body extends React.Component {
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return !(isEqual(this.props, nextProps) && isEqual(this.context, nextContext));
   }
