@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
 import React from 'react';
-import { tableTypes } from './types';
+import { tableBodyContextTypes } from './types';
 import {
   evaluateTransforms, resolveBodyColumns, mergeProps
 } from './utils';
@@ -11,7 +11,7 @@ import {
 export default class Body extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
   render() {
     const { row, ...props } = this.props;
-    const { columns, components, data, rowKey } = this.context;
+    const { bodyColumns, components, data, rowKey } = this.context;
 
     return React.createElement(
       components.body.wrapper,
@@ -24,7 +24,7 @@ export default class Body extends React.Component { // eslint-disable-line max-l
           rowProps: row(r, i),
           rowIndex: i,
           rowData: data[i],
-          columns
+          columns: bodyColumns
         })
       )
     );
@@ -37,21 +37,20 @@ Body.propTypes = {
 Body.defaultProps = {
   row: () => {}
 };
-Body.contextTypes = tableTypes;
+Body.contextTypes = tableBodyContextTypes;
 
 const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
   React.createElement(
     components.row,
     rowProps,
     resolveBodyColumns(columns).map((column, j) => {
-      const columnProps = column.props || {};
       const {
         property,
         transforms = [],
         format = a => a,
         resolve = a => a,
         props // eslint-disable-line no-shadow
-      } = column.cell || {};
+      } = column;
 
       if (property && !has(row, property)) {
         console.warn(`Table.Body - Failed to find "${property}" property from`, row); // eslint-disable-line max-len, no-console
@@ -59,7 +58,7 @@ const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
 
       const extraParameters = {
         columnIndex: j,
-        column,
+        column: column.column,
         rowData,
         rowIndex,
         property
@@ -75,7 +74,7 @@ const BodyRow = ({ columns, components, row, rowProps, rowIndex, rowData }) => (
         components.cell,
         {
           key: `${j}-cell`,
-          ...mergeProps([columnProps, props, transformed])
+          ...mergeProps([props, transformed])
         },
         transformed.children || format(
           resolve(value, extraParameters),

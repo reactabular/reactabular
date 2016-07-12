@@ -30,10 +30,6 @@ export default class Provider extends React.Component {
     return {
       headerColumns,
       bodyColumns,
-
-      // XXX
-      columns,
-
       components: {
         table: components.table || componentDefaults.table,
         header: { ...componentDefaults.header, ...components.header },

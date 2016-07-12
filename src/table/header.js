@@ -1,5 +1,5 @@
 import React from 'react';
-import { tableContextTypes } from './types';
+import { tableHeaderContextTypes } from './types';
 import {
   resolveHeaderRows, evaluateTransforms, mergeProps
 } from './utils';
@@ -27,10 +27,7 @@ export default class Header extends React.Component { // eslint-disable-line max
 Header.propTypes = {
   children: React.PropTypes.any
 };
-Header.contextTypes = {
-  headerColumns: tableContextTypes.headerColumns,
-  components: React.PropTypes.object
-};
+Header.contextTypes = tableHeaderContextTypes;
 
 const HeaderRow = ({ row, components }) => (
   React.createElement(
