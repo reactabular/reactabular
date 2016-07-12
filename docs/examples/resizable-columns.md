@@ -101,6 +101,7 @@ class ResizableColumnsTable extends React.Component {
 
     return (
       <Table.Provider
+        className="pure-table pure-table-striped"
         columns={columns}
         data={data}
         rowKey="id"
@@ -108,7 +109,11 @@ class ResizableColumnsTable extends React.Component {
       >
         <Table.Header />
 
-        <Table.Body />
+        <Table.Body
+          row={(row, rowIndex) => ({
+            className: rowIndex % 2 ? 'odd-row' : 'even-row',
+          })}
+        />
       </Table.Provider>
     );
   }
