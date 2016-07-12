@@ -65,25 +65,22 @@ function resolveBodyColumns(columns) {
 }
 
 function evaluateTransforms(transforms, value, extraParameters = {}) {
-  return mergeProps(transforms.map(transform => transform(value, extraParameters)));
+  return transforms.
+    map(transform => transform(value, extraParameters)).
+    filter(p => p).
+    reduce(mergePropPair, {}) || {};
 }
 
-// XXX: this can be made to work with two -> skip filter and reduce
-function mergeProps(propCollections) {
-  const ret = propCollections.filter(p => p).reduce(
-    (all, props) => ({
-      ...all,
-      ...props,
-      children: { ...props.children, ...all.children }, // Reverse order
-      style: { ...all.style, ...props.style },
-      className: mergeClassNames(all.className, props.className)
-    }),
-    {}
-  ) || {};
+function mergePropPair(a = {}, b = {}) {
+  const ret = {
+    ...a,
+    ...b,
+    style: { ...a.style, ...b.style },
+    className: mergeClassNames(a.className, b.className)
+  };
 
-  // Do not allow empty children
-  if (ret.children && !Object.keys(ret.children).length) {
-    delete ret.children;
+  if (a.children || b.children) {
+    ret.children = { ...b.children, ...a.children }; // Reverse order
   }
 
   return ret;
@@ -103,6 +100,6 @@ export {
   countRowSpan,
   resolveBodyColumns,
   evaluateTransforms,
-  mergeProps,
+  mergePropPair,
   mergeClassNames
 };

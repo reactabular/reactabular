@@ -1,7 +1,7 @@
 import React from 'react';
 import { tableTypes, tableDefaults, tableContextTypes } from './types';
 import {
-  mergeProps
+  mergePropPair
 } from './utils';
 
 const componentDefaults = tableDefaults.components;
@@ -16,13 +16,13 @@ export default class Provider extends React.Component {
     columns.forEach(column => {
       headerColumns.push(column.header ? {
         ...column.header,
-        props: mergeProps([column.props, column.header.props]),
+        props: mergePropPair(column.props, column.header.props),
         column
       } : {});
 
       bodyColumns.push(column.cell ? {
         ...column.cell,
-        props: mergeProps([column.props, column.cell.props]),
+        props: mergePropPair(column.props, column.cell.props),
         column
       } : {});
     });

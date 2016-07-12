@@ -1,7 +1,7 @@
 import React from 'react';
 import { tableHeaderContextTypes } from './types';
 import {
-  resolveHeaderRows, evaluateTransforms, mergeProps
+  resolveHeaderRows, evaluateTransforms, mergePropPair
 } from './utils';
 
 // This has to be a React component instead of a function.
@@ -54,7 +54,7 @@ const HeaderRow = ({ row, components }) => (
         components.cell,
         {
           key: `${j}-header`,
-          ...mergeProps([props, transformedProps])
+          ...mergePropPair(props, transformedProps)
         },
         transformedProps.children || format(label, extraParameters)
       );
