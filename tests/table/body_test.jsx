@@ -2,7 +2,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import { Table } from '../../src';
+import { Table, transforms, editors } from '../../src';
 
 describe('Table.Body', function () {
   it('displays data', function () {
@@ -628,7 +628,7 @@ describe('Table.Body', function () {
     expect(td.className).to.equal(`${cellClass} ${anotherCellClass}`);
   });
 
-  it('does retain objects with multiple transforms', function () {
+  it('retains objects with multiple transforms', function () {
     const cellClass = 'test-cell';
     const cellStyle = { color: 'blue' };
     const anotherCellStyle = { color: 'red', display: 'none' };
@@ -663,6 +663,63 @@ describe('Table.Body', function () {
     expect(th).to.exist;
     expect(th.style.display).to.equal(anotherCellStyle.display);
     expect(th.style.color).to.equal(anotherCellStyle.color);
+  });
+
+  it('works with an edit transform', function () {
+    const cellClass = 'test-cell';
+    const editorClass = 'test-editor';
+    let activated;
+
+    const editor = transforms.edit({
+      getEditId() {
+        return true;
+      },
+      getEditProperty() {
+        return activated;
+      },
+      onActivate() {
+        activated = true;
+      }
+    });
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name',
+          transforms: [editor(editors.input({ className: editorClass }))],
+          props: {
+            className: cellClass
+          }
+        }
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
+        <Table.Body />
+      </Table.Provider>
+    );
+    const cellElement = TestUtils.findRenderedDOMComponentWithClass(
+      table, cellClass
+    );
+
+    expect(cellElement).to.exist;
+
+    TestUtils.Simulate.click(cellElement);
+
+    expect(activated).to.be.true;
+
+    /*
+    XXX: DOM manipulation is async so this doesn't work
+    http://stackoverflow.com/a/30477507/228885
+    Figure out a better way to deal with this as this will fail.
+    const editorElement = TestUtils.findRenderedDOMComponentWithClass(
+      table, editorClass
+    );
+
+    expect(editorElement).to.exist;
+    */
   });
 
   [
