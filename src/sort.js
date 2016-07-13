@@ -1,5 +1,3 @@
-import get from 'lodash/get';
-
 const defaultOrder = {
   FIRST: 'asc',
   '': 'asc',
@@ -89,13 +87,14 @@ const sorter = ({
   const columnIndexList = new Array(sortingColumns.length);
   const orderList = new Array(sortingColumns.length);
 
+  // XXX: similar logic as for search and highlight -> share
   Object.keys(sortingColumns).forEach(columnIndex => {
     const realColumn = columns[columnIndex] || { cell: {} };
     const resolver = realColumn.cell && realColumn.cell.resolve || (a => a);
     const sortingColumn = sortingColumns[columnIndex];
 
     columnIndexList[sortingColumn.position] = row => {
-      const value = get(row, realColumn.cell.property);
+      const value = row[realColumn.cell.property];
       const resolvedValue = resolver(value, {
         rowData: row,
         property: realColumn.cell.property
