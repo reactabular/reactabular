@@ -7,7 +7,7 @@ import { compose } from 'redux';
 import { DragDropContext, DragSource, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import findIndex from 'lodash/findIndex';
-import { Table } from 'reactabular';
+import { Table, resolve } from 'reactabular';
 */
 
 const data = [
@@ -132,7 +132,12 @@ class DragAndDropTable extends React.Component {
     const { columns, data } = this.state;
 
     return (
-      <Table.Provider components={components} columns={columns} data={data} rowKey="id">
+      <Table.Provider
+        components={components}
+        columns={columns}
+        data={resolve({ columns })(data)}
+        rowKey="id"
+      >
         <Table.Header />
 
         <Table.Body />
