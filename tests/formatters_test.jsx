@@ -6,7 +6,6 @@ import { expect } from 'chai';
 
 const { highlighted, highlightValue } = formatters;
 
-// TODO: test with nested data (i.e., has/get)
 describe('highlighted', function () {
   it('digs data from _highlights of the row', function () {
     const value = 'foobar';
