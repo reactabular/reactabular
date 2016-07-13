@@ -1,13 +1,8 @@
-Given sometimes you might want to display data in a nested manner, there's a `children` field for that. It accepts an array of column definitions and is recursive. If `children` has been set, then `cell` specific sibling field won't do anything. `header` will still work as usual.
+Given sometimes your data might be nested and you might want to resolve a value like `name.first` as the cell value, Reactabular provides a `resolve` helper for that purpose. Pass your data through it (`resolve({ columns })(data)`) before handing it to `Table.Provider`.
 
 **Example:**
 
 ```jsx
-/*
-import React from 'react';
-import { Table, resolve } from 'reactabular';
-*/
-
 const columns = [
   {
     header: {
@@ -88,17 +83,5 @@ const data = [
   }
 ];
 
-const NestedColumnsTable = () => (
-  <Table.Provider columns={columns} data={resolve({ columns })(data)} rowKey="id">
-    <Table.Header />
-
-    <Table.Body />
-  </Table.Provider>
-);
-
-<NestedColumnsTable />
+<div>{JSON.stringify(resolve({ columns })(data), null, 2)}</div>
 ```
-
-## See Also
-
-* [Resolving](/resolving)

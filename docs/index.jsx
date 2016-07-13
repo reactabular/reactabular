@@ -176,6 +176,12 @@ const pages = [
     ]
   },
   {
+    path: 'resolving',
+    title: 'Resolving',
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!./resolving.md')
+  },
+  {
     title: 'Editors',
     pages: [
       {
