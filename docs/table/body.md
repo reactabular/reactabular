@@ -4,7 +4,7 @@
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
+  data={resolve({ columns })(data)}
   rowKey="id"
 >
   <Table.Header />
@@ -22,13 +22,13 @@
 It is possible to customize body behavior on a row level. `row` prop accepts function `(row, rowIndex) => ({...})` that allows you to set custom attributes per each row.
 
 ```react
-class Table extends React.Component {
+class CustomTable extends React.Component {
   render() {
     return (
       <Table.Provider
         className="pure-table pure-table-striped"
         columns={columns}
-        data={data}
+        data={resolve({ columns })(data)}
         rowKey="id"
       >
         <Table.Header />
@@ -46,6 +46,8 @@ class Table extends React.Component {
     };
   }
 }
+
+<CustomTable />
 ```
 
 For the performance optimizations to work, it is important you **don't** inline possible `row` handler within the table definition. If you do, then `Table.Body` won't be able to detect data changes correctly through its `shouldComponentUpdate` check.
@@ -58,7 +60,7 @@ It is possible to inject a custom footer like this:
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
+  data={resolve({ columns })(data)}
   rowKey="id"
 >
   <Table.Header />
