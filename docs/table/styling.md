@@ -6,7 +6,7 @@ The project root contains a file, **style.css**, which you can import to your pr
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
+  data={resolve({ columns })(data)}
   rowKey="id"
 >
   <Table.Header className="header" />
