@@ -15,16 +15,20 @@ export default class Provider extends React.Component {
     // Merge column props with header/body specific ones so that can be avoided later
     columns.forEach(column => {
       headerColumns.push(column.header ? {
-        ...column.header,
         props: mergePropPair(column.props, column.header.props),
+        header: column.header,
+        children: column.children || [], // TODO: test for this case
         column
       } : {});
 
-      bodyColumns.push(column.cell ? {
-        ...column.cell,
-        props: mergePropPair(column.props, column.cell.props),
+      const cell = column.cell || {};
+
+      bodyColumns.push({
+        props: mergePropPair(column.props, cell.props),
+        cell,
+        children: column.children || [], // TODO: test for this case
         column
-      } : {});
+      });
     });
 
     return {

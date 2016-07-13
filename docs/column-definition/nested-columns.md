@@ -5,7 +5,7 @@ Given sometimes you might want to display data in a nested manner, there's a `ch
 ```jsx
 /*
 import React from 'react';
-import { Table } from 'reactabular';
+import { Table, resolve } from 'reactabular';
 */
 
 const columns = [
@@ -89,7 +89,7 @@ const data = [
 ];
 
 const NestedColumnsTable = () => (
-  <Table.Provider columns={columns} data={data} rowKey="id">
+  <Table.Provider columns={columns} data={resolve({ columns })(data)} rowKey="id">
     <Table.Header />
 
     <Table.Body />

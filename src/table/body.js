@@ -57,18 +57,17 @@ class BodyRow extends React.Component {
     return React.createElement(
       components.row,
       rowProps,
-      resolveBodyColumns(columns).map((column, j) => {
+      resolveBodyColumns(columns).map(({ column, cell, props }, j) => {
         const {
           property,
           transforms = [],
-          format = a => a,
-          props // eslint-disable-line no-shadow
-        } = column;
+          format = a => a
+        } = cell;
         const value = row[`_${property}`] || row[property];
 
         const extraParameters = {
           columnIndex: j,
-          column: column.column,
+          column,
           rowData,
           rowIndex,
           property

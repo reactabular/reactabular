@@ -33,16 +33,15 @@ const HeaderRow = ({ row, components }) => (
   React.createElement(
     components.row,
     {},
-    row.map((column, j) => {
+    row.map(({ column, header = {}, props = {} }, j) => {
       const {
         label,
         transforms = [],
-        format = a => a,
-        props // eslint-disable-line no-shadow
-      } = column;
+        format = a => a
+      } = header;
       const extraParameters = {
         columnIndex: j,
-        column: column.column
+        column
       };
       const transformedProps = evaluateTransforms(transforms, label, extraParameters);
 
