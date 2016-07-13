@@ -235,9 +235,9 @@ class AllFeaturesTable extends React.Component {
         cell: {
           property: 'salary',
           transforms: [editable(editors.input({ props: { type: 'number' } }))],
-          format: salary => (
+          format: (salary, extra) => (
             <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-              {highlighted(salary)}
+              {highlighted(salary, extra)}
             </span>
           )
         },
