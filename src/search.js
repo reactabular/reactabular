@@ -41,8 +41,9 @@ const _columnMatches = ({ // eslint-disable-line no-underscore-dangle
   strategy = strategies.infix,
   transform = v => v.toLowerCase()
 }) => {
+  // XXX: same resolver as for highlight -> reuse
   const property = column.cell.property;
-  const value = row[`_${property}`] || row[property];
+  const value = row[property];
   const resolver = column.cell.resolve || (a => a);
   let resolvedValue = resolver(value, { rowData: row, property });
 
