@@ -67,7 +67,7 @@ class TreeTable extends React.Component {
         },
         cell: {
           property: 'name',
-          resolve: (name, { rowData }) => {
+          format: (name, { rowData }) => {
             const data = this.state.data;
             // Optimization - Operate based on index for faster lookups
             const cellIndex = findIndex(data, { id: rowData.id });
