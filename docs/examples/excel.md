@@ -8,25 +8,27 @@ import {
 } from 'reactabular';
 */
 
+// XXXXX: broken as edit needs more thought
 class ExcelTable extends React.Component {
   constructor(props) {
     super(props);
 
+    this.editedCells = {};
+
     const editable = transforms.edit({
-      // Get unique editing id for a cell.
-      // You can tweak this from outside to control edit.
-      getEditId: ({ columnIndex, rowIndex }) => `${columnIndex}-${rowIndex}`,
+      isEditing: ({ rowIndex, columnIndex }) => (
+        this.editedCells[`${rowIndex}-${columnIndex}`]
+      ),
+      onActivate: ({ rowIndex, columnIndex }) => {
+        this.editedCells[`${rowIndex}-${columnIndex}`] = true;
 
-      // Get the edited property
-      getEditProperty: () => this.state.editedCell,
-
-      // Set the property when the user tries to activate editing
-      onActivate: idx => this.setState({
-        editedCell: idx
-      }),
-
-      // Capture the value when the user has finished
+        // XXXXX: figure out a good way to force render (Table.Body!)
+        // stash editedCells to component state and pass that to
+        // Table.Body for invalidation?
+      },
       onValue: ({ value, columnIndex, rowIndex }) => {
+        this.editedCells[`${rowIndex}-${columnIndex}`] = false;
+
         this.state.data[rowIndex][columnIndex - 1] = value;
 
         this.setState({
@@ -38,7 +40,6 @@ class ExcelTable extends React.Component {
     const evaluate = evaluator(() => this.state.data);
 
     this.state = {
-      editedCell: null, // Track the edited cell somehow
       columns: [
         {
           header: {
