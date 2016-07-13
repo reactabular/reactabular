@@ -1,7 +1,10 @@
 import React from 'react';
 
 const highlighted = (value, { rowData, property } = { rowData: { _highlights: {} } }) => (
-  highlightValue(value, rowData._highlights[property]) // eslint-disable-line max-len, no-underscore-dangle
+  highlightValue(
+    value,
+    rowData._highlights[property] // eslint-disable-line max-len, no-underscore-dangle
+  )
 );
 
 const highlightValue = (value, highlights) => {
