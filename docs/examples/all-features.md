@@ -217,7 +217,7 @@ class AllFeaturesTable extends React.Component {
             })
           )],
           format: (country, extra) => highlighted(countries[country], extra),
-          // Resolve hint for search
+          // Resolve hint for search and highlighting
           resolve: country => countries[country]
         },
         visible: true
@@ -288,7 +288,7 @@ class AllFeaturesTable extends React.Component {
     const paginated = compose(
       paginate(pagination),
       sort.sorter({ columns: cols, sortingColumns, sort: orderBy }),
-      highlight({ matches: search.matches, query }),
+      highlight({ columns: cols, matches: search.matches, query }),
       search.multipleColumns({ columns: cols, query }),
       resolve({ columns: cols })
     )(data);
