@@ -4,7 +4,7 @@
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={resolve({ columns })(data)}
+  data={data}
   rowKey="id"
 >
   <Table.Header />
@@ -25,7 +25,7 @@ Here `ColumnFilters` injects an additional row for the filter controls. An alter
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={resolve({ columns })(data)}
+  data={data}
   rowKey="id"
 >
   <Table.Header>

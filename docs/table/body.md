@@ -4,7 +4,7 @@
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={resolve({ columns })(data)}
+  data={data}
   rowKey="id"
 >
   <Table.Header />
@@ -28,7 +28,7 @@ class CustomTable extends React.Component {
       <Table.Provider
         className="pure-table pure-table-striped"
         columns={columns}
-        data={resolve({ columns })(data)}
+        data={data}
         rowKey="id"
       >
         <Table.Header />
@@ -60,7 +60,7 @@ It is possible to inject a custom footer like this:
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={resolve({ columns })(data)}
+  data={data}
   rowKey="id"
 >
   <Table.Header />

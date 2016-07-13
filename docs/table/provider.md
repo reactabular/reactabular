@@ -2,26 +2,20 @@
 
 ```jsx
 /*
-import { Table, resolve } from 'reactabular';
+import { Table } from 'reactabular';
 */
 
 const data = [
   {
     id: 100,
     name: 'Adam',
-    dad: {
-      id: 20,
-      name: 'John'
-    },
+    dad: 'John',
     lovesBeeGees: true
   },
   {
     id: 101,
     name: 'Brian',
-    dad: {
-      id: 22,
-      name: 'George'
-    },
+    dad: 'George',
     lovesBeeGees: false
   },
 ];
@@ -40,7 +34,7 @@ const columns = [
       label: 'Dad'
     },
     cell: {
-      property: 'dad.name'
+      property: 'dad'
     }
   }
 ];
@@ -48,7 +42,7 @@ const columns = [
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={resolve({ columns })(data)}
+  data={data}
   rowKey="id"
 >
   <Table.Header />

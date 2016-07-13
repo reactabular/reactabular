@@ -2,19 +2,13 @@ const data = [
   {
     id: 100,
     name: 'Adam',
-    dad: {
-      id: 20,
-      name: 'John'
-    },
+    dad: 'John',
     lovesBeeGees: true
   },
   {
     id: 101,
     name: 'Brian',
-    dad: {
-      id: 22,
-      name: 'George'
-    },
+    dad: 'George',
     lovesBeeGees: false
   }
 ];
@@ -33,7 +27,7 @@ const columns = [
       label: 'Dad'
     },
     cell: {
-      property: 'dad.name'
+      property: 'dad'
     }
   }
 ];

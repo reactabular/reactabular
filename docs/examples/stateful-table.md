@@ -3,10 +3,9 @@ This demonstration shows how to implement a stateful wrapper on top of Reactabul
 ```jsx
 /*
 import React from 'react';
-import { compose } from 'redux';
 import orderBy from 'lodash/orderBy';
 import {
-  Table, sort, transforms, resolve
+  Table, sort, transforms
 } from 'reactabular';
 import { resizableColumn } from './helpers';
 */
@@ -15,37 +14,25 @@ const data = [
   {
     id: 100,
     name: 'Adam',
-    dad: {
-      id: 20,
-      name: 'John'
-    },
+    dad: 'John',
     lovesBeeGees: true
   },
   {
     id: 101,
     name: 'Brian',
-    dad: {
-      id: 22,
-      name: 'George'
-    },
+    dad: 'George',
     lovesBeeGees: false
   },
   {
     id: 102,
     name: 'Jake',
-    dad: {
-      id: 22,
-      name: 'George'
-    },
+    dad: 'George',
     lovesBeeGees: false
   },
   {
     id: 103,
     name: 'Bob',
-    dad: {
-      id: 22,
-      name: 'George'
-    },
+    dad: 'George',
     lovesBeeGees: true
   }
 ];
@@ -72,7 +59,7 @@ const columns = [
       sortable: true
     },
     cell: {
-      property: 'dad.name'
+      property: 'dad'
     }
   }
 ];
@@ -107,9 +94,8 @@ class StatefulTable extends React.Component {
   render() {
     const { rowKey } = this.props;
     const { columns, sortingColumns } = this.state;
-    const data = compose(
-      sort.sorter({ columns, sortingColumns, sort: orderBy }),
-      resolve({ columns })
+    const data = sort.sorter(
+      { columns, sortingColumns, sort: orderBy }
     )(this.state.data);
 
     return (
