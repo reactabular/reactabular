@@ -23,7 +23,7 @@ function resolveRow(columns, row) {
         console.warn(`resolve - Failed to find "${property}" property from`, row); // eslint-disable-line max-len, no-console
       }
 
-      ret[`_${property}`] = get(row, property);
+      ret[property] = get(row, property);
     }
   );
 

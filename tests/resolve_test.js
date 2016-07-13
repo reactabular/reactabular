@@ -19,8 +19,7 @@ describe('resolve', function () {
     ];
     const expected = [
       {
-        name,
-        _name: name
+        name
       }
     ];
 
@@ -90,7 +89,7 @@ describe('resolve', function () {
     const expected = [
       {
         name: { last: lastName },
-        '_name.last': lastName
+        'name.last': lastName
       }
     ];
 
@@ -121,8 +120,7 @@ describe('resolve', function () {
     ];
     const expected = [
       {
-        name,
-        _name: name
+        name
       }
     ];
 
@@ -154,7 +152,7 @@ describe('resolve', function () {
     const expected = [
       {
         name: { last: lastName },
-        '_name.last': lastName
+        'name.last': lastName
       }
     ];
 
