@@ -2,7 +2,7 @@
 
 ```jsx
 /*
-import { Table } from 'reactabular';
+import { Table, resolve } from 'reactabular';
 */
 
 const data = [
@@ -48,7 +48,7 @@ const columns = [
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
+  data={resolve({ columns })(data)}
   rowKey="id"
 >
   <Table.Header />
