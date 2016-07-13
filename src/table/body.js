@@ -46,6 +46,7 @@ class BodyRow extends React.Component {
     const previousProps = this.props;
 
     return !(
+      isEqual(previousProps.columns, nextProps.columns) &&
       isEqual(previousProps.row, nextProps.row) &&
       isEqual(previousProps.rowProps, nextProps.rowProps) &&
       isEqual(previousProps.rowData, nextProps.rowData)
