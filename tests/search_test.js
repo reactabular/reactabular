@@ -207,12 +207,13 @@ describe('search._columnMatches', function () {
     expect(result).to.equal(true);
   });
 
-  it('parses nested property', function () {
+  it('does not parse nested property', function () {
+    // This test relies on resolution convention to work.
     const query = 'foo';
     const result = _columnMatches({
       query,
       column: { cell: { property: 'demo.another' } },
-      row: { demo: { another: 'foobar' } }
+      row: { demo: { another: 'foobar' }, '_demo.another': 'foobar' }
     });
 
     expect(result).to.equal(true);

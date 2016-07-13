@@ -1,5 +1,3 @@
-import get from 'lodash/get';
-
 const multipleColumns = ({
   columns, query, strategy, transform
 }) => data => (
@@ -20,9 +18,9 @@ const multipleColumns = ({
 
 const singleColumn = ({
   columns, searchColumn = 'all', query, strategy, transform
-}) => data => {
+}) => rows => {
   if (!query) {
-    return data;
+    return rows;
   }
 
   let ret = columns;
@@ -31,7 +29,7 @@ const singleColumn = ({
     ret = columns.filter(col => col.cell && col.cell.property === searchColumn);
   }
 
-  return data.filter(row => ret.filter(column => _columnMatches({
+  return rows.filter(row => ret.filter(column => _columnMatches({
     query, column, strategy, transform, row
   })).length > 0);
 };
@@ -44,7 +42,7 @@ const _columnMatches = ({ // eslint-disable-line no-underscore-dangle
   transform = v => v.toLowerCase()
 }) => {
   const property = column.cell.property;
-  const value = get(row, property);
+  const value = row[`_${property}`] || row[property];
   const resolver = column.cell.resolve || (a => a);
   let resolvedValue = resolver(value, { rowData: row, property });
 
