@@ -281,6 +281,30 @@ describe('byColumns', function () {
     expect(secondResult).to.deep.equal(descExpected);
     expect(thirdResult).to.deep.equal(ascExpected);
   });
+
+  it('updates position after losing a column', function () {
+    const selectedColumn = 0;
+    const sortingColumns = {
+      0: {
+        direction: 'desc',
+        position: 0
+      },
+      1: {
+        direction: 'asc',
+        position: 1
+      }
+    };
+
+    const expected = {
+      1: {
+        direction: 'asc',
+        position: 0
+      }
+    };
+    const result = byColumns({ sortingColumns, selectedColumn });
+
+    expect(result).to.deep.equal(expected);
+  });
 });
 
 describe('sorter', function () {
