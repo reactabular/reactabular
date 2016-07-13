@@ -11,7 +11,7 @@ import keys from 'lodash/keys';
 import values from 'lodash/values';
 import transform from 'lodash/transform';
 import {
-  Table, search, editors, sort, transforms, formatters, highlight
+  Table, search, editors, sort, transforms, formatters, highlight, resolve
 } from 'reactabular';
 
 import {
@@ -216,7 +216,8 @@ class AllFeaturesTable extends React.Component {
               }, [])
             })
           )],
-          format: highlighted,
+          format: country => highlighted(countries[country]),
+          // Resolve hint for search
           resolve: country => countries[country]
         },
         visible: true
