@@ -64,7 +64,7 @@ lang: js
     property: 'salary',
     format: (salary, extra) => (
       <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-        {highlighted(salary, extra)}
+        {highlight.cell(salary, extra)}
       </span>
     )
   }

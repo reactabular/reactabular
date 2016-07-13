@@ -1,16 +1,14 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { formatters } from '../src';
 import { expect } from 'chai';
+import { search, highlight } from '../src';
 
-const { highlighted, highlightValue } = formatters;
-
-describe('highlighted', function () {
+describe('highlight.cell', function () {
   it('digs data from _highlights of the row', function () {
     const value = 'foobar';
     const result = TestUtils.renderIntoDocument(
-      <Wrapper>{highlighted(value, {
+      <Wrapper>{highlight.cell(value, {
         rowData: {
           _highlights: {
             demo: [{ startIndex: 0, length: value.length }]
@@ -29,7 +27,7 @@ describe('highlighted', function () {
   it('does not crash if only value is provided', function () {
     const value = 'foobar';
     const result = TestUtils.renderIntoDocument(
-      <Wrapper>{highlighted(value)}</Wrapper>
+      <Wrapper>{highlight.cell(value)}</Wrapper>
     );
     const resultElement = TestUtils.findRenderedDOMComponentWithTag(
       result, 'span'
@@ -39,11 +37,11 @@ describe('highlighted', function () {
   });
 });
 
-describe('highlightValue', function () {
+describe('highlight.value', function () {
   it('does not highlight if there is no match at all', function () {
     const value = 'foobar';
     const result = TestUtils.renderIntoDocument(
-      <Wrapper>{highlightValue(value, [])}</Wrapper>
+      <Wrapper>{highlight.value(value, [])}</Wrapper>
     );
     const searchResult = TestUtils.findRenderedDOMComponentWithClass(
       result, 'search-result'
@@ -55,7 +53,7 @@ describe('highlightValue', function () {
   it('highlights matching portion', function () {
     const value = 'foobar';
     const result = TestUtils.renderIntoDocument(
-      <Wrapper>{highlightValue(value, [{ startIndex: 0, length: 2 }])}</Wrapper>
+      <Wrapper>{highlight.value(value, [{ startIndex: 0, length: 2 }])}</Wrapper>
     );
     const highlightResult = TestUtils.findRenderedDOMComponentWithClass(
       result, 'highlight'
@@ -67,7 +65,7 @@ describe('highlightValue', function () {
   it('highlights from the middle', function () {
     const value = 'foobar';
     const result = TestUtils.renderIntoDocument(
-      <Wrapper>{highlightValue(value, [{ startIndex: 2, length: 4 }])}</Wrapper>
+      <Wrapper>{highlight.value(value, [{ startIndex: 2, length: 4 }])}</Wrapper>
     );
     const highlightResult = TestUtils.findRenderedDOMComponentWithClass(
       result, 'highlight'
@@ -79,7 +77,7 @@ describe('highlightValue', function () {
   it('highlights whole if there is a full match', function () {
     const value = 'foobar';
     const result = TestUtils.renderIntoDocument(
-      <Wrapper>{highlightValue(value, [{ startIndex: 0, length: value.length }])}</Wrapper>
+      <Wrapper>{highlight.value(value, [{ startIndex: 0, length: value.length }])}</Wrapper>
     );
     const highlightResult = TestUtils.findRenderedDOMComponentWithClass(
       result, 'highlight'
@@ -91,13 +89,104 @@ describe('highlightValue', function () {
   it('does not crash without highlights', function () {
     const value = 'foobar';
     const result = TestUtils.renderIntoDocument(
-      <Wrapper>{highlightValue(value)}</Wrapper>
+      <Wrapper>{highlight.value(value)}</Wrapper>
     );
     const resultElement = TestUtils.findRenderedDOMComponentWithTag(
       result, 'span'
     );
 
     expect(resultElement.innerHTML).to.equal(value);
+  });
+});
+
+describe('highlighter', function () {
+  it('sorts ascending by default', function () {
+    const columns = [
+      {
+        cell: {
+          property: 'name'
+        }
+      }
+    ];
+    const rows = [
+      { name: 'demo' },
+      { name: 'another' }
+    ];
+    const expected = [
+      {
+        _highlights: {
+          name: [
+            {
+              startIndex: 0,
+              length: 4
+            }
+          ]
+        },
+        name: 'demo'
+      },
+      {
+        _highlights: {
+          name: []
+        },
+        name: 'another'
+      }
+    ];
+    const result = highlight.highlighter({
+      columns,
+      matches: search.matches,
+      query: {
+        name: 'demo'
+      }
+    })(rows);
+
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('highlights resolved values', function () {
+    const columns = [
+      {
+        cell: {
+          property: 'name',
+          resolve: v => v + v
+        }
+      }
+    ];
+    const rows = [
+      { name: 'demo' },
+      { name: 'another' }
+    ];
+    const expected = [
+      {
+        _highlights: {
+          name: [
+            {
+              startIndex: 0,
+              length: 4
+            },
+            {
+              startIndex: 4,
+              length: 4
+            }
+          ]
+        },
+        name: 'demo'
+      },
+      {
+        _highlights: {
+          name: []
+        },
+        name: 'another'
+      }
+    ];
+    const result = highlight.highlighter({
+      columns,
+      matches: search.matches,
+      query: {
+        name: 'demo'
+      }
+    })(rows);
+
+    expect(result).to.deep.equal(expected);
   });
 });
 

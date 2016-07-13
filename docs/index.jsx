@@ -141,21 +141,10 @@ const pages = [
     ]
   },
   {
+    path: 'formatters',
     title: 'Formatters',
-    pages: [
-      {
-        path: 'formatters',
-        title: 'Introduction',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./formatters/introduction.md')
-      },
-      {
-        path: 'formatters/highlight',
-        title: 'Highlight',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./formatters/highlight.md')
-      }
-    ]
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!./formatters.md')
   },
   {
     title: 'Transforms',
@@ -254,6 +243,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./search/pagination.md')
       }
     ]
+  },
+  {
+    path: 'highlight',
+    title: 'Highlight',
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!./highlight.md')
   },
   {
     title: 'Examples',

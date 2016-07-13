@@ -20,7 +20,7 @@ This is a function that can be used to figure out all column specific matches. I
 
 **`search.matches({ value: <string>, query: <string>, strategy: <strategy>, transform: <transform> }) => [{ startIndex: <number>, length: <number> }]`**
 
-This function returns matches against the given value and query. This is particularly useful with the `highlight` formatter.
+This function returns matches against the given value and query. This is particularly useful with highlighting.
 
 ### Strategies
 

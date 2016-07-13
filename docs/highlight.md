@@ -1,4 +1,12 @@
-To make it possible to highlight search results per column, there's a specific `highlight` formatter. It expects you to pass a highlighter function. That returns the highlighted portions using `[{ startIndex: <number>, length: <number> }]` kind of format. A search helper known as `search.matches` uses this format and works well with the highlighter.
+To make it possible to highlight search results per column, there's a specific `highlight.cell` formatter. To use it, you'll first you have to annotate your data using `highlight.highlighter`. It attached a structure like this there:
+
+```code
+lang: javascript
+---
+_highlights: {
+  demo: [{ startIndex: 0, length: 4 }]
+}
+```
 
 **Example:**
 
@@ -16,8 +24,6 @@ class HighlightTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const highlighted = formatters.highlighted;
-
     this.state = {
       query: {},
       columns: [
@@ -27,7 +33,7 @@ class HighlightTable extends React.Component {
           },
           cell: {
             property: 'name',
-            format: highlighted
+            format: highlight.cell
           }
         },
         {
@@ -36,7 +42,7 @@ class HighlightTable extends React.Component {
           },
           cell: {
             property: 'age',
-            format: highlighted
+            format: highlight.cell
           }
         }
       ],
@@ -67,7 +73,7 @@ class HighlightTable extends React.Component {
   render() {
     const { data, columns, query } = this.state;
     const filteredData = compose(
-      highlight({ columns, matches: search.matches, query }),
+      highlight.highlighter({ columns, matches: search.matches, query }),
       search.multipleColumns({ columns, query })
     )(data);
 

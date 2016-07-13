@@ -133,7 +133,6 @@ class AllFeaturesTable extends React.Component {
         this.setState({ columns });
       }
     });
-    const highlighted = formatters.highlighted;
 
     return [
       {
@@ -159,7 +158,7 @@ class AllFeaturesTable extends React.Component {
         cell: {
           property: 'name',
           transforms: [editable(editors.input())],
-          format: highlighted
+          format: highlight.cell
         },
         visible: true
       },
@@ -176,7 +175,7 @@ class AllFeaturesTable extends React.Component {
         cell: {
           property: 'position',
           transforms: [editable(editors.input())],
-          format: highlighted
+          format: highlight.cell
         },
         visible: true
       },
@@ -193,7 +192,7 @@ class AllFeaturesTable extends React.Component {
         cell: {
           property: 'boss.name',
           transforms: [editable(editors.input())],
-          format: highlighted
+          format: highlight.cell
         },
         visible: true
       },
@@ -216,7 +215,7 @@ class AllFeaturesTable extends React.Component {
               }, [])
             })
           )],
-          format: (country, extra) => highlighted(countries[country], extra),
+          format: (country, extra) => highlight.cell(countries[country], extra),
           // Resolve hint for search and highlighting
           resolve: country => countries[country]
         },
@@ -237,7 +236,7 @@ class AllFeaturesTable extends React.Component {
           transforms: [editable(editors.input({ props: { type: 'number' } }))],
           format: (salary, extra) => (
             <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-              {highlighted(salary, extra)}
+              {highlight.cell(salary, extra)}
             </span>
           )
         },
@@ -288,7 +287,7 @@ class AllFeaturesTable extends React.Component {
     const paginated = compose(
       paginate(pagination),
       sort.sorter({ columns: cols, sortingColumns, sort: orderBy }),
-      highlight({ columns: cols, matches: search.matches, query }),
+      highlight.highlighter({ columns: cols, matches: search.matches, query }),
       search.multipleColumns({ columns: cols, query }),
       resolve({ columns: cols })
     )(data);
