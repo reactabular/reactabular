@@ -288,7 +288,8 @@ class AllFeaturesTable extends React.Component {
       paginate(pagination),
       sort.sorter({ columns: cols, sortingColumns, sort: orderBy }),
       highlight({ matches: search.matches, query }),
-      search.multipleColumns({ columns: cols, query })
+      search.multipleColumns({ columns: cols, query }),
+      resolve({ columns: cols })
     )(data);
 
     return (

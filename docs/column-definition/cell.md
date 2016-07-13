@@ -2,7 +2,7 @@ In addition to `header` customization, it's essential to define how the data sho
 
 ## **`cell.property = <string>`**
 
-You should define `cell.property` at minimum. It maps a field from `data` into something you can display to the user. This supports nested definitions so you can do `foo.bar.baz` in addition to simple `foo` type definitions.
+You should define `cell.property` at minimum. It maps a field from `data` into something you can display to the user.
 
 **Example:**
 
@@ -15,6 +15,8 @@ lang: js
   }
 }
 ```
+
+If you want nested definitions (i.e., `foo.bar.baz`), then you should `resolve` your data before passing it to the table.
 
 ## **`cell.transforms`**
 
@@ -65,36 +67,6 @@ lang: js
         {highlight('salary')(salary)}
       </span>
     )
-  }
-}
-```
-
-## **`cell.resolve`**
-
-```code
-lang: js
----
-cell.resolve = (
-  value, {
-    columnIndex: <number>,
-    column: <object>,
-    rowData: <object>,
-    rowIndex: <number>,
-    property: <string>
-  }
-) => <string>
-```
-
-Sometimes you need to manipulate the data fetched from property somehow. For instance you might need to perform a lookup to `resolve` it to some other value. This is the place to do that. Other functionality will pick this up.
-
-**Example:**
-
-```code
-lang: js
----
-{
-  cell: {
-    resolve: country => countries[country]
   }
 }
 ```

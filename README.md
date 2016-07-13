@@ -62,8 +62,8 @@ const columns = [
       ]
     },
     cell: {
-      property: 'tools.hammer',
-      format: hasHammer => hasHammer ? 'Hammertime' : 'nope'
+      property: 'tools',
+      format: tools => tools.hammer ? 'Hammertime' : 'nope'
     }
   },
   {
@@ -77,7 +77,7 @@ const columns = [
     },
     cell: {
       property: 'country',
-      resolve: country => countries[country]
+      format: country => countries[country]
     }
   },
 ];

@@ -1,5 +1,3 @@
-import get from 'lodash/get';
-import has from 'lodash/has';
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { tableBodyContextTypes } from './types';
@@ -64,13 +62,9 @@ class BodyRow extends React.Component {
           property,
           transforms = [],
           format = a => a,
-          resolve = a => a,
           props // eslint-disable-line no-shadow
         } = column;
-
-        if (property && !has(row, property)) {
-          console.warn(`Table.Body - Failed to find "${property}" property from`, row); // eslint-disable-line max-len, no-console
-        }
+        const value = row[`_${property}`] || row[property];
 
         const extraParameters = {
           columnIndex: j,
@@ -79,7 +73,6 @@ class BodyRow extends React.Component {
           rowIndex,
           property
         };
-        const value = get(row, property);
         const transformed = evaluateTransforms(transforms, value, extraParameters);
 
         if (!transformed) {
@@ -92,10 +85,7 @@ class BodyRow extends React.Component {
             key: `${j}-cell`,
             ...mergePropPair(props, transformed)
           },
-          transformed.children || format(
-            resolve(value, extraParameters),
-            extraParameters
-          )
+          transformed.children || format(value, extraParameters)
         );
       })
     );

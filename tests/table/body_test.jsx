@@ -2,7 +2,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import { Table, transforms, editors } from '../../src';
+import { Table, transforms, editors, resolve } from '../../src';
 
 describe('Table.Body', function () {
   it('displays data', function () {
@@ -242,35 +242,7 @@ describe('Table.Body', function () {
     expect(td.style.display).to.equal(finalDisplay);
   });
 
-  it('resolves data', function () {
-    const lastName = 'foobar';
-    const columns = [
-      {
-        header: {
-          label: 'Last name'
-        },
-        cell: {
-          property: 'name',
-          resolve: name => name.last
-        }
-      }
-    ];
-    const data = [
-      { name: { last: lastName } }
-    ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
-      </Table.Provider>
-    );
-    const td = TestUtils.findRenderedDOMComponentWithTag(
-      table, 'td'
-    );
-
-    expect(td.innerHTML).to.equal(lastName);
-  });
-
-  it('works with dot notation', function () {
+  it('does not resolve data by default', function () {
     const lastName = 'foobar';
     const columns = [
       {
@@ -287,6 +259,33 @@ describe('Table.Body', function () {
     ];
     const table = TestUtils.renderIntoDocument(
       <Table.Provider columns={columns} data={data} rowKey="id">
+        <Table.Body />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithTag(
+      table, 'td'
+    );
+
+    expect(td.innerHTML).to.equal('');
+  });
+
+  it('resolves data if a resolver is used', function () {
+    const lastName = 'foobar';
+    const columns = [
+      {
+        header: {
+          label: 'Last name'
+        },
+        cell: {
+          property: 'name.last'
+        }
+      }
+    ];
+    const data = [
+      { name: { last: lastName } }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns} data={resolve({ columns })(data)} rowKey="id">
         <Table.Body />
       </Table.Provider>
     );
