@@ -27,6 +27,51 @@ describe('resolve', function () {
     expect(resolve({ columns })(data)).to.deep.equal(expected);
   });
 
+  it('does not warn for columns missing cells', function () {
+    const name = 'Demo';
+    const columns = [
+      {
+        header: {
+          label: 'Last name'
+        }
+      }
+    ];
+    const data = [
+      { name }
+    ];
+    const expected = [
+      {
+        name
+      }
+    ];
+
+    expect(resolve({ columns })(data)).to.deep.equal(expected);
+  });
+
+  it('does not warn for columns missing cell properties', function () {
+    const name = 'Demo';
+    const columns = [
+      {
+        header: {
+          label: 'Last name'
+        },
+        cell: {
+          format: v => v
+        }
+      }
+    ];
+    const data = [
+      { name }
+    ];
+    const expected = [
+      {
+        name
+      }
+    ];
+
+    expect(resolve({ columns })(data)).to.deep.equal(expected);
+  });
+
   it('resolves nested properties', function () {
     const lastName = 'foobar';
     const columns = [
