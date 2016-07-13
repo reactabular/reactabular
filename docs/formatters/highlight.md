@@ -67,7 +67,7 @@ class HighlightTable extends React.Component {
   render() {
     const { data, columns, query } = this.state;
     const filteredData = compose(
-      highlight({ matches: search.matches, query }),
+      highlight({ columns, matches: search.matches, query }),
       search.multipleColumns({ columns, query })
     )(data);
 
