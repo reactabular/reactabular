@@ -5,10 +5,8 @@ The following example implements sticky headers within a fixed viewport through 
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import { generateData } from './helpers';
-import {
-  Table
-} from 'reactabular';
+import { generateData, Sticky } from './helpers';
+import { Table } from 'reactabular';
 */
 
 const schema = {
@@ -90,8 +88,8 @@ class StickyHeaderTable extends React.Component {
       columns
     };
 
-    this.onHeaderScroll = this.onHeaderScroll.bind(this);
-    this.onBodyScroll = this.onBodyScroll.bind(this);
+    this.tableHeader = null;
+    this.tableBody = null;
   }
   render() {
     return (
@@ -101,50 +99,36 @@ class StickyHeaderTable extends React.Component {
         data={this.state.data}
         rowKey="id"
       >
-        <Table.Header
+        <Sticky.Header
           style={{
-            display: 'block',
-            overflow: 'auto',
             maxWidth: 800
           }}
-          onScroll={this.onHeaderScroll}
-          ref={e => {
-            if (e) {
-              this.tableHeader = e;
+          ref={tableHeader => {
+            if (tableHeader) {
+              this.tableHeader = ReactDOM.findDOMNode(tableHeader);
             }
           }}
+          onScroll={scrollLeft => (
+            this.tableBody.scrollLeft = scrollLeft
+          )}
         />
 
-        <Table.Body
+        <Sticky.Body
           style={{
-            display: 'block',
-            overflow: 'auto',
-            maxHeight: 400,
-            maxWidth: 800
+            maxWidth: 800,
+            maxHeight: 400
           }}
-          onScroll={this.onBodyScroll}
-          ref={e => {
-            if (e) {
-              this.tableBody = e;
+          ref={tableBody => {
+            if (tableBody) {
+              this.tableBody = ReactDOM.findDOMNode(tableBody);
             }
           }}
+          onScroll={scrollLeft => (
+            this.tableHeader.scrollLeft = scrollLeft
+          )}
         />
       </Table.Provider>
     );
-  }
-  onHeaderScroll({ target: { scrollLeft } }) {
-    if (!this.tableBody) {
-      return;
-    }
-
-    ReactDOM.findDOMNode(this.tableBody).scrollLeft = scrollLeft;
-  }
-  onBodyScroll({ target: { scrollLeft } }) {
-    if (!this.tableHeader) {
-      return;
-    }
-
-    ReactDOM.findDOMNode(this.tableHeader).scrollLeft = scrollLeft;
   }
 }
 
