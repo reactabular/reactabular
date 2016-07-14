@@ -2,9 +2,9 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import { transforms } from '../src';
+import { transforms, sort } from '../src';
 
-const { edit, sort, toFormatter } = transforms;
+const { edit, toFormatter } = transforms;
 
 describe('edit', function () {
   it('activates editing', function () {
@@ -129,52 +129,6 @@ describe('edit', function () {
   });
 });
 
-describe('sort', function () {
-  it('defaults to sort-none class', function () {
-    const sorter = sort();
-    const result = sorter('testValue', { columnIndex: 0 });
-
-    expect(result.className).to.equal('sort sort-none');
-  });
-
-  it('sets sorting class', function () {
-    const testColumnIndex = 0;
-    const sortDirection = 'asc';
-    const sorter = sort({
-      getSortingColumns() {
-        return {
-          [testColumnIndex]: {
-            direction: sortDirection,
-            position: 0
-          }
-        };
-      }
-    });
-    const result = sorter('testValue', {
-      columnIndex: testColumnIndex
-    });
-
-    expect(result.className).to.equal(`sort sort-${sortDirection}`);
-  });
-
-  it('triggers sorting on click', function () {
-    const testColumnIndex = 0;
-    let sorted;
-    const sorter = sort({
-      onSort(columnIndex) {
-        sorted = columnIndex;
-      }
-    });
-    const result = sorter('testValue', {
-      columnIndex: testColumnIndex
-    });
-
-    result.onClick();
-
-    expect(sorted).to.equal(testColumnIndex);
-  });
-});
-
 describe('toFormatter', function () {
   it('converts edit to a formatter', function () {
     const editor = edit({
@@ -188,7 +142,7 @@ describe('toFormatter', function () {
   });
 
   it('converts sort to a formatter', function () {
-    const sorter = sort();
+    const sorter = sort.sort();
     const formatter = toFormatter(
       sorter(
         'testValue',
@@ -203,7 +157,7 @@ describe('toFormatter', function () {
 
   it('converted sort accepts props', function () {
     const className = 'demo-class';
-    const sorter = sort();
+    const sorter = sort.sort();
     const formatter = toFormatter(
       sorter(
         'testValue', {

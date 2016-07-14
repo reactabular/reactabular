@@ -107,7 +107,7 @@ class AllFeaturesTable extends React.Component {
         this.setState({ data });
       }
     });
-    const sortable = transforms.sort({
+    const sortable = sort.sort({
       getSortingColumns: () => this.state.sortingColumns || [],
       onSort: selectedColumn => {
         this.setState({

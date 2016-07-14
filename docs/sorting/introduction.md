@@ -2,7 +2,7 @@ Reactabular comes with sorting helpers that make it possible to manage sorting r
 
 The general workflow goes as follows:
 
-1. Set up the sort transform. Its purpose is to track when the user requests sorting and render possibly matching sorting condition as a class for styling.
+1. Set up the `sort` transform. Its purpose is to track when the user requests sorting and render possibly matching sorting condition as a class for styling.
 2. Set up a sort helper. There are helpers for sorting per one column (`sort.byColumn`) and one for sorting per multiple columns (`sort.byColumns`). The helpers handle managing sorting conditions and actual sorting. If you have a back-end, you can skip the latter.
 3. Sort the data before rendering.
 4. Feed the sorted data to a `Table`.
@@ -13,9 +13,7 @@ The general workflow goes as follows:
 /*
 import React from 'react';
 import orderBy from 'lodash/orderBy';
-import {
-  Table, sort, transforms
-} from 'reactabular';
+import { Table, sort } from 'reactabular';
 */
 
 const initialData = [
@@ -50,7 +48,7 @@ class SortTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const sortable = transforms.sort({
+    const sortable = sort.sort({
       // Point the transform to your data. React state can work for this purpose
       // but you can use a state manager as well.
       getSortingColumns: () => this.state.sortingColumns || {},

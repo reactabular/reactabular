@@ -162,12 +162,6 @@ const pages = [
         component: require('catalog/lib/loader!raw!./transforms/edit.md')
       },
       {
-        path: 'transforms/sort',
-        title: 'Sort',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./transforms/sort.md')
-      },
-      {
         path: 'transforms/as-formatters',
         title: 'As Formatters',
         imports: documentationImports,
@@ -205,19 +199,19 @@ const pages = [
     ]
   },
   {
-    title: 'Sort',
+    title: 'Sorting',
     pages: [
       {
-        path: 'sort',
+        path: 'sorting',
         title: 'Introduction',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./sort/introduction.md')
+        component: require('catalog/lib/loader!raw!./sorting/introduction.md')
       },
       {
-        path: 'sort/api',
+        path: 'sorting/api',
         title: 'API',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./sort/api.md')
+        component: require('catalog/lib/loader!raw!./sorting/api.md')
       }
     ]
   },

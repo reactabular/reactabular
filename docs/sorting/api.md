@@ -1,8 +1,9 @@
-The Sort API consists of three functions:
+The Sort API consists of the following functions:
 
 * `sort.byColumn` - Helper for sorting per one column. Discard possible existing sorting state.
 * `sort.byColumns` - Helper for sorting per multiple columns.
 * `sort.sorter` - Helper for sorting based on the sorting protocol.
+* `sort.sort` - Sorting transform that can be used to select a sorting algorithm.
 
 ## Sorting Protocol
 
@@ -56,3 +57,54 @@ const sortingOrder = {
   desc: 'asc'
 };
 ```
+
+## The `sort` Transform
+
+The `sort` transform has been designed to track when the user requests sorting and render possibly matching sorting condition as a class for styling. In addition you will need to use specific sort helpers to handle the sorting logic. The helpers have been encapsulated within the `sort` module.
+
+**Example:**
+
+```code
+lang: jsx
+---
+...
+import { sort } from 'reactabular';
+
+...
+
+const sortable = sort.sort({
+  // Point the transform to your data. React state can work for this purpose
+  // but you can use a state manager as well.
+  getSortingColumns: () => this.state.sortingColumns || [],
+
+  // The user requested sorting, adjust the sorting state accordingly.
+  // This is a good chance to pass the request through a sorter.
+  onSort: selectedColumn => {
+    this.setState({
+      sortingColumns: sort.byColumns({ // sort.byColumn would work too
+        sortingColumns: this.state.sortingColumns,
+        selectedColumn
+      })
+    });
+  }
+});
+
+...
+
+// Mark a header as sortable
+columns: [
+  {
+    header: {
+      label: 'name',
+      transforms: [sortable()]
+    },
+    cell: {
+      property: 'name'
+    }
+  }
+]
+```
+
+## See Also
+
+* [Sort and Search](/examples/sort-and-search)

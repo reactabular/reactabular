@@ -6,9 +6,7 @@ import React from 'react';
 import orderBy from 'lodash/orderBy';
 
 import { generateData, Search } from './helpers';
-import {
-  Table, sort, transforms, search
-} from 'reactabular';
+import { Table, sort, search } from 'reactabular';
 */
 
 const schema = {
@@ -35,7 +33,7 @@ class SortAndSearchTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const sortable = transforms.sort({
+    const sortable = sort.sort({
       // Point the transform to your data. React state can work for this purpose
       // but you can use a state manager as well.
       getSortingColumns: () => this.state.sortingColumns || {},

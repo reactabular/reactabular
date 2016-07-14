@@ -6,7 +6,7 @@ import React from 'react';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import { compose } from 'redux';
-import { Table, sort, transforms } from 'reactabular';
+import { Table, sort } from 'reactabular';
 
 import { generateData } from './helpers';
 */
@@ -39,7 +39,7 @@ class TreeTable extends React.Component {
     };
   }
   getColumns() {
-    const sortable = transforms.sort({
+    const sortable = sort.sort({
       // Point the transform to your data. React state can work for this purpose
       // but you can use a state manager as well.
       getSortingColumns: () => this.state.sortingColumns || {},

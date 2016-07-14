@@ -1,9 +1,9 @@
 import orderBy from 'lodash/orderBy';
 import reverse from 'lodash/reverse';
 import { expect } from 'chai';
-import { sort } from '../src';
+import { sort as _sort } from '../src';
 
-const { byColumns, byColumn, sorter } = sort;
+const { byColumns, byColumn, sorter, sort } = _sort;
 
 describe('byColumn', function () {
   it('sorts ascending by default', function () {
@@ -637,5 +637,51 @@ describe('sorter', function () {
 
   it('throws an error if columns are not passed', function () {
     expect(sorter()).to.throw(Error);
+  });
+});
+
+describe('sort', function () {
+  it('defaults to sort-none class', function () {
+    const _sorter = sort();
+    const result = _sorter('testValue', { columnIndex: 0 });
+
+    expect(result.className).to.equal('sort sort-none');
+  });
+
+  it('sets sorting class', function () {
+    const testColumnIndex = 0;
+    const sortDirection = 'asc';
+    const _sorter = sort({
+      getSortingColumns() {
+        return {
+          [testColumnIndex]: {
+            direction: sortDirection,
+            position: 0
+          }
+        };
+      }
+    });
+    const result = _sorter('testValue', {
+      columnIndex: testColumnIndex
+    });
+
+    expect(result.className).to.equal(`sort sort-${sortDirection}`);
+  });
+
+  it('triggers sorting on click', function () {
+    const testColumnIndex = 0;
+    let sorted;
+    const _sorter = sort({
+      onSort(columnIndex) {
+        sorted = columnIndex;
+      }
+    });
+    const result = _sorter('testValue', {
+      columnIndex: testColumnIndex
+    });
+
+    result.onClick();
+
+    expect(sorted).to.equal(testColumnIndex);
   });
 });
