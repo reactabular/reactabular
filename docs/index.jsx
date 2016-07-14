@@ -224,14 +224,14 @@ const pages = [
         title: 'Pagination',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./search/pagination.md')
+      },
+      {
+        path: 'search/highlighting',
+        title: 'Highlighting',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./search/highlighting.md')
       }
     ]
-  },
-  {
-    path: 'highlight',
-    title: 'Highlight',
-    imports: documentationImports,
-    component: require('catalog/lib/loader!raw!./highlight.md')
   },
   {
     title: 'Examples',
