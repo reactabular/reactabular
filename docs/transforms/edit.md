@@ -40,7 +40,11 @@ const editable = transforms.edit({
     data[index].editing = false;
 
     this.setState({ data });
-  }
+  },
+
+  // It's possible to shape the value passed to the editor. See
+  // the Excel example for a concrete example.
+  // getEditedValue: v => v.value
 });
 
 ...
