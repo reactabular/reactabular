@@ -4,9 +4,7 @@ This demonstration shows how to implement a stateful wrapper on top of Reactabul
 /*
 import React from 'react';
 import orderBy from 'lodash/orderBy';
-import {
-  Table, sort, transforms
-} from 'reactabular';
+import { Table, sort } from 'reactabular';
 import { resizableColumn } from './helpers';
 */
 
@@ -152,9 +150,9 @@ class StatefulTable extends React.Component {
           newFormat = (v, extra) => resizable(
             <div>
               <span>{existingFormat(v, extra)}</span>
-              {transforms.toFormatter(
-                sortable(null, extra),
-                'span'
+              {React.createElement(
+                'span',
+                sortable(null, extra)
               )}
             </div>,
             extra

@@ -156,7 +156,8 @@ function sortHeader(sortable) {
           {columnIndex + 1}
         </span>
       }
-      {transforms.toFormatter(
+      {React.createElement(
+        'span',
         sortable(
           value,
           {

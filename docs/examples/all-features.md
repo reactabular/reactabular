@@ -11,7 +11,7 @@ import keys from 'lodash/keys';
 import values from 'lodash/values';
 import transform from 'lodash/transform';
 import {
-  Table, search, edit, sort, transforms, formatters, highlight, resolve
+  Table, search, edit, sort, highlight, resolve
 } from 'reactabular';
 
 import {
@@ -407,7 +407,8 @@ function sortHeader(sortable, getSortingColumns) {
     return (
       <div style={{ display: 'inline' }}>
         <span className="value">{value}</span>
-        {transforms.toFormatter(
+        {React.createElement(
+          'span',
           sortable(
             value,
             {
@@ -416,8 +417,7 @@ function sortHeader(sortable, getSortingColumns) {
             {
               style: { float: 'right' }
             }
-          ),
-          'span'
+          )
         )}
         {sortingColumns[columnIndex] &&
           <span className="sort-order" style={{ marginLeft: '0.5em', float: 'right' }}>
