@@ -72,6 +72,33 @@ describe('edit', function () {
     expect(receivedProperty).to.equal(editorProperty);
   });
 
+  it('allows value passed to edit to be shaped', function () {
+    let receivedValue;
+    let receivedProperty;
+    const editor = edit({
+      isEditing() {
+        return true;
+      },
+      onActivate() {},
+      onValue({ value, property }) {
+        receivedValue = value;
+        receivedProperty = property;
+      },
+      getEditValue: v => v.value
+    });
+    const editorProperty = 'foo';
+    const editorValue = 'foobar';
+    const result = editor('div')({ value: editorValue }, {
+      rowData: {},
+      property: editorProperty
+    });
+
+    result.children.props.onValue(editorValue);
+
+    expect(receivedValue).to.equal(editorValue);
+    expect(receivedProperty).to.equal(editorProperty);
+  });
+
   it('throws an error if isEditing is not passed', function () {
     expect(edit.bind(null, {
       onActivate: () => {},
