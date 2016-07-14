@@ -92,6 +92,18 @@ const pages = [
         component: require('catalog/lib/loader!raw!./column-definition/cell.md')
       },
       {
+        path: 'formatters',
+        title: 'Formatters',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./column-definition/formatters.md')
+      },
+      {
+        path: 'transforms',
+        title: 'Transforms',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./column-definition/transforms.md')
+      },
+      {
         path: 'column-definition/nested-columns',
         title: 'Nested Columns',
         imports: documentationImports,
@@ -139,18 +151,6 @@ const pages = [
         component: require('catalog/lib/loader!raw!./table/overriding-default-elements.md')
       }
     ]
-  },
-  {
-    path: 'formatters',
-    title: 'Formatters',
-    imports: documentationImports,
-    component: require('catalog/lib/loader!raw!./formatters.md')
-  },
-  {
-    path: 'transforms',
-    title: 'Transforms',
-    imports: documentationImports,
-    component: require('catalog/lib/loader!raw!./transforms.md')
   },
   {
     path: 'resolving',
