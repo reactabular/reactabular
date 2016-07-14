@@ -46,7 +46,7 @@ export default (amount, { definitions, properties }) => range(amount).map(
         return sample(['Boss', 'Contractor', 'Client', '']);
       },
       address() {
-        const suffixes = ['street', 'road', ' Road', 'Street', 'ton', ' Village', ''];
+        const suffixes = ['street', 'road', ' Road', ' Street', 'ton', ' Village', ''];
         const number = generators.number(1, 2000);
 
         return `${sample(adjectives)}${sample(suffixes)} ${number}`;
