@@ -72,9 +72,6 @@ const commonSite = {
       title: `${pkg.name} - ${pkg.description}`,
       template: 'lib/index_template.ejs'
     }),
-    new webpack.ProvidePlugin({
-      Catalog: 'catalog'
-    }),
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(pkg.version)
     })
