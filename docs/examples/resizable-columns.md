@@ -33,74 +33,125 @@ class ResizableColumnsTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const resizable = resizableColumn({
-      getWidth: column => column.props.style.width,
-      onDrag: (width, { columnIndex }) => {
-        const columns = this.state.columns;
-        const column = columns[columnIndex];
-
-        column.props.style = {
-          ...column.props.style,
-          width,
-          minWidth: width
-        };
-
-        this.setState({ columns });
-      }
-    });
-
     this.state = {
-      columns: [
-        {
-          props: {
-            style: {
-              minWidth: 200,
-              width: 200
-            }
-          },
-          header: {
-            label: 'Name',
-            format: resizable
-          },
-          cell: {
-            property: 'name'
-          }
-        },
-        {
-          props: {
-            style: {
-              minWidth: 400,
-              width: 400
-            }
-          },
-          header: {
-            label: 'Really Long Address Header',
-            format: resizable
-          },
-          cell: {
-            property: 'address'
-          }
-        },
-        {
-          props: {
-            style: {
-              minWidth: 200,
-              width: 200
-            }
-          },
-          header: {
-            label: 'Age'
-          },
-          cell: {
-            property: 'age'
-          }
-        }
-      ],
+      columns: this.getColumns(),
       data
     };
 
     this.tableHeader = null;
     this.tableBody = null;
+  }
+  getColumns() {
+    const resizable = resizableColumn({
+      getWidth: column => column.header.props.style.width,
+      onDrag: (width, { columnIndex }) => {
+        const columns = this.state.columns;
+        const column = columns[columnIndex];
+
+        column.header.props.style = {
+          ...column.header.props.style,
+          width,
+          minWidth: width
+        };
+
+        this.setState({ columns });
+
+        // Update the width of the changed column class
+        const className = this.getClassName(column, columnIndex);
+        this.updateStyle(className, column.header.props.style);
+      }
+    });
+
+    return this.initializeStyle([
+      {
+        header: {
+          label: 'Name',
+          format: resizable,
+          props: {
+            style: {
+              minWidth: 200,
+              width: 200
+            }
+          }
+        },
+        cell: {
+          property: 'name'
+        }
+      },
+      {
+        header: {
+          label: 'Really Long Address Header',
+          format: resizable,
+          props: {
+            style: {
+              minWidth: 400,
+              width: 400
+            }
+          }
+        },
+        cell: {
+          property: 'address'
+        }
+      },
+      {
+        header: {
+          label: 'Age',
+          props: {
+            style: {
+              minWidth: 200,
+              width: 200
+            }
+          }
+        },
+        cell: {
+          property: 'age'
+        }
+      }
+    ]);
+  }
+  initializeStyle(columns) {
+    return columns.map((column, i) => {
+      const className = this.getClassName(column, i);
+
+      this.updateStyle(className, column.header.props.style);
+
+      return {
+        props: {
+          className
+        },
+        ...column
+      };
+    });
+  }
+  getClassName(column, i) {
+    return `column-${i}`;
+  }
+  updateStyle(className, style) {
+    // TODO: generalize
+    // http://stackoverflow.com/a/566445/228885
+    // This attaches the style to the first found stylesheet
+    const cssRuleCode = document.all ? 'rules' : 'cssRules'; // IE, FF
+    const styleSheet = document.styleSheets[0];
+
+    // XXXXX: this fails if you have multiple rules - there should be index -> rule map
+    // Set up a custom script tag for custom style and handle indexing there?
+    const existingRule = styleSheet[cssRuleCode][0];
+    const ruleText = `
+      .${className} {
+        width: ${style.width}px;
+        minWidth: ${style.minWidth}px;
+      }
+    `;
+
+    if (existingRule.selectorText === `.${className}`) {
+      existingRule.style.width = style.width + 'px';
+      existingRule.style.minWidth = style.minWidth + 'px';
+    }
+    else {
+      // https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/insertRule
+      // Insert to the top
+      styleSheet.insertRule(ruleText, 0);
+    }
   }
   render() {
     const { data, columns } = this.state;
