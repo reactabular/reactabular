@@ -6,7 +6,7 @@ Note that the current implementation doesn't constrain the total width of the ta
 /*
 import React from 'react';
 import { Table } from 'reactabular';
-import { generateData, resizableColumn } from './helpers';
+import { generateData, resizableColumn, Sticky } from './helpers';
 */
 
 const schema = {
@@ -34,14 +34,15 @@ class ResizableColumnsTable extends React.Component {
     super(props);
 
     const resizable = resizableColumn({
-      getWidth: column => column.header.props.style.width,
+      getWidth: column => column.props.style.width,
       onDrag: (width, { columnIndex }) => {
         const columns = this.state.columns;
         const column = columns[columnIndex];
 
-        column.header.props.style = {
-          ...column.header.props.style,
-          width
+        column.props.style = {
+          ...column.props.style,
+          width,
+          minWidth: width
         };
 
         this.setState({ columns });
@@ -51,42 +52,44 @@ class ResizableColumnsTable extends React.Component {
     this.state = {
       columns: [
         {
+          props: {
+            style: {
+              minWidth: 200,
+              width: 200
+            }
+          },
           header: {
             label: 'Name',
-            format: resizable,
-            props: {
-              style: {
-                width: 200
-              }
-            }
+            format: resizable
           },
           cell: {
             property: 'name'
           }
         },
         {
+          props: {
+            style: {
+              minWidth: 400,
+              width: 400
+            }
+          },
           header: {
             label: 'Really Long Address Header',
-            format: resizable,
-            props: {
-              style: {
-                width: 300
-              }
-            }
+            format: resizable
           },
           cell: {
             property: 'address'
           }
         },
         {
-          header: {
-            label: 'Age',
-            props: {
-              style: {
-                minWidth: 100,
-                width: '100%'
-              }
+          props: {
+            style: {
+              minWidth: 200,
+              width: 200
             }
+          },
+          header: {
+            label: 'Age'
           },
           cell: {
             property: 'age'
@@ -95,6 +98,9 @@ class ResizableColumnsTable extends React.Component {
       ],
       data
     };
+
+    this.tableHeader = null;
+    this.tableBody = null;
   }
   render() {
     const { data, columns } = this.state;
@@ -107,9 +113,35 @@ class ResizableColumnsTable extends React.Component {
         rowKey="id"
         style={{ width: 'auto' }}
       >
-        <Table.Header />
+        <Sticky.Header
+          style={{
+            maxWidth: 800
+          }}
+          ref={tableHeader => {
+            if (tableHeader) {
+              this.tableHeader = ReactDOM.findDOMNode(tableHeader);
+            }
+          }}
+          onScroll={scrollLeft => (
+            this.tableBody.scrollLeft = scrollLeft
+          )}
+        />
 
-        <Table.Body row={this.onRow} />
+        <Sticky.Body
+          style={{
+            maxWidth: 800,
+            maxHeight: 400
+          }}
+          ref={tableBody => {
+            if (tableBody) {
+              this.tableBody = ReactDOM.findDOMNode(tableBody);
+            }
+          }}
+          onScroll={scrollLeft => (
+            this.tableHeader.scrollLeft = scrollLeft
+          )}
+          row={this.onRow}
+        />
       </Table.Provider>
     );
   }
