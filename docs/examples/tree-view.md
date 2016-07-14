@@ -154,7 +154,7 @@ function packTree(data) {
       ret.push(row);
 
       if (previousParent && pack) {
-        previousParent._pack = pack; // eslint-disable-line no-underscore-dangle
+        previousParent._pack = pack;
 
         pack = [];
       }
@@ -164,7 +164,7 @@ function packTree(data) {
   });
 
   if (pack) {
-    previousParent._pack = pack; // eslint-disable-line no-underscore-dangle
+    previousParent._pack = pack;
   }
 
   return ret;

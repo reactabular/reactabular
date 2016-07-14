@@ -34,7 +34,7 @@ const singleColumn = ({
   })).length > 0);
 };
 
-const _columnMatches = ({ // eslint-disable-line no-underscore-dangle
+const _columnMatches = ({
   query,
   column = { cell: {} },
   row,

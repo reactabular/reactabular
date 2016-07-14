@@ -6,7 +6,7 @@ const highlightCell = (
 ) => (
   highlightValue(
     value,
-    rowData._highlights && rowData._highlights[property] // eslint-disable-line max-len, no-underscore-dangle
+    rowData._highlights && rowData._highlights[property]
   )
 );
 
@@ -72,7 +72,7 @@ function highlighter({ columns, matches, query }) {
 
       // Stash highlighted value based on index
       // so it can be extracted later for highlighting
-      ret._highlights[property] = matches({ // eslint-disable-line no-underscore-dangle
+      ret._highlights[property] = matches({
         value: resolvedValue,
         query: query[property] || query.all
       });
