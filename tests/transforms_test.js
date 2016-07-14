@@ -11,9 +11,11 @@ describe('edit', function () {
     const testProperty = 'test';
     let receivedProperty;
     const editor = edit({
+      isEditing() {},
       onActivate({ property }) {
         receivedProperty = property;
-      }
+      },
+      onValue() {}
     });
     const result = editor('div')('foo', {
       rowData: {},
@@ -29,7 +31,9 @@ describe('edit', function () {
     const editor = edit({
       isEditing() {
         return true;
-      }
+      },
+      onActivate: () => {},
+      onValue: () => {}
     });
     const value = 'foo';
     const editorElement = 'div';
@@ -49,6 +53,7 @@ describe('edit', function () {
       isEditing() {
         return true;
       },
+      onActivate() {},
       onValue({ value, property }) {
         receivedValue = value;
         receivedProperty = property;
@@ -65,6 +70,35 @@ describe('edit', function () {
 
     expect(receivedValue).to.equal(editorValue);
     expect(receivedProperty).to.equal(editorProperty);
+  });
+
+  it('throws an error if isEditing is not passed', function () {
+    expect(edit.bind(null, {
+      onActivate: () => {},
+      onValue: () => {}
+    })).to.throw(Error);
+  });
+
+  it('throws an error if onActivate is not passed', function () {
+    expect(edit.bind(null, {
+      isEditing: () => {},
+      onValue: () => {}
+    })).to.throw(Error);
+  });
+
+  it('throws an error if onValue is not passed', function () {
+    expect(edit.bind(null, {
+      isEditing: () => {},
+      onActivate: () => {}
+    })).to.throw(Error);
+  });
+
+  it('throws an error if editor is not passed', function () {
+    expect(edit({
+      isEditing: () => {},
+      onActivate: () => {},
+      onValue: () => {}
+    }).bind(null)).to.throw(Error);
   });
 });
 
@@ -116,7 +150,11 @@ describe('sort', function () {
 
 describe('toFormatter', function () {
   it('converts edit to a formatter', function () {
-    const editor = edit()('div');
+    const editor = edit({
+      isEditing: () => {},
+      onActivate: () => {},
+      onValue: () => {}
+    })('div');
     const formatter = toFormatter(editor());
 
     expect(React.isValidElement(formatter)).to.equal(true);

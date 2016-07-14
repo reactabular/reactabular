@@ -670,14 +670,14 @@ describe('Table.Body', function () {
     let activated;
 
     const editor = transforms.edit({
-      getEditId() {
-        return true;
-      },
-      getEditProperty() {
-        return activated;
+      isEditing() {
+        return false;
       },
       onActivate() {
         activated = true;
+      },
+      onValue() {
+        return activated;
       }
     });
     const columns = [

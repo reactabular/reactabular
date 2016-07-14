@@ -158,4 +158,8 @@ describe('resolve', function () {
 
     expect(resolve({ columns })(data)).to.deep.equal(expected);
   });
+
+  it('throws an error if columns are not passed', function () {
+    expect(resolve).to.throw(Error);
+  });
 });

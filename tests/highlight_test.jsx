@@ -200,6 +200,49 @@ describe('highlighter', function () {
 
     expect(result).to.deep.equal(expected);
   });
+
+  it('throws an error if columns are not passed', function () {
+    expect(highlight.highlighter.bind(null, {
+      matches: search.matches,
+      query: {
+        name: 'demo'
+      }
+    })).to.throw(Error);
+  });
+
+  it('throws an error if matches are not passed', function () {
+    const columns = [
+      {
+        cell: {
+          property: 'name',
+          resolve: v => v + v
+        }
+      }
+    ];
+
+    expect(highlight.highlighter.bind(null, {
+      columns,
+      query: {
+        name: 'demo'
+      }
+    })).to.throw(Error);
+  });
+
+  it('throws an error if query is not passed', function () {
+    const columns = [
+      {
+        cell: {
+          property: 'name',
+          resolve: v => v + v
+        }
+      }
+    ];
+
+    expect(highlight.highlighter.bind(null, {
+      columns,
+      matches: search.matches
+    })).to.throw(Error);
+  });
 });
 
 class Wrapper extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function

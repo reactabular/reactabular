@@ -49,7 +49,17 @@ const highlightValue = (value, highlights) => {
   return <span className="search-result">{children}</span>;
 };
 
-function highlighter({ columns, matches, query }) {
+function highlighter({ columns, matches, query } = {}) {
+  if (!columns) {
+    throw new Error('highlighter - Missing columns!');
+  }
+  if (!matches) {
+    throw new Error('highlighter - Missing matches!');
+  }
+  if (!query) {
+    throw new Error('highlighter - Missing query!');
+  }
+
   return rows => rows.map(row => {
     const ret = {
       _highlights: {}

@@ -2,7 +2,11 @@ import get from 'lodash/get';
 import has from 'lodash/has';
 import { resolveBodyColumns } from './table/utils';
 
-function resolve({ columns }) {
+function resolve({ columns } = {}) {
+  if (!columns) {
+    throw new Error('resolve - Missing columns!');
+  }
+
   return rows => rows.map(
     row => resolveRow(columns, row)
   );
