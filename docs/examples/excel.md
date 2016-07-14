@@ -5,7 +5,7 @@ The following example implements a light version of Excel through the transform 
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import {
-  transforms, edit, Table
+  edit, Table
 } from 'reactabular';
 */
 
@@ -13,7 +13,7 @@ class ExcelTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const editable = transforms.edit({
+    const editable = edit.edit({
       isEditing: ({ columnIndex, rowData }) => (
         rowData[columnIndex - 1].editing
       ),

@@ -9,16 +9,14 @@ The library comes with a couple of basic editors. As long as you follow the same
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
-import {
-  transforms, edit, Table
-} from 'reactabular';
+import { edit, Table } from 'reactabular';
 */
 
 class EditableTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const editable = transforms.edit({
+    const editable = edit.edit({
       // Determine whether the current cell is being edited or not.
       isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
 

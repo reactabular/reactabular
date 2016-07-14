@@ -156,12 +156,6 @@ const pages = [
         component: require('catalog/lib/loader!raw!./transforms/introduction.md')
       },
       {
-        path: 'transforms/edit',
-        title: 'Edit',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./transforms/edit.md')
-      },
-      {
         path: 'transforms/as-formatters',
         title: 'As Formatters',
         imports: documentationImports,

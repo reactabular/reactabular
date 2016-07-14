@@ -87,7 +87,7 @@ class AllFeaturesTable extends React.Component {
     this.onToggleColumn = this.onToggleColumn.bind(this);
   }
   getColumns() {
-    const editable = transforms.edit({
+    const editable = edit.edit({
       isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
       onActivate: ({ columnIndex, rowData }) => {
         const index = findIndex(this.state.data, { id: rowData.id });

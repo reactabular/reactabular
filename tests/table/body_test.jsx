@@ -2,7 +2,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import { Table, transforms, edit, resolve } from '../../src';
+import { Table, edit, resolve } from '../../src';
 
 describe('Table.Body', function () {
   it('displays data', function () {
@@ -669,7 +669,7 @@ describe('Table.Body', function () {
     const editorClass = 'test-editor';
     let activated;
 
-    const editor = transforms.edit({
+    const editor = edit.edit({
       isEditing() {
         return false;
       },
