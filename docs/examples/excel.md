@@ -3,12 +3,12 @@ The following example implements a light version of Excel through the transform 
 ```jsx
 /*
 import React from 'react';
+import cloneDeep from 'lodash/cloneDeep';
 import {
   transforms, editors, Table
 } from 'reactabular';
 */
 
-// XXXXX: broken as edit needs more thought
 class ExcelTable extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +37,8 @@ class ExcelTable extends React.Component {
         });
       }
     });
-    const evaluate = evaluator(() => this.state.data);
+    // convertToArrays
+    const evaluate = evaluator(() => convertToValues(this.state.data));
 
     this.state = {
       columns: [
@@ -90,12 +91,12 @@ class ExcelTable extends React.Component {
           }
         }
       ],
-      data: [
+      data: convertToObjects([
         ['123', '234', '=A1 + B1', '44'],
         ['11', '1', '5', '56'],
         ['3', '4', '=A1', '88'],
         ['33', '114', '150', '77']
-      ]
+      ])
     };
   }
   render() {
@@ -111,7 +112,19 @@ class ExcelTable extends React.Component {
   }
 }
 
-function evaluator(getData) {
+function convertToObjects(rows, key = 'value') {
+  return rows.map(row =>
+    row.map(item => ({
+      [key]: item
+    }))
+  );
+}
+
+function convertToValues(rows, key = 'value') {
+  return rows.map(row => row.map(d => d[key]));
+}
+
+function evaluator(getData, key = 'value') {
   const characters = 'ABCD';
 
   const resolveInput = (data, input, level = 0) => {
@@ -151,10 +164,12 @@ function evaluator(getData) {
   };
 
   return input => {
+    const inp = input[key];
     const data = getData();
 
-    if (input[0] === '=') {
-      const result = resolveInput(data, input);
+
+    if (inp[0] === '=') {
+      const result = resolveInput(data, inp);
 
       if (result) {
         try {
@@ -167,7 +182,7 @@ function evaluator(getData) {
       return <span style={{ color: 'red' }}>!ERR</span>;
     }
 
-    return input;
+    return inp;
   };
 }
 
