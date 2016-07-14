@@ -124,7 +124,7 @@ class StatefulTable extends React.Component {
       }
     });
 
-    const sortable = transforms.sort({
+    const sortable = sort.sort({
       // Point the transform to your data. React state can work for this purpose
       // but you can use a state manager as well.
       getSortingColumns: () => this.state.sortingColumns || {},

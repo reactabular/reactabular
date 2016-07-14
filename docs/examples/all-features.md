@@ -11,7 +11,7 @@ import keys from 'lodash/keys';
 import values from 'lodash/values';
 import transform from 'lodash/transform';
 import {
-  Table, search, editors, sort, transforms, formatters, highlight, resolve
+  Table, search, edit, sort, transforms, formatters, highlight, resolve
 } from 'reactabular';
 
 import {
@@ -157,7 +157,7 @@ class AllFeaturesTable extends React.Component {
         },
         cell: {
           property: 'name',
-          transforms: [editable(editors.input())],
+          transforms: [editable(edit.input())],
           format: highlight.cell
         },
         visible: true
@@ -174,7 +174,7 @@ class AllFeaturesTable extends React.Component {
         },
         cell: {
           property: 'position',
-          transforms: [editable(editors.input())],
+          transforms: [editable(edit.input())],
           format: highlight.cell
         },
         visible: true
@@ -191,7 +191,7 @@ class AllFeaturesTable extends React.Component {
         },
         cell: {
           property: 'boss.name',
-          transforms: [editable(editors.input())],
+          transforms: [editable(edit.input())],
           format: highlight.cell
         },
         visible: true
@@ -209,7 +209,7 @@ class AllFeaturesTable extends React.Component {
         cell: {
           property: 'country',
           transforms: [editable(
-            editors.dropdown({
+            edit.dropdown({
               options: transform(countries, (result, name, value) => {
                 result.push({ value, name });
               }, [])
@@ -233,7 +233,7 @@ class AllFeaturesTable extends React.Component {
         },
         cell: {
           property: 'salary',
-          transforms: [editable(editors.input({ props: { type: 'number' } }))],
+          transforms: [editable(edit.input({ props: { type: 'number' } }))],
           format: (salary, extra) => (
             <span onDoubleClick={() => alert(`salary is ${salary}`)}>
               {highlight.cell(salary, extra)}
@@ -254,7 +254,7 @@ class AllFeaturesTable extends React.Component {
         },
         cell: {
           property: 'active',
-          transforms: [editable(editors.boolean())],
+          transforms: [editable(edit.boolean())],
           format: active => active && <span>&#10003;</span>
         },
         visible: true

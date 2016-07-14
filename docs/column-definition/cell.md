@@ -45,7 +45,7 @@ lang: js
 ---
 {
   cell: {
-    transforms: [editable(editors.input())]
+    transforms: [editable(edit.input())]
   }
 }
 ```

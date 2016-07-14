@@ -5,7 +5,7 @@ The following example implements a light version of Excel through the transform 
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import {
-  transforms, editors, Table
+  transforms, edit, Table
 } from 'reactabular';
 */
 
@@ -54,7 +54,7 @@ class ExcelTable extends React.Component {
           },
           cell: {
             property: 0,
-            transforms: [editable(editors.input())],
+            transforms: [editable(edit.input())],
             format: evaluate
           }
         },
@@ -64,7 +64,7 @@ class ExcelTable extends React.Component {
           },
           cell: {
             property: 1,
-            transforms: [editable(editors.input())],
+            transforms: [editable(edit.input())],
             format: evaluate
           }
         },
@@ -74,7 +74,7 @@ class ExcelTable extends React.Component {
           },
           cell: {
             property: 2,
-            transforms: [editable(editors.input())],
+            transforms: [editable(edit.input())],
             format: evaluate
           }
         },
@@ -84,7 +84,7 @@ class ExcelTable extends React.Component {
           },
           cell: {
             property: 3,
-            transforms: [editable(editors.input())],
+            transforms: [editable(edit.input())],
             format: evaluate
           }
         }

@@ -3,7 +3,7 @@
 import React from 'react';
 import uuid from 'uuid';
 import transform from 'lodash/transform';
-import { Table, editors } from 'reactabular';
+import { Table, edit } from 'reactabular';
 
 import countries from './data/countries';
 */
@@ -14,8 +14,8 @@ const options = transform(countries, (result, name, value) => {
 const data = [
   {
     name: 'Boolean',
-    editor: editors.boolean(),
-    code: 'editors.boolean({ props: <props> })',
+    editor: edit.boolean(),
+    code: 'edit.boolean({ props: <props> })',
     description: `If initial value is true,
       allows setting to false and vice versa.
       Demo value defaults to false always.`,
@@ -23,8 +23,8 @@ const data = [
   },
   {
     name: 'Dropdown',
-    editor: editors.dropdown({ options }),
-    code: 'editors.dropdown({ options: [[<value>, <name>]], props: <props> })',
+    editor: edit.dropdown({ options }),
+    code: 'edit.dropdown({ options: [[<value>, <name>]], props: <props> })',
     description: `The dropdown expects an array
       of value-name object pairs and emits
       the selected one.`,
@@ -32,7 +32,7 @@ const data = [
   },
   {
     name: 'Customized dropdown',
-    editor: editors.dropdown({
+    editor: edit.dropdown({
       options,
       fields: {
         // reversing fields to show the API
@@ -40,7 +40,7 @@ const data = [
         value: 'name'
       }
     }),
-    code: `editors.dropdown(
+    code: `edit.dropdown(
       {
         options: [[<value>, <name>]],
         fields: {name: <name>, value: <value>},
@@ -52,8 +52,8 @@ const data = [
   },
   {
     name: 'Input',
-    editor: editors.input(),
-    code: 'editors.input({ props: <props> })',
+    editor: edit.input(),
+    code: 'edit.input({ props: <props> })',
     description: 'Just a wrapper for a regular input.',
     id: uuid.v4()
   }

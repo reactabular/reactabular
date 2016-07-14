@@ -176,25 +176,25 @@ const pages = [
     component: require('catalog/lib/loader!raw!./resolving.md')
   },
   {
-    title: 'Editors',
+    title: 'Editing',
     pages: [
       {
-        path: 'editors',
+        path: 'editing',
         title: 'Introduction',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./editors/introduction.md')
+        component: require('catalog/lib/loader!raw!./editing/introduction.md')
       },
       {
-        path: 'editors/api',
+        path: 'editing/api',
         title: 'API',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./editors/api.md')
+        component: require('catalog/lib/loader!raw!./editing/api.md')
       },
       {
-        path: 'editors/customizing',
+        path: 'editing/customizing',
         title: 'Customizing',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./editors/customizing.md')
+        component: require('catalog/lib/loader!raw!./editing/customizing.md')
       }
     ]
   },

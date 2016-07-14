@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { editors } from '../src';
+import { edit } from '../src';
 import { expect } from 'chai';
 
-const { boolean, dropdown, input } = editors;
+const { boolean, dropdown, input } = edit;
 
 describe('Boolean', function () {
   it('renders given value', function () {

@@ -2,7 +2,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import { Table, transforms, editors, resolve } from '../../src';
+import { Table, transforms, edit, resolve } from '../../src';
 
 describe('Table.Body', function () {
   it('displays data', function () {
@@ -687,7 +687,7 @@ describe('Table.Body', function () {
         },
         cell: {
           property: 'name',
-          transforms: [editor(editors.input({ className: editorClass }))],
+          transforms: [editor(edit.input({ className: editorClass }))],
           props: {
             className: cellClass
           }

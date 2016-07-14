@@ -10,7 +10,7 @@ import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import {
-  transforms, editors, Table
+  transforms, edit, Table
 } from 'reactabular';
 */
 
@@ -56,7 +56,7 @@ class EditableTable extends React.Component {
           },
           cell: {
             property: 'name',
-            transforms: [editable(editors.input())]
+            transforms: [editable(edit.input())]
           }
         }
       ],

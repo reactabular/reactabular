@@ -8,7 +8,7 @@ lang: jsx
 ...
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
-import { transforms, editors } from 'reactabular';
+import { transforms, edit } from 'reactabular';
 
 ...
 
@@ -57,7 +57,7 @@ columns: [
     },
     cell: {
       property: 'name',
-      transforms: [editable(editors.input())]
+      transforms: [editable(edit.input())]
     }
   }
 ]
