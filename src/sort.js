@@ -1,4 +1,3 @@
-import React from 'react';
 import { mergeClassNames } from './table/utils';
 
 const defaultOrder = {
