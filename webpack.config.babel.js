@@ -69,8 +69,9 @@ const common = {
 const commonSite = {
   plugins: [
     new HtmlWebpackPlugin({
-      title: `${pkg.name} - ${pkg.description}`,
-      template: 'lib/index_template.ejs'
+      template: require('html-webpack-template'), // eslint-disable-line global-require
+      inject: false,
+      appMountId: 'app'
     }),
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(pkg.version)
