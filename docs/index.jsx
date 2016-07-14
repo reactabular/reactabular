@@ -147,15 +147,10 @@ const pages = [
     component: require('catalog/lib/loader!raw!./formatters.md')
   },
   {
+    path: 'transforms',
     title: 'Transforms',
-    pages: [
-      {
-        path: 'transforms',
-        title: 'Introduction',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./transforms/introduction.md')
-      }
-    ]
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!./transforms.md')
   },
   {
     path: 'resolving',
