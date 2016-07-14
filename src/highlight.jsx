@@ -6,7 +6,7 @@ const highlightCell = (
 ) => (
   highlightValue(
     value,
-    rowData._highlights[property] // eslint-disable-line max-len, no-underscore-dangle
+    rowData._highlights && rowData._highlights[property] // eslint-disable-line max-len, no-underscore-dangle
   )
 );
 

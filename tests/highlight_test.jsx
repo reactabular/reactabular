@@ -35,6 +35,18 @@ describe('highlight.cell', function () {
 
     expect(resultElement.innerHTML).to.equal(value);
   });
+
+  it('does not crash without _highlights', function () {
+    const value = 'foobar';
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{highlight.cell(value, { rowData: {} })}</Wrapper>
+    );
+    const resultElement = TestUtils.findRenderedDOMComponentWithTag(
+      result, 'span'
+    );
+
+    expect(resultElement.innerHTML).to.equal(value);
+  });
 });
 
 describe('highlight.value', function () {
