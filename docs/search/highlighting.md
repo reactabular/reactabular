@@ -16,7 +16,7 @@ import React from 'react';
 import { compose } from 'redux';
 import { Search } from './helpers';
 import {
-  Table, search, formatters, highlight
+  Table, search, highlight
 } from 'reactabular';
 */
 
