@@ -1,7 +1,12 @@
 import React from 'react';
 import { mergeClassNames } from './table/utils';
 
-const edit = ({ isEditing, onActivate, onValue } = {}) => {
+const edit = ({
+  isEditing,
+  onActivate,
+  onValue,
+  getEditedValue = v => v
+} = {}) => {
   if (!isEditing) {
     throw new Error('edit - Missing isEditing!');
   }
@@ -24,7 +29,7 @@ const edit = ({ isEditing, onActivate, onValue } = {}) => {
           editor,
           {
             ...props,
-            value,
+            value: getEditedValue(value),
             onValue: v => onValue(
               { value: v, ...extraParameters }
             )

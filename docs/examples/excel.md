@@ -13,31 +13,29 @@ class ExcelTable extends React.Component {
   constructor(props) {
     super(props);
 
-    this.editedCells = {};
-
     const editable = transforms.edit({
-      isEditing: ({ rowIndex, columnIndex }) => (
-        this.editedCells[`${rowIndex}-${columnIndex}`]
+      isEditing: ({ columnIndex, rowData }) => (
+        rowData[columnIndex - 1].editing
       ),
-      onActivate: ({ rowIndex, columnIndex }) => {
-        this.editedCells[`${rowIndex}-${columnIndex}`] = true;
+      onActivate: ({ rowIndex, columnIndex, rowData }) => {
+        const data = cloneDeep(this.state.data);
 
-        // XXXXX: figure out a good way to force render (Table.Body!)
-        // stash editedCells to component state and pass that to
-        // Table.Body for invalidation?
+        data[rowIndex][columnIndex - 1].editing = true;
+
+        this.setState({ data });
       },
-      onValue: ({ value, columnIndex, rowIndex }) => {
-        this.editedCells[`${rowIndex}-${columnIndex}`] = false;
+      onValue: ({ rowIndex, columnIndex, value }) => {
+        const data = cloneDeep(this.state.data);
 
-        this.state.data[rowIndex][columnIndex - 1] = value;
+        data[rowIndex][columnIndex - 1] = {
+          value,
+          editing: false
+        };
 
-        this.setState({
-          editedCell: null,
-          data: this.state.data
-        });
-      }
+        this.setState({ data });
+      },
+      getEditedValue: v => v.value
     });
-    // convertToArrays
     const evaluate = evaluator(() => convertToValues(this.state.data));
 
     this.state = {
