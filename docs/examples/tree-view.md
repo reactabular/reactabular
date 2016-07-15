@@ -26,7 +26,7 @@ const schema = {
   },
   required: ['id', 'name', 'age']
 };
-const data = generateParents(generateData(10000, schema));
+const data = generateParents(generateData(100, schema));
 
 class TreeTable extends React.Component {
   constructor(props) {
