@@ -154,7 +154,7 @@ class ResizableColumnsTable extends React.Component {
         `
         .${className} {
           width: ${width}px;
-          minWidth: ${width}px;
+          min-width: ${width}px;
         }
         `,
         0
