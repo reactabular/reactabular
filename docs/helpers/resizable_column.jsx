@@ -31,6 +31,11 @@ const resizableColumn = (
               this.column = column;
             }
           }}
+          style={{
+            tableLayout: 'fixed',
+            display: 'table',
+            width: '100%'
+          }}
         >
           <div
             className="resize-value"
@@ -38,7 +43,10 @@ const resizableColumn = (
               display: 'inline-block',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
+              wordBreak: 'break-all',
+              wordWrap: 'break-word',
+              width: `calc(100% - ${handleWidth}px)`
             }}
           >{label}</div>
           <span
