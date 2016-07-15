@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Fork from 'react-ghfork';
-import { Catalog, ReactSpecimen } from 'catalog';
+import { Catalog, CodeSpecimen, ReactSpecimen } from 'catalog';
 import * as reactDnd from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import classnames from 'classnames';
@@ -361,6 +361,8 @@ ReactDOM.render(
       logoSrc="../images/logo.png"
       pages={pages}
       specimens={{
+        javascript: props => <CodeSpecimen {...props} lang="javascript" />,
+        js: props => <CodeSpecimen {...props} lang="javascript" />,
         jsx: props => <ReactSpecimen {...props} />
       }}
     />
