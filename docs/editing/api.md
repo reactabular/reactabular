@@ -2,9 +2,7 @@ The `edit` transform has been designed to allow inline editing. It expects you t
 
 **Example:**
 
-```code
-lang: jsx
----
+```javascript
 ...
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';

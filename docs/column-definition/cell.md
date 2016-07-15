@@ -6,9 +6,7 @@ You should define `cell.property` at minimum. It maps a field from `data` into s
 
 **Example:**
 
-```code
-lang: js
----
+```javascript
 {
   cell: {
     property: 'name'
@@ -20,9 +18,7 @@ If you want nested definitions (i.e., `foo.bar.baz`), then you should `resolve` 
 
 ## **`cell.transforms`**
 
-```code
-lang: js
----
+```javascript
 cell.transforms = [
   (
     <value>, {
@@ -40,9 +36,7 @@ cell.transforms = [
 
 **Example:**
 
-```code
-lang: js
----
+```javascript
 {
   cell: {
     transforms: [editable(edit.input())]
@@ -56,9 +50,7 @@ The idea here is the same as for `header.format`.
 
 **Example:**
 
-```code
-lang: js
----
+```javascript
 {
   cell: {
     property: 'salary',
@@ -77,9 +69,7 @@ You can set cell specific props through `props`.
 
 **Example:**
 
-```code
-lang: js
----
+```javascript
 {
   cell: {
     props: {

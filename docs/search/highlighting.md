@@ -1,8 +1,6 @@
 To make it possible to highlight search results per column, there's a specific `highlight.cell` formatter. To use it, you'll first you have to annotate your data using `highlight.highlighter`. It attaches a structure like this there:
 
-```code
-lang: javascript
----
+```javascript
 _highlights: {
   demo: [{ startIndex: 0, length: 4 }]
 }

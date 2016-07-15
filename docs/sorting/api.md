@@ -9,9 +9,7 @@ The Sort API consists of the following functions:
 
 Sorting relies on a structure like this to describe what is being sorted and in what order:
 
-```code
-lang: javascript
----
+```javascript
 const sortingColumns = {
   0: {
     direction: 'asc',
@@ -48,9 +46,7 @@ The default order cycles between `asc`, `desc`, and `''` (no sort).
 
 You could implement a custom order cycling between `asc` and `desc` like this:
 
-```code
-lang: javascript
----
+```javascript
 const sortingOrder = {
   FIRST: 'asc',
   asc: 'desc',
@@ -64,9 +60,7 @@ The `sort` transform has been designed to track when the user requests sorting a
 
 **Example:**
 
-```code
-lang: jsx
----
+```javascript
 ...
 import { sort } from 'reactabular';
 

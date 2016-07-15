@@ -1,8 +1,6 @@
 If you want to override the default elements, pass a React component through the `components` prop. It should render `children` like this:
 
-```code
-lang: jsx
----
+```javascript
 const wrapper = ({ children }) => (
   <div className="table">
     {children}
@@ -18,9 +16,7 @@ const wrapper = ({ children }) => (
 
 The defaults are as follows:
 
-```code
-lang: js
----
+```javascript
 {
   components: {
     table: 'table',

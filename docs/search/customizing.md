@@ -1,11 +1,11 @@
 Besides the search API itself, you are going to need some way to handle the user input. The following implementation tracks the search query and provides it through the `onChange` prop. You can consume it from there and plug it into the search algorithm to filter data.
 
-```code
-lang: jsx
----
+```jsx
+/*
 import React from 'react';
+*/
 
-export default class Search extends React.Component {
+class Search extends React.Component {
   constructor(props) {
     super(props);
 
@@ -103,4 +103,6 @@ const getOptions = (columns, i18n) => (
     return null;
   }).filter(column => column))
 );
+
+<Search columns={columns} data={data} />
 ```

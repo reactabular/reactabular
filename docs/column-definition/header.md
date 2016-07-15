@@ -6,9 +6,7 @@ The `header` portion supports `label`, `transforms` and `format` fields.
 
 **Example:**
 
-```code
-lang: js
----
+```javascript
 {
   header: {
     label: 'Name'
@@ -20,9 +18,7 @@ Given you might want to attach custom functionality to a header, say sorting on 
 
 ## **`header.transforms`**
 
-```code
-lang: js
----
+```javascript
 header.transforms = [
   (<label>, {
     columnIndex: <number>,
@@ -37,9 +33,7 @@ The idea of transforms is that they can inject `propTypes` to the current cell (
 
 **Example:**
 
-```code
-lang: js
----
+```javascript
 {
   header: {
     label: 'Name',
@@ -50,9 +44,7 @@ lang: js
 
 To give you a concrete example of overriding, consider the example below:
 
-```code
-lang: js
----
+```javascript
 {
   header: {
     label: 'Name',
@@ -73,9 +65,7 @@ In the following example we use it to inject an extra checkbox to the header cel
 
 **Example:**
 
-```code
-lang: js
----
+```javascript
 {
   header: {
     label: 'Name',
@@ -99,9 +89,7 @@ You can set header specific props through `props`.
 
 **Example:**
 
-```code
-lang: js
----
+```javascript
 {
   header: {
     label: 'Name',

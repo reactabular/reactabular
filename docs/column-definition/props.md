@@ -2,9 +2,7 @@ Root level `props` allows you to attach props to all header and content cells. T
 
 **Example:**
 
-```code
-lang: js
----
+```javascript
 {
   props: {
     style: {
