@@ -1,10 +1,11 @@
-const path = require('path');
+import * as path from 'path';
 
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const merge = require('webpack-merge');
+import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import merge from 'webpack-merge';
 
 const catalogPkg = require('./node_modules/catalog/package.json');
 const pkg = require('./package.json');
@@ -40,10 +41,6 @@ const common = {
   },
   module: {
     loaders: [
-      {
-        test: /\.css$/,
-        loaders: ['style', 'css']
-      },
       {
         test: /\.png$/,
         loaders: ['url?limit=100000&mimetype=image/png'],
@@ -97,6 +94,10 @@ if (TARGET === 'start') {
     module: {
       loaders: [
         {
+          test: /\.css$/,
+          loaders: ['style', 'css']
+        },
+        {
           test: require.resolve('react'),
           loader: 'expose?React'
         }
@@ -135,6 +136,7 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
           NODE_ENV: JSON.stringify('production')
         }
       }),
+      new ExtractTextPlugin('[name].[chunkhash].css'),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
@@ -148,6 +150,10 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
     ],
     module: {
       loaders: [
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract('style', 'css')
+        },
         {
           test: /\.jsx?$/,
           loaders: ['babel'],
