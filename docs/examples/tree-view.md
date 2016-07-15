@@ -6,9 +6,9 @@ import React from 'react';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import { compose } from 'redux';
-import { Table, sort } from 'reactabular';
+import { Table, search, sort } from 'reactabular';
 
-import { generateData } from './helpers';
+import { generateData, Search } from './helpers';
 */
 
 const schema = {
@@ -33,6 +33,7 @@ class TreeTable extends React.Component {
     super(props);
 
     this.state = {
+      query: {},
       sortingColumns: null,
       data,
       columns: this.getColumns()
@@ -103,23 +104,37 @@ class TreeTable extends React.Component {
     ];
   }
   render() {
-    const { columns, sortingColumns, data } = this.state;
+    const { columns, sortingColumns, data, query } = this.state;
     const d = compose(
       filterTree,
-      sortTree(columns, sortingColumns)
+      unpackTree,
+      sort.sorter({ columns, sortingColumns, sort: orderBy }),
+      search.multipleColumns({ columns, query }),
+      packTree
     )(data);
 
     return (
-      <Table.Provider
-        className="pure-table pure-table-striped"
-        columns={columns}
-        data={d}
-        rowKey="id"
-      >
-        <Table.Header />
+      <div>
+        <div className="search-container">
+          <span>Search</span>
+          <Search
+            columns={columns}
+            data={data}
+            onChange={query => this.setState({ query })}
+          />
+        </div>
 
-        <Table.Body row={this.onRow} />
-      </Table.Provider>
+        <Table.Provider
+          className="pure-table pure-table-striped"
+          columns={columns}
+          data={d}
+          rowKey="id"
+        >
+          <Table.Header />
+
+          <Table.Body row={this.onRow} />
+        </Table.Provider>
+      </div>
     );
   }
   onRow(row, rowIndex) {
@@ -127,18 +142,6 @@ class TreeTable extends React.Component {
       className: rowIndex % 2 ? 'odd-row' : 'even-row'
     };
   }
-}
-
-function sortTree(columns, sortingColumns) {
-  return compose(
-    unpackTree,
-    sort.sorter({
-      columns,
-      sortingColumns,
-      sort: orderBy
-    }),
-    packTree
-  );
 }
 
 // Folds children inside root parents
