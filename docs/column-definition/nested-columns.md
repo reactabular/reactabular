@@ -89,7 +89,7 @@ const data = [
 ];
 
 const NestedColumnsTable = () => (
-  <Table.Provider columns={columns} data={resolve({ columns })(data)} rowKey="id">
+  <Table.Provider columns={columns} data={resolve.nested({ columns })(data)} rowKey="id">
     <Table.Header />
 
     <Table.Body />

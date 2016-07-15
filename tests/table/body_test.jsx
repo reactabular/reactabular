@@ -285,7 +285,7 @@ describe('Table.Body', function () {
       { name: { last: lastName } }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={resolve({ columns })(data)} rowKey="id">
+      <Table.Provider columns={columns} data={resolve.nested({ columns })(data)} rowKey="id">
         <Table.Body />
       </Table.Provider>
     );

@@ -2,7 +2,7 @@ import get from 'lodash/get';
 import has from 'lodash/has';
 import { resolveBodyColumns } from './table/utils';
 
-function resolve({ columns } = {}) {
+function nested({ columns } = {}) {
   if (!columns) {
     throw new Error('resolve - Missing columns!');
   }
@@ -34,4 +34,6 @@ function resolveRow(columns, row) {
   return ret;
 }
 
-export default resolve;
+export default {
+  nested
+};

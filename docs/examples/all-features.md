@@ -289,7 +289,7 @@ class AllFeaturesTable extends React.Component {
       sort.sorter({ columns: cols, sortingColumns, sort: orderBy }),
       highlight.highlighter({ columns: cols, matches: search.matches, query }),
       search.multipleColumns({ columns: cols, query }),
-      resolve({ columns: cols })
+      resolve.nested({ columns: cols })
     )(data);
 
     return (

@@ -1,4 +1,4 @@
-Given sometimes your data might be nested and you might want to resolve a value like `name.first` as the cell value, Reactabular provides a `resolve` helper for that purpose. Pass your data through it (`resolve({ columns })(data)`) before handing it to `Table.Provider`.
+Given sometimes your data might be nested and you might want to resolve a value like `name.first` as the cell value, Reactabular provides a `resolve` helper for that purpose. Pass your data through it (`resolve.nested({ columns })(data)`) before handing it to `Table.Provider`.
 
 **Example:**
 
@@ -83,5 +83,5 @@ const data = [
   }
 ];
 
-<div>{JSON.stringify(resolve({ columns })(data), null, 2)}</div>
+<div>{JSON.stringify(resolve.nested({ columns })(data), null, 2)}</div>
 ```

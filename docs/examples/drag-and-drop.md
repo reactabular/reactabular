@@ -135,7 +135,7 @@ class DragAndDropTable extends React.Component {
       <Table.Provider
         components={components}
         columns={columns}
-        data={resolve({ columns })(data)}
+        data={resolve.nested({ columns })(data)}
         rowKey="id"
       >
         <Table.Header />

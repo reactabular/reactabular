@@ -1,8 +1,10 @@
 import { expect } from 'chai';
 import { resolve } from '../src';
 
-describe('resolve', function () {
-  it('resolves normal properties', function () {
+const { nested } = resolve;
+
+describe('resolve.nested', function () {
+  it('resolves normal nested', function () {
     const name = 'Demo';
     const columns = [
       {
@@ -23,7 +25,7 @@ describe('resolve', function () {
       }
     ];
 
-    expect(resolve({ columns })(data)).to.deep.equal(expected);
+    expect(nested({ columns })(data)).to.deep.equal(expected);
   });
 
   it('does not warn for columns missing cells', function () {
@@ -44,10 +46,10 @@ describe('resolve', function () {
       }
     ];
 
-    expect(resolve({ columns })(data)).to.deep.equal(expected);
+    expect(nested({ columns })(data)).to.deep.equal(expected);
   });
 
-  it('does not warn for columns missing cell properties', function () {
+  it('does not warn for columns missing cell nested', function () {
     const name = 'Demo';
     const columns = [
       {
@@ -68,10 +70,10 @@ describe('resolve', function () {
       }
     ];
 
-    expect(resolve({ columns })(data)).to.deep.equal(expected);
+    expect(nested({ columns })(data)).to.deep.equal(expected);
   });
 
-  it('resolves nested properties', function () {
+  it('resolves nested nested', function () {
     const lastName = 'foobar';
     const columns = [
       {
@@ -93,10 +95,10 @@ describe('resolve', function () {
       }
     ];
 
-    expect(resolve({ columns })(data)).to.deep.equal(expected);
+    expect(nested({ columns })(data)).to.deep.equal(expected);
   });
 
-  it('resolves normal properties at a nested structure', function () {
+  it('resolves normal nested at a nested structure', function () {
     const name = 'Demo';
     const columns = [
       {
@@ -124,10 +126,10 @@ describe('resolve', function () {
       }
     ];
 
-    expect(resolve({ columns })(data)).to.deep.equal(expected);
+    expect(nested({ columns })(data)).to.deep.equal(expected);
   });
 
-  it('resolves nested properties at a nested structure', function () {
+  it('resolves nested nested at a nested structure', function () {
     const lastName = 'foobar';
     const columns = [
       {
@@ -156,10 +158,10 @@ describe('resolve', function () {
       }
     ];
 
-    expect(resolve({ columns })(data)).to.deep.equal(expected);
+    expect(nested({ columns })(data)).to.deep.equal(expected);
   });
 
   it('throws an error if columns are not passed', function () {
-    expect(resolve).to.throw(Error);
+    expect(nested).to.throw(Error);
   });
 });
