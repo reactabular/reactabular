@@ -63,7 +63,7 @@ class ResizableColumnsTable extends React.Component {
     });
   }
   componentWillUnmount() {
-    document.removeChild(this.styleSheetElement);
+    this.styleSheetElement.remove();
   }
   initializeStyle(columns) {
     return columns.map((column, i) => {
