@@ -1,10 +1,18 @@
 import { expect } from 'chai';
-import { resolve } from '../src';
+import { resolve as _resolve } from '../src';
 
-const { nested } = resolve;
+const { resolve, nested, byFunction } = _resolve;
 
-describe('resolve.nested', function () {
-  it('resolves normal nested', function () {
+describe('resolve.resolve', function () {
+  it('throws an error if columns are not passed', function () {
+    expect(resolve).to.throw(Error);
+  });
+
+  it('throws an error if method is not passed', function () {
+    expect(resolve.bind(null, { columns: [] })).to.throw(Error);
+  });
+
+  it('executes resolver over rows', function () {
     const name = 'Demo';
     const columns = [
       {
@@ -16,89 +24,29 @@ describe('resolve.nested', function () {
         }
       }
     ];
-    const data = [
-      { name }
-    ];
-    const expected = [
+    const rows = [
       {
         name
       }
     ];
-
-    expect(nested({ columns })(data)).to.deep.equal(expected);
-  });
-
-  it('does not warn for columns missing cells', function () {
-    const name = 'Demo';
-    const columns = [
-      {
-        header: {
-          label: 'Last name'
-        }
-      }
-    ];
-    const data = [
-      { name }
-    ];
     const expected = [
       {
-        name
+        name,
+        _name: rows[0].name
       }
     ];
+    const method = (row, { cell: { property } }) => ({
+      [property]: row.name,
+      [`_${property}`]: row.name
+    });
 
-    expect(nested({ columns })(data)).to.deep.equal(expected);
+    expect(resolve({
+      columns,
+      method
+    })(rows)).to.deep.equal(expected);
   });
 
-  it('does not warn for columns missing cell nested', function () {
-    const name = 'Demo';
-    const columns = [
-      {
-        header: {
-          label: 'Last name'
-        },
-        cell: {
-          format: v => v
-        }
-      }
-    ];
-    const data = [
-      { name }
-    ];
-    const expected = [
-      {
-        name
-      }
-    ];
-
-    expect(nested({ columns })(data)).to.deep.equal(expected);
-  });
-
-  it('resolves nested nested', function () {
-    const lastName = 'foobar';
-    const columns = [
-      {
-        header: {
-          label: 'Last name'
-        },
-        cell: {
-          property: 'name.last'
-        }
-      }
-    ];
-    const data = [
-      { name: { last: lastName } }
-    ];
-    const expected = [
-      {
-        name: { last: lastName },
-        'name.last': lastName
-      }
-    ];
-
-    expect(nested({ columns })(data)).to.deep.equal(expected);
-  });
-
-  it('resolves normal nested at a nested structure', function () {
+  it('executes resolver over nested rows', function () {
     const name = 'Demo';
     const columns = [
       {
@@ -117,51 +65,107 @@ describe('resolve.nested', function () {
         ]
       }
     ];
-    const data = [
-      { name }
-    ];
-    const expected = [
+    const rows = [
       {
         name
       }
     ];
+    const method = (row, { cell: { property } }) => ({
+      [property]: row.name
+    });
 
-    expect(nested({ columns })(data)).to.deep.equal(expected);
+    expect(resolve({
+      columns,
+      method
+    })(rows)).to.deep.equal(rows);
+  });
+});
+
+describe('resolve.nested', function () {
+  it('resolves nested values', function () {
+    const lastName = 'demo';
+    const property = 'name.last';
+    const row = {
+      name: {
+        last: lastName
+      }
+    };
+    const column = { cell: { property } };
+
+    expect(nested(row, column)).to.deep.equal({ [property]: lastName });
   });
 
-  it('resolves nested nested at a nested structure', function () {
-    const lastName = 'foobar';
-    const columns = [
-      {
-        header: {
-          label: 'Last name'
-        },
-        children: [
-          {
-            header: {
-              label: 'First Name'
-            },
-            cell: {
-              property: 'name.last'
-            }
-          }
-        ]
-      }
-    ];
-    const data = [
-      { name: { last: lastName } }
-    ];
-    const expected = [
-      {
-        name: { last: lastName },
-        'name.last': lastName
-      }
-    ];
+  it('resolves normal values', function () {
+    const name = 'demo';
+    const property = 'name';
+    const row = {
+      name
+    };
+    const column = { cell: { property } };
 
-    expect(nested({ columns })(data)).to.deep.equal(expected);
+    expect(nested(row, column)).to.deep.equal({ [property]: name });
   });
 
-  it('throws an error if columns are not passed', function () {
-    expect(nested).to.throw(Error);
+  it('does not crash without a property', function () {
+    const name = 'demo';
+    const row = {
+      name
+    };
+    const column = { cell: {} };
+
+    expect(nested(row, column)).to.deep.equal({});
+  });
+
+  it('does not crash without a cell', function () {
+    const name = 'demo';
+    const row = {
+      name
+    };
+    const column = {};
+
+    expect(nested(row, column)).to.deep.equal({});
+  });
+});
+
+describe('resolve.byFunction', function () {
+  it('does not resolve without a resolver', function () {
+    const name = 'demo';
+    const property = 'name';
+    const row = {
+      name
+    };
+    const column = {
+      cell: {
+        property
+      }
+    };
+
+    expect(
+      byFunction('column.cell.resolve')(row, column)
+    ).to.deep.equal({
+      [property]: name
+    });
+  });
+
+  it('resolves with a resolver', function () {
+    const countries = { dk: 'Denmark' };
+    const country = 'dk';
+    const property = 'country';
+    const row = {
+      country
+    };
+    const column = {
+      cell: {
+        property,
+        resolve: v => countries[v]
+      }
+    };
+
+    expect(
+      byFunction('cell.resolve')(row, column)
+    ).to.deep.equal({
+      [property]: country,
+      [`_${property}`]: countries.dk
+    });
   });
 });

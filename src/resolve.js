@@ -2,38 +2,64 @@ import get from 'lodash/get';
 import has from 'lodash/has';
 import { resolveBodyColumns } from './table/utils';
 
-function nested({ columns } = {}) {
+function resolve({ columns, method }) {
   if (!columns) {
     throw new Error('resolve - Missing columns!');
   }
+  if (!method) {
+    throw new Error('resolve - Missing method!');
+  }
 
-  return rows => rows.map(
-    row => resolveRow(columns, row)
-  );
+  const resolvedColumns = resolveBodyColumns(columns);
+
+  return rows => rows.map(row => {
+    let ret = {};
+
+    resolvedColumns.forEach(column => {
+      ret = {
+        ...ret,
+        ...method(row, column)
+      };
+    });
+
+    return ret;
+  });
 }
 
-function resolveRow(columns, row) {
-  const ret = { ...row }; // shallow clone
+function nested(row, { cell: { property } = {} }) {
+  if (!has(row, property)) {
+    console.warn(`resolve.nested - Failed to find "${property}" property from`, row); // eslint-disable-line max-len, no-console
 
-  resolveBodyColumns(columns).filter(a => a).forEach(
-    column => {
-      const property = column.cell && column.cell.property;
+    return {};
+  }
 
-      if (!property) {
-        return;
-      }
+  return {
+    [property]: get(row, property)
+  };
+}
 
-      if (!has(row, property)) {
-        console.warn(`resolve - Failed to find "${property}" property from`, row); // eslint-disable-line max-len, no-console
-      }
+function byFunction(path) {
+  return (rowData, column) => {
+    const { cell: { property } = {} } = column;
+    const value = rowData[property];
+    const resolver = get(column, path);
+    const ret = {
+      [property]: value
+    };
 
-      ret[property] = get(row, property);
+    if (resolver) {
+      ret[`_${property}`] = resolver(value, {
+        property,
+        rowData
+      });
     }
-  );
 
-  return ret;
+    return ret;
+  };
 }
 
 export default {
-  nested
+  resolve,
+  nested,
+  byFunction
 };
