@@ -6,6 +6,7 @@ Note that the current implementation doesn't constrain the total width of the ta
 /*
 import React from 'react';
 import { Table } from 'reactabular';
+import uuid from 'uuid';
 import { generateData, resizableColumn, Sticky } from './helpers';
 */
 
@@ -32,6 +33,10 @@ const data = generateData(100, schema);
 class ResizableColumnsTable extends React.Component {
   constructor(props) {
     super(props);
+
+    // Generate a unique id for the instance so we
+    // don't get clashing class names for resizing.
+    this.id = uuid.v4();
 
     this.state = {
       columns: this.getColumns(),
@@ -101,9 +106,7 @@ class ResizableColumnsTable extends React.Component {
     });
   }
   getClassName(column, i) {
-    // XXXXX: generate uuid per instance so there can be multiple tables
-    // without clashes
-    return `column-${i}`;
+    return `column-${this.id}-${i}`;
   }
   updateWidth(className, width) {
     // http://stackoverflow.com/a/566445/228885
