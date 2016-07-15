@@ -46,6 +46,39 @@ class ResizableColumnsTable extends React.Component {
     this.tableHeader = null;
     this.tableBody = null;
   }
+  componentDidMount() {
+    // Create a custom stylesheet for tracking styles.
+    // Without creating a custom one we would need to modify
+    // an existing one.
+    //
+    // This can fail on old IE due to low maximum stylesheet limit.
+    const { styleSheetElement, styleSheet } = this.createStyleSheet();
+
+    this.styleSheetElement = styleSheetElement;
+    this.styleSheet = styleSheet;
+
+    // Patch the column definition with class names.
+    this.setState({
+      columns: this.initializeStyle(this.state.columns)
+    });
+  }
+  componentWillUnmount() {
+    document.removeChild(this.styleSheetElement);
+  }
+  initializeStyle(columns) {
+    return columns.map((column, i) => {
+      const className = this.getClassName(column, i);
+
+      this.updateWidth(this.styleSheet, className, column.width);
+
+      return {
+        props: {
+          className
+        },
+        ...column
+      };
+    });
+  }
   getColumns() {
     const resizable = resizableColumn({
       onDrag: (width, { columnIndex }) => {
@@ -58,7 +91,7 @@ class ResizableColumnsTable extends React.Component {
       }
     });
 
-    return this.initializeStyle([
+    return [
       {
         header: {
           label: 'Name',
@@ -89,38 +122,20 @@ class ResizableColumnsTable extends React.Component {
         },
         width: 200
       }
-    ]);
-  }
-  initializeStyle(columns) {
-    // Create a custom stylesheet for tracking styles.
-    // Without creating a custom one we would need to modify
-    // an existing one.
-    //
-    // This can fail on old IE due to low maximum stylesheet limit.
-    this.styleSheet = this.createStyleSheet();
-
-    return columns.map((column, i) => {
-      const className = this.getClassName(column, i);
-
-      this.updateWidth(this.styleSheet, className, column.width);
-
-      return {
-        props: {
-          className
-        },
-        ...column
-      };
-    });
+    ];
   }
   createStyleSheet() {
-    const styleSheet = document.createElement('style');
-    styleSheet.type = 'text/css';
-    document.head.appendChild(styleSheet);
+    const styleSheetElement = document.createElement('style');
+    styleSheetElement.type = 'text/css';
+    document.head.appendChild(styleSheetElement);
 
     const styleSheets = document.styleSheets;
 
-    // Return the newly created stylesheet. We can assume it's the last.
-    return styleSheets[styleSheets.length - 1];
+    return {
+      styleSheetElement,
+      // Return the newly created stylesheet. We can assume it's the last.
+      styleSheet: styleSheets[styleSheets.length - 1]
+    };
   }
   getClassName(column, i) {
     return `column-${this.id}-${i}`;
