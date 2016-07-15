@@ -43,7 +43,6 @@ class ResizableColumnsTable extends React.Component {
   }
   getColumns() {
     const resizable = resizableColumn({
-      getWidth: column => column.header.props.style.width,
       onDrag: (width, { columnIndex }) => {
         const columns = this.state.columns;
         const column = columns[columnIndex];

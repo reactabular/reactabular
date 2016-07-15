@@ -20,20 +20,24 @@ const resizableColumn = (
       this.onMouseDown = this.onMouseDown.bind(this);
       this.onMouseMove = this.onMouseMove.bind(this);
       this.onMouseUp = this.onMouseUp.bind(this);
+
+      // Stash ref so we can check width
+      this.column = null;
     }
     render() {
-      const width = getWidth(extraParameters.column);
-
       return (
-        <div style={{ width }}>
+        <div ref={column => {
+          if (column) {
+            this.column = column;
+          }
+        }}>
           <div
             className="resize-value"
             style={{
               display: 'inline-block',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-              width: width - handleWidth
+              whiteSpace: 'nowrap'
             }}
           >{label}</div>
           <span
@@ -57,7 +61,7 @@ const resizableColumn = (
       document.addEventListener('mouseup', this.onMouseUp);
 
       this.startX = e.clientX;
-      this.startWidth = getWidth(extraParameters.column);
+      this.startWidth = this.column.offsetWidth;
     }
     onMouseMove(e) {
       e.stopPropagation();
