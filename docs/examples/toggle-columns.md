@@ -4,6 +4,7 @@ A simple way to implement toggleable columns is to manage the visibility using a
 /*
 import React from 'react';
 import { Table } from 'reactabular';
+
 import { VisibilityToggles } from './helpers';
 */
 
