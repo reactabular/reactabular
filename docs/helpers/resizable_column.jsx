@@ -3,7 +3,6 @@ import React from 'react';
 // Adapted from https://stackoverflow.com/questions/20926551/recommended-way-of-making-react-component-div-draggable
 const resizableColumn = (
   {
-    getWidth,
     onDrag,
     handleWidth = 5,
     minWidth = 100
@@ -26,11 +25,13 @@ const resizableColumn = (
     }
     render() {
       return (
-        <div ref={column => {
-          if (column) {
-            this.column = column;
-          }
-        }}>
+        <div
+          ref={column => {
+            if (column) {
+              this.column = column;
+            }
+          }}
+        >
           <div
             className="resize-value"
             style={{

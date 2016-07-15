@@ -47,17 +47,9 @@ class ResizableColumnsTable extends React.Component {
         const columns = this.state.columns;
         const column = columns[columnIndex];
 
-        column.header.props.style = {
-          ...column.header.props.style,
-          width,
-          minWidth: width
-        };
-
-        this.setState({ columns });
-
         // Update the width of the changed column class
         const className = this.getClassName(column, columnIndex);
-        this.updateStyle(className, column.header.props.style);
+        this.updateWidth(className, width);
       }
     });
 
@@ -65,46 +57,32 @@ class ResizableColumnsTable extends React.Component {
       {
         header: {
           label: 'Name',
-          format: resizable,
-          props: {
-            style: {
-              minWidth: 200,
-              width: 200
-            }
-          }
+          format: resizable
         },
         cell: {
           property: 'name'
-        }
+        },
+        // Track style on CSS level (not React)
+        width: 200
       },
       {
         header: {
           label: 'Really Long Address Header',
-          format: resizable,
-          props: {
-            style: {
-              minWidth: 400,
-              width: 400
-            }
-          }
+          format: resizable
         },
         cell: {
           property: 'address'
-        }
+        },
+        width: 400
       },
       {
         header: {
-          label: 'Age',
-          props: {
-            style: {
-              minWidth: 200,
-              width: 200
-            }
-          }
+          label: 'Age'
         },
         cell: {
           property: 'age'
-        }
+        },
+        width: 200
       }
     ]);
   }
@@ -112,7 +90,7 @@ class ResizableColumnsTable extends React.Component {
     return columns.map((column, i) => {
       const className = this.getClassName(column, i);
 
-      this.updateStyle(className, column.header.props.style);
+      this.updateWidth(className, column.width);
 
       return {
         props: {
@@ -123,10 +101,11 @@ class ResizableColumnsTable extends React.Component {
     });
   }
   getClassName(column, i) {
+    // XXXXX: generate uuid per instance so there can be multiple tables
+    // without clashes
     return `column-${i}`;
   }
-  updateStyle(className, style) {
-    // TODO: generalize
+  updateWidth(className, width) {
     // http://stackoverflow.com/a/566445/228885
     // This attaches the style to the first found stylesheet
     const cssRuleCode = document.all ? 'rules' : 'cssRules'; // IE, FF
@@ -137,14 +116,14 @@ class ResizableColumnsTable extends React.Component {
     const existingRule = styleSheet[cssRuleCode][0];
     const ruleText = `
       .${className} {
-        width: ${style.width}px;
-        minWidth: ${style.minWidth}px;
+        width: ${width}px;
+        minWidth: ${width}px;
       }
     `;
 
     if (existingRule.selectorText === `.${className}`) {
-      existingRule.style.width = style.width + 'px';
-      existingRule.style.minWidth = style.minWidth + 'px';
+      existingRule.style.width = width + 'px';
+      existingRule.style.minWidth = width + 'px';
     }
     else {
       // https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/insertRule
