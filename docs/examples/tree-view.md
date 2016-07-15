@@ -8,7 +8,7 @@ import orderBy from 'lodash/orderBy';
 import { compose } from 'redux';
 import { Table, search, sort } from 'reactabular';
 
-import { generateData, Search } from './helpers';
+import { generateData, Search, VisibilityToggles } from './helpers';
 */
 
 const schema = {
@@ -38,6 +38,8 @@ class TreeTable extends React.Component {
       data,
       columns: this.getColumns()
     };
+
+    this.onToggleColumn = this.onToggleColumn.bind(this);
   }
   getColumns() {
     const sortable = sort.sort({
@@ -87,7 +89,8 @@ class TreeTable extends React.Component {
               </div>
             );
           }
-        }
+        },
+        visible: true
       },
       {
         props: {
@@ -99,26 +102,33 @@ class TreeTable extends React.Component {
         },
         cell: {
           property: 'age'
-        }
+        },
+        visible: true
       }
     ];
   }
   render() {
     const { columns, sortingColumns, data, query } = this.state;
+    const cols = columns.filter(column => column.visible);
     const d = compose(
       filterTree,
       unpackTree,
-      sort.sorter({ columns, sortingColumns, sort: orderBy }),
-      search.multipleColumns({ columns, query }),
+      sort.sorter({ columns: cols, sortingColumns, sort: orderBy }),
+      search.multipleColumns({ columns: cols, query }),
       packTree
     )(data);
 
     return (
       <div>
+        <VisibilityToggles
+          columns={columns}
+          onToggleColumn={this.onToggleColumn}
+        />
+
         <div className="search-container">
           <span>Search</span>
           <Search
-            columns={columns}
+            columns={cols}
             data={data}
             onChange={query => this.setState({ query })}
           />
@@ -126,7 +136,7 @@ class TreeTable extends React.Component {
 
         <Table.Provider
           className="pure-table pure-table-striped"
-          columns={columns}
+          columns={cols}
           data={d}
           rowKey="id"
         >
@@ -136,6 +146,13 @@ class TreeTable extends React.Component {
         </Table.Provider>
       </div>
     );
+  }
+  onToggleColumn(columnIndex) {
+    const columns = this.state.columns;
+
+    columns[columnIndex].visible = !columns[columnIndex].visible;
+
+    this.setState({ columns });
   }
   onRow(row, rowIndex) {
     return {
