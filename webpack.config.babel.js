@@ -68,6 +68,7 @@ const commonSite = {
     new HtmlWebpackPlugin({
       template: require('html-webpack-template'), // eslint-disable-line global-require
       inject: false,
+      title: pkg.name,
       appMountId: 'app'
     }),
     new webpack.DefinePlugin({
