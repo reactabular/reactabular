@@ -4,9 +4,9 @@ The following example shows how to combine sorting with search. It is possible t
 /*
 import React from 'react';
 import orderBy from 'lodash/orderBy';
+import { Table, sort, search } from 'reactabular';
 
 import { generateData, Search } from './helpers';
-import { Table, sort, search } from 'reactabular';
 */
 
 const schema = {
