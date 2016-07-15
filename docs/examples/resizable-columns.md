@@ -7,7 +7,7 @@ Note that the current implementation doesn't constrain the total width of the ta
 import React from 'react';
 import { Table } from 'reactabular';
 import uuid from 'uuid';
-import { generateData, resizableColumn, Sticky } from './helpers';
+import { generateData, resizableColumn, stylesheet, Sticky } from './helpers';
 */
 
 const schema = {
@@ -52,7 +52,7 @@ class ResizableColumnsTable extends React.Component {
     // an existing one.
     //
     // This can fail on old IE due to low maximum stylesheet limit.
-    const { styleSheetElement, styleSheet } = this.createStyleSheet();
+    const { styleSheetElement, styleSheet } = stylesheet.create();
 
     this.styleSheetElement = styleSheetElement;
     this.styleSheet = styleSheet;
@@ -69,7 +69,7 @@ class ResizableColumnsTable extends React.Component {
     return columns.map((column, i) => {
       const className = this.getClassName(column, i);
 
-      this.updateWidth(this.styleSheet, className, column.width);
+      stylesheet.updateWidth(this.styleSheet, className, column.width);
 
       return {
         props: {
@@ -86,8 +86,11 @@ class ResizableColumnsTable extends React.Component {
         const column = columns[columnIndex];
 
         // Update the width of the changed column class
-        const className = this.getClassName(column, columnIndex);
-        this.updateWidth(this.styleSheet, className, width);
+        stylesheet.updateWidth(
+          this.styleSheet,
+          this.getClassName(column, columnIndex),
+          width
+        );
       }
     });
 
@@ -124,58 +127,8 @@ class ResizableColumnsTable extends React.Component {
       }
     ];
   }
-  createStyleSheet() {
-    const styleSheetElement = document.createElement('style');
-    styleSheetElement.type = 'text/css';
-    document.head.appendChild(styleSheetElement);
-
-    const styleSheets = document.styleSheets;
-
-    return {
-      styleSheetElement,
-      // Return the newly created stylesheet. We can assume it's the last.
-      styleSheet: styleSheets[styleSheets.length - 1]
-    };
-  }
   getClassName(column, i) {
     return `column-${this.id}-${i}`;
-  }
-  updateWidth(styleSheet, className, width) {
-    const existingRule = this.findExistingRule(styleSheet, className);
-
-    if (existingRule) {
-      existingRule.style.width = width + 'px';
-      existingRule.style.minWidth = width + 'px';
-    }
-    else {
-      // https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/insertRule
-      // Insert to the top
-      styleSheet.insertRule(
-        `
-        .${className} {
-          width: ${width}px;
-          min-width: ${width}px;
-        }
-        `,
-        0
-      );
-    }
-  }
-  findExistingRule(styleSheet, className) {
-    // http://stackoverflow.com/a/566445/228885
-    const cssRuleCode = document.all ? 'rules' : 'cssRules'; // IE, FF
-    const cssRules = styleSheet[cssRuleCode];
-    let i, cssRule;
-
-    for (i = 0; i < cssRules.length; i++) {
-      cssRule = cssRules[i];
-
-      if (cssRule.selectorText === `.${className}`) {
-        return cssRule;
-      }
-    }
-
-    return null;
   }
   render() {
     const { data, columns } = this.state;
