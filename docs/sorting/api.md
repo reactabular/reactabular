@@ -34,7 +34,7 @@ It maps column index to sorting state and can contain multiple sorters.
 
 ## `sort.sorter({ columns: [<object>], sortingColumns: <sorting columns>, sort: <function>})([<data to sort>]) => [<sorted data>]`
 
-`sort.sorter` sorts the passed `data` using a `sortingColumns` definitions and a `sort` function. It has been designed to work based on [lodash.orderBy](https://lodash.com/docs#orderBy) signature and is able to resolve values based on `columns.cell.resolve`.
+`sort.sorter` sorts the passed `data` using a `sortingColumns` definitions and a `sort` function. It has been designed to work based on [lodash.orderBy](https://lodash.com/docs#orderBy) signature.
 
 ## Customizing Sorting Order
 
