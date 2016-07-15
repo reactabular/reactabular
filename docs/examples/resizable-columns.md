@@ -54,7 +54,7 @@ class ResizableColumnsTable extends React.Component {
 
         // Update the width of the changed column class
         const className = this.getClassName(column, columnIndex);
-        this.updateWidth(className, width);
+        this.updateWidth(this.styleSheet, className, width);
       }
     });
 
@@ -92,10 +92,17 @@ class ResizableColumnsTable extends React.Component {
     ]);
   }
   initializeStyle(columns) {
+    // Create a custom stylesheet for tracking styles.
+    // Without creating a custom one we would need to modify
+    // an existing one.
+    //
+    // This can fail on old IE due to low maximum stylesheet limit.
+    this.styleSheet = this.createStyleSheet();
+
     return columns.map((column, i) => {
       const className = this.getClassName(column, i);
 
-      this.updateWidth(className, column.width);
+      this.updateWidth(this.styleSheet, className, column.width);
 
       return {
         props: {
@@ -105,34 +112,55 @@ class ResizableColumnsTable extends React.Component {
       };
     });
   }
+  createStyleSheet() {
+    const styleSheet = document.createElement('style');
+    styleSheet.type = 'text/css';
+    document.head.appendChild(styleSheet);
+
+    const styleSheets = document.styleSheets;
+
+    // Return the newly created stylesheet. We can assume it's the last.
+    return styleSheets[styleSheets.length - 1];
+  }
   getClassName(column, i) {
     return `column-${this.id}-${i}`;
   }
-  updateWidth(className, width) {
-    // http://stackoverflow.com/a/566445/228885
-    // This attaches the style to the first found stylesheet
-    const cssRuleCode = document.all ? 'rules' : 'cssRules'; // IE, FF
-    const styleSheet = document.styleSheets[0];
+  updateWidth(styleSheet, className, width) {
+    const existingRule = this.findExistingRule(styleSheet, className);
 
-    // XXXXX: this fails if you have multiple rules - there should be index -> rule map
-    // Set up a custom script tag for custom style and handle indexing there?
-    const existingRule = styleSheet[cssRuleCode][0];
-    const ruleText = `
-      .${className} {
-        width: ${width}px;
-        minWidth: ${width}px;
-      }
-    `;
-
-    if (existingRule.selectorText === `.${className}`) {
+    if (existingRule) {
       existingRule.style.width = width + 'px';
       existingRule.style.minWidth = width + 'px';
     }
     else {
       // https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/insertRule
       // Insert to the top
-      styleSheet.insertRule(ruleText, 0);
+      styleSheet.insertRule(
+        `
+        .${className} {
+          width: ${width}px;
+          minWidth: ${width}px;
+        }
+        `,
+        0
+      );
     }
+  }
+  findExistingRule(styleSheet, className) {
+    // http://stackoverflow.com/a/566445/228885
+    const cssRuleCode = document.all ? 'rules' : 'cssRules'; // IE, FF
+    const cssRules = styleSheet[cssRuleCode];
+    let i, cssRule;
+
+    for (i = 0; i < cssRules.length; i++) {
+      cssRule = cssRules[i];
+
+      if (cssRule.selectorText === `.${className}`) {
+        return cssRule;
+      }
+    }
+
+    return null;
   }
   render() {
     const { data, columns } = this.state;
