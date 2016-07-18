@@ -106,6 +106,16 @@ describe('resolve.nested', function () {
     expect(nested(row, column)).to.deep.equal({ [property]: name });
   });
 
+  it('does nothing if there is no property', function () {
+    const name = 'demo';
+    const row = {
+      name
+    };
+    const column = { cell: { property: undefined } };
+
+    expect(nested(row, column)).to.deep.equal({});
+  });
+
   it('does not crash without a property', function () {
     const name = 'demo';
     const row = {

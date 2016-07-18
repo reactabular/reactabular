@@ -27,6 +27,10 @@ function resolve({ columns, method }) {
 }
 
 function nested(row, { cell: { property } = {} }) {
+  if (!property) {
+    return {};
+  }
+
   if (!has(row, property)) {
     console.warn(`resolve.nested - Failed to find "${property}" property from`, row); // eslint-disable-line max-len, no-console
 
