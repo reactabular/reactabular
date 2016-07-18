@@ -23,6 +23,10 @@ The following example shows how you to resolve nested values.
 **Example:**
 
 ```jsx
+/*
+import { resolve } from 'reactabular';
+*/
+
 const columns = [
   {
     header: {
