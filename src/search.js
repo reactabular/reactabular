@@ -39,11 +39,11 @@ const _columnMatches = ({
   column = { cell: {} },
   row,
   strategy = strategies.infix,
-  transform = (v = '') => v && v.toLowerCase()
+  transform = (v = '') => v && v.toLowerCase && v.toLowerCase()
 }) => {
   const property = column.cell.property;
   // Pick resolved value by convention
-  const resolvedValue = row[`_${property}`] || row[property];
+  const resolvedValue = String(row[`_${property}`] || row[property]);
 
   return strategy(transform(query)).evaluate(transform(resolvedValue));
 };

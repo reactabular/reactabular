@@ -266,6 +266,18 @@ describe('search._columnMatches', function () {
     expect(result).to.equal(false);
   });
 
+  it('does not crash with a number', function () {
+    const query = 'foo';
+    const result = _columnMatches({
+      query,
+      column: { cell: { property: 'demo' } },
+      row: { demo: 22 },
+      transform: v => v
+    });
+
+    expect(result).to.equal(false);
+  });
+
   it('does not crash with null data', function () {
     const query = 'foo';
     const result = _columnMatches({
