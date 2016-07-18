@@ -28,7 +28,10 @@ export default class Search extends React.Component {
           onChange={this.onColumnChange} value={this.state.column}
           columns={columns} i18n={i18n}
         />
-        <input onChange={this.onQueryChange} value={this.state.query} />
+        {columns.length ?
+          <input onChange={this.onQueryChange} value={this.state.query} /> :
+          null
+        }
       </div>
     );
   }
@@ -69,11 +72,11 @@ Search.defaultProps = {
 };
 
 const SearchOptions = ({ columns, i18n, ...props }) => (
-  <select {...props}>{
+  columns.length ? <select {...props}>{
     getOptions(columns, i18n).map(({ name, value }) =>
       <option key={`${value}-option`} value={value}>{name}</option>
     )
-  }</select>
+  }</select> : null
 );
 SearchOptions.propTypes = {
   columns: React.PropTypes.array,
