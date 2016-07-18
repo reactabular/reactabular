@@ -120,4 +120,3 @@ const data = [
 
 * [All Features](/examples/all-features)
 * [Drag and Drop](/examples/drag-and-drop)
-* [Excel](/examples/excel)
