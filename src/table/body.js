@@ -1,4 +1,5 @@
 import isEqual from 'lodash/isEqual';
+import omit from 'lodash/omit';
 import React from 'react';
 import { tableBodyContextTypes } from './types';
 import {
@@ -9,7 +10,11 @@ import {
 // Otherwise refs won't work.
 export default class Body extends React.Component {
   shouldComponentUpdate(nextProps, nextState, nextContext) {
-    return !(isEqual(this.props, nextProps) && isEqual(this.context, nextContext));
+    // Skip checking props against `row` since that can be bound at render().
+    // That's not particularly good practice but you never know how the users
+    // prefer to define the handler.
+    return !(isEqual(omit(this.props, ['row']), omit(nextProps, ['row'])) &&
+      isEqual(this.context, nextContext));
   }
   render() {
     const { row, ...props } = this.props;

@@ -50,7 +50,7 @@ class CustomTable extends React.Component {
 <CustomTable />
 ```
 
-For the performance optimizations to work, it is important you **don't** inline possible `row` handler within the table definition. If you do, then `Table.Body` won't be able to detect data changes correctly through its `shouldComponentUpdate` check.
+It's a good idea to define a possible `row` handler separately to avoid binding per each `render`. If you write the handler inline, it will bind each time `render()` is called and reduce performance slightly.
 
 ## Customizing `Table` Footer
 
