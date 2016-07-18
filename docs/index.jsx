@@ -92,13 +92,13 @@ const pages = [
         component: require('catalog/lib/loader!raw!./column-definition/cell.md')
       },
       {
-        path: 'formatters',
+        path: 'column-definition/formatters',
         title: 'Formatters',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./column-definition/formatters.md')
       },
       {
-        path: 'transforms',
+        path: 'column-definition/transforms',
         title: 'Transforms',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./column-definition/transforms.md')
