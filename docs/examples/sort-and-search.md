@@ -54,6 +54,11 @@ class SortAndSearchTable extends React.Component {
     const resetable = (value, { columnIndex }) => ({
       onDoubleClick: () => {
         const sortingColumns = this.state.sortingColumns;
+
+        if (!sortingColumns || !sortingColumns.length) {
+          return;
+        }
+
         const position = sortingColumns[columnIndex].position;
         const newSortingColumns = {};
 
@@ -163,8 +168,7 @@ function sortHeader(sortable) {
           {
             columnIndex
           }
-        ),
-        'span'
+        )
       )}
     </div>
   );
