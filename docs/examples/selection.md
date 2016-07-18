@@ -4,6 +4,7 @@ You can select a row by clicking in the following example. If there's a selectio
 /*
 import React from 'react';
 import classnames from 'classnames';
+import cloneDeep from 'lodash/cloneDeep';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import {
@@ -61,11 +62,12 @@ class SelectionTable extends React.Component {
           }
         }
       ],
-      selectedRowId: null
+      selectedRow: {}
     };
 
-    this.onRowSelected = this.onRowSelected.bind(this);
+    this.onRow = this.onRow.bind(this);
     this.onKeyPressed = this.onKeyPressed.bind(this);
+    this.selectRow = this.selectRow.bind(this);
   }
   componentDidMount() {
     window.addEventListener('keydown', this.onKeyPressed);
@@ -74,8 +76,7 @@ class SelectionTable extends React.Component {
     window.removeEventListener('keydown', this.onKeyPressed);
   }
   render() {
-    const { columns, rows, selectedRowId } = this.state;
-    const selectedRow = find(rows, { id: selectedRowId }) || {};
+    const { columns, rows, selectedRow } = this.state;
 
     return (
       <div>
@@ -88,13 +89,7 @@ class SelectionTable extends React.Component {
           <Table.Body
             rows={rows}
             rowKey="id"
-            onRow={(row, rowIndex) => ({
-              className: classnames(
-                rowIndex % 2 ? 'odd-row' : 'even-row',
-                row.id === selectedRowId && 'selected-row'
-              ),
-              onClick: () => this.onRowSelected(row)
-            })}
+            onRow={this.onRow}
           />
 
           <tfoot>
@@ -107,12 +102,18 @@ class SelectionTable extends React.Component {
       </div>
     );
   }
-  onRowSelected(row) {
-    this.setState({ selectedRowId: row.id });
+  onRow(row, rowIndex) {
+    return {
+      className: classnames(
+        rowIndex % 2 ? 'odd-row' : 'even-row',
+        row.selected && 'selected-row'
+      ),
+      onClick: () => this.selectRow(row.id)
+    };
   }
   onKeyPressed(e) {
-    const { rows, selectedRowId } = this.state;
-    const idx = findIndex(rows, { id: selectedRowId });
+    const { rows, selectedRow } = this.state;
+    const idx = findIndex(rows, { id: selectedRow.id });
 
     // No selection yet, escape
     if (idx < 0) {
@@ -123,19 +124,33 @@ class SelectionTable extends React.Component {
     if (e.keyCode === 38 && idx > 0) {
       e.preventDefault();
 
-      this.setState({
-        selectedRowId: rows[idx - 1].id
-      });
+      this.selectRow(rows[idx - 1].id);
     }
 
     // Arrow Down
     if (e.keyCode === 40 && idx < rows.length - 1) {
       e.preventDefault();
 
-      this.setState({
-        selectedRowId: rows[idx + 1].id
-      });
+      this.selectRow(rows[idx + 1].id);
     }
+  }
+  selectRow(selectedRowId) {
+    let selectedRow;
+
+    // Reset selected flags and select the given row
+    const rows = cloneDeep(this.state.rows).map(row => {
+      row.selected = false;
+
+      if (row.id === selectedRowId) {
+        row.selected = true;
+
+        selectedRow = row;
+      }
+
+      return row;
+    });
+
+    this.setState({ rows, selectedRow });
   }
 }
 
