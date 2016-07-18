@@ -315,7 +315,7 @@ describe('sorter', function () {
         property: 'test'
       }
     }];
-    const data = [
+    const rows = [
       {
         test: 'abc'
       },
@@ -330,9 +330,9 @@ describe('sorter', function () {
       }
     };
 
-    const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
+    const result = sorter({ columns, sortingColumns, sort: orderBy })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 
   it('sorts descending', function () {
@@ -342,7 +342,7 @@ describe('sorter', function () {
         property: 'test'
       }
     }];
-    const data = [
+    const rows = [
       {
         test: 'abc'
       },
@@ -357,9 +357,9 @@ describe('sorter', function () {
       }
     };
 
-    const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
+    const result = sorter({ columns, sortingColumns, sort: orderBy })(rows);
 
-    expect(result).to.deep.equal(reverse(data));
+    expect(result).to.deep.equal(reverse(rows));
   });
 
   it('sorts ascending and descending', function () {
@@ -374,7 +374,7 @@ describe('sorter', function () {
         property: 'position'
       }
     }];
-    const data = [
+    const rows = [
       {
         name: 'joe',
         position: 'boss'
@@ -413,19 +413,19 @@ describe('sorter', function () {
       }
     };
 
-    const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
+    const result = sorter({ columns, sortingColumns, sort: orderBy })(rows);
 
     expect(result).to.deep.equal(expected);
   });
 
-  it('returns data if there is no sorting information', function () {
+  it('returns rows if there is no sorting information', function () {
     const columns = [{
       header: {},
       cell: {
         property: 'test'
       }
     }];
-    const data = [
+    const rows = [
       {
         test: 'abc'
       },
@@ -433,19 +433,19 @@ describe('sorter', function () {
         test: 'def'
       }
     ];
-    const result = sorter({ columns, sort: orderBy })(data);
+    const result = sorter({ columns, sort: orderBy })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 
-  it('returns data if only data is passed', function () {
+  it('returns rows if only rows is passed', function () {
     const columns = [{
       header: {},
       cell: {
         property: 'test'
       }
     }];
-    const data = [
+    const rows = [
       {
         test: 'abc'
       },
@@ -453,9 +453,9 @@ describe('sorter', function () {
         test: 'def'
       }
     ];
-    const result = sorter({ columns })(data);
+    const result = sorter({ columns })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 
   it('sorts case-insensitively', function () {
@@ -465,7 +465,7 @@ describe('sorter', function () {
         property: 'test'
       }
     }];
-    const data = [
+    const rows = [
       {
         test: 'crep'
       },
@@ -493,7 +493,7 @@ describe('sorter', function () {
         position: 0
       }
     };
-    const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
+    const result = sorter({ columns, sortingColumns, sort: orderBy })(rows);
 
     expect(result).to.deep.equal(expected);
   });
@@ -505,7 +505,7 @@ describe('sorter', function () {
         property: 'test'
       }
     }];
-    const data = [
+    const rows = [
       {
         test: 1
       },
@@ -522,9 +522,9 @@ describe('sorter', function () {
         position: 0
       }
     };
-    const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
+    const result = sorter({ columns, sortingColumns, sort: orderBy })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 
   it('does not fail if property is missing', function () {
@@ -534,7 +534,7 @@ describe('sorter', function () {
         property: 'test'
       }
     }];
-    const data = [
+    const rows = [
       {
         test: 1
       },
@@ -551,9 +551,9 @@ describe('sorter', function () {
         position: 0
       }
     };
-    const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
+    const result = sorter({ columns, sortingColumns, sort: orderBy })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 
   it('resolves fields', function () {
@@ -561,7 +561,7 @@ describe('sorter', function () {
       de: 'Germany',
       fi: 'Finland'
     };
-    const data = [
+    const rows = [
       {
         id: 0,
         country: 'de',
@@ -598,7 +598,7 @@ describe('sorter', function () {
         position: 0
       }
     };
-    const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
+    const result = sorter({ columns, sortingColumns, sort: orderBy })(rows);
 
     expect(result).to.deep.equal(expected);
   });

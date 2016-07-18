@@ -32,28 +32,27 @@ const rowKeyType = (props, propName, componentName) => {
   // fail even if this doesn't.
   return null;
 };
-const dataType = React.PropTypes.oneOfType([
+const rowsType = React.PropTypes.oneOfType([
   arrayOfObjectColumns,
   arrayOfArrayColumns
 ]);
 const tableTypes = {
   columns: React.PropTypes.array.isRequired,
-  components: React.PropTypes.object,
-  data: dataType.isRequired,
-  rowKey: rowKeyType
+  components: React.PropTypes.object
 };
 const tableContextTypes = {
   headerColumns: React.PropTypes.array.isRequired,
   bodyColumns: React.PropTypes.array.isRequired,
-  components: React.PropTypes.object,
-  data: dataType.isRequired,
+  components: React.PropTypes.object
+};
+const tableBodyTypes = {
+  rows: rowsType.isRequired,
+  row: React.PropTypes.func,
   rowKey: rowKeyType
 };
 const tableBodyContextTypes = {
   bodyColumns: React.PropTypes.array.isRequired,
-  components: React.PropTypes.object,
-  data: dataType.isRequired,
-  rowKey: rowKeyType
+  components: React.PropTypes.object
 };
 const tableHeaderContextTypes = {
   headerColumns: React.PropTypes.array.isRequired,
@@ -78,6 +77,7 @@ const tableDefaults = {
 export {
   tableTypes,
   tableContextTypes,
+  tableBodyTypes,
   tableBodyContextTypes,
   tableHeaderContextTypes,
   tableDefaults

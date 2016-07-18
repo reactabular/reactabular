@@ -10,34 +10,34 @@ import { edit } from 'reactabular';
 
 ...
 
-// Define how to manipulate data through edit. As Reactabular doesn't
+// Define how to manipulate rows through edit. As Reactabular doesn't
 // manage state, you'll need to define how to do it.
 const editable = edit.edit({
   // Determine whether the current cell is being edited or not.
   isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
 
   // The user requested activation, mark the current cell as edited.
-  // IMPORTANT! If you stash the data at this.state.data, DON'T
+  // IMPORTANT! If you stash the rows at this.state.rows, DON'T
   // mutate it as that will break Table.Body optimization check.
   onActivate: ({ columnIndex, rowData }) => {
-    const index = findIndex(this.state.data, { id: rowData.id });
-    const data = cloneDeep(this.state.data);
+    const index = findIndex(this.state.rows, { id: rowData.id });
+    const rows = cloneDeep(this.state.rows);
 
-    data[index].editing = columnIndex;
+    rows[index].editing = columnIndex;
 
-    this.setState({ data });
+    this.setState({ rows });
   },
 
   // Capture the value when the user has finished and update
   // application state.
   onValue: ({ value, rowData, property }) => {
-    const index = findIndex(this.state.data, { id: rowData.id });
-    const data = cloneDeep(this.state.data);
+    const index = findIndex(this.state.rows, { id: rowData.id });
+    const rows = cloneDeep(this.state.rows);
 
-    data[index][property] = value;
-    data[index].editing = false;
+    rows[index][property] = value;
+    rows[index].editing = false;
 
-    this.setState({ data });
+    this.setState({ rows });
   },
 
   // It's possible to shape the value passed to the editor. See
@@ -78,13 +78,13 @@ import uuid from 'uuid';
 import transform from 'lodash/transform';
 import { Table, edit } from 'reactabular';
 
-import countries from './data/countries';
+import countries from './rows/countries';
 */
 
 const options = transform(countries, (result, name, value) => {
   result.push({ value, name });
 }, []);
-const data = [
+const rows = [
   {
     name: 'Boolean',
     editor: edit.boolean(),
@@ -175,12 +175,10 @@ const EditorsTable = () => (
   <Table.Provider
     className="pure-table pure-table-striped"
     columns={columns}
-    data={data}
-    rowKey="id"
   >
     <Table.Header />
 
-    <Table.Body />
+    <Table.Body rows={rows} rowKey="id" />
   </Table.Provider>
 );
 

@@ -7,7 +7,7 @@ Note that the current implementation doesn't constrain the total width of the ta
 import React from 'react';
 import { Table } from 'reactabular';
 import uuid from 'uuid';
-import { generateData, resizableColumn, stylesheet, Sticky } from './helpers';
+import { generateRows, resizableColumn, stylesheet, Sticky } from './helpers';
 */
 
 const schema = {
@@ -28,7 +28,7 @@ const schema = {
   },
   required: ['id', 'name', 'age']
 };
-const data = generateData(100, schema);
+const rows = generateRows(100, schema);
 
 class ResizableColumnsTable extends React.Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class ResizableColumnsTable extends React.Component {
 
     this.state = {
       columns: this.getColumns(),
-      data
+      rows
     };
 
     this.tableHeader = null;
@@ -131,7 +131,7 @@ class ResizableColumnsTable extends React.Component {
     return `column-${this.id}-${i}`;
   }
   render() {
-    const { data, columns } = this.state;
+    const { rows, columns } = this.state;
     const tableHeaderWidth = this.tableHeader && this.tableHeader.scrollWidth;
     const tableBodyWidth = this.tableBody && this.tableBody.scrollWidth;
     const scrollOffset = tableHeaderWidth - tableBodyWidth;
@@ -140,8 +140,6 @@ class ResizableColumnsTable extends React.Component {
       <Table.Provider
         className="pure-table pure-table-striped"
         columns={columns}
-        data={data}
-        rowKey="id"
         style={{ width: 'auto' }}
       >
         <Sticky.Header
@@ -159,6 +157,9 @@ class ResizableColumnsTable extends React.Component {
         />
 
         <Sticky.Body
+          rows={rows}
+          rowKey="id"
+          row={this.onRow}
           style={{
             paddingRight: scrollOffset,
             maxWidth: 800,
@@ -172,7 +173,6 @@ class ResizableColumnsTable extends React.Component {
           onScroll={scrollLeft => (
             this.tableHeader.scrollLeft = scrollLeft
           )}
-          row={this.onRow}
         />
       </Table.Provider>
     );

@@ -1,8 +1,8 @@
-In addition to `header` customization, it's essential to define how the data should map to content. This is achieved through `cell` fields.
+In addition to `header` customization, it's essential to define how the rows should map to content. This is achieved through `cell` fields.
 
 ## **`cell.property = <string>`**
 
-You should define `cell.property` at minimum. It maps a field from `data` into something you can display to the user.
+You should define `cell.property` at minimum. It maps a field from `rows` into something you can display to the user.
 
 **Example:**
 
@@ -14,7 +14,7 @@ You should define `cell.property` at minimum. It maps a field from `data` into s
 }
 ```
 
-If you want nested definitions (i.e., `foo.bar.baz`), then you should `resolve` your data before passing it to the table.
+If you want nested definitions (i.e., `foo.bar.baz`), then you should `resolve` your rows before passing it to the table.
 
 ## **`cell.transforms`**
 
@@ -32,7 +32,7 @@ cell.transforms = [
 ]
 ```
 
-`cell.transforms` follows the same idea as `header.transforms`. This time `value` is the resolved `property` and we have extra data available.
+`cell.transforms` follows the same idea as `header.transforms`. This time `value` is the resolved `property` and we have extra rows available.
 
 **Example:**
 

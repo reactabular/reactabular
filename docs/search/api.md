@@ -2,19 +2,19 @@ The Search API consists of three parts. Out of these `search.multipleColumns` an
 
 ### Search
 
-**`search.multipleColumns({ columns: [<object>], query: {<column>: <query>}, strategy: <strategy>, transform: <transform> })([<data to query>]) => [<filtered data>]`**
+**`search.multipleColumns({ columns: [<object>], query: {<column>: <query>}, strategy: <strategy>, transform: <transform> })([<rows to query>]) => [<filtered rows>]`**
 
-This is the highest level search function available. It expects `data` and `columns` in the same format the `Table` uses. `query` object describes column specific search queries.
+This is the highest level search function available. It expects `rows` and `columns` in the same format the `Table` uses. `query` object describes column specific search queries.
 
 It uses `infix` strategy underneath although it is possible to change it. By default it matches in a case **insensitive** manner. If you want case sensitive behavior, pass `a => a`(identity function) as `transform`.
 
-**`search.singleColumn({ columns: [<object>], searchColumn: <string>, query: <string>, strategy: <strategy>, transform: <transform> })([<data to query>]) => [<filtered data>]`**
+**`search.singleColumn({ columns: [<object>], searchColumn: <string>, query: <string>, strategy: <strategy>, transform: <transform> })([<rows to query>]) => [<filtered rows>]`**
 
 This is a more specialized version of `search.multipleColumns`. You can use it to search a specific column through `searchColumn` and `query`.
 
 ### Matchers
 
-**`search._columnMatches({ data: [<object>], column: [<object>], row: <object>, strategy: <strategy>, transform: <transform> }) => <boolean>`**
+**`search._columnMatches({ rows: [<object>], column: [<object>], row: <object>, strategy: <strategy>, transform: <transform> }) => <boolean>`**
 
 This is a function that can be used to figure out all column specific matches. It is meant only for **internal usage** of the library.
 

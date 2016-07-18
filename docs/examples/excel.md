@@ -18,25 +18,25 @@ class ExcelTable extends React.Component {
         rowData[columnIndex - 1].editing
       ),
       onActivate: ({ rowIndex, columnIndex, rowData }) => {
-        const data = cloneDeep(this.state.data);
+        const rows = cloneDeep(this.state.rows);
 
-        data[rowIndex][columnIndex - 1].editing = true;
+        rows[rowIndex][columnIndex - 1].editing = true;
 
-        this.setState({ data });
+        this.setState({ rows });
       },
       onValue: ({ rowIndex, columnIndex, value }) => {
-        const data = cloneDeep(this.state.data);
+        const rows = cloneDeep(this.state.rows);
 
-        data[rowIndex][columnIndex - 1] = {
+        rows[rowIndex][columnIndex - 1] = {
           value,
           editing: false
         };
 
-        this.setState({ data });
+        this.setState({ rows });
       },
       getEditedValue: v => v.value
     });
-    const evaluate = evaluator(() => convertToValues(this.state.data));
+    const evaluate = evaluator(() => convertToValues(this.state.rows));
 
     this.state = {
       columns: [
@@ -89,7 +89,7 @@ class ExcelTable extends React.Component {
           }
         }
       ],
-      data: convertToObjects([
+      rows: convertToObjects([
         ['123', '234', '=A1 + B1', '44'],
         ['11', '1', '5', '56'],
         ['3', '4', '=A1', '88'],
@@ -98,13 +98,13 @@ class ExcelTable extends React.Component {
     };
   }
   render() {
-    const { columns, data } = this.state;
+    const { columns, rows } = this.state;
 
     return (
-      <Table.Provider columns={columns} data={data} rowKey="id">
+      <Table.Provider columns={columns}>
         <Table.Header />
 
-        <Table.Body />
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
   }
@@ -122,10 +122,10 @@ function convertToValues(rows, key = 'value') {
   return rows.map(row => row.map(d => d[key]));
 }
 
-function evaluator(getData, key = 'value') {
+function evaluator(getRows, key = 'value') {
   const characters = 'ABCD';
 
-  const resolveInput = (data, input, level = 0) => {
+  const resolveInput = (rows, input, level = 0) => {
     // Recursion trap
     if (level > 10) {
       return input;
@@ -137,10 +137,10 @@ function evaluator(getData, key = 'value') {
       split(' ').
       map(
         c => {
-          const reference = resolveReference(data, c);
+          const reference = resolveReference(rows, c);
 
           if (reference[0] === '=') {
-            return `(${resolveInput(data, reference.slice(1), level + 1)})`;
+            return `(${resolveInput(rows, reference.slice(1), level + 1)})`;
           }
 
           return reference;
@@ -149,13 +149,13 @@ function evaluator(getData, key = 'value') {
       join(' ');
   };
 
-  const resolveReference = (data, input) => {
+  const resolveReference = (rows, input) => {
     const x = characters.indexOf(input[0]); // Supports just one character
     const y = parseInt(input[1] - 1, 10); // Supports just one number
-    const yData = data[y] || [];
+    const yRows = rows[y] || [];
 
-    if (x >= 0 && y < yData.length) {
-      return data[y][x];
+    if (x >= 0 && y < yRows.length) {
+      return rows[y][x];
     }
 
     return input;
@@ -163,11 +163,11 @@ function evaluator(getData, key = 'value') {
 
   return input => {
     const inp = input[key];
-    const data = getData();
+    const rows = getRows();
 
 
     if (inp[0] === '=') {
-      const result = resolveInput(data, inp);
+      const result = resolveInput(rows, inp);
 
       if (result) {
         try {

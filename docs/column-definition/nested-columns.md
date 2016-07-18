@@ -1,4 +1,4 @@
-Given sometimes you might want to display data in a nested manner, there's a `children` field for that. It accepts an array of column definitions and is recursive. If `children` has been set, then `cell` specific sibling field won't do anything. `header` will still work as usual.
+Given sometimes you might want to display rows in a nested manner, there's a `children` field for that. It accepts an array of column definitions and is recursive. If `children` has been set, then `cell` specific sibling field won't do anything. `header` will still work as usual.
 
 **Example:**
 
@@ -65,7 +65,7 @@ const columns = [
   }
 ];
 
-const data = [
+const rows = [
   {
     id: 1,
     color: 'red',
@@ -89,14 +89,13 @@ const data = [
 ];
 
 const NestedColumnsTable = () => (
-  <Table.Provider
-    columns={columns}
-    data={resolve.resolve({ columns, method: resolve.nested })(data)}
-    rowKey="id"
-  >
+  <Table.Provider columns={columns}>
     <Table.Header />
 
-    <Table.Body />
+    <Table.Body
+      rows={resolve.resolve({ columns, method: resolve.nested })(rows)}
+      rowKey="id"
+    />
   </Table.Provider>
 );
 

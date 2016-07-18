@@ -19,7 +19,7 @@ export default class Search extends React.Component {
   }
   render() {
     const {
-      onChange, columns, data, i18n, ...props // eslint-disable-line no-unused-vars
+      onChange, columns, rows, i18n, ...props // eslint-disable-line no-unused-vars
     } = this.props;
 
     return (
@@ -56,7 +56,7 @@ export default class Search extends React.Component {
 }
 Search.propTypes = {
   columns: React.PropTypes.array,
-  data: React.PropTypes.array,
+  rows: React.PropTypes.array,
   onChange: React.PropTypes.func,
   i18n: React.PropTypes.shape({
     all: React.PropTypes.string
@@ -64,7 +64,7 @@ Search.propTypes = {
 };
 Search.defaultProps = {
   columns: [],
-  data: [],
+  rows: [],
   onChange: () => {},
   i18n: {
     all: 'All'

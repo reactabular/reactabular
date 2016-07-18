@@ -1,4 +1,4 @@
-const data = [
+const rows = [
   {
     id: 100,
     name: 'Adam',
@@ -33,6 +33,6 @@ const columns = [
 ];
 
 export {
-  data,
+  rows,
   columns
 };

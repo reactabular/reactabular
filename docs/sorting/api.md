@@ -32,9 +32,9 @@ It maps column index to sorting state and can contain multiple sorters.
 
 `sort.byColumns` is like `sort.byColumn` except it doesn't discard possible existing sort state and instead accumulates it. This allows you to perform sorting over multiple columns while refining the results.
 
-## `sort.sorter({ columns: [<object>], sortingColumns: <sorting columns>, sort: <function>})([<data to sort>]) => [<sorted data>]`
+## `sort.sorter({ columns: [<object>], sortingColumns: <sorting columns>, sort: <function>})([<rows to sort>]) => [<sorted rows>]`
 
-`sort.sorter` sorts the passed `data` using a `sortingColumns` definitions and a `sort` function. It has been designed to work based on [lodash.orderBy](https://lodash.com/docs#orderBy) signature.
+`sort.sorter` sorts the passed `rows` using a `sortingColumns` definitions and a `sort` function. It has been designed to work based on [lodash.orderBy](https://lodash.com/docs#orderBy) signature.
 
 ## Customizing Sorting Order
 
@@ -67,7 +67,7 @@ import { sort } from 'reactabular';
 ...
 
 const sortable = sort.sort({
-  // Point the transform to your data. React state can work for this purpose
+  // Point the transform to your rows. React state can work for this purpose
   // but you can use a state manager as well.
   getSortingColumns: () => this.state.sortingColumns || [],
 

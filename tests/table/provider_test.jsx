@@ -32,13 +32,8 @@ describe('Table.Provider', function () {
         }
       }
     ];
-    const data = [
-      { name: 'foo', id: 0 },
-      { position: 'demo', id: 1 },
-      { age: 123, id: 2 }
-    ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="name">
+      <Table.Provider columns={columns}>
         <tfoot>
           <tr>Dancing is the poetry of the foot.</tr>
         </tfoot>
@@ -67,13 +62,8 @@ describe('Table.Provider', function () {
         }
       }
     ];
-    const data = [
-      { name: 'foo', id: 0 },
-      { position: 'demo', id: 1 },
-      { age: 123, id: 2 }
-    ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="name">
+      <Table.Provider columns={columns}>
         <tfoot>
           <tr>Dancing is the poetry of the foot.</tr>
         </tfoot>
@@ -103,13 +93,13 @@ describe('Table.Provider', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       ['123', '234'],
       ['11', '1']
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data}>
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} />
       </Table.Provider>
     );
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -128,8 +118,8 @@ describe('Table.Provider', function () {
     );
 
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider components={{ table: wrapper }} columns={[]} data={[]}>
-        <Table.Body />
+      <Table.Provider components={{ table: wrapper }} columns={[]}>
+        <Table.Body rows={[]} />
       </Table.Provider>
     );
     const div = TestUtils.findRenderedDOMComponentWithClass(
@@ -143,8 +133,8 @@ describe('Table.Provider', function () {
     const customClass = 'demo';
 
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={[]} data={[]} className={customClass}>
-        <Table.Body />
+      <Table.Provider columns={[]} className={customClass}>
+        <Table.Body rows={[]} />
       </Table.Provider>
     );
     const renderedTable = TestUtils.findRenderedDOMComponentWithClass(

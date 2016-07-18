@@ -1,19 +1,17 @@
-`Table.Body` renders a table data within a `Table.Provider` context.
+`Table.Body` renders table rows within a `Table.Provider` context.
 
 ```react
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
-  rowKey="id"
 >
   <Table.Header />
 
-  <Table.Body />
+  <Table.Body rows={rows} rowKey="id" />
 
   <Table.Header />
 
-  <Table.Body />
+  <Table.Body rows={rows} rowKey="id" />
 </Table.Provider>
 ```
 
@@ -28,12 +26,12 @@ class CustomTable extends React.Component {
       <Table.Provider
         className="pure-table pure-table-striped"
         columns={columns}
-        data={data}
-        rowKey="id"
       >
         <Table.Header />
 
         <Table.Body
+          rows={rows}
+          rowKey="id"
           row={this.onRow}
         />
       </Table.Provider>
@@ -60,17 +58,15 @@ It is possible to inject a custom footer like this:
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
-  rowKey="id"
 >
   <Table.Header />
 
-  <Table.Body />
+  <Table.Body rows={rows} rowKey="id" />
 
   <tfoot>
     <tr>
-      <td>Show custom data here</td>
-      <td>Show custom data here</td>
+      <td>Show custom rows here</td>
+      <td>Show custom rows here</td>
     </tr>
   </tfoot>
 </Table.Provider>

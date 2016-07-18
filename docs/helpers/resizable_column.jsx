@@ -12,7 +12,7 @@ const resizableColumn = (
     constructor(props) {
       super(props);
 
-      // Track coordinate data at instance, no React state needed
+      // Track coordinate rows at instance, no React state needed
       this.startX = null;
       this.startWidth = null;
 

@@ -10,7 +10,7 @@ import findIndex from 'lodash/findIndex';
 import { Table, resolve } from 'reactabular';
 */
 
-const data = [
+const rows = [
   {
     id: 1,
     name: {
@@ -117,7 +117,7 @@ class DragAndDropTable extends React.Component {
           }
         }
       ],
-      data
+      rows
     };
 
     this.onMove = this.onMove.bind(this);
@@ -129,18 +129,19 @@ class DragAndDropTable extends React.Component {
         cell: DndHeader
       }
     };
-    const { columns, data } = this.state;
+    const { columns, rows } = this.state;
 
     return (
       <Table.Provider
         components={components}
         columns={columns}
-        data={resolve.resolve({ columns, method: resolve.nested})(data)}
-        rowKey="id"
       >
         <Table.Header />
 
-        <Table.Body />
+        <Table.Body
+          rows={resolve.resolve({ columns, method: resolve.nested})(rows)}
+          rowKey="id"
+        />
       </Table.Provider>
     );
   }
@@ -149,8 +150,8 @@ class DragAndDropTable extends React.Component {
 
     if (movedColumns) {
       // Retain widths to avoid flashing while drag and dropping.
-      const source = movedColumns.data[movedColumns.sourceIndex];
-      const target = movedColumns.data[movedColumns.targetIndex];
+      const source = movedColumns.rows[movedColumns.sourceIndex];
+      const target = movedColumns.rows[movedColumns.targetIndex];
       const sourceWidth = source.props.style && source.props.style.width;
       const targetWidth = target.props.style && target.props.style.width;
 
@@ -164,7 +165,7 @@ class DragAndDropTable extends React.Component {
       };
 
       this.setState({
-        columns: movedColumns.data
+        columns: movedColumns.rows
       });
     }
   }
@@ -198,7 +199,7 @@ class DragAndDropTable extends React.Component {
     const movedChildren = move(columns[sourceIndex].children, labels);
 
     if (movedChildren) {
-      columns[sourceIndex].children = movedChildren.data;
+      columns[sourceIndex].children = movedChildren.rows;
 
       // Here we assume children have the same width.
       this.setState({ columns });
@@ -244,7 +245,7 @@ function move(columns, { sourceLabel, targetLabel }) {
   return {
     sourceIndex,
     targetIndex,
-    data: cols
+    rows: cols
   };
 }
 

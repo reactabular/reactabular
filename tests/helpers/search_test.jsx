@@ -4,7 +4,7 @@ import { Search } from '../../docs/helpers/';
 import { expect } from 'chai';
 
 describe('Search', function () {
-  it('does not render options without data', function () {
+  it('does not render options without rows', function () {
     const search = TestUtils.renderIntoDocument(
       <Search />
     );
@@ -86,13 +86,13 @@ describe('Search', function () {
       }
     ];
     const value = 'demo';
-    const data = [
+    const rows = [
       {
         first: value
       }
     ];
     const search = TestUtils.renderIntoDocument(
-      <Search columns={columns} data={data} />
+      <Search columns={columns} rows={rows} />
     );
 
     const input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
@@ -109,13 +109,13 @@ describe('Search', function () {
       }
     ];
     const value = 'demo';
-    const data = [
+    const rows = [
       {
         first: value
       }
     ];
     const search = TestUtils.renderIntoDocument(
-      <Search columns={columns} data={data} />
+      <Search columns={columns} rows={rows} />
     );
 
     const input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');

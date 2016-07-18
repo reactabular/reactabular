@@ -16,10 +16,10 @@ import {
 
 import {
   ColumnFilters, Paginator, PrimaryControls,
-  generateData, paginate, VisibilityToggles,
+  generateRows, paginate, VisibilityToggles,
   resizableColumn
 } from './helpers';
-import countries from './data/countries';
+import countries from './rows/countries';
 */
 
 const schema = {
@@ -68,7 +68,7 @@ class AllFeaturesTable extends React.Component {
     super(props);
 
     this.state = {
-      data: generateData(100, schema), // initial data
+      rows: generateRows(100, schema), // initial rows
       query: {}, // search query
       sortingColumns: null, // reference to the sorting columns
       columns: this.getColumns(), // initial columns
@@ -90,21 +90,21 @@ class AllFeaturesTable extends React.Component {
     const editable = edit.edit({
       isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
       onActivate: ({ columnIndex, rowData }) => {
-        const index = findIndex(this.state.data, { id: rowData.id });
-        const data = cloneDeep(this.state.data);
+        const index = findIndex(this.state.rows, { id: rowData.id });
+        const rows = cloneDeep(this.state.rows);
 
-        data[index].editing = columnIndex;
+        rows[index].editing = columnIndex;
 
-        this.setState({ data });
+        this.setState({ rows });
       },
       onValue: ({ value, rowData, property }) => {
-        const index = findIndex(this.state.data, { id: rowData.id });
-        const data = cloneDeep(this.state.data);
+        const index = findIndex(this.state.rows, { id: rowData.id });
+        const rows = cloneDeep(this.state.rows);
 
-        data[index][property] = value;
-        data[index].editing = false;
+        rows[index][property] = value;
+        rows[index].editing = false;
 
-        this.setState({ data });
+        this.setState({ rows });
       }
     });
     const sortable = sort.sort({
@@ -281,7 +281,7 @@ class AllFeaturesTable extends React.Component {
   }
   render() {
     const {
-      columns, data, pagination, sortingColumns, query
+      columns, rows, pagination, sortingColumns, query
     } = this.state;
     const cols = columns.filter(column => column.visible);
     const paginated = compose(
@@ -296,7 +296,7 @@ class AllFeaturesTable extends React.Component {
           column
         )
       })
-    )(data);
+    )(rows);
 
     return (
       <div>
@@ -309,7 +309,7 @@ class AllFeaturesTable extends React.Component {
           className="controls"
           perPage={pagination.perPage}
           columns={cols}
-          data={data}
+          rows={rows}
           onPerPage={this.onPerPage}
           onSearch={this.onSearch}
         />
@@ -317,14 +317,12 @@ class AllFeaturesTable extends React.Component {
         <Table.Provider
           className="pure-table pure-table-striped"
           columns={cols}
-          data={paginated.data}
-          rowKey="id"
         >
           <Table.Header>
             <ColumnFilters columns={cols} onChange={this.onSearch} />
           </Table.Header>
 
-          <Table.Body row={this.onRow} />
+          <Table.Body row={this.onRow} rows={paginated.rows} rowKey="id" />
 
           <tfoot>
             <tr>
@@ -335,7 +333,7 @@ class AllFeaturesTable extends React.Component {
               <td></td>
               <td></td>
               <td>Total salary: {
-                paginated.data.reduce((a, b) => a + b.salary, 0)
+                paginated.rows.reduce((a, b) => a + b.salary, 0)
               }</td>
               <td></td>
               <td></td>
@@ -369,7 +367,7 @@ class AllFeaturesTable extends React.Component {
   }
   onSelect(page) {
     const pages = Math.ceil(
-      this.state.data.length / this.state.pagination.perPage
+      this.state.rows.length / this.state.pagination.perPage
     );
 
     this.setState({
@@ -388,13 +386,13 @@ class AllFeaturesTable extends React.Component {
     });
   }
   onRemove(id) {
-    const idx = findIndex(this.state.data, { id });
+    const idx = findIndex(this.state.rows, { id });
 
     // this could go through flux etc.
-    this.state.data.splice(idx, 1);
+    this.state.rows.splice(idx, 1);
 
     this.setState({
-      data: this.state.data
+      rows: this.state.rows
     });
   }
   onToggleColumn(columnIndex) {

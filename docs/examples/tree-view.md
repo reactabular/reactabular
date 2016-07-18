@@ -1,4 +1,4 @@
-This example shows you how to render trees using Reactabular. It relies on a flat and specifically ordered data and a set of custom operations designed for it.
+This example shows you how to render trees using Reactabular. It relies on a flat and specifically ordered rows and a set of custom operations designed for it.
 
 ```jsx
 /*
@@ -8,7 +8,7 @@ import orderBy from 'lodash/orderBy';
 import { compose } from 'redux';
 import { Table, search, sort } from 'reactabular';
 
-import { generateData, Search, VisibilityToggles } from './helpers';
+import { generateRows, Search, VisibilityToggles } from './helpers';
 */
 
 const schema = {
@@ -26,7 +26,7 @@ const schema = {
   },
   required: ['id', 'name', 'age']
 };
-const data = generateParents(generateData(100, schema));
+const rows = generateParents(generateRows(100, schema));
 
 class TreeTable extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class TreeTable extends React.Component {
     this.state = {
       query: {},
       sortingColumns: null,
-      data,
+      rows,
       columns: this.getColumns()
     };
 
@@ -43,7 +43,7 @@ class TreeTable extends React.Component {
   }
   getColumns() {
     const sortable = sort.sort({
-      // Point the transform to your data. React state can work for this purpose
+      // Point the transform to your rows. React state can work for this purpose
       // but you can use a state manager as well.
       getSortingColumns: () => this.state.sortingColumns || {},
 
@@ -71,18 +71,18 @@ class TreeTable extends React.Component {
         cell: {
           property: 'name',
           format: (name, { rowData }) => {
-            const data = this.state.data;
+            const rows = this.state.rows;
             // Optimization - Operate based on index for faster lookups
-            const cellIndex = findIndex(data, { id: rowData.id });
+            const cellIndex = findIndex(rows, { id: rowData.id });
 
             return (
-              <div style={{ paddingLeft: `${getLevel(data, cellIndex) * 1}em` }}>
-                {hasChildren(data, cellIndex) && <span
+              <div style={{ paddingLeft: `${getLevel(rows, cellIndex) * 1}em` }}>
+                {hasChildren(rows, cellIndex) && <span
                   className={rowData.showChildren ? 'show-less' : 'show-more'}
                   onClick={e => {
-                    data[cellIndex].showChildren = !rowData.showChildren;
+                    rows[cellIndex].showChildren = !rowData.showChildren;
 
-                    this.setState({ data });
+                    this.setState({ rows });
                   }}
                 />}
                 {name}
@@ -108,7 +108,7 @@ class TreeTable extends React.Component {
     ];
   }
   render() {
-    const { columns, sortingColumns, data, query } = this.state;
+    const { columns, sortingColumns, rows, query } = this.state;
     const cols = columns.filter(column => column.visible);
     const d = compose(
       filterTree,
@@ -116,7 +116,7 @@ class TreeTable extends React.Component {
       sort.sorter({ columns: cols, sortingColumns, sort: orderBy }),
       search.multipleColumns({ columns: cols, query }),
       packTree
-    )(data);
+    )(rows);
 
     return (
       <div>
@@ -129,7 +129,7 @@ class TreeTable extends React.Component {
           <span>Search</span>
           <Search
             columns={cols}
-            data={data}
+            rows={rows}
             onChange={query => this.setState({ query })}
           />
         </div>
@@ -137,12 +137,10 @@ class TreeTable extends React.Component {
         <Table.Provider
           className="pure-table pure-table-striped"
           columns={cols}
-          data={d}
-          rowKey="id"
         >
           <Table.Header />
 
-          <Table.Body row={this.onRow} />
+          <Table.Body row={this.onRow} rows={d} rowKey="id" />
         </Table.Provider>
       </div>
     );
@@ -162,12 +160,12 @@ class TreeTable extends React.Component {
 }
 
 // Folds children inside root parents
-function packTree(data) {
+function packTree(rows) {
   const ret = [];
   let pack = [];
   let previousParent;
 
-  data.forEach(row => {
+  rows.forEach(row => {
     if (row.parent) {
       pack.push(row);
     } else {
@@ -190,11 +188,11 @@ function packTree(data) {
   return ret;
 }
 
-// Extracts children from data
-function unpackTree(data) {
+// Extracts children from rows
+function unpackTree(rows) {
   let ret = [];
 
-  data.forEach(row => {
+  rows.forEach(row => {
     const { _pack, ...rest } = row;
 
     ret = ret.concat([rest]).concat(_pack);
@@ -203,10 +201,10 @@ function unpackTree(data) {
   return ret;
 }
 
-function generateParents(data) {
+function generateParents(rows) {
   let previousParent;
 
-  return data.map(d => {
+  return rows.map(d => {
     const ret = {
       ...d,
       parent: previousParent
@@ -226,23 +224,23 @@ function generateParents(data) {
   });
 }
 
-function filterTree(data) {
-  return data.filter((item, i) => {
+function filterTree(rows) {
+  return rows.filter((item, i) => {
     if (!item.parent) {
       return true;
     }
 
-    const parents = getParents(data, i);
+    const parents = getParents(rows, i);
 
     return parents.filter(parent => parent.showChildren).length === parents.length;
   });
 }
 
 // This can be memoized for extra performance.
-function getParents(data, itemIndex) {
+function getParents(rows, itemIndex) {
   const parents = [];
   let currentIndex = itemIndex;
-  let cell = data[itemIndex];
+  let cell = rows[itemIndex];
   let previousParent;
   let parentIndex;
 
@@ -261,19 +259,19 @@ function getParents(data, itemIndex) {
 
     currentIndex--;
 
-    cell = data[currentIndex];
+    cell = rows[currentIndex];
   }
 
   return parents;
 }
 
 // This can be memoized for extra performance.
-function getLevel(data, itemIndex) {
+function getLevel(rows, itemIndex) {
   // Get parent of parent till there is no parent -> level.
-  // This relies on data order!
+  // This relies on rows order!
   let level = 0;
   let currentIndex = itemIndex;
-  let cell = data[itemIndex];
+  let cell = rows[itemIndex];
   let previousParent;
 
   while (cell) {
@@ -288,18 +286,18 @@ function getLevel(data, itemIndex) {
     currentIndex--;
 
     previousParent = cell.parent;
-    cell = data[currentIndex];
+    cell = rows[currentIndex];
   }
 
   return level;
 }
 
 // This can be memoized for extra performance.
-function hasChildren(data, itemIndex) {
+function hasChildren(rows, itemIndex) {
   // See if the next item points to the current one.
-  // This relies on data order!
-  const currentItem = data[itemIndex];
-  const nextItem = data[itemIndex + 1];
+  // This relies on rows order!
+  const currentItem = rows[itemIndex];
+  const nextItem = rows[itemIndex + 1];
 
   const ret = nextItem && currentItem.id === nextItem.parent;
 

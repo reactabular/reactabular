@@ -5,7 +5,7 @@ The following example implements infinite scrolling within a fixed viewport.
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import { generateData } from './helpers';
+import { generateRows } from './helpers';
 import {
   Table
 } from 'reactabular';
@@ -26,7 +26,7 @@ const schema = {
   },
   required: ['id', 'name', 'age']
 };
-const data = generateData(20, schema);
+const rows = generateRows(20, schema);
 
 const columns = [
   {
@@ -58,7 +58,7 @@ class InfiniteScrollingTable extends React.Component {
     super(props);
 
     this.state = {
-      data,
+      rows,
       columns
     };
 
@@ -69,8 +69,6 @@ class InfiniteScrollingTable extends React.Component {
       <Table.Provider
         className="pure-table pure-table-striped"
         columns={this.state.columns}
-        data={this.state.data}
-        rowKey="id"
       >
         <Table.Header
           style={{
@@ -81,6 +79,8 @@ class InfiniteScrollingTable extends React.Component {
         />
 
         <Table.Body
+          rows={this.state.rows}
+          rowKey="id"
           style={{
             display: 'block',
             overflow: 'auto',
@@ -95,7 +95,7 @@ class InfiniteScrollingTable extends React.Component {
   onBodyScroll({ target: { scrollHeight, scrollTop, offsetHeight } }) {
     if (scrollTop + offsetHeight === scrollHeight) {
       this.setState({
-        data: this.state.data.concat(generateData(20, schema))
+        rows: this.state.rows.concat(generateRows(20, schema))
       });
     }
   }

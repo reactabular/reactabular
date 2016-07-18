@@ -16,7 +16,7 @@ import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import transform from 'lodash/transform';
 import * as reactabular from '../src';
-import * as dataDefinitions from './data/definitions';
+import * as rowsDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import countries from './data/countries';
 
@@ -48,7 +48,7 @@ const documentationImports = {
   countries,
   React,
   ReactDOM,
-  ...dataDefinitions,
+  ...rowsDefinitions,
   ...customHelpers
 };
 const title = `Reactabular v${VERSION}`; // eslint-disable-line no-undef

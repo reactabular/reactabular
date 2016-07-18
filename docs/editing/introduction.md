@@ -21,27 +21,27 @@ class EditableTable extends React.Component {
       isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
 
       // The user requested activation, mark the current cell as edited.
-      // IMPORTANT! If you stash the data at this.state.data, DON'T
+      // IMPORTANT! If you stash the rows at this.state.rows, DON'T
       // mutate it as that will break Table.Body optimization check.
       onActivate: ({ columnIndex, rowData }) => {
-        const index = findIndex(this.state.data, { id: rowData.id });
-        const data = cloneDeep(this.state.data);
+        const index = findIndex(this.state.rows, { id: rowData.id });
+        const rows = cloneDeep(this.state.rows);
 
-        data[index].editing = columnIndex;
+        rows[index].editing = columnIndex;
 
-        this.setState({ data });
+        this.setState({ rows });
       },
 
       // Capture the value when the user has finished and update
       // application state.
       onValue: ({ value, rowData, property }) => {
-        const index = findIndex(this.state.data, { id: rowData.id });
-        const data = cloneDeep(this.state.data);
+        const index = findIndex(this.state.rows, { id: rowData.id });
+        const rows = cloneDeep(this.state.rows);
 
-        data[index][property] = value;
-        data[index].editing = false;
+        rows[index][property] = value;
+        rows[index].editing = false;
 
-        this.setState({ data });
+        this.setState({ rows });
       }
     });
 
@@ -58,7 +58,7 @@ class EditableTable extends React.Component {
           }
         }
       ],
-      data: [
+      rows: [
         {
           id: 100,
           name: 'Adam'
@@ -71,13 +71,13 @@ class EditableTable extends React.Component {
     };
   }
   render() {
-    const { columns, data } = this.state;
+    const { columns, rows } = this.state;
 
     return (
-      <Table.Provider columns={columns} data={data} rowKey="id">
+      <Table.Provider columns={columns}>
         <Table.Header />
 
-        <Table.Body />
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
   }

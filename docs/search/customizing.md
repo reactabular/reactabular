@@ -1,4 +1,4 @@
-Besides the search API itself, you are going to need some way to handle the user input. The following implementation tracks the search query and provides it through the `onChange` prop. You can consume it from there and plug it into the search algorithm to filter data.
+Besides the search API itself, you are going to need some way to handle the user input. The following implementation tracks the search query and provides it through the `onChange` prop. You can consume it from there and plug it into the search algorithm to filter rows.
 
 ```jsx
 /*
@@ -24,7 +24,7 @@ class Search extends React.Component {
   }
   render() {
     const {
-      onChange, columns, data, i18n, ...props
+      onChange, columns, rows, i18n, ...props
     } = this.props;
 
     return (
@@ -58,7 +58,7 @@ class Search extends React.Component {
 }
 Search.propTypes = {
   columns: React.PropTypes.array,
-  data: React.PropTypes.array,
+  rows: React.PropTypes.array,
   onChange: React.PropTypes.func,
   i18n: React.PropTypes.shape({
     all: React.PropTypes.string
@@ -66,7 +66,7 @@ Search.propTypes = {
 };
 Search.defaultProps = {
   columns: [],
-  data: [],
+  rows: [],
   onChange: () => {},
   i18n: {
     all: 'All'
@@ -104,5 +104,5 @@ const getOptions = (columns, i18n) => (
   }).filter(column => column))
 );
 
-<Search columns={columns} data={data} />
+<Search columns={columns} rows={rows} />
 ```

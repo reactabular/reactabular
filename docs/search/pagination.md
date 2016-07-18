@@ -1,4 +1,4 @@
-Reactabular doesn't come with pagination. Instead you can use an external library, such as [react-pagify](https://github.com/bebraw/react-pagify), for this purpose. Just like with sorting or search, you will have to process your data through a paginator algorithm.
+Reactabular doesn't come with pagination. Instead you can use an external library, such as [react-pagify](https://github.com/bebraw/react-pagify), for this purpose. Just like with sorting or search, you will have to process your rows through a paginator algorithm.
 
 **Example:**
 
@@ -10,7 +10,7 @@ import {
   Table, search
 } from 'reactabular';
 import {
-  Paginator, paginate, Search, generateData
+  Paginator, paginate, Search, generateRows
 } from './helpers';
 */
 
@@ -29,7 +29,7 @@ const schema = {
   },
   required: ['id', 'name', 'age']
 };
-const data = generateData(100, schema);
+const rows = generateRows(100, schema);
 const columns = [
   {
     header: {
@@ -56,7 +56,7 @@ class PaginationTable extends React.Component {
     this.state = {
       query: {}, // Search query
       columns,
-      data,
+      rows,
       pagination: { // initial pagination settings
         page: 1,
         perPage: 10
@@ -66,11 +66,11 @@ class PaginationTable extends React.Component {
     this.onSelect = this.onSelect.bind(this);
   }
   render() {
-    const { data, columns, pagination, query } = this.state;
+    const { rows, columns, pagination, query } = this.state;
     const paginated = compose(
       paginate(pagination),
       search.multipleColumns({ columns, query })
-    )(data);
+    )(rows);
 
     return (
       <div>
@@ -78,15 +78,15 @@ class PaginationTable extends React.Component {
           <span>Search</span>
           <Search
             columns={columns}
-            data={data}
+            rows={rows}
             onChange={query => this.setState({ query })}
           />
         </div>
 
-        <Table.Provider columns={columns} data={paginated.data} rowKey="id">
+        <Table.Provider columns={columns}>
           <Table.Header />
 
-          <Table.Body />
+          <Table.Body rows={paginated.rows} rowKey="id" />
         </Table.Provider>
 
         <div className="controls">
@@ -101,7 +101,7 @@ class PaginationTable extends React.Component {
   }
   onSelect(page) {
     const pages = Math.ceil(
-      this.state.data.length / this.state.pagination.perPage
+      this.state.rows.length / this.state.pagination.perPage
     );
 
     this.setState({

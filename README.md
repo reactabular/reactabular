@@ -15,7 +15,7 @@ The chosen approach pushes a lot of complexity out of the core. As a result it m
 The following example illustrates the approach used by Reactabular:
 
 ```jsx
-const data = [
+const rows = [
   {
     id: 100,
     name: 'John',
@@ -85,12 +85,10 @@ const columns = [
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
-  rowKey="id"
 >
   <Table.Header />
 
-  <Table.Body />
+  <Table.Body rows={rows} rowKey="id" />
 </Table.Provider>
 ```
 

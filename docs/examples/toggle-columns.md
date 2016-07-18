@@ -43,7 +43,7 @@ class ToggleColumnsTable extends React.Component {
           visible: true
         }
       ],
-      data: [
+      rows: [
         {
           id: 100,
           name: 'Adam',
@@ -68,7 +68,7 @@ class ToggleColumnsTable extends React.Component {
     this.onToggleColumn = this.onToggleColumn.bind(this);
   }
   render() {
-    const { columns, data } = this.state;
+    const { columns, rows } = this.state;
 
     return (
       <div>
@@ -79,12 +79,10 @@ class ToggleColumnsTable extends React.Component {
 
         <Table.Provider
           columns={columns.filter(column => column.visible)}
-          data={data}
-          rowKey="id"
         >
           <Table.Header />
 
-          <Table.Body />
+          <Table.Body rows={rows} rowKey="id" />
         </Table.Provider>
       </div>
     );

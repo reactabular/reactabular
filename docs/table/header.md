@@ -4,12 +4,10 @@
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
-  rowKey="id"
 >
   <Table.Header />
 
-  <Table.Body />
+  <Table.Body rows={rows} rowKey="id"/>
 
   <Table.Header />
 </Table.Provider>
@@ -25,8 +23,6 @@ Here `ColumnFilters` injects an additional row for the filter controls. An alter
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
-  rowKey="id"
 >
   <Table.Header>
     <ColumnFilters
@@ -35,7 +31,7 @@ Here `ColumnFilters` injects an additional row for the filter controls. An alter
     />
   </Table.Header>
 
-  <Table.Body />
+  <Table.Body rows={rows} rowKey="id" />
 </Table.Provider>
 ```
 

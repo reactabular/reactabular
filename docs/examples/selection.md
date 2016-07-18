@@ -16,7 +16,7 @@ class SelectionTable extends React.Component {
     super(props);
 
     this.state = {
-      data: [
+      rows: [
         {
           id: 100,
           name: 'Adam',
@@ -74,20 +74,20 @@ class SelectionTable extends React.Component {
     window.removeEventListener('keydown', this.onKeyPressed);
   }
   render() {
-    const { columns, data, selectedRowId } = this.state;
-    const selectedRow = find(data, { id: selectedRowId }) || {};
+    const { columns, rows, selectedRowId } = this.state;
+    const selectedRow = find(rows, { id: selectedRowId }) || {};
 
     return (
       <div>
         <Table.Provider
           className="pure-table pure-table-striped"
           columns={columns}
-          data={data}
-          rowKey="id"
         >
           <Table.Header />
 
           <Table.Body
+            rows={rows}
+            rowKey="id"
             row={(row, rowIndex) => ({
               className: classnames(
                 rowIndex % 2 ? 'odd-row' : 'even-row',
@@ -111,8 +111,8 @@ class SelectionTable extends React.Component {
     this.setState({ selectedRowId: row.id });
   }
   onKeyPressed(e) {
-    const { data, selectedRowId } = this.state;
-    const idx = findIndex(data, { id: selectedRowId });
+    const { rows, selectedRowId } = this.state;
+    const idx = findIndex(rows, { id: selectedRowId });
 
     // No selection yet, escape
     if (idx < 0) {
@@ -124,16 +124,16 @@ class SelectionTable extends React.Component {
       e.preventDefault();
 
       this.setState({
-        selectedRowId: data[idx - 1].id
+        selectedRowId: rows[idx - 1].id
       });
     }
 
     // Arrow Down
-    if (e.keyCode === 40 && idx < data.length - 1) {
+    if (e.keyCode === 40 && idx < rows.length - 1) {
       e.preventDefault();
 
       this.setState({
-        selectedRowId: data[idx + 1].id
+        selectedRowId: rows[idx + 1].id
       });
     }
   }

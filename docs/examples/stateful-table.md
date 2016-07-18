@@ -8,7 +8,7 @@ import { Table, sort } from 'reactabular';
 import { resizableColumn } from './helpers';
 */
 
-const data = [
+const rows = [
   {
     id: 100,
     name: 'Adam',
@@ -70,7 +70,7 @@ class StatefulTable extends React.Component {
       sortingColumns: null,
       originalColumns: props.columns,
       columns: this.bindColumns(props.columns),
-      data: props.data
+      rows: props.rows
     };
 
     this.bindColumns = this.bindColumns.bind(this);
@@ -83,25 +83,25 @@ class StatefulTable extends React.Component {
       });
     }
 
-    if (this.state.data !== nextProps.data) {
+    if (this.state.rows !== nextProps.rows) {
       this.setState({
-        data: nextProps.data
+        rows: nextProps.rows
       });
     }
   }
   render() {
     const { rowKey } = this.props;
     const { columns, sortingColumns } = this.state;
-    const data = sort.sorter(
+    const rows = sort.sorter(
       { columns, sortingColumns, sort: orderBy }
-    )(this.state.data);
+    )(this.state.rows);
 
     return (
       <div>
-        <Table.Provider columns={columns} data={data} rowKey={rowKey}>
+        <Table.Provider columns={columns}>
           <Table.Header />
 
-          <Table.Body />
+          <Table.Body rows={rows} rowKey={rowKey} />
         </Table.Provider>
       </div>
     );
@@ -123,7 +123,7 @@ class StatefulTable extends React.Component {
     });
 
     const sortable = sort.sort({
-      // Point the transform to your data. React state can work for this purpose
+      // Point the transform to your rows. React state can work for this purpose
       // but you can use a state manager as well.
       getSortingColumns: () => this.state.sortingColumns || {},
 
@@ -184,9 +184,9 @@ class StatefulTable extends React.Component {
 }
 StatefulTable.propTypes = {
   columns: React.PropTypes.array,
-  data: React.PropTypes.array,
+  rows: React.PropTypes.array,
   rowKey: React.PropTypes.string.isRequired
 };
 
-<StatefulTable data={data} columns={columns} rowKey="id" />
+<StatefulTable rows={rows} columns={columns} rowKey="id" />
 ```

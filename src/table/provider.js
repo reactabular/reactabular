@@ -8,7 +8,7 @@ const componentDefaults = tableDefaults.components;
 
 export default class Provider extends React.Component {
   getChildContext() {
-    const { columns, components, data, rowKey } = this.props;
+    const { columns, components } = this.props;
     const headerColumns = [];
     const bodyColumns = [];
 
@@ -38,16 +38,12 @@ export default class Provider extends React.Component {
         table: components.table || componentDefaults.table,
         header: { ...componentDefaults.header, ...components.header },
         body: { ...componentDefaults.body, ...components.body }
-      },
-      data,
-      rowKey
+      }
     };
   }
   render() {
     const {
       columns, // eslint-disable-line no-unused-vars
-      data, // eslint-disable-line no-unused-vars
-      rowKey, // eslint-disable-line no-unused-vars
       components,
       children,
       ...props

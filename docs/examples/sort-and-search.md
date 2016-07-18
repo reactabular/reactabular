@@ -6,7 +6,7 @@ import React from 'react';
 import orderBy from 'lodash/orderBy';
 import { Table, sort, search } from 'reactabular';
 
-import { generateData, Search } from './helpers';
+import { generateRows, Search } from './helpers';
 */
 
 const schema = {
@@ -27,14 +27,14 @@ const schema = {
   },
   required: ['id', 'name', 'company', 'age']
 };
-const data = generateData(20, schema);
+const rows = generateRows(20, schema);
 
 class SortAndSearchTable extends React.Component {
   constructor(props) {
     super(props);
 
     const sortable = sort.sort({
-      // Point the transform to your data. React state can work for this purpose
+      // Point the transform to your rows. React state can work for this purpose
       // but you can use a state manager as well.
       getSortingColumns: () => this.state.sortingColumns || {},
 
@@ -120,17 +120,17 @@ class SortAndSearchTable extends React.Component {
           }
         }
       ],
-      data
+      rows
     };
   }
   render() {
-    const { data, columns, sortingColumns, query } = this.state;
-    const searchedData = search.multipleColumns({ columns, query })(data);
-    const sortedData = sort.sorter({
+    const { rows, columns, sortingColumns, query } = this.state;
+    const searchedRows = search.multipleColumns({ columns, query })(rows);
+    const sortedRows = sort.sorter({
       columns,
       sortingColumns,
       sort: orderBy
-    })(searchedData);
+    })(searchedRows);
 
     return (
       <div>
@@ -138,14 +138,14 @@ class SortAndSearchTable extends React.Component {
           <span>Search</span>
           <Search
             columns={columns}
-            data={data}
+            rows={rows}
             onChange={query => this.setState({ query })}
           />
         </div>
-        <Table.Provider columns={columns} data={sortedData} rowKey="id">
+        <Table.Provider columns={columns}>
           <Table.Header />
 
-          <Table.Body />
+          <Table.Body rows={sortedRows} rowKey="id" />
         </Table.Provider>
       </div>
     );

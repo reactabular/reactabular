@@ -3,7 +3,7 @@ import Search from './Search';
 import PerPage from './PerPage';
 
 const PrimaryControls = ({
-  perPage, columns, data,
+  perPage, columns, rows,
   onPerPage, onSearch,
   ...props
 }) => (
@@ -12,14 +12,14 @@ const PrimaryControls = ({
       <PerPage value={perPage} onChange={onPerPage} />
     </div>
     <div className="search-container">
-      Search <Search columns={columns} data={data} onChange={onSearch} />
+      Search <Search columns={columns} rows={rows} onChange={onSearch} />
     </div>
   </div>
 );
 PrimaryControls.propTypes = {
   perPage: React.PropTypes.number,
   columns: React.PropTypes.array,
-  data: React.PropTypes.array,
+  rows: React.PropTypes.array,
   onPerPage: React.PropTypes.func,
   onSearch: React.PropTypes.func
 };

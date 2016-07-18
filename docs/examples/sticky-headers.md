@@ -5,7 +5,7 @@ The following example implements sticky headers within a fixed viewport through 
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import { generateData, Sticky } from './helpers';
+import { generateRows, Sticky } from './helpers';
 import { Table } from 'reactabular';
 */
 
@@ -30,7 +30,7 @@ const schema = {
   },
   required: ['id', 'name', 'product', 'company', 'age']
 };
-const data = generateData(100, schema);
+const rows = generateRows(100, schema);
 
 const columns = [
   {
@@ -84,7 +84,7 @@ class StickyHeaderTable extends React.Component {
     super(props);
 
     this.state = {
-      data,
+      rows,
       columns
     };
 
@@ -96,8 +96,6 @@ class StickyHeaderTable extends React.Component {
       <Table.Provider
         className="pure-table pure-table-striped"
         columns={this.state.columns}
-        data={this.state.data}
-        rowKey="id"
       >
         <Sticky.Header
           style={{
@@ -114,6 +112,8 @@ class StickyHeaderTable extends React.Component {
         />
 
         <Sticky.Body
+          rows={this.state.rows}
+          rowKey="id"
           style={{
             maxWidth: 800,
             maxHeight: 400

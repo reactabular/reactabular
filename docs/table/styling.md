@@ -6,12 +6,12 @@ The project root contains a file, **style.css**, which you can import to your pr
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
-  rowKey="id"
 >
   <Table.Header className="header" />
 
   <Table.Body
+    rows={rows}
+    rowKey="id"
     row={(row, rowIndex) => ({
       className: rowIndex % 2 ? 'odd-row' : 'even-row',
     })}

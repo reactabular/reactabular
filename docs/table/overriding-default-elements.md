@@ -10,7 +10,7 @@ const wrapper = ({ children }) => (
 ...
 
 <Table.Provider components={{ table: wrapper }} ...>
-  <Table.Body />
+  <Table.Body rows={rows} rowKey="id" />
 </Table.Provider>
 ```
 

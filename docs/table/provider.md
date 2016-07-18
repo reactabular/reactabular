@@ -1,11 +1,11 @@
-`Table.Provider` is the core of Reactabular. It sets up a [context](https://facebook.github.io/react/docs/context.html) and maps `column` and `data` definitions to its children components. The following example illustrates the basic idea:
+`Table.Provider` is the core of Reactabular. It sets up a [context](https://facebook.github.io/react/docs/context.html) and maps the `column` definition to its children components. The following example illustrates the basic idea.
 
 ```jsx
 /*
 import { Table } from 'reactabular';
 */
 
-const data = [
+const rows = [
   {
     id: 100,
     name: 'Adam',
@@ -42,11 +42,9 @@ const columns = [
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
-  data={data}
-  rowKey="id"
 >
   <Table.Header />
 
-  <Table.Body />
+  <Table.Body rows={rows} rowKey="id" />
 </Table.Provider>
 ```

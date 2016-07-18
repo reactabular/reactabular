@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { Table, edit, resolve } from '../../src';
 
 describe('Table.Body', function () {
-  it('displays data', function () {
+  it('displays rows', function () {
     const columns = [
       {
         header: {
@@ -32,21 +32,21 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       { position: 'foo', age: 111, name: 'foo', id: 0 },
       { position: 'demo', age: 333, name: 'boo', id: 1 },
       { position: 'demo 2', age: 123, name: 'demo', id: 2 }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
     const trs = TestUtils.scryRenderedDOMComponentsWithTag(
       table, 'tr'
     );
 
-    expect(trs.length).to.equal(data.length);
+    expect(trs.length).to.equal(rows.length);
   });
 
   it('supports root props', function () {
@@ -64,12 +64,12 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       { position: 'foo', age: 111, name: 'foo', id: 0 }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -94,12 +94,12 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       { position: 'foo', age: 111, name: 'foo', id: 0 }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -134,12 +134,12 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       { position: 'foo', age: 111, name: 'foo', id: 0 }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -169,12 +169,12 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       { position: 'foo', age: 111, name: 'foo', id: 0 }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -225,12 +225,12 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       { position: 'foo', age: 111, name: 'foo', id: 0 }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -242,7 +242,7 @@ describe('Table.Body', function () {
     expect(td.style.display).to.equal(finalDisplay);
   });
 
-  it('does not resolve data by default', function () {
+  it('does not resolve rows by default', function () {
     const lastName = 'foobar';
     const columns = [
       {
@@ -254,12 +254,12 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       { name: { last: lastName } }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithTag(
@@ -269,7 +269,7 @@ describe('Table.Body', function () {
     expect(td.innerHTML).to.equal('');
   });
 
-  it('resolves data if a resolver is used', function () {
+  it('resolves rows if a resolver is used', function () {
     const lastName = 'foobar';
     const columns = [
       {
@@ -281,16 +281,15 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       { name: { last: lastName } }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider
-        columns={columns}
-        data={resolve.resolve({ columns, method: resolve.nested })(data)}
-        rowKey="id"
-      >
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body
+          rows={resolve.resolve({ columns, method: resolve.nested })(rows)}
+          rowKey="id"
+        />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithTag(
@@ -329,7 +328,7 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       {
         basic: 'basic',
         identity: 'ident',
@@ -338,8 +337,8 @@ describe('Table.Body', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
@@ -371,7 +370,7 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       {
         basic: 'basic',
         identity: 'ident',
@@ -382,8 +381,8 @@ describe('Table.Body', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
@@ -410,8 +409,8 @@ describe('Table.Body', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={[{ name: 'demo' }]} rowKey="name" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -440,8 +439,8 @@ describe('Table.Body', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={[{ name: 'demo' }]} rowKey="name" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -473,8 +472,8 @@ describe('Table.Body', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={[{ name: 'demo' }]} rowKey="name" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -506,7 +505,7 @@ describe('Table.Body', function () {
         }
       }
     ];
-    const data = [
+    const rows = [
       {
         id: 0,
         name: initialValue
@@ -514,8 +513,8 @@ describe('Table.Body', function () {
     ];
 
     TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={data} rowKey="id">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey="id" />
       </Table.Provider>
     );
 
@@ -525,7 +524,7 @@ describe('Table.Body', function () {
     expect(receivedValues.column.header).to.deep.equal(columns[0].header);
     expect(receivedValues.column.cell).to.deep.equal(columns[0].cell);
     expect(receivedValues.rowIndex).to.equal(0);
-    expect(receivedValues.rowData).to.deep.equal(data[0]);
+    expect(receivedValues.rowData).to.deep.equal(rows[0]);
     expect(receivedValues.property).to.equal(initialProperty);
   });
 
@@ -551,8 +550,8 @@ describe('Table.Body', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={[{ name: 'demo' }]} rowKey="name" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -586,8 +585,8 @@ describe('Table.Body', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={[{ name: 'demo' }]} rowKey="name" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -620,8 +619,8 @@ describe('Table.Body', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={[{ name: 'demo' }]} rowKey="name" />
       </Table.Provider>
     );
     const td = TestUtils.findRenderedDOMComponentWithClass(
@@ -655,8 +654,8 @@ describe('Table.Body', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={[{ name: 'demo' }]} rowKey="name" />
       </Table.Provider>
     );
     const th = TestUtils.findRenderedDOMComponentWithClass(
@@ -699,8 +698,8 @@ describe('Table.Body', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} data={[{ name: 'demo' }]} rowKey="name">
-        <Table.Body />
+      <Table.Provider columns={columns}>
+        <Table.Body rows={[{ name: 'demo' }]} rowKey="name" />
       </Table.Provider>
     );
     const cellElement = TestUtils.findRenderedDOMComponentWithClass(
@@ -764,14 +763,14 @@ describe('Table.Body', function () {
           }
         }
       ];
-      const data = [
+      const rows = [
         {
           name: 'Demo'
         }
       ];
       const table = TestUtils.renderIntoDocument(
-        <Table.Provider components={components} columns={columns} data={data} rowKey="name">
-          <Table.Body />
+        <Table.Provider components={components} columns={columns}>
+          <Table.Body rows={rows} rowKey="name" />
         </Table.Provider>
       );
       const div = TestUtils.findRenderedDOMComponentWithClass(
@@ -786,8 +785,8 @@ describe('Table.Body', function () {
     const customClass = 'demo';
 
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={[]} data={[]}>
-        <Table.Body className={customClass} />
+      <Table.Provider columns={[]}>
+        <Table.Body className={customClass} rows={[]} />
       </Table.Provider>
     );
     const renderedTable = TestUtils.findRenderedDOMComponentWithClass(

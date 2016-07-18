@@ -9,27 +9,27 @@ const {
 describe('search.multipleColumns', function () {
   it('matches all', function () {
     const query = { demo: 'foo' };
-    const data = [{ demo: 'foobar' }, { demo: 'foofoo' }];
+    const rows = [{ demo: 'foobar' }, { demo: 'foofoo' }];
     const result = multipleColumns({
       query,
       columns: [
         { cell: { property: 'demo' } }
       ]
-    })(data);
+    })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 
   it('matches some', function () {
     const query = { demo: 'foo' };
     const match = { demo: 'foobar' };
-    const data = [match, { demo: 'zappa' }];
+    const rows = [match, { demo: 'zappa' }];
     const result = multipleColumns({
       query,
       columns: [
         { cell: { property: 'demo' } }
       ]
-    })(data);
+    })(rows);
 
     expect(result).to.deep.equal([match]);
   });
@@ -37,84 +37,84 @@ describe('search.multipleColumns', function () {
   it('does not match from other column', function () {
     const query = { demo: 'foo' };
     const match = { demo: 'foobar' };
-    const data = [match, { demo: 'bar', another: 'foobar' }];
+    const rows = [match, { demo: 'bar', another: 'foobar' }];
     const result = multipleColumns({
       query,
       columns: [
         { cell: { property: 'demo' } },
         { cell: { property: 'another' } }
       ]
-    })(data);
+    })(rows);
 
     expect(result).to.deep.equal([match]);
   });
 
   it('matches none', function () {
     const query = { demo: 'foo' };
-    const data = [{ demo: 'barbar' }, { demo: 'zappa' }];
+    const rows = [{ demo: 'barbar' }, { demo: 'zappa' }];
     const result = multipleColumns({
       query,
       columns: [
         { cell: { property: 'demo' } }
       ]
-    })(data);
+    })(rows);
 
     expect(result).to.deep.equal([]);
   });
 
-  it('returns all data without a query', function () {
-    const data = [{ demo: 'foobar' }, { demo: 'zappa' }];
+  it('returns all rows without a query', function () {
+    const rows = [{ demo: 'foobar' }, { demo: 'zappa' }];
     const result = multipleColumns({
       columns: [
         { cell: { property: 'demo' } }
       ]
-    })(data);
+    })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 });
 
 describe('search.singleColumn', function () {
   it('matches searched column', function () {
     const query = 'foo';
-    const data = [{ demo: 'foobar' }];
+    const rows = [{ demo: 'foobar' }];
     const result = singleColumn({
       query,
       columns: [
         { cell: { property: 'demo' } }
       ],
       searchColumn: 'demo'
-    })(data);
+    })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 
   it('matches some', function () {
     const query = 'foo';
-    const data = { demo: 'foobar' };
+    const rows = { demo: 'foobar' };
     const result = singleColumn({
       query,
       columns: [
         { cell: { property: 'demo' } }
       ]
     })([
-      data,
+      rows,
       { demo: 'zapzap' }
     ]);
 
-    expect(result).to.deep.equal([data]);
+    expect(result).to.deep.equal([rows]);
   });
 
   it('matches none', function () {
     const query = 'foo';
-    const data = { demo: 'zapzap' };
+    const rows = { demo: 'zapzap' };
     const result = singleColumn({
       query,
       columns: [
         { cell: { property: 'demo' } }
       ]
     })([
-      data
+      rows
     ]);
 
     expect(result).to.deep.equal([]);
@@ -122,41 +122,41 @@ describe('search.singleColumn', function () {
 
   it('matches against all columns', function () {
     const query = 'foo';
-    const data = [{ demo: 'foobar' }];
+    const rows = [{ demo: 'foobar' }];
     const result = singleColumn({
       query,
       columns: [
         { cell: { property: 'demo' } }
       ],
       searchColumn: 'all'
-    })(data);
+    })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 
   it('matches against all columns by default', function () {
     const query = 'foo';
-    const data = [{ demo: 'foobar' }];
+    const rows = [{ demo: 'foobar' }];
     const result = singleColumn({
       query,
       columns: [
         { cell: { property: 'demo' } }
       ],
       searchColumn: 'all'
-    })(data);
+    })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 
-  it('returns all data without a query', function () {
-    const data = [{ demo: 'foobar' }];
+  it('returns all rows without a query', function () {
+    const rows = [{ demo: 'foobar' }];
     const result = singleColumn({
       columns: [
         { cell: { property: 'demo' } }
       ]
-    })(data);
+    })(rows);
 
-    expect(result).to.deep.equal(data);
+    expect(result).to.deep.equal(rows);
   });
 });
 
@@ -254,7 +254,7 @@ describe('search._columnMatches', function () {
     expect(result).to.equal(false);
   });
 
-  it('does not crash with undefined data', function () {
+  it('does not crash with undefined rows', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
@@ -278,7 +278,7 @@ describe('search._columnMatches', function () {
     expect(result).to.equal(false);
   });
 
-  it('does not crash with null data', function () {
+  it('does not crash with null rows', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,

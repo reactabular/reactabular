@@ -1,4 +1,4 @@
-To make it possible to highlight search results per column, there's a specific `highlight.cell` formatter. To use it, you'll first you have to annotate your data using `highlight.highlighter`. It attaches a structure like this there:
+To make it possible to highlight search results per column, there's a specific `highlight.cell` formatter. To use it, you'll first you have to annotate your rows using `highlight.highlighter`. It attaches a structure like this there:
 
 ```javascript
 _highlights: {
@@ -44,7 +44,7 @@ class HighlightTable extends React.Component {
           }
         }
       ],
-      data: [
+      rows: [
         {
           id: 100,
           name: 'Adam',
@@ -69,11 +69,11 @@ class HighlightTable extends React.Component {
     };
   }
   render() {
-    const { data, columns, query } = this.state;
-    const filteredData = compose(
+    const { rows, columns, query } = this.state;
+    const filteredRows = compose(
       highlight.highlighter({ columns, matches: search.matches, query }),
       search.multipleColumns({ columns, query })
-    )(data);
+    )(rows);
 
     return (
       <div>
@@ -81,14 +81,14 @@ class HighlightTable extends React.Component {
           <span>Search</span>
           <Search
             columns={columns}
-            data={data}
+            rows={rows}
             onChange={query => this.setState({ query })}
           />
         </div>
-        <Table.Provider columns={columns} data={filteredData} rowKey="id">
+        <Table.Provider columns={columns}>
           <Table.Header />
 
-          <Table.Body />
+          <Table.Body rows={filteredRows} rowKey="id" />
         </Table.Provider>
       </div>
     );

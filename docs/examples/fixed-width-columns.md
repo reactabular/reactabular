@@ -1,4 +1,4 @@
-Depending on the content of your dataset, you may encounter issues with column widths jumping as certain data is filtered in or out. This table mitigates such issues by explicitly setting its width after mounting.
+Depending on the content of your rowsset, you may encounter issues with column widths jumping as certain rows is filtered in or out. This table mitigates such issues by explicitly setting its width after mounting.
 
 ```jsx
 /*
@@ -33,7 +33,7 @@ class FixedWidthColumnsTable extends React.Component {
           }
         }
       ],
-      data: [
+      rows: [
         {
           id: 1,
           name: 'This is a very long title that goes on and on',
@@ -53,8 +53,8 @@ class FixedWidthColumnsTable extends React.Component {
         cell: FixedWidthHeader
       }
     };
-    const { data, columns, query } = this.state;
-    const searchedData = search.multipleColumns({ columns, query })(data);
+    const { rows, columns, query } = this.state;
+    const searchedRows = search.multipleColumns({ columns, query })(rows);
 
     return (
       <div>
@@ -62,19 +62,17 @@ class FixedWidthColumnsTable extends React.Component {
           <span>Search</span>
           <Search
             columns={columns}
-            data={data}
+            rows={rows}
             onChange={query => this.setState({ query })}
           />
         </div>
         <Table.Provider
           components={components}
           columns={columns}
-          data={searchedData}
-          rowKey="id"
         >
           <Table.Header />
 
-          <Table.Body />
+          <Table.Body rows={searchedRows} rowKey="id" />
         </Table.Provider>
       </div>
     );

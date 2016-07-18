@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import React from 'react';
-import { tableBodyContextTypes } from './types';
+import { tableBodyTypes, tableBodyContextTypes } from './types';
 import {
   evaluateTransforms, resolveBodyColumns, mergePropPair
 } from './utils';
@@ -17,30 +17,27 @@ export default class Body extends React.Component {
       isEqual(this.context, nextContext));
   }
   render() {
-    const { row, ...props } = this.props;
-    const { bodyColumns, components, data, rowKey } = this.context;
+    const { row, rows, rowKey, ...props } = this.props;
+    const { bodyColumns, components } = this.context;
 
     return React.createElement(
       components.body.wrapper,
       props,
-      data.map((r, i) =>
+      rows.map((r, i) =>
         React.createElement(BodyRow, {
           key: `${r[rowKey] || i}-row`,
           components: components.body,
           row: r,
           rowProps: row(r, i),
           rowIndex: i,
-          rowData: data[i],
+          rowData: rows[i],
           columns: bodyColumns
         })
       )
     );
   }
 }
-Body.propTypes = {
-  row: React.PropTypes.func,
-  className: React.PropTypes.string
-};
+Body.propTypes = tableBodyTypes;
 Body.defaultProps = {
   row: () => {}
 };
