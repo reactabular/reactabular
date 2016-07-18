@@ -16,7 +16,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -40,7 +40,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -64,7 +64,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -98,7 +98,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -127,7 +127,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -177,7 +177,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -200,7 +200,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header>
           <tr className={testClass}>demo</tr>
         </Table.Header>
@@ -241,7 +241,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -267,7 +267,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -295,15 +295,9 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const rows = [
-      {
-        id: 0,
-        name: 'demo'
-      }
-    ];
 
     TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={rows} rowKey="id">
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -333,7 +327,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -365,7 +359,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -398,7 +392,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header />
       </Table.Provider>
     );
@@ -431,7 +425,7 @@ describe('Table.Header', function () {
       }
     ];
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns} rows={[]}>
+      <Table.Provider columns={columns}>
         <Table.Header className={anotherHeaderClass} />
       </Table.Provider>
     );
@@ -480,7 +474,7 @@ describe('Table.Header', function () {
         }
       ];
       const table = TestUtils.renderIntoDocument(
-        <Table.Provider components={components} columns={columns} rows={[]}>
+        <Table.Provider components={components} columns={columns}>
           <Table.Header />
         </Table.Provider>
       );
@@ -496,7 +490,7 @@ describe('Table.Header', function () {
     const customClass = 'demo';
 
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={[]} rows={[]}>
+      <Table.Provider columns={[]}>
         <Table.Header className={customClass} />
       </Table.Provider>
     );
