@@ -78,7 +78,7 @@ import uuid from 'uuid';
 import transform from 'lodash/transform';
 import { Table, edit } from 'reactabular';
 
-import countries from './rows/countries';
+import countries from './data/countries';
 */
 
 const options = transform(countries, (result, name, value) => {

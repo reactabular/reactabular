@@ -19,7 +19,7 @@ import {
   generateRows, paginate, VisibilityToggles,
   resizableColumn
 } from './helpers';
-import countries from './rows/countries';
+import countries from './data/countries';
 */
 
 const schema = {
