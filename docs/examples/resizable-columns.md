@@ -159,7 +159,7 @@ class ResizableColumnsTable extends React.Component {
         <Sticky.Body
           rows={rows}
           rowKey="id"
-          row={this.onRow}
+          onRow={this.onRow}
           style={{
             paddingRight: scrollOffset,
             maxWidth: 800,

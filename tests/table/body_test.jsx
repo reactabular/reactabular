@@ -795,4 +795,6 @@ describe('Table.Body', function () {
 
     expect(renderedTable).to.exist;
   });
+
+  // TODO: test onRow
 });

@@ -46,8 +46,8 @@ const tableContextTypes = {
   components: React.PropTypes.object
 };
 const tableBodyTypes = {
+  onRow: React.PropTypes.func,
   rows: rowsType.isRequired,
-  row: React.PropTypes.func,
   rowKey: rowKeyType
 };
 const tableBodyContextTypes = {

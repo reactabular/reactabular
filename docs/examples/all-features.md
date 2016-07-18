@@ -322,7 +322,7 @@ class AllFeaturesTable extends React.Component {
             <ColumnFilters columns={cols} onChange={this.onSearch} />
           </Table.Header>
 
-          <Table.Body row={this.onRow} rows={paginated.rows} rowKey="id" />
+          <Table.Body onRow={this.onRow} rows={paginated.rows} rowKey="id" />
 
           <tfoot>
             <tr>

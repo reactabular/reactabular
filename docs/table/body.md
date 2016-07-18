@@ -17,7 +17,7 @@
 
 ## Customizing `Table.Body` Rows
 
-It is possible to customize body behavior on a row level. `row` prop accepts function `(row, rowIndex) => ({...})` that allows you to set custom attributes per each row.
+It is possible to customize body behavior on a row level. `onRow` prop accepts function `(row, rowIndex) => ({...})` that allows you to set custom attributes per each row.
 
 ```react
 class CustomTable extends React.Component {
@@ -32,7 +32,7 @@ class CustomTable extends React.Component {
         <Table.Body
           rows={rows}
           rowKey="id"
-          row={this.onRow}
+          onRow={this.onRow}
         />
       </Table.Provider>
     );

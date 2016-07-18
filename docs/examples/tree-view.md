@@ -140,7 +140,7 @@ class TreeTable extends React.Component {
         >
           <Table.Header />
 
-          <Table.Body row={this.onRow} rows={d} rowKey="id" />
+          <Table.Body onRow={this.onRow} rows={d} rowKey="id" />
         </Table.Provider>
       </div>
     );

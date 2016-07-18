@@ -10,14 +10,14 @@ import {
 // Otherwise refs won't work.
 export default class Body extends React.Component {
   shouldComponentUpdate(nextProps, nextState, nextContext) {
-    // Skip checking props against `row` since that can be bound at render().
+    // Skip checking props against `onRow` since that can be bound at render().
     // That's not particularly good practice but you never know how the users
     // prefer to define the handler.
-    return !(isEqual(omit(this.props, ['row']), omit(nextProps, ['row'])) &&
+    return !(isEqual(omit(this.props, ['onRow']), omit(nextProps, ['onRow'])) &&
       isEqual(this.context, nextContext));
   }
   render() {
-    const { row, rows, rowKey, ...props } = this.props;
+    const { onRow, rows, rowKey, ...props } = this.props;
     const { bodyColumns, components } = this.context;
 
     return React.createElement(
@@ -28,7 +28,7 @@ export default class Body extends React.Component {
           key: `${r[rowKey] || i}-row`,
           components: components.body,
           row: r,
-          rowProps: row(r, i),
+          rowProps: onRow(r, i),
           rowIndex: i,
           rowData: rows[i],
           columns: bodyColumns
@@ -39,7 +39,7 @@ export default class Body extends React.Component {
 }
 Body.propTypes = tableBodyTypes;
 Body.defaultProps = {
-  row: () => {}
+  onRow: () => {}
 };
 Body.contextTypes = tableBodyContextTypes;
 

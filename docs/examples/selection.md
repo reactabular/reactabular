@@ -88,7 +88,7 @@ class SelectionTable extends React.Component {
           <Table.Body
             rows={rows}
             rowKey="id"
-            row={(row, rowIndex) => ({
+            onRow={(row, rowIndex) => ({
               className: classnames(
                 rowIndex % 2 ? 'odd-row' : 'even-row',
                 row.id === selectedRowId && 'selected-row'
