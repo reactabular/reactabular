@@ -39,19 +39,11 @@ const _columnMatches = ({
   column = { cell: {} },
   row,
   strategy = strategies.infix,
-  transform = v => v.toLowerCase()
+  transform = (v = '') => v && v.toLowerCase()
 }) => {
-  // XXX: same resolver as for highlight -> reuse
   const property = column.cell.property;
-  const value = row[property];
-  const resolver = column.cell.resolve || (a => a);
-  let resolvedValue = resolver(value, { rowData: row, property });
-
-  if (typeof resolvedValue === 'undefined' || resolvedValue === null) {
-    resolvedValue = '';
-  }
-
-  resolvedValue = resolvedValue.toString ? resolvedValue.toString() : '';
+  // Pick resolved value by convention
+  const resolvedValue = row[`_${property}`] || row[property];
 
   return strategy(transform(query)).evaluate(transform(resolvedValue));
 };
@@ -69,10 +61,18 @@ const matches = ({
 };
 
 const infix = queryTerm => ({
-  evaluate(searchText) {
+  evaluate(searchText = '') {
+    if (!searchText) {
+      return false;
+    }
+
     return searchText.indexOf(queryTerm) !== -1;
   },
-  matches(searchText) {
+  matches(searchText = '') {
+    if (!searchText) {
+      return [];
+    }
+
     const splitString = searchText.split(queryTerm);
     const result = [];
     let currentPosition = 0;
@@ -93,10 +93,18 @@ const infix = queryTerm => ({
 });
 
 const prefix = queryTerm => ({
-  evaluate(searchText) {
+  evaluate(searchText = '') {
+    if (!searchText) {
+      return false;
+    }
+
     return searchText.indexOf(queryTerm) === 0;
   },
-  matches(searchText) {
+  matches(searchText = '') {
+    if (!searchText) {
+      return [];
+    }
+
     const prefixIndex = searchText.indexOf(queryTerm);
 
     if (prefixIndex === 0) {

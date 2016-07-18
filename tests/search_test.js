@@ -222,39 +222,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo', resolve: a => a.toUpperCase() } },
-      row: { demo: 'foobar' },
+      column: { cell: { property: 'demo' } },
+      row: { demo: 'foobar', _demo: 'FOOBAR' },
       transform: v => v
     });
 
     expect(result).to.equal(false);
-  });
-
-  it('formats with all parameters', function () {
-    const originalProperty = 'demo';
-    const row = { demo: 'foobar' };
-    let receivedRowData;
-    let receivedProperty;
-
-    _columnMatches({
-      query: 'foo',
-      column: {
-        cell: {
-          property: originalProperty,
-          resolve: (a, { rowData, property }) => {
-            receivedRowData = rowData;
-            receivedProperty = property;
-
-            return a;
-          }
-        }
-      },
-      row,
-      transform: v => v
-    });
-
-    expect(row).to.equal(receivedRowData);
-    expect(originalProperty).to.equal(receivedProperty);
   });
 
   it('is not visible without a valid value', function () {

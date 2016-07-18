@@ -158,14 +158,13 @@ describe('highlighter', function () {
     const columns = [
       {
         cell: {
-          property: 'name',
-          resolve: v => v + v
+          property: 'name'
         }
       }
     ];
     const rows = [
-      { name: 'demo' },
-      { name: 'another' }
+      { name: 'demo', _name: 'demodemo' },
+      { name: 'another', _name: 'anotheranother' }
     ];
     const expected = [
       {
@@ -181,13 +180,15 @@ describe('highlighter', function () {
             }
           ]
         },
-        name: 'demo'
+        name: 'demo',
+        _name: 'demodemo'
       },
       {
         _highlights: {
           name: []
         },
-        name: 'another'
+        name: 'another',
+        _name: 'anotheranother'
       }
     ];
     const result = highlight.highlighter({

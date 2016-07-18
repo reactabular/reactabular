@@ -66,19 +66,17 @@ function highlighter({ columns, matches, query } = {}) {
     };
 
     columns.forEach(column => {
-      // XXX: same resolver as for search -> reuse
       const property = column.cell.property;
       const value = row[property];
-      const resolver = column.cell.resolve || (a => a);
-      let resolvedValue = resolver(value, { rowData: row, property });
+      // Pick resolved value by convention
+      const resolvedValue = row[`_${property}`] || value;
 
-      if (typeof resolvedValue === 'undefined' || resolvedValue === null) {
-        resolvedValue = '';
+      ret[property] = value;
+
+      // Retain possibly resolved value
+      if (resolvedValue !== value) {
+        ret[`_${property}`] = resolvedValue;
       }
-
-      resolvedValue = resolvedValue.toString ? resolvedValue.toString() : '';
-
-      ret[property] = row[property];
 
       // Stash highlighted value based on index
       // so it can be extracted later for highlighting

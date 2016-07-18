@@ -16,7 +16,6 @@ const arrayOfObjectColumns = React.PropTypes.arrayOf(
       ]),
       transforms: React.PropTypes.arrayOf(React.PropTypes.func),
       format: React.PropTypes.func,
-      resolve: React.PropTypes.func,
       component: React.PropTypes.any, // XXX: too loose? createElement first param
       props: React.PropTypes.object
     })

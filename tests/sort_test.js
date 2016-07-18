@@ -527,41 +527,6 @@ describe('sorter', function () {
     expect(result).to.deep.equal(data);
   });
 
-  it('sorts objects', function () {
-    const columns = [{
-      header: {},
-      cell: {
-        property: 'test.foo'
-      }
-    }];
-    const data = [
-      {
-        test: {
-          foo: 'bar'
-        }
-      },
-      {
-        test: {
-          foo: 'foo'
-        }
-      },
-      {
-        test: {
-          foo: 'zoo'
-        }
-      }
-    ];
-    const sortingColumns = {
-      0: {
-        direction: 'asc',
-        position: 0
-      }
-    };
-    const result = sorter({ columns, sortingColumns, sort: orderBy })(data);
-
-    expect(result).to.deep.equal(data);
-  });
-
   it('does not fail if property is missing', function () {
     const columns = [{
       header: {},
@@ -599,28 +564,31 @@ describe('sorter', function () {
     const data = [
       {
         id: 0,
-        country: 'de'
+        country: 'de',
+        _country: countries.de
       },
       {
         id: 1,
-        country: 'fi'
+        country: 'fi',
+        _country: countries.fi
       }
     ];
     const expected = [
       {
         id: 1,
-        country: 'fi'
+        country: 'fi',
+        _country: countries.fi
       },
       {
         id: 0,
-        country: 'de'
+        country: 'de',
+        _country: countries.de
       }
     ];
     const columns = [
       {
         cell: {
-          property: 'country',
-          resolve: country => countries[country]
+          property: 'country'
         }
       }
     ];
