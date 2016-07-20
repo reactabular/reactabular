@@ -36,6 +36,14 @@ It maps column index to sorting state and can contain multiple sorters.
 
 `sort.sorter` sorts the passed `rows` using a `sortingColumns` definitions and a `sort` function. It has been designed to work based on [lodash.orderBy](https://lodash.com/docs#orderBy) signature.
 
+If you want to evaluate columns in a reverse order instead of the default, you can reverse `sort` function like this:
+
+```javascript
+const reverseSort = (data, columnIndexList, orderList) => (
+  orderBy(data, columnIndexList.slice().reverse(), orderList.slice().reverse())
+);
+```
+
 ## Customizing Sorting Order
 
 It is possible to customize the sorting order of `sort.byColumn` and `sort.byColumns` by passing an object describing the sorting. It should contain `FIRST` key to describe the starting point. The remaining key-value pairs should form a cycle.
