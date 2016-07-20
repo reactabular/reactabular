@@ -723,7 +723,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return a;
 	        } : _cell$format;
 	
-	        var value = row[property];
+	        var value = row['_' + property] || row[property];
 	
 	        var extraParameters = {
 	          columnIndex: j,
@@ -5103,7 +5103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    var value = rowData[property];
 	    var resolver = (0, _get2.default)(column, path);
-	    var ret = _defineProperty({}, property, value);
+	    var ret = _extends({}, rowData, _defineProperty({}, property, value));
 	
 	    if (resolver) {
 	      ret['_' + property] = resolver(value, {
