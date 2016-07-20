@@ -104,6 +104,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./column-definition/transforms.md')
       },
       {
+        path: 'column-definition/resolving-data',
+        title: 'Resolving Data',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./column-definition/resolving-data.md')
+      },
+      {
         path: 'column-definition/nested-columns',
         title: 'Nested Columns',
         imports: documentationImports,
@@ -151,12 +157,6 @@ const pages = [
         component: require('catalog/lib/loader!raw!./table/overriding-default-elements.md')
       }
     ]
-  },
-  {
-    path: 'resolving',
-    title: 'Resolving',
-    imports: documentationImports,
-    component: require('catalog/lib/loader!raw!./resolving.md')
   },
   {
     title: 'Editing',
