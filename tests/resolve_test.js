@@ -178,4 +178,29 @@ describe('resolve.byFunction', function () {
       [`_${property}`]: countries.dk
     });
   });
+
+  it('retains data attributes', function () {
+    const data = 'demo';
+    const countries = { dk: 'Denmark' };
+    const country = 'dk';
+    const property = 'country';
+    const row = {
+      country,
+      data
+    };
+    const column = {
+      cell: {
+        property,
+        resolve: v => countries[v]
+      }
+    };
+
+    expect(
+      byFunction('cell.resolve')(row, column)
+    ).to.deep.equal({
+      data,
+      [property]: country,
+      [`_${property}`]: countries.dk
+    });
+  });
 });

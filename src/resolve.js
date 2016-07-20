@@ -48,6 +48,7 @@ function byFunction(path) {
     const value = rowData[property];
     const resolver = get(column, path);
     const ret = {
+      ...rowData,
       [property]: value
     };
 
