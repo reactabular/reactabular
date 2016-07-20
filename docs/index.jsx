@@ -65,6 +65,47 @@ const pages = [
     }
   },
   {
+    title: 'Table',
+    pages: [
+      {
+        path: 'table',
+        title: 'Introduction',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./table/introduction.md')
+      },
+      {
+        path: 'table/provider',
+        title: 'Table.Provider',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./table/provider.md')
+      },
+      {
+        path: 'table/header',
+        title: 'Table.Header',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./table/header.md')
+      },
+      {
+        path: 'table/body',
+        title: 'Table.Body',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./table/body.md')
+      },
+      {
+        path: 'table/styling',
+        title: 'Styling',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./table/styling.md')
+      },
+      {
+        path: 'table/overriding-default-elements',
+        title: 'Overriding Default Elements',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./table/overriding-default-elements.md')
+      }
+    ]
+  },
+  {
     title: 'Column Definition',
     pages: [
       {
@@ -114,47 +155,6 @@ const pages = [
         title: 'Nested Columns',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./column-definition/nested-columns.md')
-      }
-    ]
-  },
-  {
-    title: 'Table',
-    pages: [
-      {
-        path: 'table',
-        title: 'Introduction',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/introduction.md')
-      },
-      {
-        path: 'table/provider',
-        title: 'Table.Provider',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/provider.md')
-      },
-      {
-        path: 'table/header',
-        title: 'Table.Header',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/header.md')
-      },
-      {
-        path: 'table/body',
-        title: 'Table.Body',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/body.md')
-      },
-      {
-        path: 'table/styling',
-        title: 'Styling',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/styling.md')
-      },
-      {
-        path: 'table/overriding-default-elements',
-        title: 'Overriding Default Elements',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/overriding-default-elements.md')
       }
     ]
   },
