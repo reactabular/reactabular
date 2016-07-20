@@ -215,7 +215,7 @@ class AllFeaturesTable extends React.Component {
               }, [])
             })
           )],
-          format: (country, extra) => highlight.cell(countries[country], extra),
+          format: (country, extra) => highlight.cell(country, extra),
           // Resolve hint for search and highlighting
           resolve: country => countries[country]
         },

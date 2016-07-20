@@ -269,7 +269,7 @@ describe('Table.Body', function () {
     expect(td.innerHTML).to.equal('');
   });
 
-  it('resolves rows if a resolver is used', function () {
+  it('resolves rows if nested resolver is used', function () {
     const lastName = 'foobar';
     const columns = [
       {
@@ -297,6 +297,40 @@ describe('Table.Body', function () {
     );
 
     expect(td.innerHTML).to.equal(lastName);
+  });
+
+  it('resolves rows if byFunction resolver is used', function () {
+    const name = 'foobar';
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name',
+          resolve: v => v + v
+        }
+      }
+    ];
+    const rows = [
+      { name }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns}>
+        <Table.Body
+          rows={resolve.resolve({
+            columns,
+            method: resolve.byFunction('cell.resolve')
+          })(rows)}
+          rowKey="id"
+        />
+      </Table.Provider>
+    );
+    const td = TestUtils.findRenderedDOMComponentWithTag(
+      table, 'td'
+    );
+
+    expect(td.innerHTML).to.equal(name + name);
   });
 
   it('can be formatted', function () {

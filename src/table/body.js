@@ -66,7 +66,7 @@ class BodyRow extends React.Component {
           transforms = [],
           format = a => a
         } = cell;
-        const value = row[property];
+        const value = row[`_${property}`] || row[property];
 
         const extraParameters = {
           columnIndex: j,
