@@ -1,5 +1,6 @@
 {
-  "name": "reactabular",
+  "private": true,
+  "name": "reactabular-monorepo",
   "version": "1.0.0-rc7",
   "description": "Spectacular tables for React",
   "scripts": {
@@ -9,14 +10,7 @@
     "gh-pages": "webpack",
     "stats": "webpack --json --profile > stats.json",
     "deploy-gh-pages": "gh-pages -d gh-pages",
-    "dist": "webpack",
-    "dist-min": "webpack",
-    "dist-modules": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
-    "lint": "eslint . --ext .js --ext .jsx --cache",
-    "preversion": "npm run lint && npm run test && npm run dist && npm run dist-min && git commit --allow-empty -am \"Update dist\"",
-    "prepublish": "npm run dist-modules",
-    "postpublish": "npm run gh-pages && npm run deploy-gh-pages",
-    "postinstall": "node lib/post_install.js"
+    "lint": "eslint . --ext .js --ext .jsx --cache"
   },
   "repository": {
     "type": "git",
@@ -28,17 +22,8 @@
     "table",
     "tables"
   ],
-  "files": [
-    "dist",
-    "dist-modules",
-    "lib",
-    "src",
-    "LICENSE.md",
-    "style.css"
-  ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
-  "main": "dist-modules",
   "bugs": {
     "url": "https://github.com/reactabular/reactabular/issues"
   },
@@ -99,7 +84,6 @@
     "react-ghfork": "^0.3.5",
     "react-pagify": "^2.1.1",
     "redux": "^3.5.2",
-    "rimraf": "^2.5.3",
     "schema2object": "^0.4.0",
     "segmentize": "^0.4.1",
     "style-loader": "^0.13.1",
@@ -109,10 +93,6 @@
     "webpack-dev-server": "^1.14.1",
     "webpack-merge": "^0.14.0",
     "lerna": "2.0.0-beta.24"
-  },
-  "peerDependencies": {
-    "lodash": ">= 3.0.0 < 5.0.0",
-    "react": ">= 0.11.2 < 16.0.0"
   },
   "pre-push": [
     "lint",
