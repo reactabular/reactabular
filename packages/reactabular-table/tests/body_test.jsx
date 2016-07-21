@@ -2,7 +2,9 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import { Table, edit, resolve } from '../../src';
+import Table from '../';
+import edit from '../../reactabular-edit';
+import resolve from '../../reactabular-resolve';
 
 describe('Table.Body', function () {
   it('displays rows', function () {

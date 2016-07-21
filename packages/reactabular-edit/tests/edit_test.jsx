@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { edit as _edit } from '../src';
+import _edit from '../';
 import { expect } from 'chai';
 
 const { boolean, dropdown, input, edit } = _edit;

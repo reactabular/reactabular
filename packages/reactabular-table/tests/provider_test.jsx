@@ -2,7 +2,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import { Table } from '../../src';
+import Table from '../';
 
 describe('Table.Provider', function () {
   it('renders children correctly', function () {

@@ -16,10 +16,9 @@ const config = {
   paths: {
     build: path.join(ROOT_PATH, 'build'),
     dist: path.join(ROOT_PATH, 'dist'),
-    src: path.join(ROOT_PATH, 'src'),
+    src: path.join(ROOT_PATH, 'packages'),
     ghPages: path.join(ROOT_PATH, 'gh-pages'),
     documentation: path.join(ROOT_PATH, 'docs'),
-    test: path.join(ROOT_PATH, 'tests'),
     'js-yaml': path.join(ROOT_PATH, 'node_modules', 'js-yaml')
   }
 };
@@ -226,13 +225,6 @@ if (TARGET === 'test' || TARGET === 'tdd' || !TARGET) {
           test: /\.jsx?$/,
           loaders: ['isparta'],
           include: config.paths.src
-        }
-      ],
-      loaders: [
-        {
-          test: /\.jsx?$/,
-          loaders: ['babel'],
-          include: config.paths.test
         }
       ]
     }

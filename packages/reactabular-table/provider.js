@@ -2,7 +2,7 @@ import React from 'react';
 import { tableTypes, tableDefaults, tableContextTypes } from './types';
 import {
   mergePropPair
-} from './utils';
+} from '../utils';
 
 const componentDefaults = tableDefaults.components;
 

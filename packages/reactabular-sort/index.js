@@ -1,4 +1,4 @@
-import { mergeClassNames } from './table/utils';
+import { mergeClassNames } from '../utils';
 
 const defaultOrder = {
   FIRST: 'asc',

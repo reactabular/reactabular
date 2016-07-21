@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { resolve as _resolve } from '../src';
+import _resolve from '../';
 
 const { resolve, nested, byFunction } = _resolve;
 

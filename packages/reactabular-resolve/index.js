@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
-import { resolveBodyColumns } from './table/utils';
+import { resolveBodyColumns } from '../utils';
 
 function resolve({ columns, method }) {
   if (!columns) {

@@ -2,7 +2,8 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import { search, highlight } from '../src';
+import search from '../../reactabular-search';
+import highlight from '../';
 
 describe('highlight.cell', function () {
   it('digs data from _highlights of the row', function () {

@@ -1,7 +1,7 @@
 import orderBy from 'lodash/orderBy';
 import reverse from 'lodash/reverse';
 import { expect } from 'chai';
-import { sort as _sort } from '../src';
+import _sort from '../';
 
 const { byColumns, byColumn, sorter, sort } = _sort;
 

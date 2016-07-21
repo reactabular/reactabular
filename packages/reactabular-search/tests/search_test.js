@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { search } from '../src';
+import search from '../';
 
 const {
   multipleColumns, singleColumn,
