@@ -79,6 +79,43 @@ describe('resolve.resolve', function () {
       method
     })(rows)).to.deep.equal(rows);
   });
+
+  it('resolves using multiple resolvers', function () {
+    const lastName = 'Demo';
+    const columns = [
+      {
+        header: {
+          label: 'Resolved value'
+        },
+        cell: {
+          resolve: v => v + v,
+          property: 'name.last'
+        }
+      }
+    ];
+    const rows = [
+      {
+        name: {
+          last: lastName
+        }
+      }
+    ];
+    const expected = [
+      {
+        'name.last': lastName,
+        '_name.last': lastName + lastName
+      }
+    ];
+    const resolver = resolve({
+      columns,
+      method: (row, column) => byFunction('cell.resolve')(
+        nested(row, column),
+        column
+      )
+    });
+
+    expect(resolver(rows)).to.deep.equal(expected);
+  });
 });
 
 describe('resolve.nested', function () {
