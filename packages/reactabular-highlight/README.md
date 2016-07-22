@@ -1,4 +1,8 @@
-To make it possible to highlight search results per column, there's a specific `highlight.cell` formatter. To use it, you'll first you have to annotate your rows using `highlight.highlighter`. It attaches a structure like this there:
+To make it possible to highlight search results per column, there's a specific `highlight.cell` formatter.
+
+## How to Use?
+
+To use it, you'll first you have to annotate your rows using `highlight.highlighter`. It attaches a structure like this there:
 
 ```javascript
 _highlights: {
