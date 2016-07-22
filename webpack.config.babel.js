@@ -166,7 +166,7 @@ if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats')
 
 const commonDist = merge(common, {
   devtool: 'source-map',
-  entry: './src',
+  entry: './packages/reactabular/src',
   externals: {
     lodash: {
       commonjs: 'lodash',

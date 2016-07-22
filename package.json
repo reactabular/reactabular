@@ -10,7 +10,12 @@
     "gh-pages": "webpack",
     "stats": "webpack --json --profile > stats.json",
     "deploy-gh-pages": "gh-pages -d gh-pages",
-    "lint": "eslint . --ext .js --ext .jsx --cache"
+    "lint": "eslint . --ext .js --ext .jsx --cache",
+    "dist": "webpack",
+    "dist-min": "webpack",
+    "prepublish": "pm run lint && npm run test && npm run dist && npm run dist-min && git commit --allow-empty -am \"Update dist\"",
+    "postpublish": "npm run gh-pages && npm run deploy-gh-pages",
+    "postinstall": "node lib/post_install.js"
   },
   "repository": {
     "type": "git",
