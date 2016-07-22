@@ -4,7 +4,7 @@ import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import Table from '../';
 import * as edit from '../../reactabular-edit';
-import resolve from '../../reactabular-resolve';
+import * as resolve from '../../reactabular-resolve';
 
 describe('Table.Body', function () {
   it('displays rows', function () {
