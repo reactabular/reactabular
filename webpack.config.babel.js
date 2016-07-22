@@ -10,7 +10,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import merge from 'webpack-merge';
 
 const catalogPkg = require('./node_modules/catalog/package.json');
-const pkg = require('./package.json');
+const pkg = require('./packages/reactabular/package.json');
 
 const TARGET = process.env.npm_lifecycle_event;
 const ROOT_PATH = path.resolve(__dirname);
