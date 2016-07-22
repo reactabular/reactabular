@@ -155,7 +155,7 @@ const pages = [
         path: 'column-definition/resolving-data',
         title: 'Resolving Data',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./column-definition/resolving-data.md')
+        component: require('catalog/lib/loader!raw!../packages/reactabular-resolve/README.md')
       },
       {
         path: 'column-definition/nested-columns',

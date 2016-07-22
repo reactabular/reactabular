@@ -27,6 +27,8 @@ The following example shows how you to resolve nested values.
 import { resolve } from 'reactabular';
 */
 
+const { resolve } = reactabular;
+
 const columns = [
   {
     header: {
@@ -118,5 +120,5 @@ const rows = [
 
 ## See Also
 
-* [All Features](/examples/all-features)
-* [Drag and Drop](/examples/drag-and-drop)
+* [All Features](http://reactabular.js.org/#/examples/all-features)
+* [Drag and Drop](http://reactabular.js.org/#/examples/drag-and-drop)
