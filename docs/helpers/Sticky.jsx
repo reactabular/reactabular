@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import { Table } from '../../src';
+import { Table } from '../../packages/reactabular';
 
 // Ref -> class
 class Header extends React.Component {
