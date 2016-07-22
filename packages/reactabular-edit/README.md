@@ -14,8 +14,6 @@ import findIndex from 'lodash/findIndex';
 import { Table, edit } from 'reactabular';
 */
 
-const { Table, edit } = reactabular;
-
 class EditableTable extends React.Component {
   constructor(props) {
     super(props);
@@ -174,8 +172,6 @@ import { Table, edit } from 'reactabular';
 
 import countries from './data/countries';
 */
-
-const { Table, edit } = reactabular;
 
 const options = transform(countries, (result, name, value) => {
   result.push({ value, name });

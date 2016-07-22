@@ -19,8 +19,6 @@ import {
 } from 'reactabular';
 */
 
-const { Table, search } = reactabular;
-
 class SearchTable extends React.Component {
   constructor(props) {
     super(props);
@@ -249,4 +247,4 @@ const getOptions = (columns, i18n) => (
 
 ## See Also
 
-* [Sort and Search](reactabular.js.org/#/examples/sort-and-search)
+* [Sort and Search](http://reactabular.js.org/#/examples/sort-and-search)

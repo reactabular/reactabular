@@ -18,8 +18,6 @@ import orderBy from 'lodash/orderBy';
 import { Table, sort } from 'reactabular';
 */
 
-const { Table, sort } = reactabular;
-
 const initialRows = [
   {
     id: 100,

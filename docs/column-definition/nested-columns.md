@@ -8,8 +8,6 @@ import React from 'react';
 import { Table, resolve } from 'reactabular';
 */
 
-const { Table, resolve } = reactabular;
-
 const columns = [
   {
     header: {

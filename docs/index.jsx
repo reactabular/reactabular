@@ -32,14 +32,12 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const documentationImports = {
-  reactabular: {
-    Table: reactabular.Table,
-    search: reactabular.search,
-    sort: reactabular.sort,
-    edit: reactabular.edit,
-    highlight: reactabular.highlight,
-    resolve: reactabular.resolve
-  },
+  Table: { ...reactabular.Table },
+  search: { ...reactabular.search },
+  sort: { ...reactabular.sort },
+  edit: { ...reactabular.edit },
+  highlight: { ...reactabular.highlight },
+  resolve: { ...reactabular.resolve },
   ...reactDnd,
   HTML5Backend,
   classnames,

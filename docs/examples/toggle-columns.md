@@ -8,8 +8,6 @@ import { Table } from 'reactabular';
 import { VisibilityToggles } from './helpers';
 */
 
-const { Table } = reactabular;
-
 class ToggleColumnsTable extends React.Component {
   constructor(props) {
     super(props);

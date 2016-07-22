@@ -12,8 +12,6 @@ import {
 } from 'reactabular';
 */
 
-const { Table } = reactabular;
-
 class SelectionTable extends React.Component {
   constructor(props) {
     super(props);

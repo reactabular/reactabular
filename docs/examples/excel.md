@@ -7,8 +7,6 @@ import cloneDeep from 'lodash/cloneDeep';
 import { Table, edit } from 'reactabular';
 */
 
-const { Table, edit } = reactabular;
-
 class ExcelTable extends React.Component {
   constructor(props) {
     super(props);

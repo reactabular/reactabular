@@ -10,8 +10,6 @@ import uuid from 'uuid';
 import { generateRows, resizableColumn, stylesheet, Sticky } from './helpers';
 */
 
-const { Table } = reactabular;
-
 const schema = {
   type: 'object',
   properties: {

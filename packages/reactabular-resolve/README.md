@@ -27,8 +27,6 @@ The following example shows how you to resolve nested values.
 import { resolve } from 'reactabular';
 */
 
-const { resolve } = reactabular;
-
 const columns = [
   {
     header: {

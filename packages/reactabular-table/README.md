@@ -9,8 +9,6 @@ Reactabular provides three components: `Table.Provider`, `Table.Header`, and `Ta
 import { Table } from 'reactabular';
 */
 
-const { Table } = reactabular;
-
 const rows = [
   {
     id: 100,
@@ -60,8 +58,6 @@ const columns = [
 `Table.Header` renders a table header within a `Table.Provider` context.
 
 ```react
-const { Table } = reactabular;
-
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
@@ -81,8 +77,6 @@ It is possible to customize a header by passing child components to it. This way
 Here `ColumnFilters` injects an additional row for the filter controls. An alternative way to handle it would be to push the problem to the column definition.
 
 ```react
-const { Table } = reactabular;
-
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
@@ -105,8 +99,6 @@ const { Table } = reactabular;
 `Table.Body` renders table `rows` within a `Table.Provider` context. It accepts either an array of objects or an array of arrays (see the [Excel example](/examples/excel)). In the former case you should define a `rowKey`. This allows React to render in a more performant way.
 
 ```react
-const { Table } = reactabular;
-
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
@@ -126,8 +118,6 @@ const { Table } = reactabular;
 It is possible to customize body behavior on a row level. `onRow` prop accepts function `(row, rowIndex) => ({...})` that allows you to set custom attributes per each row.
 
 ```react
-const { Table } = reactabular;
-
 class CustomTable extends React.Component {
   render() {
     return (
@@ -163,8 +153,6 @@ It's a good idea to define a possible `row` handler separately to avoid binding 
 It is possible to inject a custom footer like this:
 
 ```react
-const { Table } = reactabular;
-
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
@@ -184,4 +172,4 @@ const { Table } = reactabular;
 
 ## See Also
 
-* [Selection](reactabular.js.org/#/examples/selection)
+* [Selection](http://reactabular.js.org/#/examples/selection)

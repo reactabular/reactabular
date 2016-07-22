@@ -11,8 +11,6 @@ import { Table, search, sort } from 'reactabular';
 import { generateRows, Search, VisibilityToggles } from './helpers';
 */
 
-const { Table, search, sort } = reactabular;
-
 const schema = {
   type: 'object',
   properties: {
