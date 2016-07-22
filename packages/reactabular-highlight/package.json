@@ -1,0 +1,33 @@
+{
+  "name": "reactabular-highlight",
+  "version": "0.1.0",
+  "description": "Highlighting for Reactabular",
+  "scripts": {
+    "dist-modules": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
+    "prepublish": "npm run dist-modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reactabular/reactabular.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "table",
+    "tables",
+    "reactabular"
+  ],
+  "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reactabular/reactabular/issues"
+  },
+  "homepage": "http://reactabular.js.org/",
+  "main": "dist-modules",
+  "jsnext:main": "src",
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {
+    "react": ">= 0.11.2 < 16.0.0"
+  }
+}

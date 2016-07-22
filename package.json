@@ -69,6 +69,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-webpack": "^1.7.0",
+    "lerna": "2.0.0-beta.24",
     "lodash": "^4.13.1",
     "mocha": "^2.5.3",
     "phantomjs-polyfill": "0.0.2",
@@ -84,6 +85,7 @@
     "react-ghfork": "^0.3.5",
     "react-pagify": "^2.1.1",
     "redux": "^3.5.2",
+    "rimraf": "^2.5.3",
     "schema2object": "^0.4.0",
     "segmentize": "^0.4.1",
     "style-loader": "^0.13.1",
@@ -91,8 +93,7 @@
     "uuid": "^2.0.2",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^0.14.0",
-    "lerna": "2.0.0-beta.24"
+    "webpack-merge": "^0.14.0"
   },
   "pre-push": [
     "lint",

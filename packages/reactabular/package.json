@@ -1,0 +1,34 @@
+{
+  "name": "reactabular",
+  "version": "1.0.0-rc7",
+  "description": "Spectacular tables for React",
+  "scripts": {
+    "dist-modules": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
+    "prepublish": "npm run dist-modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reactabular/reactabular.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "table",
+    "tables",
+    "reactabular"
+  ],
+  "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reactabular/reactabular/issues"
+  },
+  "homepage": "http://reactabular.js.org/",
+  "main": "dist-modules",
+  "jsnext:main": "src",
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {
+    "lodash": ">= 3.0.0 < 5.0.0",
+    "react": ">= 0.11.2 < 16.0.0"
+  }
+}
