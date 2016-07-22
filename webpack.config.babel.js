@@ -1,5 +1,7 @@
+import * as fs from 'fs';
 import * as path from 'path';
 
+import fromPairs from 'lodash/fromPairs';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -22,6 +24,9 @@ const config = {
     'js-yaml': path.join(ROOT_PATH, 'node_modules', 'js-yaml')
   }
 };
+const packages = fromPairs(fs.readdirSync('packages').map(p => [
+  p, path.join(config.paths.src, p, 'src')
+]));
 
 process.env.BABEL_ENV = TARGET;
 
@@ -33,14 +38,7 @@ const common = {
       'js-yaml/dist/js-yaml.min.js': config.paths['js-yaml'],
       'js-yaml': config.paths['js-yaml'],
       // Reactabular aliases so that documentation and tests work
-      reactabular: path.join(config.paths.src, 'reactabular', 'src'),
-      'reactabular-table': path.join(config.paths.src, 'reactabular-table', 'src'),
-      'reactabular-search': path.join(config.paths.src, 'reactabular-search', 'src'),
-      'reactabular-sort': path.join(config.paths.src, 'reactabular-sort', 'src'),
-      'reactabular-edit': path.join(config.paths.src, 'reactabular-edit', 'src'),
-      'reactabular-highlight': path.join(config.paths.src, 'reactabular-highlight', 'src'),
-      'reactabular-resolve': path.join(config.paths.src, 'reactabular-resolve', 'src'),
-      'reactabular-utils': path.join(config.paths.src, 'reactabular-utils', 'src')
+      ...packages
     }
   },
   output: {
