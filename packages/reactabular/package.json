@@ -25,7 +25,14 @@
   "homepage": "http://reactabular.js.org/",
   "main": "dist-modules",
   "jsnext:main": "src",
-  "dependencies": {},
+  "dependencies": {
+    "reactabular-edit": "^0.1.0",
+    "reactabular-highlight": "^0.1.0",
+    "reactabular-resolve": "^0.1.0",
+    "reactabular-search": "^0.1.0",
+    "reactabular-sort": "^0.1.0",
+    "reactabular-table": "^0.1.0"
+  },
   "devDependencies": {},
   "peerDependencies": {
     "lodash": ">= 3.0.0 < 5.0.0",
