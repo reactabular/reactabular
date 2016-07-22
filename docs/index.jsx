@@ -208,7 +208,7 @@ const pages = [
         path: 'search/highlighting',
         title: 'Highlighting',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./search/highlighting.md')
+        component: require('catalog/lib/loader!raw!../packages/reactabular-highlight/README.md')
       }
     ]
   },
