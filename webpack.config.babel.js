@@ -31,7 +31,8 @@ const common = {
     extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg'],
     alias: {
       'js-yaml/dist/js-yaml.min.js': config.paths['js-yaml'],
-      'js-yaml': config.paths['js-yaml']
+      'js-yaml': config.paths['js-yaml'],
+      'reactabular-utils': path.join(config.paths.src, 'reactabular-utils', 'src')
     }
   },
   output: {
