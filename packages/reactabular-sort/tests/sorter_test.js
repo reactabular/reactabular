@@ -1,7 +1,7 @@
 import orderBy from 'lodash/orderBy';
 import reverse from 'lodash/reverse';
 import { expect } from 'chai';
-import { sorter } from '../';
+import { sorter } from '../src';
 
 describe('sort.sorter', function () {
   it('sorts ascending', function () {

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { strategies } from '../';
+import { strategies } from '../src';
 
 const { infix, prefix } = strategies;
 

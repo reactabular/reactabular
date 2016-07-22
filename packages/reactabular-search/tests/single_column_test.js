@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { singleColumn } from '../';
+import { singleColumn } from '../src';
 
 describe('search.singleColumn', function () {
   it('matches searched column', function () {

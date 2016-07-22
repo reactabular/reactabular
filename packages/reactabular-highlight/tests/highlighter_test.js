@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import * as search from '../../reactabular-search';
-import * as highlight from '../';
+import * as search from '../../reactabular-search/src';
+import * as highlight from '../src';
 
 describe('highlight.highlighter', function () {
   it('sorts ascending by default', function () {

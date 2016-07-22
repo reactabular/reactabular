@@ -1,4 +1,4 @@
-import { edit } from '../';
+import { edit } from '../src';
 import { expect } from 'chai';
 
 describe('edit.edit', function () {

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { matches, strategies } from '../';
+import { matches, strategies } from '../src';
 
 describe('search.matches', function () {
   it('matches infix by default', function () {

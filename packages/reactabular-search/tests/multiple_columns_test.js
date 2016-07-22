@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { multipleColumns } from '../';
+import { multipleColumns } from '../src';
 
 describe('search.multipleColumns', function () {
   it('matches all', function () {

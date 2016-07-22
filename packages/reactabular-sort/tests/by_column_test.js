@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { byColumn } from '../';
+import { byColumn } from '../src';
 
 describe('sort.byColumn', function () {
   it('sorts ascending by default', function () {

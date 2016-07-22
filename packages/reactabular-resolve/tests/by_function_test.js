@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { byFunction } from '../';
+import { byFunction } from '../src';
 
 describe('resolve.byFunction', function () {
   it('does not resolve without a resolver', function () {

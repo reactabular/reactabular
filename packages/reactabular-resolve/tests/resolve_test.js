@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { resolve, nested, byFunction } from '../';
+import { resolve, nested, byFunction } from '../src';
 
 describe('resolve.resolve', function () {
   it('throws an error if columns are not passed', function () {

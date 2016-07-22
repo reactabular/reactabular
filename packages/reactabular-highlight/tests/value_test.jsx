@@ -2,7 +2,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import * as highlight from '../';
+import * as highlight from '../src';
 
 describe('highlight.value', function () {
   it('does not highlight if there is no match at all', function () {

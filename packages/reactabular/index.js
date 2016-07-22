@@ -1,9 +1,9 @@
-import * as Table from '../reactabular-table';
-import * as search from '../reactabular-search';
-import * as sort from '../reactabular-sort';
-import * as edit from '../reactabular-edit';
-import * as highlight from '../reactabular-highlight';
-import * as resolve from '../reactabular-resolve';
+import * as Table from '../reactabular-table/src';
+import * as search from '../reactabular-search/src';
+import * as sort from '../reactabular-sort/src';
+import * as edit from '../reactabular-edit/src';
+import * as highlight from '../reactabular-highlight/src';
+import * as resolve from '../reactabular-resolve/src';
 
 export {
   Table,

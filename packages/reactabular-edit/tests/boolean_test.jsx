@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { boolean } from '../';
+import { boolean } from '../src';
 import { expect } from 'chai';
 
 describe('edit.boolean', function () {

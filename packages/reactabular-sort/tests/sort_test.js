@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { sort } from '../';
+import { sort } from '../src';
 
 describe('sort.sort', function () {
   it('defaults to sort-none class', function () {

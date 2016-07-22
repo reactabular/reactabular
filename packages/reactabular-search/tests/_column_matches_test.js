@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { _columnMatches, strategies } from '../';
+import { _columnMatches, strategies } from '../src';
 
 describe('search._columnMatches', function () {
   it('returns matching query', function () {

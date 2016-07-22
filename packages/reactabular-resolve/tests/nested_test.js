@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { nested } from '../';
+import { nested } from '../src';
 
 describe('resolve.nested', function () {
   it('resolves nested values', function () {

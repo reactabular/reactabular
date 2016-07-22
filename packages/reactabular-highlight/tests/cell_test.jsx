@@ -2,7 +2,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import * as highlight from '../';
+import * as highlight from '../src';
 
 describe('highlight.cell', function () {
   it('digs data from _highlights of the row', function () {
