@@ -1,4 +1,4 @@
-import { resolveBodyColumns } from '../../utils';
+import { resolveBodyColumns } from '../../reactabular-utils/src';
 
 function resolve({ columns, method }) {
   if (!columns) {

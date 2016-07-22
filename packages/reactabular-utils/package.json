@@ -1,7 +1,7 @@
 {
-  "name": "reactabular-table",
+  "name": "reactabular-utils",
   "version": "0.1.0",
-  "description": "Table components for Reactabular",
+  "description": "Internal utilities for Reactabular",
   "scripts": {
     "dist-modules": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
     "prepublish": "npm run dist-modules"
@@ -25,12 +25,8 @@
   "homepage": "http://reactabular.js.org/",
   "main": "dist-modules",
   "jsnext:main": "src",
-  "dependencies": {
-    "reactabular-utils": ">= 0.1.0"
-  },
-  "devDependencies": {},
-  "peerDependencies": {
-    "lodash": ">= 3.0.0 < 5.0.0",
-    "react": ">= 0.11.2 < 16.0.0"
+  "dependencies": {},
+  "devDependencies": {
+    "lodash": ">= 3.0.0 < 5.0.0"
   }
 }

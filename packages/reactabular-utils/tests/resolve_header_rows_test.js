@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { resolveHeaderRows } from '../';
+import { resolveHeaderRows } from '../src';
 
 describe('utils.resolveHeaderRows', function () {
   it('returns columns wrapped in an array', function () {

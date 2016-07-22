@@ -1,4 +1,4 @@
-import { mergeClassNames } from '../../utils';
+import { mergeClassNames } from '../../reactabular-utils/src';
 
 const sort = ({
   getSortingColumns = () => [],

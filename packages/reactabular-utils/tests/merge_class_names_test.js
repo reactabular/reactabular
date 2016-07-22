@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { mergeClassNames } from '../';
+import { mergeClassNames } from '../src';
 
 describe('utils.mergeClassNames', function () {
   it('merges two', function () {

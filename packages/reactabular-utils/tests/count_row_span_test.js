@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { countRowSpan } from '../';
+import { countRowSpan } from '../src';
 
 describe('utils.countRowSpan', function () {
   it('returns one if there are no children', function () {

@@ -1,0 +1,2 @@
+Internal utilities for Reactabular.
+

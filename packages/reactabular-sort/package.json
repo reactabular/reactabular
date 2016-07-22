@@ -25,6 +25,8 @@
   "homepage": "http://reactabular.js.org/",
   "main": "dist-modules",
   "jsnext:main": "src",
-  "dependencies": {},
+  "dependencies": {
+    "reactabular-utils": ">= 0.1.0"
+  },
   "devDependencies": {}
 }

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { resolveBodyColumns } from '../';
+import { resolveBodyColumns } from '../src';
 
 describe('resolveBodyColumns', function () {
   it('does not resolve if a column does not have children', function () {

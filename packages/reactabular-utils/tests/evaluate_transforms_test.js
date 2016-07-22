@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { evaluateTransforms } from '../';
+import { evaluateTransforms } from '../src';
 
 describe('utils.evaluateTransforms', function () {
   it('transforms passed value', function () {

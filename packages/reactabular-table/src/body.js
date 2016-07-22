@@ -4,7 +4,7 @@ import React from 'react';
 import { tableBodyTypes, tableBodyContextTypes } from './types';
 import {
   evaluateTransforms, resolveBodyColumns, mergePropPair
-} from '../../utils';
+} from '../../reactabular-utils/src';
 
 // This has to be a React component instead of a function.
 // Otherwise refs won't work.
