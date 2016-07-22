@@ -13,7 +13,7 @@
     "lint": "eslint . --ext .js --ext .jsx --cache",
     "dist": "webpack",
     "dist-min": "webpack",
-    "prepublish": "pm run lint && npm run test && npm run dist && npm run dist-min && git commit --allow-empty -am \"Update dist\"",
+    "prepublish": "npm run lint && npm run test && npm run dist && npm run dist-min && git commit --allow-empty -am \"Update dist\"",
     "postpublish": "npm run gh-pages && npm run deploy-gh-pages",
     "postinstall": "node lib/post_install.js"
   },
