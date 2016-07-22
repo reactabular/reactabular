@@ -26,7 +26,10 @@
   "main": "dist-modules",
   "jsnext:main": "src",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "rimraf": "^2.5.4"
+  },
   "peerDependencies": {
     "react": ">= 0.11.2 < 16.0.0"
   }

@@ -28,5 +28,8 @@
   "dependencies": {
     "reactabular-utils": "^0.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "rimraf": "^2.5.4"
+  }
 }

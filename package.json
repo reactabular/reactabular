@@ -92,7 +92,6 @@
     "react-ghfork": "^0.3.5",
     "react-pagify": "^2.1.1",
     "redux": "^3.5.2",
-    "rimraf": "^2.5.4",
     "schema2object": "^0.4.0",
     "segmentize": "^0.4.1",
     "style-loader": "^0.13.1",

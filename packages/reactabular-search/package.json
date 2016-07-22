@@ -26,5 +26,8 @@
   "main": "dist-modules",
   "jsnext:main": "src",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "rimraf": "^2.5.4"
+  }
 }
