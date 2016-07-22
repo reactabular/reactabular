@@ -4,7 +4,7 @@
   "description": "Data resolution utilities for Reactabular",
   "scripts": {
     "dist-modules": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
-    "prepublish": "npm run dist-modules"
+    "preversion": "npm run dist-modules"
   },
   "repository": {
     "type": "git",
