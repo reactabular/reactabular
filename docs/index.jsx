@@ -15,7 +15,7 @@ import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import transform from 'lodash/transform';
-import * as reactabular from '../packages/reactabular';
+import * as reactabular from '../packages/reactabular/src';
 import * as rowsDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import countries from './data/countries';
