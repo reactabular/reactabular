@@ -81,22 +81,10 @@ const pages = [
         component: require('catalog/lib/loader!raw!./table/introduction.md')
       },
       {
-        path: 'table/provider',
-        title: 'Table.Provider',
+        path: 'table/components',
+        title: 'Components',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/provider.md')
-      },
-      {
-        path: 'table/header',
-        title: 'Table.Header',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/header.md')
-      },
-      {
-        path: 'table/body',
-        title: 'Table.Body',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/body.md')
+        component: require('catalog/lib/loader!raw!../packages/reactabular-table/README.md')
       },
       {
         path: 'table/styling',
