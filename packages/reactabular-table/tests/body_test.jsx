@@ -3,7 +3,7 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import Table from '../';
-import edit from '../../reactabular-edit';
+import * as edit from '../../reactabular-edit';
 import resolve from '../../reactabular-resolve';
 
 describe('Table.Body', function () {
