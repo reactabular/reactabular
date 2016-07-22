@@ -166,27 +166,10 @@ const pages = [
     ]
   },
   {
+    path: 'editing',
     title: 'Editing',
-    pages: [
-      {
-        path: 'editing',
-        title: 'Introduction',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./editing/introduction.md')
-      },
-      {
-        path: 'editing/api',
-        title: 'API',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./editing/api.md')
-      },
-      {
-        path: 'editing/customizing',
-        title: 'Customizing',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./editing/customizing.md')
-      }
-    ]
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!../packages/reactabular-edit/README.md')
   },
   {
     path: 'sorting',
