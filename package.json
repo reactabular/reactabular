@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "reactabular-monorepo",
-  "version": "0.0.0",
+  "version": "1.0.0-rc7",
   "description": "Spectacular tables for React",
   "scripts": {
     "start": "webpack-dev-server",
@@ -14,7 +14,7 @@
     "dist-all": "npm run dist && npm run dist-min",
     "dist": "webpack",
     "dist-min": "webpack",
-    "prepublish": "npm run lint && npm run test && npm run dist-all && git commit --allow-empty -am \"Update dist\"",
+    "preversion": "npm run lint && npm run test && npm run dist-all && git commit --allow-empty -am \"Update dist\"",
     "postpublish": "npm run gh-pages && npm run deploy-gh-pages",
     "postinstall": "node lib/post_install.js"
   },
