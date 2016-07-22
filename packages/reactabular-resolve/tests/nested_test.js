@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { nested } from '../';
 
-describe('nested', function () {
+describe('resolve.nested', function () {
   it('resolves nested values', function () {
     const lastName = 'demo';
     const property = 'name.last';

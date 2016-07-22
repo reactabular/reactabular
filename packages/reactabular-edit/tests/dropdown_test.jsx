@@ -4,7 +4,7 @@ import TestUtils from 'react-addons-test-utils';
 import { dropdown } from '../';
 import { expect } from 'chai';
 
-describe('dropdown', function () {
+describe('edit.dropdown', function () {
   it('renders given options', function () {
     const options = [
       {

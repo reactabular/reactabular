@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { multipleColumns } from '../';
 
-describe('multipleColumns', function () {
+describe('search.multipleColumns', function () {
   it('matches all', function () {
     const query = { demo: 'foo' };
     const rows = [{ demo: 'foobar' }, { demo: 'foofoo' }];

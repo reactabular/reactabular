@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { matches, strategies } from '../';
 
-describe('matches', function () {
+describe('search.matches', function () {
   it('matches infix by default', function () {
     const query = 'oba';
     const result = matches({

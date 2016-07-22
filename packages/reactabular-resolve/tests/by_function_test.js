@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { byFunction } from '../';
 
-describe('byFunction', function () {
+describe('resolve.byFunction', function () {
   it('does not resolve without a resolver', function () {
     const name = 'demo';
     const property = 'name';

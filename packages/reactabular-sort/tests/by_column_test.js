@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { byColumn } from '../';
 
-describe('byColumn', function () {
+describe('sort.byColumn', function () {
   it('sorts ascending by default', function () {
     const sortingColumns = null;
     const selectedColumn = 1;

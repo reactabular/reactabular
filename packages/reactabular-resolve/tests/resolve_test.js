@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { resolve, nested, byFunction } from '../';
 
-describe('resolve', function () {
+describe('resolve.resolve', function () {
   it('throws an error if columns are not passed', function () {
     expect(resolve).to.throw(Error);
   });

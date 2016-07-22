@@ -4,7 +4,7 @@ import TestUtils from 'react-addons-test-utils';
 import { input } from '../';
 import { expect } from 'chai';
 
-describe('input', function () {
+describe('edit.input', function () {
   it('renders given value', function () {
     const testValue = 'name';
     const Input = input();

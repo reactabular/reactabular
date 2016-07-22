@@ -1,7 +1,7 @@
 import { edit } from '../';
 import { expect } from 'chai';
 
-describe('edit', function () {
+describe('edit.edit', function () {
   it('activates editing', function () {
     const testProperty = 'test';
     let receivedProperty;

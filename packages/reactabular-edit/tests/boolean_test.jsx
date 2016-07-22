@@ -4,7 +4,7 @@ import TestUtils from 'react-addons-test-utils';
 import { boolean } from '../';
 import { expect } from 'chai';
 
-describe('boolean', function () {
+describe('edit.boolean', function () {
   it('renders given value', function () {
     const testValue = false;
     const Boolean = boolean();

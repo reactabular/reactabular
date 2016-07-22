@@ -4,7 +4,7 @@ import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import * as highlight from '../';
 
-describe('cell', function () {
+describe('highlight.cell', function () {
   it('digs data from _highlights of the row', function () {
     const value = 'foobar';
     const result = TestUtils.renderIntoDocument(

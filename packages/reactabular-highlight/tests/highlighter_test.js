@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as search from '../../reactabular-search';
 import * as highlight from '../';
 
-describe('highlighter', function () {
+describe('highlight.highlighter', function () {
   it('sorts ascending by default', function () {
     const columns = [
       {

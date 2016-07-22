@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { _columnMatches, strategies } from '../';
 
-describe('_columnMatches', function () {
+describe('search._columnMatches', function () {
   it('returns matching query', function () {
     const query = 'foo';
     const result = _columnMatches({

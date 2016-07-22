@@ -4,7 +4,7 @@ import {
   resolveBodyColumns, evaluateTransforms, mergeClassNames
 } from '../';
 
-describe('resolveHeaderRows', function () {
+describe('utils.resolveHeaderRows', function () {
   it('returns columns wrapped in an array', function () {
     const column = {
       foo: 'bar'
@@ -168,7 +168,7 @@ describe('resolveHeaderRows', function () {
   });
 });
 
-describe('countRowSpan', function () {
+describe('utils.countRowSpan', function () {
   it('returns one if there are no children', function () {
     const columns = [{
       foo: 'bar'
@@ -224,7 +224,7 @@ describe('resolveBodyColumns', function () {
   });
 });
 
-describe('evaluateTransforms', function () {
+describe('utils.evaluateTransforms', function () {
   it('transforms passed value', function () {
     const input = 10;
     const output = 10;
@@ -293,7 +293,7 @@ describe('evaluateTransforms', function () {
   });
 });
 
-describe('mergeClassNames', function () {
+describe('utils.mergeClassNames', function () {
   it('merges two', function () {
     const a = 'foo';
     const b = 'bar';

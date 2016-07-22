@@ -3,7 +3,7 @@ import reverse from 'lodash/reverse';
 import { expect } from 'chai';
 import { sorter } from '../';
 
-describe('sorter', function () {
+describe('sort.sorter', function () {
   it('sorts ascending', function () {
     const columns = [{
       header: {},

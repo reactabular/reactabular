@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { sort } from '../';
 
-describe('sort', function () {
+describe('sort.sort', function () {
   it('defaults to sort-none class', function () {
     const _sorter = sort();
     const result = _sorter('testValue', { columnIndex: 0 });

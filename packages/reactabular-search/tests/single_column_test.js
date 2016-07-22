@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { singleColumn } from '../';
 
-describe('singleColumn', function () {
+describe('search.singleColumn', function () {
   it('matches searched column', function () {
     const query = 'foo';
     const rows = [{ demo: 'foobar' }];
