@@ -2,7 +2,7 @@ import React from 'react';
 import { tableHeaderContextTypes } from './types';
 import {
   resolveHeaderRows, evaluateTransforms, mergePropPair
-} from '../utils';
+} from '../../utils';
 
 // This has to be a React component instead of a function.
 // Otherwise refs won't work.

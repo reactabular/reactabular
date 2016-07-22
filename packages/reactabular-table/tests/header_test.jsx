@@ -2,7 +2,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import Table from '../';
+import * as Table from '../';
 
 describe('Table.Header', function () {
   it('can be formatted', function () {

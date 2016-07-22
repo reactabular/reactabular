@@ -1,10 +1,3 @@
-import Provider from './provider';
-import Header from './header';
-import Body from './body';
-
-export default {
-  Provider,
-  Header,
-  Body
-};
-
+export { default as Provider } from './src/provider';
+export { default as Header } from './src/header';
+export { default as Body } from './src/body';
