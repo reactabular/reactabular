@@ -9,8 +9,10 @@ The library comes with a couple of basic editors. As long as you follow the same
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
-import { edit, Table } from 'reactabular';
+import { Table, edit } from 'reactabular';
 */
+
+const { Table, edit } = reactabular;
 
 class EditableTable extends React.Component {
   constructor(props) {

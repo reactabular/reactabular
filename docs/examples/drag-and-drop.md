@@ -10,6 +10,8 @@ import findIndex from 'lodash/findIndex';
 import { Table, resolve } from 'reactabular';
 */
 
+const { Table, resolve } = reactabular;
+
 const rows = [
   {
     id: 1,

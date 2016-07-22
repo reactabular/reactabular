@@ -9,6 +9,8 @@ import { Table, sort, search } from 'reactabular';
 import { generateRows, Search } from './helpers';
 */
 
+const { Table, sort, search } = reactabular;
+
 const schema = {
   type: 'object',
   properties: {

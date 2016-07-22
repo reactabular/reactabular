@@ -1,6 +1,8 @@
 `Table.Header` renders a table header within a `Table.Provider` context.
 
 ```react
+const { Table } = reactabular;
+
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}
@@ -20,6 +22,8 @@ It is possible to customize a header by passing child components to it. This way
 Here `ColumnFilters` injects an additional row for the filter controls. An alternative way to handle it would be to push the problem to the column definition.
 
 ```react
+const { Table } = reactabular;
+
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}

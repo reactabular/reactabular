@@ -1,4 +1,4 @@
-A Reactabular table relies on three concepts - rows, column definition (JavaScript structure) and React definition:
+A Reactabular table relies on three concepts - rows, column definition (JavaScript structure), and React definition:
 
 * **Rows** are expected to be an array of objects.
 * **The column definition** maps the rows into something that can be shown through the user interface. It defines how to extract the rows from it and what sort of special formatting or functionality needs to be attached to it.

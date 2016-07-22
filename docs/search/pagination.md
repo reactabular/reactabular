@@ -14,6 +14,8 @@ import {
 } from './helpers';
 */
 
+const { Table, search } = reactabular;
+
 const schema = {
   type: 'object',
   properties: {

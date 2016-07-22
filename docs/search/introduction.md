@@ -17,6 +17,8 @@ import {
 } from 'reactabular';
 */
 
+const { Table, search } = reactabular;
+
 class SearchTable extends React.Component {
   constructor(props) {
     super(props);

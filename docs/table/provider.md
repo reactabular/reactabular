@@ -5,6 +5,8 @@
 import { Table } from 'reactabular';
 */
 
+const { Table } = reactabular;
+
 const rows = [
   {
     id: 100,

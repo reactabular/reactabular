@@ -8,6 +8,8 @@ import { Table, sort } from 'reactabular';
 import { resizableColumn } from './helpers';
 */
 
+const { Table, sort } = reactabular;
+
 const rows = [
   {
     id: 100,

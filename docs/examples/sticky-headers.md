@@ -9,6 +9,8 @@ import { generateRows, Sticky } from './helpers';
 import { Table } from 'reactabular';
 */
 
+const { Table } = reactabular;
+
 const schema = {
   type: 'object',
   properties: {

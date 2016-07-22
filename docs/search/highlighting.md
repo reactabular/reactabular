@@ -18,6 +18,8 @@ import {
 } from 'reactabular';
 */
 
+const { Table, search, highlight } = reactabular;
+
 class HighlightTable extends React.Component {
   constructor(props) {
     super(props);

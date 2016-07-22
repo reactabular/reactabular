@@ -22,6 +22,8 @@ import {
 import countries from './data/countries';
 */
 
+const { Table, search, edit, sort, highlight, resolve } = reactabular;
+
 const schema = {
   type: 'object',
   properties: {

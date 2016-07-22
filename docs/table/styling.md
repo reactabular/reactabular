@@ -3,6 +3,8 @@ Reactabular doesn't force you to style in any particular way. Instead, it provid
 The project root contains a file, **style.css**, which you can import to your project. It sets styles related to sorting. It can be a good idea to use predefined styles like the ones provided by [Pure.css](http://purecss.io/) to save some effort.
 
 ```react
+const { Table } = reactabular;
+
 <Table.Provider
   className="pure-table pure-table-striped"
   columns={columns}

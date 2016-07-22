@@ -32,7 +32,14 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const documentationImports = {
-  ...reactabular,
+  reactabular: {
+    Table: reactabular.Table,
+    search: reactabular.search,
+    sort: reactabular.sort,
+    edit: reactabular.edit,
+    highlight: reactabular.highlight,
+    resolve: reactabular.resolve
+  },
   ...reactDnd,
   HTML5Backend,
   classnames,
@@ -182,21 +189,10 @@ const pages = [
     ]
   },
   {
+    path: 'sorting',
     title: 'Sorting',
-    pages: [
-      {
-        path: 'sorting',
-        title: 'Introduction',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./sorting/introduction.md')
-      },
-      {
-        path: 'sorting/api',
-        title: 'API',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./sorting/api.md')
-      }
-    ]
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!../packages/reactabular-sort/README.md')
   },
   {
     title: 'Search',

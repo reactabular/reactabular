@@ -4,10 +4,10 @@ Depending on the content of your rowsset, you may encounter issues with column w
 /*
 import React from 'react';
 import { Search } from './helpers';
-import {
-  Table, search
-} from 'reactabular';
+import { Table, search } from 'reactabular';
 */
+
+const { Table, search } = reactabular;
 
 class FixedWidthColumnsTable extends React.Component {
   constructor(props) {
