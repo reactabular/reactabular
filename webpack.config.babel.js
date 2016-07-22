@@ -32,6 +32,13 @@ const common = {
     alias: {
       'js-yaml/dist/js-yaml.min.js': config.paths['js-yaml'],
       'js-yaml': config.paths['js-yaml'],
+      // Reactabular aliases so that documentation and tests work
+      'reactabular-table': path.join(config.paths.src, 'reactabular-table', 'src'),
+      'reactabular-search': path.join(config.paths.src, 'reactabular-search', 'src'),
+      'reactabular-sort': path.join(config.paths.src, 'reactabular-sort', 'src'),
+      'reactabular-edit': path.join(config.paths.src, 'reactabular-edit', 'src'),
+      'reactabular-highlight': path.join(config.paths.src, 'reactabular-highlight', 'src'),
+      'reactabular-resolve': path.join(config.paths.src, 'reactabular-resolve', 'src'),
       'reactabular-utils': path.join(config.paths.src, 'reactabular-utils', 'src')
     }
   },
