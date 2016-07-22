@@ -15,6 +15,7 @@
     "dist": "webpack",
     "dist-min": "webpack",
     "preversion": "npm run lint && npm run test && npm run dist-all && git commit --allow-empty -am \"Update dist\"",
+    "prepublish": "lerna bootstrap",
     "postpublish": "npm run gh-pages && npm run deploy-gh-pages",
     "postinstall": "node lib/post_install.js"
   },

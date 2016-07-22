@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import { Table } from 'reactabular';
+import { Table } from 'reactabular'; // eslint-disable-line import/no-unresolved
 
 // Ref -> class
 class Header extends React.Component {

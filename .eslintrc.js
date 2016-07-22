@@ -13,7 +13,6 @@ module.exports = {
     "comma-dangle": ["error", "never"],
     "prefer-arrow-callback": 0,
     "func-names": 0,
-    "import/no-unresolved": 0, // XXX: Figure out how to handle webpack aliases
     "no-underscore-dangle": 0,
     "no-unused-expressions": 0,
     "no-use-before-define": 0,
