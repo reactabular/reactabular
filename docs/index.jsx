@@ -178,39 +178,22 @@ const pages = [
     component: require('catalog/lib/loader!raw!../packages/reactabular-sort/README.md')
   },
   {
-    title: 'Search',
-    pages: [
-      {
-        path: 'search',
-        title: 'Introduction',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./search/introduction.md')
-      },
-      {
-        path: 'search/api',
-        title: 'API',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./search/api.md')
-      },
-      {
-        path: 'search/customizing',
-        title: 'Customizing',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./search/customizing.md')
-      },
-      {
-        path: 'search/pagination',
-        title: 'Pagination',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./search/pagination.md')
-      },
-      {
-        path: 'search/highlighting',
-        title: 'Highlighting',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!../packages/reactabular-highlight/README.md')
-      }
-    ]
+    path: 'searching',
+    title: 'Searching',
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!../packages/reactabular-search/README.md')
+  },
+  {
+    path: 'paginating',
+    title: 'Paginating',
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!./paginating.md')
+  },
+  {
+    path: 'highlighting',
+    title: 'Highlighting',
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!../packages/reactabular-highlight/README.md')
   },
   {
     title: 'Examples',
