@@ -5,7 +5,7 @@ import { Table } from 'reactabular'; // eslint-disable-line import/no-unresolved
 // Ref -> class
 class Header extends React.Component {
   render() {
-    const { style, onScroll, ...props } = this.props;
+    const { style, tableBody, ...props } = this.props;
 
     return (
       <Table.Header
@@ -15,20 +15,24 @@ class Header extends React.Component {
           overflow: 'auto'
         }}
         {...props}
-        onScroll={({ target: { scrollLeft } }) => onScroll(scrollLeft)}
+        onScroll={({ target: { scrollLeft } }) => {
+          if (tableBody) {
+            tableBody.scrollLeft = scrollLeft;
+          }
+        }}
       />
     );
   }
 }
 Header.propTypes = {
   style: React.PropTypes.any,
-  onScroll: React.PropTypes.func
+  tableBody: React.PropTypes.any
 };
 
 // Ref -> class
 class Body extends React.Component {
   render() {
-    const { style, onScroll, ...props } = this.props;
+    const { style, tableHeader, ...props } = this.props;
 
     return (
       <Table.Body
@@ -38,14 +42,18 @@ class Body extends React.Component {
           overflow: 'auto'
         }}
         {...props}
-        onScroll={({ target: { scrollLeft } }) => onScroll(scrollLeft)}
+        onScroll={({ target: { scrollLeft } }) => {
+          if (tableHeader) {
+            tableHeader.scrollLeft = scrollLeft;
+          }
+        }}
       />
     );
   }
 }
 Body.propTypes = {
   style: React.PropTypes.any,
-  onScroll: React.PropTypes.func
+  tableHeader: React.PropTypes.func
 };
 
 export default {

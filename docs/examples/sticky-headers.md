@@ -91,11 +91,17 @@ class StickyHeaderTable extends React.Component {
     this.tableHeader = null;
     this.tableBody = null;
   }
+  componentDidMount() {
+    // We have refs now. Force update to get those to Header/Body.
+    this.forceUpdate();
+  }
   render() {
+    const { rows, columns } = this.state;
+
     return (
       <Table.Provider
         className="pure-table pure-table-striped"
-        columns={this.state.columns}
+        columns={columns}
       >
         <Sticky.Header
           style={{
@@ -106,13 +112,11 @@ class StickyHeaderTable extends React.Component {
               this.tableHeader = ReactDOM.findDOMNode(tableHeader);
             }
           }}
-          onScroll={scrollLeft => (
-            this.tableBody.scrollLeft = scrollLeft
-          )}
+          tableBody={this.tableBody}
         />
 
         <Sticky.Body
-          rows={this.state.rows}
+          rows={rows}
           rowKey="id"
           style={{
             maxWidth: 800,
@@ -123,9 +127,7 @@ class StickyHeaderTable extends React.Component {
               this.tableBody = ReactDOM.findDOMNode(tableBody);
             }
           }}
-          onScroll={scrollLeft => (
-            this.tableHeader.scrollLeft = scrollLeft
-          )}
+          tableHeader={this.tableHeader}
         />
       </Table.Provider>
     );

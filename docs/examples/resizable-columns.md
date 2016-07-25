@@ -151,9 +151,7 @@ class ResizableColumnsTable extends React.Component {
               this.tableHeader = ReactDOM.findDOMNode(tableHeader);
             }
           }}
-          onScroll={scrollLeft => (
-            this.tableBody.scrollLeft = scrollLeft
-          )}
+          tableBody={this.tableBody}
         />
 
         <Sticky.Body
@@ -170,9 +168,7 @@ class ResizableColumnsTable extends React.Component {
               this.tableBody = ReactDOM.findDOMNode(tableBody);
             }
           }}
-          onScroll={scrollLeft => (
-            this.tableHeader.scrollLeft = scrollLeft
-          )}
+          tableHeader={this.tableHeader}
         />
       </Table.Provider>
     );
