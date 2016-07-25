@@ -1,4 +1,4 @@
-You can change the position of the columns by dragging them in the example below (mouse only). "First Name" and "Last Name" have been constrained within their parent.
+You can change the position of the columns or rows by dragging them in the example below (mouse only). "First Name" and "Last Name" have been constrained within their parent.
 
 ```jsx
 /*
@@ -169,22 +169,28 @@ class DragAndDropTable extends React.Component {
       </Table.Provider>
     );
   }
-  onRow(row, rowIndex) {
+  onRow(row) {
     return {
-      rowIndex,
+      rowId: row.id,
       onMove: o => this.onMoveRow(o)
     };
   }
-  onMoveRow(rowIndices) {
-    console.log('move row', rowIndices);
+  onMoveRow({ sourceRowId, targetRowId }) {
+    const movedRows = moveRows(this.state.rows, { sourceRowId, targetRowId });
+
+    if (movedRows) {
+      this.setState({
+        rows: movedRows
+      });
+    }
   }
   onMove(labels) {
-    const movedColumns = move(this.state.columns, labels);
+    const movedColumns = moveLabels(this.state.columns, labels);
 
     if (movedColumns) {
       // Retain widths to avoid flashing while drag and dropping.
-      const source = movedColumns.rows[movedColumns.sourceIndex];
-      const target = movedColumns.rows[movedColumns.targetIndex];
+      const source = movedColumns.columns[movedColumns.sourceIndex];
+      const target = movedColumns.columns[movedColumns.targetIndex];
       const sourceWidth = source.props.style && source.props.style.width;
       const targetWidth = target.props.style && target.props.style.width;
 
@@ -198,7 +204,7 @@ class DragAndDropTable extends React.Component {
       };
 
       this.setState({
-        columns: movedColumns.rows
+        columns: movedColumns.columns
       });
     }
   }
@@ -229,10 +235,10 @@ class DragAndDropTable extends React.Component {
       return;
     }
 
-    const movedChildren = move(columns[sourceIndex].children, labels);
+    const movedChildren = moveLabels(columns[sourceIndex].children, labels);
 
     if (movedChildren) {
-      columns[sourceIndex].children = movedChildren.rows;
+      columns[sourceIndex].children = movedChildren.columns;
 
       // Here we assume children have the same width.
       this.setState({ columns });
@@ -240,8 +246,29 @@ class DragAndDropTable extends React.Component {
   }
 }
 
-// TODO: extract kernel so that it can be reused for moving rows
-function move(columns, { sourceLabel, targetLabel }) {
+function moveRows(rows, { sourceRowId, targetRowId }) {
+  const sourceIndex = findIndex(
+    rows,
+    { id: sourceRowId }
+  );
+
+  if (sourceIndex < 0) {
+    return null;
+  }
+
+  const targetIndex = findIndex(
+    rows,
+    { id: targetRowId }
+  );
+
+  if (targetIndex < 0) {
+    return null;
+  }
+
+  return move(rows, sourceIndex, targetIndex);
+}
+
+function moveLabels(columns, { sourceLabel, targetLabel }) {
   const sourceIndex = findIndex(
     columns,
     { header: { label: sourceLabel } }
@@ -260,27 +287,29 @@ function move(columns, { sourceLabel, targetLabel }) {
     return null;
   }
 
+  return {
+    sourceIndex,
+    targetIndex,
+    columns: move(columns, sourceIndex, targetIndex)
+  };
+}
+
+function move(data, sourceIndex, targetIndex) {
   // Idea
   // a, b, c, d, e -> move(b, d) -> a, c, d, b, e
   // a, b, c, d, e -> move(d, a) -> d, a, b, c, e
   // a, b, c, d, e -> move(a, d) -> b, c, d, a, e
-  const sourceItem = columns[sourceIndex];
+  const sourceItem = data[sourceIndex];
 
   // 1. detach - a, c, d, e - a, b, c, e, - b, c, d, e
-  let cols = columns.slice(0, sourceIndex).concat(
-    columns.slice(sourceIndex + 1)
+  let ret = data.slice(0, sourceIndex).concat(
+    data.slice(sourceIndex + 1)
   );
 
   // 2. attach - a, c, d, b, e - d, a, b, c, e - b, c, d, a, e
-  cols = cols.slice(0, targetIndex).concat([sourceItem]).concat(
-    cols.slice(targetIndex)
+  return ret.slice(0, targetIndex).concat([sourceItem]).concat(
+    ret.slice(targetIndex)
   );
-
-  return {
-    sourceIndex,
-    targetIndex,
-    rows: cols
-  };
 }
 
 const DragTypes = {
@@ -327,21 +356,19 @@ const DndHeader = compose(
 
 const rowSource = {
   beginDrag(props) {
-    console.log('begin drag', props);
-
     return {
-      rowIndex: props.rowIndex
+      rowId: props.rowId
     };
   }
 };
 const rowTarget = {
   hover(targetProps, monitor) {
-    const targetRowIndex = targetProps.rowIndex;
+    const targetRowId = targetProps.rowId;
     const sourceProps = monitor.getItem();
-    const sourceRowIndex = sourceProps.rowIndex;
+    const sourceRowId = sourceProps.rowId;
 
-    if (sourceRowIndex !== targetRowIndex) {
-      targetProps.onMove({ sourceRowIndex, targetRowIndex });
+    if (sourceRowId !== targetRowId) {
+      targetProps.onMove({ sourceRowId, targetRowId });
     }
   }
 };
@@ -357,7 +384,7 @@ const DndRow = compose(
     })
   )
 )(({
-  connectDragSource, connectDropTarget, children, onMove, rowIndex, ...props
+  connectDragSource, connectDropTarget, children, onMove, rowId, ...props
 }) => (
   connectDragSource(connectDropTarget(
     <tr {...props}>{children}</tr>
