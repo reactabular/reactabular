@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "reactabular-monorepo",
-  "version": "1.0.0-rc8",
+  "version": "1.0.0",
   "description": "Spectacular tables for React",
   "scripts": {
     "start": "webpack-dev-server",
