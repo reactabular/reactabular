@@ -45,9 +45,9 @@ class DragAndDropTable extends React.Component {
           },
           header: {
             label: 'Name',
-            transforms: [() => ({
-              onMove: this.onMove
-            })]
+            props: {
+              onMove: o => this.onMove(o)
+            }
           },
           children: [
             {
@@ -58,9 +58,9 @@ class DragAndDropTable extends React.Component {
               },
               header: {
                 label: 'First Name',
-                transforms: [() => ({
-                  onMove: this.onChildMove
-                })]
+                props: {
+                  onMove: o => this.onChildMove(o)
+                }
               },
               cell: {
                 property: 'name.first'
@@ -74,9 +74,9 @@ class DragAndDropTable extends React.Component {
               },
               header: {
                 label: 'Last Name',
-                transforms: [() => ({
-                  onMove: this.onChildMove
-                })]
+                props: {
+                  onMove: o => this.onChildMove(o)
+                }
               },
               cell: {
                 property: 'name.last'
@@ -92,9 +92,9 @@ class DragAndDropTable extends React.Component {
           },
           header: {
             label: 'Company',
-            transforms: [() => ({
-              onMove: this.onMove
-            })]
+            props: {
+              onMove: o => this.onMove(o)
+            }
           },
           cell: {
             property: 'company'
@@ -108,9 +108,9 @@ class DragAndDropTable extends React.Component {
           },
           header: {
             label: 'Sentence',
-            transforms: [() => ({
-              onMove: this.onMove
-            })]
+            props: {
+              onMove: o => this.onMove(o)
+            }
           },
           cell: {
             property: 'sentence'
@@ -283,7 +283,7 @@ const DndHeader = compose(
     })
   )
 )(({
-  connectDragSource, connectDropTarget, children, onMove, ...props // eslint-disable-line max-len, no-unused-vars
+  connectDragSource, connectDropTarget, children, onMove, ...props
 }) => (
   connectDragSource(connectDropTarget(
     <th {...props}>{children}</th>
