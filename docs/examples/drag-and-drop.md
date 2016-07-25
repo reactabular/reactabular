@@ -386,6 +386,10 @@ const DndRow = compose(
 )(({
   connectDragSource, connectDropTarget, children, onMove, rowId, ...props
 }) => (
+  // If you want to drag using a handle instead, then you need to pass
+  // connectDragSource to a customized cell (DndCell) through React
+  // context and wrap the handle there. You also need to annotate
+  // this function using connectDragPreview.
   connectDragSource(connectDropTarget(
     <tr {...props}>{children}</tr>
   ))
