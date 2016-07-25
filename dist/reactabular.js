@@ -183,18 +183,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var columns = _props.columns;
 	      var components = _props.components;
 	
-	      var headerColumns = [];
 	      var bodyColumns = [];
 	
 	      // Merge column props with header/body specific ones so that can be avoided later
-	      columns.forEach(function (column) {
-	        headerColumns.push(column.header ? {
-	          props: (0, _reactabularUtils.mergePropPair)(column.props, column.header.props),
-	          header: column.header,
-	          children: column.children || [], // TODO: test for this case
-	          column: column
-	        } : {});
+	      var headerRows = (0, _reactabularUtils.resolveHeaderRows)(columns).map(function (row) {
+	        return row.map(function (column) {
+	          return column.header ? {
+	            props: (0, _reactabularUtils.mergePropPair)(column.props, column.header.props),
+	            header: column.header,
+	            children: column.children || [], // TODO: test for this case
+	            column: column
+	          } : {};
+	        });
+	      });
 	
+	      columns.forEach(function (column) {
 	        var cell = column.cell || {};
 	
 	        bodyColumns.push({
@@ -206,7 +209,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 	
 	      return {
-	        headerColumns: headerColumns,
+	        headerRows: headerRows,
 	        bodyColumns: bodyColumns,
 	        components: {
 	          table: components.table || componentDefaults.table,
@@ -296,7 +299,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  components: _react2.default.PropTypes.object
 	};
 	var tableContextTypes = {
-	  headerColumns: _react2.default.PropTypes.array.isRequired,
+	  headerRows: _react2.default.PropTypes.array.isRequired,
 	  bodyColumns: _react2.default.PropTypes.array.isRequired,
 	  components: _react2.default.PropTypes.object
 	};
@@ -310,7 +313,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  components: _react2.default.PropTypes.object
 	};
 	var tableHeaderContextTypes = {
-	  headerColumns: _react2.default.PropTypes.array.isRequired,
+	  headerRows: _react2.default.PropTypes.array.isRequired,
 	  components: _react2.default.PropTypes.object
 	};
 	var tableDefaults = {
@@ -646,11 +649,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var props = _objectWithoutProperties(_props, ['children']);
 	
 	      var _context = this.context;
-	      var headerColumns = _context.headerColumns;
+	      var headerRows = _context.headerRows;
 	      var components = _context.components;
 	
 	
-	      return _react2.default.createElement(components.header.wrapper, props, [(0, _reactabularUtils.resolveHeaderRows)(headerColumns).map(function (row, i) {
+	      return _react2.default.createElement(components.header.wrapper, props, [headerRows.map(function (row, i) {
 	        return _react2.default.createElement(HeaderRow, {
 	          key: i + '-header-row',
 	          components: components.header,
@@ -5704,6 +5707,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _get = __webpack_require__(146);
 	
 	var _get2 = _interopRequireDefault(_get);
@@ -5716,7 +5721,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	function nested(row, _ref) {
+	function nested(rowData, _ref) {
 	  var _ref$cell = _ref.cell;
 	  _ref$cell = _ref$cell === undefined ? {} : _ref$cell;
 	  var property = _ref$cell.property;
@@ -5725,13 +5730,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return {};
 	  }
 	
-	  if (!(0, _has2.default)(row, property)) {
-	    console.warn('resolve.nested - Failed to find "' + property + '" property from', row); // eslint-disable-line max-len, no-console
+	  if (!(0, _has2.default)(rowData, property)) {
+	    console.warn( // eslint-disable-line no-console
+	    'resolve.nested - Failed to find "' + property + '" property from', rowData);
 	
 	    return {};
 	  }
 	
-	  return _defineProperty({}, property, (0, _get2.default)(row, property));
+	  return _extends({}, rowData, _defineProperty({}, property, (0, _get2.default)(rowData, property)));
 	}
 	
 	exports.default = nested;
