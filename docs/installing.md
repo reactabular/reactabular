@@ -2,7 +2,9 @@ Reactabular has been designed to be consumed primarily through npm although it's
 
 ## Consuming Through npm
 
-The npm version doesn't have any direct dependencies. Instead, it relies on `peerDependencies` - React and Lodash. If you are using Lodash 4, it should just work after you `npm install reactabular` to your project.
+The default npm version (`reactabular`) doesn't have any direct dependencies. Instead, it relies on `peerDependencies` - React and Lodash. If you are using Lodash 4, it should just work after you `npm install reactabular` to your project.
+
+If you want to consume something more granular, it's possible to use separate packages instead. You can [see the available ones through npm](https://www.npmjs.com/browse/keyword/reactabular).
 
 ### Making Reactabular Work with Lodash 3
 
