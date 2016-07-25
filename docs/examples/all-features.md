@@ -160,6 +160,7 @@ class AllFeaturesTable extends React.Component {
           transforms: [editable(edit.input())],
           format: highlight.cell
         },
+        footer: () => 'You could show sums etc. here in the customizable footer.',
         visible: true
       },
       {
@@ -240,6 +241,7 @@ class AllFeaturesTable extends React.Component {
             </span>
           )
         },
+        footer: rows => `Total salary: ${rows.reduce((a, b) => a + b.salary, 0)}`,
         visible: true
       },
       {
@@ -324,21 +326,7 @@ class AllFeaturesTable extends React.Component {
 
           <Table.Body onRow={this.onRow} rows={paginated.rows} rowKey="id" />
 
-          <tfoot>
-            <tr>
-              <td>
-                You could show sums etc. here in the customizable footer.
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>Total salary: {
-                paginated.rows.reduce((a, b) => a + b.salary, 0)
-              }</td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tfoot>
+          <CustomFooter columns={cols} rows={paginated.rows} />
         </Table.Provider>
 
         <div className="controls">
@@ -401,6 +389,18 @@ class AllFeaturesTable extends React.Component {
 
     this.setState({ columns });
   }
+}
+
+const CustomFooter = ({ columns, rows }) => {
+  return (
+    <tfoot>
+      <tr>
+        {columns.map(column =>
+          <td>{column.footer ? column.footer(rows) : null}</td>
+        )}
+      </tr>
+    </tfoot>
+  );
 }
 
 function sortHeader(sortable, getSortingColumns) {
