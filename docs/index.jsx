@@ -138,18 +138,18 @@ const pages = [
         component: require('catalog/lib/loader!raw!./column-definition/transforms.md')
       },
       {
-        path: 'column-definition/resolving-data',
-        title: 'Resolving Data',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!../packages/reactabular-resolve/README.md')
-      },
-      {
         path: 'column-definition/nested-columns',
         title: 'Nested Columns',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./column-definition/nested-columns.md')
       }
     ]
+  },
+  {
+    path: 'resolving-data',
+    title: 'Resolving Data',
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!../packages/reactabular-resolve/README.md')
   },
   {
     path: 'editing',
