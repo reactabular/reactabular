@@ -196,6 +196,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/all-features.md')
       },
       {
+        path: 'examples/crud',
+        title: 'CRUD',
+        imports: documentationImports,
+        component: require('catalog/lib/loader!raw!./examples/crud.md')
+      },
+      {
         path: 'examples/drag-and-drop',
         title: 'Drag and Drop',
         imports: documentationImports,

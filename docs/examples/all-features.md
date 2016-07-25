@@ -386,14 +386,13 @@ class AllFeaturesTable extends React.Component {
     });
   }
   onRemove(id) {
-    const idx = findIndex(this.state.rows, { id });
+    const rows = cloneDeep(this.state.rows);
+    const idx = findIndex(rows, { id });
 
     // this could go through flux etc.
-    this.state.rows.splice(idx, 1);
+    rows.splice(idx, 1);
 
-    this.setState({
-      rows: this.state.rows
-    });
+    this.setState({ rows });
   }
   onToggleColumn(columnIndex) {
     const columns = this.state.columns;
