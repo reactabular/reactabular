@@ -105,11 +105,11 @@ Here `ColumnFilters` injects an additional row for the filter controls. An alter
 >
   <Table.Header />
 
-  <Table.Body rows={rows} rowKey="id" />
+  <Table.Body rows={rows.filter(r => r.name === 'Adam')} rowKey="id" />
 
   <Table.Header />
 
-  <Table.Body rows={rows} rowKey="id" />
+  <Table.Body rows={rows.filter(r => r.name === 'Brian')} rowKey="id" />
 </Table.Provider>
 ```
 
