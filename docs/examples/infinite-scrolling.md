@@ -2,7 +2,6 @@ The following example implements infinite scrolling within a fixed viewport.
 
 ```jsx
 /*
-import ReactDOM from 'react-dom';
 import React from 'react';
 
 import { generateRows } from './helpers';
