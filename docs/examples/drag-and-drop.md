@@ -28,6 +28,24 @@ const rows = [
     },
     company: 'Mike Inc.',
     sentence: 'a sequi doloremque sed id quo voluptatem voluptatem ut voluptatibus'
+  },
+  {
+    id: 3,
+    name: {
+      first: 'Jake',
+      last: 'Jackson'
+    },
+    company: 'Jake Inc.',
+    sentence: 'sed id quo voluptatem voluptatem ut voluptatibus'
+  },
+  {
+    id: 4,
+    name: {
+      first: 'Don',
+      last: 'Donson'
+    },
+    company: 'Don Inc.',
+    sentence: 'voluptatem voluptatem ut voluptatibus'
   }
 ];
 
