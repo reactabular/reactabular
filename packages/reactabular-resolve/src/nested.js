@@ -1,19 +1,23 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
 
-function nested(row, { cell: { property } = {} }) {
+function nested(rowData, { cell: { property } = {} }) {
   if (!property) {
     return {};
   }
 
-  if (!has(row, property)) {
-    console.warn(`resolve.nested - Failed to find "${property}" property from`, row); // eslint-disable-line max-len, no-console
+  if (!has(rowData, property)) {
+    console.warn( // eslint-disable-line no-console
+      `resolve.nested - Failed to find "${property}" property from`,
+      rowData
+    );
 
     return {};
   }
 
   return {
-    [property]: get(row, property)
+    ...rowData,
+    [property]: get(rowData, property)
   };
 }
 

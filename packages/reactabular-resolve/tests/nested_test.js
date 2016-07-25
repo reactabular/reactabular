@@ -10,9 +10,15 @@ describe('resolve.nested', function () {
         last: lastName
       }
     };
+    const expected = {
+      name: {
+        last: lastName
+      },
+      [property]: lastName
+    };
     const column = { cell: { property } };
 
-    expect(nested(row, column)).to.deep.equal({ [property]: lastName });
+    expect(nested(row, column)).to.deep.equal(expected);
   });
 
   it('resolves normal values', function () {

@@ -100,6 +100,49 @@ describe('resolve.resolve', function () {
     ];
     const expected = [
       {
+        name: {
+          last: lastName
+        },
+        'name.last': lastName,
+        '_name.last': lastName + lastName
+      }
+    ];
+    const resolver = resolve({
+      columns,
+      method: (row, column) => byFunction('cell.resolve')(
+        nested(row, column),
+        column
+      )
+    });
+
+    expect(resolver(rows)).to.deep.equal(expected);
+  });
+
+  it('resolves using multiple resolvers and provides correct intermediate rowData', function () {
+    const lastName = 'Demo';
+    const columns = [
+      {
+        header: {
+          label: 'Resolved value'
+        },
+        cell: {
+          resolve: (value, { rowData }) => rowData.name.last + value,
+          property: 'name.last'
+        }
+      }
+    ];
+    const rows = [
+      {
+        name: {
+          last: lastName
+        }
+      }
+    ];
+    const expected = [
+      {
+        name: {
+          last: 'Demo'
+        },
         'name.last': lastName,
         '_name.last': lastName + lastName
       }
