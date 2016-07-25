@@ -395,8 +395,8 @@ const CustomFooter = ({ columns, rows }) => {
   return (
     <tfoot>
       <tr>
-        {columns.map(column =>
-          <td>{column.footer ? column.footer(rows) : null}</td>
+        {columns.map((column, i) =>
+          <td key={`footer-${i}`}>{column.footer ? column.footer(rows) : null}</td>
         )}
       </tr>
     </tfoot>
