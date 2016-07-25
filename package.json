@@ -6,17 +6,17 @@
   "scripts": {
     "start": "webpack-dev-server",
     "test": "karma start",
-    "tdd": "karma start --auto-watch --no-single-run",
-    "gh-pages": "webpack",
-    "stats": "webpack --json --profile > stats.json",
-    "deploy-gh-pages": "gh-pages -d gh-pages",
-    "lint": "eslint . --ext .js --ext .jsx --cache",
-    "dist-all": "npm run dist && npm run dist-min",
-    "dist": "webpack",
-    "dist-min": "webpack",
-    "preversion": "npm run lint && npm run test && npm run dist-all && git commit --allow-empty -am \"Update dist\"",
+    "test:tdd": "karma start --auto-watch --no-single-run",
+    "test:lint": "eslint . --ext .js --ext .jsx --cache",
+    "gh-pages:build-and-deploy": "npm run gh-pages:build && npm run gh-pages:deploy",
+    "gh-pages:build": "webpack",
+    "gh-pages:deploy": "gh-pages -d gh-pages",
+    "gh-pages:stats": "webpack --json --profile > stats.json",
+    "dist:update": "npm run dist:all && git commit --allow-empty -am \"Update dist\"",
+    "dist:all": "npm run dist:build && npm run dist:build-min",
+    "dist:build": "webpack",
+    "dist:build-min": "webpack",
     "prepublish": "lerna bootstrap",
-    "postpublish": "npm run gh-pages && npm run deploy-gh-pages",
     "postinstall": "node lib/post_install.js"
   },
   "repository": {
@@ -102,7 +102,7 @@
     "webpack-merge": "^0.14.0"
   },
   "pre-push": [
-    "lint",
+    "test:lint",
     "test"
   ]
 }

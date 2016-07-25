@@ -113,7 +113,7 @@ if (TARGET === 'start') {
   });
 }
 
-if (TARGET === 'gh-pages' || TARGET === 'deploy-gh-pages' || TARGET === 'stats') {
+if (TARGET.startsWith('gh-pages')) {
   module.exports = merge(common, commonSite, {
     entry: {
       app: config.paths.documentation,
@@ -190,7 +190,7 @@ const commonDist = merge(common, {
   }
 });
 
-if (TARGET === 'dist') {
+if (TARGET === 'dist:build') {
   module.exports = merge(commonDist, {
     output: {
       path: config.paths.dist,
@@ -202,7 +202,7 @@ if (TARGET === 'dist') {
   });
 }
 
-if (TARGET === 'dist-min') {
+if (TARGET === 'dist:build-min') {
   module.exports = merge(commonDist, {
     output: {
       path: config.paths.dist,
@@ -221,7 +221,7 @@ if (TARGET === 'dist-min') {
   });
 }
 
-if (TARGET === 'test' || TARGET === 'tdd' || !TARGET) {
+if (TARGET.startsWith('test') || !TARGET) {
   module.exports = merge(common, {
     entry: {}, // karma will set this
     output: {}, // karma will set this
