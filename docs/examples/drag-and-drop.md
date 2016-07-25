@@ -120,6 +120,8 @@ class DragAndDropTable extends React.Component {
       rows
     };
 
+    this.onRow = this.onRow.bind(this);
+    this.onMoveRow = this.onMoveRow.bind(this);
     this.onMove = this.onMove.bind(this);
     this.onChildMove = this.onChildMove.bind(this);
   }
@@ -127,6 +129,9 @@ class DragAndDropTable extends React.Component {
     const components = {
       header: {
         cell: DndHeader
+      },
+      body: {
+        row: DndRow
       }
     };
     const { columns, rows } = this.state;
@@ -141,9 +146,19 @@ class DragAndDropTable extends React.Component {
         <Table.Body
           rows={resolve.resolve({ columns, method: resolve.nested})(rows)}
           rowKey="id"
+          onRow={this.onRow}
         />
       </Table.Provider>
     );
+  }
+  onRow(row, rowIndex) {
+    return {
+      rowIndex,
+      onMove: o => this.onMoveRow(o)
+    };
+  }
+  onMoveRow(rowIndices) {
+    console.log('move row', rowIndices);
   }
   onMove(labels) {
     const movedColumns = move(this.state.columns, labels);
@@ -207,6 +222,7 @@ class DragAndDropTable extends React.Component {
   }
 }
 
+// TODO: extract kernel so that it can be reused for moving rows
 function move(columns, { sourceLabel, targetLabel }) {
   const sourceIndex = findIndex(
     columns,
@@ -250,8 +266,10 @@ function move(columns, { sourceLabel, targetLabel }) {
 }
 
 const DragTypes = {
-  HEADER: 'header'
+  HEADER: 'header',
+  ROW: 'row'
 };
+
 const headerSource = {
   beginDrag(props) {
     return {
@@ -270,7 +288,6 @@ const headerTarget = {
     }
   }
 };
-
 const DndHeader = compose(
   DragSource(
     DragTypes.HEADER, headerSource, connect => ({
@@ -287,6 +304,45 @@ const DndHeader = compose(
 }) => (
   connectDragSource(connectDropTarget(
     <th {...props}>{children}</th>
+  ))
+));
+
+const rowSource = {
+  beginDrag(props) {
+    console.log('begin drag', props);
+
+    return {
+      rowIndex: props.rowIndex
+    };
+  }
+};
+const rowTarget = {
+  hover(targetProps, monitor) {
+    const targetRowIndex = targetProps.rowIndex;
+    const sourceProps = monitor.getItem();
+    const sourceRowIndex = sourceProps.rowIndex;
+
+    if (sourceRowIndex !== targetRowIndex) {
+      targetProps.onMove({ sourceRowIndex, targetRowIndex });
+    }
+  }
+};
+const DndRow = compose(
+  DragSource(
+    DragTypes.ROW, rowSource, connect => ({
+      connectDragSource: connect.dragSource()
+    })
+  ),
+  DropTarget(
+    DragTypes.ROW, rowTarget, connect => ({
+      connectDropTarget: connect.dropTarget()
+    })
+  )
+)(({
+  connectDragSource, connectDropTarget, children, onMove, rowIndex, ...props
+}) => (
+  connectDragSource(connectDropTarget(
+    <tr {...props}>{children}</tr>
   ))
 ));
 
