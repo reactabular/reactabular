@@ -1,7 +1,7 @@
 import React from 'react';
 import { tableTypes, tableDefaults, tableContextTypes } from './types';
 import {
-  mergePropPair
+  mergePropPair, resolveHeaderRows
 } from 'reactabular-utils';
 
 const componentDefaults = tableDefaults.components;
@@ -9,18 +9,21 @@ const componentDefaults = tableDefaults.components;
 export default class Provider extends React.Component {
   getChildContext() {
     const { columns, components } = this.props;
-    const headerColumns = [];
     const bodyColumns = [];
 
     // Merge column props with header/body specific ones so that can be avoided later
-    columns.forEach(column => {
-      headerColumns.push(column.header ? {
-        props: mergePropPair(column.props, column.header.props),
-        header: column.header,
-        children: column.children || [], // TODO: test for this case
-        column
-      } : {});
+    const headerRows = resolveHeaderRows(columns).map(
+      row => row.map(column => (
+        column.header ? {
+          props: mergePropPair(column.props, column.header.props),
+          header: column.header,
+          children: column.children || [], // TODO: test for this case
+          column
+        } : {}
+      )
+    ));
 
+    columns.forEach(column => {
       const cell = column.cell || {};
 
       bodyColumns.push({
@@ -32,7 +35,7 @@ export default class Provider extends React.Component {
     });
 
     return {
-      headerColumns,
+      headerRows,
       bodyColumns,
       components: {
         table: components.table || componentDefaults.table,

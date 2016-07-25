@@ -41,7 +41,7 @@ const tableTypes = {
   components: React.PropTypes.object
 };
 const tableContextTypes = {
-  headerColumns: React.PropTypes.array.isRequired,
+  headerRows: React.PropTypes.array.isRequired,
   bodyColumns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
@@ -55,7 +55,7 @@ const tableBodyContextTypes = {
   components: React.PropTypes.object
 };
 const tableHeaderContextTypes = {
-  headerColumns: React.PropTypes.array.isRequired,
+  headerRows: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
 const tableDefaults = {

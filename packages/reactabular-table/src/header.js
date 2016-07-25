@@ -1,7 +1,7 @@
 import React from 'react';
 import { tableHeaderContextTypes } from './types';
 import {
-  resolveHeaderRows, evaluateTransforms, mergePropPair
+  evaluateTransforms, mergePropPair
 } from 'reactabular-utils';
 
 // This has to be a React component instead of a function.
@@ -9,12 +9,12 @@ import {
 export default class Header extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
   render() {
     const { children, ...props } = this.props;
-    const { headerColumns, components } = this.context;
+    const { headerRows, components } = this.context;
 
     return React.createElement(
       components.header.wrapper,
       props,
-      [resolveHeaderRows(headerColumns).map((row, i) =>
+      [headerRows.map((row, i) =>
         React.createElement(HeaderRow, {
           key: `${i}-header-row`,
           components: components.header,
