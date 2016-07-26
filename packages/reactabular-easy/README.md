@@ -1,32 +1,36 @@
 Given Reactabular is flexible by design, it's not the easiest to use and you may have to do quite a bit of wiring to make it work the way you want. `reactabular-easy` has been designed to make using it easier. It is opinionated and takes away some power. But on the plus side it allows you to render a fully featured table faster.
 
 ```jsx
-const rows = [
-  {
-    id: 100,
-    name: 'Adam',
-    dad: 'John',
-    lovesBeeGees: true
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string'
+    },
+    name: {
+      type: 'string'
+    },
+    age: {
+      type: 'integer'
+    },
+    boss: {
+      $ref: '#/definitions/boss'
+    }
   },
-  {
-    id: 101,
-    name: 'Brian',
-    dad: 'George',
-    lovesBeeGees: false
-  },
-  {
-    id: 102,
-    name: 'Jake',
-    dad: 'George',
-    lovesBeeGees: false
-  },
-  {
-    id: 103,
-    name: 'Bob',
-    dad: 'George',
-    lovesBeeGees: true
+  required: ['id', 'age', 'boss'],
+  definitions: {
+    boss: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string'
+        }
+      },
+      required: ['name']
+    }
   }
-];
+};
+const rows = generateRows(20, schema);
 
 const columns = [
   {
@@ -46,11 +50,20 @@ const columns = [
   },
   {
     header: {
-      label: 'Dad',
+      label: 'Age',
       sortable: true
     },
     cell: {
-      property: 'dad'
+      property: 'age'
+    }
+  },
+  {
+    header: {
+      label: 'Boss',
+      sortable: true
+    },
+    cell: {
+      property: 'boss.name'
     }
   }
 ];

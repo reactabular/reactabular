@@ -1,10 +1,12 @@
 import React from 'react';
-import { Table, sort, resizableColumn } from 'reactabular';
+import { Table, sort, resizableColumn, resolve } from 'reactabular';
+import { compose } from 'redux';
+import orderBy from 'lodash/orderBy';
+
 // import * as search from 'reactabular-search';
 // import * as edit from 'reactabular-edit';
 // import * as highlight from 'reactabular-highlight';
 // import * as resolve from 'reactabular-resolve';
-import orderBy from 'lodash/orderBy';
 
 export default class EasyTable extends React.Component {
   constructor(props) {
@@ -36,8 +38,17 @@ export default class EasyTable extends React.Component {
   render() {
     const { rowKey } = this.props;
     const { columns, sortingColumns } = this.state;
-    const rows = sort.sorter(
-      { columns, sortingColumns, sort: orderBy }
+    const rows = compose(
+      sort.sorter(
+        { columns, sortingColumns, sort: orderBy }
+      ),
+      resolve.resolve({
+        columns,
+        method: (row, column) => resolve.byFunction('cell.resolve')(
+          resolve.nested(row, column),
+          column
+        )
+      })
     )(this.state.rows);
 
     return (
