@@ -4,8 +4,7 @@
   "description": "Sticky header and body for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
-    "preversion": "npm run build",
-    "postpublish": "cd ../.. && npm run gh-pages:build-and-deploy"
+    "preversion": "npm run build"
   },
   "repository": {
     "type": "git",
