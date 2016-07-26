@@ -1,3 +1,14 @@
+1.0.1 / 2016-07-26
+==================
+
+  * Improvement - resolve - Make sure `undefined` keys aren't included in the resolved result.
+  * Bug fix - highlight - Retain original data while highlighting rows.
+
+1.0.0 / 2016-07-25
+==================
+
+  * Complete rewrite. Too many changes to mention. Please study the documentation for details.
+
 0.14.2 / 2016-06-13
 ===================
 
