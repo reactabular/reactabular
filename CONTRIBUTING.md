@@ -16,4 +16,4 @@ open http://localhost:8080
 
 Now edit `./docs`.
 
-There's also a TDD mode for testing. Run it through `npm run tdd` and develop while it's running.
+There's also a TDD mode for testing. Run it through `npm run test:tdd` and develop while it's running.
