@@ -1,13 +1,18 @@
-The following example implements a formatter that provides handles for altering column widths.
+`reactabular-resizable` implements a formatter that provides handles for altering column widths. It provides a single function, `resizableColumn`, that accepts `onDrag` callback. You should adjust your column width using it.
 
 Note that the current implementation doesn't constrain the total width of the table. That would require additional logic as you would have to check for this while altering a column width.
+
+## How to Use?
+
+The following example adjusts column widths through CSS to keep the performance high while using a sticky header/body. This way we can avoid touching the DOM through React and let the browser do the work.
 
 ```jsx
 /*
 import React from 'react';
 import { Table } from 'reactabular';
 import uuid from 'uuid';
-import { generateRows, resizableColumn, stylesheet, Sticky } from './helpers';
+import resizableColumn from 'reactabular-resizable';
+import { generateRows, stylesheet, Sticky } from './helpers';
 */
 
 const schema = {

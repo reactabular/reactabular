@@ -11,13 +11,13 @@ import keys from 'lodash/keys';
 import values from 'lodash/values';
 import transform from 'lodash/transform';
 import {
-  Table, search, edit, sort, highlight, resolve
+  Table, search, edit, sort, highlight, resolve,
+  resizableColumn
 } from 'reactabular';
 
 import {
   ColumnFilters, Paginator, PrimaryControls,
-  generateRows, paginate, VisibilityToggles,
-  resizableColumn
+  generateRows, paginate, VisibilityToggles
 } from './helpers';
 import countries from './data/countries';
 */

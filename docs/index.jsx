@@ -39,6 +39,7 @@ const documentationImports = {
   edit: { ...reactabular.edit },
   highlight: { ...reactabular.highlight },
   resolve: { ...reactabular.resolve },
+  resizableColumn: reactabular.resizableColumn,
   EasyTable,
   ...reactDnd,
   HTML5Backend,
@@ -184,6 +185,18 @@ const pages = [
     component: require('catalog/lib/loader!raw!../packages/reactabular-highlight/README.md')
   },
   {
+    path: 'resizable-columns',
+    title: 'Resizable Columns',
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!../packages/reactabular-resizable/README.md')
+  },
+  {
+    path: 'easy',
+    title: 'Easy Version',
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!../packages/reactabular-easy/README.md')
+  },
+  {
     title: 'Examples',
     props: {
       style: {
@@ -228,12 +241,6 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/infinite-scrolling.md')
       },
       {
-        path: 'examples/resizable-columns',
-        title: 'Resizable Columns',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/resizable-columns.md')
-      },
-      {
         path: 'examples/selection',
         title: 'Selection',
         imports: documentationImports,
@@ -244,12 +251,6 @@ const pages = [
         title: 'Sort and Search',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./examples/sort-and-search.md')
-      },
-      {
-        path: 'examples/stateful-table',
-        title: 'Stateful Table',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/stateful-table.md')
       },
       {
         path: 'examples/sticky-headers',
@@ -270,12 +271,6 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/tree-view.md')
       }
     ]
-  },
-  {
-    path: 'easy',
-    title: 'Easy Version',
-    imports: documentationImports,
-    component: require('catalog/lib/loader!raw!../packages/reactabular-easy/README.md')
   },
   {
     path: 'installing',
