@@ -40,7 +40,8 @@ const columns = [
       resizable: true
     },
     cell: {
-      property: 'name'
+      property: 'name',
+      highlight: true
     },
     props: {
       style: {
@@ -54,7 +55,8 @@ const columns = [
       sortable: true
     },
     cell: {
-      property: 'age'
+      property: 'age',
+      highlight: true
     }
   },
   {
@@ -63,10 +65,44 @@ const columns = [
       sortable: true
     },
     cell: {
-      property: 'boss.name'
+      property: 'boss.name',
+      highlight: true
     }
   }
 ];
 
-<EasyTable rows={rows} rowKey="id" columns={columns} />
+class Demo extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      query: {}
+    };
+  }
+  render() {
+    const { query } = this.state;
+
+    return (
+      <div>
+        <div className="search-container">
+          <span>Search</span>
+          <Search
+            columns={columns}
+            rows={rows}
+            onChange={query => this.setState({ query })}
+          />
+        </div>
+
+        <EasyTable
+          rows={rows}
+          rowKey="id"
+          columns={columns}
+          query={query}
+        />
+      </div>
+    );
+  }
+}
+
+<Demo />
 ```

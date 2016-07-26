@@ -1,12 +1,11 @@
 import React from 'react';
-import { Table, sort, resizableColumn, resolve } from 'reactabular';
+import {
+  Table, sort, resizableColumn, resolve, highlight, search
+} from 'reactabular';
 import { compose } from 'redux';
 import orderBy from 'lodash/orderBy';
 
-// import * as search from 'reactabular-search';
 // import * as edit from 'reactabular-edit';
-// import * as highlight from 'reactabular-highlight';
-// import * as resolve from 'reactabular-resolve';
 
 export default class EasyTable extends React.Component {
   constructor(props) {
@@ -36,12 +35,14 @@ export default class EasyTable extends React.Component {
     }
   }
   render() {
-    const { rowKey } = this.props;
+    const { rowKey, query } = this.props;
     const { columns, sortingColumns } = this.state;
     const rows = compose(
       sort.sorter(
         { columns, sortingColumns, sort: orderBy }
       ),
+      highlight.highlighter({ columns, matches: search.matches, query }),
+      search.multipleColumns({ columns, query }),
       resolve.resolve({
         columns,
         method: (row, column) => resolve.byFunction('cell.resolve')(
@@ -97,15 +98,17 @@ export default class EasyTable extends React.Component {
 
     return columns.map(column => {
       if (column.header && column.cell && column.cell.property) {
-        const existingFormat = column.header.format || (v => v);
-        const existingTransforms = column.header.transforms || [];
-        let newFormat = existingFormat;
-        let newTransforms = existingTransforms;
+        const existingHeaderFormat = column.header.format || (v => v);
+        const existingHeaderTransforms = column.header.transforms || [];
+        const existingCellFormat = column.cell.format || (v => v);
+        let newHeaderFormat = existingHeaderFormat;
+        let newHeaderTransforms = existingHeaderTransforms;
+        let newCellFormat = existingCellFormat;
 
         if (column.header.sortable && column.header.resizable) {
-          newFormat = (v, extra) => resizable(
+          newHeaderFormat = (v, extra) => resizable(
             <div>
-              <span>{existingFormat(v, extra)}</span>
+              <span>{existingHeaderFormat(v, extra)}</span>
               {React.createElement(
                 'span',
                 sortable(null, extra)
@@ -114,10 +117,17 @@ export default class EasyTable extends React.Component {
             extra
           );
         } else if (column.header.sortable) {
-          newTransforms = existingTransforms.concat([sortable]);
+          newHeaderTransforms = existingHeaderTransforms.concat([sortable]);
         } else if (column.header.resizable) {
-          newFormat = (v, extra) => resizable(
-            existingFormat(v, extra),
+          newHeaderFormat = (v, extra) => resizable(
+            existingHeaderFormat(v, extra),
+            extra
+          );
+        }
+
+        if (column.cell.highlight) {
+          newCellFormat = (v, extra) => highlight.cell(
+            existingCellFormat(v, extra),
             extra
           );
         }
@@ -126,8 +136,12 @@ export default class EasyTable extends React.Component {
           ...column,
           header: {
             ...column.header,
-            format: newFormat,
-            transforms: newTransforms
+            transforms: newHeaderTransforms,
+            format: newHeaderFormat
+          },
+          cell: {
+            ...column.cell,
+            format: newCellFormat
           }
         };
       }
@@ -139,5 +153,6 @@ export default class EasyTable extends React.Component {
 EasyTable.propTypes = {
   columns: React.PropTypes.array,
   rows: React.PropTypes.array,
-  rowKey: React.PropTypes.string.isRequired
+  rowKey: React.PropTypes.string.isRequired,
+  query: React.PropTypes.object
 };
