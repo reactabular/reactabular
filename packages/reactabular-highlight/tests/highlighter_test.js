@@ -3,7 +3,7 @@ import * as search from '../../reactabular-search/src';
 import * as highlight from '../src';
 
 describe('highlight.highlighter', function () {
-  it('sorts ascending by default', function () {
+  it('highlights using matches', function () {
     const columns = [
       {
         cell: {
@@ -32,6 +32,50 @@ describe('highlight.highlighter', function () {
           name: []
         },
         name: 'another'
+      }
+    ];
+    const result = highlight.highlighter({
+      columns,
+      matches: search.matches,
+      query: {
+        name: 'demo'
+      }
+    })(rows);
+
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('retains original data', function () {
+    const columns = [
+      {
+        cell: {
+          property: 'name'
+        }
+      }
+    ];
+    const rows = [
+      { name: 'demo', id: 5 },
+      { name: 'another', id: 10 }
+    ];
+    const expected = [
+      {
+        _highlights: {
+          name: [
+            {
+              startIndex: 0,
+              length: 4
+            }
+          ]
+        },
+        name: 'demo',
+        id: 5
+      },
+      {
+        _highlights: {
+          name: []
+        },
+        name: 'another',
+        id: 10
       }
     ];
     const result = highlight.highlighter({

@@ -35,7 +35,11 @@ function highlighter({ columns, matches, query } = {}) {
       });
     });
 
-    return ret;
+    // Capture original row data too
+    return {
+      ...row,
+      ...ret
+    };
   });
 }
 
