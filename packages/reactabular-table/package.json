@@ -1,6 +1,6 @@
 {
   "name": "reactabular-table",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Table components for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
@@ -26,7 +26,7 @@
   "main": "dist-modules",
   "jsnext:main": "src",
   "dependencies": {
-    "reactabular-utils": "^1.0.2"
+    "reactabular-utils": "^1.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
