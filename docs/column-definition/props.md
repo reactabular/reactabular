@@ -15,4 +15,4 @@ Root level `props` allows you to attach props to all header and content cells. T
 
 ## See Also
 
-* [Sticky Headers](/examples/sticky-headers)
+* [Sticky](/sticky)

@@ -34,6 +34,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const documentationImports = {
   Table: { ...reactabular.Table },
+  Sticky: { ...reactabular.Sticky },
   search: { ...reactabular.search },
   sort: { ...reactabular.sort },
   edit: { ...reactabular.edit },
@@ -191,6 +192,12 @@ const pages = [
     component: require('catalog/lib/loader!raw!../packages/reactabular-resizable/README.md')
   },
   {
+    path: 'sticky',
+    title: 'Sticky',
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!../packages/reactabular-sticky/README.md')
+  },
+  {
     path: 'easy',
     title: 'Easy Version',
     imports: documentationImports,
@@ -251,12 +258,6 @@ const pages = [
         title: 'Sort and Search',
         imports: documentationImports,
         component: require('catalog/lib/loader!raw!./examples/sort-and-search.md')
-      },
-      {
-        path: 'examples/sticky-headers',
-        title: 'Sticky Headers',
-        imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/sticky-headers.md')
       },
       {
         path: 'examples/toggle-columns',

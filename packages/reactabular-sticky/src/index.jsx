@@ -56,7 +56,7 @@ Body.propTypes = {
   tableHeader: React.PropTypes.func
 };
 
-export default {
+export {
   Header,
   Body
 };

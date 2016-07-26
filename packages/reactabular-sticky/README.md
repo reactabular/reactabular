@@ -1,3 +1,7 @@
+Sometimes you might want to display data within a fixed container. That's where `reactabular-sticky` comes in. It includes logic keeping a table header and a table body in sync. Unfortunately you still need to dig DOM references yourself to achieve this given it relies on measuring.
+
+## How to Use?
+
 The following example implements sticky headers within a fixed viewport through `props`.
 
 ```jsx
@@ -5,8 +9,8 @@ The following example implements sticky headers within a fixed viewport through 
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import { generateRows, Sticky } from './helpers';
-import { Table } from 'reactabular';
+import { Table, Sticky } from 'reactabular';
+// import { Sticky } from 'reactabular-sticky';
 */
 
 const schema = {
@@ -79,7 +83,7 @@ const columns = [
   }
 ];
 
-class StickyHeaderTable extends React.Component {
+class StickyTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -134,5 +138,5 @@ class StickyHeaderTable extends React.Component {
   }
 }
 
-<StickyHeaderTable />
+<StickyTable />
 ```

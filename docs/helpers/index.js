@@ -6,6 +6,5 @@ export { default as Search } from './Search';
 export { default as generateRows } from './generate_rows';
 export { default as paginate } from './paginate';
 export { default as VisibilityToggles } from './VisibilityToggles';
-export { default as Sticky } from './Sticky';
 export { default as stylesheet } from './stylesheet';
 

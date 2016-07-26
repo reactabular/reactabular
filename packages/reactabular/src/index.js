@@ -1,4 +1,5 @@
 import * as Table from 'reactabular-table';
+import * as Sticky from 'reactabular-sticky';
 import * as search from 'reactabular-search';
 import * as sort from 'reactabular-sort';
 import * as edit from 'reactabular-edit';
@@ -8,6 +9,7 @@ import resizableColumn from 'reactabular-resizable';
 
 export {
   Table,
+  Sticky,
   search,
   sort,
   edit,
