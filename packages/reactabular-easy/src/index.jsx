@@ -1,11 +1,9 @@
 import React from 'react';
-import * as Table from 'reactabular-table';
+import { Table, sort, resizableColumn } from 'reactabular';
 // import * as search from 'reactabular-search';
-import * as sort from 'reactabular-sort';
 // import * as edit from 'reactabular-edit';
 // import * as highlight from 'reactabular-highlight';
 // import * as resolve from 'reactabular-resolve';
-import resizableColumn from 'reactabular-resizable';
 import orderBy from 'lodash/orderBy';
 
 export default class EasyTable extends React.Component {
