@@ -15,6 +15,7 @@ import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import transform from 'lodash/transform';
+import EasyTable from 'reactabular-easy';
 import * as reactabular from 'reactabular';
 import * as rowsDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
@@ -38,6 +39,7 @@ const documentationImports = {
   edit: { ...reactabular.edit },
   highlight: { ...reactabular.highlight },
   resolve: { ...reactabular.resolve },
+  EasyTable,
   ...reactDnd,
   HTML5Backend,
   classnames,
@@ -268,6 +270,12 @@ const pages = [
         component: require('catalog/lib/loader!raw!./examples/tree-view.md')
       }
     ]
+  },
+  {
+    path: 'easy',
+    title: 'Easy Version',
+    imports: documentationImports,
+    component: require('catalog/lib/loader!raw!../packages/reactabular-easy/README.md')
   },
   {
     path: 'installing',
