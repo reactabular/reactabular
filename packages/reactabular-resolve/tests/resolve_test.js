@@ -157,4 +157,34 @@ describe('resolve.resolve', function () {
 
     expect(resolver(rows)).to.deep.equal(expected);
   });
+
+  it('passes empty cells through', function () {
+    const originalId = 123;
+    const columns = [
+      {
+        cell: {
+          format: a => a
+        }
+      }
+    ];
+    const rows = [
+      {
+        id: originalId
+      }
+    ];
+    const expected = [
+      {
+        id: originalId
+      }
+    ];
+    const resolver = resolve({
+      columns,
+      method: (row, column) => byFunction('cell.resolve')(
+        nested(row, column),
+        column
+      )
+    });
+
+    expect(resolver(rows)).to.deep.equal(expected);
+  });
 });

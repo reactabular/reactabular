@@ -14,9 +14,14 @@ function resolve({ columns, method }) {
     let ret = {};
 
     resolvedColumns.forEach(column => {
+      const result = method(row, column);
+
+      delete result.undefined;
+
       ret = {
+        ...row,
         ...ret,
-        ...method(row, column)
+        ...result
       };
     });
 
