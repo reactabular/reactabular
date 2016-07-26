@@ -8,9 +8,10 @@ The following example implements sticky headers within a fixed viewport through 
 /*
 import ReactDOM from 'react-dom';
 import React from 'react';
-
 import { Table, Sticky } from 'reactabular';
 // import { Sticky } from 'reactabular-sticky';
+
+import { generateRows } from './helpers';
 */
 
 const schema = {
