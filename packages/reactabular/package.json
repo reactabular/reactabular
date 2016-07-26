@@ -7,6 +7,13 @@
     "preversion": "npm run build && cd ../.. && npm run dist:all && git commit --allow-empty -am \"Update dist\"",
     "postpublish": "cd ../.. && npm run gh-pages:build-and-deploy"
   },
+  "files": [
+    "dist-modules",
+    "src",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/reactabular/reactabular.git"

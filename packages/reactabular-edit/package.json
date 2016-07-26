@@ -6,6 +6,13 @@
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
     "preversion": "npm run build"
   },
+  "files": [
+    "dist-modules",
+    "src",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/reactabular/reactabular.git"
