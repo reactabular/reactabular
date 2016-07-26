@@ -292,7 +292,7 @@ const pages = [
   {
     path: 'changelog',
     title: 'Changelog',
-    component: require('catalog/lib/loader!raw!../CHANGELOG.md')
+    component: require('catalog/lib/loader!raw!../packages/reactabular/CHANGELOG.md')
   },
   {
     path: 'license',
