@@ -1,3 +1,9 @@
+1.0.2 / 2016-07-26
+==================
+
+  * Improvement - resizable - New module for resizing columns.
+  * Improvement - sticky - New pair of components (`Sticky.Header`, `Sticky.Body`) that allow you to render data within a fixed viewport.
+
 1.0.1 / 2016-07-26
 ==================
 
