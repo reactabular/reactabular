@@ -1,6 +1,6 @@
 {
   "name": "reactabular-easy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Easy, opinionated wrapper for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
@@ -27,7 +27,7 @@
   "main": "dist-modules",
   "jsnext:main": "src",
   "dependencies": {
-    "reactabular": "^1.0.1",
+    "reactabular": "^1.0.3",
     "redux": "^3.5.2"
   },
   "devDependencies": {
