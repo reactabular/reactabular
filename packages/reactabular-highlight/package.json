@@ -1,6 +1,6 @@
 {
   "name": "reactabular-highlight",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Highlighting for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",

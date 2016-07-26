@@ -1,6 +1,6 @@
 {
   "name": "reactabular-sticky",
-  "version": "0.1.0",
+  "version": "1.0.2",
   "description": "Sticky header and body for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
@@ -27,7 +27,7 @@
   "main": "dist-modules",
   "jsnext:main": "src",
   "dependencies": {
-    "reactabular-table": "^1.0.0"
+    "reactabular-table": "^1.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
