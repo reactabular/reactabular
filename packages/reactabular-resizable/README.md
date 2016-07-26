@@ -9,10 +9,10 @@ The following example adjusts column widths through CSS to keep the performance 
 ```jsx
 /*
 import React from 'react';
-import { Table, resizableColumn } from 'reactabular';
+import { Table, Sticky, resizableColumn } from 'reactabular';
 // import resizableColumn from 'reactabular-resizable';
 import uuid from 'uuid';
-import { generateRows, stylesheet, Sticky } from './helpers';
+import { generateRows, stylesheet } from './helpers';
 */
 
 const schema = {
