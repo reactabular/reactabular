@@ -29,7 +29,7 @@
   "dependencies": {
     "reactabular-edit": "^1.0.0",
     "reactabular-highlight": "^1.0.1",
-    "reactabular-resizable": "^1.0.0",
+    "reactabular-resizable": "^0.1.0",
     "reactabular-resolve": "^1.0.1",
     "reactabular-search": "^1.0.0",
     "reactabular-sort": "^1.0.0",
