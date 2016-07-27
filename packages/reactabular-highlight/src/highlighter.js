@@ -27,6 +27,10 @@ function highlighter({ columns, matches, query } = {}) {
         ret[`_${property}`] = resolvedValue;
       }
 
+      if (typeof property === 'undefined') {
+        return;
+      }
+
       // Stash highlighted value based on index
       // so it can be extracted later for highlighting
       ret._highlights[property] = matches({

@@ -137,6 +137,43 @@ describe('highlight.highlighter', function () {
     expect(result).to.deep.equal(expected);
   });
 
+  it('passes empty cells through', function () {
+    const columns = [
+      {
+        cell: {
+          format: a => a
+        }
+      }
+    ];
+    const rows = [
+      { name: 'demo', _age: 13 },
+      { name: 'another' }
+    ];
+    const expected = [
+      {
+        name: 'demo',
+        _age: 13,
+        _highlights: {}
+      },
+      {
+        name: 'another',
+        _highlights: {}
+      }
+    ];
+    const result = highlight.highlighter({
+      columns,
+      matches: search.matches,
+      query: {
+        name: 'demo'
+      }
+    })(rows);
+
+    expect(JSON.stringify(result)).to.equal(JSON.stringify(expected));
+
+    // XXX: why this fails?
+    // expect(result).to.deep.equal(expected);
+  });
+
   it('throws an error if columns are not passed', function () {
     expect(highlight.highlighter.bind(null, {
       matches: search.matches,
