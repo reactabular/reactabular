@@ -17,6 +17,8 @@ import orderBy from 'lodash/orderBy';
 import transform from 'lodash/transform';
 import EasyTable from 'reactabular-easy';
 import * as reactabular from 'reactabular';
+import * as stylesheet from 'stylesheet-helpers';
+
 import * as rowsDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import countries from './data/countries';
@@ -42,6 +44,7 @@ const documentationImports = {
   resolve: { ...reactabular.resolve },
   resizableColumn: reactabular.resizableColumn,
   EasyTable,
+  stylesheet: { ...stylesheet },
   ...reactDnd,
   HTML5Backend,
   classnames,

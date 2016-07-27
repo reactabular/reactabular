@@ -12,7 +12,8 @@ import React from 'react';
 import { Table, Sticky, resizableColumn } from 'reactabular';
 // import resizableColumn from 'reactabular-resizable';
 import uuid from 'uuid';
-import { generateRows, stylesheet } from './helpers';
+import * as stylesheet from 'stylesheet-helpers';
+import { generateRows } from './helpers';
 */
 
 const schema = {
