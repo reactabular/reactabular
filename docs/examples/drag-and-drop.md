@@ -302,7 +302,7 @@ function move(data, sourceIndex, targetIndex) {
   const sourceItem = data[sourceIndex];
 
   // 1. detach - a, c, d, e - a, b, c, e, - b, c, d, e
-  let ret = data.slice(0, sourceIndex).concat(
+  const ret = data.slice(0, sourceIndex).concat(
     data.slice(sourceIndex + 1)
   );
 
@@ -318,9 +318,12 @@ const DragTypes = {
 };
 
 const headerSource = {
-  beginDrag(props) {
+  beginDrag({ children }) {
+    // XXX: This will fail if you use a custom label.
+    // A good alternative would be to pass an id through
+    // a prop.
     return {
-      label: props.children
+      label: children
     };
   }
 };
@@ -355,10 +358,8 @@ const DndHeader = compose(
 ));
 
 const rowSource = {
-  beginDrag(props) {
-    return {
-      rowId: props.rowId
-    };
+  beginDrag({ rowId }) {
+    return { rowId };
   }
 };
 const rowTarget = {
