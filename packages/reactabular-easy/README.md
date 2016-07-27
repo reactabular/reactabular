@@ -1,6 +1,14 @@
 Given Reactabular is flexible by design, it's not the easiest to use and you may have to do quite a bit of wiring to make it work the way you want. `reactabular-easy` has been designed to make using it easier. It is opinionated and takes away some power. But on the plus side it allows you to render a fully featured table faster.
 
 ```jsx
+/*
+import React from 'react';
+import EasyTable from 'reactabular-easy';
+import cloneDeep from 'lodash/cloneDeep';
+
+import { VisibilityToggles } from './helpers';
+*/
+
 const schema = {
   type: 'object',
   properties: {
@@ -47,7 +55,8 @@ const columns = [
       style: {
         width: 200
       }
-    }
+    },
+    visible: true
   },
   {
     header: {
@@ -57,7 +66,8 @@ const columns = [
     cell: {
       property: 'age',
       highlight: true
-    }
+    },
+    visible: true
   },
   {
     header: {
@@ -67,7 +77,8 @@ const columns = [
     cell: {
       property: 'boss.name',
       highlight: true
-    }
+    },
+    visible: false
   }
 ];
 
@@ -76,18 +87,27 @@ class Demo extends React.Component {
     super(props);
 
     this.state = {
+      columns,
       query: {}
     };
+
+    this.onToggleColumn = this.onToggleColumn.bind(this);
   }
   render() {
-    const { query } = this.state;
+    const { columns, query } = this.state;
+    const cols = this.state.columns.filter(column => column.visible);
 
     return (
       <div>
+        <VisibilityToggles
+          columns={columns}
+          onToggleColumn={this.onToggleColumn}
+        />
+
         <div className="search-container">
           <span>Search</span>
           <Search
-            columns={columns}
+            columns={cols}
             rows={rows}
             onChange={query => this.setState({ query })}
           />
@@ -96,11 +116,18 @@ class Demo extends React.Component {
         <EasyTable
           rows={rows}
           rowKey="id"
-          columns={columns}
+          columns={cols}
           query={query}
         />
       </div>
     );
+  }
+  onToggleColumn(columnIndex) {
+    const columns = cloneDeep(this.state.columns);
+
+    columns[columnIndex].visible = !columns[columnIndex].visible;
+
+    this.setState({ columns });
   }
 }
 
