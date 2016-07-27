@@ -1,9 +1,13 @@
 Given Reactabular is flexible by design, it's not the easiest to use and you may have to do quite a bit of wiring to make it work the way you want. `reactabular-easy` has been designed to make using it easier. It is opinionated and takes away some power. But on the plus side it allows you to render a fully featured table faster.
 
+To make the drag and drop functionality work, you have to set up [react-dnd-html5-backend](https://www.npmjs.com/package/react-dnd-html5-backend) or some other React DnD backend.
+
 ```jsx
 /*
 import React from 'react';
 import EasyTable from 'reactabular-easy';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 import cloneDeep from 'lodash/cloneDeep';
 
 import { VisibilityToggles } from './helpers';
@@ -44,6 +48,7 @@ const columns = [
   {
     header: {
       label: 'Name',
+      draggable: true,
       sortable: true,
       resizable: true
     },
@@ -57,6 +62,7 @@ const columns = [
   {
     header: {
       label: 'Age',
+      draggable: true,
       sortable: true,
       resizable: true
     },
@@ -70,6 +76,7 @@ const columns = [
   {
     header: {
       label: 'Boss',
+      draggable: true,
       sortable: true,
       resizable: true
     },
@@ -149,5 +156,7 @@ class Demo extends React.Component {
   }
 }
 
-<Demo />
+const DragAndDropDemo = DragDropContext(HTML5Backend)(Demo);
+
+<DragAndDropDemo />
 ```

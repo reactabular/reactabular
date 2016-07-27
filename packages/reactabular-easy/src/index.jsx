@@ -3,9 +3,11 @@ import React from 'react';
 import {
   Table, Sticky, sort, resizableColumn, resolve, highlight, search
 } from 'reactabular';
+import { DragSource, DropTarget } from 'react-dnd';
 import { compose } from 'redux';
 import uuid from 'uuid';
 import * as stylesheet from 'stylesheet-helpers';
+import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
 export default class EasyTable extends React.Component {
@@ -24,6 +26,7 @@ export default class EasyTable extends React.Component {
     };
 
     this.bindColumns = this.bindColumns.bind(this);
+    this.onMove = this.onMove.bind(this);
 
     // References to header/body elements so they can be
     // kept in sync while scrolling.
@@ -62,6 +65,11 @@ export default class EasyTable extends React.Component {
     }
   }
   render() {
+    const components = {
+      header: {
+        cell: DndHeader
+      }
+    };
     const { rowKey, query, tableWidth, tableHeight } = this.props;
     const { columns, sortingColumns } = this.state;
     const rows = compose(
@@ -83,7 +91,11 @@ export default class EasyTable extends React.Component {
     const scrollOffset = tableHeaderWidth - tableBodyWidth;
 
     return (
-      <Table.Provider columns={columns} style={{ width: tableWidth }}>
+      <Table.Provider
+        components={components}
+        columns={columns}
+        style={{ width: tableWidth }}
+      >
         <Sticky.Header
           style={{
             maxWidth: tableWidth
@@ -161,9 +173,11 @@ export default class EasyTable extends React.Component {
 
     return columns.map((column, i) => {
       if (column.header && column.cell) {
+        const existingHeaderProps = column.header.props;
         const existingHeaderFormat = column.header.format || (v => v);
         const existingHeaderTransforms = column.header.transforms || [];
         const existingCellFormat = column.cell.format || (v => v);
+        let newHeaderProps = existingHeaderProps;
         let newHeaderFormat = existingHeaderFormat;
         let newHeaderTransforms = existingHeaderTransforms;
         let newCellFormat = existingCellFormat;
@@ -188,6 +202,14 @@ export default class EasyTable extends React.Component {
           );
         }
 
+        if (column.header.draggable) {
+          newHeaderProps = {
+            // DnD needs this to tell header cells apart
+            label: column.header.label,
+            onMove: o => this.onMove(o)
+          };
+        }
+
         if (column.cell.highlight) {
           newCellFormat = (v, extra) => highlight.cell(
             existingCellFormat(v, extra),
@@ -205,6 +227,7 @@ export default class EasyTable extends React.Component {
           },
           header: {
             ...column.header,
+            props: newHeaderProps,
             transforms: newHeaderTransforms,
             format: newHeaderFormat
           },
@@ -217,6 +240,23 @@ export default class EasyTable extends React.Component {
 
       return column;
     });
+  }
+  onMove(labels) {
+    const movedColumns = moveLabels(this.state.columns, labels);
+
+    if (movedColumns) {
+      // Retain widths to avoid flashing while drag and dropping.
+      const source = movedColumns.columns[movedColumns.sourceIndex];
+      const target = movedColumns.columns[movedColumns.targetIndex];
+
+      const tmpClassName = source.props.className;
+      source.props.className = target.props.className;
+      target.props.className = tmpClassName;
+
+      this.setState({
+        columns: movedColumns.columns
+      });
+    }
   }
 }
 EasyTable.propTypes = {
@@ -231,3 +271,86 @@ EasyTable.propTypes = {
 function getColumnClassName(id, i) {
   return `column-${id}-${i}`;
 }
+
+function moveLabels(columns, { sourceLabel, targetLabel }) {
+  const sourceIndex = findIndex(
+    columns,
+    { header: { label: sourceLabel } }
+  );
+
+  if (sourceIndex < 0) {
+    return null;
+  }
+
+  const targetIndex = findIndex(
+    columns,
+    { header: { label: targetLabel } }
+  );
+
+  if (targetIndex < 0) {
+    return null;
+  }
+
+  return {
+    sourceIndex,
+    targetIndex,
+    columns: move(columns, sourceIndex, targetIndex)
+  };
+}
+
+function move(data, sourceIndex, targetIndex) {
+  // Idea
+  // a, b, c, d, e -> move(b, d) -> a, c, d, b, e
+  // a, b, c, d, e -> move(d, a) -> d, a, b, c, e
+  // a, b, c, d, e -> move(a, d) -> b, c, d, a, e
+  const sourceItem = data[sourceIndex];
+
+  // 1. detach - a, c, d, e - a, b, c, e, - b, c, d, e
+  const ret = data.slice(0, sourceIndex).concat(
+    data.slice(sourceIndex + 1)
+  );
+
+  // 2. attach - a, c, d, b, e - d, a, b, c, e - b, c, d, a, e
+  return ret.slice(0, targetIndex).concat([sourceItem]).concat(
+    ret.slice(targetIndex)
+  );
+}
+
+const DragTypes = {
+  HEADER: 'header'
+};
+const headerSource = {
+  beginDrag({ label }) {
+    return { label };
+  }
+};
+const headerTarget = {
+  hover(targetProps, monitor) {
+    const targetLabel = targetProps.label;
+    const sourceProps = monitor.getItem();
+    const sourceLabel = sourceProps.label;
+
+    if (sourceLabel !== targetLabel && targetProps.onMove) {
+      targetProps.onMove({ sourceLabel, targetLabel });
+    }
+  }
+};
+const DndHeader = compose(
+  DragSource( // eslint-disable-line new-cap
+    DragTypes.HEADER, headerSource, connect => ({
+      connectDragSource: connect.dragSource()
+    })
+  ),
+  DropTarget( // eslint-disable-line new-cap
+    DragTypes.HEADER, headerTarget, connect => ({
+      connectDropTarget: connect.dropTarget()
+    })
+  )
+)(({
+  connectDragSource, connectDropTarget, label, // eslint-disable-line no-unused-vars
+  children, onMove, ...props // eslint-disable-line no-unused-vars
+}) => (
+  connectDragSource(connectDropTarget(
+    <th {...props}>{children}</th>
+  ))
+));

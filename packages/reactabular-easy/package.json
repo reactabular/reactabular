@@ -34,6 +34,7 @@
   "main": "dist-modules",
   "jsnext:main": "src",
   "dependencies": {
+    "react-dnd": "^2.1.4",
     "reactabular": "^1.0.4",
     "redux": "^3.5.2",
     "stylesheet-helpers": "^0.1.2",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
+    "dnd-core": "^2.0.2",
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {
