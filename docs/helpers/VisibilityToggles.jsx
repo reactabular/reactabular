@@ -10,7 +10,7 @@ const VisibilityToggles = ({ columns, onToggleColumn }) => (
         <label
           className="visibility-toggle"
           style={{ marginRight: '1em' }}
-          key={label}
+          key={`visibility-toggle-${columnIndex}`}
         >
           <span>{label}</span>
           <input
