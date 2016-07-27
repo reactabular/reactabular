@@ -35,7 +35,9 @@
   "jsnext:main": "src",
   "dependencies": {
     "reactabular": "^1.0.4",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "stylesheet-helpers": "^0.1.2",
+    "uuid": "^2.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
@@ -43,6 +45,7 @@
   },
   "peerDependencies": {
     "lodash": ">= 3.0.0 < 5.0.0",
-    "react": ">= 0.11.2 < 16.0.0"
+    "react": ">= 0.11.2 < 16.0.0",
+    "react-dom": ">= 0.11.2 < 16.0.0"
   }
 }

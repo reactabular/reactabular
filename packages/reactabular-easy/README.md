@@ -38,7 +38,7 @@ const schema = {
     }
   }
 };
-const rows = generateRows(20, schema);
+const rows = generateRows(30, schema);
 
 const columns = [
   {
@@ -51,22 +51,20 @@ const columns = [
       property: 'name',
       highlight: true
     },
-    props: {
-      style: {
-        width: 200
-      }
-    },
+    width: 200,
     visible: true
   },
   {
     header: {
       label: 'Age',
-      sortable: true
+      sortable: true,
+      resizable: true
     },
     cell: {
       property: 'age',
       highlight: true
     },
+    width: 100,
     visible: true
   },
   {
@@ -78,6 +76,7 @@ const columns = [
       property: 'boss.name',
       highlight: true
     },
+    width: 100,
     visible: false
   }
 ];
@@ -116,6 +115,8 @@ class Demo extends React.Component {
         <EasyTable
           rows={rows}
           rowKey="id"
+          tableWidth={800}
+          tableHeight={400}
           columns={cols}
           query={query}
         />
