@@ -162,7 +162,7 @@ export default class EasyTable extends React.Component {
     });
 
     return columns.map((column, i) => {
-      if (column.header && column.cell && column.cell.property) {
+      if (column.header && column.cell) {
         const existingHeaderFormat = column.header.format || (v => v);
         const existingHeaderTransforms = column.header.transforms || [];
         const existingCellFormat = column.cell.format || (v => v);

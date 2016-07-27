@@ -70,14 +70,31 @@ const columns = [
   {
     header: {
       label: 'Boss',
-      sortable: true
+      sortable: true,
+      resizable: true
     },
     cell: {
       property: 'boss.name',
       highlight: true
     },
-    width: 100,
+    width: 200,
     visible: false
+  },
+  {
+    header: {
+      resizable: true
+    },
+    cell: {
+      format: (value, { rowData }) => (
+        <input
+          type="button"
+          value="Click me"
+          onClick={() => alert(`${JSON.stringify(rowData, null, 2)}`)}
+        />
+      )
+    },
+    width: 200,
+    visible: true
   }
 ];
 
