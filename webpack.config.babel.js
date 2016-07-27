@@ -63,7 +63,8 @@ const common = {
         include: [
           config.paths.src,
           config.paths.documentation
-        ]
+        ],
+        exclude: /node_modules/
       }
     ]
   }
