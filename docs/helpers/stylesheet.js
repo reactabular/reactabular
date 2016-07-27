@@ -12,25 +12,20 @@ function create() {
   };
 }
 
-// This could be generalized into something more useful
-function updateWidth(styleSheet, className, width) {
+function updateProperties(styleSheet, className, properties) {
   const existingRule = findExistingRule(styleSheet, className);
 
   if (existingRule) {
-    existingRule.style.width = `${width}px`;
-    existingRule.style.minWidth = `${width}px`;
+    Object.keys(properties).forEach(property => {
+      existingRule.style[property] = properties[property];
+    });
   } else {
     // https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/insertRule
-    // Insert to the top
-    styleSheet.insertRule(
-      `
-      .${className} {
-        width: ${width}px;
-        min-width: ${width}px;
-      }
-      `,
-      0
-    );
+    // Insert an empty rule to the top so we can add rules to it.
+    styleSheet.insertRule(`.${className} {}`, 0);
+
+    // The rule should exist now so try again.
+    updateProperties(styleSheet, className, properties);
   }
 }
 
@@ -54,6 +49,6 @@ function findExistingRule(styleSheet, className) {
 
 export default {
   create,
-  updateWidth,
+  updateProperties,
   findExistingRule
 };

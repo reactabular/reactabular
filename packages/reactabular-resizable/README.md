@@ -74,7 +74,14 @@ class ResizableColumnsTable extends React.Component {
     return columns.map((column, i) => {
       const className = this.getClassName(column, i);
 
-      stylesheet.updateWidth(this.styleSheet, className, column.width);
+      stylesheet.updateProperties(
+        this.styleSheet,
+        className,
+        {
+          width: `${column.width}px`,
+          minWidth: `${column.width}px`
+        }
+      );
 
       return {
         props: {
@@ -91,10 +98,13 @@ class ResizableColumnsTable extends React.Component {
         const column = columns[columnIndex];
 
         // Update the width of the changed column class
-        stylesheet.updateWidth(
+        stylesheet.updateProperties(
           this.styleSheet,
           this.getClassName(column, columnIndex),
-          width
+          {
+            width: `${width}px`,
+            minWidth: `${width}px`
+          }
         );
       }
     });
