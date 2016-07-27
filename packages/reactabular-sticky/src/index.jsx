@@ -53,7 +53,7 @@ class Body extends React.Component {
 }
 Body.propTypes = {
   style: React.PropTypes.any,
-  tableHeader: React.PropTypes.func
+  tableHeader: React.PropTypes.any
 };
 
 export {
