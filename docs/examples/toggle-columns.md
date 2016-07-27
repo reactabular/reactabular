@@ -4,6 +4,7 @@ A simple way to implement toggleable columns is to manage the visibility using a
 /*
 import React from 'react';
 import { Table } from 'reactabular';
+import cloneDeep from 'lodash/cloneDeep';
 
 import { VisibilityToggles } from './helpers';
 */
@@ -88,7 +89,7 @@ class ToggleColumnsTable extends React.Component {
     );
   }
   onToggleColumn(columnIndex) {
-    const columns = this.state.columns;
+    const columns = cloneDeep(this.state.columns);
 
     columns[columnIndex].visible = !columns[columnIndex].visible;
 

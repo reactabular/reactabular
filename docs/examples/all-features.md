@@ -383,7 +383,7 @@ class AllFeaturesTable extends React.Component {
     this.setState({ rows });
   }
   onToggleColumn(columnIndex) {
-    const columns = this.state.columns;
+    const columns = cloneDeep(this.state.columns);
 
     columns[columnIndex].visible = !columns[columnIndex].visible;
 
