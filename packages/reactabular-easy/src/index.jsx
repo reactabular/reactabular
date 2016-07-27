@@ -53,8 +53,6 @@ export default class EasyTable extends React.Component {
         originalColumns: nextProps.columns,
         columns: this.bindColumns(nextProps.columns)
       });
-
-      this.initializeStyles(nextProps.columns);
     }
 
     if (this.state.rows !== nextProps.rows) {
