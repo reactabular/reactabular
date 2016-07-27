@@ -1,6 +1,6 @@
 {
   "name": "reactabular-edit",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Inline editing for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",

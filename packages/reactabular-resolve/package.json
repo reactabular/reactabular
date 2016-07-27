@@ -1,6 +1,6 @@
 {
   "name": "reactabular-resolve",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Data resolution utilities for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
@@ -34,7 +34,7 @@
   "main": "dist-modules",
   "jsnext:main": "src",
   "dependencies": {
-    "reactabular-utils": "^1.0.4"
+    "reactabular-utils": "^1.0.5"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
