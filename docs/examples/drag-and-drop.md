@@ -214,7 +214,12 @@ class DragAndDropTable extends React.Component {
 
     const sourceIndex = findIndex(
       columns,
-      column => findIndex(column.header.children, { label: sourceLabel })
+      column => (
+        findIndex(
+          column.children,
+          { header: { label: sourceLabel } }
+        ) >= 0
+      )
     );
 
     if (sourceIndex < 0) {
@@ -223,7 +228,12 @@ class DragAndDropTable extends React.Component {
 
     const targetIndex = findIndex(
       columns,
-      column => findIndex(column.header.children, { label: targetLabel })
+      column => (
+        findIndex(
+          column.children,
+          { header: { label: targetLabel } }
+        ) >= 0
+      )
     );
 
     if (targetIndex < 0) {
