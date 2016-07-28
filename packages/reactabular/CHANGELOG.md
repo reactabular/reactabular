@@ -1,3 +1,26 @@
+1.0.6 / 2016-07-27
+==================
+
+  * Bug fix - easy - Merge column definition `props.className` correctly. Previously it discarded possible value.
+  * Improvement - easy - Add styling hooks. Now you can attach classes to the table structure (table, thead, tbody).
+  * Improvement - easy - Add `onDragColumn` and `onMoveColumns` hooks.
+
+1.0.5 / 2016-07-27
+==================
+
+  * Improvement - highlight - Do not pass `undefined` keys to `_highlights` data.
+  * Improvement - easy - Add column visibility to the example.
+  * Improvement - easy - Render `EasyTable` in a fixed viewport.
+  * Bug fix - easy - Do not re-initialize styles if columns change. Without this CSS resets. I may have to revisit this decision but it seems logical now.
+  * Improvement - easy - Support `draggable` header flag.
+
+1.0.3 / 2016-07-27
+==================
+
+  * Improvement - sticky - Make `tableHeader` prop check looser.
+  * Improvement - easy - Resolve nested and `cell.resolve` based data.
+  * Improvement - easy - Support search with highlighting through a `query` prop.
+
 1.0.2 / 2016-07-26
 ==================
 
