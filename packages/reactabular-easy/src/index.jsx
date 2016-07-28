@@ -158,6 +158,8 @@ export default class EasyTable extends React.Component {
             minWidth: `${width}px`
           }
         );
+
+        this.props.onDragColumn(width, columnIndex);
       }
     });
 
@@ -265,6 +267,8 @@ export default class EasyTable extends React.Component {
       this.setState({
         columns: movedColumns.columns
       });
+
+      this.props.onMoveColumns(movedColumns.columns);
     }
   }
 }
@@ -276,7 +280,9 @@ EasyTable.propTypes = {
   tableWidth: React.PropTypes.number.isRequired,
   tableHeight: React.PropTypes.number.isRequired,
   classNames: React.PropTypes.object,
-  onRow: React.PropTypes.func
+  onRow: React.PropTypes.func,
+  onDragColumn: React.PropTypes.func,
+  onMoveColumns: React.PropTypes.func
 };
 EasyTable.defaultProps = {
   classNames: {
@@ -297,7 +303,9 @@ EasyTable.defaultProps = {
       cell: null
       */
     }
-  }
+  },
+  onDragColumn: () => {},
+  onMoveColumns: () => {}
 };
 
 function getColumnClassName(id, i) {

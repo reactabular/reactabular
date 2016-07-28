@@ -148,10 +148,18 @@ class Demo extends React.Component {
               wrapper: 'pure-table pure-table-striped'
             }
           }}
+          onDragColumn={this.onDragColumn}
+          onMoveColumns={this.onMoveColumns}
           onRow={this.onRow}
         />
       </div>
     );
+  }
+  onDragColumn(width, columnIndex) {
+    console.log('onDragColumn', width, columnIndex);
+  }
+  onMoveColumns(columns) {
+    console.log('onMoveColumns', columns);
   }
   onRow(row, rowIndex) {
     return {
