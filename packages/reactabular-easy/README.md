@@ -143,9 +143,20 @@ class Demo extends React.Component {
           tableHeight={400}
           columns={cols}
           query={query}
+          classNames={{
+            table: {
+              wrapper: 'pure-table pure-table-striped'
+            }
+          }}
+          onRow={this.onRow}
         />
       </div>
     );
+  }
+  onRow(row, rowIndex) {
+    return {
+      className: rowIndex % 2 ? 'odd-row' : 'even-row'
+    };
   }
   onToggleColumn(columnIndex) {
     const columns = cloneDeep(this.state.columns);

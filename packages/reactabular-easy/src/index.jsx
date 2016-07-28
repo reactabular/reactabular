@@ -71,7 +71,9 @@ export default class EasyTable extends React.Component {
         cell: DndHeader
       }
     };
-    const { rowKey, query, tableWidth, tableHeight } = this.props;
+    const {
+      rowKey, query, tableWidth, tableHeight, classNames, onRow
+    } = this.props;
     const { columns, sortingColumns } = this.state;
     const rows = compose(
       sort.sorter(
@@ -93,11 +95,13 @@ export default class EasyTable extends React.Component {
 
     return (
       <Table.Provider
+        className={classNames.table && classNames.table.wrapper}
         components={components}
         columns={columns}
         style={{ width: tableWidth }}
       >
         <Sticky.Header
+          className={classNames.header && classNames.header.wrapper}
           style={{
             maxWidth: tableWidth
           }}
@@ -110,8 +114,10 @@ export default class EasyTable extends React.Component {
         />
 
         <Sticky.Body
+          className={classNames.body && classNames.body.wrapper}
           rows={rows}
           rowKey={rowKey}
+          onRow={onRow}
           style={{
             paddingRight: scrollOffset,
             maxWidth: tableWidth,
@@ -267,7 +273,30 @@ EasyTable.propTypes = {
   rowKey: React.PropTypes.string.isRequired,
   query: React.PropTypes.object,
   tableWidth: React.PropTypes.number.isRequired,
-  tableHeight: React.PropTypes.number.isRequired
+  tableHeight: React.PropTypes.number.isRequired,
+  classNames: React.PropTypes.object,
+  onRow: React.PropTypes.func
+};
+EasyTable.defaultProps = {
+  classNames: {
+    table: null,
+    header: {
+      wrapper: null
+      // TODO
+      /*
+      row: null,
+      cell: null
+      */
+    },
+    body: {
+      wrapper: null
+      // TODO
+      /*
+      row: null,
+      cell: null
+      */
+    }
+  }
 };
 
 function getColumnClassName(id, i) {
