@@ -36,6 +36,7 @@
   "dependencies": {
     "react-dnd": "^2.1.4",
     "reactabular": "^1.0.5",
+    "reactabular-utils": "^1.0.5",
     "redux": "^3.5.2",
     "stylesheet-helpers": "^0.1.2",
     "uuid": "^2.0.2"

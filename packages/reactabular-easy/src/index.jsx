@@ -3,6 +3,7 @@ import React from 'react';
 import {
   Table, Sticky, sort, resizableColumn, resolve, highlight, search
 } from 'reactabular';
+import { mergeClassNames } from 'reactabular-utils';
 import { DragSource, DropTarget } from 'react-dnd';
 import { compose } from 'redux';
 import uuid from 'uuid';
@@ -221,9 +222,10 @@ export default class EasyTable extends React.Component {
           ...column,
           props: {
             ...column.props,
-            // XXX: it would be better to merge instead. Now
-            // we lose possible custom classnames here
-            className: getColumnClassName(this.id, i)
+            className: mergeClassNames(
+              getColumnClassName(this.id, i),
+              column.props && column.props.className
+            )
           },
           header: {
             ...column.header,
