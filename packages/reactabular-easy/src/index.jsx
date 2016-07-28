@@ -250,12 +250,13 @@ export default class EasyTable extends React.Component {
     });
   }
   onMove(labels) {
+    // This returns a new instance, no need to cloneDeep.
     const movedColumns = moveLabels(this.state.columns, labels);
 
     if (movedColumns) {
       // Retain widths to avoid flashing while drag and dropping.
-      const source = movedColumns.columns[movedColumns.sourceIndex];
-      const target = movedColumns.columns[movedColumns.targetIndex];
+      const source = movedColumns.source;
+      const target = movedColumns.target;
 
       const tmpClassName = source.props.className;
       source.props.className = target.props.className;
@@ -322,10 +323,12 @@ function moveLabels(columns, { sourceLabel, targetLabel }) {
     return null;
   }
 
+  const movedColumns = move(columns, sourceIndex, targetIndex);
+
   return {
-    sourceIndex,
-    targetIndex,
-    columns: move(columns, sourceIndex, targetIndex)
+    source: movedColumns[sourceIndex],
+    target: movedColumns[targetIndex],
+    columns: movedColumns
   };
 }
 
