@@ -1,3 +1,14 @@
+1.0.8 / 2016-07-28
+==================
+
+  * Improvement - Make `tableWidth` and `tableHeight` checks looser. You might want to pass number, string, or something. Perhaps this can be constrained further.
+
+
+1.0.7 / 2016-07-28
+==================
+
+  * Bug fix - Include `dist-modules` to the distribution version. `preversion` script obviously misses.
+
 1.0.6 / 2016-07-27
 ==================
 
