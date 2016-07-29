@@ -10,6 +10,7 @@
 lang: bash
 ---
 npm install
+node_modules/.bin/lerna bootstrap
 npm start
 open http://localhost:8080
 ```

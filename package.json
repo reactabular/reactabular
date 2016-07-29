@@ -15,8 +15,7 @@
     "dist:update": "npm run dist:all && git commit --allow-empty -am \"Update dist\"",
     "dist:all": "npm run dist:build && npm run dist:build-min",
     "dist:build": "webpack",
-    "dist:build-min": "webpack",
-    "prepublish": "in-publish && lerna bootstrap"
+    "dist:build-min": "webpack"
   },
   "repository": {
     "type": "git",
