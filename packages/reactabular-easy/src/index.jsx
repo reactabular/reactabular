@@ -8,9 +8,11 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { compose } from 'redux';
 import uuid from 'uuid';
 import * as stylesheet from 'stylesheet-helpers';
+import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
+// TODO: extract selection logic into a package of its own
 export default class EasyTable extends React.Component {
   constructor(props) {
     super(props);
@@ -23,11 +25,15 @@ export default class EasyTable extends React.Component {
       sortingColumns: null,
       originalColumns: props.columns,
       columns: this.bindColumns(props.columns),
-      rows: props.rows
+      rows: props.rows,
+      selectedRow: {}
     };
 
     this.bindColumns = this.bindColumns.bind(this);
+    this.selectRow = this.selectRow.bind(this);
     this.onMove = this.onMove.bind(this);
+    this.onKeyPressed = this.onKeyPressed.bind(this);
+    this.onRow = this.onRow.bind(this);
 
     // References to header/body elements so they can be
     // kept in sync while scrolling.
@@ -47,9 +53,13 @@ export default class EasyTable extends React.Component {
     this.styleSheet = styleSheet;
 
     this.initializeStyles(this.state.columns);
+
+    window.addEventListener('keydown', this.onKeyPressed);
   }
   componentWillUnmount() {
     this.styleSheetElement.remove();
+
+    window.removeEventListener('keydown', this.onKeyPressed);
   }
   componentWillReceiveProps(nextProps) {
     if (this.state.originalColumns !== nextProps.columns) {
@@ -72,7 +82,7 @@ export default class EasyTable extends React.Component {
       }
     };
     const {
-      rowKey, query, tableWidth, tableHeight, classNames, onRow
+      rowKey, query, tableWidth, tableHeight, classNames, onRow // eslint-disable-line no-unused-vars, max-len
     } = this.props;
     const { columns, sortingColumns } = this.state;
     const rows = compose(
@@ -117,7 +127,7 @@ export default class EasyTable extends React.Component {
           className={classNames.body && classNames.body.wrapper}
           rows={rows}
           rowKey={rowKey}
-          onRow={onRow}
+          onRow={this.onRow}
           style={{
             paddingRight: scrollOffset,
             maxWidth: tableWidth,
@@ -271,6 +281,63 @@ export default class EasyTable extends React.Component {
       this.props.onMoveColumns(movedColumns.columns);
     }
   }
+  onRow(row, rowIndex) {
+    const { className, ...props } = this.props.onRow(row, rowIndex);
+
+    return {
+      className: mergeClassNames(className, row.selected && 'selected-row'),
+      onClick: () => this.selectRow(row.id),
+      ...props
+    };
+  }
+  onKeyPressed(e) {
+    const { rows, selectedRow } = this.state;
+    const idx = findIndex(rows, { id: selectedRow.id });
+
+    // No selection yet, escape
+    if (idx < 0) {
+      return;
+    }
+
+    // Arrow Up
+    if (e.keyCode === 38 && idx > 0) {
+      e.preventDefault();
+
+      this.selectRow(rows[idx - 1].id);
+    }
+
+    // Arrow Down
+    if (e.keyCode === 40 && idx < rows.length - 1) {
+      e.preventDefault();
+
+      this.selectRow(rows[idx + 1].id);
+    }
+  }
+  selectRow(selectedRowId) {
+    let selectedRow;
+
+    // Reset selected flags and select the given row
+    const rows = cloneDeep(this.state.rows).map(row => {
+      let selected = false;
+
+      if (row.id === selectedRowId) {
+        selected = true;
+
+        selectedRow = row;
+      }
+
+      return {
+        ...row,
+        selected
+      };
+    });
+
+    this.props.onSelectRow({
+      selectedRowId,
+      selectedRow
+    });
+    this.setState({ rows, selectedRow });
+  }
 }
 EasyTable.propTypes = {
   columns: React.PropTypes.array,
@@ -282,7 +349,8 @@ EasyTable.propTypes = {
   classNames: React.PropTypes.object,
   onRow: React.PropTypes.func,
   onDragColumn: React.PropTypes.func,
-  onMoveColumns: React.PropTypes.func
+  onMoveColumns: React.PropTypes.func,
+  onSelectRow: React.PropTypes.func
 };
 EasyTable.defaultProps = {
   classNames: {
@@ -304,8 +372,10 @@ EasyTable.defaultProps = {
       */
     }
   },
+  onRow: () => ({}),
   onDragColumn: () => {},
-  onMoveColumns: () => {}
+  onMoveColumns: () => {},
+  onSelectRow: () => {}
 };
 
 function getColumnClassName(id, i) {
