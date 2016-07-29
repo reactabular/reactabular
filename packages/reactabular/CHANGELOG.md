@@ -1,3 +1,8 @@
+1.0.11 / 2016-07-29
+===================
+
+  * Bug fix - sort - `sort.reset` accepts object properly now. Earlier it bailed out too early.
+
 1.0.10 / 2016-07-29
 ===================
 

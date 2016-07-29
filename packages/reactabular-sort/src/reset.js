@@ -6,7 +6,7 @@ const reset = ({
   [event]: () => {
     const sortingColumns = getSortingColumns();
 
-    if (!sortingColumns || !sortingColumns.length) {
+    if (!sortingColumns || !Object.keys(sortingColumns).length) {
       return;
     }
 

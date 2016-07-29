@@ -70,7 +70,7 @@ class SortTable extends React.Component {
     const resetable = sort.reset({
       event: 'onDoubleClick',
       getSortingColumns,
-      onReset: this.setState
+      onReset: sortingColumns => this.setState({ sortingColumns })
     });
 
     this.state = {
