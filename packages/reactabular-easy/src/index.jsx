@@ -82,7 +82,9 @@ export default class EasyTable extends React.Component {
       }
     };
     const {
-      rowKey, query, tableWidth, tableHeight, classNames, onRow // eslint-disable-line no-unused-vars, max-len
+      rowKey, query,
+      tableWidth, tableHeight,
+      classNames, onRow // eslint-disable-line no-unused-vars
     } = this.props;
     const { columns, sortingColumns } = this.state;
     const rows = compose(
