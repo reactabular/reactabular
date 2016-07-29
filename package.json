@@ -16,7 +16,7 @@
     "dist:all": "npm run dist:build && npm run dist:build-min",
     "dist:build": "webpack",
     "dist:build-min": "webpack",
-    "prepublish": "lerna bootstrap"
+    "prepublish": "in-publish && lerna bootstrap"
   },
   "repository": {
     "type": "git",
