@@ -1,6 +1,7 @@
 import { mergeClassNames } from 'reactabular-utils';
 
 const sort = ({
+  event = 'onClick',
   getSortingColumns = () => [],
   onSort = () => {}
 } = {}) => (_value, { columnIndex }, { className, ...props } = {}) => {
@@ -15,7 +16,7 @@ const sort = ({
   return {
     ...props,
     className: mergeClassNames(className, headerClass),
-    onClick: () => onSort(columnIndex)
+    [event]: () => onSort(columnIndex)
   };
 };
 

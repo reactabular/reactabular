@@ -1,3 +1,15 @@
+1.0.10 / 2016-07-29
+===================
+
+  * Improvement - sort - `sort.sort` accepts `event` parameter now. It defaults to `onClick`.
+  * Improvement - sort - `sort.reset` is a new transform that can be used to remove the given column from the sorting rules.
+  * Improvement - sort - `sort.header` is a new formatter that can be used to apply sorting. This is handy if you use `sort.reset`.
+
+1.0.8 / 2016-07-27
+==================
+
+  * Improvement - easy - Make `tableWidth` and `tableHeight` checks looser.
+
 1.0.6 / 2016-07-27
 ==================
 

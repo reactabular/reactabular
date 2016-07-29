@@ -50,10 +50,11 @@ class SortTable extends React.Component {
   constructor(props) {
     super(props);
 
+    const getSortingColumns = () => this.state.sortingColumns || {};
     const sortable = sort.sort({
       // Point the transform to your rows. React state can work for this purpose
       // but you can use a state manager as well.
-      getSortingColumns: () => this.state.sortingColumns || {},
+      getSortingColumns,
 
       // The user requested sorting, adjust the sorting state accordingly.
       // This is a good chance to pass the request through a sorter.
@@ -65,6 +66,11 @@ class SortTable extends React.Component {
           })
         });
       }
+    });
+    const resetable = sort.reset({
+      event: 'onDoubleClick',
+      getSortingColumns,
+      onReset: this.setState
     });
 
     this.state = {
@@ -80,7 +86,11 @@ class SortTable extends React.Component {
         {
           header: {
             label: 'Name',
-            transforms: [sortable]
+            transforms: [resetable],
+            format: sort.header({
+              sortable,
+              getSortingColumns
+            })
           },
           cell: {
             property: 'name'
@@ -89,7 +99,13 @@ class SortTable extends React.Component {
         {
           header: {
             label: 'Age',
-            transforms: [sortable]
+            transforms: [resetable],
+            format: sort.header({
+              sortable,
+              getSortingColumns
+            })
+            // Alternative if you don't need reset.
+            // transforms: [sortable]
           },
           cell: {
             property: 'age'
@@ -130,6 +146,8 @@ The API consists of the following functions:
 * `sort.byColumns` - Helper for sorting per multiple columns.
 * `sort.sorter` - Helper for sorting based on the sorting protocol.
 * `sort.sort` - Sorting transform that can be used to select a sorting algorithm.
+* `sort.reset` - Sorting transform that can be used to reset the sorting status of the current column.
+* `sort.header` - Sorting formatter that can be used to sort within a header cell. This works will with `sort.reset` since then you can apply both reseting and sorting to the same cell without conflicts.
 
 ### Sorting Protocol
 
@@ -169,6 +187,18 @@ const reverseSort = (data, columnIndexList, orderList) => (
   orderBy(data, columnIndexList.slice().reverse(), orderList.slice().reverse())
 );
 ```
+
+### `sort.sort = ({ event = 'onClick', getSortingColumns = () => [], onSort = (columnIndex) => {} } = {}) => (value, { columnIndex }, props)`
+
+`sort.sort` can be applied as a transform. It expects `getSortingColumns` and `onSort` callbacks. The former should return the sorting column data, the latter is called when the user sorts based on `event`.
+
+### `sort.reset = ({ event = 'onDoubleClick', getSortingColumns = () => [], onReset = (columnIndex) => {} } = {}) => (value, { columnIndex }, props)`
+
+`sort.reset` can be applied as a transform. It expects `getSortingColumns` and `onReset` callbacks. The former should return the sorting column data, the latter is called when the user sorts based on `event`.
+
+### `sort.header = ({ sortable, getSortingColumns  = () => [] }) => (value, { columnIndex })`
+
+`sort.header` formatter expects an initialized sortable (i.e., `sort.sort`) and `getSortingColumns`. If sorting is active at a column, it displays the current order number.
 
 ## Customizing Sorting Order
 

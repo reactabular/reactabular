@@ -1,3 +1,10 @@
+1.0.10 / 2016-07-29
+===================
+
+  * Improvement - `sort.sort` accepts `event` parameter now. It defaults to `onClick`.
+  * Improvement - `sort.reset` is a new transform that can be used to remove the given column from the sorting rules.
+  * Improvement - `sort.header` is a new formatter that can be used to apply sorting. This is handy if you use `sort.reset`.
+
 1.0.0 / 2016-07-25
 ==================
 
