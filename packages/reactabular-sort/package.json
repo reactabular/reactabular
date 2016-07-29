@@ -1,6 +1,6 @@
 {
   "name": "reactabular-sort",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Sorting for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
