@@ -4,7 +4,7 @@
   "description": "Search for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
-    "prepublish": "npm run build"
+    "prepublish": "in-publish && npm run build"
   },
   "files": [
     "dist-modules",
