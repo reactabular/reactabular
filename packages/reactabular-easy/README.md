@@ -55,6 +55,7 @@ class Demo extends React.Component {
     };
 
     this.onToggleColumn = this.onToggleColumn.bind(this);
+    this.onSelectRow = this.onSelectRow.bind(this);
     this.onRemove = this.onRemove.bind(this);
   }
   getColumns() {
@@ -162,6 +163,7 @@ class Demo extends React.Component {
           }}
           onDragColumn={this.onDragColumn}
           onMoveColumns={this.onMoveColumns}
+          onSelectRow={this.onSelectRow}
           onRow={this.onRow}
         />
       </div>
@@ -172,6 +174,9 @@ class Demo extends React.Component {
   }
   onMoveColumns(columns) {
     console.log('onMoveColumns', columns);
+  }
+  onSelectRow({ selectedRowId, selectedRow }) {
+    console.log('onSelectRow', selectedRowId, selectedRow);
   }
   onRow(row, rowIndex) {
     return {
