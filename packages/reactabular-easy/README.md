@@ -103,9 +103,6 @@ class Demo extends React.Component {
         visible: false
       },
       {
-        header: {
-          resizable: true
-        },
         cell: {
           format: (value, { rowData }) => (
             <div>
