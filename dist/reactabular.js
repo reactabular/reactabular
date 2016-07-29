@@ -5240,7 +5240,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _defineProperty({}, event, function () {
 	      var sortingColumns = getSortingColumns();
 	
-	      if (!sortingColumns || !sortingColumns.length) {
+	      if (!sortingColumns || !Object.keys(sortingColumns).length) {
 	        return;
 	      }
 	
