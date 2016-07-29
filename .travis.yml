@@ -3,6 +3,7 @@ node_js:
   - "5"
   - "6"
 script:
+  - npm i in-publish -g
   - lerna bootstrap
   - npm run test:lint
   - npm test
