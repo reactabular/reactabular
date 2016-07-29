@@ -44,80 +44,92 @@ const schema = {
 };
 const rows = generateRows(30, schema);
 
-const columns = [
-  {
-    header: {
-      label: 'Name',
-      draggable: true,
-      sortable: true,
-      resizable: true
-    },
-    cell: {
-      property: 'name',
-      highlight: true
-    },
-    width: 200,
-    visible: true
-  },
-  {
-    header: {
-      label: 'Age',
-      draggable: true,
-      sortable: true,
-      resizable: true
-    },
-    cell: {
-      property: 'age',
-      highlight: true
-    },
-    width: 100,
-    visible: true
-  },
-  {
-    header: {
-      label: 'Boss',
-      draggable: true,
-      sortable: true,
-      resizable: true
-    },
-    cell: {
-      property: 'boss.name',
-      highlight: true
-    },
-    width: 200,
-    visible: false
-  },
-  {
-    header: {
-      resizable: true
-    },
-    cell: {
-      format: (value, { rowData }) => (
-        <input
-          type="button"
-          value="Click me"
-          onClick={() => alert(`${JSON.stringify(rowData, null, 2)}`)}
-        />
-      )
-    },
-    width: 200,
-    visible: true
-  }
-];
-
 class Demo extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      columns,
+      rows,
+      columns: this.getColumns(),
       query: {}
     };
 
     this.onToggleColumn = this.onToggleColumn.bind(this);
+    this.onRemove = this.onRemove.bind(this);
+  }
+  getColumns() {
+    return [
+      {
+        header: {
+          label: 'Name',
+          draggable: true,
+          sortable: true,
+          resizable: true
+        },
+        cell: {
+          property: 'name',
+          highlight: true
+        },
+        width: 200,
+        visible: true
+      },
+      {
+        header: {
+          label: 'Age',
+          draggable: true,
+          sortable: true,
+          resizable: true
+        },
+        cell: {
+          property: 'age',
+          highlight: true
+        },
+        width: 100,
+        visible: true
+      },
+      {
+        header: {
+          label: 'Boss',
+          draggable: true,
+          sortable: true,
+          resizable: true
+        },
+        cell: {
+          property: 'boss.name',
+          highlight: true
+        },
+        width: 200,
+        visible: false
+      },
+      {
+        header: {
+          resizable: true
+        },
+        cell: {
+          format: (value, { rowData }) => (
+            <div>
+              <input
+                type="button"
+                value="Click me"
+                onClick={() => alert(`${JSON.stringify(rowData, null, 2)}`)}
+              />
+              <span
+                className="remove"
+                onClick={() => this.onRemove(rowData.id)}
+                style={{ marginLeft: '1em', cursor: 'pointer' }}
+              >
+                &#10007;
+              </span>
+            </div>
+          )
+        },
+        width: 200,
+        visible: true
+      }
+    ];
   }
   render() {
-    const { columns, query } = this.state;
+    const { columns, rows, query } = this.state;
     const cols = this.state.columns.filter(column => column.visible);
 
     return (
@@ -172,6 +184,15 @@ class Demo extends React.Component {
     columns[columnIndex].visible = !columns[columnIndex].visible;
 
     this.setState({ columns });
+  }
+  onRemove(id) {
+    const rows = cloneDeep(this.state.rows);
+    const idx = findIndex(rows, { id });
+
+    // this could go through flux etc.
+    rows.splice(idx, 1);
+
+    this.setState({ rows });
   }
 }
 
