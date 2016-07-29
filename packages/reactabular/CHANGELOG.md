@@ -2,6 +2,8 @@
 ===================
 
   * Bug fix - sort - `sort.reset` accepts object properly now. Earlier it bailed out too early.
+  * Improvement - Add sorting numbers to the header so you know in which order sorting rules are applied.
+  * Improvement - Allow column sorting status to be reset by doubleclicking on a column header.
 
 1.0.10 / 2016-07-29
 ===================

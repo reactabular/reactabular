@@ -163,13 +163,9 @@ export default class EasyTable extends React.Component {
       }
     });
 
+    const getSortingColumns = () => this.state.sortingColumns || {};
     const sortable = sort.sort({
-      // Point the transform to your rows. React state can work for this purpose
-      // but you can use a state manager as well.
-      getSortingColumns: () => this.state.sortingColumns || {},
-
-      // The user requested sorting, adjust the sorting state accordingly.
-      // This is a good chance to pass the request through a sorter.
+      getSortingColumns,
       onSort: selectedColumn => {
         this.setState({
           sortingColumns: sort.byColumns({ // sort.byColumn would work too
@@ -178,6 +174,11 @@ export default class EasyTable extends React.Component {
           })
         });
       }
+    });
+    const resetable = sort.reset({
+      event: 'onDoubleClick',
+      getSortingColumns,
+      onReset: ({ sortingColumns }) => this.setState({ sortingColumns })
     });
 
     return columns.map((column, i) => {
@@ -192,18 +193,17 @@ export default class EasyTable extends React.Component {
         let newCellFormat = existingCellFormat;
 
         if (column.header.sortable && column.header.resizable) {
-          newHeaderFormat = (v, extra) => resizable(
-            <div>
-              <span>{existingHeaderFormat(v, extra)}</span>
-              {React.createElement(
-                'span',
-                sortable(null, extra)
-              )}
-            </div>,
-            extra
-          );
+          newHeaderTransforms = existingHeaderTransforms.concat([resetable]);
+          newHeaderFormat = (v, extra) => resizable(sort.header({
+            sortable,
+            getSortingColumns
+          })(v, extra), extra);
         } else if (column.header.sortable) {
-          newHeaderTransforms = existingHeaderTransforms.concat([sortable]);
+          newHeaderTransforms = existingHeaderTransforms.concat([resetable]);
+          newHeaderFormat = (v, extra) => sort.header({
+            sortable,
+            getSortingColumns
+          })(existingHeaderFormat(v, extra), extra);
         } else if (column.header.resizable) {
           newHeaderFormat = (v, extra) => resizable(
             existingHeaderFormat(v, extra),

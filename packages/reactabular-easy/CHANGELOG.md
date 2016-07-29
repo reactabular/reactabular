@@ -1,3 +1,9 @@
+1.0.11 / 2016-07-29
+===================
+
+  * Improvement - Add sorting numbers to the header so you know in which order sorting rules are applied.
+  * Improvement - Allow column sorting status to be reset by doubleclicking on a column header.
+
 1.0.8 / 2016-07-28
 ==================
 
