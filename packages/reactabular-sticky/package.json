@@ -4,7 +4,7 @@
   "description": "Sticky header and body for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
-    "prepublish": "in-publish && npm run build"
+    "prepublish": "npm run build"
   },
   "files": [
     "dist-modules",
