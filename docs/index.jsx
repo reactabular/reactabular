@@ -69,7 +69,7 @@ const pages = [
     path: '/',
     title: 'Introduction',
     imports: documentationImports,
-    component: require('catalog/lib/loader!raw!../README.md'),
+    component: require('../README.md'),
     props: {
       style: {
         borderBottom: '2px solid #ddd'
@@ -83,25 +83,25 @@ const pages = [
         path: 'table',
         title: 'Introduction',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/introduction.md')
+        component: require('./table/introduction.md')
       },
       {
         path: 'table/components',
         title: 'Components',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!../packages/reactabular-table/README.md')
+        component: require('../packages/reactabular-table/README.md')
       },
       {
         path: 'table/styling',
         title: 'Styling',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/styling.md')
+        component: require('./table/styling.md')
       },
       {
         path: 'table/overriding-default-elements',
         title: 'Overriding Default Elements',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./table/overriding-default-elements.md')
+        component: require('./table/overriding-default-elements.md')
       }
     ]
   },
@@ -112,43 +112,43 @@ const pages = [
         path: 'column-definition',
         title: 'Introduction',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./column-definition/introduction.md')
+        component: require('./column-definition/introduction.md')
       },
       {
         path: 'column-definition/props',
         title: 'Props',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./column-definition/props.md')
+        component: require('./column-definition/props.md')
       },
       {
         path: 'column-definition/header',
         title: 'Header',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./column-definition/header.md')
+        component: require('./column-definition/header.md')
       },
       {
         path: 'column-definition/cell',
         title: 'Cell',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./column-definition/cell.md')
+        component: require('./column-definition/cell.md')
       },
       {
         path: 'column-definition/formatters',
         title: 'Formatters',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./column-definition/formatters.md')
+        component: require('./column-definition/formatters.md')
       },
       {
         path: 'column-definition/transforms',
         title: 'Transforms',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./column-definition/transforms.md')
+        component: require('./column-definition/transforms.md')
       },
       {
         path: 'column-definition/nested-columns',
         title: 'Nested Columns',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./column-definition/nested-columns.md')
+        component: require('./column-definition/nested-columns.md')
       }
     ]
   },
@@ -156,55 +156,55 @@ const pages = [
     path: 'resolving-data',
     title: 'Resolving Data',
     imports: documentationImports,
-    component: require('catalog/lib/loader!raw!../packages/reactabular-resolve/README.md')
+    component: require('../packages/reactabular-resolve/README.md')
   },
   {
     path: 'editing',
     title: 'Editing',
     imports: documentationImports,
-    component: require('catalog/lib/loader!raw!../packages/reactabular-edit/README.md')
+    component: require('../packages/reactabular-edit/README.md')
   },
   {
     path: 'sorting',
     title: 'Sorting',
     imports: documentationImports,
-    component: require('catalog/lib/loader!raw!../packages/reactabular-sort/README.md')
+    component: require('../packages/reactabular-sort/README.md')
   },
   {
     path: 'searching',
     title: 'Searching',
     imports: documentationImports,
-    component: require('catalog/lib/loader!raw!../packages/reactabular-search/README.md')
+    component: require('../packages/reactabular-search/README.md')
   },
   {
     path: 'paginating',
     title: 'Paginating',
     imports: documentationImports,
-    component: require('catalog/lib/loader!raw!./paginating.md')
+    component: require('./paginating.md')
   },
   {
     path: 'highlighting',
     title: 'Highlighting',
     imports: documentationImports,
-    component: require('catalog/lib/loader!raw!../packages/reactabular-highlight/README.md')
+    component: require('../packages/reactabular-highlight/README.md')
   },
   {
     path: 'resizable-columns',
     title: 'Resizable Columns',
     imports: documentationImports,
-    component: require('catalog/lib/loader!raw!../packages/reactabular-resizable/README.md')
+    component: require('../packages/reactabular-resizable/README.md')
   },
   {
     path: 'sticky',
     title: 'Sticky',
     imports: documentationImports,
-    component: require('catalog/lib/loader!raw!../packages/reactabular-sticky/README.md')
+    component: require('../packages/reactabular-sticky/README.md')
   },
   {
     path: 'easy',
     title: 'Easy Version',
     imports: documentationImports,
-    component: require('catalog/lib/loader!raw!../packages/reactabular-easy/README.md')
+    component: require('../packages/reactabular-easy/README.md')
   },
   {
     title: 'Examples',
@@ -218,62 +218,62 @@ const pages = [
         path: 'examples/all-features',
         title: 'All Features',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/all-features.md')
+        component: require('./examples/all-features.md')
       },
       {
         path: 'examples/crud',
         title: 'CRUD',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/crud.md')
+        component: require('./examples/crud.md')
       },
       {
         path: 'examples/drag-and-drop',
         title: 'Drag and Drop',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/drag-and-drop.md')
+        component: require('./examples/drag-and-drop.md')
       },
       {
         path: 'examples/excel',
         title: 'Excel',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/excel.md')
+        component: require('./examples/excel.md')
       },
       {
         path: 'examples/fixed-width-columns',
         title: 'Fixed Width Columns',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/fixed-width-columns.md')
+        component: require('./examples/fixed-width-columns.md')
       },
       {
         path: 'examples/infinite-scrolling',
         title: 'Infinite Scrolling',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/infinite-scrolling.md')
+        component: require('./examples/infinite-scrolling.md')
       },
       {
         path: 'examples/selection',
         title: 'Selection',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/selection.md')
+        component: require('./examples/selection.md')
       },
       {
         path: 'examples/toggle-columns',
         title: 'Toggle Columns',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/toggle-columns.md')
+        component: require('./examples/toggle-columns.md')
       },
       {
         path: 'examples/tree-view',
         title: 'Tree View',
         imports: documentationImports,
-        component: require('catalog/lib/loader!raw!./examples/tree-view.md')
+        component: require('./examples/tree-view.md')
       }
     ]
   },
   {
     path: 'installing',
     title: 'Installing',
-    component: require('catalog/lib/loader!raw!./installing.md')
+    component: require('./installing.md')
   },
   {
     title: 'Contributing',
@@ -281,24 +281,24 @@ const pages = [
       {
         path: 'contributing/how-to',
         title: 'How to',
-        component: require('catalog/lib/loader!raw!../CONTRIBUTING.md')
+        component: require('../CONTRIBUTING.md')
       },
       {
         path: 'contributing/contributors',
         title: 'Contributors',
-        component: require('catalog/lib/loader!raw!../CONTRIBUTORS.md')
+        component: require('../CONTRIBUTORS.md')
       }
     ]
   },
   {
     path: 'changelog',
     title: 'Changelog',
-    component: require('catalog/lib/loader!raw!../packages/reactabular/CHANGELOG.md')
+    component: require('../packages/reactabular/CHANGELOG.md')
   },
   {
     path: 'license',
     title: 'License',
-    component: require('catalog/lib/loader!raw!../LICENSE.md')
+    component: require('../LICENSE.md')
   }
 ];
 
