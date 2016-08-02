@@ -1,5 +1,9 @@
 Sometimes you might want to display data within a fixed container. That's where `reactabular-sticky` comes in. It includes logic keeping a table header and a table body in sync. Unfortunately you still need to dig DOM references yourself to achieve this given it relies on measuring.
 
+## API
+
+The API is exactly the same as for `reactabular-table` apart from naming. Here you need to use `Sticky.Header` and `Sticky.Body` over `Table.Header` and `Table.Body`.
+
 ## How to Use?
 
 The following example implements sticky headers within a fixed viewport through `props`.

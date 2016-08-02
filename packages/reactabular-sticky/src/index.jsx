@@ -2,13 +2,20 @@
 import React from 'react';
 import { Table } from 'reactabular'; // eslint-disable-line import/no-unresolved
 
-// Ref -> class
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.ref = null;
+  }
   render() {
     const { style, tableBody, ...props } = this.props;
 
     return (
       <Table.Header
+        ref={header => {
+          this.ref = header && header.getRef();
+        }}
         style={{
           ...style || {},
           display: 'block',
@@ -23,19 +30,29 @@ class Header extends React.Component {
       />
     );
   }
+  getRef() {
+    return this.ref;
+  }
 }
 Header.propTypes = {
   style: React.PropTypes.any,
   tableBody: React.PropTypes.any
 };
 
-// Ref -> class
 class Body extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.ref = null;
+  }
   render() {
     const { style, tableHeader, ...props } = this.props;
 
     return (
       <Table.Body
+        ref={body => {
+          this.ref = body && body.getRef();
+        }}
         style={{
           ...style || {},
           display: 'block',
@@ -49,6 +66,9 @@ class Body extends React.Component {
         }}
       />
     );
+  }
+  getRef() {
+    return this.ref;
   }
 }
 Body.propTypes = {
