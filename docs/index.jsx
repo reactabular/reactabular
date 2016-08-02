@@ -67,7 +67,6 @@ const pages = [
   {
     path: '/',
     title: 'Introduction',
-    imports: documentationImports,
     component: require('../README.md'),
     props: {
       style: {
@@ -81,25 +80,21 @@ const pages = [
       {
         path: 'table',
         title: 'Introduction',
-        imports: documentationImports,
         component: require('./table/introduction.md')
       },
       {
         path: 'table/components',
         title: 'Components',
-        imports: documentationImports,
         component: require('../packages/reactabular-table/README.md')
       },
       {
         path: 'table/styling',
         title: 'Styling',
-        imports: documentationImports,
         component: require('./table/styling.md')
       },
       {
         path: 'table/overriding-default-elements',
         title: 'Overriding Default Elements',
-        imports: documentationImports,
         component: require('./table/overriding-default-elements.md')
       }
     ]
@@ -110,43 +105,36 @@ const pages = [
       {
         path: 'column-definition',
         title: 'Introduction',
-        imports: documentationImports,
         component: require('./column-definition/introduction.md')
       },
       {
         path: 'column-definition/props',
         title: 'Props',
-        imports: documentationImports,
         component: require('./column-definition/props.md')
       },
       {
         path: 'column-definition/header',
         title: 'Header',
-        imports: documentationImports,
         component: require('./column-definition/header.md')
       },
       {
         path: 'column-definition/cell',
         title: 'Cell',
-        imports: documentationImports,
         component: require('./column-definition/cell.md')
       },
       {
         path: 'column-definition/formatters',
         title: 'Formatters',
-        imports: documentationImports,
         component: require('./column-definition/formatters.md')
       },
       {
         path: 'column-definition/transforms',
         title: 'Transforms',
-        imports: documentationImports,
         component: require('./column-definition/transforms.md')
       },
       {
         path: 'column-definition/nested-columns',
         title: 'Nested Columns',
-        imports: documentationImports,
         component: require('./column-definition/nested-columns.md')
       }
     ]
@@ -154,55 +142,46 @@ const pages = [
   {
     path: 'resolving-data',
     title: 'Resolving Data',
-    imports: documentationImports,
     component: require('../packages/reactabular-resolve/README.md')
   },
   {
     path: 'editing',
     title: 'Editing',
-    imports: documentationImports,
     component: require('../packages/reactabular-edit/README.md')
   },
   {
     path: 'sorting',
     title: 'Sorting',
-    imports: documentationImports,
     component: require('../packages/reactabular-sort/README.md')
   },
   {
     path: 'searching',
     title: 'Searching',
-    imports: documentationImports,
     component: require('../packages/reactabular-search/README.md')
   },
   {
     path: 'paginating',
     title: 'Paginating',
-    imports: documentationImports,
     component: require('./paginating.md')
   },
   {
     path: 'highlighting',
     title: 'Highlighting',
-    imports: documentationImports,
     component: require('../packages/reactabular-highlight/README.md')
   },
   {
     path: 'resizable-columns',
     title: 'Resizable Columns',
-    imports: documentationImports,
     component: require('../packages/reactabular-resizable/README.md')
   },
   {
     path: 'sticky',
     title: 'Sticky',
-    imports: documentationImports,
     component: require('../packages/reactabular-sticky/README.md')
   },
   {
     path: 'easy',
     title: 'Easy Version',
-    imports: documentationImports,
     component: require('../packages/reactabular-easy/README.md')
   },
   {
@@ -216,55 +195,46 @@ const pages = [
       {
         path: 'examples/all-features',
         title: 'All Features',
-        imports: documentationImports,
         component: require('./examples/all-features.md')
       },
       {
         path: 'examples/crud',
         title: 'CRUD',
-        imports: documentationImports,
         component: require('./examples/crud.md')
       },
       {
         path: 'examples/drag-and-drop',
         title: 'Drag and Drop',
-        imports: documentationImports,
         component: require('./examples/drag-and-drop.md')
       },
       {
         path: 'examples/excel',
         title: 'Excel',
-        imports: documentationImports,
         component: require('./examples/excel.md')
       },
       {
         path: 'examples/fixed-width-columns',
         title: 'Fixed Width Columns',
-        imports: documentationImports,
         component: require('./examples/fixed-width-columns.md')
       },
       {
         path: 'examples/infinite-scrolling',
         title: 'Infinite Scrolling',
-        imports: documentationImports,
         component: require('./examples/infinite-scrolling.md')
       },
       {
         path: 'examples/selection',
         title: 'Selection',
-        imports: documentationImports,
         component: require('./examples/selection.md')
       },
       {
         path: 'examples/toggle-columns',
         title: 'Toggle Columns',
-        imports: documentationImports,
         component: require('./examples/toggle-columns.md')
       },
       {
         path: 'examples/tree-view',
         title: 'Tree View',
-        imports: documentationImports,
         component: require('./examples/tree-view.md')
       }
     ]
@@ -314,6 +284,7 @@ ReactDOM.render(
       title={title}
       logoSrc="../images/logo.png"
       pages={pages}
+      imports={documentationImports}
       specimens={{
         javascript: props => <CodeSpecimen {...props} lang="javascript" />,
         js: props => <CodeSpecimen {...props} lang="javascript" />,
