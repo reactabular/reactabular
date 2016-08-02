@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { Search } from '../../docs/helpers/';
 import { expect } from 'chai';
+import { Search } from '../../docs/helpers/';
 
 describe('Search', function () {
   it('does not render options without rows', function () {

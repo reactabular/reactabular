@@ -1,8 +1,8 @@
 import React from 'react';
-import { tableHeaderContextTypes } from './types';
 import {
   evaluateTransforms, mergePropPair
 } from 'reactabular-utils';
+import { tableHeaderContextTypes } from './types';
 
 // This has to be a React component instead of a function.
 // Otherwise refs won't work.

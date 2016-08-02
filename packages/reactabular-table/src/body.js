@@ -1,10 +1,10 @@
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import React from 'react';
-import { tableBodyTypes, tableBodyContextTypes } from './types';
 import {
   evaluateTransforms, resolveBodyColumns, mergePropPair
 } from 'reactabular-utils';
+import { tableBodyTypes, tableBodyContextTypes } from './types';
 
 // This has to be a React component instead of a function.
 // Otherwise refs won't work.

@@ -7,7 +7,7 @@ const PerPage = ({ value, onChange }) => (
       type="text"
       defaultValue={value}
       onChange={e => onChange(e.target.value)}
-    ></input>
+    />
   </div>
 );
 PerPage.propTypes = {

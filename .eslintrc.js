@@ -13,6 +13,7 @@ module.exports = {
     "comma-dangle": ["error", "never"],
     "prefer-arrow-callback": 0,
     "func-names": 0,
+    "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": [1, { ignore: ['^reactabular'] }],
     "no-underscore-dangle": 0,
     "no-unused-expressions": 0,

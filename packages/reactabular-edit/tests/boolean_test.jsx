@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { boolean } from '../src';
 import { expect } from 'chai';
+import { boolean } from '../src';
 
 describe('edit.boolean', function () {
   it('renders given value', function () {

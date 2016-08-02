@@ -19,14 +19,15 @@ import EasyTable from 'reactabular-easy';
 import * as reactabular from 'reactabular';
 import * as stylesheet from 'stylesheet-helpers';
 
-import * as rowsDefinitions from './data/definitions';
-import * as customHelpers from './helpers';
-import countries from './data/countries';
-
 import 'purecss/build/pure.css';
 import 'react-ghfork/gh-fork-ribbon.ie.css';
 import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
+
+import * as rowsDefinitions from './data/definitions';
+import * as customHelpers from './helpers';
+import countries from './data/countries';
+
 import './main.css';
 import '../style.css';
 

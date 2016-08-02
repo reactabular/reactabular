@@ -8,7 +8,7 @@ export default function paginate({ page, perPage }) {
 
     return {
       amount: amountOfPages,
-      rows: rows.slice(startPage * perPage, startPage * perPage + perPage),
+      rows: rows.slice(startPage * perPage, (startPage * perPage) + perPage),
       page: startPage
     };
   };

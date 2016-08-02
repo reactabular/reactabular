@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { input } from '../src';
 import { expect } from 'chai';
+import { input } from '../src';
 
 describe('edit.input', function () {
   it('renders given value', function () {

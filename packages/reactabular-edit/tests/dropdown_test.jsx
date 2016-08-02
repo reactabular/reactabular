@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { dropdown } from '../src';
 import { expect } from 'chai';
+import { dropdown } from '../src';
 
 describe('edit.dropdown', function () {
   it('renders given options', function () {

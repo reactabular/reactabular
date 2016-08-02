@@ -1,8 +1,8 @@
 import React from 'react';
-import { tableTypes, tableDefaults, tableContextTypes } from './types';
 import {
   mergePropPair, resolveHeaderRows
 } from 'reactabular-utils';
+import { tableTypes, tableDefaults, tableContextTypes } from './types';
 
 const componentDefaults = tableDefaults.components;
 

@@ -1,5 +1,5 @@
-import { edit } from '../src';
 import { expect } from 'chai';
+import { edit } from '../src';
 
 describe('edit.edit', function () {
   it('activates editing', function () {
