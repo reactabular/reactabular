@@ -6,9 +6,12 @@ import {
 } from 'reactabular-utils';
 import { tableBodyTypes, tableBodyContextTypes } from './types';
 
-// This has to be a React component instead of a function.
-// Otherwise refs won't work.
 export default class Body extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.ref = null;
+  }
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     // Skip checking props against `onRow` since that can be bound at render().
     // That's not particularly good practice but you never know how the users
@@ -19,6 +22,10 @@ export default class Body extends React.Component {
   render() {
     const { onRow, rows, rowKey, ...props } = this.props;
     const { bodyColumns, components } = this.context;
+
+    props.ref = body => {
+      this.ref = body;
+    };
 
     return React.createElement(
       components.body.wrapper,
@@ -35,6 +42,9 @@ export default class Body extends React.Component {
         })
       )
     );
+  }
+  getRef() {
+    return this.ref;
   }
 }
 Body.propTypes = tableBodyTypes;

@@ -113,6 +113,51 @@ Here `ColumnFilters` injects an additional row for the filter controls. An alter
 </Table.Provider>
 ```
 
+## Getting Refs
+
+Sometimes you might need to access the underlying DOM nodes for measuring etc. This can be achieved as follows:
+
+```react
+class RefTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.onRow = this.onRow.bind(this);
+
+    this.headerRef = null;
+    this.bodyRef = null;
+  }
+  render() {
+    return (
+      <Table.Provider columns={columns}>
+        <Table.Header
+          ref={header => {
+            this.headerRef = header && header.getRef();
+          }}
+        />
+        <Table.Body
+          ref={body => {
+            this.bodyRef = body && body.getRef();
+          }}
+          rows={rows}
+          rowKey="id"
+          onRow={this.onRow}
+        />
+      </Table.Provider>
+    );
+  }
+  onRow(row, rowIndex) {
+    return {
+      onClick: () => console.log(this.headerRef, this.bodyRef)
+    };
+  }
+}
+
+<RefTable />
+```
+
+It's the same idea for `Table.Body`.
+
 ## Customizing `Table.Body` Rows
 
 It is possible to customize body behavior on a row level. `onRow` prop accepts function `(row, rowIndex) => ({...})` that allows you to set custom attributes per each row.
@@ -138,7 +183,7 @@ class CustomTable extends React.Component {
   onRow(row, rowIndex) {
     return {
       className: rowIndex % 2 ? 'odd-row' : 'even-row',
-      onClick: () => console.log('clicked row', row),
+      onClick: () => console.log('clicked row', row)
     };
   }
 }

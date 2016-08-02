@@ -4,12 +4,19 @@ import {
 } from 'reactabular-utils';
 import { tableHeaderContextTypes } from './types';
 
-// This has to be a React component instead of a function.
-// Otherwise refs won't work.
 export default class Header extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+
+    this.ref = null;
+  }
   render() {
     const { children, ...props } = this.props;
     const { headerRows, components } = this.context;
+
+    props.ref = header => {
+      this.ref = header;
+    };
 
     return React.createElement(
       components.header.wrapper,
@@ -22,6 +29,9 @@ export default class Header extends React.Component { // eslint-disable-line max
         })
       )].concat(children)
     );
+  }
+  getRef() {
+    return this.ref;
   }
 }
 Header.propTypes = {
