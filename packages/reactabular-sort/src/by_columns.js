@@ -14,7 +14,7 @@ const byColumns = ({
         position: 0
       }
     };
-  } else if (sortingColumns.hasOwnProperty(selectedColumn)) {
+  } else if ({}.hasOwnProperty.call(sortingColumns, selectedColumn)) {
     // Clone to avoid mutating the original structure
     newSortingColumns = { ...sortingColumns };
 

@@ -11,7 +11,7 @@ const header = ({
   return (
     <div style={{ display: 'inline' }}>
       <span className="value">{value}</span>
-      {sortingColumn.hasOwnProperty('position') ?
+      {{}.hasOwnProperty.call(sortingColumn, 'position') ?
         <span className="sort-order" style={{ marginLeft: '0.5em' }}>
           {sortingPosition + 1}
         </span> : null

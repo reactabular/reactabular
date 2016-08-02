@@ -7,7 +7,7 @@ const byColumn = ({
 }) => {
   let sort = sortingOrder.FIRST;
 
-  if (sortingColumns && sortingColumns.hasOwnProperty(selectedColumn)) {
+  if (sortingColumns && {}.hasOwnProperty.call(sortingColumns, selectedColumn)) {
     sort = sortingOrder[sortingColumns[selectedColumn].direction];
 
     if (!sort) {

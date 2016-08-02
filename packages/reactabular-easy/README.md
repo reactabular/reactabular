@@ -22,6 +22,9 @@ const schema = {
     name: {
       type: 'string'
     },
+    company: {
+      type: 'string'
+    },
     age: {
       type: 'integer'
     },
@@ -29,7 +32,7 @@ const schema = {
       $ref: '#/definitions/boss'
     }
   },
-  required: ['id', 'age', 'boss'],
+  required: ['id', 'name', 'company', 'age', 'boss'],
   definitions: {
     boss: {
       type: 'object',
@@ -71,7 +74,7 @@ class Demo extends React.Component {
           property: 'name',
           highlight: true
         },
-        width: 200,
+        width: 250,
         visible: true
       },
       {
@@ -85,7 +88,21 @@ class Demo extends React.Component {
           property: 'age',
           highlight: true
         },
-        width: 100,
+        width: 150,
+        visible: true
+      },
+      {
+        header: {
+          label: 'Company',
+          draggable: true,
+          sortable: true,
+          resizable: true
+        },
+        cell: {
+          property: 'company',
+          highlight: true
+        },
+        width: 250,
         visible: true
       },
       {

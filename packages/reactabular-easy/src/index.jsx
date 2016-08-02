@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import React from 'react';
 import {
   Table, Sticky, sort, resizableColumn, resolve, highlight, search
@@ -101,8 +100,8 @@ export default class EasyTable extends React.Component {
         )
       })
     )(this.state.rows);
-    const tableHeaderWidth = this.tableHeader && this.tableHeader.scrollWidth;
-    const tableBodyWidth = this.tableBody && this.tableBody.scrollWidth;
+    const tableHeaderWidth = this.tableHeader ? this.tableHeader.scrollWidth : 0;
+    const tableBodyWidth = this.tableBody ? this.tableBody.scrollWidth : 0;
     const scrollOffset = tableHeaderWidth - tableBodyWidth;
 
     return (
@@ -118,9 +117,7 @@ export default class EasyTable extends React.Component {
             maxWidth: tableWidth
           }}
           ref={tableHeader => {
-            if (tableHeader) {
-              this.tableHeader = ReactDOM.findDOMNode(tableHeader);
-            }
+            this.tableHeader = tableHeader && tableHeader.getRef();
           }}
           tableBody={this.tableBody}
         />
@@ -136,9 +133,7 @@ export default class EasyTable extends React.Component {
             maxHeight: tableHeight
           }}
           ref={tableBody => {
-            if (tableBody) {
-              this.tableBody = ReactDOM.findDOMNode(tableBody);
-            }
+            this.tableBody = tableBody && tableBody.getRef();
           }}
           tableHeader={this.tableHeader}
         />
@@ -194,44 +189,47 @@ export default class EasyTable extends React.Component {
     });
 
     return columns.map((column, i) => {
-      if (column.header && column.cell) {
-        const existingHeaderProps = column.header.props;
-        const existingHeaderFormat = column.header.format || (v => v);
-        const existingHeaderTransforms = column.header.transforms || [];
-        const existingCellFormat = column.cell.format || (v => v);
+      if (column.header || column.cell) {
+        const props = column.props || {};
+        const header = column.header || {};
+        const cell = column.cell || {};
+        const existingHeaderProps = header.props;
+        const existingHeaderFormat = header.format || (v => v);
+        const existingHeaderTransforms = header.transforms || [];
+        const existingCellFormat = cell.format || (v => v);
         let newHeaderProps = existingHeaderProps;
         let newHeaderFormat = existingHeaderFormat;
         let newHeaderTransforms = existingHeaderTransforms;
         let newCellFormat = existingCellFormat;
 
-        if (column.header.sortable && column.header.resizable) {
+        if (header.sortable && header.resizable) {
           newHeaderTransforms = existingHeaderTransforms.concat([resetable]);
           newHeaderFormat = (v, extra) => resizable(sort.header({
             sortable,
             getSortingColumns
           })(v, extra), extra);
-        } else if (column.header.sortable) {
+        } else if (header.sortable) {
           newHeaderTransforms = existingHeaderTransforms.concat([resetable]);
           newHeaderFormat = (v, extra) => sort.header({
             sortable,
             getSortingColumns
           })(existingHeaderFormat(v, extra), extra);
-        } else if (column.header.resizable) {
+        } else if (header.resizable) {
           newHeaderFormat = (v, extra) => resizable(
             existingHeaderFormat(v, extra),
             extra
           );
         }
 
-        if (column.header.draggable) {
+        if (header.draggable) {
           newHeaderProps = {
             // DnD needs this to tell header cells apart
-            label: column.header.label,
+            label: header.label,
             onMove: o => this.onMove(o)
           };
         }
 
-        if (column.cell.highlight) {
+        if (cell.highlight) {
           newCellFormat = (v, extra) => highlight.cell(
             existingCellFormat(v, extra),
             extra
@@ -241,20 +239,20 @@ export default class EasyTable extends React.Component {
         return {
           ...column,
           props: {
-            ...column.props,
+            ...props,
             className: mergeClassNames(
               getColumnClassName(this.id, i),
-              column.props && column.props.className
+              props && props.className
             )
           },
           header: {
-            ...column.header,
+            ...header,
             props: newHeaderProps,
             transforms: newHeaderTransforms,
             format: newHeaderFormat
           },
           cell: {
-            ...column.cell,
+            ...cell,
             format: newCellFormat
           }
         };
