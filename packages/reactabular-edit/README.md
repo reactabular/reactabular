@@ -135,6 +135,9 @@ const editable = edit.edit({
   // It's possible to shape the value passed to the editor. See
   // the Excel example for a concrete example.
   // getEditedValue: v => v.value
+
+  // If you want to change default value/onValue, you can do it through
+  // editingProps: { value: 'value', onValue: 'onValue' }
 });
 
 ...

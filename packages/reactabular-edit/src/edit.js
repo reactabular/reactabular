@@ -4,7 +4,8 @@ const edit = ({
   isEditing,
   onActivate,
   onValue,
-  getEditedValue = v => v
+  getEditedValue = v => v,
+  editingProps = {}
 } = {}) => {
   if (!isEditing) {
     throw new Error('edit - Missing isEditing!');
@@ -28,8 +29,8 @@ const edit = ({
           editor,
           {
             ...props,
-            value: getEditedValue(value),
-            onValue: v => onValue(
+            [editingProps.value || 'value']: getEditedValue(value),
+            [editingProps.onValue || 'onValue']: v => onValue(
               { value: v, ...extraParameters }
             )
           }

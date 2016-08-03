@@ -94,6 +94,32 @@ describe('edit.edit', function () {
     expect(receivedProperty).to.equal(editorProperty);
   });
 
+  it('allows value and onValue to be replaced', function () {
+    const testValue = 'testValue';
+    const testOnValue = 'testOnValue';
+    const editor = edit({
+      isEditing() {
+        return true;
+      },
+      onActivate: () => {},
+      onValue: () => {},
+      editingProps: {
+        value: testValue,
+        onValue: testOnValue
+      }
+    });
+    const value = 'foo';
+    const editorElement = 'div';
+    const result = editor(editorElement)(value, {
+      rowData: {},
+      property: 'foo'
+    });
+
+    expect(result.children.type).to.equal(editorElement);
+    expect(result.children.props[testValue]).to.equal(value);
+    expect(result.children.props[testOnValue]).to.exist;
+  });
+
   it('throws an error if isEditing is not passed', function () {
     expect(edit.bind(null, {
       onActivate: () => {},
