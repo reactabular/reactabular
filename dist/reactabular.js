@@ -163,9 +163,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _types = __webpack_require__(4);
+	var _reactabularUtils = __webpack_require__(4);
 	
-	var _reactabularUtils = __webpack_require__(5);
+	var _types = __webpack_require__(11);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -235,8 +235,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function render() {
 	      var _props2 = this.props;
 	      var columns = _props2.columns;
-	      var // eslint-disable-line no-unused-vars
-	      components = _props2.components;
+	      var components = _props2.components;
 	      var children = _props2.children;
 	
 	      var props = _objectWithoutProperties(_props2, ['columns', 'components', 'children']);
@@ -264,6 +263,263 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _resolve_header_rows = __webpack_require__(5);
+	
+	Object.defineProperty(exports, 'resolveHeaderRows', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_resolve_header_rows).default;
+	  }
+	});
+	
+	var _count_row_span = __webpack_require__(6);
+	
+	Object.defineProperty(exports, 'countRowSpan', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_count_row_span).default;
+	  }
+	});
+	
+	var _resolve_body_columns = __webpack_require__(7);
+	
+	Object.defineProperty(exports, 'resolveBodyColumns', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_resolve_body_columns).default;
+	  }
+	});
+	
+	var _evaluate_transforms = __webpack_require__(8);
+	
+	Object.defineProperty(exports, 'evaluateTransforms', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_evaluate_transforms).default;
+	  }
+	});
+	
+	var _merge_prop_pair = __webpack_require__(9);
+	
+	Object.defineProperty(exports, 'mergePropPair', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_merge_prop_pair).default;
+	  }
+	});
+	
+	var _merge_class_names = __webpack_require__(10);
+	
+	Object.defineProperty(exports, 'mergeClassNames', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_merge_class_names).default;
+	  }
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _count_row_span = __webpack_require__(6);
+	
+	var _count_row_span2 = _interopRequireDefault(_count_row_span);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	function resolveHeaderRows() {
+	  var columns = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	
+	  var resolvedChildren = [];
+	
+	  var ret = columns.map(function (column) {
+	    var children = column.children;
+	
+	    var col = _objectWithoutProperties(column, ['children']);
+	
+	    if (children && children.length) {
+	      resolvedChildren = resolvedChildren.concat(resolveHeaderRows(children)[0]);
+	
+	      return _extends({}, col, {
+	        props: _extends({}, col.props, {
+	          colSpan: children.length
+	        })
+	      });
+	    }
+	
+	    return _extends({}, col, {
+	      props: _extends({}, col.props, {
+	        rowSpan: (0, _count_row_span2.default)(columns)
+	      })
+	    });
+	  });
+	
+	  if (resolvedChildren.length) {
+	    return [ret].concat([resolvedChildren]);
+	  }
+	
+	  return [ret];
+	}
+	
+	exports.default = resolveHeaderRows;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	function countRowSpan(columns) {
+	  var maximumCount = 0;
+	
+	  columns.forEach(function (column) {
+	    if (column.children && column.children.length) {
+	      maximumCount = Math.max(maximumCount, countRowSpan(column.children));
+	    }
+	  });
+	
+	  return maximumCount + 1;
+	}
+	
+	exports.default = countRowSpan;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	function resolveBodyColumns(columns) {
+	  var ret = [];
+	
+	  columns.forEach(function (column) {
+	    // If a column has children, skip cell specific configuration
+	    if (column.children && column.children.length) {
+	      ret = ret.concat(resolveBodyColumns(column.children));
+	    } else {
+	      ret.push(column);
+	    }
+	  });
+	
+	  return ret;
+	}
+	
+	exports.default = resolveBodyColumns;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _merge_prop_pair = __webpack_require__(9);
+	
+	var _merge_prop_pair2 = _interopRequireDefault(_merge_prop_pair);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function evaluateTransforms() {
+	  var transforms = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var value = arguments[1];
+	  var extraParameters = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+	
+	  return transforms.map(function (transform) {
+	    return transform(value, extraParameters);
+	  }).filter(function (p) {
+	    return p;
+	  }).reduce(_merge_prop_pair2.default, {}) || {};
+	}
+	
+	exports.default = evaluateTransforms;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _merge_class_names = __webpack_require__(10);
+	
+	var _merge_class_names2 = _interopRequireDefault(_merge_class_names);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function mergePropPair() {
+	  var a = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var b = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	
+	  var ret = _extends({}, a, b, {
+	    style: _extends({}, a.style, b.style),
+	    className: (0, _merge_class_names2.default)(a.className, b.className)
+	  });
+	
+	  if (a.children || b.children) {
+	    ret.children = _extends({}, b.children, a.children); // Reverse order
+	  }
+	
+	  return ret;
+	}
+	
+	exports.default = mergePropPair;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	function mergeClassNames(a, b) {
+	  if (a && b) {
+	    return a + ' ' + b;
+	  }
+	
+	  // Either a or b at this point
+	  return (a || '') + (b || '');
+	}
+	
+	exports.default = mergeClassNames;
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -352,263 +608,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.tableDefaults = tableDefaults;
 
 /***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _resolve_header_rows = __webpack_require__(6);
-	
-	Object.defineProperty(exports, 'resolveHeaderRows', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_resolve_header_rows).default;
-	  }
-	});
-	
-	var _count_row_span = __webpack_require__(7);
-	
-	Object.defineProperty(exports, 'countRowSpan', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_count_row_span).default;
-	  }
-	});
-	
-	var _resolve_body_columns = __webpack_require__(8);
-	
-	Object.defineProperty(exports, 'resolveBodyColumns', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_resolve_body_columns).default;
-	  }
-	});
-	
-	var _evaluate_transforms = __webpack_require__(9);
-	
-	Object.defineProperty(exports, 'evaluateTransforms', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_evaluate_transforms).default;
-	  }
-	});
-	
-	var _merge_prop_pair = __webpack_require__(10);
-	
-	Object.defineProperty(exports, 'mergePropPair', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_merge_prop_pair).default;
-	  }
-	});
-	
-	var _merge_class_names = __webpack_require__(11);
-	
-	Object.defineProperty(exports, 'mergeClassNames', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_merge_class_names).default;
-	  }
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _count_row_span = __webpack_require__(7);
-	
-	var _count_row_span2 = _interopRequireDefault(_count_row_span);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	function resolveHeaderRows() {
-	  var columns = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
-	
-	  var resolvedChildren = [];
-	
-	  var ret = columns.map(function (column) {
-	    var children = column.children;
-	
-	    var col = _objectWithoutProperties(column, ['children']);
-	
-	    if (children && children.length) {
-	      resolvedChildren = resolvedChildren.concat(resolveHeaderRows(children)[0]);
-	
-	      return _extends({}, col, {
-	        props: _extends({}, col.props, {
-	          colSpan: children.length
-	        })
-	      });
-	    }
-	
-	    return _extends({}, col, {
-	      props: _extends({}, col.props, {
-	        rowSpan: (0, _count_row_span2.default)(columns)
-	      })
-	    });
-	  });
-	
-	  if (resolvedChildren.length) {
-	    return [ret].concat([resolvedChildren]);
-	  }
-	
-	  return [ret];
-	}
-	
-	exports.default = resolveHeaderRows;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	function countRowSpan(columns) {
-	  var maximumCount = 0;
-	
-	  columns.forEach(function (column) {
-	    if (column.children && column.children.length) {
-	      maximumCount = Math.max(maximumCount, countRowSpan(column.children));
-	    }
-	  });
-	
-	  return maximumCount + 1;
-	}
-	
-	exports.default = countRowSpan;
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	function resolveBodyColumns(columns) {
-	  var ret = [];
-	
-	  columns.forEach(function (column) {
-	    // If a column has children, skip cell specific configuration
-	    if (column.children && column.children.length) {
-	      ret = ret.concat(resolveBodyColumns(column.children));
-	    } else {
-	      ret.push(column);
-	    }
-	  });
-	
-	  return ret;
-	}
-	
-	exports.default = resolveBodyColumns;
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _merge_prop_pair = __webpack_require__(10);
-	
-	var _merge_prop_pair2 = _interopRequireDefault(_merge_prop_pair);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function evaluateTransforms() {
-	  var transforms = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
-	  var value = arguments[1];
-	  var extraParameters = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
-	
-	  return transforms.map(function (transform) {
-	    return transform(value, extraParameters);
-	  }).filter(function (p) {
-	    return p;
-	  }).reduce(_merge_prop_pair2.default, {}) || {};
-	}
-	
-	exports.default = evaluateTransforms;
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _merge_class_names = __webpack_require__(11);
-	
-	var _merge_class_names2 = _interopRequireDefault(_merge_class_names);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function mergePropPair() {
-	  var a = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	  var b = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-	
-	  var ret = _extends({}, a, b, {
-	    style: _extends({}, a.style, b.style),
-	    className: (0, _merge_class_names2.default)(a.className, b.className)
-	  });
-	
-	  if (a.children || b.children) {
-	    ret.children = _extends({}, b.children, a.children); // Reverse order
-	  }
-	
-	  return ret;
-	}
-	
-	exports.default = mergePropPair;
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	function mergeClassNames(a, b) {
-	  if (a && b) {
-	    return a + ' ' + b;
-	  }
-	
-	  // Either a or b at this point
-	  return (a || '') + (b || '');
-	}
-	
-	exports.default = mergeClassNames;
-
-/***/ },
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -626,9 +625,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _types = __webpack_require__(4);
+	var _reactabularUtils = __webpack_require__(4);
 	
-	var _reactabularUtils = __webpack_require__(5);
+	var _types = __webpack_require__(11);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -640,21 +639,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	// This has to be a React component instead of a function.
-	// Otherwise refs won't work.
 	var Header = function (_React$Component) {
 	  _inherits(Header, _React$Component);
 	
-	  function Header() {
+	  // eslint-disable-line max-len, react/prefer-stateless-function
+	  function Header(props) {
 	    _classCallCheck(this, Header);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
+	
+	    _this.ref = null;
+	    return _this;
 	  }
 	
 	  _createClass(Header, [{
 	    key: 'render',
-	    // eslint-disable-line max-len, react/prefer-stateless-function
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var _props = this.props;
 	      var children = _props.children;
 	
@@ -665,6 +667,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var components = _context.components;
 	
 	
+	      props.ref = function (header) {
+	        _this2.ref = header;
+	      };
+	
 	      return _react2.default.createElement(components.header.wrapper, props, [headerRows.map(function (row, i) {
 	        return _react2.default.createElement(HeaderRow, {
 	          key: i + '-header-row',
@@ -672,6 +678,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          row: row
 	        });
 	      })].concat(children));
+	    }
+	  }, {
+	    key: 'getRef',
+	    value: function getRef() {
+	      return this.ref;
 	    }
 	  }]);
 	
@@ -748,9 +759,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _types = __webpack_require__(4);
+	var _reactabularUtils = __webpack_require__(4);
 	
-	var _reactabularUtils = __webpack_require__(5);
+	var _types = __webpack_require__(11);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -762,15 +773,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	// This has to be a React component instead of a function.
-	// Otherwise refs won't work.
 	var Body = function (_React$Component) {
 	  _inherits(Body, _React$Component);
 	
-	  function Body() {
+	  function Body(props) {
 	    _classCallCheck(this, Body);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Body).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Body).call(this, props));
+	
+	    _this.ref = null;
+	    return _this;
 	  }
 	
 	  _createClass(Body, [{
@@ -784,6 +796,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var _props = this.props;
 	      var onRow = _props.onRow;
 	      var rows = _props.rows;
@@ -796,6 +810,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var components = _context.components;
 	
 	
+	      props.ref = function (body) {
+	        _this2.ref = body;
+	      };
+	
 	      return _react2.default.createElement(components.body.wrapper, props, rows.map(function (r, i) {
 	        return _react2.default.createElement(BodyRow, {
 	          key: (r[rowKey] || i) + '-row',
@@ -807,6 +825,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          columns: bodyColumns
 	        });
 	      }));
+	    }
+	  }, {
+	    key: 'getRef',
+	    value: function getRef() {
+	      return this.ref;
 	    }
 	  }]);
 	
@@ -4513,19 +4536,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	// eslint-disable-line import/no-unresolved
 	
-	// Ref -> class
 	var Header = function (_React$Component) {
 	  _inherits(Header, _React$Component);
 	
-	  function Header() {
+	  function Header(props) {
 	    _classCallCheck(this, Header);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
+	
+	    _this.ref = null;
+	    return _this;
 	  }
 	
 	  _createClass(Header, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var _props = this.props;
 	      var style = _props.style;
 	      var tableBody = _props.tableBody;
@@ -4533,6 +4560,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var props = _objectWithoutProperties(_props, ['style', 'tableBody']);
 	
 	      return _react2.default.createElement(_reactabular.Table.Header, _extends({
+	        ref: function ref(header) {
+	          _this2.ref = header && header.getRef();
+	        },
 	        style: _extends({}, style || {}, {
 	          display: 'block',
 	          overflow: 'auto'
@@ -4547,6 +4577,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }));
 	    }
+	  }, {
+	    key: 'getRef',
+	    value: function getRef() {
+	      return this.ref;
+	    }
 	  }]);
 	
 	  return Header;
@@ -4557,20 +4592,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	  tableBody: _react2.default.PropTypes.any
 	};
 	
-	// Ref -> class
-	
 	var Body = function (_React$Component2) {
 	  _inherits(Body, _React$Component2);
 	
-	  function Body() {
+	  function Body(props) {
 	    _classCallCheck(this, Body);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Body).apply(this, arguments));
+	    var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(Body).call(this, props));
+	
+	    _this3.ref = null;
+	    return _this3;
 	  }
 	
 	  _createClass(Body, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this4 = this;
+	
 	      var _props2 = this.props;
 	      var style = _props2.style;
 	      var tableHeader = _props2.tableHeader;
@@ -4578,6 +4616,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var props = _objectWithoutProperties(_props2, ['style', 'tableHeader']);
 	
 	      return _react2.default.createElement(_reactabular.Table.Body, _extends({
+	        ref: function ref(body) {
+	          _this4.ref = body && body.getRef();
+	        },
 	        style: _extends({}, style || {}, {
 	          display: 'block',
 	          overflow: 'auto'
@@ -4591,6 +4632,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }
 	        }
 	      }));
+	    }
+	  }, {
+	    key: 'getRef',
+	    value: function getRef() {
+	      return this.ref;
 	    }
 	  }]);
 	
@@ -4999,7 +5045,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  var sort = sortingOrder.FIRST;
 	
-	  if (sortingColumns && sortingColumns.hasOwnProperty(selectedColumn)) {
+	  if (sortingColumns && {}.hasOwnProperty.call(sortingColumns, selectedColumn)) {
 	    sort = sortingOrder[sortingColumns[selectedColumn].direction];
 	
 	    if (!sort) {
@@ -5066,7 +5112,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      direction: sortingOrder.FIRST,
 	      position: 0
 	    });
-	  } else if (sortingColumns.hasOwnProperty(selectedColumn)) {
+	  } else if ({}.hasOwnProperty.call(sortingColumns, selectedColumn)) {
 	    // Clone to avoid mutating the original structure
 	    newSortingColumns = _extends({}, sortingColumns);
 	
@@ -5139,7 +5185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        { className: 'value' },
 	        value
 	      ),
-	      sortingColumn.hasOwnProperty('position') ? _react2.default.createElement(
+	      {}.hasOwnProperty.call(sortingColumn, 'position') ? _react2.default.createElement(
 	        'span',
 	        { className: 'sort-order', style: { marginLeft: '0.5em' } },
 	        sortingPosition + 1
@@ -5282,7 +5328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _reactabularUtils = __webpack_require__(5);
+	var _reactabularUtils = __webpack_require__(4);
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -5571,16 +5617,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var edit = function edit() {
 	  var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	
 	  var isEditing = _ref.isEditing;
 	  var onActivate = _ref.onActivate;
-	  var _onValue = _ref.onValue;
+	  var onValue = _ref.onValue;
 	  var _ref$getEditedValue = _ref.getEditedValue;
 	  var getEditedValue = _ref$getEditedValue === undefined ? function (v) {
 	    return v;
 	  } : _ref$getEditedValue;
+	  var _ref$editingProps = _ref.editingProps;
+	  var editingProps = _ref$editingProps === undefined ? {} : _ref$editingProps;
 	
 	  if (!isEditing) {
 	    throw new Error('edit - Missing isEditing!');
@@ -5588,7 +5638,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (!onActivate) {
 	    throw new Error('edit - Missing onActivate!');
 	  }
-	  if (!_onValue) {
+	  if (!onValue) {
 	    throw new Error('edit - Missing onValue!');
 	  }
 	
@@ -5598,14 +5648,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    return function (value, extraParameters) {
+	      var _extends2;
+	
 	      var props = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 	      return isEditing(extraParameters) ? {
-	        children: _react2.default.createElement(editor, _extends({}, props, {
-	          value: getEditedValue(value),
-	          onValue: function onValue(v) {
-	            return _onValue(_extends({ value: v }, extraParameters));
-	          }
-	        }))
+	        children: _react2.default.createElement(editor, _extends({}, props, (_extends2 = {}, _defineProperty(_extends2, editingProps.value || 'value', getEditedValue(value)), _defineProperty(_extends2, editingProps.onValue || 'onValue', function (v) {
+	          return onValue(_extends({ value: v }, extraParameters));
+	        }), _extends2)))
 	      } : _extends({}, props, {
 	        onClick: function onClick() {
 	          return onActivate(extraParameters);
@@ -5866,7 +5915,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _reactabularUtils = __webpack_require__(5);
+	var _reactabularUtils = __webpack_require__(4);
 	
 	function resolve(_ref) {
 	  var columns = _ref.columns;
