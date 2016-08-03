@@ -1,3 +1,11 @@
+1.1.0 / 2016-08-03
+==================
+
+  * Improvement - table - Added `getRef` for getting references to underlying DOM elements.
+  * Improvement - sticky - Added `getRef` for getting references to underlying DOM elements.
+  * Improvement - sticky - Moved `reactabular-table` as a peer dependency as I realized it's better to let the user decide which version of the table to use.
+  * Improvement - easy - Dropped dependency on react-dom.
+
 1.0.11 / 2016-07-29
 ===================
 
