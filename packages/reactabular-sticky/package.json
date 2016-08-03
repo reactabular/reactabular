@@ -32,6 +32,7 @@
   },
   "homepage": "http://reactabular.js.org/",
   "main": "dist-modules",
+  "module": "src",
   "jsnext:main": "src",
   "dependencies": {
     "reactabular-table": "^1.0.9"
