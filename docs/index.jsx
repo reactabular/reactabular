@@ -1,7 +1,7 @@
 /* eslint-disable global-require, import/no-unresolved */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Fork from 'react-ghfork';
+import GithubCorner from 'react-github-corner';
 import { Catalog, CodeSpecimen, ReactSpecimen } from 'catalog';
 import * as reactDnd from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -20,8 +20,6 @@ import * as reactabular from 'reactabular';
 import * as stylesheet from 'stylesheet-helpers';
 
 import 'purecss/build/pure.css';
-import 'react-ghfork/gh-fork-ribbon.ie.css';
-import 'react-ghfork/gh-fork-ribbon.css';
 import 'react-pagify/style.css';
 
 import * as rowsDefinitions from './data/definitions';
@@ -274,12 +272,13 @@ const pages = [
 
 ReactDOM.render(
   <div>
-    <Fork
-      className="right"
-      project="reactabular/reactabular"
-      style={{
-        backgroundColor: '#000'
-      }}
+    <GithubCorner
+      href="https://github.com/reactabular/reactabular"
+      bannerColor="#fff"
+      octoColor="#000"
+      width={80}
+      height={80}
+      direction="right"
     />
     <Catalog
       title={title}
