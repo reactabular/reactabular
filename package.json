@@ -65,7 +65,6 @@
     "git-prepush-hook": "^1.0.1",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.22.0",
-    "html-webpack-template": "^5.0.0",
     "isparta-loader": "^2.0.0",
     "karma": "^1.1.2",
     "karma-chai": "^0.1.0",

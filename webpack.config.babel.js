@@ -16,6 +16,7 @@ const TARGET = process.env.npm_lifecycle_event || '';
 const ROOT_PATH = path.resolve(__dirname);
 const config = {
   paths: {
+    indexTemplate: path.join(ROOT_PATH, 'templates', 'index.ejs'),
     build: path.join(ROOT_PATH, 'build'),
     dist: path.join(ROOT_PATH, 'dist'),
     src: path.join(ROOT_PATH, 'packages'),
@@ -77,7 +78,7 @@ const common = {
 const commonSite = {
   plugins: [
     new HtmlWebpackPlugin({
-      template: require('html-webpack-template'), // eslint-disable-line global-require
+      template: config.paths.indexTemplate,
       inject: false,
       title: pkg.name,
       appMountId: 'app'
