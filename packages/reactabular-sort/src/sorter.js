@@ -21,16 +21,16 @@ const sorter = ({
     const sortingColumn = sortingColumns[columnIndex];
 
     columnIndexList[sortingColumn.position] = row => {
-      const property = realColumn.cell.property;
+      const property = realColumn.cell && realColumn.cell.property;
       const value = row[property];
       // Pick resolved value by convention
       const resolvedValue = row[`_${property}`] || value;
 
-      if (resolvedValue.toLowerCase) {
+      if (resolvedValue && resolvedValue.toLowerCase) {
         return resolvedValue.toLowerCase();
       }
 
-      if (value.toLowerCase) {
+      if (value && value.toLowerCase) {
         return value.toLowerCase();
       }
 

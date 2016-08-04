@@ -1,3 +1,8 @@
+1.1.4 / 2016-08-03
+==================
+
+  * Bug fix - Do not crash if column `cell` definition is missing. #178
+
 1.0.11 / 2016-07-29
 ===================
 

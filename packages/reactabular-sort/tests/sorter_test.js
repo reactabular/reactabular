@@ -299,6 +299,33 @@ describe('sort.sorter', function () {
     expect(result).to.deep.equal(expected);
   });
 
+  it('does not crash with only header data', function () {
+    const columns = [{
+      header: {
+        label: 'demo'
+      }
+    }];
+    const rows = [
+      {
+        test: 'abc'
+      },
+      {
+        test: 'def'
+      }
+    ];
+    const sortingColumns = {
+      0: {
+        direction: 'asc',
+        position: 0
+      }
+    };
+
+    const result = sorter({ columns, sortingColumns, sort: orderBy })(rows);
+
+    expect(result).to.deep.equal(rows);
+  });
+
+
   it('throws an error if columns are not passed', function () {
     expect(sorter()).to.throw(Error);
   });
