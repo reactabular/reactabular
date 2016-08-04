@@ -4183,16 +4183,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var sortingColumn = sortingColumns[columnIndex];
 	
 	      columnIndexList[sortingColumn.position] = function (row) {
-	        var property = realColumn.cell.property;
+	        var property = realColumn.cell && realColumn.cell.property;
 	        var value = row[property];
 	        // Pick resolved value by convention
 	        var resolvedValue = row['_' + property] || value;
 	
-	        if (resolvedValue.toLowerCase) {
+	        if (resolvedValue && resolvedValue.toLowerCase) {
 	          return resolvedValue.toLowerCase();
 	        }
 	
-	        if (value.toLowerCase) {
+	        if (value && value.toLowerCase) {
 	          return value.toLowerCase();
 	        }
 	
