@@ -1,9 +1,9 @@
-1.1.4 / 2016-08-03
+1.1.4 / 2016-08-04
 ==================
 
   * Bug fix - sort - Do not crash if column `cell` definition is missing. #178
 
-1.1.3 / 2016-08-03
+1.1.3 / 2016-08-04
 ==================
 
   * Bug fix - easy - If a header is set both `sortable` and `resizable`, allow custom formatter to used still.
