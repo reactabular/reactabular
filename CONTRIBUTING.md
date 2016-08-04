@@ -18,3 +18,5 @@ open http://localhost:8080
 Now edit `./docs`.
 
 There's also a TDD mode for testing. Run it through `npm run test:tdd` and develop while it's running.
+
+> You can run individual tests by passing a pattern like this: `npm test -- does not crash with a number`. This works also with `npm run test:tdd`.

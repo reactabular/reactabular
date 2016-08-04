@@ -5,8 +5,8 @@
   "description": "Spectacular tables for React",
   "scripts": {
     "start": "webpack-dev-server",
-    "test": "karma start",
-    "test:tdd": "karma start --auto-watch --no-single-run",
+    "test": "karma start --",
+    "test:tdd": "karma start --auto-watch --no-single-run --",
     "test:lint": "eslint . --ext .js --ext .jsx --cache",
     "gh-pages:build-and-deploy": "npm run gh-pages:build && npm run gh-pages:deploy",
     "gh-pages:build": "webpack",
