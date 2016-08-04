@@ -1,3 +1,8 @@
+1.1.2 / 2016-08-04
+==================
+
+  * Bug fix - sticky - Fix `reactabular-table` import. Missing `* as`.
+
 1.1.1 / 2016-08-04
 ==================
 

@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import Table from 'reactabular-table';
+import * as Table from 'reactabular-table';
 
 class Header extends React.Component {
   constructor(props) {
