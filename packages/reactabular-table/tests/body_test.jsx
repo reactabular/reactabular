@@ -849,5 +849,44 @@ describe('Table.Body', function () {
     expect(ref).to.exist;
   });
 
-  // TODO: test onRow
+  it('allows attaching custom props per row through onRow', function () {
+    let receivedRow;
+    let receivedRowIndex;
+    const testRow = { name: 'demo' };
+    const rowClass = 'test-row';
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name'
+        }
+      }
+    ];
+
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns}>
+        <Table.Body
+          rows={[testRow]}
+          rowKey="name"
+          onRow={(row, rowIndex) => {
+            receivedRow = row;
+            receivedRowIndex = rowIndex;
+
+            return {
+              className: rowClass
+            };
+          }}
+        />
+      </Table.Provider>
+    );
+    const tr = TestUtils.findRenderedDOMComponentWithClass(
+      table, rowClass
+    );
+
+    expect(receivedRow).to.deep.equal(testRow);
+    expect(receivedRowIndex).to.equal(0);
+    expect(tr).to.exist;
+  });
 });
