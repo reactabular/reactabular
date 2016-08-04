@@ -1,3 +1,8 @@
+1.1.3 / 2016-08-03
+==================
+
+  * Bug fix - easy - If a header is set both `sortable` and `resizable`, allow custom formatter to used still.
+
 1.1.2 / 2016-08-04
 ==================
 

@@ -65,6 +65,20 @@ class Demo extends React.Component {
     return [
       {
         header: {
+          label: 'Demo',
+          draggable: true,
+          sortable: true,
+          resizable: true,
+          format: () => <span>Testing</span>
+        },
+        cell: {
+          format: () => <span>Demo</span>
+        },
+        width: 100,
+        visible: true
+      },
+      {
+        header: {
           label: 'Name',
           draggable: true,
           sortable: true,

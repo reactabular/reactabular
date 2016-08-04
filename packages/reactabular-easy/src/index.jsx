@@ -207,7 +207,7 @@ export default class EasyTable extends React.Component {
           newHeaderFormat = (v, extra) => resizable(sort.header({
             sortable,
             getSortingColumns
-          })(v, extra), extra);
+          })(existingHeaderFormat(v, extra), extra), extra);
         } else if (header.sortable) {
           newHeaderTransforms = existingHeaderTransforms.concat([resetable]);
           newHeaderFormat = (v, extra) => sort.header({
