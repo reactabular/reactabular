@@ -1,3 +1,8 @@
+1.1.5 / 2016-08-04
+==================
+
+  * Improvement - Attach `NODE_ENV` checks to `propTypes`. Smaller size for production usage.
+
 1.1.4 / 2016-08-04
 ==================
 
