@@ -2,6 +2,7 @@
 ==================
 
   * Bug fix - sticky - Fix `reactabular-table` import. It points to the correct package now.
+  * Improvement - table - Drop `lodash/omit` dependency.
 
 1.1.0 / 2016-08-03
 ==================

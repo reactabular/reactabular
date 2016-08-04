@@ -4521,7 +4521,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactabular = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"reactabular\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _reactabularTable = __webpack_require__(1);
+	
+	var _reactabularTable2 = _interopRequireDefault(_reactabularTable);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -4533,8 +4535,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable react/prefer-stateless-function */
 	
-	
-	// eslint-disable-line import/no-unresolved
 	
 	var Header = function (_React$Component) {
 	  _inherits(Header, _React$Component);
@@ -4559,7 +4559,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var props = _objectWithoutProperties(_props, ['style', 'tableBody']);
 	
-	      return _react2.default.createElement(_reactabular.Table.Header, _extends({
+	      return _react2.default.createElement(_reactabularTable2.default.Header, _extends({
 	        ref: function ref(header) {
 	          _this2.ref = header && header.getRef();
 	        },
@@ -4615,7 +4615,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var props = _objectWithoutProperties(_props2, ['style', 'tableHeader']);
 	
-	      return _react2.default.createElement(_reactabular.Table.Body, _extends({
+	      return _react2.default.createElement(_reactabularTable2.default.Body, _extends({
 	        ref: function ref(body) {
 	          _this4.ref = body && body.getRef();
 	        },

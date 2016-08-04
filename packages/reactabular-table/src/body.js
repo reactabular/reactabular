@@ -1,5 +1,4 @@
 import isEqual from 'lodash/isEqual';
-import omit from 'lodash/omit';
 import React from 'react';
 import {
   evaluateTransforms, resolveBodyColumns, mergePropPair
@@ -16,7 +15,7 @@ export default class Body extends React.Component {
     // Skip checking props against `onRow` since that can be bound at render().
     // That's not particularly good practice but you never know how the users
     // prefer to define the handler.
-    return !(isEqual(omit(this.props, ['onRow']), omit(nextProps, ['onRow'])) &&
+    return !(isEqual(omitOnRow(this.props), omitOnRow(nextProps)) &&
       isEqual(this.context, nextContext));
   }
   render() {
@@ -52,6 +51,12 @@ Body.defaultProps = {
   onRow: () => {}
 };
 Body.contextTypes = tableBodyContextTypes;
+
+function omitOnRow(props) {
+  const { onRow, ...ret } = props; // eslint-disable-line no-unused-vars
+
+  return ret;
+}
 
 class BodyRow extends React.Component {
   shouldComponentUpdate(nextProps) {
