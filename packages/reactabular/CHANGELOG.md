@@ -1,3 +1,8 @@
+1.1.1 / 2016-08-04
+==================
+
+  * Bug fix - sticky - Fix `reactabular-table` import. It points to the correct package now.
+
 1.1.0 / 2016-08-03
 ==================
 
