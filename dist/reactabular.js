@@ -3471,7 +3471,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _reactabularTable = __webpack_require__(1);
 	
-	var _reactabularTable2 = _interopRequireDefault(_reactabularTable);
+	var Table = _interopRequireWildcard(_reactabularTable);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -3507,7 +3509,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var props = _objectWithoutProperties(_props, ['style', 'tableBody']);
 	
-	      return _react2.default.createElement(_reactabularTable2.default.Header, _extends({
+	      return _react2.default.createElement(Table.Header, _extends({
 	        ref: function ref(header) {
 	          _this2.ref = header && header.getRef();
 	        },
@@ -3563,7 +3565,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var props = _objectWithoutProperties(_props2, ['style', 'tableHeader']);
 	
-	      return _react2.default.createElement(_reactabularTable2.default.Body, _extends({
+	      return _react2.default.createElement(Table.Body, _extends({
 	        ref: function ref(body) {
 	          _this4.ref = body && body.getRef();
 	        },
