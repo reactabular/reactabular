@@ -832,5 +832,22 @@ describe('Table.Body', function () {
     expect(renderedTable).to.exist;
   });
 
+  it('gives access to body ref through getRef', function () {
+    let ref;
+
+    TestUtils.renderIntoDocument(
+      <Table.Provider columns={[]}>
+        <Table.Body
+          rows={[]}
+          ref={r => {
+            ref = r;
+          }}
+        />
+      </Table.Provider>
+    );
+
+    expect(ref).to.exist;
+  });
+
   // TODO: test onRow
 });

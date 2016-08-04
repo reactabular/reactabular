@@ -500,4 +500,20 @@ describe('Table.Header', function () {
 
     expect(renderedTable).to.exist;
   });
+
+  it('gives access to header ref through getRef', function () {
+    let ref;
+
+    TestUtils.renderIntoDocument(
+      <Table.Provider columns={[]}>
+        <Table.Header
+          ref={r => {
+            ref = r;
+          }}
+        />
+      </Table.Provider>
+    );
+
+    expect(ref).to.exist;
+  });
 });
