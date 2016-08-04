@@ -20,7 +20,6 @@
 
   * Improvement - Make `tableWidth` and `tableHeight` checks looser. You might want to pass number, string, or something. Perhaps this can be constrained further.
 
-
 1.0.7 / 2016-07-28
 ==================
 
