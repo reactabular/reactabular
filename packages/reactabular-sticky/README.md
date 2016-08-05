@@ -10,7 +10,6 @@ The following example implements sticky headers within a fixed viewport through 
 
 ```jsx
 /*
-import ReactDOM from 'react-dom';
 import React from 'react';
 import { Table, Sticky } from 'reactabular';
 // import { Sticky } from 'reactabular-sticky';
@@ -117,9 +116,7 @@ class StickyTable extends React.Component {
             maxWidth: 800
           }}
           ref={tableHeader => {
-            if (tableHeader) {
-              this.tableHeader = ReactDOM.findDOMNode(tableHeader);
-            }
+            this.tableHeader = tableHeader && tableHeader.getRef();
           }}
           tableBody={this.tableBody}
         />
@@ -132,9 +129,7 @@ class StickyTable extends React.Component {
             maxHeight: 400
           }}
           ref={tableBody => {
-            if (tableBody) {
-              this.tableBody = ReactDOM.findDOMNode(tableBody);
-            }
+            this.tableBody = tableBody && tableBody.getRef();
           }}
           tableHeader={this.tableHeader}
         />
