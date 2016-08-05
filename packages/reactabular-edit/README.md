@@ -141,7 +141,7 @@ const editable = edit.edit({
 
   // In case you want to trigger activation using something else than
   // onClick, adjust it like this:
-  // activateEvent: 'onDblClick'
+  // activateEvent: 'onDoubleClick'
 });
 
 ...

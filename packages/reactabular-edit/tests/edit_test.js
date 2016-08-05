@@ -121,7 +121,7 @@ describe('edit.edit', function () {
   });
 
   it('allows activation event to be replaced', function () {
-    const testEvent = 'onDblClick';
+    const testEvent = 'onDoubleClick';
     const editor = edit({
       isEditing() {
         return false;
