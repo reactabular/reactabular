@@ -2,6 +2,7 @@
 ==================
 
   * Improvement - edit - Expose `event` to `onActivate`.
+  * Improvement - easy - Push `reactabular` and `reactabular-utils` as peer dependencies. This way you have better control over which versions to consume at your project.
 
 1.2.0 / 2016-08-05
 ==================

@@ -1,3 +1,8 @@
+1.2.1 / 2016-08-05
+==================
+
+  * Improvement - Push `reactabular` and `reactabular-utils` as peer dependencies. This way you have better control over which versions to consume at your project.
+
 1.1.6 / 2016-08-05
 ==================
 
