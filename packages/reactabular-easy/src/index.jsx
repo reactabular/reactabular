@@ -1,17 +1,15 @@
 import React from 'react';
 import {
-  Table, Sticky, sort, resizableColumn, resolve, highlight, search
+  Table, Sticky, sort, resizableColumn, resolve, highlight, search, select
 } from 'reactabular';
 import { mergeClassNames } from 'reactabular-utils';
 import { DragSource, DropTarget } from 'react-dnd';
 import { compose } from 'redux';
 import uuid from 'uuid';
 import * as stylesheet from 'stylesheet-helpers';
-import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
-// TODO: extract selection logic into a package of its own
 export default class EasyTable extends React.Component {
   constructor(props) {
     super(props);
@@ -32,8 +30,8 @@ export default class EasyTable extends React.Component {
     this.selectRow = this.selectRow.bind(this);
     this.onFinishMove = this.onFinishMove.bind(this);
     this.onMove = this.onMove.bind(this);
-    this.onKeyPressed = this.onKeyPressed.bind(this);
     this.onRow = this.onRow.bind(this);
+    this.getSelectedRowIndex = this.getSelectedRowIndex.bind(this);
 
     // References to header/body elements so they can be
     // kept in sync while scrolling.
@@ -53,13 +51,9 @@ export default class EasyTable extends React.Component {
     this.styleSheet = styleSheet;
 
     this.initializeStyles(this.state.columns);
-
-    window.addEventListener('keydown', this.onKeyPressed);
   }
   componentWillUnmount() {
     this.styleSheetElement.remove();
-
-    window.removeEventListener('keydown', this.onKeyPressed);
   }
   componentWillReceiveProps(nextProps) {
     if (this.state.originalColumns !== nextProps.columns) {
@@ -86,7 +80,7 @@ export default class EasyTable extends React.Component {
       tableWidth, tableHeight,
       classNames, onRow // eslint-disable-line no-unused-vars
     } = this.props;
-    const { columns, sortingColumns } = this.state;
+    const { columns, selectedRow, sortingColumns } = this.state;
     const rows = compose(
       sort.sorter(
         { columns, sortingColumns, sort: orderBy }
@@ -104,8 +98,13 @@ export default class EasyTable extends React.Component {
     const tableHeaderWidth = this.tableHeader ? this.tableHeader.scrollWidth : 0;
     const tableBodyWidth = this.tableBody ? this.tableBody.scrollWidth : 0;
     const scrollOffset = tableHeaderWidth - tableBodyWidth;
+    const selectedRowIndex = this.getSelectedRowIndex(selectedRow);
 
-    return (
+    return select.byArrowKeys({
+      rows,
+      selectedRowIndex,
+      onSelectRow: this.selectRow
+    })(
       <Table.Provider
         className={classNames.table && classNames.table.wrapper}
         components={components}
@@ -291,57 +290,28 @@ export default class EasyTable extends React.Component {
 
     return {
       className: mergeClassNames(className, row.selected && 'selected-row'),
-      onClick: () => this.selectRow(row.id),
+      onClick: () => this.selectRow(rowIndex),
       ...props
     };
   }
-  onKeyPressed(e) {
-    const { rows, selectedRow } = this.state;
-    const idx = findIndex(rows, { id: selectedRow.id });
-
-    // No selection yet, escape
-    if (idx < 0) {
-      return;
-    }
-
-    // Arrow Up
-    if (e.keyCode === 38 && idx > 0) {
-      e.preventDefault();
-
-      this.selectRow(rows[idx - 1].id);
-    }
-
-    // Arrow Down
-    if (e.keyCode === 40 && idx < rows.length - 1) {
-      e.preventDefault();
-
-      this.selectRow(rows[idx + 1].id);
-    }
-  }
-  selectRow(selectedRowId) {
-    let selectedRow;
-
-    // Reset selected flags and select the given row
-    const rows = cloneDeep(this.state.rows).map(row => {
-      let selected = false;
-
-      if (row.id === selectedRowId) {
-        selected = true;
-
-        selectedRow = row;
-      }
-
-      return {
-        ...row,
-        selected
-      };
+  selectRow(selectedRowIndex) {
+    const { rows } = this.state;
+    const selected = select.row({
+      rows,
+      selectedRowId: rows[selectedRowIndex].id
     });
 
     this.props.onSelectRow({
-      selectedRowId,
-      selectedRow
+      selectedRowId: selected.selectedRow.id,
+      selectedRow: selected.selectedRow
     });
-    this.setState({ rows, selectedRow });
+
+    this.setState(selected);
+  }
+  getSelectedRowIndex(selectedRow) {
+    return findIndex(this.state.rows, {
+      id: selectedRow.id
+    });
   }
 }
 EasyTable.propTypes = {
