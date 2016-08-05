@@ -45,7 +45,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
-    "dnd-core": "^2.0.2",
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {
