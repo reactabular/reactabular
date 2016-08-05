@@ -1033,8 +1033,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return a;
 	        } : _cell$format;
 	
-	        var value = row['_' + property] || row[property];
-	
 	        var extraParameters = {
 	          columnIndex: j,
 	          column: column,
@@ -1042,7 +1040,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          rowIndex: rowIndex,
 	          property: property
 	        };
-	        var transformed = (0, _reactabularUtils.evaluateTransforms)(transforms, value, extraParameters);
+	        var transformed = (0, _reactabularUtils.evaluateTransforms)(transforms, row[property], extraParameters);
 	
 	        if (!transformed) {
 	          console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
@@ -1050,7 +1048,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        return _react2.default.createElement(components.cell, _extends({
 	          key: j + '-cell'
-	        }, (0, _reactabularUtils.mergePropPair)(props, transformed)), transformed.children || format(value, extraParameters));
+	        }, (0, _reactabularUtils.mergePropPair)(props, transformed)), transformed.children || format(row['_' + property] || row[property], extraParameters));
 	      }));
 	    }
 	  }]);
