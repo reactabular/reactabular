@@ -39,7 +39,7 @@ const edit = ({
       } :
       {
         ...props,
-        [activateEvent]: () => onActivate(extraParameters)
+        [activateEvent]: event => onActivate({ event, ...extraParameters })
       }
     );
   };

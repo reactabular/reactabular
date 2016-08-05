@@ -111,7 +111,11 @@ const editable = edit.edit({
   // The user requested activation, mark the current cell as edited.
   // IMPORTANT! If you stash the rows at this.state.rows, DON'T
   // mutate it as that will break Table.Body optimization check.
-  onActivate: ({ columnIndex, rowData }) => {
+  //
+  // You also have access to `event` here.
+  onActivate: ({ columnIndex, rowData, event }) => {
+    event.stopPropagation();
+
     const index = findIndex(this.state.rows, { id: rowData.id });
     const rows = cloneDeep(this.state.rows);
 

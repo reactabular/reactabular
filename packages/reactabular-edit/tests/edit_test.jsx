@@ -1,8 +1,12 @@
+/* eslint-disable react/prop-types */
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import { edit } from '../src';
 
 describe('edit.edit', function () {
   it('activates editing', function () {
+    const testClassName = 'demo';
     const testProperty = 'test';
     let receivedProperty;
     const editor = edit({
@@ -12,12 +16,25 @@ describe('edit.edit', function () {
       },
       onValue() {}
     });
-    const result = editor('div')('foo', {
-      rowData: {},
-      property: testProperty
-    });
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{
+        React.createElement(
+          'div',
+          editor('div')('foo', {
+            rowData: {},
+            property: testProperty
+          }, {
+            className: testClassName
+          })
+        )
+      }</Wrapper>
+    );
 
-    result.onClick();
+    const renderedEditor = TestUtils.findRenderedDOMComponentWithClass(
+      result, testClassName
+    );
+
+    TestUtils.Simulate.click(renderedEditor);
 
     expect(receivedProperty).to.equal(testProperty);
   });
@@ -139,6 +156,39 @@ describe('edit.edit', function () {
     expect(result[testEvent]).to.exist;
   });
 
+  it('onActivate gives access to event', function () {
+    const testClassName = 'demo';
+    let receivedEvent;
+    const editor = edit({
+      isEditing() {},
+      onActivate({ event }) {
+        receivedEvent = event;
+      },
+      onValue() {}
+    });
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{
+        React.createElement(
+          'div',
+          editor('div')('foo', {
+            rowData: {},
+            property: 'test'
+          }, {
+            className: testClassName
+          })
+        )
+      }</Wrapper>
+    );
+
+    const renderedEditor = TestUtils.findRenderedDOMComponentWithClass(
+      result, testClassName
+    );
+
+    TestUtils.Simulate.click(renderedEditor);
+
+    expect(receivedEvent.target.className).to.equal(testClassName);
+  });
+
   it('throws an error if isEditing is not passed', function () {
     expect(edit.bind(null, {
       onActivate: () => {},
@@ -168,3 +218,9 @@ describe('edit.edit', function () {
     }).bind(null)).to.throw(Error);
   });
 });
+
+class Wrapper extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
+  render() {
+    return <div>{this.props.children}</div>;
+  }
+}
