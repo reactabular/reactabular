@@ -1,6 +1,7 @@
 import * as Table from 'reactabular-table';
 import * as Sticky from 'reactabular-sticky';
 import * as search from 'reactabular-search';
+import * as select from 'reactabular-select';
 import * as sort from 'reactabular-sort';
 import * as edit from 'reactabular-edit';
 import * as highlight from 'reactabular-highlight';
@@ -11,6 +12,7 @@ export {
   Table,
   Sticky,
   search,
+  select,
   sort,
   edit,
   highlight,

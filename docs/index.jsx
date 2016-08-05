@@ -37,6 +37,7 @@ const documentationImports = {
   Table: { ...reactabular.Table },
   Sticky: { ...reactabular.Sticky },
   search: { ...reactabular.search },
+  select: { ...reactabular.select },
   sort: { ...reactabular.sort },
   edit: { ...reactabular.edit },
   highlight: { ...reactabular.highlight },
@@ -173,6 +174,11 @@ const pages = [
     component: require('../packages/reactabular-resizable/README.md')
   },
   {
+    path: 'selecting-rows',
+    title: 'Selecting Rows',
+    component: require('../packages/reactabular-select/README.md')
+  },
+  {
     path: 'sticky',
     title: 'Sticky',
     component: require('../packages/reactabular-sticky/README.md')
@@ -219,11 +225,6 @@ const pages = [
         path: 'examples/infinite-scrolling',
         title: 'Infinite Scrolling',
         component: require('./examples/infinite-scrolling.md')
-      },
-      {
-        path: 'examples/selection',
-        title: 'Selection',
-        component: require('./examples/selection.md')
       },
       {
         path: 'examples/toggle-columns',
