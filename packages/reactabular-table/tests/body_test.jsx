@@ -335,6 +335,43 @@ describe('Table.Body', function () {
     expect(td.innerHTML).to.equal(name + name);
   });
 
+  it('passes unresolved values to transforms', function () {
+    let receivedValue;
+    const name = 'foobar';
+    const columns = [
+      {
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          property: 'name',
+          resolve: v => v + v,
+          transforms: [
+            v => {
+              receivedValue = v;
+            }
+          ]
+        }
+      }
+    ];
+    const rows = [
+      { name }
+    ];
+    TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns}>
+        <Table.Body
+          rows={resolve.resolve({
+            columns,
+            method: resolve.byFunction('cell.resolve')
+          })(rows)}
+          rowKey="id"
+        />
+      </Table.Provider>
+    );
+
+    expect(receivedValue).to.equal(name);
+  });
+
   it('can be formatted', function () {
     const columns = [
       {

@@ -1,3 +1,8 @@
+1.2.0 / 2016-08-05
+==================
+
+  * Bug fix - table - Pass unresolved values to `Table.Body` transforms instead of resolved ones.
+
 1.1.6 / 2016-08-05
 ==================
 

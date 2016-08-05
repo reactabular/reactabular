@@ -81,8 +81,6 @@ class BodyRow extends React.Component {
           transforms = [],
           format = a => a
         } = cell;
-        const value = row[`_${property}`] || row[property];
-
         const extraParameters = {
           columnIndex: j,
           column,
@@ -90,7 +88,7 @@ class BodyRow extends React.Component {
           rowIndex,
           property
         };
-        const transformed = evaluateTransforms(transforms, value, extraParameters);
+        const transformed = evaluateTransforms(transforms, row[property], extraParameters);
 
         if (!transformed) {
           console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
@@ -102,7 +100,7 @@ class BodyRow extends React.Component {
             key: `${j}-cell`,
             ...mergePropPair(props, transformed)
           },
-          transformed.children || format(value, extraParameters)
+          transformed.children || format(row[`_${property}`] || row[property], extraParameters)
         );
       })
     );
