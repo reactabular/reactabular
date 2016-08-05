@@ -1,6 +1,6 @@
 {
   "name": "reactabular-sticky",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "Sticky header and body for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
@@ -42,6 +42,6 @@
   "peerDependencies": {
     "lodash": ">= 3.0.0 < 5.0.0",
     "react": ">= 0.11.2 < 16.0.0",
-    "reactabular-table": "^1.1.5"
+    "reactabular-table": "^1.2.0"
   }
 }
