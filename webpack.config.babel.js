@@ -5,6 +5,7 @@ import fromPairs from 'lodash/fromPairs';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import merge from 'webpack-merge';
@@ -72,7 +73,12 @@ const common = {
         exclude: /node_modules/
       }
     ]
-  }
+  },
+  plugins: [
+    new LodashModuleReplacementPlugin({
+      paths: true
+    })
+  ]
 };
 
 const commonSite = {

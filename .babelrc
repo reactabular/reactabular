@@ -4,6 +4,7 @@
     "react"
   ],
   "plugins": [
+    "lodash",
     "syntax-object-rest-spread",
     "transform-object-rest-spread",
     ["transform-react-remove-prop-types", {"mode": "wrap"}]
