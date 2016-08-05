@@ -197,28 +197,21 @@ export default class EasyTable extends React.Component {
         const existingHeaderFormat = header.format || (v => v);
         const existingHeaderTransforms = header.transforms || [];
         const existingCellFormat = cell.format || (v => v);
+        const newHeaderFormats = [existingHeaderFormat];
         let newHeaderProps = existingHeaderProps;
-        let newHeaderFormat = existingHeaderFormat;
         let newHeaderTransforms = existingHeaderTransforms;
         let newCellFormat = existingCellFormat;
 
-        if (header.sortable && header.resizable) {
-          newHeaderTransforms = existingHeaderTransforms.concat([resetable]);
-          newHeaderFormat = (v, extra) => resizable(sort.header({
+        if (header.sortable) {
+          newHeaderFormats.push(sort.header({
             sortable,
             getSortingColumns
-          })(existingHeaderFormat(v, extra), extra), extra);
-        } else if (header.sortable) {
-          newHeaderTransforms = existingHeaderTransforms.concat([resetable]);
-          newHeaderFormat = (v, extra) => sort.header({
-            sortable,
-            getSortingColumns
-          })(existingHeaderFormat(v, extra), extra);
-        } else if (header.resizable) {
-          newHeaderFormat = (v, extra) => resizable(
-            existingHeaderFormat(v, extra),
-            extra
-          );
+          }));
+          newHeaderTransforms = newHeaderTransforms.concat([resetable]);
+        }
+
+        if (header.resizable) {
+          newHeaderFormats.push(resizable);
         }
 
         if (header.draggable) {
@@ -236,6 +229,15 @@ export default class EasyTable extends React.Component {
             extra
           );
         }
+
+        const newHeaderFormat = (value, extra) => (
+          newHeaderFormats.reduce((parameters, format) => (
+            {
+              value: format(parameters.value, parameters.extra),
+              extra
+            }
+          ), { value, extra }).value
+        );
 
         return {
           ...column,
