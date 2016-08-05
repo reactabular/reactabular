@@ -138,6 +138,10 @@ const editable = edit.edit({
 
   // If you want to change default value/onValue, you can do it through
   // editingProps: { value: 'value', onValue: 'onValue' }
+
+  // In case you want to trigger activation using something else than
+  // onClick, adjust it like this:
+  // activateEvent: 'onDblClick'
 });
 
 ...

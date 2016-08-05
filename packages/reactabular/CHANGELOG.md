@@ -1,3 +1,8 @@
+1.1.6 / 2016-08-05
+==================
+
+  * Improvement - edit - Allow `activateEvent` (default `onClick`) to be overridden.
+
 1.1.5 / 2016-08-04
 ==================
 

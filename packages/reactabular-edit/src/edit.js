@@ -5,7 +5,8 @@ const edit = ({
   onActivate,
   onValue,
   getEditedValue = v => v,
-  editingProps = {}
+  editingProps = {},
+  activateEvent = 'onClick'
 } = {}) => {
   if (!isEditing) {
     throw new Error('edit - Missing isEditing!');
@@ -38,7 +39,7 @@ const edit = ({
       } :
       {
         ...props,
-        onClick: () => onActivate(extraParameters)
+        [activateEvent]: () => onActivate(extraParameters)
       }
     );
   };

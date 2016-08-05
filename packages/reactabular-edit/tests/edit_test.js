@@ -120,6 +120,25 @@ describe('edit.edit', function () {
     expect(result.children.props[testOnValue]).to.exist;
   });
 
+  it('allows activation event to be replaced', function () {
+    const testEvent = 'onDblClick';
+    const editor = edit({
+      isEditing() {
+        return false;
+      },
+      onActivate: () => {},
+      onValue: () => {},
+      activateEvent: testEvent
+    });
+    const value = 'foo';
+    const result = editor('div')(value, {
+      rowData: {},
+      property: 'foo'
+    });
+
+    expect(result[testEvent]).to.exist;
+  });
+
   it('throws an error if isEditing is not passed', function () {
     expect(edit.bind(null, {
       onActivate: () => {},
