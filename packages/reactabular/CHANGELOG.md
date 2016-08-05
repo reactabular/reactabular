@@ -2,6 +2,7 @@
 ==================
 
   * Improvement - edit - Allow `activateEvent` (default `onClick`) to be overridden.
+  * Improvement - easy - Trigger `onMoveColumns` only after moving columns has finished.
 
 1.1.5 / 2016-08-04
 ==================

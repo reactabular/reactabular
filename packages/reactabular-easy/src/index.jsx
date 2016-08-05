@@ -30,6 +30,7 @@ export default class EasyTable extends React.Component {
 
     this.bindColumns = this.bindColumns.bind(this);
     this.selectRow = this.selectRow.bind(this);
+    this.onFinishMove = this.onFinishMove.bind(this);
     this.onMove = this.onMove.bind(this);
     this.onKeyPressed = this.onKeyPressed.bind(this);
     this.onRow = this.onRow.bind(this);
@@ -225,6 +226,7 @@ export default class EasyTable extends React.Component {
           newHeaderProps = {
             // DnD needs this to tell header cells apart
             label: header.label,
+            onFinishMove: o => this.onFinishMove(o),
             onMove: o => this.onMove(o)
           };
         }
@@ -261,6 +263,9 @@ export default class EasyTable extends React.Component {
       return column;
     });
   }
+  onFinishMove() {
+    this.props.onMoveColumns(this.state.columns);
+  }
   onMove(labels) {
     // This returns a new instance, no need to cloneDeep.
     const movedColumns = moveLabels(this.state.columns, labels);
@@ -277,9 +282,9 @@ export default class EasyTable extends React.Component {
       this.setState({
         columns: movedColumns.columns
       });
-
-      this.props.onMoveColumns(movedColumns.columns);
     }
+
+    return movedColumns;
   }
   onRow(row, rowIndex) {
     const { className, ...props } = this.props.onRow(row, rowIndex);
@@ -445,6 +450,11 @@ const headerTarget = {
     if (sourceLabel !== targetLabel && targetProps.onMove) {
       targetProps.onMove({ sourceLabel, targetLabel });
     }
+  },
+  drop(targetProps) {
+    if (targetProps.onFinishMove) {
+      targetProps.onFinishMove();
+    }
   }
 };
 const DndHeader = compose(
@@ -460,7 +470,7 @@ const DndHeader = compose(
   )
 )(({
   connectDragSource, connectDropTarget, label, // eslint-disable-line no-unused-vars
-  children, onMove, ...props // eslint-disable-line no-unused-vars
+  children, onMove, onFinishMove, ...props // eslint-disable-line no-unused-vars
 }) => (
   connectDragSource(connectDropTarget(
     <th {...props}>{children}</th>

@@ -1,3 +1,8 @@
+1.1.6 / 2016-08-05
+==================
+
+  * Improvement - Trigger `onMoveColumns` only after moving columns has finished.
+
 1.1.3 / 2016-08-04
 ==================
 
