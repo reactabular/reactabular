@@ -2,6 +2,7 @@
 ==================
 
   * Improvement - Trigger `onMoveColumns` only after moving columns has finished.
+  * Improvement - Expose `selectedRowId`. It defaults to `id`, but if your selection logic relies on some other field, you can change it now.
 
 1.1.3 / 2016-08-04
 ==================

@@ -189,6 +189,7 @@ class Demo extends React.Component {
               wrapper: 'pure-table pure-table-striped'
             }
           }}
+          selectedRowId="id"
           onDragColumn={this.onDragColumn}
           onMoveColumns={this.onMoveColumns}
           onSelectRow={this.onSelectRow}

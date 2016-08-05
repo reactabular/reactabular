@@ -295,22 +295,28 @@ export default class EasyTable extends React.Component {
     };
   }
   selectRow(selectedRowIndex) {
+    const { selectedRowIdField } = this.props;
     const { rows } = this.state;
     const selected = select.row({
       rows,
-      selectedRowId: rows[selectedRowIndex].id
+      isSelected: (row, selectedRowId) => (
+        row[selectedRowIdField] === selectedRowId
+      ),
+      selectedRowId: rows[selectedRowIndex][selectedRowIdField]
     });
 
     this.props.onSelectRow({
-      selectedRowId: selected.selectedRow.id,
+      selectedRowId: selected.selectedRow[selectedRowIdField],
       selectedRow: selected.selectedRow
     });
 
     this.setState(selected);
   }
   getSelectedRowIndex(selectedRow) {
+    const { selectedRowIdField } = this.props;
+
     return findIndex(this.state.rows, {
-      id: selectedRow.id
+      [selectedRowIdField]: selectedRow[selectedRowIdField]
     });
   }
 }
@@ -322,6 +328,7 @@ EasyTable.propTypes = {
   tableWidth: React.PropTypes.any.isRequired,
   tableHeight: React.PropTypes.any.isRequired,
   classNames: React.PropTypes.object,
+  selectedRowIdField: React.PropTypes.string.isRequired,
   onRow: React.PropTypes.func,
   onDragColumn: React.PropTypes.func,
   onMoveColumns: React.PropTypes.func,
@@ -347,6 +354,7 @@ EasyTable.defaultProps = {
       */
     }
   },
+  selectedRowIdField: 'id',
   onRow: () => ({}),
   onDragColumn: () => {},
   onMoveColumns: () => {},
