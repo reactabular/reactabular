@@ -4902,8 +4902,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        children: _react2.default.createElement(editor, _extends({}, props, (_extends2 = {}, _defineProperty(_extends2, editingProps.value || 'value', getEditedValue(value)), _defineProperty(_extends2, editingProps.onValue || 'onValue', function (v) {
 	          return onValue(_extends({ value: v }, extraParameters));
 	        }), _extends2)))
-	      } : _extends({}, props, _defineProperty({}, activateEvent, function () {
-	        return onActivate(extraParameters);
+	      } : _extends({}, props, _defineProperty({}, activateEvent, function (event) {
+	        return onActivate(_extends({ event: event }, extraParameters));
 	      }));
 	    };
 	  };
