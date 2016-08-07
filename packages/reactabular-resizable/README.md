@@ -163,9 +163,7 @@ class ResizableColumnsTable extends React.Component {
             maxWidth: 800
           }}
           ref={tableHeader => {
-            if (tableHeader) {
-              this.tableHeader = ReactDOM.findDOMNode(tableHeader);
-            }
+            this.tableHeader = tableHeader && tableHeader.getRef();
           }}
           tableBody={this.tableBody}
         />
@@ -180,9 +178,7 @@ class ResizableColumnsTable extends React.Component {
             maxHeight: 400
           }}
           ref={tableBody => {
-            if (tableBody) {
-              this.tableBody = ReactDOM.findDOMNode(tableBody);
-            }
+            this.tableBody = tableBody && tableBody.getRef();
           }}
           tableHeader={this.tableHeader}
         />

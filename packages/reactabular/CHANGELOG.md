@@ -1,3 +1,9 @@
+1.2.2 / 2016-08-07
+==================
+
+  * Bug fix - resizable - Fix README example as Sticky API has been simplified (no need for ReactDOM anymore).
+
+
 1.2.1 / 2016-08-05
 ==================
 
