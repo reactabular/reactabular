@@ -43,6 +43,7 @@ const documentationImports = {
   highlight: { ...reactabular.highlight },
   resolve: { ...reactabular.resolve },
   SearchColumns: reactabular.SearchColumns,
+  Search: reactabular.Search,
   resizableColumn: reactabular.resizableColumn,
   EasyTable,
   stylesheet: { ...stylesheet },
@@ -155,24 +156,34 @@ const pages = [
     component: require('../packages/reactabular-sort/README.md')
   },
   {
-    path: 'searching',
     title: 'Searching',
-    component: require('../packages/reactabular-search/README.md')
-  },
-  {
-    path: 'searching-columns',
-    title: 'Searching Columns',
-    component: require('../packages/reactabular-search-columns/README.md')
+    pages: [
+      {
+        path: 'searching/algorithms',
+        title: 'Algorithms',
+        component: require('../packages/reactabular-search/README.md')
+      },
+      {
+        path: 'searching/per-field',
+        title: 'Per Field',
+        component: require('../packages/reactabular-search-field/README.md')
+      },
+      {
+        path: 'searching/columns',
+        title: 'Columns',
+        component: require('../packages/reactabular-search-columns/README.md')
+      },
+      {
+        path: 'searching/highlighting-results',
+        title: 'Highlighting Results',
+        component: require('../packages/reactabular-highlight/README.md')
+      }
+    ]
   },
   {
     path: 'paginating',
     title: 'Paginating',
     component: require('./paginating.md')
-  },
-  {
-    path: 'highlighting',
-    title: 'Highlighting',
-    component: require('../packages/reactabular-highlight/README.md')
   },
   {
     path: 'resizable-columns',

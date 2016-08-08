@@ -42,6 +42,7 @@
     "reactabular-resolve": "^1.1.0",
     "reactabular-search": "^1.1.0",
     "reactabular-search-columns": "^1.2.3",
+    "reactabular-search-field": "^1.2.3",
     "reactabular-select": "^1.2.2",
     "reactabular-sticky": "^1.2.0",
     "reactabular-sort": "^1.1.4",

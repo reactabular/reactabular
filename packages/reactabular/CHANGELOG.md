@@ -1,7 +1,8 @@
 1.2.3 / 2016-08-08
 ==================
 
-  * Improvement - reactabular - New `search-columns` module for searching per column.
+  * Improvement - reactabular - New `search-columns` module for searching per column (UI).
+  * Improvement - reactabular - New `search-field` module for searching (UI).
   * Improvement - easy - Expose `headerExtra` prop. It can be used to inject extra rows to a header. This works well with `reactabular-search-columns`.
 
 1.2.2 / 2016-08-07

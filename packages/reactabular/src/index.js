@@ -8,11 +8,13 @@ import * as highlight from 'reactabular-highlight';
 import * as resolve from 'reactabular-resolve';
 import resizableColumn from 'reactabular-resizable';
 import SearchColumns from 'reactabular-search-columns';
+import Search from 'reactabular-search-field';
 
 export {
   Table,
   Sticky,
   SearchColumns,
+  Search,
   search,
   select,
   sort,

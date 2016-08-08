@@ -1,40 +1,32 @@
-To make it possible to highlight search results per column, there's a specific `highlight.cell` formatter.
+`reactabular-search-field` provides a search field you can integrate to your Reactabular project.
 
 ## How to Use?
 
-To use it, you'll first you have to annotate your rows using `highlight.highlighter`. It attaches a structure like this there:
-
-```javascript
-_highlights: {
-  demo: [{ startIndex: 0, length: 4 }]
-}
-```
+Consider the example below.
 
 **Example:**
 
 ```jsx
 /*
 import React from 'react';
-import { compose } from 'redux';
 import {
-  Table, search, Search, highlight
+  Table, search, Search
 } from 'reactabular';
 */
 
-class HighlightTable extends React.Component {
+class SearchTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      query: {},
+      query: {}, // Search query
       columns: [
         {
           header: {
             label: 'Name'
           },
           cell: {
-            property: 'name',
-            format: highlight.cell
+            property: 'name'
           }
         },
         {
@@ -42,8 +34,7 @@ class HighlightTable extends React.Component {
             label: 'Age'
           },
           cell: {
-            property: 'age',
-            format: highlight.cell
+            property: 'age'
           }
         }
       ],
@@ -73,10 +64,7 @@ class HighlightTable extends React.Component {
   }
   render() {
     const { rows, columns, query } = this.state;
-    const filteredRows = compose(
-      highlight.highlighter({ columns, matches: search.matches, query }),
-      search.multipleColumns({ columns, query })
-    )(rows);
+    const searchedRows = search.multipleColumns({ columns, query })(rows);
 
     return (
       <div>
@@ -91,12 +79,12 @@ class HighlightTable extends React.Component {
         <Table.Provider columns={columns}>
           <Table.Header />
 
-          <Table.Body rows={filteredRows} rowKey="id" />
+          <Table.Body rows={searchedRows} rowKey="id" />
         </Table.Provider>
       </div>
     );
   }
 }
 
-<HighlightTable />
+<SearchTable />
 ```

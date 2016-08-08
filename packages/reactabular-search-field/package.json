@@ -1,0 +1,42 @@
+{
+  "name": "reactabular-search-field",
+  "version": "0.0.0",
+  "description": "Search field for Reactabular",
+  "scripts": {
+    "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
+    "prepublish": "npm run build"
+  },
+  "files": [
+    "dist-modules",
+    "src",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reactabular/reactabular.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "table",
+    "tables",
+    "reactabular"
+  ],
+  "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reactabular/reactabular/issues"
+  },
+  "homepage": "http://reactabular.js.org/",
+  "main": "dist-modules",
+  "module": "src",
+  "jsnext:main": "src",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "rimraf": "^2.5.4"
+  }
+}

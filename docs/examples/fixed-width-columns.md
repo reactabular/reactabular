@@ -3,8 +3,7 @@ Depending on the content of your rowsset, you may encounter issues with column w
 ```jsx
 /*
 import React from 'react';
-import { Search } from './helpers';
-import { Table, search } from 'reactabular';
+import { Table, search, Search } from 'reactabular';
 */
 
 class FixedWidthColumnsTable extends React.Component {

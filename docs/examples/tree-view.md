@@ -6,9 +6,9 @@ import React from 'react';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import { compose } from 'redux';
-import { Table, search, sort } from 'reactabular';
+import { Table, search, Search, sort } from 'reactabular';
 
-import { generateRows, Search, VisibilityToggles } from './helpers';
+import { generateRows, VisibilityToggles } from './helpers';
 */
 
 const schema = {
