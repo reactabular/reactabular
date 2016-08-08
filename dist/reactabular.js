@@ -7291,7 +7291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _react = __webpack_require__(4);
 	
@@ -7299,80 +7299,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	var SearchColumns = function SearchColumns(_ref) {
+	  var columns = _ref.columns;
+	  var query = _ref.query;
+	  var onChange = _ref.onChange;
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	  var onQueryChange = function onQueryChange(event) {
+	    onChange(_extends({}, query, _defineProperty({}, event.target.name, event.target.value)));
+	  };
 	
-	var SearchColumns = function (_React$Component) {
-	  _inherits(SearchColumns, _React$Component);
-	
-	  function SearchColumns(props) {
-	    _classCallCheck(this, SearchColumns);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchColumns).call(this, props));
-	
-	    _this.onQueryChange = _this.onQueryChange.bind(_this);
-	    _this.state = {
-	      query: {}
-	    };
-	    return _this;
-	  }
-	
-	  /**
-	   * Handles an input change on any of the filters.
-	   */
-	
-	
-	  _createClass(SearchColumns, [{
-	    key: "onQueryChange",
-	    value: function onQueryChange(event) {
-	      var _this2 = this;
-	
-	      var onChange = this.props.onChange;
-	      var query = this.state.query;
-	
-	
-	      query[event.target.name] = event.target.value;
-	
-	      this.setState({ query: query }, function () {
-	        onChange(_this2.state.query);
-	      });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var _this3 = this;
-	
-	      var columns = this.props.columns;
-	
-	
+	  return _react2.default.createElement(
+	    "tr",
+	    null,
+	    columns.map(function (column, i) {
 	      return _react2.default.createElement(
-	        "tr",
-	        null,
-	        columns.map(function (column, i) {
-	          return _react2.default.createElement(
-	            "th",
-	            { key: i + "-column-filter", className: "column-filter" },
-	            column.cell && column.cell.property ? _react2.default.createElement("input", {
-	              onChange: _this3.onQueryChange,
-	              className: "column-filter-input",
-	              name: column.cell.property,
-	              placeholder: column.filterPlaceholder || ''
-	            }) : ''
-	          );
-	        })
+	        "th",
+	        { key: i + "-column-filter", className: "column-filter" },
+	        column.cell && column.cell.property ? _react2.default.createElement("input", {
+	          onChange: onQueryChange,
+	          className: "column-filter-input",
+	          name: column.cell.property,
+	          placeholder: column.filterPlaceholder || '',
+	          value: query[i]
+	        }) : ''
 	      );
-	    }
-	  }]);
-	
-	  return SearchColumns;
-	}(_react2.default.Component);
-	
+	    })
+	  );
+	};
 	process.env.NODE_ENV !== "production" ? SearchColumns.propTypes = {
 	  columns: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.object).isRequired,
-	  onChange: _react2.default.PropTypes.func.isRequired
+	  onChange: _react2.default.PropTypes.func.isRequired,
+	  query: _react2.default.PropTypes.object
 	} : void 0;
 	
 	exports.default = SearchColumns;
