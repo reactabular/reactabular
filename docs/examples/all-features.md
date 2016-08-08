@@ -16,7 +16,7 @@ import {
 } from 'reactabular';
 
 import {
-  ColumnFilters, Paginator, PrimaryControls,
+  SearchColumns, Paginator, PrimaryControls,
   generateRows, paginate, VisibilityToggles
 } from './helpers';
 import countries from './data/countries';
@@ -321,7 +321,7 @@ class AllFeaturesTable extends React.Component {
           columns={cols}
         >
           <Table.Header>
-            <ColumnFilters columns={cols} onChange={this.onSearch} />
+            <SearchColumns columns={cols} onChange={this.onSearch} />
           </Table.Header>
 
           <Table.Body onRow={this.onRow} rows={paginated.rows} rowKey="id" />
