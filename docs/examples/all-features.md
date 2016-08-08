@@ -310,6 +310,7 @@ class AllFeaturesTable extends React.Component {
         <PrimaryControls
           className="controls"
           perPage={pagination.perPage}
+          query={query}
           columns={cols}
           rows={rows}
           onPerPage={this.onPerPage}

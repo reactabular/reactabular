@@ -1,3 +1,8 @@
+1.2.5 / 2016-08-08
+==================
+
+  * Improvement - search-field - Accept `query` as a prop now. Better for persistency.
+
 1.2.4 / 2016-08-08
 ==================
 

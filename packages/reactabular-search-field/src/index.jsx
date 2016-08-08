@@ -5,58 +5,55 @@ export default class Search extends React.Component {
     super(props);
 
     this.state = {
-      column: 'all',
-      query: ''
+      column: 'all'
     };
 
     this.onColumnChange = this.onColumnChange.bind(this);
     this.onQueryChange = this.onQueryChange.bind(this);
   }
-  componentDidMount() {
-    this.props.onChange({
-      [this.state.column]: this.state.query
-    });
-  }
   render() {
     const {
-      onChange, columns, rows, i18n, ...props // eslint-disable-line no-unused-vars
+      onChange, query, columns, rows, i18n, ...props // eslint-disable-line no-unused-vars
     } = this.props;
+    const { column } = this.state;
 
     return (
       <div {...props}>
         <SearchOptions
-          onChange={this.onColumnChange} value={this.state.column}
+          onChange={this.onColumnChange} value={column}
           columns={columns} i18n={i18n}
         />
         {columns.length ?
-          <input onChange={this.onQueryChange} value={this.state.query} /> :
+          <input onChange={this.onQueryChange} value={query[column]} /> :
           null
         }
       </div>
     );
   }
   onColumnChange(event) {
+    const { query } = this.props;
     const column = event.target.value;
-    const query = this.state.query;
 
     this.setState({ column });
     this.props.onChange({
-      [column]: query
+      ...query,
+      [column]: query[column]
     });
   }
   onQueryChange(event) {
-    const column = this.state.column;
-    const query = event.target.value;
+    const { query } = this.props;
+    const { column } = this.state;
 
-    this.setState({ query });
     this.props.onChange({
-      [column]: query
+      ...query,
+      [column]: event.target.value
     });
   }
 }
 Search.propTypes = {
   columns: React.PropTypes.array,
   rows: React.PropTypes.array,
+  query: React.PropTypes.object,
   onChange: React.PropTypes.func,
   i18n: React.PropTypes.shape({
     all: React.PropTypes.string
@@ -66,6 +63,7 @@ Search.defaultProps = {
   columns: [],
   rows: [],
   onChange: () => {},
+  query: {},
   i18n: {
     all: 'All'
   }

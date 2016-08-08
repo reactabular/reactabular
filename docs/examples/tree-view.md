@@ -128,6 +128,7 @@ class TreeTable extends React.Component {
         <div className="search-container">
           <span>Search</span>
           <Search
+            query={query}
             columns={cols}
             rows={rows}
             onChange={query => this.setState({ query })}

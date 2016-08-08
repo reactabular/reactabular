@@ -58,6 +58,7 @@ class FixedWidthColumnsTable extends React.Component {
         <div className="search-container">
           <span>Search</span>
           <Search
+            query={query}
             columns={columns}
             rows={rows}
             onChange={query => this.setState({ query })}
