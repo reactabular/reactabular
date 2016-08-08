@@ -7347,6 +7347,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(4);
@@ -7355,9 +7357,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -7374,8 +7376,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Search).call(this, props));
 	
 	    _this.state = {
-	      column: 'all',
-	      query: ''
+	      column: 'all'
 	    };
 	
 	    _this.onColumnChange = _this.onColumnChange.bind(_this);
@@ -7384,48 +7385,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	
 	  _createClass(Search, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.props.onChange(_defineProperty({}, this.state.column, this.state.query));
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
 	      var onChange = _props.onChange;
+	      var query = _props.query;
 	      var columns = _props.columns;
 	      var rows = _props.rows;
 	      var i18n = _props.i18n;
 	
-	      var props = _objectWithoutProperties(_props, ['onChange', 'columns', 'rows', 'i18n']);
+	      var props = _objectWithoutProperties(_props, ['onChange', 'query', 'columns', 'rows', 'i18n']);
+	
+	      var column = this.state.column;
+	
 	
 	      return _react2.default.createElement(
 	        'div',
 	        props,
 	        _react2.default.createElement(SearchOptions, {
-	          onChange: this.onColumnChange, value: this.state.column,
+	          onChange: this.onColumnChange, value: column,
 	          columns: columns, i18n: i18n
 	        }),
-	        columns.length ? _react2.default.createElement('input', { onChange: this.onQueryChange, value: this.state.query }) : null
+	        columns.length ? _react2.default.createElement('input', { onChange: this.onQueryChange, value: query[column] }) : null
 	      );
 	    }
 	  }, {
 	    key: 'onColumnChange',
 	    value: function onColumnChange(event) {
+	      var query = this.props.query;
+	
 	      var column = event.target.value;
-	      var query = this.state.query;
 	
 	      this.setState({ column: column });
-	      this.props.onChange(_defineProperty({}, column, query));
+	      this.props.onChange(_extends({}, query, _defineProperty({}, column, query[column])));
 	    }
 	  }, {
 	    key: 'onQueryChange',
 	    value: function onQueryChange(event) {
+	      var query = this.props.query;
 	      var column = this.state.column;
-	      var query = event.target.value;
 	
-	      this.setState({ query: query });
-	      this.props.onChange(_defineProperty({}, column, query));
+	
+	      this.props.onChange(_extends({}, query, _defineProperty({}, column, event.target.value)));
 	    }
 	  }]);
 	
@@ -7437,6 +7438,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	process.env.NODE_ENV !== "production" ? Search.propTypes = {
 	  columns: _react2.default.PropTypes.array,
 	  rows: _react2.default.PropTypes.array,
+	  query: _react2.default.PropTypes.object,
 	  onChange: _react2.default.PropTypes.func,
 	  i18n: _react2.default.PropTypes.shape({
 	    all: _react2.default.PropTypes.string
@@ -7446,6 +7448,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  columns: [],
 	  rows: [],
 	  onChange: function onChange() {},
+	  query: {},
 	  i18n: {
 	    all: 'All'
 	  }
