@@ -1,6 +1,6 @@
 {
   "name": "reactabular-search-columns",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Search columns for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
