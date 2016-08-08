@@ -1,6 +1,6 @@
 {
   "name": "reactabular-select",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Row selection utilities for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
@@ -37,7 +37,7 @@
   "jsnext:main": "src",
   "dependencies": {
     "react-dnd": "^2.1.4",
-    "reactabular": "^1.2.2",
+    "reactabular": "^1.2.3",
     "reactabular-utils": "^1.1.0",
     "redux": "^3.5.2",
     "stylesheet-helpers": "^0.1.2",
