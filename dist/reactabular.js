@@ -59,7 +59,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.resizableColumn = exports.resolve = exports.highlight = exports.edit = exports.sort = exports.select = exports.search = exports.Sticky = exports.Table = undefined;
+	exports.resizableColumn = exports.resolve = exports.highlight = exports.edit = exports.sort = exports.select = exports.search = exports.Search = exports.SearchColumns = exports.Sticky = exports.Table = undefined;
 	
 	var _reactabularTable = __webpack_require__(1);
 	
@@ -97,12 +97,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _reactabularResizable2 = _interopRequireDefault(_reactabularResizable);
 	
+	var _reactabularSearchColumns = __webpack_require__(183);
+	
+	var _reactabularSearchColumns2 = _interopRequireDefault(_reactabularSearchColumns);
+	
+	var _reactabularSearchField = __webpack_require__(184);
+	
+	var _reactabularSearchField2 = _interopRequireDefault(_reactabularSearchField);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	exports.Table = Table;
 	exports.Sticky = Sticky;
+	exports.SearchColumns = _reactabularSearchColumns2.default;
+	exports.Search = _reactabularSearchField2.default;
 	exports.search = search;
 	exports.select = select;
 	exports.sort = sort;
@@ -696,15 +706,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  })
 	}));
 	var arrayOfArrayColumns = _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.array);
-	var rowKeyType = function rowKeyType(props, propName, componentName) {
-	  if (props.data && props.data.length && !arrayOfObjectColumns(props, 'data', componentName)) {
-	    return _react2.default.PropTypes.string.isRequired(props, propName, componentName);
-	  }
-	
-	  // `columns` should be an array of arrays. If it's not, then that propType will
-	  // fail even if this doesn't.
-	  return null;
-	};
 	var rowsType = _react2.default.PropTypes.oneOfType([arrayOfObjectColumns, arrayOfArrayColumns]);
 	var tableTypes = {
 	  columns: _react2.default.PropTypes.array.isRequired,
@@ -718,7 +719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var tableBodyTypes = {
 	  onRow: _react2.default.PropTypes.func,
 	  rows: rowsType.isRequired,
-	  rowKey: rowKeyType
+	  rowKey: _react2.default.PropTypes.string
 	};
 	var tableBodyContextTypes = {
 	  bodyColumns: _react2.default.PropTypes.array.isRequired,
@@ -956,6 +957,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	
 	      return _react2.default.createElement(components.body.wrapper, props, rows.map(function (r, i) {
+	        if (process.env.NODE_ENV !== 'production') {
+	          // Arrays cannot have rowKeys by definition so we have to go by index there.
+	          if (!Array.isArray(r) && !{}.hasOwnProperty.call(r, rowKey)) {
+	            console.warn( // eslint-disable-line no-console
+	            'Table.Body - Missing valid rowKey!', r, rowKey);
+	          }
+	        }
+	
 	        return _react2.default.createElement(BodyRow, {
 	          key: (r[rowKey] || i) + '-row',
 	          components: components.body,
@@ -7271,6 +7280,261 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	exports.default = resizableColumn;
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SearchColumns = function (_React$Component) {
+	  _inherits(SearchColumns, _React$Component);
+	
+	  function SearchColumns(props) {
+	    _classCallCheck(this, SearchColumns);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchColumns).call(this, props));
+	
+	    _this.onQueryChange = _this.onQueryChange.bind(_this);
+	    _this.state = {
+	      query: {}
+	    };
+	    return _this;
+	  }
+	
+	  /**
+	   * Handles an input change on any of the filters.
+	   */
+	
+	
+	  _createClass(SearchColumns, [{
+	    key: "onQueryChange",
+	    value: function onQueryChange(event) {
+	      var _this2 = this;
+	
+	      var onChange = this.props.onChange;
+	      var query = this.state.query;
+	
+	
+	      query[event.target.name] = event.target.value;
+	
+	      this.setState({ query: query }, function () {
+	        onChange(_this2.state.query);
+	      });
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var _this3 = this;
+	
+	      var columns = this.props.columns;
+	
+	
+	      return _react2.default.createElement(
+	        "tr",
+	        null,
+	        columns.map(function (column, i) {
+	          return _react2.default.createElement(
+	            "th",
+	            { key: i + "-column-filter", className: "column-filter" },
+	            column.cell && column.cell.property ? _react2.default.createElement("input", {
+	              onChange: _this3.onQueryChange,
+	              className: "column-filter-input",
+	              name: column.cell.property,
+	              placeholder: column.filterPlaceholder || ''
+	            }) : ''
+	          );
+	        })
+	      );
+	    }
+	  }]);
+	
+	  return SearchColumns;
+	}(_react2.default.Component);
+	
+	process.env.NODE_ENV !== "production" ? SearchColumns.propTypes = {
+	  columns: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.object).isRequired,
+	  onChange: _react2.default.PropTypes.func.isRequired
+	} : void 0;
+	
+	exports.default = SearchColumns;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Search = function (_React$Component) {
+	  _inherits(Search, _React$Component);
+	
+	  function Search(props) {
+	    _classCallCheck(this, Search);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Search).call(this, props));
+	
+	    _this.state = {
+	      column: 'all',
+	      query: ''
+	    };
+	
+	    _this.onColumnChange = _this.onColumnChange.bind(_this);
+	    _this.onQueryChange = _this.onQueryChange.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Search, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.onChange(_defineProperty({}, this.state.column, this.state.query));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var onChange = _props.onChange;
+	      var columns = _props.columns;
+	      var rows = _props.rows;
+	      var i18n = _props.i18n;
+	
+	      var props = _objectWithoutProperties(_props, ['onChange', 'columns', 'rows', 'i18n']);
+	
+	      return _react2.default.createElement(
+	        'div',
+	        props,
+	        _react2.default.createElement(SearchOptions, {
+	          onChange: this.onColumnChange, value: this.state.column,
+	          columns: columns, i18n: i18n
+	        }),
+	        columns.length ? _react2.default.createElement('input', { onChange: this.onQueryChange, value: this.state.query }) : null
+	      );
+	    }
+	  }, {
+	    key: 'onColumnChange',
+	    value: function onColumnChange(event) {
+	      var column = event.target.value;
+	      var query = this.state.query;
+	
+	      this.setState({ column: column });
+	      this.props.onChange(_defineProperty({}, column, query));
+	    }
+	  }, {
+	    key: 'onQueryChange',
+	    value: function onQueryChange(event) {
+	      var column = this.state.column;
+	      var query = event.target.value;
+	
+	      this.setState({ query: query });
+	      this.props.onChange(_defineProperty({}, column, query));
+	    }
+	  }]);
+	
+	  return Search;
+	}(_react2.default.Component);
+	
+	exports.default = Search;
+	
+	process.env.NODE_ENV !== "production" ? Search.propTypes = {
+	  columns: _react2.default.PropTypes.array,
+	  rows: _react2.default.PropTypes.array,
+	  onChange: _react2.default.PropTypes.func,
+	  i18n: _react2.default.PropTypes.shape({
+	    all: _react2.default.PropTypes.string
+	  })
+	} : void 0;
+	Search.defaultProps = {
+	  columns: [],
+	  rows: [],
+	  onChange: function onChange() {},
+	  i18n: {
+	    all: 'All'
+	  }
+	};
+	
+	var SearchOptions = function SearchOptions(_ref) {
+	  var columns = _ref.columns;
+	  var i18n = _ref.i18n;
+	
+	  var props = _objectWithoutProperties(_ref, ['columns', 'i18n']);
+	
+	  return columns.length ? _react2.default.createElement(
+	    'select',
+	    props,
+	    getOptions(columns, i18n).map(function (_ref2) {
+	      var name = _ref2.name;
+	      var value = _ref2.value;
+	      return _react2.default.createElement(
+	        'option',
+	        { key: value + '-option', value: value },
+	        name
+	      );
+	    })
+	  ) : null;
+	};
+	SearchOptions.propTypes = {
+	  columns: _react2.default.PropTypes.array,
+	  i18n: _react2.default.PropTypes.object
+	};
+	
+	var getOptions = function getOptions(columns, i18n) {
+	  return (columns.length > 1 ? [{
+	    value: 'all',
+	    name: i18n.all
+	  }] : []).concat(columns.map(function (column) {
+	    if (column.cell && column.cell.property && column.header && column.header.label) {
+	      return {
+	        value: column.cell.property,
+	        name: column.header.label
+	      };
+	    }
+	
+	    return null;
+	  }).filter(function (column) {
+	    return column;
+	  }));
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }
 /******/ ])
