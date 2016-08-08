@@ -61,6 +61,7 @@ class Demo extends React.Component {
     this.onToggleColumn = this.onToggleColumn.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
     this.onRemove = this.onRemove.bind(this);
+    this.onSort = this.onSort.bind(this);
   }
   getColumns() {
     return [
@@ -181,6 +182,7 @@ class Demo extends React.Component {
         <EasyTable
           rows={rows}
           rowKey="id"
+          sortingColumns={{}}
           tableWidth={800}
           tableHeight={400}
           columns={cols}
@@ -200,6 +202,7 @@ class Demo extends React.Component {
           onDragColumn={this.onDragColumn}
           onMoveColumns={this.onMoveColumns}
           onSelectRow={this.onSelectRow}
+          onSort={this.onSort}
           onRow={this.onRow}
         />
       </div>
@@ -213,6 +216,9 @@ class Demo extends React.Component {
   }
   onSelectRow({ selectedRowId, selectedRow }) {
     console.log('onSelectRow', selectedRowId, selectedRow);
+  }
+  onSort(sortingColumns) {
+    console.log('onSort', sortingColumns);
   }
   onRow(row, rowIndex) {
     return {

@@ -2,6 +2,7 @@
 ==================
 
   * Improvement - Expose `headerExtra` prop. It can be used to inject extra rows to a header. This works well with `reactabular-search-columns`.
+  * Improvement - Expose `onSort` and `sortingColumns` props. These are useful for implementing sorting persistency.
 
 1.2.1 / 2016-08-05
 ==================

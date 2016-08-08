@@ -19,7 +19,7 @@ export default class EasyTable extends React.Component {
     this.id = uuid.v4();
 
     this.state = {
-      sortingColumns: null,
+      sortingColumns: props.sortingColumns,
       originalColumns: props.columns,
       columns: this.bindColumns(props.columns),
       rows: props.rows,
@@ -176,12 +176,14 @@ export default class EasyTable extends React.Component {
     const sortable = sort.sort({
       getSortingColumns,
       onSort: selectedColumn => {
-        this.setState({
-          sortingColumns: sort.byColumns({ // sort.byColumn would work too
-            sortingColumns: this.state.sortingColumns,
-            selectedColumn
-          })
+        const sortingColumns = sort.byColumns({
+          sortingColumns: this.state.sortingColumns,
+          selectedColumn
         });
+
+        this.props.onSort(sortingColumns);
+
+        this.setState({ sortingColumns });
       }
     });
     const resetable = sort.reset({
@@ -329,6 +331,7 @@ EasyTable.propTypes = {
   rows: React.PropTypes.array,
   rowKey: React.PropTypes.string.isRequired,
   query: React.PropTypes.object,
+  sortingColumns: React.PropTypes.object,
   headerExtra: React.PropTypes.any,
   tableWidth: React.PropTypes.any.isRequired,
   tableHeight: React.PropTypes.any.isRequired,
@@ -337,7 +340,8 @@ EasyTable.propTypes = {
   onRow: React.PropTypes.func,
   onDragColumn: React.PropTypes.func,
   onMoveColumns: React.PropTypes.func,
-  onSelectRow: React.PropTypes.func
+  onSelectRow: React.PropTypes.func,
+  onSort: React.PropTypes.func
 };
 EasyTable.defaultProps = {
   classNames: {
@@ -363,7 +367,8 @@ EasyTable.defaultProps = {
   onRow: () => ({}),
   onDragColumn: () => {},
   onMoveColumns: () => {},
-  onSelectRow: () => {}
+  onSelectRow: () => {},
+  onSort: () => {}
 };
 
 function getColumnClassName(id, i) {
