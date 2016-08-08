@@ -195,6 +195,7 @@ class Demo extends React.Component {
           selectedRowId="id"
           headerExtra={
             <SearchColumns
+              query={query}
               columns={columns}
               onChange={query => this.setState({ query })}
             />

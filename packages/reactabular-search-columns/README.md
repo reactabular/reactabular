@@ -70,6 +70,7 @@ class SearchColumnsTable extends React.Component {
       <Table.Provider columns={columns}>
         <Table.Header>
           <SearchColumns
+            query={query}
             columns={columns}
             onChange={query => this.setState({ query })}
           />

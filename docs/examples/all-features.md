@@ -321,7 +321,7 @@ class AllFeaturesTable extends React.Component {
           columns={cols}
         >
           <Table.Header>
-            <SearchColumns columns={cols} onChange={this.onSearch} />
+            <SearchColumns query={query} columns={cols} onChange={this.onSearch} />
           </Table.Header>
 
           <Table.Body onRow={this.onRow} rows={paginated.rows} rowKey="id" />
