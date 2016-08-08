@@ -257,7 +257,7 @@ describe('Table.Body', function () {
       }
     ];
     const rows = [
-      { name: { last: lastName } }
+      { name: { last: lastName }, id: 0 }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table.Provider columns={columns}>
@@ -284,7 +284,7 @@ describe('Table.Body', function () {
       }
     ];
     const rows = [
-      { name: { last: lastName } }
+      { name: { last: lastName }, id: 0 }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table.Provider columns={columns}>
@@ -315,7 +315,7 @@ describe('Table.Body', function () {
       }
     ];
     const rows = [
-      { name }
+      { name, id: 0 }
     ];
     const table = TestUtils.renderIntoDocument(
       <Table.Provider columns={columns}>
@@ -355,7 +355,7 @@ describe('Table.Body', function () {
       }
     ];
     const rows = [
-      { name }
+      { name, id: 0 }
     ];
     TestUtils.renderIntoDocument(
       <Table.Provider columns={columns}>

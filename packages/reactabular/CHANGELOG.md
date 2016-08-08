@@ -3,6 +3,7 @@
 
   * Improvement - reactabular - New `search-columns` module for searching per column (UI).
   * Improvement - reactabular - New `search-field` module for searching (UI).
+  * Improvement - table - Make `rowKey` propType check compatible with React 15.3. It should give you better output during development now.
   * Improvement - easy - Expose `headerExtra` prop. It can be used to inject extra rows to a header. This works well with `reactabular-search-columns`.
 
 1.2.2 / 2016-08-07

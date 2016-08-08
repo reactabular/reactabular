@@ -22,16 +22,6 @@ const arrayOfObjectColumns = React.PropTypes.arrayOf(
   })
 );
 const arrayOfArrayColumns = React.PropTypes.arrayOf(React.PropTypes.array);
-const rowKeyType = (props, propName, componentName) => {
-  if (props.data && props.data.length &&
-    !arrayOfObjectColumns(props, 'data', componentName)) {
-    return React.PropTypes.string.isRequired(props, propName, componentName);
-  }
-
-  // `columns` should be an array of arrays. If it's not, then that propType will
-  // fail even if this doesn't.
-  return null;
-};
 const rowsType = React.PropTypes.oneOfType([
   arrayOfObjectColumns,
   arrayOfArrayColumns
@@ -48,7 +38,7 @@ const tableContextTypes = {
 const tableBodyTypes = {
   onRow: React.PropTypes.func,
   rows: rowsType.isRequired,
-  rowKey: rowKeyType
+  rowKey: React.PropTypes.string
 };
 const tableBodyContextTypes = {
   bodyColumns: React.PropTypes.array.isRequired,

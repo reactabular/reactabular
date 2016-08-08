@@ -1,3 +1,8 @@
+1.2.3 / 2016-08-08
+==================
+
+  * Improvement - Make `rowKey` propType check compatible with React 15.3. It should give you better output during development now.
+
 1.2.0 / 2016-08-05
 ==================
 

@@ -29,8 +29,19 @@ export default class Body extends React.Component {
     return React.createElement(
       components.body.wrapper,
       props,
-      rows.map((r, i) =>
-        React.createElement(BodyRow, {
+      rows.map((r, i) => {
+        if (process.env.NODE_ENV !== 'production') {
+          // Arrays cannot have rowKeys by definition so we have to go by index there.
+          if (!Array.isArray(r) && !{}.hasOwnProperty.call(r, rowKey)) {
+            console.warn( // eslint-disable-line no-console
+              'Table.Body - Missing valid rowKey!',
+              r,
+              rowKey
+            );
+          }
+        }
+
+        return React.createElement(BodyRow, {
           key: `${r[rowKey] || i}-row`,
           components: components.body,
           row: r,
@@ -38,8 +49,8 @@ export default class Body extends React.Component {
           rowIndex: i,
           rowData: rows[i],
           columns: bodyColumns
-        })
-      )
+        });
+      })
     );
   }
   getRef() {
