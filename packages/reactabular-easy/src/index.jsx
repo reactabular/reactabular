@@ -76,7 +76,7 @@ export default class EasyTable extends React.Component {
       }
     };
     const {
-      rowKey, query,
+      rowKey, query, headerExtra,
       tableWidth, tableHeight,
       classNames, onRow // eslint-disable-line no-unused-vars
     } = this.props;
@@ -120,7 +120,9 @@ export default class EasyTable extends React.Component {
             this.tableHeader = tableHeader && tableHeader.getRef();
           }}
           tableBody={this.tableBody}
-        />
+        >
+          {headerExtra}
+        </Sticky.Header>
 
         <Sticky.Body
           className={classNames.body && classNames.body.wrapper}
@@ -327,6 +329,7 @@ EasyTable.propTypes = {
   rows: React.PropTypes.array,
   rowKey: React.PropTypes.string.isRequired,
   query: React.PropTypes.object,
+  headerExtra: React.PropTypes.any,
   tableWidth: React.PropTypes.any.isRequired,
   tableHeight: React.PropTypes.any.isRequired,
   classNames: React.PropTypes.object,

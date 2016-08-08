@@ -1,3 +1,8 @@
+1.2.3 / 2016-08-08
+==================
+
+  * Improvement - Expose `headerExtra` prop. It can be used to inject extra rows to a header. This works well with `reactabular-search-columns`.
+
 1.2.1 / 2016-08-05
 ==================
 

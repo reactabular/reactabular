@@ -5,6 +5,7 @@ To make the drag and drop functionality work, you have to set up [react-dnd-html
 ```jsx
 /*
 import React from 'react';
+import { search, SearchColumns } from 'reactabular';
 import EasyTable from 'reactabular-easy';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
@@ -190,6 +191,12 @@ class Demo extends React.Component {
             }
           }}
           selectedRowId="id"
+          headerExtra={
+            <SearchColumns
+              columns={columns}
+              onChange={query => this.setState({ query })}
+            />
+          }
           onDragColumn={this.onDragColumn}
           onMoveColumns={this.onMoveColumns}
           onSelectRow={this.onSelectRow}
