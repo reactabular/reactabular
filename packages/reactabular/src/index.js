@@ -7,10 +7,12 @@ import * as edit from 'reactabular-edit';
 import * as highlight from 'reactabular-highlight';
 import * as resolve from 'reactabular-resolve';
 import resizableColumn from 'reactabular-resizable';
+import SearchColumns from 'reactabular-search-columns';
 
 export {
   Table,
   Sticky,
+  SearchColumns,
   search,
   select,
   sort,

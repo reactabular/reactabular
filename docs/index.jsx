@@ -42,6 +42,7 @@ const documentationImports = {
   edit: { ...reactabular.edit },
   highlight: { ...reactabular.highlight },
   resolve: { ...reactabular.resolve },
+  SearchColumns: reactabular.SearchColumns,
   resizableColumn: reactabular.resizableColumn,
   EasyTable,
   stylesheet: { ...stylesheet },
@@ -157,6 +158,11 @@ const pages = [
     path: 'searching',
     title: 'Searching',
     component: require('../packages/reactabular-search/README.md')
+  },
+  {
+    path: 'searching-columns',
+    title: 'Searching Columns',
+    component: require('../packages/reactabular-search-columns/README.md')
   },
   {
     path: 'paginating',

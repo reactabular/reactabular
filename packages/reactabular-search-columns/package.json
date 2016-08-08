@@ -1,11 +1,10 @@
 {
-  "name": "reactabular",
-  "version": "1.2.2",
-  "description": "Spectacular tables for React",
+  "name": "reactabular-search-columns",
+  "version": "0.0.0",
+  "description": "Search columns for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
-    "prepublish": "npm run build && cd ../.. && npm run dist:all && git commit --allow-empty -am \"Update dist\"",
-    "postpublish": "cd ../.. && npm run gh-pages:build-and-deploy"
+    "prepublish": "npm run build"
   },
   "files": [
     "dist-modules",
@@ -35,24 +34,9 @@
   "main": "dist-modules",
   "module": "src",
   "jsnext:main": "src",
-  "dependencies": {
-    "reactabular-edit": "^1.2.1",
-    "reactabular-highlight": "^1.1.0",
-    "reactabular-resizable": "^1.2.2",
-    "reactabular-resolve": "^1.1.0",
-    "reactabular-search": "^1.1.0",
-    "reactabular-search-columns": "^1.2.3",
-    "reactabular-select": "^1.2.2",
-    "reactabular-sticky": "^1.2.0",
-    "reactabular-sort": "^1.1.4",
-    "reactabular-table": "^1.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"
-  },
-  "peerDependencies": {
-    "lodash": ">= 3.0.0 < 5.0.0",
-    "react": ">= 0.11.2 < 16.0.0"
   }
 }

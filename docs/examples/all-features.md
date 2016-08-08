@@ -12,12 +12,12 @@ import values from 'lodash/values';
 import transform from 'lodash/transform';
 import {
   Table, search, edit, sort, highlight, resolve,
-  resizableColumn
+  SearchColumns, resizableColumn
 } from 'reactabular';
 
 import {
-  SearchColumns, Paginator, PrimaryControls,
-  generateRows, paginate, VisibilityToggles
+  Paginator, PrimaryControls, generateRows,
+  paginate, VisibilityToggles
 } from './helpers';
 import countries from './data/countries';
 */

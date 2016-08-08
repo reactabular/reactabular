@@ -1,3 +1,8 @@
+1.2.3 / 2016-08-08
+==================
+
+  * Improvement - reactabular - New `search-columns` module for searching per column.
+
 1.2.2 / 2016-08-07
 ==================
 

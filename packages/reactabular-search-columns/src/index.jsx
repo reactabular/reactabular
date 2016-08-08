@@ -1,8 +1,6 @@
 import React from 'react';
 
-// This is an example of a custom header component that applies a filter to
-// each column
-class ColumnFilters extends React.Component {
+class SearchColumns extends React.Component {
   constructor(props) {
     super(props);
 
@@ -47,9 +45,9 @@ class ColumnFilters extends React.Component {
     );
   }
 }
-ColumnFilters.propTypes = {
+SearchColumns.propTypes = {
   columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   onChange: React.PropTypes.func.isRequired
 };
 
-export default ColumnFilters;
+export default SearchColumns;
