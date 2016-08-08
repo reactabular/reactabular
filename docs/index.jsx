@@ -186,8 +186,8 @@ const pages = [
     component: require('./paginating.md')
   },
   {
-    path: 'resizable-columns',
-    title: 'Resizable Columns',
+    path: 'resizing-columns',
+    title: 'Resizing Columns',
     component: require('../packages/reactabular-resizable/README.md')
   },
   {
