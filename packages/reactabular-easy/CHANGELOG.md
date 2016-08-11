@@ -2,6 +2,7 @@
 ==================
 
   * Improvement - Expose `components`. Now you can override default components just like for a regular `Table.Provider`. Only exception is `header.cell` given drag and drop needs to override that in order to work.
+  * Improvement - Make `selectedRowIdField` prop optional. It worked before due to the default value, but it's neater this way.
 
 1.2.3 / 2016-08-08
 ==================

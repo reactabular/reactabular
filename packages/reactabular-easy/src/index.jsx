@@ -338,7 +338,7 @@ EasyTable.propTypes = {
   tableHeight: React.PropTypes.any.isRequired,
   classNames: React.PropTypes.object,
   components: React.PropTypes.object,
-  selectedRowIdField: React.PropTypes.string.isRequired,
+  selectedRowIdField: React.PropTypes.string,
   onRow: React.PropTypes.func,
   onDragColumn: React.PropTypes.func,
   onMoveColumns: React.PropTypes.func,
