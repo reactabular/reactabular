@@ -1,3 +1,8 @@
+1.2.6 / 2016-08-11
+==================
+
+  * Improvement - select - Drop direct dependency on Reactabular.
+
 1.2.5 / 2016-08-08
 ==================
 
