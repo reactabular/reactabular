@@ -694,14 +694,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    label: _react2.default.PropTypes.string,
 	    transforms: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.func),
 	    format: _react2.default.PropTypes.func,
-	    component: _react2.default.PropTypes.any, // XXX: too loose? createElement first param
 	    props: _react2.default.PropTypes.object
 	  }),
 	  cell: _react2.default.PropTypes.shape({
 	    property: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.number, _react2.default.PropTypes.string]),
 	    transforms: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.func),
 	    format: _react2.default.PropTypes.func,
-	    component: _react2.default.PropTypes.any, // XXX: too loose? createElement first param
 	    props: _react2.default.PropTypes.object
 	  })
 	}));
