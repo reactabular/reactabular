@@ -1,3 +1,8 @@
+1.2.6 / 2016-08-11
+==================
+
+  * Improvement - Expose `components`. Now you can override default components just like for a regular `Table.Provider`. Only exception is `header.cell` given drag and drop needs to override that in order to work.
+
 1.2.3 / 2016-08-08
 ==================
 

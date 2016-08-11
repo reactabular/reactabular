@@ -70,16 +70,17 @@ export default class EasyTable extends React.Component {
     }
   }
   render() {
-    const components = {
+    const {
+      rowKey, query, headerExtra,
+      tableWidth, tableHeight, components,
+      classNames, onRow // eslint-disable-line no-unused-vars
+    } = this.props;
+    const tableComponents = {
+      ...components,
       header: {
         cell: DndHeader
       }
     };
-    const {
-      rowKey, query, headerExtra,
-      tableWidth, tableHeight,
-      classNames, onRow // eslint-disable-line no-unused-vars
-    } = this.props;
     const { columns, selectedRow, sortingColumns } = this.state;
     const rows = compose(
       sort.sorter(
@@ -107,7 +108,7 @@ export default class EasyTable extends React.Component {
     })(
       <Table.Provider
         className={classNames.table && classNames.table.wrapper}
-        components={components}
+        components={tableComponents}
         columns={columns}
         style={{ width: tableWidth }}
       >
@@ -336,6 +337,7 @@ EasyTable.propTypes = {
   tableWidth: React.PropTypes.any.isRequired,
   tableHeight: React.PropTypes.any.isRequired,
   classNames: React.PropTypes.object,
+  components: React.PropTypes.object,
   selectedRowIdField: React.PropTypes.string.isRequired,
   onRow: React.PropTypes.func,
   onDragColumn: React.PropTypes.func,
@@ -363,6 +365,7 @@ EasyTable.defaultProps = {
       */
     }
   },
+  components: {},
   selectedRowIdField: 'id',
   onRow: () => ({}),
   onDragColumn: () => {},
