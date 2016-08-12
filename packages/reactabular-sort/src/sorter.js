@@ -3,7 +3,8 @@
 const sorter = ({
   columns,
   sortingColumns,
-  sort
+  sort,
+  getColumn = (columns, sortingColumnKey) => columns[sortingColumnKey] // eslint-disable-line no-shadow
 } = {}) => data => {
   if (!columns) {
     throw new Error('sort.sorter - Missing columns!');
@@ -16,9 +17,9 @@ const sorter = ({
   const columnIndexList = new Array(sortingColumns.length);
   const orderList = new Array(sortingColumns.length);
 
-  Object.keys(sortingColumns).forEach(columnIndex => {
-    const realColumn = columns[columnIndex] || {};
-    const sortingColumn = sortingColumns[columnIndex];
+  Object.keys(sortingColumns).forEach(sortingColumnKey => {
+    const realColumn = getColumn(columns, sortingColumnKey) || {};
+    const sortingColumn = sortingColumns[sortingColumnKey];
 
     columnIndexList[sortingColumn.position] = row => {
       const property = realColumn.property;

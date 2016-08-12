@@ -172,7 +172,7 @@ It maps column index to sorting state and can contain multiple sorters.
 
 `sort.byColumns` is like `sort.byColumn` except it doesn't discard possible existing sort state and instead accumulates it. This allows you to perform sorting over multiple columns while refining the results.
 
-### `sort.sorter({ columns: [<object>], sortingColumns: <sorting columns>, sort: <function>})([<rows to sort>]) => [<sorted rows>]`
+### `sort.sorter({ columns: [<object>], sortingColumns: <sorting columns>, sort: <function>, getColumn = (columns, sortingColumnKey) => columns[sortingColumnKey]})([<rows to sort>]) => [<sorted rows>]`
 
 `sort.sorter` sorts the passed `rows` using a `sortingColumns` definitions and a `sort` function. It has been designed to work based on [lodash.orderBy](https://lodash.com/docs#orderBy) signature.
 
@@ -184,7 +184,7 @@ const reverseSort = (data, columnIndexList, orderList) => (
 );
 ```
 
-### `sort.sort = ({ event = 'onClick', getSortingColumns = () => [], onSort = (columnIndex) => {} } = {}) => (value, { columnIndex }, props)`
+### `sort.sort = ({ event = 'onClick', getSortingColumns = () => [], fieldName = 'columnIndex', onSort = (columnIndex) => {} } = {}) => (value, { columnIndex }, props)`
 
 `sort.sort` can be applied as a transform. It expects `getSortingColumns` and `onSort` callbacks. The former should return the sorting column data, the latter is called when the user sorts based on `event`.
 
@@ -192,7 +192,7 @@ const reverseSort = (data, columnIndexList, orderList) => (
 
 `sort.reset` can be applied as a transform. It expects `getSortingColumns` and `onReset` callbacks. The former should return the sorting column data, the latter is called when the user sorts based on `event`.
 
-### `sort.header = ({ sortable, getSortingColumns  = () => [] }) => (value, { columnIndex })`
+### `sort.header = ({ sortable, fieldName = 'columnIndex', getSortingColumns  = () => [] }) => (value, { columnIndex })`
 
 `sort.header` formatter expects an initialized sortable (i.e., `sort.sort`) and `getSortingColumns`. If sorting is active at a column, it displays the current order number.
 

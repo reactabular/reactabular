@@ -1,5 +1,6 @@
 import orderBy from 'lodash/orderBy';
 import reverse from 'lodash/reverse';
+import find from 'lodash/find';
 import { expect } from 'chai';
 import { sorter } from '../src';
 
@@ -277,6 +278,34 @@ describe('sort.sorter', function () {
     const result = sorter({ columns, sortingColumns, sort: orderBy })(rows);
 
     expect(result).to.deep.equal(expected);
+  });
+
+  it('allows getColumn to be customized', function () {
+    const columns = [{
+      property: 'test',
+      header: {}
+    }];
+    const rows = [
+      {
+        test: 'abc'
+      },
+      {
+        test: 'def'
+      }
+    ];
+    const sortingColumns = {
+      test: {
+        direction: 'asc',
+        position: 0
+      }
+    };
+    const getColumn = (columns, property) => find(columns, { property }); // eslint-disable-line no-shadow
+
+    const result = sorter({
+      columns, sortingColumns, sort: orderBy, getColumn
+    })(rows);
+
+    expect(result).to.deep.equal(rows);
   });
 
   it('does not crash with only header data', function () {
