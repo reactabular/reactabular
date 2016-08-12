@@ -7,6 +7,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { compose } from 'redux';
 import uuid from 'uuid';
 import * as stylesheet from 'stylesheet-helpers';
+import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 
@@ -84,7 +85,12 @@ export default class EasyTable extends React.Component {
     const { columns, selectedRow, sortingColumns } = this.state;
     const rows = compose(
       sort.sorter(
-        { columns, sortingColumns, sort: orderBy }
+        {
+          columns,
+          sortingColumns,
+          sort: orderBy,
+          getColumn: (columns, property) => find(columns, { property }) // eslint-disable-line no-shadow
+        }
       ),
       highlight.highlighter({ columns, matches: search.matches, query }),
       search.multipleColumns({ columns, query }),
@@ -213,7 +219,8 @@ export default class EasyTable extends React.Component {
         if (header.sortable) {
           newHeaderFormats.push(sort.header({
             sortable,
-            getSortingColumns
+            getSortingColumns,
+            fieldName: 'property'
           }));
           newHeaderTransforms = newHeaderTransforms.concat([resetable]);
         }
