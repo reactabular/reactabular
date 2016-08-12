@@ -78,6 +78,29 @@ describe('Search', function () {
     expect(options[1].textContent).to.equal(columns[0].header.label);
   });
 
+  it('accepts column', function () {
+    const expectedColumn = 'column';
+    const columns = [
+      {
+        header: {
+          label: 'First'
+        },
+        cell: {
+          property: expectedColumn
+        }
+      }
+    ];
+
+    const search = TestUtils.renderIntoDocument(
+      <Search columns={columns} column={expectedColumn} />
+    );
+    const select = TestUtils.findRenderedDOMComponentWithTag(
+      search, 'select'
+    );
+
+    expect(select.value).to.equal(expectedColumn);
+  });
+
   it('yields results', function () {
     const columns = [
       {

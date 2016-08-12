@@ -4,24 +4,21 @@ export default class Search extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      column: 'all'
-    };
-
     this.onColumnChange = this.onColumnChange.bind(this);
     this.onQueryChange = this.onQueryChange.bind(this);
   }
   render() {
     const {
-      onChange, query, columns, rows, i18n, ...props // eslint-disable-line no-unused-vars
+      onChange, query, column, columns, rows, i18n, ...props // eslint-disable-line no-unused-vars
     } = this.props;
-    const { column } = this.state;
 
     return (
       <div {...props}>
         <SearchOptions
-          onChange={this.onColumnChange} value={column}
-          columns={columns} i18n={i18n}
+          value={column}
+          onChange={this.onColumnChange}
+          columns={columns}
+          i18n={i18n}
         />
         {columns.length ?
           <input onChange={this.onQueryChange} value={query[column]} /> :
@@ -41,8 +38,7 @@ export default class Search extends React.Component {
     });
   }
   onQueryChange(event) {
-    const { query } = this.props;
-    const { column } = this.state;
+    const { query, column } = this.props;
 
     this.props.onChange({
       ...query,
@@ -51,6 +47,7 @@ export default class Search extends React.Component {
   }
 }
 Search.propTypes = {
+  column: React.PropTypes.string,
   columns: React.PropTypes.array,
   rows: React.PropTypes.array,
   query: React.PropTypes.object,
@@ -69,7 +66,11 @@ Search.defaultProps = {
   }
 };
 
-const SearchOptions = ({ columns, i18n, ...props }) => (
+const SearchOptions = ({
+  columns,
+  i18n,
+  ...props
+}) => (
   columns.length ? <select {...props}>{
     getOptions(columns, i18n).map(({ name, value }) =>
       <option key={`${value}-option`} value={value}>{name}</option>
