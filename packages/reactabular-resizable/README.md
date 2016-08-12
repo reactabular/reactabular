@@ -194,3 +194,15 @@ class ResizableColumnsTable extends React.Component {
 
 <ResizableColumnsTable />
 ```
+
+## How to Move the Widget to the Column Border?
+
+Given it can be neater to have the resize widget at the column border, you can offset it like this:
+
+```css
+.resize-handle {
+  margin-right: -1em; /* offset based on padding */
+}
+```
+
+You will need to figure out the exact offset based on your header cell size.
