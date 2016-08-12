@@ -52,7 +52,7 @@ const HeaderRow = ({ row, components }) => (
       const extraParameters = {
         columnIndex: j,
         column,
-        property: column.property // TODO: test that this is passed properly
+        property: column && column.property // TODO: test that this is passed properly
       };
       const transformedProps = evaluateTransforms(transforms, label, extraParameters);
 
