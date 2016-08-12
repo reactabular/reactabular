@@ -305,6 +305,7 @@ ReactDOM.render(
       pages={pages}
       imports={documentationImports}
       specimens={{
+        css: props => <CodeSpecimen {...props} lang="css" />,
         javascript: props => <CodeSpecimen {...props} lang="javascript" />,
         js: props => <CodeSpecimen {...props} lang="javascript" />,
         jsx: props => <ReactSpecimen {...props} />
