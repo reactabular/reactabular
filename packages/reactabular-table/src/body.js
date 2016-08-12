@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 import {
-  evaluateTransforms, resolveBodyColumns, mergePropPair
+  evaluateTransforms, mergePropPair
 } from 'reactabular-utils';
 import { tableBodyTypes, tableBodyContextTypes } from './types';
 
@@ -86,7 +86,7 @@ class BodyRow extends React.Component {
     return React.createElement(
       components.row,
       rowProps,
-      resolveBodyColumns(columns).map(({ column, cell, property, props }, j) => {
+      columns.map(({ column, cell, property, props }, j) => {
         const {
           transforms = [],
           format = a => a

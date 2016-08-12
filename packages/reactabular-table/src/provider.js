@@ -1,15 +1,15 @@
 import React from 'react';
 import {
-  mergePropPair, resolveHeaderRows
+  mergePropPair, resolveBodyColumns, resolveHeaderRows
 } from 'reactabular-utils';
 import { tableTypes, tableDefaults, tableContextTypes } from './types';
 
 const componentDefaults = tableDefaults.components;
 
+// TODO: shouldComponentUpdate
 export default class Provider extends React.Component {
   getChildContext() {
     const { columns, components } = this.props;
-    const bodyColumns = [];
 
     // Merge column props with header/body specific ones so that can be avoided later
     const headerRows = resolveHeaderRows(columns).map(
@@ -23,19 +23,15 @@ export default class Provider extends React.Component {
       )
     ));
 
-    // TODO: push resolveBodyColumns here to avoid computation and improve
-    // performance
-    columns.forEach(column => {
-      const cell = column.cell || {};
-
-      bodyColumns.push({
-        props: mergePropPair(column.props, cell.props),
-        cell,
+    const bodyColumns = resolveBodyColumns(columns).map(
+      column => ({
+        props: mergePropPair(column.props, column.cell && column.cell.props),
+        cell: column.cell || {},
         children: column.children || [], // TODO: test for this case
         property: column.property,
         column
-      });
-    });
+      })
+    );
 
     return {
       headerRows,
