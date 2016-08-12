@@ -45,4 +45,25 @@ describe('sort.sort', function () {
 
     expect(sorted).to.equal(testColumnIndex);
   });
+
+  it('allows fieldName to be customized', function () {
+    const testProperty = 'foobar';
+    const sortDirection = 'asc';
+    const _sorter = sort({
+      getSortingColumns() {
+        return {
+          [testProperty]: {
+            direction: sortDirection,
+            position: 0
+          }
+        };
+      },
+      fieldName: 'property'
+    });
+    const result = _sorter('testValue', {
+      property: testProperty
+    });
+
+    expect(result.className).to.equal(`sort sort-${sortDirection}`);
+  });
 });
