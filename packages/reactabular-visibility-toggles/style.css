@@ -1,0 +1,13 @@
+.visibility-container {
+  background-color: #ddd;
+  padding: 1em;
+  margin: 1em;
+}
+
+.visibility-label {
+  margin-right: 1em;
+}
+
+.visibility-toggle {
+  margin-left: 0.5em;
+}

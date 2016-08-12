@@ -14,10 +14,10 @@ import {
   Table, search, edit, sort, highlight, resolve,
   SearchColumns, resizableColumn
 } from 'reactabular';
+import VisibilityToggles from 'reactabular-visibility-toggles';
 
 import {
-  Paginator, PrimaryControls, generateRows,
-  paginate, VisibilityToggles
+  Paginator, PrimaryControls, generateRows, paginate
 } from './helpers';
 import countries from './data/countries';
 */

@@ -18,12 +18,14 @@ import transform from 'lodash/transform';
 import EasyTable from 'reactabular-easy';
 import * as reactEdit from 'react-edit';
 import * as reactabular from 'reactabular';
+import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as stylesheet from 'stylesheet-helpers';
 
 import 'purecss/build/pure.css';
 import 'react-pagify/style.css';
 import 'reactabular-resizable/../style.css';
 import 'reactabular-sort/../style.css';
+import 'reactabular-visibility-toggles/../style.css';
 
 import * as rowsDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
@@ -48,6 +50,7 @@ const documentationImports = {
   SearchColumns: reactabular.SearchColumns,
   Search: reactabular.Search,
   resizableColumn: reactabular.resizableColumn,
+  VisibilityToggles,
   EasyTable,
   stylesheet: { ...stylesheet },
   ...reactDnd,
@@ -194,6 +197,11 @@ const pages = [
     component: require('../packages/reactabular-resizable/README.md')
   },
   {
+    path: 'toggling-column-visibility',
+    title: 'Toggling Column Visibility',
+    component: require('../packages/reactabular-visibility-toggles/README.md')
+  },
+  {
     path: 'selecting-rows',
     title: 'Selecting Rows',
     component: require('../packages/reactabular-select/README.md')
@@ -245,11 +253,6 @@ const pages = [
         path: 'examples/infinite-scrolling',
         title: 'Infinite Scrolling',
         component: require('./examples/infinite-scrolling.md')
-      },
-      {
-        path: 'examples/toggle-columns',
-        title: 'Toggle Columns',
-        component: require('./examples/toggle-columns.md')
       },
       {
         path: 'examples/tree-view',

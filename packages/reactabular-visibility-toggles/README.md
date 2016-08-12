@@ -1,12 +1,13 @@
-A simple way to implement toggleable columns is to manage the visibility using a flag and then filter before rendering.
+`react-visibility-toggles` provides a React component for rendering visibility toggles for table columns.
+
+**Example:**
 
 ```jsx
 /*
 import React from 'react';
 import { Table } from 'reactabular';
 import cloneDeep from 'lodash/cloneDeep';
-
-import { VisibilityToggles } from './helpers';
+import VisibilityToggles from 'react-visibility-toggles';
 */
 
 class ToggleColumnsTable extends React.Component {

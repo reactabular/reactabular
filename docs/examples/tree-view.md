@@ -7,8 +7,9 @@ import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import { compose } from 'redux';
 import { Table, search, Search, sort } from 'reactabular';
+import VisibilityToggles from 'reactabular-visibility-toggles';
 
-import { generateRows, VisibilityToggles } from './helpers';
+import { generateRows } from './helpers';
 */
 
 const schema = {

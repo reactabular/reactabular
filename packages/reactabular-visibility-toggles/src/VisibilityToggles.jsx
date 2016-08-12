@@ -1,15 +1,9 @@
 import React from 'react';
 
 const defaultStyles = {
-  container: {
-    backgroundColor: '#ddd', padding: '1em', margin: '1em' // TODO: push to style.css
-  },
-  label: {
-    marginRight: '1em' // TODO: push to style.css
-  },
-  toggle: {
-    marginLeft: '0.5em' // TODO: push to style.css
-  }
+  container: {},
+  label: {},
+  toggle: {}
 };
 
 const VisibilityToggles = ({
