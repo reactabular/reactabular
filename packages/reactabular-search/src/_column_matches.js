@@ -2,12 +2,12 @@ import strategies from './strategies';
 
 const _columnMatches = ({
   query,
-  column = { cell: {} },
+  column = {},
   row,
   strategy = strategies.infix,
   transform = (v = '') => v && v.toLowerCase && v.toLowerCase()
 }) => {
-  const property = column.cell.property;
+  const property = column.property;
   // Pick resolved value by convention
   const resolvedValue = String(row[`_${property}`] || row[property]);
 

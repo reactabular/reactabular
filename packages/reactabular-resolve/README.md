@@ -51,11 +51,9 @@ import { resolve } from 'reactabular';
 
 const columns = [
   {
+    property: 'color',
     header: {
       label: 'Color'
-    },
-    cell: {
-      property: 'color'
     }
   },
   {
@@ -64,19 +62,15 @@ const columns = [
     },
     children: [
       {
+        property: 'name.first',
         header: {
           label: 'First Name'
-        },
-        cell: {
-          property: 'name.first'
         }
       },
       {
+        property: 'name.last',
         header: {
           label: 'Last Name'
-        },
-        cell: {
-          property: 'name.last'
         }
       }
     ]
@@ -87,19 +81,15 @@ const columns = [
     },
     children: [
       {
+        property: 'company',
         header: {
           label: 'Company'
-        },
-        cell: {
-          property: 'company'
         }
       },
       {
+        property: 'sentence',
         header: {
           label: 'Sentence'
-        },
-        cell: {
-          property: 'sentence'
         }
       }
     ]

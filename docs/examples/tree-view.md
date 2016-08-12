@@ -34,6 +34,7 @@ class TreeTable extends React.Component {
     super(props);
 
     this.state = {
+      searchColumn: 'all',
       query: {},
       sortingColumns: null,
       rows,
@@ -62,6 +63,7 @@ class TreeTable extends React.Component {
 
     return [
       {
+        property: 'name',
         props: {
           style: { width: 200 }
         },
@@ -70,7 +72,6 @@ class TreeTable extends React.Component {
           transforms: [sortable]
         },
         cell: {
-          property: 'name',
           format: (name, { rowData }) => {
             const rows = this.state.rows;
             // Optimization - Operate based on index for faster lookups
@@ -94,6 +95,7 @@ class TreeTable extends React.Component {
         visible: true
       },
       {
+        property: 'age',
         props: {
           style: { width: 300 }
         },
@@ -101,15 +103,12 @@ class TreeTable extends React.Component {
           label: 'Age',
           transforms: [sortable]
         },
-        cell: {
-          property: 'age'
-        },
         visible: true
       }
     ];
   }
   render() {
-    const { columns, sortingColumns, rows, query } = this.state;
+    const { searchColumn, columns, sortingColumns, rows, query } = this.state;
     const cols = columns.filter(column => column.visible);
     const d = compose(
       filterTree,
@@ -129,9 +128,11 @@ class TreeTable extends React.Component {
         <div className="search-container">
           <span>Search</span>
           <Search
+            column={searchColumn}
             query={query}
             columns={cols}
             rows={rows}
+            onColumnChange={searchColumn => this.setState({ searchColumn })}
             onChange={query => this.setState({ query })}
           />
         </div>

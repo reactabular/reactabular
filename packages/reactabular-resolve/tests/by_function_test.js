@@ -9,9 +9,7 @@ describe('resolve.byFunction', function () {
       name
     };
     const column = {
-      cell: {
-        property
-      }
+      property
     };
 
     expect(
@@ -29,8 +27,8 @@ describe('resolve.byFunction', function () {
       country
     };
     const column = {
+      property,
       cell: {
-        property,
         resolve: v => countries[v]
       }
     };
@@ -53,8 +51,8 @@ describe('resolve.byFunction', function () {
       data
     };
     const column = {
+      property,
       cell: {
-        property,
         resolve: v => countries[v]
       }
     };

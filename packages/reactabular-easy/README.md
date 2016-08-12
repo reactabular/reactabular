@@ -80,6 +80,7 @@ class Demo extends React.Component {
         visible: true
       },
       {
+        property: 'name',
         header: {
           label: 'Name',
           draggable: true,
@@ -87,13 +88,13 @@ class Demo extends React.Component {
           resizable: true
         },
         cell: {
-          property: 'name',
           highlight: true
         },
         width: 250,
         visible: true
       },
       {
+        property: 'age',
         header: {
           label: 'Age',
           draggable: true,
@@ -101,13 +102,13 @@ class Demo extends React.Component {
           resizable: true
         },
         cell: {
-          property: 'age',
           highlight: true
         },
         width: 150,
         visible: true
       },
       {
+        property: 'company',
         header: {
           label: 'Company',
           draggable: true,
@@ -115,13 +116,13 @@ class Demo extends React.Component {
           resizable: true
         },
         cell: {
-          property: 'company',
           highlight: true
         },
         width: 250,
         visible: true
       },
       {
+        property: 'boss.name',
         header: {
           label: 'Boss',
           draggable: true,
@@ -129,7 +130,6 @@ class Demo extends React.Component {
           resizable: true
         },
         cell: {
-          property: 'boss.name',
           highlight: true
         },
         width: 200,

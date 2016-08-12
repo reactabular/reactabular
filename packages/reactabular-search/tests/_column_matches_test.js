@@ -6,8 +6,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: 'foobar' }
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: 'foobar'
+      }
     });
 
     expect(result).to.equal(true);
@@ -17,8 +21,12 @@ describe('search._columnMatches', function () {
     const query = 'zoo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: 'foobar' }
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: 'foobar'
+      }
     });
 
     expect(result).to.equal(false);
@@ -28,8 +36,12 @@ describe('search._columnMatches', function () {
     const query = 'oba';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: 'foobar' },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: 'foobar'
+      },
       strategy: strategies.prefix
     });
 
@@ -40,8 +52,12 @@ describe('search._columnMatches', function () {
     const query = 'oba';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: 'foobar' },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: 'foobar'
+      },
       transform: v => v
     });
 
@@ -52,8 +68,13 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo.another' } },
-      row: { demo: { another: 'foobar' }, 'demo.another': 'foobar' }
+      column: {
+        property: 'demo.another'
+      },
+      row: {
+        demo: { another: 'foobar' },
+        'demo.another': 'foobar'
+      }
     });
 
     expect(result).to.equal(true);
@@ -63,8 +84,13 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: 'foobar', _demo: 'FOOBAR' },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: 'foobar',
+        _demo: 'FOOBAR'
+      },
       transform: v => v
     });
 
@@ -75,8 +101,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: ['bar'] },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: ['bar']
+      },
       transform: v => v
     });
 
@@ -87,8 +117,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: undefined },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: undefined
+      },
       transform: v => v
     });
 
@@ -99,8 +133,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: undefined },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: undefined
+      },
       transform: v => v
     });
 
@@ -111,8 +149,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: 22 },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: 22
+      },
       transform: v => v
     });
 
@@ -123,8 +165,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: null },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: null
+      },
       transform: v => v
     });
 
@@ -135,8 +181,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: false }
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: false
+      }
     });
 
     expect(result).to.equal(false);
@@ -146,8 +196,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: 'foobar' },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: 'foobar'
+      },
       resolve: () => undefined
     });
 
@@ -158,8 +212,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: 'foobar' },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: 'foobar'
+      },
       resolve: () => null
     });
 
@@ -170,7 +228,9 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      row: { demo: 'foobar' }
+      row: {
+        demo: 'foobar'
+      }
     });
 
     expect(result).to.equal(false);
@@ -180,8 +240,12 @@ describe('search._columnMatches', function () {
     const query = 'foo';
     const result = _columnMatches({
       query,
-      column: { cell: { property: 'demo' } },
-      row: { demo: 'foobar' },
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: 'foobar'
+      },
       resolve: () => null
     });
 

@@ -47,41 +47,41 @@ class ExcelTable extends React.Component {
           }
         },
         {
+          property: 0,
           header: {
             label: 'A'
           },
           cell: {
-            property: 0,
             transforms: [editable(edit.input())],
             format: evaluate
           }
         },
         {
+          property: 1,
           header: {
             label: 'B'
           },
           cell: {
-            property: 1,
             transforms: [editable(edit.input())],
             format: evaluate
           }
         },
         {
+          property: 2,
           header: {
             label: 'C'
           },
           cell: {
-            property: 2,
             transforms: [editable(edit.input())],
             format: evaluate
           }
         },
         {
+          property: 3,
           header: {
             label: 'D'
           },
           cell: {
-            property: 3,
             transforms: [editable(edit.input())],
             format: evaluate
           }

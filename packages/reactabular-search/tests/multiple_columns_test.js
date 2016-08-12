@@ -8,7 +8,9 @@ describe('search.multipleColumns', function () {
     const result = multipleColumns({
       query,
       columns: [
-        { cell: { property: 'demo' } }
+        {
+          property: 'demo'
+        }
       ]
     })(rows);
 
@@ -22,7 +24,9 @@ describe('search.multipleColumns', function () {
     const result = multipleColumns({
       query,
       columns: [
-        { cell: { property: 'demo' } }
+        {
+          property: 'demo'
+        }
       ]
     })(rows);
 
@@ -36,8 +40,12 @@ describe('search.multipleColumns', function () {
     const result = multipleColumns({
       query,
       columns: [
-        { cell: { property: 'demo' } },
-        { cell: { property: 'another' } }
+        {
+          property: 'demo'
+        },
+        {
+          property: 'another'
+        }
       ]
     })(rows);
 
@@ -50,7 +58,9 @@ describe('search.multipleColumns', function () {
     const result = multipleColumns({
       query,
       columns: [
-        { cell: { property: 'demo' } }
+        {
+          property: 'demo'
+        }
       ]
     })(rows);
 
@@ -61,7 +71,9 @@ describe('search.multipleColumns', function () {
     const rows = [{ demo: 'foobar' }, { demo: 'zappa' }];
     const result = multipleColumns({
       columns: [
-        { cell: { property: 'demo' } }
+        {
+          property: 'demo'
+        }
       ]
     })(rows);
 

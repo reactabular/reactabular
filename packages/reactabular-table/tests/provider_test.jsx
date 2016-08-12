@@ -8,27 +8,21 @@ describe('Table.Provider', function () {
   it('renders children correctly', function () {
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
-        },
-        cell: {
-          property: 'name'
         }
       },
       {
+        property: 'position',
         header: {
           label: 'Position'
-        },
-        cell: {
-          property: 'position'
         }
       },
       {
+        property: 'age',
         header: {
           label: 'Age'
-        },
-        cell: {
-          property: 'age'
         }
       }
     ];
@@ -47,19 +41,13 @@ describe('Table.Provider', function () {
   it('renders without headers', function () {
     const columns = [
       {
-        cell: {
-          property: 'name'
-        }
+        property: 'name'
       },
       {
-        cell: {
-          property: 'position'
-        }
+        property: 'position'
       },
       {
-        cell: {
-          property: 'age'
-        }
+        property: 'age'
       }
     ];
     const table = TestUtils.renderIntoDocument(
@@ -77,19 +65,15 @@ describe('Table.Provider', function () {
   it('accepts numbers as properties', function () {
     const columns = [
       {
+        property: 0,
         header: {
           label: 'A'
-        },
-        cell: {
-          property: 0
         }
       },
       {
+        property: 1,
         header: {
           label: 'B'
-        },
-        cell: {
-          property: 1
         }
       }
     ];

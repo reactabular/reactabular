@@ -187,6 +187,7 @@ export default class EasyTable extends React.Component {
 
         this.setState({ sortingColumns });
       },
+      fieldName: 'property',
       styles: styles.sort
     });
     const resetable = sort.reset({

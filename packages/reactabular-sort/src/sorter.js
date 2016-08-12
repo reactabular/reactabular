@@ -17,11 +17,11 @@ const sorter = ({
   const orderList = new Array(sortingColumns.length);
 
   Object.keys(sortingColumns).forEach(columnIndex => {
-    const realColumn = columns[columnIndex] || { cell: {} };
+    const realColumn = columns[columnIndex] || {};
     const sortingColumn = sortingColumns[columnIndex];
 
     columnIndexList[sortingColumn.position] = row => {
-      const property = realColumn.cell && realColumn.cell.property;
+      const property = realColumn.property;
       const value = row[property];
       // Pick resolved value by convention
       const resolvedValue = row[`_${property}`] || value;

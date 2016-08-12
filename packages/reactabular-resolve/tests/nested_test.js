@@ -16,7 +16,7 @@ describe('resolve.nested', function () {
       },
       [property]: lastName
     };
-    const column = { cell: { property } };
+    const column = { property };
 
     expect(nested(row, column)).to.deep.equal(expected);
   });
@@ -27,7 +27,7 @@ describe('resolve.nested', function () {
     const row = {
       name
     };
-    const column = { cell: { property } };
+    const column = { property };
 
     expect(nested(row, column)).to.deep.equal({ [property]: name });
   });
@@ -37,7 +37,7 @@ describe('resolve.nested', function () {
     const row = {
       name
     };
-    const column = { cell: { property: undefined } };
+    const column = { property: undefined };
 
     expect(nested(row, column)).to.deep.equal({});
   });

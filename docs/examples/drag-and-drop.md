@@ -69,6 +69,7 @@ class DragAndDropTable extends React.Component {
           },
           children: [
             {
+              property: 'name.first',
               props: {
                 style: {
                   width: 50
@@ -79,12 +80,10 @@ class DragAndDropTable extends React.Component {
                 props: {
                   onMove: o => this.onChildMove(o)
                 }
-              },
-              cell: {
-                property: 'name.first'
               }
             },
             {
+              property: 'name.last',
               props: {
                 style: {
                   width: 50
@@ -95,14 +94,12 @@ class DragAndDropTable extends React.Component {
                 props: {
                   onMove: o => this.onChildMove(o)
                 }
-              },
-              cell: {
-                property: 'name.last'
               }
             }
           ]
         },
         {
+          property: 'company',
           props: {
             style: {
               width: 100
@@ -113,12 +110,10 @@ class DragAndDropTable extends React.Component {
             props: {
               onMove: o => this.onMove(o)
             }
-          },
-          cell: {
-            property: 'company'
           }
         },
         {
+          property: 'sentence',
           props: {
             style: {
               width: 300
@@ -129,9 +124,6 @@ class DragAndDropTable extends React.Component {
             props: {
               onMove: o => this.onMove(o)
             }
-          },
-          cell: {
-            property: 'sentence'
           }
         }
       ],

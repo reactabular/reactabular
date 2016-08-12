@@ -69,6 +69,7 @@ class AllFeaturesTable extends React.Component {
 
     this.state = {
       rows: generateRows(100, schema), // initial rows
+      searchColumn: 'all',
       query: {}, // search query
       sortingColumns: null, // reference to the sorting columns
       columns: this.getColumns(), // initial columns
@@ -80,6 +81,7 @@ class AllFeaturesTable extends React.Component {
 
     this.onRow = this.onRow.bind(this);
     this.onRowSelected = this.onRowSelected.bind(this);
+    this.onColumnChange = this.onColumnChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onPerPage = this.onPerPage.bind(this);
@@ -136,6 +138,7 @@ class AllFeaturesTable extends React.Component {
 
     return [
       {
+        property: 'name',
         header: {
           label: 'Name',
           format: (name, extraParameters) => resizable(
@@ -156,7 +159,6 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          property: 'name',
           transforms: [editable(edit.input())],
           format: highlight.cell
         },
@@ -164,6 +166,7 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
+        property: 'position',
         header: {
           label: 'Position',
           format: (v, extra) => resizable(sortableHeader(v, extra), extra),
@@ -174,13 +177,13 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          property: 'position',
           transforms: [editable(edit.input())],
           format: highlight.cell
         },
         visible: true
       },
       {
+        property: 'boss.name',
         header: {
           label: 'Boss',
           format: sortableHeader,
@@ -191,13 +194,13 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          property: 'boss.name',
           transforms: [editable(edit.input())],
           format: highlight.cell
         },
         visible: true
       },
       {
+        property: 'country',
         header: {
           label: 'Country',
           format: sortableHeader,
@@ -208,7 +211,6 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          property: 'country',
           transforms: [editable(
             edit.dropdown({
               options: transform(countries, (result, name, value) => {
@@ -223,6 +225,7 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
+        property: 'salary',
         header: {
           label: 'Salary',
           format: sortableHeader,
@@ -233,7 +236,6 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          property: 'salary',
           transforms: [editable(edit.input({ props: { type: 'number' } }))],
           format: (salary, extra) => (
             <span onDoubleClick={() => alert(`salary is ${salary}`)}>
@@ -245,6 +247,7 @@ class AllFeaturesTable extends React.Component {
         visible: true
       },
       {
+        property: 'active',
         header: {
           label: 'Active',
           format: sortableHeader,
@@ -255,7 +258,6 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          property: 'active',
           transforms: [editable(edit.boolean())],
           format: active => active && <span>&#10003;</span>
         },
@@ -283,7 +285,7 @@ class AllFeaturesTable extends React.Component {
   }
   render() {
     const {
-      columns, rows, pagination, sortingColumns, query
+      columns, rows, pagination, sortingColumns, searchColumn, query
     } = this.state;
     const cols = columns.filter(column => column.visible);
     const paginated = compose(
@@ -310,10 +312,12 @@ class AllFeaturesTable extends React.Component {
         <PrimaryControls
           className="controls"
           perPage={pagination.perPage}
+          column={searchColumn}
           query={query}
           columns={cols}
           rows={rows}
           onPerPage={this.onPerPage}
+          onColumnChange={this.onColumnChange}
           onSearch={this.onSearch}
         />
 
@@ -348,6 +352,11 @@ class AllFeaturesTable extends React.Component {
   }
   onRowSelected(row) {
     console.log('clicked row', row);
+  }
+  onColumnChange(searchColumn) {
+    this.setState({
+      searchColumn
+    });
   }
   onSearch(query) {
     this.setState({

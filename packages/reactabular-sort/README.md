@@ -84,6 +84,7 @@ class SortTable extends React.Component {
       },
       columns: [
         {
+          property: 'name',
           header: {
             label: 'Name',
             transforms: [resetable],
@@ -91,12 +92,10 @@ class SortTable extends React.Component {
               sortable,
               getSortingColumns
             })
-          },
-          cell: {
-            property: 'name'
           }
         },
         {
+          property: 'age',
           header: {
             label: 'Age',
             transforms: [resetable],
@@ -106,9 +105,6 @@ class SortTable extends React.Component {
             })
             // Alternative if you don't need reset.
             // transforms: [sortable]
-          },
-          cell: {
-            property: 'age'
           }
         }
       ],
@@ -252,12 +248,10 @@ const sortable = sort.sort({
 // Mark a header as sortable
 columns: [
   {
+    property: 'name',
     header: {
       label: 'name',
       transforms: [sortable()]
-    },
-    cell: {
-      property: 'name'
     }
   }
 ]

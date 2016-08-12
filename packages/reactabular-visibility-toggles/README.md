@@ -17,29 +17,25 @@ class ToggleColumnsTable extends React.Component {
     this.state = {
       columns: [
         {
+          property: 'name',
           header: {
             label: 'Name'
-          },
-          cell: {
-            property: 'name'
           },
           visible: true
         },
         {
+          property: 'age',
           header: {
             label: 'Age'
-          },
-          cell: {
-            property: 'age'
           },
           visible: false
         },
         {
+          property: 'color',
           header: {
             label: 'Color'
           },
           cell: {
-            property: 'color',
             transforms: [color => ({ style: { color } })]
           },
           visible: true

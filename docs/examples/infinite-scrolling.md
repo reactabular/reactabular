@@ -27,25 +27,21 @@ const rows = generateRows(20, schema);
 
 const columns = [
   {
+    property: 'name',
     props: {
       style: { minWidth: 300, width: 300 }
     },
     header: {
       label: 'Name'
-    },
-    cell: {
-      property: 'name'
     }
   },
   {
+    property: 'age',
     props: {
       style: { minWidth: 100, width: 100 }
     },
     header: {
       label: 'Age'
-    },
-    cell: {
-      property: 'age'
     }
   }
 ];

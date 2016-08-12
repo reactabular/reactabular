@@ -86,12 +86,11 @@ class BodyRow extends React.Component {
     return React.createElement(
       components.row,
       rowProps,
-      resolveBodyColumns(columns).map(({ column, cell, props }, j) => {
+      resolveBodyColumns(columns).map(({ column, cell, property, props }, j) => {
         const {
-          property,
           transforms = [],
           format = a => a
-        } = cell;
+        } = cell || {}; // TODO: test against this case
         const extraParameters = {
           columnIndex: j,
           column,

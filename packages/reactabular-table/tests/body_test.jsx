@@ -10,27 +10,21 @@ describe('Table.Body', function () {
   it('displays rows', function () {
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
-        },
-        cell: {
-          property: 'name'
         }
       },
       {
+        property: 'position',
         header: {
           label: 'Position'
-        },
-        cell: {
-          property: 'position'
         }
       },
       {
+        property: 'age',
         header: {
           label: 'Age'
-        },
-        cell: {
-          property: 'age'
         }
       }
     ];
@@ -55,14 +49,12 @@ describe('Table.Body', function () {
     const cellClass = 'test-cell';
     const columns = [
       {
+        property: 'age',
         props: {
           className: cellClass
         },
         header: {
           label: 'Age'
-        },
-        cell: {
-          property: 'age'
         }
       }
     ];
@@ -85,11 +77,11 @@ describe('Table.Body', function () {
     const cellClass = 'test-cell';
     const columns = [
       {
+        property: 'age',
         header: {
           label: 'Age'
         },
         cell: {
-          property: 'age',
           props: {
             className: cellClass
           }
@@ -117,6 +109,7 @@ describe('Table.Body', function () {
     const backgroundColor = 'green';
     const columns = [
       {
+        property: 'age',
         props: {
           style: {
             color
@@ -126,7 +119,6 @@ describe('Table.Body', function () {
           label: 'Age'
         },
         cell: {
-          property: 'age',
           props: {
             className: cellClass,
             style: {
@@ -157,6 +149,7 @@ describe('Table.Body', function () {
     const anotherCellClass = 'another-test-cell';
     const columns = [
       {
+        property: 'age',
         props: {
           className: anotherCellClass
         },
@@ -164,7 +157,6 @@ describe('Table.Body', function () {
           label: 'Age'
         },
         cell: {
-          property: 'age',
           props: {
             className: cellClass
           }
@@ -193,6 +185,7 @@ describe('Table.Body', function () {
     const finalDisplay = 'none';
     const columns = [
       {
+        property: 'age',
         props: {
           style: {
             backgroundColor: 'black',
@@ -204,7 +197,6 @@ describe('Table.Body', function () {
           label: 'Name'
         },
         cell: {
-          property: 'age',
           props: {
             className: cellClass,
             style: {
@@ -248,11 +240,9 @@ describe('Table.Body', function () {
     const lastName = 'foobar';
     const columns = [
       {
+        property: 'name.last',
         header: {
           label: 'Last name'
-        },
-        cell: {
-          property: 'name.last'
         }
       }
     ];
@@ -275,11 +265,9 @@ describe('Table.Body', function () {
     const lastName = 'foobar';
     const columns = [
       {
+        property: 'name.last',
         header: {
           label: 'Last name'
-        },
-        cell: {
-          property: 'name.last'
         }
       }
     ];
@@ -305,11 +293,11 @@ describe('Table.Body', function () {
     const name = 'foobar';
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           resolve: v => v + v
         }
       }
@@ -340,11 +328,11 @@ describe('Table.Body', function () {
     const name = 'foobar';
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           resolve: v => v + v,
           transforms: [
             v => {
@@ -375,28 +363,26 @@ describe('Table.Body', function () {
   it('can be formatted', function () {
     const columns = [
       {
+        property: 'basic',
         header: {
           label: 'Basic'
-        },
-        cell: {
-          property: 'basic'
         }
       },
       {
+        property: 'identity',
         header: {
           label: 'Identity'
         },
         cell: {
-          property: 'identity',
           format: value => value
         }
       },
       {
+        property: 'math',
         header: {
           label: 'Simple Math'
         },
         cell: {
-          property: 'math',
           format: value => value - 23
         }
       }
@@ -425,20 +411,20 @@ describe('Table.Body', function () {
   it('can be formatted using React components', function () {
     const columns = [
       {
+        property: 'complex',
         header: {
           label: 'Cell Props'
         },
         cell: {
-          property: 'complex',
           format: value => <span className="complex">{value}</span>
         }
       },
       {
+        property: 'jsx',
         header: {
           label: 'JSX'
         },
         cell: {
-          property: 'jsx',
           format: value => <a href={`http://${value.id}`}>{value.name}</a>
         }
       }
@@ -468,11 +454,11 @@ describe('Table.Body', function () {
     const cellClass = 'test-class';
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           transforms: [
             () => ({
               className: cellClass
@@ -498,11 +484,11 @@ describe('Table.Body', function () {
     const cellClass = 'test-class';
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           transforms: [
             () => ({
               children: <div className={cellClass}>{demoText}</div>
@@ -528,11 +514,11 @@ describe('Table.Body', function () {
     const cellClass = 'test-class';
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           transforms: [
             () => ({
               children: <div className={cellClass}>{demoText}</div>
@@ -564,11 +550,11 @@ describe('Table.Body', function () {
     let receivedValues;
     const columns = [
       {
+        property: initialProperty,
         header: {
           label: 'Name'
         },
         cell: {
-          property: initialProperty,
           transforms: [
             (label, extraValues) => {
               receivedLabel = label;
@@ -606,11 +592,11 @@ describe('Table.Body', function () {
     const style = { display: 'none' };
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           transforms: [
             () => ({
               className: cellClass
@@ -641,11 +627,11 @@ describe('Table.Body', function () {
     const anotherCellClass = 'another-test-class';
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           transforms: [
             () => ({
               className: cellClass
@@ -675,11 +661,11 @@ describe('Table.Body', function () {
     const anotherCellClass = 'another-cell';
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           transforms: [
             () => ({
               className: cellClass
@@ -709,11 +695,11 @@ describe('Table.Body', function () {
     const anotherCellStyle = { color: 'red', display: 'none' };
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           transforms: [
             () => ({
               className: cellClass,
@@ -758,11 +744,11 @@ describe('Table.Body', function () {
     });
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           transforms: [editor(edit.input({ className: editorClass }))],
           props: {
             className: cellClass
@@ -828,11 +814,9 @@ describe('Table.Body', function () {
 
       const columns = [
         {
+          property: 'name',
           header: {
             label: 'Demo'
-          },
-          cell: {
-            property: 'name'
           }
         }
       ];
@@ -893,11 +877,9 @@ describe('Table.Body', function () {
     const rowClass = 'test-row';
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
-        },
-        cell: {
-          property: 'name'
         }
       }
     ];

@@ -14,11 +14,9 @@ describe('resolve.resolve', function () {
     const name = 'Demo';
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Last name'
-        },
-        cell: {
-          property: 'name'
         }
       }
     ];
@@ -33,7 +31,7 @@ describe('resolve.resolve', function () {
         _name: rows[0].name
       }
     ];
-    const method = (row, { cell: { property } }) => ({
+    const method = (row, { property }) => ({
       [property]: row.name,
       [`_${property}`]: row.name
     });
@@ -53,11 +51,9 @@ describe('resolve.resolve', function () {
         },
         children: [
           {
+            property: 'name',
             header: {
               label: 'First Name'
-            },
-            cell: {
-              property: 'name'
             }
           }
         ]
@@ -68,7 +64,7 @@ describe('resolve.resolve', function () {
         name
       }
     ];
-    const method = (row, { cell: { property } }) => ({
+    const method = (row, { property }) => ({
       [property]: row.name
     });
 
@@ -82,12 +78,12 @@ describe('resolve.resolve', function () {
     const lastName = 'Demo';
     const columns = [
       {
+        property: 'name.last',
         header: {
           label: 'Resolved value'
         },
         cell: {
-          resolve: v => v + v,
-          property: 'name.last'
+          resolve: v => v + v
         }
       }
     ];
@@ -122,12 +118,12 @@ describe('resolve.resolve', function () {
     const lastName = 'Demo';
     const columns = [
       {
+        property: 'name.last',
         header: {
           label: 'Resolved value'
         },
         cell: {
-          resolve: (value, { rowData }) => rowData.name.last + value,
-          property: 'name.last'
+          resolve: (value, { rowData }) => rowData.name.last + value
         }
       }
     ];

@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
 
-function nested(rowData, { cell: { property } = {} }) {
+function nested(rowData, { property }) {
   if (!property) {
     return {};
   }

@@ -1,21 +1,5 @@
 In addition to `header` customization, it's essential to define how the rows should map to content. This is achieved through `cell` fields.
 
-## **`cell.property = <string>`**
-
-You should define `cell.property` at minimum. It maps a field from `rows` into something you can display to the user.
-
-**Example:**
-
-```javascript
-{
-  cell: {
-    property: 'name'
-  }
-}
-```
-
-If you want nested definitions (i.e., `foo.bar.baz`), then you should `resolve` your rows before passing it to the table.
-
 ## **`cell.transforms`**
 
 ```javascript

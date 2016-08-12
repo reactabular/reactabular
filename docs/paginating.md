@@ -32,19 +32,15 @@ const schema = {
 const rows = generateRows(100, schema);
 const columns = [
   {
+    property: 'name',
     header: {
       label: 'Name'
-    },
-    cell: {
-      property: 'name'
     }
   },
   {
+    property: 'age',
     header: {
       label: 'Age'
-    },
-    cell: {
-      property: 'age'
     }
   }
 ];
@@ -54,6 +50,7 @@ class PaginationTable extends React.Component {
     super(props);
 
     this.state = {
+      searchColumn: 'all',
       query: {}, // Search query
       columns,
       rows,
@@ -66,7 +63,7 @@ class PaginationTable extends React.Component {
     this.onSelect = this.onSelect.bind(this);
   }
   render() {
-    const { rows, columns, pagination, query } = this.state;
+    const { searchColumn, rows, columns, pagination, query } = this.state;
     const paginated = compose(
       paginate(pagination),
       search.multipleColumns({ columns, query })
@@ -77,9 +74,11 @@ class PaginationTable extends React.Component {
         <div className="search-container">
           <span>Search</span>
           <Search
+            column={searchColumn}
             query={query}
             columns={columns}
             rows={rows}
+            onColumnChange={searchColumn => this.setState({ searchColumn })}
             onChange={query => this.setState({ query })}
           />
         </div>

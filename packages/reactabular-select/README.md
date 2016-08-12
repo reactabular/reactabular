@@ -89,19 +89,15 @@ const rows = [
 
 const columns = [
   {
+    property: 'name',
     header: {
       label: 'Name'
-    },
-    cell: {
-      property: 'name'
     }
   },
   {
+    property: 'age',
     header: {
       label: 'Age'
-    },
-    cell: {
-      property: 'age'
     }
   }
 ];

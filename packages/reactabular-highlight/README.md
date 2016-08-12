@@ -29,20 +29,20 @@ class HighlightTable extends React.Component {
       query: {},
       columns: [
         {
+          property: 'name',
           header: {
             label: 'Name'
           },
           cell: {
-            property: 'name',
             format: highlight.cell
           }
         },
         {
+          property: 'age',
           header: {
             label: 'Age'
           },
           cell: {
-            property: 'age',
             format: highlight.cell
           }
         }

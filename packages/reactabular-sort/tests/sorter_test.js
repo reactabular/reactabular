@@ -6,10 +6,8 @@ import { sorter } from '../src';
 describe('sort.sorter', function () {
   it('sorts ascending', function () {
     const columns = [{
-      header: {},
-      cell: {
-        property: 'test'
-      }
+      property: 'test',
+      header: {}
     }];
     const rows = [
       {
@@ -33,10 +31,8 @@ describe('sort.sorter', function () {
 
   it('sorts descending', function () {
     const columns = [{
-      header: {},
-      cell: {
-        property: 'test'
-      }
+      property: 'test',
+      header: {}
     }];
     const rows = [
       {
@@ -60,15 +56,11 @@ describe('sort.sorter', function () {
 
   it('sorts ascending and descending', function () {
     const columns = [{
-      header: {},
-      cell: {
-        property: 'name'
-      }
+      property: 'name',
+      header: {}
     }, {
-      header: {},
-      cell: {
-        property: 'position'
-      }
+      property: 'position',
+      header: {}
     }];
     const rows = [
       {
@@ -116,10 +108,8 @@ describe('sort.sorter', function () {
 
   it('returns rows if there is no sorting information', function () {
     const columns = [{
-      header: {},
-      cell: {
-        property: 'test'
-      }
+      property: 'test',
+      header: {}
     }];
     const rows = [
       {
@@ -136,10 +126,8 @@ describe('sort.sorter', function () {
 
   it('returns rows if only rows is passed', function () {
     const columns = [{
-      header: {},
-      cell: {
-        property: 'test'
-      }
+      property: 'test',
+      header: {}
     }];
     const rows = [
       {
@@ -156,10 +144,8 @@ describe('sort.sorter', function () {
 
   it('sorts case-insensitively', function () {
     const columns = [{
-      header: {},
-      cell: {
-        property: 'test'
-      }
+      property: 'test',
+      header: {}
     }];
     const rows = [
       {
@@ -196,10 +182,8 @@ describe('sort.sorter', function () {
 
   it('sorts numbers', function () {
     const columns = [{
-      header: {},
-      cell: {
-        property: 'test'
-      }
+      property: 'test',
+      header: {}
     }];
     const rows = [
       {
@@ -225,10 +209,8 @@ describe('sort.sorter', function () {
 
   it('does not fail if property is missing', function () {
     const columns = [{
-      header: {},
-      cell: {
-        property: 'test'
-      }
+      property: 'test',
+      header: {}
     }];
     const rows = [
       {
@@ -283,9 +265,7 @@ describe('sort.sorter', function () {
     ];
     const columns = [
       {
-        cell: {
-          property: 'country'
-        }
+        property: 'country'
       }
     ];
     const sortingColumns = {

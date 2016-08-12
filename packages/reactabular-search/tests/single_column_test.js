@@ -8,7 +8,9 @@ describe('search.singleColumn', function () {
     const result = singleColumn({
       query,
       columns: [
-        { cell: { property: 'demo' } }
+        {
+          property: 'demo'
+        }
       ],
       searchColumn: 'demo'
     })(rows);
@@ -22,7 +24,9 @@ describe('search.singleColumn', function () {
     const result = singleColumn({
       query,
       columns: [
-        { cell: { property: 'demo' } }
+        {
+          property: 'demo'
+        }
       ]
     })([
       rows,
@@ -38,7 +42,9 @@ describe('search.singleColumn', function () {
     const result = singleColumn({
       query,
       columns: [
-        { cell: { property: 'demo' } }
+        {
+          property: 'demo'
+        }
       ]
     })([
       rows
@@ -53,7 +59,9 @@ describe('search.singleColumn', function () {
     const result = singleColumn({
       query,
       columns: [
-        { cell: { property: 'demo' } }
+        {
+          property: 'demo'
+        }
       ],
       searchColumn: 'all'
     })(rows);
@@ -67,7 +75,9 @@ describe('search.singleColumn', function () {
     const result = singleColumn({
       query,
       columns: [
-        { cell: { property: 'demo' } }
+        {
+          property: 'demo'
+        }
       ],
       searchColumn: 'all'
     })(rows);
@@ -79,7 +89,9 @@ describe('search.singleColumn', function () {
     const rows = [{ demo: 'foobar' }];
     const result = singleColumn({
       columns: [
-        { cell: { property: 'demo' } }
+        {
+          property: 'demo'
+        }
       ]
     })(rows);
 

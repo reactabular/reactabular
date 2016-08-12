@@ -18,11 +18,14 @@ export default class Provider extends React.Component {
           props: mergePropPair(column.props, column.header.props),
           header: column.header,
           children: column.children || [], // TODO: test for this case
+          property: column.property,
           column
         } : {}
       )
     ));
 
+    // TODO: push resolveBodyColumns here to avoid computation and improve
+    // performance
     columns.forEach(column => {
       const cell = column.cell || {};
 
@@ -30,6 +33,7 @@ export default class Provider extends React.Component {
         props: mergePropPair(column.props, cell.props),
         cell,
         children: column.children || [], // TODO: test for this case
+        property: column.property,
         column
       });
     });

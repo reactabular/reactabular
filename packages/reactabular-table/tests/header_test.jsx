@@ -216,27 +216,21 @@ describe('Table.Header', function () {
   it('renders based on `header` fields', function () {
     const columns = [
       {
+        property: 'name',
         header: {
           label: 'Name'
-        },
-        cell: {
-          property: 'name'
         }
       },
       {
+        property: 'position',
         header: {
           label: 'Position'
-        },
-        cell: {
-          property: 'position'
         }
       },
       {
+        property: 'age',
         header: {
           label: 'Age'
-        },
-        cell: {
-          property: 'age'
         }
       }
     ];

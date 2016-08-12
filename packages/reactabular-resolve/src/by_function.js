@@ -2,7 +2,7 @@ import get from 'lodash/get';
 
 function byFunction(path) {
   return (rowData, column) => {
-    const { cell: { property } = {} } = column;
+    const { property } = column;
     const value = rowData[property];
     const resolver = get(column, path);
     const ret = {

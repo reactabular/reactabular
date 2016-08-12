@@ -42,47 +42,39 @@ const rows = generateRows(100, schema);
 
 const columns = [
   {
+    property: 'name',
     props: {
       style: { minWidth: 300, width: 300 }
     },
     header: {
       label: 'Name'
-    },
-    cell: {
-      property: 'name'
     }
   },
   {
+    property: 'age',
     props: {
       style: { minWidth: 100, width: 100 }
     },
     header: {
       label: 'Age'
-    },
-    cell: {
-      property: 'age'
     }
   },
   {
+    property: 'company',
     props: {
       style: { minWidth: 400, width: 400 }
     },
     header: {
       label: 'Company'
-    },
-    cell: {
-      property: 'company'
     }
   },
   {
+    property: 'product',
     props: {
       style: { minWidth: 400, width: 400 }
     },
     header: {
       label: 'Product'
-    },
-    cell: {
-      property: 'product'
     }
   }
 ];

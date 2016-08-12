@@ -11,22 +11,19 @@ class FixedWidthColumnsTable extends React.Component {
     super(props);
 
     this.state = {
+      searchColumn: 'all',
       query: {}, // Search query
       columns: [
         {
+          property: 'name',
           header: {
             label: 'Name'
-          },
-          cell: {
-            property: 'name'
           }
         },
         {
+          property: 'address',
           header: {
             label: 'Address'
-          },
-          cell: {
-            property: 'address'
           }
         }
       ],
@@ -50,7 +47,7 @@ class FixedWidthColumnsTable extends React.Component {
         cell: FixedWidthHeader
       }
     };
-    const { rows, columns, query } = this.state;
+    const { searchColumn, rows, columns, query } = this.state;
     const searchedRows = search.multipleColumns({ columns, query })(rows);
 
     return (
@@ -58,9 +55,11 @@ class FixedWidthColumnsTable extends React.Component {
         <div className="search-container">
           <span>Search</span>
           <Search
+            column={searchColumn}
             query={query}
             columns={columns}
             rows={rows}
+            onColumnChange={searchColumn => this.setState({ searchColumn })}
             onChange={query => this.setState({ query })}
           />
         </div>

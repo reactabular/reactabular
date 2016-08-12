@@ -15,7 +15,7 @@ function highlighter({ columns, matches, query } = {}) {
     };
 
     columns.forEach(column => {
-      const property = column.cell.property;
+      const property = column.property;
       const value = row[property];
       // Pick resolved value by convention
       const resolvedValue = row[`_${property}`] || value;

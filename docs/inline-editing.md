@@ -48,11 +48,11 @@ class EditableTable extends React.Component {
       editedCell: null, // Track the edited cell somehow
       columns: [
         {
+          property: 'name',
           header: {
             label: 'Name'
           },
           cell: {
-            property: 'name',
             transforms: [editable(edit.input())]
           }
         }

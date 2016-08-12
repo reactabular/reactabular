@@ -69,38 +69,38 @@ class CRUDTable extends React.Component {
 
     return [
       {
+        property: 'name',
         header: {
           label: 'Name'
         },
         cell: {
-          property: 'name',
           transforms: [editable(edit.input())]
         }
       },
       {
+        property: 'position',
         header: {
           label: 'Position'
         },
         cell: {
-          property: 'position',
           transforms: [editable(edit.input())]
         }
       },
       {
+        property: 'salary',
         header: {
           label: 'Salary'
         },
         cell: {
-          property: 'salary',
           transforms: [editable(edit.input({ props: { type: 'number' } }))]
         }
       },
       {
+        property: 'active',
         header: {
           label: 'Active'
         },
         cell: {
-          property: 'active',
           transforms: [editable(edit.boolean())],
           format: active => active && <span>&#10003;</span>
         }

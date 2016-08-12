@@ -6,9 +6,7 @@ describe('highlight.highlighter', function () {
   it('highlights using matches', function () {
     const columns = [
       {
-        cell: {
-          property: 'name'
-        }
+        property: 'name'
       }
     ];
     const rows = [
@@ -48,9 +46,7 @@ describe('highlight.highlighter', function () {
   it('retains original data', function () {
     const columns = [
       {
-        cell: {
-          property: 'name'
-        }
+        property: 'name'
       }
     ];
     const rows = [
@@ -92,9 +88,7 @@ describe('highlight.highlighter', function () {
   it('highlights resolved values', function () {
     const columns = [
       {
-        cell: {
-          property: 'name'
-        }
+        property: 'name'
       }
     ];
     const rows = [
@@ -186,8 +180,8 @@ describe('highlight.highlighter', function () {
   it('throws an error if matches are not passed', function () {
     const columns = [
       {
+        property: 'name',
         cell: {
-          property: 'name',
           resolve: v => v + v
         }
       }
@@ -204,8 +198,8 @@ describe('highlight.highlighter', function () {
   it('throws an error if query is not passed', function () {
     const columns = [
       {
+        property: 'name',
         cell: {
-          property: 'name',
           resolve: v => v + v
         }
       }

@@ -40,6 +40,7 @@ const countries = {
 
 const columns = [
   {
+    property: 'name',
     header: {
       label: 'Name',
       transforms: [
@@ -47,12 +48,10 @@ const columns = [
           onClick: () => alert(`clicked ${label}`)
         })
       ]
-    },
-    cell: {
-      property: 'name'
     }
   },
   {
+    property: 'tools',
     header: {
       label: 'Active',
       transforms: [
@@ -62,11 +61,11 @@ const columns = [
       ]
     },
     cell: {
-      property: 'tools',
       format: tools => tools.hammer ? 'Hammertime' : 'nope'
     }
   },
   {
+    property: 'country',
     header: {
       label: 'Country',
       transforms: [
@@ -76,7 +75,6 @@ const columns = [
       ]
     },
     cell: {
-      property: 'country',
       format: country => countries[country]
     }
   },
