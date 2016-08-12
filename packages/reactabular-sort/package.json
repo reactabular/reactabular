@@ -11,7 +11,8 @@
     "src",
     "CHANGELOG.md",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "style.css"
   ],
   "readmeFilename": "README.md",
   "repository": {
