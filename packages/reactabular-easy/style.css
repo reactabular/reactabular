@@ -1,0 +1,26 @@
+.resize-container {
+  table-layout: fixed;
+  display: table;
+  width: 100%;
+}
+
+.resize-value {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+  word-wrap: break-word;
+  width: calc(100% - 1px);
+}
+
+.resize-handle {
+  outline: solid 1px black;
+  cursor: col-resize;
+  float: right;
+  width: 0;
+}
+
+.sort-order {
+  margin-left: 0.5em;
+}
