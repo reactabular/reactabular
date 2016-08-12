@@ -33,7 +33,7 @@ const Search = ({
         i18n={i18n}
       />
       {columns.length ?
-        <input onChange={onQueryChange} value={query[column]} /> :
+        <input type="input" onChange={onQueryChange} value={query[column] || ''} /> :
         null
       }
     </div>
