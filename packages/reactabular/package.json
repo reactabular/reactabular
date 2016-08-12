@@ -36,7 +36,6 @@
   "module": "src",
   "jsnext:main": "src",
   "dependencies": {
-    "reactabular-edit": "^1.2.1",
     "reactabular-highlight": "^1.2.5",
     "reactabular-resizable": "^1.2.2",
     "reactabular-resolve": "^1.1.0",

@@ -16,6 +16,7 @@ import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import transform from 'lodash/transform';
 import EasyTable from 'reactabular-easy';
+import * as reactEdit from 'react-edit';
 import * as reactabular from 'reactabular';
 import * as stylesheet from 'stylesheet-helpers';
 
@@ -41,7 +42,7 @@ const documentationImports = {
   search: { ...reactabular.search },
   select: { ...reactabular.select },
   sort: { ...reactabular.sort },
-  edit: { ...reactabular.edit },
+  edit: { ...reactEdit },
   highlight: { ...reactabular.highlight },
   resolve: { ...reactabular.resolve },
   SearchColumns: reactabular.SearchColumns,
@@ -148,9 +149,9 @@ const pages = [
     component: require('../packages/reactabular-resolve/README.md')
   },
   {
-    path: 'editing',
-    title: 'Editing',
-    component: require('../packages/reactabular-edit/README.md')
+    path: 'inline-editing',
+    title: 'Inline Editing',
+    component: require('./inline-editing.md')
   },
   {
     path: 'sorting',

@@ -1,7 +1,7 @@
 {
-  "name": "reactabular-edit",
-  "version": "1.2.1",
-  "description": "Inline editing for Reactabular",
+  "name": "react-edit",
+  "version": "0.0.0",
+  "description": "Inline editing utilities for React",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
     "prepublish": "npm run build"
@@ -21,9 +21,9 @@
   "keywords": [
     "react",
     "reactjs",
-    "table",
-    "tables",
-    "reactabular"
+    "inline",
+    "edit",
+    "editing"
   ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
