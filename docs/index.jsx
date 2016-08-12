@@ -118,7 +118,8 @@ const pages = [
         path: 'column-definition/property',
         title: 'Property',
         component: require('./column-definition/property.md')
-      },{
+      },
+      {
         path: 'column-definition/props',
         title: 'Props',
         component: require('./column-definition/props.md')

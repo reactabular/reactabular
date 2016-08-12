@@ -89,7 +89,7 @@ export default class EasyTable extends React.Component {
           columns,
           sortingColumns,
           sort: orderBy,
-          getColumn: (columns, property) => find(columns, { property }) // eslint-disable-line no-shadow
+          getColumn: (columns, property) => find(columns, { property }) // eslint-disable-line no-shadow, max-len
         }
       ),
       highlight.highlighter({ columns, matches: search.matches, query }),

@@ -8,7 +8,7 @@ const SearchOptions = ({
   ...props
 }) => (
   columns.length ? <select onChange={onChange} value={value} {...props}>{
-    getOptions(columns, i18n).map(({ name, value }) =>
+    getOptions(columns, i18n).map(({ name, value }) => // eslint-disable-line no-shadow, max-len
       <option key={`${value}-option`} value={value}>{name}</option>
     )
   }</select> : null

@@ -299,7 +299,7 @@ describe('sort.sorter', function () {
         position: 0
       }
     };
-    const getColumn = (columns, property) => find(columns, { property }); // eslint-disable-line no-shadow
+    const getColumn = (columns, property) => find(columns, { property }); // eslint-disable-line max-len, no-shadow
 
     const result = sorter({
       columns, sortingColumns, sort: orderBy, getColumn

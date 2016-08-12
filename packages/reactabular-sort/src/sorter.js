@@ -4,7 +4,7 @@ const sorter = ({
   columns,
   sortingColumns,
   sort,
-  getColumn = (columns, sortingColumnKey) => columns[sortingColumnKey] // eslint-disable-line no-shadow
+  getColumn = (columns, sortingColumnKey) => columns[sortingColumnKey] // eslint-disable-line max-len, no-shadow
 } = {}) => data => {
   if (!columns) {
     throw new Error('sort.sorter - Missing columns!');
