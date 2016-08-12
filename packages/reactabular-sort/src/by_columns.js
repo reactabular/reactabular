@@ -3,9 +3,13 @@ import defaultOrder from './default_order';
 const byColumns = ({
   sortingColumns,
   sortingOrder = defaultOrder,
-  selectedColumn
+  selectedColumn = -1
 }) => {
   let newSortingColumns = {};
+
+  if (selectedColumn < 0) {
+    return sortingColumns;
+  }
 
   if (!sortingColumns) {
     return {

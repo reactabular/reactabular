@@ -175,4 +175,16 @@ describe('sort.byColumns', function () {
 
     expect(result).to.deep.equal(expected);
   });
+
+  it('returns sorting columns without a selected column', function () {
+    const sortingColumns = {
+      0: {
+        direction: 'asc',
+        position: 0
+      }
+    };
+    const result = byColumns({ sortingColumns });
+
+    expect(result).to.deep.equal(sortingColumns);
+  });
 });

@@ -125,4 +125,16 @@ describe('sort.byColumn', function () {
     expect(secondResult).to.deep.equal(descExpected);
     expect(thirdResult).to.deep.equal(ascExpected);
   });
+
+  it('returns sorting columns without a selected column', function () {
+    const sortingColumns = {
+      0: {
+        direction: 'asc',
+        position: 0
+      }
+    };
+    const result = byColumn({ sortingColumns });
+
+    expect(result).to.deep.equal(sortingColumns);
+  });
 });
