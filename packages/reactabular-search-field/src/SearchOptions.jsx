@@ -3,9 +3,11 @@ import React from 'react';
 const SearchOptions = ({
   columns,
   i18n,
+  onChange = () => {},
+  value,
   ...props
 }) => (
-  columns.length ? <select {...props}>{
+  columns.length ? <select onChange={onChange} value={value} {...props}>{
     getOptions(columns, i18n).map(({ name, value }) =>
       <option key={`${value}-option`} value={value}>{name}</option>
     )
@@ -13,7 +15,9 @@ const SearchOptions = ({
 );
 SearchOptions.propTypes = {
   columns: React.PropTypes.array,
-  i18n: React.PropTypes.object
+  i18n: React.PropTypes.object,
+  onChange: React.PropTypes.func,
+  value: React.PropTypes.any
 };
 
 const getOptions = (columns, i18n) => (
@@ -22,11 +26,11 @@ const getOptions = (columns, i18n) => (
     name: i18n.all
   }] : []).concat(columns.map(column => {
     if (
-      (column.cell && column.cell.property) &&
+      (column.property) &&
       (column.header && column.header.label)
     ) {
       return {
-        value: column.cell.property,
+        value: column.property,
         name: column.header.label
       };
     }

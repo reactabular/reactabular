@@ -8,11 +8,9 @@ describe('Search', function () {
   it('does not have all option with a single column', function () {
     const columns = [
       {
+        property: 'first',
         header: {
           label: 'First'
-        },
-        cell: {
-          property: 'first'
         }
       }
     ];
@@ -28,7 +26,7 @@ describe('Search', function () {
     );
 
     expect(options.length).to.equal(1);
-    expect(options[0].value).to.equal(columns[0].cell.property);
+    expect(options[0].value).to.equal(columns[0].property);
     expect(options[0].textContent).to.equal(columns[0].header.label);
   });
 
@@ -36,17 +34,13 @@ describe('Search', function () {
     which have both property and header`, function () {
     const columns = [
       {
+        property: 'first',
         header: {
           label: 'First'
-        },
-        cell: {
-          property: 'first'
         }
       },
       {
-        cell: {
-          property: 'second'
-        }
+        property: 'second'
       },
       {
         header: {
@@ -67,7 +61,7 @@ describe('Search', function () {
 
     expect(options.length).to.equal(2);
     expect(options[0].value).to.equal('all');
-    expect(options[1].value).to.equal(columns[0].cell.property);
+    expect(options[1].value).to.equal(columns[0].property);
     expect(options[1].textContent).to.equal(columns[0].header.label);
   });
 
@@ -75,11 +69,9 @@ describe('Search', function () {
     const expectedColumn = 'column';
     const columns = [
       {
+        property: expectedColumn,
         header: {
           label: 'First'
-        },
-        cell: {
-          property: expectedColumn
         }
       }
     ];
@@ -139,17 +131,13 @@ describe('Search', function () {
   it('supports i18n', function () {
     const columns = [
       {
+        property: 'first',
         header: {
           label: 'First'
-        },
-        cell: {
-          property: 'first'
         }
       },
       {
-        cell: {
-          property: 'second'
-        }
+        property: 'second'
       },
       {
         header: {

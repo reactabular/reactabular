@@ -2,14 +2,21 @@ import React from 'react';
 import SearchOptions from './SearchOptions';
 
 const Search = ({
-  onChange, query, column, columns, i18n, ...props
+  query,
+  column = 'all',
+  columns,
+  i18n,
+  onChange,
+  onColumnChange,
+  ...props
 }) => {
-  const onColumnChange = ({ target: { value } }) => (
+  const onOptionsChange = ({ target: { value } }) => {
     onChange({
       ...query,
       [value]: query[value]
-    })
-  );
+    });
+    onColumnChange(value);
+  };
   const onQueryChange = ({ target: { value } }) => (
     onChange({
       ...query,
@@ -21,7 +28,7 @@ const Search = ({
     <div {...props}>
       <SearchOptions
         value={column}
-        onChange={onColumnChange}
+        onChange={onOptionsChange}
         columns={columns}
         i18n={i18n}
       />
@@ -36,18 +43,20 @@ Search.propTypes = {
   column: React.PropTypes.string,
   columns: React.PropTypes.array,
   query: React.PropTypes.object,
-  onChange: React.PropTypes.func,
   i18n: React.PropTypes.shape({
     all: React.PropTypes.string
-  })
+  }),
+  onChange: React.PropTypes.func,
+  onColumnChange: React.PropTypes.func
 };
 Search.defaultProps = {
   columns: [],
-  onChange: () => {},
   query: {},
   i18n: {
     all: 'All'
-  }
+  },
+  onChange: () => {},
+  onColumnChange: () => {}
 };
 
 export default Search;
