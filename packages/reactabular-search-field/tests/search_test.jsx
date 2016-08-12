@@ -1,21 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import Search from '../src';
 
 describe('Search', function () {
-  it('does not render options without rows', function () {
-    const search = TestUtils.renderIntoDocument(
-      <Search />
-    );
-
-    const options = TestUtils.scryRenderedDOMComponentsWithTag(
-      search, 'option'
-    );
-
-    expect(options.length).to.equal(0);
-  });
-
   it('does not have all option with a single column', function () {
     const columns = [
       {
@@ -29,7 +18,9 @@ describe('Search', function () {
     ];
 
     const search = TestUtils.renderIntoDocument(
-      <Search columns={columns} />
+      <Wrapper>
+        <Search columns={columns} />
+      </Wrapper>
     );
 
     const options = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -65,7 +56,9 @@ describe('Search', function () {
     ];
 
     const search = TestUtils.renderIntoDocument(
-      <Search columns={columns} />
+      <Wrapper>
+        <Search columns={columns} />
+      </Wrapper>
     );
 
     const options = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -92,7 +85,9 @@ describe('Search', function () {
     ];
 
     const search = TestUtils.renderIntoDocument(
-      <Search columns={columns} column={expectedColumn} />
+      <Wrapper>
+        <Search columns={columns} column={expectedColumn} />
+      </Wrapper>
     );
     const select = TestUtils.findRenderedDOMComponentWithTag(
       search, 'select'
@@ -109,13 +104,10 @@ describe('Search', function () {
       }
     ];
     const value = 'demo';
-    const rows = [
-      {
-        first: value
-      }
-    ];
     const search = TestUtils.renderIntoDocument(
-      <Search columns={columns} rows={rows} />
+      <Wrapper>
+        <Search columns={columns} />
+      </Wrapper>
     );
 
     const input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
@@ -132,13 +124,10 @@ describe('Search', function () {
       }
     ];
     const value = 'demo';
-    const rows = [
-      {
-        first: value
-      }
-    ];
     const search = TestUtils.renderIntoDocument(
-      <Search columns={columns} rows={rows} />
+      <Wrapper>
+        <Search columns={columns} />
+      </Wrapper>
     );
 
     const input = TestUtils.findRenderedDOMComponentWithTag(search, 'input');
@@ -170,10 +159,18 @@ describe('Search', function () {
     ];
     const expected = 'Kaikki';
     const search = TestUtils.renderIntoDocument(
-      <Search columns={columns} i18n={{ all: expected }} />
+      <Wrapper>
+        <Search columns={columns} i18n={{ all: expected }} />
+      </Wrapper>
     );
     const select = TestUtils.findRenderedDOMComponentWithTag(search, 'select')[0];
 
     expect(select.text).to.equal(expected);
   });
 });
+
+class Wrapper extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
+  render() {
+    return <div>{this.props.children}</div>;
+  }
+}
