@@ -21,7 +21,7 @@ export default class EasyTable extends React.Component {
     this.state = {
       sortingColumns: props.sortingColumns,
       originalColumns: props.columns,
-      columns: this.bindColumns(props.columns),
+      columns: this.bindColumns(props),
       rows: props.rows,
       selectedRow: {}
     };
@@ -59,7 +59,7 @@ export default class EasyTable extends React.Component {
     if (this.state.originalColumns !== nextProps.columns) {
       this.setState({
         originalColumns: nextProps.columns,
-        columns: this.bindColumns(nextProps.columns)
+        columns: this.bindColumns(nextProps)
       });
     }
 
@@ -155,7 +155,7 @@ export default class EasyTable extends React.Component {
       )
     ));
   }
-  bindColumns(columns) {
+  bindColumns({ columns, styles }) {
     const resizable = resizableColumn({
       getWidth: column => column.props.style.width,
       onDrag: (width, { columnIndex }) => {
@@ -170,7 +170,8 @@ export default class EasyTable extends React.Component {
         );
 
         this.props.onDragColumn(width, columnIndex);
-      }
+      },
+      styles: styles.resize
     });
 
     const getSortingColumns = () => this.state.sortingColumns || {};
@@ -185,7 +186,8 @@ export default class EasyTable extends React.Component {
         this.props.onSort(sortingColumns);
 
         this.setState({ sortingColumns });
-      }
+      },
+      styles: styles.sort
     });
     const resetable = sort.reset({
       event: 'onDoubleClick',
@@ -337,6 +339,7 @@ EasyTable.propTypes = {
   tableWidth: React.PropTypes.any.isRequired,
   tableHeight: React.PropTypes.any.isRequired,
   classNames: React.PropTypes.object,
+  styles: React.PropTypes.object,
   components: React.PropTypes.object,
   selectedRowIdField: React.PropTypes.string,
   onRow: React.PropTypes.func,
@@ -363,6 +366,18 @@ EasyTable.defaultProps = {
       row: null,
       cell: null
       */
+    }
+  },
+  styles: {
+    resize: {
+      container: {},
+      value: {},
+      handle: {}
+    },
+    sort: {
+      container: {},
+      value: {},
+      order: {}
     }
   },
   components: {},

@@ -249,3 +249,43 @@ const DragAndDropDemo = DragDropContext(HTML5Backend)(Demo);
 
 <DragAndDropDemo />
 ```
+
+## Styling
+
+It is possible to pass custom `classNames` and `styles` as listed below:
+
+```js
+classNames: {
+  table: null,
+  header: {
+    wrapper: null
+    // TODO
+    /*
+    row: null,
+    cell: null
+    */
+  },
+  body: {
+    wrapper: null
+    // TODO
+    /*
+    row: null,
+    cell: null
+    */
+  }
+},
+styles: {
+  resize: {
+    container: {},
+    value: {},
+    handle: {}
+  },
+  sort: {
+    container: {},
+    value: {},
+    order: {}
+  }
+}
+```
+
+For more control, you can also override `components` and also inject styling and class names through the column definition and the `onRow` handler.
