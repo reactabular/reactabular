@@ -9,7 +9,8 @@ const defaultStyles = {
 const header = ({
   sortable,
   getSortingColumns,
-  styles = {}
+  styles = {},
+  fieldName = 'columnIndex'
 }) => {
   if (!sortable) {
     throw new Error('header - Missing sortable!');
@@ -23,9 +24,9 @@ const header = ({
     ...styles
   };
 
-  return (value, { columnIndex }) => {
+  return (value, extra) => {
     const sortingColumns = getSortingColumns();
-    const sortingColumn = (sortingColumns && sortingColumns[columnIndex]) || {};
+    const sortingColumn = (sortingColumns && sortingColumns[extra[fieldName]]) || {};
     const sortingPosition = sortingColumn.position;
 
     return (
@@ -48,9 +49,7 @@ const header = ({
           'span',
           sortable(
             value,
-            {
-              columnIndex
-            }
+            extra
           )
         )}
       </div>
