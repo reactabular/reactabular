@@ -43,7 +43,7 @@ const HeaderRow = ({ row, components }) => (
   React.createElement(
     components.row,
     {},
-    row.map(({ column, property, header = {}, props = {} }, j) => {
+    row.map(({ column, header = {}, props = {} }, j) => {
       const {
         label,
         transforms = [],
@@ -52,7 +52,7 @@ const HeaderRow = ({ row, components }) => (
       const extraParameters = {
         columnIndex: j,
         column,
-        property
+        property: column.property // TODO: test that this is passed properly
       };
       const transformedProps = evaluateTransforms(transforms, label, extraParameters);
 
