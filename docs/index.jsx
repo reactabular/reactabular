@@ -21,6 +21,8 @@ import * as stylesheet from 'stylesheet-helpers';
 
 import 'purecss/build/pure.css';
 import 'react-pagify/style.css';
+import 'reactabular-resizable/../style.css';
+import 'reactabular-sort/../style.css';
 
 import * as rowsDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
