@@ -7,12 +7,27 @@
     "lodash",
     "syntax-object-rest-spread",
     "transform-object-rest-spread",
-    ["transform-react-remove-prop-types", {"mode": "wrap"}]
+    [
+      "transform-react-remove-prop-types",
+      {
+        "mode": "wrap"
+      }
+    ]
   ],
   "env": {
     "start": {
       "presets": [
         "react-hmre"
+      ]
+    },
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    },
+    "test:tdd": {
+      "plugins": [
+        "istanbul"
       ]
     }
   }

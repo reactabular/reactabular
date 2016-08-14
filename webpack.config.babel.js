@@ -239,15 +239,6 @@ if (TARGET.startsWith('test') || !TARGET) {
   module.exports = merge(common, {
     entry: {}, // karma will set this
     output: {}, // karma will set this
-    devtool: 'inline-source-map',
-    module: {
-      preLoaders: [
-        {
-          test: /\.jsx?$/,
-          loaders: ['isparta'],
-          include: config.paths.src
-        }
-      ]
-    }
+    devtool: 'inline-source-map'
   });
 }
