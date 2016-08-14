@@ -4,7 +4,7 @@
   "description": "Spectacular tables for React",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
-    "prepublish": "npm run build && cd ../.. && npm run dist:all && git commit --allow-empty -am \"Update dist\"",
+    "prepublish": "in-publish && npm run build && cd ../.. && npm run dist:all && git commit --allow-empty -am \"Update dist\" || :",
     "postpublish": "cd ../.. && npm run gh-pages:build-and-deploy"
   },
   "files": [
@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
+    "in-publish": "^2.0.0",
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {
