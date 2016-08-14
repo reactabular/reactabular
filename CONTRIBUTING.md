@@ -9,8 +9,7 @@
 ```code
 lang: bash
 ---
-npm install
-node_modules/.bin/lerna bootstrap
+npm run init
 npm start
 open http://localhost:8080
 ```
