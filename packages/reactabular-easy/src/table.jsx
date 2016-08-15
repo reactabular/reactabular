@@ -3,15 +3,18 @@ import {
   Table, Sticky, sort, resizableColumn, resolve, highlight, search, select
 } from 'reactabular';
 import { mergeClassNames } from 'reactabular-utils';
-import { DragSource, DropTarget } from 'react-dnd';
 import { compose } from 'redux';
 import uuid from 'uuid';
-import * as stylesheet from 'stylesheet-helpers';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
+import { DndHeader, moveLabels } from './dnd';
+import { defaultProps, propTypes } from './types';
+import {
+  createStylesheet, getColumnClassName, initializeStyles, updateWidth
+} from './utils';
 
-export default class EasyTable extends React.Component {
+class EasyTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -46,12 +49,16 @@ export default class EasyTable extends React.Component {
     this.styleSheet = null;
   }
   componentDidMount() {
-    const { styleSheetElement, styleSheet } = stylesheet.create();
+    const { styleSheetElement, styleSheet } = createStylesheet();
 
     this.styleSheetElement = styleSheetElement;
     this.styleSheet = styleSheet;
 
-    this.initializeStyles(this.state.columns);
+    initializeStyles({
+      styleSheet: this.styleSheet,
+      columns: this.state.columns,
+      id: this.id
+    });
   }
   componentWillUnmount() {
     this.styleSheetElement.remove();
@@ -149,31 +156,17 @@ export default class EasyTable extends React.Component {
       </Table.Provider>
     );
   }
-  initializeStyles(columns) {
-    columns.forEach((column, i) => (
-      stylesheet.updateProperties(
-        this.styleSheet,
-        getColumnClassName(this.id, i),
-        {
-          width: `${column.width}px`,
-          minWidth: `${column.width}px`
-        }
-      )
-    ));
-  }
   bindColumns({ columns, styles }) {
     const resizable = resizableColumn({
       getWidth: column => column.props.style.width,
       onDrag: (width, { columnIndex }) => {
         // Update the width of the changed column class
-        stylesheet.updateProperties(
-          this.styleSheet,
-          getColumnClassName(this.id, columnIndex),
-          {
-            width: `${width}px`,
-            minWidth: `${width}px`
-          }
-        );
+        updateWidth({
+          styleSheet: this.styleSheet,
+          id: this.id,
+          width,
+          columnIndex
+        });
 
         this.props.onDragColumn(width, columnIndex);
       },
@@ -337,156 +330,7 @@ export default class EasyTable extends React.Component {
     });
   }
 }
-EasyTable.propTypes = {
-  columns: React.PropTypes.array,
-  rows: React.PropTypes.array,
-  rowKey: React.PropTypes.string.isRequired,
-  query: React.PropTypes.object,
-  sortingColumns: React.PropTypes.object,
-  headerExtra: React.PropTypes.any,
-  tableWidth: React.PropTypes.any.isRequired,
-  tableHeight: React.PropTypes.any.isRequired,
-  classNames: React.PropTypes.object,
-  styles: React.PropTypes.object,
-  components: React.PropTypes.object,
-  selectedRowIdField: React.PropTypes.string,
-  onRow: React.PropTypes.func,
-  onDragColumn: React.PropTypes.func,
-  onMoveColumns: React.PropTypes.func,
-  onSelectRow: React.PropTypes.func,
-  onSort: React.PropTypes.func
-};
-EasyTable.defaultProps = {
-  classNames: {
-    table: null,
-    header: {
-      wrapper: null
-      // TODO
-      /*
-      row: null,
-      cell: null
-      */
-    },
-    body: {
-      wrapper: null
-      // TODO
-      /*
-      row: null,
-      cell: null
-      */
-    }
-  },
-  styles: {
-    resize: {
-      container: {},
-      value: {},
-      handle: {}
-    },
-    sort: {
-      container: {},
-      value: {},
-      order: {}
-    }
-  },
-  components: {},
-  selectedRowIdField: 'id',
-  onRow: () => ({}),
-  onDragColumn: () => {},
-  onMoveColumns: () => {},
-  onSelectRow: () => {},
-  onSort: () => {}
-};
+EasyTable.propTypes = propTypes;
+EasyTable.defaultProps = defaultProps;
 
-function getColumnClassName(id, i) {
-  return `column-${id}-${i}`;
-}
-
-function moveLabels(columns, { sourceLabel, targetLabel }) {
-  const sourceIndex = findIndex(
-    columns,
-    { header: { label: sourceLabel } }
-  );
-
-  if (sourceIndex < 0) {
-    return null;
-  }
-
-  const targetIndex = findIndex(
-    columns,
-    { header: { label: targetLabel } }
-  );
-
-  if (targetIndex < 0) {
-    return null;
-  }
-
-  const movedColumns = move(columns, sourceIndex, targetIndex);
-
-  return {
-    source: movedColumns[sourceIndex],
-    target: movedColumns[targetIndex],
-    columns: movedColumns
-  };
-}
-
-function move(data, sourceIndex, targetIndex) {
-  // Idea
-  // a, b, c, d, e -> move(b, d) -> a, c, d, b, e
-  // a, b, c, d, e -> move(d, a) -> d, a, b, c, e
-  // a, b, c, d, e -> move(a, d) -> b, c, d, a, e
-  const sourceItem = data[sourceIndex];
-
-  // 1. detach - a, c, d, e - a, b, c, e, - b, c, d, e
-  const ret = data.slice(0, sourceIndex).concat(
-    data.slice(sourceIndex + 1)
-  );
-
-  // 2. attach - a, c, d, b, e - d, a, b, c, e - b, c, d, a, e
-  return ret.slice(0, targetIndex).concat([sourceItem]).concat(
-    ret.slice(targetIndex)
-  );
-}
-
-const DragTypes = {
-  HEADER: 'header'
-};
-const headerSource = {
-  beginDrag({ label }) {
-    return { label };
-  }
-};
-const headerTarget = {
-  hover(targetProps, monitor) {
-    const targetLabel = targetProps.label;
-    const sourceProps = monitor.getItem();
-    const sourceLabel = sourceProps.label;
-
-    if (sourceLabel !== targetLabel && targetProps.onMove) {
-      targetProps.onMove({ sourceLabel, targetLabel });
-    }
-  },
-  drop(targetProps) {
-    if (targetProps.onFinishMove) {
-      targetProps.onFinishMove();
-    }
-  }
-};
-const DndHeader = compose(
-  DragSource( // eslint-disable-line new-cap
-    DragTypes.HEADER, headerSource, connect => ({
-      connectDragSource: connect.dragSource()
-    })
-  ),
-  DropTarget( // eslint-disable-line new-cap
-    DragTypes.HEADER, headerTarget, connect => ({
-      connectDropTarget: connect.dropTarget()
-    })
-  )
-)(({
-  connectDragSource, connectDropTarget, label, // eslint-disable-line no-unused-vars
-  children, onMove, onFinishMove, ...props // eslint-disable-line no-unused-vars
-}) => (
-  connectDragSource(connectDropTarget(
-    <th {...props}>{children}</th>
-  ))
-));
+export default EasyTable;
