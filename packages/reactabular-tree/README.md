@@ -5,6 +5,7 @@
 ```jsx
 /*
 import React from 'react';
+import cloneDeep from 'lodash/cloneDeep';
 import orderBy from 'lodash/orderBy';
 import { compose } from 'redux';
 import { Table, search, Search, sort, resolve } from 'reactabular';
@@ -85,9 +86,13 @@ class TreeTable extends React.Component {
                 {tree.hasChildren(rows, cellIndex) && <span
                   className={rowData.showChildren ? 'show-less' : 'show-more'}
                   onClick={e => {
-                    rows[cellIndex].showChildren = !rowData.showChildren;
+                    const newRows = cloneDeep(rows);
 
-                    this.setState({ rows });
+                    newRows[cellIndex].showChildren = !rowData.showChildren;
+
+                    this.setState({
+                      rows: newRows
+                    });
                   }}
                 />}
                 {name}
