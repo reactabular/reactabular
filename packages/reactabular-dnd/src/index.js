@@ -1,7 +1,11 @@
-import DndHeader from './header';
-import moveLabels from './move';
+import Header from './header';
+import Row from './row';
+import { moveChildrenLabels, moveLabels, moveRows } from './move';
 
 export {
-  DndHeader,
-  moveLabels
+  moveChildrenLabels,
+  moveLabels,
+  moveRows,
+  Header,
+  Row
 };

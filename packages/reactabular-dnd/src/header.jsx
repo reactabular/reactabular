@@ -44,6 +44,5 @@ const header = ({
     <th {...props}>{children}</th>
   ))
 );
-const DndHeader = dragSource(dropTarget(header));
 
-export default DndHeader;
+export default dragSource(dropTarget(header));

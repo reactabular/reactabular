@@ -18,6 +18,7 @@ import transform from 'lodash/transform';
 import EasyTable from 'reactabular-easy';
 import * as reactEdit from 'react-edit';
 import * as reactabular from 'reactabular';
+import * as dnd from 'reactabular-dnd';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as stylesheet from 'stylesheet-helpers';
 
@@ -49,6 +50,7 @@ const documentationImports = {
   resolve: { ...reactabular.resolve },
   SearchColumns: reactabular.SearchColumns,
   Search: reactabular.Search,
+  dnd: { ...dnd },
   resizableColumn: reactabular.resizableColumn,
   VisibilityToggles,
   EasyTable,
@@ -212,6 +214,11 @@ const pages = [
     component: require('../packages/reactabular-select/README.md')
   },
   {
+    path: 'drag-and-drop',
+    title: 'Drag and Drop',
+    component: require('../packages/reactabular-dnd/README.md')
+  },
+  {
     path: 'sticky',
     title: 'Sticky',
     component: require('../packages/reactabular-sticky/README.md')
@@ -238,11 +245,6 @@ const pages = [
         path: 'examples/crud',
         title: 'CRUD',
         component: require('./examples/crud.md')
-      },
-      {
-        path: 'examples/drag-and-drop',
-        title: 'Drag and Drop',
-        component: require('./examples/drag-and-drop.md')
       },
       {
         path: 'examples/excel',

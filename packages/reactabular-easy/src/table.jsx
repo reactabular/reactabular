@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Table, Sticky, sort, resizableColumn, resolve, highlight, search, select
 } from 'reactabular';
-import { DndHeader, moveLabels } from 'reactabular-dnd';
+import * as dnd from 'reactabular-dnd';
 import { mergeClassNames } from 'reactabular-utils';
 import { compose } from 'redux';
 import uuid from 'uuid';
@@ -89,7 +89,7 @@ class EasyTable extends React.Component {
     const tableComponents = {
       ...components,
       header: {
-        cell: DndHeader
+        cell: dnd.Header
       }
     };
     const { columns, selectedRow, sortingColumns } = this.state;
@@ -280,7 +280,7 @@ class EasyTable extends React.Component {
   }
   onMove(labels) {
     // This returns a new instance, no need to cloneDeep.
-    const movedColumns = moveLabels(this.state.columns, labels);
+    const movedColumns = dnd.moveLabels(this.state.columns, labels);
 
     if (movedColumns) {
       // Retain widths to avoid flashing while drag and dropping.

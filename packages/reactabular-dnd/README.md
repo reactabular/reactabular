@@ -5,11 +5,12 @@
 ```jsx
 /*
 import React from 'react';
-import { compose } from 'redux';
-import { DragDropContext, DragSource, DropTarget } from 'react-dnd';
+import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import { Table, resolve } from 'reactabular';
+import * as dnd from 'reactabular-dnd';
 */
 
 const rows = [
@@ -66,6 +67,7 @@ class DragAndDropTable extends React.Component {
           header: {
             label: 'Name',
             props: {
+              label: 'Name',
               onMove: o => this.onMove(o)
             }
           },
@@ -80,6 +82,7 @@ class DragAndDropTable extends React.Component {
               header: {
                 label: 'First Name',
                 props: {
+                  label: 'First Name',
                   onMove: o => this.onChildMove(o)
                 }
               }
@@ -94,6 +97,7 @@ class DragAndDropTable extends React.Component {
               header: {
                 label: 'Last Name',
                 props: {
+                  label: 'Last Name',
                   onMove: o => this.onChildMove(o)
                 }
               }
@@ -103,6 +107,7 @@ class DragAndDropTable extends React.Component {
         {
           property: 'company',
           props: {
+            label: 'Company',
             style: {
               width: 100
             }
@@ -124,6 +129,7 @@ class DragAndDropTable extends React.Component {
           header: {
             label: 'Sentence',
             props: {
+              label: 'Sentence',
               onMove: o => this.onMove(o)
             }
           }
@@ -140,10 +146,10 @@ class DragAndDropTable extends React.Component {
   render() {
     const components = {
       header: {
-        cell: DndHeader
+        cell: dnd.Header
       },
       body: {
-        row: DndRow
+        row: dnd.Row
       }
     };
     const { columns, rows } = this.state;
@@ -170,7 +176,7 @@ class DragAndDropTable extends React.Component {
     };
   }
   onMoveRow({ sourceRowId, targetRowId }) {
-    const movedRows = moveRows(this.state.rows, { sourceRowId, targetRowId });
+    const movedRows = dnd.moveRows(this.state.rows, { sourceRowId, targetRowId });
 
     if (movedRows) {
       this.setState({
@@ -179,12 +185,12 @@ class DragAndDropTable extends React.Component {
     }
   }
   onMove(labels) {
-    const movedColumns = moveLabels(this.state.columns, labels);
+    const movedColumns = dnd.moveLabels(this.state.columns, labels);
 
     if (movedColumns) {
       // Retain widths to avoid flashing while drag and dropping.
-      const source = movedColumns.columns[movedColumns.sourceIndex];
-      const target = movedColumns.columns[movedColumns.targetIndex];
+      const source = movedColumns.source;
+      const target = movedColumns.target;
       const sourceWidth = source.props.style && source.props.style.width;
       const targetWidth = target.props.style && target.props.style.width;
 
@@ -203,202 +209,18 @@ class DragAndDropTable extends React.Component {
     }
   }
   onChildMove(labels) {
-    const { sourceLabel, targetLabel } = labels;
-    const columns = this.state.columns;
-
-    const sourceIndex = findIndex(
-      columns,
-      column => (
-        findIndex(
-          column.children,
-          { header: { label: sourceLabel } }
-        ) >= 0
-      )
-    );
-
-    if (sourceIndex < 0) {
-      return;
-    }
-
-    const targetIndex = findIndex(
-      columns,
-      column => (
-        findIndex(
-          column.children,
-          { header: { label: targetLabel } }
-        ) >= 0
-      )
-    );
-
-    if (targetIndex < 0) {
-      return;
-    }
-
-    // Allow drag and drop only within the same column
-    if (sourceIndex !== targetIndex) {
-      return;
-    }
-
-    const movedChildren = moveLabels(columns[sourceIndex].children, labels);
+    const movedChildren = dnd.moveChildrenLabels(this.state.columns, labels);
 
     if (movedChildren) {
-      columns[sourceIndex].children = movedChildren.columns;
+      const columns = cloneDeep(this.state.columns);
+
+      columns[movedChildren.target].children = movedChildren.columns;
 
       // Here we assume children have the same width.
       this.setState({ columns });
     }
   }
 }
-
-function moveRows(rows, { sourceRowId, targetRowId }) {
-  const sourceIndex = findIndex(
-    rows,
-    { id: sourceRowId }
-  );
-
-  if (sourceIndex < 0) {
-    return null;
-  }
-
-  const targetIndex = findIndex(
-    rows,
-    { id: targetRowId }
-  );
-
-  if (targetIndex < 0) {
-    return null;
-  }
-
-  return move(rows, sourceIndex, targetIndex);
-}
-
-function moveLabels(columns, { sourceLabel, targetLabel }) {
-  const sourceIndex = findIndex(
-    columns,
-    { header: { label: sourceLabel } }
-  );
-
-  if (sourceIndex < 0) {
-    return null;
-  }
-
-  const targetIndex = findIndex(
-    columns,
-    { header: { label: targetLabel } }
-  );
-
-  if (targetIndex < 0) {
-    return null;
-  }
-
-  return {
-    sourceIndex,
-    targetIndex,
-    columns: move(columns, sourceIndex, targetIndex)
-  };
-}
-
-function move(data, sourceIndex, targetIndex) {
-  // Idea
-  // a, b, c, d, e -> move(b, d) -> a, c, d, b, e
-  // a, b, c, d, e -> move(d, a) -> d, a, b, c, e
-  // a, b, c, d, e -> move(a, d) -> b, c, d, a, e
-  const sourceItem = data[sourceIndex];
-
-  // 1. detach - a, c, d, e - a, b, c, e, - b, c, d, e
-  const ret = data.slice(0, sourceIndex).concat(
-    data.slice(sourceIndex + 1)
-  );
-
-  // 2. attach - a, c, d, b, e - d, a, b, c, e - b, c, d, a, e
-  return ret.slice(0, targetIndex).concat([sourceItem]).concat(
-    ret.slice(targetIndex)
-  );
-}
-
-const DragTypes = {
-  HEADER: 'header',
-  ROW: 'row'
-};
-
-const headerSource = {
-  beginDrag({ children }) {
-    // XXX: This will fail if you use a custom label.
-    // A good alternative would be to pass an id through
-    // a prop.
-    return {
-      label: children
-    };
-  }
-};
-const headerTarget = {
-  hover(targetProps, monitor) {
-    const targetLabel = targetProps.children;
-    const sourceProps = monitor.getItem();
-    const sourceLabel = sourceProps.label;
-
-    if (sourceLabel !== targetLabel) {
-      targetProps.onMove({ sourceLabel, targetLabel });
-    }
-  }
-};
-const DndHeader = compose(
-  DragSource(
-    DragTypes.HEADER, headerSource, connect => ({
-      connectDragSource: connect.dragSource()
-    })
-  ),
-  DropTarget(
-    DragTypes.HEADER, headerTarget, connect => ({
-      connectDropTarget: connect.dropTarget()
-    })
-  )
-)(({
-  connectDragSource, connectDropTarget, children, onMove, ...props
-}) => (
-  connectDragSource(connectDropTarget(
-    <th {...props}>{children}</th>
-  ))
-));
-
-const rowSource = {
-  beginDrag({ rowId }) {
-    return { rowId };
-  }
-};
-const rowTarget = {
-  hover(targetProps, monitor) {
-    const targetRowId = targetProps.rowId;
-    const sourceProps = monitor.getItem();
-    const sourceRowId = sourceProps.rowId;
-
-    if (sourceRowId !== targetRowId) {
-      targetProps.onMove({ sourceRowId, targetRowId });
-    }
-  }
-};
-const DndRow = compose(
-  DragSource(
-    DragTypes.ROW, rowSource, connect => ({
-      connectDragSource: connect.dragSource()
-    })
-  ),
-  DropTarget(
-    DragTypes.ROW, rowTarget, connect => ({
-      connectDropTarget: connect.dropTarget()
-    })
-  )
-)(({
-  connectDragSource, connectDropTarget, children, onMove, rowId, ...props
-}) => (
-  // If you want to drag using a handle instead, then you need to pass
-  // connectDragSource to a customized cell (DndCell) through React
-  // context and wrap the handle there. You also need to annotate
-  // this function using connectDragPreview.
-  connectDragSource(connectDropTarget(
-    <tr {...props}>{children}</tr>
-  ))
-));
 
 const DragAndDrop = DragDropContext(HTML5Backend)(DragAndDropTable);
 
