@@ -5,10 +5,9 @@
 ```jsx
 /*
 import React from 'react';
-import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import { compose } from 'redux';
-import { Table, search, Search, sort } from 'reactabular';
+import { Table, search, Search, sort, resolve } from 'reactabular';
 import * as tree from 'reactabular-tree';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 
@@ -79,8 +78,7 @@ class TreeTable extends React.Component {
         cell: {
           format: (name, { rowData }) => {
             const rows = this.state.rows;
-            // Optimization - Operate based on index for faster lookups
-            const cellIndex = findIndex(rows, { id: rowData.id });
+            const cellIndex = rowData._index;
 
             return (
               <div style={{ paddingLeft: `${tree.getLevel(rows, cellIndex) * 1}em` }}>
@@ -114,13 +112,26 @@ class TreeTable extends React.Component {
   }
   render() {
     const { searchColumn, columns, sortingColumns, rows, query } = this.state;
-    const cols = columns.filter(column => column.visible);
+    const visibleColumns = columns.filter(column => column.visible);
     const d = compose(
       tree.filter,
       tree.unpack,
-      sort.sorter({ columns: cols, sortingColumns, sort: orderBy }),
-      search.multipleColumns({ columns: cols, query }),
-      tree.pack
+      sort.sorter({
+        columns: visibleColumns,
+        sortingColumns,
+        sort: orderBy
+      }),
+      search.multipleColumns({
+        columns: visibleColumns,
+        query
+      }),
+      tree.pack,
+      resolve.resolve(
+        {
+          columns: visibleColumns,
+          method: resolve.index
+        }
+      )
     )(rows);
 
     return (
@@ -135,7 +146,7 @@ class TreeTable extends React.Component {
           <Search
             column={searchColumn}
             query={query}
-            columns={cols}
+            columns={visibleColumns}
             rows={rows}
             onColumnChange={searchColumn => this.setState({ searchColumn })}
             onChange={query => this.setState({ query })}
@@ -144,7 +155,7 @@ class TreeTable extends React.Component {
 
         <Table.Provider
           className="pure-table pure-table-striped"
-          columns={cols}
+          columns={visibleColumns}
         >
           <Table.Header />
 
