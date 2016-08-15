@@ -38,12 +38,19 @@ class TreeTable extends React.Component {
   constructor(props) {
     super(props);
 
+    const columns = this.getColumns();
+
     this.state = {
       searchColumn: 'all',
       query: {},
       sortingColumns: null,
-      rows,
-      columns: this.getColumns()
+      rows: resolve.resolve(
+        {
+          columns,
+          method: resolve.index
+        }
+      )(rows),
+      columns
     };
 
     this.onToggleColumn = this.onToggleColumn.bind(this);
@@ -130,13 +137,7 @@ class TreeTable extends React.Component {
         columns: visibleColumns,
         query
       }),
-      tree.pack,
-      resolve.resolve(
-        {
-          columns: visibleColumns,
-          method: resolve.index
-        }
-      )
+      tree.pack
     )(rows);
 
     return (
