@@ -44,8 +44,8 @@ export default class Body extends React.Component {
         return React.createElement(BodyRow, {
           key: `${r[rowKey] || i}-row`,
           components: components.body,
+          onRow,
           row: r,
-          rowProps: onRow(r, i),
           rowIndex: i,
           rowData: rows[i],
           columns: bodyColumns
@@ -76,16 +76,15 @@ class BodyRow extends React.Component {
     return !(
       isEqual(previousProps.columns, nextProps.columns) &&
       isEqual(previousProps.row, nextProps.row) &&
-      isEqual(previousProps.rowProps, nextProps.rowProps) &&
       isEqual(previousProps.rowData, nextProps.rowData)
     );
   }
   render() {
-    const { columns, components, row, rowProps, rowIndex, rowData } = this.props;
+    const { columns, components, row, onRow, rowIndex, rowData } = this.props;
 
     return React.createElement(
       components.row,
-      rowProps,
+      onRow(row, rowIndex),
       columns.map(({ column, cell, property, props }, j) => {
         const {
           transforms = [],
@@ -116,6 +115,9 @@ class BodyRow extends React.Component {
     );
   }
 }
+BodyRow.defaultProps = {
+  onRow: () => ({})
+};
 BodyRow.propTypes = {
   columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object,
@@ -123,7 +125,7 @@ BodyRow.propTypes = {
     React.PropTypes.array,
     React.PropTypes.object
   ]),
-  rowProps: React.PropTypes.object,
+  onRow: React.PropTypes.func,
   rowIndex: React.PropTypes.number.isRequired,
   rowData: React.PropTypes.oneOfType([
     React.PropTypes.array,
