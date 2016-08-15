@@ -61,18 +61,10 @@ const editable = edit.edit({
 
 ...
 
-// Pass a custom editor to `editable`.
-columns: [
-  {
-    header: {
-      label: 'name'
-    },
-    cell: {
-      property: 'name',
-      transforms: [editable(edit.input())]
-    }
-  }
-]
+// Wrap within an element and render.
+React.createElement('div', editable(edit.input())(
+  value, { columnIndex, rowData }, { ... custom props ... }
+));
 ```
 
 ## Editing Interface
