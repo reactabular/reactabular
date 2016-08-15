@@ -5,7 +5,7 @@ describe('resolve.nested', function () {
   it('resolves nested values', function () {
     const lastName = 'demo';
     const property = 'name.last';
-    const row = {
+    const rowData = {
       name: {
         last: lastName
       }
@@ -18,47 +18,47 @@ describe('resolve.nested', function () {
     };
     const column = { property };
 
-    expect(nested(row, column)).to.deep.equal(expected);
+    expect(nested({ rowData, column })).to.deep.equal(expected);
   });
 
   it('resolves normal values', function () {
     const name = 'demo';
     const property = 'name';
-    const row = {
+    const rowData = {
       name
     };
     const column = { property };
 
-    expect(nested(row, column)).to.deep.equal({ [property]: name });
+    expect(nested({ rowData, column })).to.deep.equal({ [property]: name });
   });
 
   it('does nothing if there is no property', function () {
     const name = 'demo';
-    const row = {
+    const rowData = {
       name
     };
     const column = { property: undefined };
 
-    expect(nested(row, column)).to.deep.equal({});
+    expect(nested({ rowData, column })).to.deep.equal({});
   });
 
   it('does not crash without a property', function () {
     const name = 'demo';
-    const row = {
+    const rowData = {
       name
     };
     const column = { cell: {} };
 
-    expect(nested(row, column)).to.deep.equal({});
+    expect(nested({ rowData, column })).to.deep.equal({});
   });
 
   it('does not crash without a cell', function () {
     const name = 'demo';
-    const row = {
+    const rowData = {
       name
     };
     const column = {};
 
-    expect(nested(row, column)).to.deep.equal({});
+    expect(nested({ rowData, column })).to.deep.equal({});
   });
 });

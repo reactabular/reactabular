@@ -8,17 +8,17 @@ Reactabular provides **resolve** module for handling with these cases. The syste
 
 **`({ columns: <columns>, method: <resolver function>}) => <rows> => <rows>`**
 
-The `resolve` iterator accepts columns and a method. When applied with rows, it will return resolved rows.
+The `resolve` iterator accepts columns and a method. When applied with rows, it will return resolved rows. A resolver function accepts a function with signature like this: `({ rowData, rowIndex, column }) => <resolved row>`.
 
 ### `resolve.nested`
 
-**`(row, column) => <resolved row>`**
+**`({ rowData, column }) => <resolved row>`**
 
 The `nested` resolver digs rows from a `property: 'name.first'` kind of definition and maps the received value to property name. It replaces the original value with the resolved one.
 
 ### `resolve.byFunction`
 
-**`(path: <string>) => (row, column) => <resolved row>`**
+**`(path: <string>) => ({ rowData, column }) => <resolved row>`**
 
 The `byFunction` resolver accepts a path from where to look for a resolving function. It could be `column.cell.resolve` for example and you can use a nested definition for getting it from your column definition.
 
@@ -31,10 +31,10 @@ If you want to combine resolvers, you can achieve it like this.
 ```javascript
 const resolver = resolve({
   columns,
-  method: (row, column) => byFunction('cell.resolve')(
-    nested(row, column),
+  method: (row, column) => byFunction('cell.resolve')({
+    rowData: nested(row, column),
     column
-  )
+  })
 });
 ```
 

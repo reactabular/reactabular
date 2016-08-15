@@ -1,8 +1,13 @@
 import get from 'lodash/get';
 
 function byFunction(path) {
-  return (rowData, column) => {
+  return ({ rowData, column = {} }) => {
     const { property } = column;
+
+    if (!property) {
+      return rowData;
+    }
+
     const value = rowData[property];
     const resolver = get(column, path);
     const ret = {

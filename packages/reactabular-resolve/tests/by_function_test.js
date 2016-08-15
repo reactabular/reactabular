@@ -5,7 +5,7 @@ describe('resolve.byFunction', function () {
   it('does not resolve without a resolver', function () {
     const name = 'demo';
     const property = 'name';
-    const row = {
+    const rowData = {
       name
     };
     const column = {
@@ -13,7 +13,7 @@ describe('resolve.byFunction', function () {
     };
 
     expect(
-      byFunction('column.cell.resolve')(row, column)
+      byFunction('column.cell.resolve')({ rowData, column })
     ).to.deep.equal({
       [property]: name
     });
@@ -23,7 +23,7 @@ describe('resolve.byFunction', function () {
     const countries = { dk: 'Denmark' };
     const country = 'dk';
     const property = 'country';
-    const row = {
+    const rowData = {
       country
     };
     const column = {
@@ -34,7 +34,7 @@ describe('resolve.byFunction', function () {
     };
 
     expect(
-      byFunction('cell.resolve')(row, column)
+      byFunction('cell.resolve')({ rowData, column })
     ).to.deep.equal({
       [property]: country,
       [`_${property}`]: countries.dk
@@ -46,7 +46,7 @@ describe('resolve.byFunction', function () {
     const countries = { dk: 'Denmark' };
     const country = 'dk';
     const property = 'country';
-    const row = {
+    const rowData = {
       country,
       data
     };
@@ -58,7 +58,7 @@ describe('resolve.byFunction', function () {
     };
 
     expect(
-      byFunction('cell.resolve')(row, column)
+      byFunction('cell.resolve')({ rowData, column })
     ).to.deep.equal({
       data,
       [property]: country,

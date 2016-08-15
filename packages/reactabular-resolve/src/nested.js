@@ -1,7 +1,9 @@
 import get from 'lodash/get';
 import has from 'lodash/has';
 
-function nested(rowData, { property }) {
+function nested({ rowData, column }) {
+  const { property } = column;
+
   if (!property) {
     return {};
   }

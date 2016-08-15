@@ -295,10 +295,10 @@ class AllFeaturesTable extends React.Component {
       search.multipleColumns({ columns: cols, query }),
       resolve.resolve({
         columns: cols,
-        method: (row, column) => resolve.byFunction('cell.resolve')(
-          resolve.nested(row, column),
+        method: (row, column) => resolve.byFunction('cell.resolve')({
+          rowData: resolve.nested(row, column),
           column
-        )
+        })
       })
     )(rows);
 

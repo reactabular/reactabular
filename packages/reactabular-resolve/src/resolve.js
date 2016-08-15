@@ -10,16 +10,20 @@ function resolve({ columns, method }) {
 
   const resolvedColumns = resolveBodyColumns(columns);
 
-  return rows => rows.map(row => {
+  return rows => rows.map((rowData, rowIndex) => {
     let ret = {};
 
     resolvedColumns.forEach(column => {
-      const result = method(row, column);
+      const result = method({
+        rowData,
+        rowIndex,
+        column
+      });
 
       delete result.undefined;
 
       ret = {
-        ...row,
+        ...rowData,
         ...ret,
         ...result
       };

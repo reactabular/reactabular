@@ -31,9 +31,9 @@ describe('resolve.resolve', function () {
         _name: rows[0].name
       }
     ];
-    const method = (row, { property }) => ({
-      [property]: row.name,
-      [`_${property}`]: row.name
+    const method = ({ rowData, column }) => ({
+      [column.property]: rowData.name,
+      [`_${column.property}`]: rowData.name
     });
 
     expect(resolve({
@@ -64,8 +64,8 @@ describe('resolve.resolve', function () {
         name
       }
     ];
-    const method = (row, { property }) => ({
-      [property]: row.name
+    const method = ({ rowData, column }) => ({
+      [column.property]: rowData.name
     });
 
     expect(resolve({
@@ -105,10 +105,10 @@ describe('resolve.resolve', function () {
     ];
     const resolver = resolve({
       columns,
-      method: (row, column) => byFunction('cell.resolve')(
-        nested(row, column),
+      method: ({ rowData, column }) => byFunction('cell.resolve')({
+        rowData: nested({ rowData, column }),
         column
-      )
+      })
     });
 
     expect(resolver(rows)).to.deep.equal(expected);
@@ -145,10 +145,42 @@ describe('resolve.resolve', function () {
     ];
     const resolver = resolve({
       columns,
-      method: (row, column) => byFunction('cell.resolve')(
-        nested(row, column),
+      method: ({ rowData, column }) => byFunction('cell.resolve')({
+        rowData: nested({ rowData, column }),
         column
-      )
+      })
+    });
+
+    expect(resolver(rows)).to.deep.equal(expected);
+  });
+
+  it('passes rowIndex', function () {
+    const originalId = 123;
+    const columns = [
+      {
+        cell: {
+          format: a => a
+        }
+      }
+    ];
+    const rows = [
+      {
+        id: originalId
+      }
+    ];
+    const expected = [
+      {
+        id: originalId,
+        _index: 0
+      }
+    ];
+    const method = ({ rowData, rowIndex }) => ({
+      ...rowData,
+      _index: rowIndex
+    });
+    const resolver = resolve({
+      columns,
+      method
     });
 
     expect(resolver(rows)).to.deep.equal(expected);
@@ -175,10 +207,10 @@ describe('resolve.resolve', function () {
     ];
     const resolver = resolve({
       columns,
-      method: (row, column) => byFunction('cell.resolve')(
-        nested(row, column),
+      method: ({ rowData, column }) => byFunction('cell.resolve')({
+        rowData: nested({ rowData, column }),
         column
-      )
+      })
     });
 
     expect(resolver(rows)).to.deep.equal(expected);
