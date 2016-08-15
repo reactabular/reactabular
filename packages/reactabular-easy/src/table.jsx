@@ -59,6 +59,9 @@ class EasyTable extends React.Component {
       columns: this.state.columns,
       id: this.id
     });
+
+    // We have refs now. Force update to get those to Header/Body.
+    this.forceUpdate();
   }
   componentWillUnmount() {
     this.styleSheetElement.remove();
