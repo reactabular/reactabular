@@ -15,19 +15,15 @@ const rows = [
 
 const columns = [
   {
+    property: 'name',
     header: {
       label: 'Name'
-    },
-    cell: {
-      property: 'name'
     }
   },
   {
+    property: 'dad',
     header: {
       label: 'Dad'
-    },
-    cell: {
-      property: 'dad'
     }
   }
 ];
