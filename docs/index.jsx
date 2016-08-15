@@ -250,6 +250,11 @@ const pages = [
         component: require('./examples/excel.md')
       },
       {
+        path: 'examples/expand-column-to-fit',
+        title: 'Expand Column to Fit',
+        component: require('./examples/expand-column-to-fit.md')
+      },
+      {
         path: 'examples/fixed-width-columns',
         title: 'Fixed Width Columns',
         component: require('./examples/fixed-width-columns.md')
