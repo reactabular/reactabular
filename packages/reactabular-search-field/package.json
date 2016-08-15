@@ -1,6 +1,6 @@
 {
   "name": "reactabular-search-field",
-  "version": "1.2.5",
+  "version": "1.2.6-alpha.61e29539",
   "description": "Search field for Reactabular",
   "scripts": {
     "build": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
