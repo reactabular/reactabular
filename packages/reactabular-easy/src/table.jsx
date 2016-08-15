@@ -2,13 +2,13 @@ import React from 'react';
 import {
   Table, Sticky, sort, resizableColumn, resolve, highlight, search, select
 } from 'reactabular';
+import { DndHeader, moveLabels } from 'reactabular-dnd';
 import { mergeClassNames } from 'reactabular-utils';
 import { compose } from 'redux';
 import uuid from 'uuid';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
-import { DndHeader, moveLabels } from './dnd';
 import { defaultProps, propTypes } from './types';
 import {
   createStylesheet, getColumnClassName, initializeStyles, updateWidth
