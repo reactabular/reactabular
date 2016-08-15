@@ -161,7 +161,7 @@ class Demo extends React.Component {
   }
   render() {
     const { columns, rows, query } = this.state;
-    const cols = this.state.columns.filter(column => column.visible);
+    const visibleColumns = this.state.columns.filter(column => column.visible);
 
     return (
       <div>
@@ -174,7 +174,7 @@ class Demo extends React.Component {
           <span>Search</span>
           <Search
             query={query}
-            columns={cols}
+            columns={visibleColumns}
             rows={rows}
             onChange={query => this.setState({ query })}
           />
@@ -186,7 +186,7 @@ class Demo extends React.Component {
           sortingColumns={{}}
           tableWidth={800}
           tableHeight={400}
-          columns={cols}
+          columns={visibleColumns}
           query={query}
           classNames={{
             table: {
@@ -197,7 +197,7 @@ class Demo extends React.Component {
           headerExtra={
             <SearchColumns
               query={query}
-              columns={columns}
+              columns={visibleColumns}
               onChange={query => this.setState({ query })}
             />
           }
