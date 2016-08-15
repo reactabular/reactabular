@@ -8,7 +8,7 @@ const generate = schema2object.properties2object;
 
 const adjectives = ['Super', 'Hyper', 'Awesome', 'Lame', 'Standard'];
 
-export default (amount, { definitions, properties }) => range(amount).map(
+const generateRows = (amount, { definitions, properties }) => range(amount).map(
   () => generate({
     generators,
     fieldGenerators: {
@@ -61,3 +61,5 @@ export default (amount, { definitions, properties }) => range(amount).map(
     definitions
   })
 );
+
+export default generateRows;
