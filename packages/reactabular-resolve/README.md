@@ -10,6 +10,12 @@ Reactabular provides **resolve** module for handling with these cases. The syste
 
 The `resolve` iterator accepts columns and a method. When applied with rows, it will return resolved rows. A resolver function accepts a function with signature like this: `({ rowData, rowIndex, column }) => <resolved row>`.
 
+### `resolve.index`
+
+**`({ rowData, rowIndex }) => <resolved row>`**
+
+`resolve.index` attached `rowIndex` at `_index` field of the returned row. This can be handy information to have for optimization purposes (`reactabular-tree`) but most often you don't have to use this one.
+
 ### `resolve.nested`
 
 **`({ rowData, column }) => <resolved row>`**
