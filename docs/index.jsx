@@ -19,6 +19,7 @@ import EasyTable from 'reactabular-easy';
 import * as reactEdit from 'react-edit';
 import * as reactabular from 'reactabular';
 import * as dnd from 'reactabular-dnd';
+import * as tree from 'reactabular-tree';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as stylesheet from 'stylesheet-helpers';
 
@@ -51,6 +52,7 @@ const documentationImports = {
   SearchColumns: reactabular.SearchColumns,
   Search: reactabular.Search,
   dnd: { ...dnd },
+  tree: { ...tree },
   resizableColumn: reactabular.resizableColumn,
   VisibilityToggles,
   EasyTable,
@@ -224,6 +226,11 @@ const pages = [
     component: require('../packages/reactabular-sticky/README.md')
   },
   {
+    path: 'tree',
+    title: 'Tree',
+    component: require('../packages/reactabular-tree/README.md')
+  },
+  {
     path: 'easy',
     title: 'Easy Version',
     component: require('../packages/reactabular-easy/README.md')
@@ -265,11 +272,6 @@ const pages = [
         path: 'examples/infinite-scrolling',
         title: 'Infinite Scrolling',
         component: require('./examples/infinite-scrolling.md')
-      },
-      {
-        path: 'examples/tree-view',
-        title: 'Tree View',
-        component: require('./examples/tree-view.md')
       }
     ]
   },
