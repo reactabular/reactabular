@@ -39,20 +39,24 @@ class TreeTable extends React.Component {
     super(props);
 
     const columns = this.getColumns();
+    const allRows = resolve.resolve(
+      {
+        columns,
+        method: resolve.index
+      }
+    )(rows);
 
     this.state = {
       searchColumn: 'all',
       query: {},
       sortingColumns: null,
-      rows: resolve.resolve(
-        {
-          columns,
-          method: resolve.index
-        }
-      )(rows),
+      allRows: allRows,
+      filteredRows: allRows,
+      rowsShowingChildren: [],
       columns
     };
 
+    this.onSearch = this.onSearch.bind(this);
     this.onToggleColumn = this.onToggleColumn.bind(this);
   }
   getColumns() {
@@ -64,12 +68,16 @@ class TreeTable extends React.Component {
       // The user requested sorting, adjust the sorting state accordingly.
       // This is a good chance to pass the request through a sorter.
       onSort: selectedColumn => {
-        this.setState({
-          sortingColumns: sort.byColumns({ // sort.byColumn would work too
-            sortingColumns: this.state.sortingColumns,
-            selectedColumn
+        const { columns, sortingColumns, filteredRows } = this.state;
+
+        this.setState(
+          sortTree({
+            selectedColumn,
+            columns,
+            sortingColumns,
+            rows: filteredRows
           })
-        });
+        );
       }
     });
 
@@ -85,21 +93,31 @@ class TreeTable extends React.Component {
         },
         cell: {
           format: (name, { rowData }) => {
-            const rows = this.state.rows;
+            const { allRows, rowsShowingChildren } = this.state;
             const cellIndex = rowData._index;
 
             return (
-              <div style={{ paddingLeft: `${tree.getLevel(rows, cellIndex) * 1}em` }}>
-                {tree.hasChildren(rows, cellIndex) && <span
-                  className={rowData.showChildren ? 'show-less' : 'show-more'}
+              <div style={{ paddingLeft: `${tree.getLevel(allRows, cellIndex) * 1}em` }}>
+                {tree.hasChildren(allRows, cellIndex) && <span
+                  className={rowsShowingChildren.indexOf(cellIndex) >= 0 ? 'show-less' : 'show-more'}
                   onClick={e => {
-                    const newRows = cloneDeep(rows);
+                    const { rowsShowingChildren } = this.state;
+                    const index = rowsShowingChildren.indexOf(cellIndex);
 
-                    newRows[cellIndex].showChildren = !rowData.showChildren;
-
-                    this.setState({
-                      rows: newRows
-                    });
+                    if (index >= 0) {
+                      this.setState({
+                        rowsShowingChildren: rowsShowingChildren.
+                          slice(0, index).
+                          concat(
+                            rowsShowingChildren.slice(index + 1)
+                          )
+                      })
+                    }
+                    else {
+                      this.setState({
+                        rowsShowingChildren: rowsShowingChildren.concat([cellIndex])
+                      });
+                    }
                   }}
                 />}
                 {name}
@@ -123,22 +141,11 @@ class TreeTable extends React.Component {
     ];
   }
   render() {
-    const { searchColumn, columns, sortingColumns, rows, query } = this.state;
+    const {
+      searchColumn, columns, sortingColumns,
+      allRows, filteredRows, rowsShowingChildren, query,
+    } = this.state;
     const visibleColumns = columns.filter(column => column.visible);
-    const d = compose(
-      tree.filter,
-      tree.unpack,
-      sort.sorter({
-        columns: visibleColumns,
-        sortingColumns,
-        sort: orderBy
-      }),
-      search.multipleColumns({
-        columns: visibleColumns,
-        query
-      }),
-      tree.pack
-    )(rows);
 
     return (
       <div>
@@ -153,9 +160,9 @@ class TreeTable extends React.Component {
             column={searchColumn}
             query={query}
             columns={visibleColumns}
-            rows={rows}
+            rows={allRows}
             onColumnChange={searchColumn => this.setState({ searchColumn })}
-            onChange={query => this.setState({ query })}
+            onChange={this.onSearch}
           />
         </div>
 
@@ -165,10 +172,46 @@ class TreeTable extends React.Component {
         >
           <Table.Header />
 
-          <Table.Body onRow={this.onRow} rows={d} rowKey="id" />
+          <Table.Body
+            onRow={this.onRow}
+            rows={tree.filter(filteredRows, rowsShowingChildren)}
+            rowKey="id"
+          />
         </Table.Provider>
       </div>
     );
+  }
+  onSearch(nextQuery) {
+    const { columns, sortingColumns, allRows, filteredRows, query } = this.state;
+    const visibleColumns = columns.filter(column => column.visible);
+
+    const queryLength = getQueryLength(query);
+    const nextQueryLength = getQueryLength(nextQuery);
+
+    const newRows = searchTree({
+      column: visibleColumns,
+      rows: nextQueryLength > queryLength ? filteredRows : allRows,
+      query: nextQuery
+    });
+
+    // Restore sorting. This could be pushed further by composing
+    // search and sort (avoids one pack/unpack).
+    if (nextQueryLength < queryLength) {
+      this.setState({
+        ...sortTree({
+          columns,
+          sortingColumns,
+          rows: newRows
+        }),
+        query: nextQuery
+      });
+    }
+    else {
+      this.setState({
+        filteredRows: newRows,
+        query: nextQuery
+      });
+    }
   }
   onToggleColumn(columnIndex) {
     const columns = this.state.columns;
@@ -182,6 +225,58 @@ class TreeTable extends React.Component {
       className: rowIndex % 2 ? 'odd-row' : 'even-row'
     };
   }
+}
+
+function sortTree({ columns, sortingColumns, selectedColumn, rows }) {
+  let newSortingColumns;
+
+  if (selectedColumn >= 0) {
+    newSortingColumns = sort.byColumns({ // sort.byColumn would work too
+      sortingColumns,
+      selectedColumn
+    });
+  }
+
+  const newRows = sortTreeKernel({
+    columns: columns.filter(column => column.visible),
+    sortingColumns: newSortingColumns || sortingColumns,
+    rows
+  });
+
+  return {
+    filteredRows: newRows,
+    sortingColumns: newSortingColumns || sortingColumns
+  };
+}
+
+function sortTreeKernel({ columns, sortingColumns, rows}) {
+  return compose(
+    tree.unpack,
+    sort.sorter({
+      columns,
+      sortingColumns,
+      sort: orderBy
+    }),
+    tree.pack
+  )(rows);
+}
+
+function searchTree({ column, rows, query }) {
+  return compose(
+    tree.unpack,
+    search.multipleColumns({
+      columns,
+      query
+    }),
+    tree.pack
+  )(rows);
+}
+
+// This picks only the length of the first query part.
+function getQueryLength(query) {
+  const keys =  Object.keys(query);
+
+  return keys.length ? query[keys[0]].length : 0;
 }
 
 <TreeTable />

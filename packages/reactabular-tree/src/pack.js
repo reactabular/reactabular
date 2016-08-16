@@ -1,5 +1,5 @@
 // Folds children inside root parents
-function packTree(rows) {
+function packTree(rows = []) {
   const ret = [];
   let pack = [];
   let previousParent;
