@@ -106,10 +106,10 @@ class EasyTable extends React.Component {
       search.multipleColumns({ columns, query }),
       resolve.resolve({
         columns,
-        method: (row, column) => resolve.byFunction('cell.resolve')(
-          resolve.nested(row, column),
+        method: (row, column) => resolve.byFunction('cell.resolve')({
+          rowData: resolve.nested(row, column),
           column
-        )
+        })
       })
     )(this.state.rows);
     const tableHeaderWidth = this.tableHeader ? this.tableHeader.scrollWidth : 0;
