@@ -3720,6 +3720,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          overflow: 'auto'
 	        })
 	      }, props, {
+	        // Override onScroll as otherwise the logic won't work
 	        onScroll: function onScroll(_ref) {
 	          var scrollLeft = _ref.target.scrollLeft;
 	
@@ -3810,6 +3811,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          overflow: 'auto'
 	        })
 	      }, props, {
+	        // Override onScroll as otherwise the logic won't work
 	        onScroll: function onScroll(_ref) {
 	          var scrollLeft = _ref.target.scrollLeft;
 	
@@ -4652,8 +4654,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  } : _ref$getSortingColumn;
 	  var _ref$onReset = _ref.onReset;
 	  var onReset = _ref$onReset === undefined ? function () {} : _ref$onReset;
-	  return function (value, _ref2) {
-	    var columnIndex = _ref2.columnIndex;
+	  var _ref$fieldName = _ref.fieldName;
+	  var fieldName = _ref$fieldName === undefined ? 'columnIndex' : _ref$fieldName;
+	  return function (value, extra) {
 	    return _defineProperty({}, event, function () {
 	      var sortingColumns = getSortingColumns();
 	
@@ -4661,10 +4664,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return;
 	      }
 	
-	      var position = sortingColumns[columnIndex].position;
+	      var field = extra[fieldName];
+	
+	      var position = sortingColumns[field].position;
 	      var newSortingColumns = {};
 	
-	      delete sortingColumns[columnIndex];
+	      delete sortingColumns[field];
 	
 	      Object.keys(sortingColumns).forEach(function (k) {
 	        var column = sortingColumns[k];
@@ -7240,8 +7245,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
 	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -7270,12 +7273,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var onOptionsChange = function onOptionsChange(_ref2) {
 	    var value = _ref2.target.value;
 	
-	    onChange(_extends({}, query, _defineProperty({}, value, query[value])));
+	    onChange(_defineProperty({}, value, query[value]));
 	    onColumnChange(value);
 	  };
 	  var onQueryChange = function onQueryChange(_ref3) {
 	    var value = _ref3.target.value;
-	    return onChange(_extends({}, query, _defineProperty({}, column, value)));
+	    return onChange(_defineProperty({}, column, value));
 	  };
 	
 	  return _react2.default.createElement(
