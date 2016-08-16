@@ -12,7 +12,6 @@ const propTypes = {
   classNames: React.PropTypes.object,
   styles: React.PropTypes.object,
   components: React.PropTypes.object,
-  selectedRowIdField: React.PropTypes.string,
   onRow: React.PropTypes.func,
   onDragColumn: React.PropTypes.func,
   onMoveColumns: React.PropTypes.func,
@@ -53,7 +52,6 @@ const defaultProps = {
     }
   },
   components: {},
-  selectedRowIdField: 'id',
   onRow: () => ({}),
   onDragColumn: () => {},
   onMoveColumns: () => {},

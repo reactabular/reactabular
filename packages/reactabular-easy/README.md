@@ -193,7 +193,6 @@ class Demo extends React.Component {
               wrapper: 'pure-table pure-table-striped'
             }
           }}
-          selectedRowId="id"
           headerExtra={
             <SearchColumns
               query={query}

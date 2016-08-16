@@ -308,28 +308,28 @@ class EasyTable extends React.Component {
     };
   }
   selectRow(selectedRowIndex) {
-    const { selectedRowIdField } = this.props;
+    const { rowKey } = this.props;
     const { rows } = this.state;
     const selected = select.row({
       rows,
       isSelected: (row, selectedRowId) => (
-        row[selectedRowIdField] === selectedRowId
+        row[rowKey] === selectedRowId
       ),
-      selectedRowId: rows[selectedRowIndex][selectedRowIdField]
+      selectedRowId: rows[selectedRowIndex][rowKey]
     });
 
     this.props.onSelectRow({
-      selectedRowId: selected.selectedRow[selectedRowIdField],
+      selectedRowId: selected.selectedRow[rowKey],
       selectedRow: selected.selectedRow
     });
 
     this.setState(selected);
   }
   getSelectedRowIndex(selectedRow) {
-    const { selectedRowIdField } = this.props;
+    const { rowKey } = this.props;
 
     return findIndex(this.state.rows, {
-      [selectedRowIdField]: selectedRow[selectedRowIdField]
+      [rowKey]: selectedRow[rowKey]
     });
   }
 }
