@@ -11,23 +11,25 @@ class Header extends React.Component {
   render() {
     const { style, tableBody, ...props } = this.props;
 
-    return (
-      <TableHeader
-        ref={header => {
+    return React.createElement(
+      TableHeader,
+      {
+        ref: header => {
           this.ref = header && header.getRef();
-        }}
-        style={{
+        },
+        style: {
           ...style || {},
           display: 'block',
           overflow: 'auto'
-        }}
-        {...props}
-        onScroll={({ target: { scrollLeft } }) => {
+        },
+        ...props,
+        // Override onScroll as otherwise the logic won't work
+        onScroll: ({ target: { scrollLeft } }) => {
           if (tableBody) {
             tableBody.scrollLeft = scrollLeft;
           }
-        }}
-      />
+        }
+      }
     );
   }
   getRef() {

@@ -11,23 +11,25 @@ class Body extends React.Component {
   render() {
     const { style, tableHeader, ...props } = this.props;
 
-    return (
-      <TableBody
-        ref={body => {
+    return React.createElement(
+      TableBody,
+      {
+        ref: body => {
           this.ref = body && body.getRef();
-        }}
-        style={{
+        },
+        style: {
           ...style || {},
           display: 'block',
           overflow: 'auto'
-        }}
-        {...props}
-        onScroll={({ target: { scrollLeft } }) => {
+        },
+        ...props,
+        // Override onScroll as otherwise the logic won't work
+        onScroll: ({ target: { scrollLeft } }) => {
           if (tableHeader) {
             tableHeader.scrollLeft = scrollLeft;
           }
-        }}
-      />
+        }
+      }
     );
   }
   getRef() {
