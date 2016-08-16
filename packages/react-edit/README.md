@@ -65,6 +65,9 @@ const editable = edit.edit({
 React.createElement('div', editable(edit.input())(
   value, { columnIndex, rowData }, { ... custom props ... }
 ));
+
+// Or in JSX
+<div {...editable(edit.input())(...)} />
 ```
 
 ## Editing Interface
