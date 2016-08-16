@@ -188,7 +188,7 @@ const reverseSort = (data, columnIndexList, orderList) => (
 
 `sort.sort` can be applied as a transform. It expects `getSortingColumns` and `onSort` callbacks. The former should return the sorting column data, the latter is called when the user sorts based on `event`.
 
-### `sort.reset = ({ event = 'onDoubleClick', getSortingColumns = () => [], onReset = (columnIndex) => {} } = {}) => (value, { columnIndex }, props)`
+### `sort.reset = ({ event = 'onDoubleClick', getSortingColumns = () => [], fieldName = 'columnIndex', onReset = (columnIndex) => {} } = {}) => (value, { columnIndex }, props)`
 
 `sort.reset` can be applied as a transform. It expects `getSortingColumns` and `onReset` callbacks. The former should return the sorting column data, the latter is called when the user sorts based on `event`.
 

@@ -1,8 +1,9 @@
 const reset = ({
   event = 'onDoubleClick',
   getSortingColumns = () => [],
-  onReset = () => {}
-}) => (value, { columnIndex }) => ({
+  onReset = () => {},
+  fieldName = 'columnIndex'
+}) => (value, extra) => ({
   [event]: () => {
     const sortingColumns = getSortingColumns();
 
@@ -10,10 +11,12 @@ const reset = ({
       return;
     }
 
-    const position = sortingColumns[columnIndex].position;
+    const field = extra[fieldName];
+
+    const position = sortingColumns[field].position;
     const newSortingColumns = {};
 
-    delete sortingColumns[columnIndex];
+    delete sortingColumns[field];
 
     Object.keys(sortingColumns).forEach(k => {
       const column = sortingColumns[k];
