@@ -37,8 +37,8 @@ If you want to combine resolvers, you can achieve it like this.
 ```javascript
 const resolver = resolve({
   columns,
-  method: (row, column) => byFunction('cell.resolve')({
-    rowData: nested(row, column),
+  method: ({ rowData, column }) => byFunction('cell.resolve')({
+    rowData: nested({ rowData, column }),
     column
   })
 });
