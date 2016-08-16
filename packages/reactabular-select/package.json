@@ -3,14 +3,11 @@
   "version": "2.0.0",
   "description": "Row selection utilities for Reactabular",
   "scripts": {
-    "build:all": "npm run build:es5 && npm run build:es6",
-    "build:es5": "rimraf ./dist-es5 && cross-env BABEL_ENV=es5 babel ./src --out-dir ./dist-es5",
-    "build:es6": "rimraf ./dist-es6 && cross-env BABEL_ENV=es6 babel ./src --out-dir ./dist-es6",
-    "prepublish": "npm run build:all"
+    "build": "rimraf ./dist && babel ./src --out-dir ./dist",
+    "prepublish": "npm run build"
   },
   "files": [
-    "dist-es5",
-    "dist-es6",
+    "dist",
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
@@ -34,9 +31,9 @@
     "url": "https://github.com/reactabular/reactabular/issues"
   },
   "homepage": "http://reactabular.js.org/",
-  "main": "dist-es5",
-  "module": "dist-es6",
-  "jsnext:main": "dist-es6",
+  "main": "dist",
+  "module": "dist",
+  "jsnext:main": "dist",
   "dependencies": {
     "react-dnd": "^2.1.4",
     "reactabular-utils": "^2.0.0",
@@ -46,7 +43,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
-    "cross-env": "^2.0.0",
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {

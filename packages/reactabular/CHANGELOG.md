@@ -1,3 +1,8 @@
+2.0.1 / 2016-08-16
+==================
+
+  * Improvement - Generate a proper ES6 build for each package. This time it transpiles ES6 features too unlike before. The problem was that Babel didn't transpile object rest spread within ES6 classes correctly. This means ES6 -> ES5 transformation needs to be performed. Not ideal, but this works.
+
 2.0.0 / 2016-08-16
 ==================
 
