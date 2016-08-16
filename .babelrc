@@ -14,22 +14,12 @@
     ]
   ],
   "env": {
-    "dist:build": {
-      "presets": [
-        "es2015"
-      ]
-    },
-    "dist:build-min": {
+    "default": {
       "presets": [
         "es2015"
       ]
     },
     "es5": {
-      "presets": [
-        "es2015"
-      ]
-    },
-    "gh-pages:build": {
       "presets": [
         "es2015"
       ]
@@ -46,19 +36,6 @@
       ],
       "plugins": [
         "istanbul"
-      ]
-    },
-    "test:tdd": {
-      "presets": [
-        "es2015"
-      ],
-      "plugins": [
-        "istanbul"
-      ]
-    },
-    "test:lint": {
-      "presets": [
-        "es2015"
       ]
     }
   }

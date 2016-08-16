@@ -7,16 +7,16 @@
     "init": "npm install && lerna bootstrap",
     "start": "cross-env BABEL_ENV=start webpack-dev-server",
     "test": "cross-env BABEL_ENV=test karma start --",
-    "test:tdd": "cross-env BABEL_ENV=test:tdd karma start --auto-watch --no-single-run --",
-    "test:lint": "cross-env BABEL_ENV=test:lint eslint . --ext .js --ext .jsx --cache",
+    "test:tdd": "cross-env BABEL_ENV=test karma start --auto-watch --no-single-run --",
+    "test:lint": "cross-env BABEL_ENV=default eslint . --ext .js --ext .jsx --cache",
     "gh-pages:build-and-deploy": "npm run gh-pages:build && npm run gh-pages:deploy",
-    "gh-pages:build": "cross-env BABEL_ENV=gh-pages:build webpack",
+    "gh-pages:build": "cross-env BABEL_ENV=default webpack",
     "gh-pages:deploy": "gh-pages -d gh-pages",
     "gh-pages:stats": "webpack --json --profile > stats.json",
     "dist:update": "npm run dist:all && git commit --allow-empty -am \"Update dist\"",
     "dist:all": "npm run dist:build && npm run dist:build-min",
-    "dist:build": "cross-env BABEL_ENV=dist:build webpack",
-    "dist:build-min": "cross-env BABEL_ENV=dist:build-min webpack"
+    "dist:build": "cross-env BABEL_ENV=default webpack",
+    "dist:build-min": "cross-env BABEL_ENV=default webpack"
   },
   "repository": {
     "type": "git",
