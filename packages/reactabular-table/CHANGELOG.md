@@ -1,3 +1,8 @@
+2.0.0 / 2016-08-16
+==================
+
+  * Improvement - Improve performance by pushing `onRow` check lower in the component hierarchy.
+
 1.2.3 / 2016-08-08
 ==================
 

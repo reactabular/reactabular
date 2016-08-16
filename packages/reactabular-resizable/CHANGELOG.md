@@ -1,3 +1,9 @@
+2.0.0 / 2016-08-16
+==================
+
+  * Breaking - Extract header styling to a separate file (`style.css` at package root) and allow `style` prop to be passed.
+  * Improvement - Document how to offset the widget. #179.
+
 1.2.2 / 2016-08-07
 ==================
 

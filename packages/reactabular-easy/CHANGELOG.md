@@ -1,3 +1,11 @@
+2.0.0 / 2016-08-16
+==================
+
+  * Breaking - Push `sortingColumns` to a prop. You should control its state yourself.
+  * Improvement - Add suggested default styling (`style.css` at package root).
+  * Improvement - Allow `classNames` and `styles` props to be passed for styling.
+  * Bug fix - Force update after mounting. This is needed for the sticky ref scheme to work.
+
 1.2.6 / 2016-08-11
 ==================
 

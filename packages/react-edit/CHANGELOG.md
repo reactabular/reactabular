@@ -1,3 +1,9 @@
+2.0.0 / 2016-08-16
+==================
+
+  * Breaking - Rename as `react-edit` given it's a generic component. It's not distributed as a part of `reactabular` anymore and you'll have to install it separately. #176.
+  * Breaking - Auto focus `input` by default. #180.
+
 1.2.1 / 2016-08-05
 ==================
 

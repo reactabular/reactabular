@@ -1,3 +1,13 @@
+2.0.0 / 2016-08-16
+==================
+
+  * Breaking - Return sorting columns if no selected column is passed.
+  * Breaking - Extract header styling to a separate file (`style.css` at package root) and allow `style` prop to be passed.
+  * Breaking - Port sorting to a property based scheme over index one.
+  * Improvement - Mark React as a peer dependency.
+  * Improvement - Allow sorting `fieldName` to be customized for `sort`, `header`, and `reset`. This is useful if you want to sort per `property` for example.
+  * Improvement - Allow `sorter` `getColumns` mechanism to be customized. This is needed to make `fieldName` useful.
+
 1.1.4 / 2016-08-04
 ==================
 

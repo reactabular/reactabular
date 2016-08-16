@@ -1,3 +1,63 @@
+2.0.0 / 2016-08-16
+==================
+
+  * Breaking - Push `property` to root level of a column over cell. The new style is often terser.
+  * Improvement - Generate a proper ES6 build for each package. Now they should work with systems like webpack 2 without problems. #189
+
+## react-edit
+
+  * Breaking - Rename as `react-edit` given it's a generic component. It's not distributed as a part of `reactabular` anymore and you'll have to install it separately. #176.
+  * Breaking - Auto focus `input` by default. #180.
+
+## reactabular-table
+
+  * Improvement - Improve performance by pushing `onRow` check lower in the component hierarchy.
+
+## reactabular-search-field
+
+  * Breaking - Override `query` `onChange` instead of patching.
+  * Breaking - Make it possible to pass `column` as a prop. You should manage its state now. #182
+  * Improvement - Add `onColumnChange` hook. This is needed for tracking `column` state.
+  * Bug fix - Make search input controlled by default.
+
+## reactabular-sort
+
+  * Breaking - Return sorting columns if no selected column is passed.
+  * Breaking - Extract header styling to a separate file (`style.css` at package root) and allow `style` prop to be passed.
+  * Breaking - Port sorting to a property based scheme over index one.
+  * Improvement - Mark React as a peer dependency.
+  * Improvement - Allow sorting `fieldName` to be customized for `sort`, `header`, and `reset`. This is useful if you want to sort per `property` for example.
+  * Improvement - Allow `sorter` `getColumns` mechanism to be customized. This is needed to make `fieldName` useful.
+
+## reactabular-resizable
+
+  * Breaking - Extract header styling to a separate file (`style.css` at package root) and allow `style` prop to be passed.
+  * Improvement - Document how to offset the widget.
+
+## reactabular-easy
+
+  * Breaking - Push `sortingColumns` to a prop. You should control its state yourself.
+  * Improvement - Add suggested default styling (`style.css` at package root).
+  * Improvement - Allow `classNames` and `styles` props to be passed for styling.
+  * Bug fix - Force update after mounting. This is needed for the sticky ref scheme to work.
+
+## reactabular-resolve
+
+  * Breaking - Rework `resolve` interface to be object based and pass row index through it.
+  * Improvement - Implement `resolve.index`. This attached the row indices to `_index`. That can be handy data to have for optimization.
+
+## reactabular-visibility-toggles
+
+  * Improvement - New standalone package of its own. #183
+
+## reactabular-dnd
+
+  * Improvement - New standalone package of its own for wrapping drag and drop related concerns.
+
+## reactabular-tree
+
+  * Improvement - New standalone package of its own for tree helpers. #168
+
 1.2.6 / 2016-08-11
 ==================
 
