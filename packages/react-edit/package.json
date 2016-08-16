@@ -1,6 +1,6 @@
 {
   "name": "react-edit",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Inline editing utilities for React",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",

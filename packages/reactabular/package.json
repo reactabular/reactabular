@@ -1,6 +1,6 @@
 {
   "name": "reactabular",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Spectacular tables for React",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
@@ -35,16 +35,16 @@
   "module": "dist",
   "jsnext:main": "dist",
   "dependencies": {
-    "reactabular-highlight": "^2.0.0",
-    "reactabular-resizable": "^2.0.0",
-    "reactabular-resolve": "^2.0.0",
-    "reactabular-search": "^2.0.0",
-    "reactabular-search-columns": "^2.0.0",
-    "reactabular-search-field": "^2.0.0",
-    "reactabular-select": "^2.0.0",
-    "reactabular-sticky": "^2.0.0",
-    "reactabular-sort": "^2.0.0",
-    "reactabular-table": "^2.0.0"
+    "reactabular-highlight": "^2.0.1",
+    "reactabular-resizable": "^2.0.1",
+    "reactabular-resolve": "^2.0.1",
+    "reactabular-search": "^2.0.1",
+    "reactabular-search-columns": "^2.0.1",
+    "reactabular-search-field": "^2.0.1",
+    "reactabular-select": "^2.0.1",
+    "reactabular-sticky": "^2.0.1",
+    "reactabular-sort": "^2.0.1",
+    "reactabular-table": "^2.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
