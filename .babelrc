@@ -14,10 +14,25 @@
     ]
   ],
   "env": {
+    "dist:build": {
+      "presets": [
+        "es2015"
+      ]
+    },
+    "dist:build-min": {
+      "presets": [
+        "es2015"
+      ]
+    },
     "es5": {
       "presets": [
         "es2015"
-      ],
+      ]
+    },
+    "gh-pages:build": {
+      "presets": [
+        "es2015"
+      ]
     },
     "start": {
       "presets": [
