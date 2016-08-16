@@ -23,7 +23,6 @@ class EasyTable extends React.Component {
     this.id = uuid.v4();
 
     this.state = {
-      sortingColumns: props.sortingColumns,
       originalColumns: props.columns,
       columns: this.bindColumns(props),
       rows: props.rows,
@@ -80,7 +79,7 @@ class EasyTable extends React.Component {
   }
   render() {
     const {
-      rowKey, query, headerExtra,
+      rowKey, query, headerExtra, sortingColumns,
       tableWidth, tableHeight, components,
       classNames, onRow // eslint-disable-line no-unused-vars
     } = this.props;
@@ -90,7 +89,7 @@ class EasyTable extends React.Component {
         cell: dnd.Header
       }
     };
-    const { columns, selectedRow, sortingColumns } = this.state;
+    const { columns, selectedRow } = this.state;
     const rows = compose(
       sort.sorter(
         {
@@ -178,18 +177,16 @@ class EasyTable extends React.Component {
       styles: styles.resize
     });
 
-    const getSortingColumns = () => this.state.sortingColumns || {};
+    const getSortingColumns = () => this.props.sortingColumns || {};
     const sortable = sort.sort({
       getSortingColumns,
       onSort: selectedColumn => {
         const sortingColumns = sort.byColumns({
-          sortingColumns: this.state.sortingColumns,
+          sortingColumns: this.props.sortingColumns,
           selectedColumn
         });
 
         this.props.onSort(sortingColumns);
-
-        this.setState({ sortingColumns });
       },
       fieldName: 'property',
       styles: styles.sort
@@ -197,7 +194,8 @@ class EasyTable extends React.Component {
     const resetable = sort.reset({
       event: 'onDoubleClick',
       getSortingColumns,
-      onReset: ({ sortingColumns }) => this.setState({ sortingColumns })
+      fieldName: 'property',
+      onReset: ({ sortingColumns }) => this.props.onSort(sortingColumns)
     });
 
     return columns.map((column, i) => {

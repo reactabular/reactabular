@@ -55,6 +55,7 @@ class Demo extends React.Component {
     this.state = {
       rows,
       columns: this.getColumns(),
+      sortingColumns: {},
       query: {}
     };
 
@@ -160,7 +161,7 @@ class Demo extends React.Component {
     ];
   }
   render() {
-    const { columns, rows, query } = this.state;
+    const { columns, sortingColumns, rows, query } = this.state;
     const visibleColumns = this.state.columns.filter(column => column.visible);
 
     return (
@@ -183,7 +184,7 @@ class Demo extends React.Component {
         <EasyTable
           rows={rows}
           rowKey="id"
-          sortingColumns={{}}
+          sortingColumns={sortingColumns}
           tableWidth={800}
           tableHeight={400}
           columns={visibleColumns}
@@ -220,6 +221,8 @@ class Demo extends React.Component {
   }
   onSort(sortingColumns) {
     console.log('onSort', sortingColumns);
+
+    this.setState({ sortingColumns });
   }
   onRow(row, rowIndex) {
     return {
