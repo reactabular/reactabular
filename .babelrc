@@ -1,6 +1,5 @@
 {
   "presets": [
-    "es2015",
     "react"
   ],
   "plugins": [
@@ -15,19 +14,36 @@
     ]
   ],
   "env": {
+    "es5": {
+      "presets": [
+        "es2015"
+      ],
+    },
     "start": {
       "presets": [
+        "es2015",
         "react-hmre"
       ]
     },
     "test": {
+      "presets": [
+        "es2015"
+      ],
       "plugins": [
         "istanbul"
       ]
     },
     "test:tdd": {
+      "presets": [
+        "es2015"
+      ],
       "plugins": [
         "istanbul"
+      ]
+    },
+    "test:lint": {
+      "presets": [
+        "es2015"
       ]
     }
   }

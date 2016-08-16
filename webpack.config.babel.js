@@ -30,7 +30,9 @@ const packages = fromPairs(fs.readdirSync('packages').map(p => [
   p, path.join(config.paths.src, p, 'src')
 ]));
 
-process.env.BABEL_ENV = TARGET;
+if (!process.env.BABEL_ENV) {
+  process.env.BABEL_ENV = TARGET;
+}
 
 const common = {
   entry: config.paths.documentation,

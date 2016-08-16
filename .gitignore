@@ -1,6 +1,7 @@
 node_modules/
 gh-pages/
-dist-modules/
+dist-es5/
+dist-es6/
 coverage/
 stats.json
 .eslintcache
