@@ -12,14 +12,12 @@ const Search = ({
 }) => {
   const onOptionsChange = ({ target: { value } }) => {
     onChange({
-      ...query,
       [value]: query[value]
     });
     onColumnChange(value);
   };
   const onQueryChange = ({ target: { value } }) => (
     onChange({
-      ...query,
       [column]: value
     })
   );
