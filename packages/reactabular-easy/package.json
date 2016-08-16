@@ -1,6 +1,6 @@
 {
   "name": "reactabular-easy",
-  "version": "1.2.6-alpha.61e29539",
+  "version": "2.0.0",
   "description": "Easy, opinionated wrapper for Reactabular",
   "scripts": {
     "build:all": "npm run build:es5 && npm run build:es6",
@@ -52,7 +52,7 @@
   "peerDependencies": {
     "lodash": ">= 3.0.0 < 5.0.0",
     "react": ">= 0.11.2 < 16.0.0",
-    "reactabular": "^1.2.6-alpha.61e29539",
+    "reactabular": "^2.0.0",
     "reactabular-dnd": ">= 2.0.0 < 3.0.0",
     "reactabular-utils": ">= 2.0.0 < 3.0.0"
   }

@@ -1,6 +1,6 @@
 {
   "name": "reactabular-select",
-  "version": "1.2.6-alpha.61e29539",
+  "version": "2.0.0",
   "description": "Row selection utilities for Reactabular",
   "scripts": {
     "build:all": "npm run build:es5 && npm run build:es6",
@@ -39,7 +39,7 @@
   "jsnext:main": "dist-es6",
   "dependencies": {
     "react-dnd": "^2.1.4",
-    "reactabular-utils": "^1.2.6-alpha.61e29539",
+    "reactabular-utils": "^2.0.0",
     "redux": "^3.5.2",
     "stylesheet-helpers": "^0.1.2",
     "uuid": "^2.0.2"
