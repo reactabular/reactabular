@@ -7,11 +7,11 @@ import { mergeClassNames } from 'reactabular-utils';
 import { compose } from 'redux';
 import uuid from 'uuid';
 import find from 'lodash/find';
-import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import { defaultProps, propTypes } from './types';
 import {
-  createStylesheet, getColumnClassName, initializeStyles, updateWidth
+  createStylesheet, getColumnClassName, initializeStyles, updateWidth,
+  getSelectedRowIndex
 } from './utils';
 
 class EasyTable extends React.Component {
@@ -35,7 +35,6 @@ class EasyTable extends React.Component {
     this.onFinishMove = this.onFinishMove.bind(this);
     this.onMove = this.onMove.bind(this);
     this.onRow = this.onRow.bind(this);
-    this.getSelectedRowIndex = this.getSelectedRowIndex.bind(this);
 
     // References to header/body elements so they can be
     // kept in sync while scrolling.
@@ -115,7 +114,11 @@ class EasyTable extends React.Component {
     const tableHeaderWidth = this.tableHeader ? this.tableHeader.scrollWidth : 0;
     const tableBodyWidth = this.tableBody ? this.tableBody.scrollWidth : 0;
     const scrollOffset = tableHeaderWidth - tableBodyWidth;
-    const selectedRowIndex = this.getSelectedRowIndex(selectedRow);
+    const selectedRowIndex = getSelectedRowIndex({
+      rows: this.state.rows,
+      rowKey: this.props.rowKey,
+      selectedRow
+    });
 
     return select.byArrowKeys({
       rows,
@@ -324,13 +327,6 @@ class EasyTable extends React.Component {
     });
 
     this.setState(selected);
-  }
-  getSelectedRowIndex(selectedRow) {
-    const { rowKey } = this.props;
-
-    return findIndex(this.state.rows, {
-      [rowKey]: selectedRow[rowKey]
-    });
   }
 }
 EasyTable.propTypes = propTypes;

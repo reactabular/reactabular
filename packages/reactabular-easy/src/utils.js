@@ -1,3 +1,4 @@
+import findIndex from 'lodash/findIndex';
 import * as stylesheet from 'stylesheet-helpers';
 
 function createStylesheet() {
@@ -32,9 +33,16 @@ function getColumnClassName(id, i) {
   return `column-${id}-${i}`;
 }
 
+function getSelectedRowIndex({ rows, selectedRow, rowKey }) {
+  return findIndex(rows, {
+    [rowKey]: selectedRow[rowKey]
+  });
+}
+
 export {
   createStylesheet,
   initializeStyles,
   getColumnClassName,
-  updateWidth
+  updateWidth,
+  getSelectedRowIndex
 };
