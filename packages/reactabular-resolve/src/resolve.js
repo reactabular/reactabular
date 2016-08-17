@@ -10,7 +10,7 @@ function resolve({ columns, method }) {
 
   const resolvedColumns = resolveBodyColumns(columns);
 
-  return rows => rows.map((rowData, rowIndex) => {
+  return (rows = []) => rows.map((rowData, rowIndex) => {
     let ret = {};
 
     resolvedColumns.forEach(column => {

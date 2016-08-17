@@ -215,4 +215,23 @@ describe('resolve.resolve', function () {
 
     expect(resolver(rows)).to.deep.equal(expected);
   });
+
+  it('does not crash without rows', function () {
+    const columns = [
+      {
+        cell: {
+          format: a => a
+        }
+      }
+    ];
+    const resolver = resolve({
+      columns,
+      method: ({ rowData, column }) => byFunction('cell.resolve')({
+        rowData: nested({ rowData, column }),
+        column
+      })
+    });
+
+    expect(resolver()).to.deep.equal([]);
+  });
 });

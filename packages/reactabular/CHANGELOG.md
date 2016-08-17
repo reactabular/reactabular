@@ -1,3 +1,10 @@
+2.0.2 / 2016-08-17
+==================
+
+## reactabular-resolve
+
+  * Bug fix - Make sure `resolve` does not crash if `rows` aren't provided. It will return an empty array in that case.
+
 2.0.1 / 2016-08-16
 ==================
 
