@@ -182,6 +182,12 @@ if (TARGET.startsWith('gh-pages')) {
 const commonDist = merge(common, {
   devtool: 'source-map',
   entry: './packages/reactabular/src',
+  output: {
+    path: config.paths.dist,
+    libraryTarget: 'umd',
+    library: 'Reactabular',
+    sourceMapFilename: '[file].map'
+  },
   externals: {
     lodash: {
       commonjs: 'lodash',
@@ -201,11 +207,7 @@ const commonDist = merge(common, {
 if (TARGET === 'dist:build') {
   module.exports = merge(commonDist, {
     output: {
-      path: config.paths.dist,
-      filename: 'reactabular.js',
-      libraryTarget: 'umd',
-      library: 'Reactabular',
-      sourceMapFilename: '[file].map'
+      filename: 'reactabular.js'
     }
   });
 }
@@ -213,11 +215,7 @@ if (TARGET === 'dist:build') {
 if (TARGET === 'dist:build-min') {
   module.exports = merge(commonDist, {
     output: {
-      path: config.paths.dist,
-      filename: 'reactabular.min.js',
-      libraryTarget: 'umd',
-      library: 'Reactabular',
-      sourceMapFilename: '[file].map'
+      filename: 'reactabular.min.js'
     },
     plugins: [
       new webpack.optimize.UglifyJsPlugin({
