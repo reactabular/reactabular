@@ -189,6 +189,77 @@ describe('edit.edit', function () {
     expect(receivedEvent.target.className).to.equal(testClassName);
   });
 
+  it('accepts custom value callback', function () {
+    const testValue = 'foo';
+    const testClassName = 'demo';
+    const editor = edit({
+      isEditing() {},
+      onActivate() {},
+      onValue() {}
+    });
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{
+        React.createElement(
+          'div',
+          editor('div', value => ({
+            children: <div className={testClassName}>{value}</div>
+          }))(testValue, {
+            rowData: {},
+            property: 'test'
+          })
+        )
+      }</Wrapper>
+    );
+
+    const renderedValue = TestUtils.findRenderedDOMComponentWithClass(
+      result, testClassName
+    );
+
+    expect(renderedValue.innerHTML).to.equal(testValue);
+  });
+
+  it('accepts custom value callback and allows editing to be activated', function () {
+    const testValue = 'foo';
+    const testClassValue = 'value';
+    const testClassName = 'demo';
+    let receivedEvent;
+    const editor = edit({
+      isEditing() {},
+      onActivate({ event }) {
+        receivedEvent = event;
+      },
+      onValue() {}
+    });
+    const result = TestUtils.renderIntoDocument(
+      <Wrapper>{
+        React.createElement(
+          'div',
+          {
+            ...editor('div', value => ({
+              children: <div className={testClassValue}>{value}</div>
+            }))(testValue, {
+              rowData: {},
+              property: 'test'
+            }),
+            className: testClassName
+          }
+        )
+      }</Wrapper>
+    );
+
+    const renderedValue = TestUtils.findRenderedDOMComponentWithClass(
+      result, testClassValue
+    );
+    const renderedEditor = TestUtils.findRenderedDOMComponentWithClass(
+      result, testClassName
+    );
+
+    TestUtils.Simulate.click(renderedEditor);
+
+    expect(renderedValue.innerHTML).to.equal(testValue);
+    expect(receivedEvent.target.className).to.equal(testClassName);
+  });
+
   it('throws an error if isEditing is not passed', function () {
     expect(edit.bind(null, {
       onActivate: () => {},

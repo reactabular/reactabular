@@ -6,7 +6,7 @@ The `edit` transform has been designed to allow inline editing. It expects you t
 
 **Example:**
 
-```javascript
+```jsx
 ...
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
@@ -64,7 +64,9 @@ const editable = edit.edit({
 // Wrap within an element and render.
 React.createElement('div', editable(edit.input())(
   value, { columnIndex, rowData }, { ... custom props ... }
-));
+), (value, extraParameters, props) => ({
+  children: <div>{value}</div>
+}));
 
 // Or in JSX
 <div {...editable(edit.input())(...)} />

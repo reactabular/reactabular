@@ -1,3 +1,8 @@
+2.0.2 / 2016-08-17
+==================
+
+  * Improvement - Allow value rendering to be customized. Now you can pass a custom renderer for value if the default (no visible value!) isn't enough.
+
 2.0.0 / 2016-08-16
 ==================
 

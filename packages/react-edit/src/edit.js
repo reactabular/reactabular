@@ -18,8 +18,10 @@ const edit = ({
     throw new Error('edit - Missing onValue!');
   }
 
-  return editor => {
-    if (!editor) {
+  const defaultValueComponent = (value, extraParameters, props) => props;
+
+  return (editorComponent, valueComponent = defaultValueComponent) => {
+    if (!editorComponent) {
       throw new Error('edit - Missing editor!');
     }
 
@@ -27,7 +29,7 @@ const edit = ({
       isEditing(extraParameters) ?
       {
         children: React.createElement(
-          editor,
+          editorComponent,
           {
             ...props,
             [editingProps.value || 'value']: getEditedValue(value),
@@ -38,7 +40,8 @@ const edit = ({
         )
       } :
       {
-        ...props,
+        ...valueComponent(value, extraParameters, props),
+        // Override activation, perhaps not so nice
         [activateEvent]: event => onActivate({ event, ...extraParameters })
       }
     );

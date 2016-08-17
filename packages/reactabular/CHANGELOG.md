@@ -1,6 +1,10 @@
 2.0.2 / 2016-08-17
 ==================
 
+## react-edit
+
+  * Improvement - Allow value rendering to be customized. Now you can pass a custom renderer for value if the default (no visible value!) isn't enough.
+
 ## reactabular-resolve
 
   * Bug fix - Make sure `resolve` does not crash if `rows` aren't provided. It will return an empty array in that case.
