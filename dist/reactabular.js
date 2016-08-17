@@ -5080,7 +5080,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  var resolvedColumns = (0, _reactabularUtils.resolveBodyColumns)(columns);
 	
-	  return function (rows) {
+	  return function () {
+	    var rows = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 	    return rows.map(function (rowData, rowIndex) {
 	      var ret = {};
 	
