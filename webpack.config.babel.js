@@ -5,7 +5,6 @@ import fromPairs from 'lodash/fromPairs';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-// import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import merge from 'webpack-merge';
@@ -75,14 +74,7 @@ const common = {
         exclude: /node_modules/
       }
     ]
-  },
-  plugins: [
-    // TODO: figure out how to make findIndex(this.state.rows, { id: rowData.id })
-    // work again (what to opt-in?)
-    /* new LodashModuleReplacementPlugin({
-      paths: true
-    }) */
-  ]
+  }
 };
 
 const commonSite = {
