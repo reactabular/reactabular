@@ -1,3 +1,8 @@
+2.0.3 / 2016-08-22
+==================
+
+  * Improvement - If an empty column definition is provided, escape early and avoid showing a warning per row.
+
 2.0.0 / 2016-08-16
 ==================
 

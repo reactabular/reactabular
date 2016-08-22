@@ -90,6 +90,12 @@ class EasyTable extends React.Component {
       }
     };
     const { columns, selectedRow } = this.state;
+
+    // Escape early if there are no columns to display
+    if (!columns.length) {
+      return null;
+    }
+
     const rows = compose(
       sort.sorter(
         {

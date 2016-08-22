@@ -1,3 +1,10 @@
+2.0.3 / 2016-08-22
+==================
+
+## reactabular-easy
+
+  * Improvement - If an empty column definition is provided, escape early and avoid showing a warning per row.
+
 2.0.2 / 2016-08-17
 ==================
 
