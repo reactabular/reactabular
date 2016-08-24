@@ -21,6 +21,7 @@ import * as reactabular from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as tree from 'reactabular-tree';
 import VisibilityToggles from 'reactabular-visibility-toggles';
+import Virtualized from 'reactabular-virtualized';
 import * as stylesheet from 'stylesheet-helpers';
 
 import 'purecss/build/pure.css';
@@ -55,6 +56,7 @@ const documentationImports = {
   tree: { ...tree },
   resizableColumn: reactabular.resizableColumn,
   VisibilityToggles,
+  Virtualized,
   EasyTable,
   stylesheet: { ...stylesheet },
   ...reactDnd,
@@ -224,6 +226,11 @@ const pages = [
     path: 'sticky',
     title: 'Sticky',
     component: require('../packages/reactabular-sticky/README.md')
+  },
+  {
+    path: 'virtualization',
+    title: 'Virtualization',
+    component: require('../packages/reactabular-virtualized/README.md')
   },
   {
     path: 'tree',
