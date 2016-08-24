@@ -3769,13 +3769,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var props = _objectWithoutProperties(_props, ['style', 'tableHeader']);
 	
+	      var tableHeaderWidth = tableHeader ? tableHeader.clientWidth : 0;
+	      var tableBodyWidth = this.ref ? this.ref.clientWidth : 0;
+	      var scrollOffset = tableHeaderWidth - tableBodyWidth;
+	
 	      return _react2.default.createElement(_reactabularTable.Body, _extends({
 	        ref: function ref(body) {
 	          _this2.ref = body && body.getRef();
 	        },
 	        style: _extends({}, style || {}, {
 	          display: 'block',
-	          overflow: 'auto'
+	          overflow: 'auto',
+	          paddingRight: scrollOffset
 	        })
 	      }, props, {
 	        // Override onScroll as otherwise the logic won't work
