@@ -1,7 +1,7 @@
 {
-  "name": "reactabular-visibility-toggles",
-  "version": "2.0.1",
-  "description": "Column visibility Toggles for Reactabular",
+  "name": "reactabular-virtualized",
+  "version": "0.0.0",
+  "description": "Table virtualization for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
     "prepublish": "npm run build"
@@ -10,8 +10,7 @@
     "dist",
     "CHANGELOG.md",
     "LICENSE",
-    "README.md",
-    "style.css"
+    "README.md"
   ],
   "readmeFilename": "README.md",
   "repository": {
@@ -38,5 +37,8 @@
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"
+  },
+  "peerDependencies": {
+    "react": ">= 0.11.2 < 16.0.0"
   }
 }
