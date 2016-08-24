@@ -1,4 +1,4 @@
-`react-visibility-toggles` provides a React component for rendering visibility toggles for table columns.
+`reactabular-visibility-toggles` provides a React component for rendering visibility toggles for table columns.
 
 **Example:**
 
@@ -7,7 +7,7 @@
 import React from 'react';
 import { Table } from 'reactabular';
 import cloneDeep from 'lodash/cloneDeep';
-import VisibilityToggles from 'react-visibility-toggles';
+import VisibilityToggles from 'reactabular-visibility-toggles';
 */
 
 class ToggleColumnsTable extends React.Component {
