@@ -1,10 +1,11 @@
-`reactabular-virtualized` is a virtualized variant of `reactabular-sticky`. The idea is that instead of rendering all table cells, it renders only ones visible at the viewport.
+`reactabular-virtualized` works in conjunction with `reactabular-sticky` and provides virtualization. The idea is that instead of rendering all table cells, it renders only ones visible at the viewport. This improves performance significantly with larger datasets.
 
 **Example:**
 
 ```jsx
 /*
 import React from 'react';
+import * as Sticky from 'reactabular-sticky';
 import * as Virtualized from 'reactabular-virtualized';
 
 import { generateRows } from './helpers';
@@ -93,8 +94,13 @@ class VirtualizedTable extends React.Component {
       <Table.Provider
         className="pure-table pure-table-striped"
         columns={columns}
+        components={{
+          body: {
+            row: Virtualized.Row
+          }
+        }}
       >
-        <Virtualized.Header
+        <Sticky.Header
           style={{
             maxWidth: 800
           }}

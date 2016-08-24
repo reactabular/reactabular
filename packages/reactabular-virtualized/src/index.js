@@ -1,7 +1,7 @@
 import Body from './body';
-import Header from './header';
+import Row from './row';
 
 export {
   Body,
-  Header
+  Row
 };

@@ -8,10 +8,15 @@ class BodyRow extends React.Component {
   shouldComponentUpdate(nextProps) {
     const previousProps = this.props;
 
+    // XXXXX: re-enable - add a hook for disabling the check or re-design otherwise
+    // -> push to components.body.row -> possible to override easily
+    /*
     return !(
       isEqual(previousProps.columns, nextProps.columns) &&
       isEqual(previousProps.rowData, nextProps.rowData)
     );
+    */
+    return true;
   }
   render() {
     const { columns, components, onRow, rowIndex, rowData } = this.props;

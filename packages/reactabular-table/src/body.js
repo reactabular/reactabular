@@ -13,8 +13,12 @@ class Body extends React.Component {
     // Skip checking props against `onRow` since that can be bound at render().
     // That's not particularly good practice but you never know how the users
     // prefer to define the handler.
-    return !(isEqual(omitOnRow(this.props), omitOnRow(nextProps)) &&
-      isEqual(this.context, nextContext));
+
+    // XXXXX: re-enable - add a hook for disabling the check or re-design otherwise
+    // -> push to components.body.wrapper -> possible to override easily
+    //return !(isEqual(omitOnRow(this.props), omitOnRow(nextProps)) &&
+    //  isEqual(this.context, nextContext));
+    return true;
   }
   render() {
     const { onRow, rows, rowKey, ...props } = this.props;
