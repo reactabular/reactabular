@@ -1,7 +1,7 @@
 {
   "name": "reactabular-visibility-toggles",
   "version": "2.0.5",
-  "description": "Column visibility Toggles for Reactabular",
+  "description": "Column visibility toggles for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
     "prepublish": "npm run build"
