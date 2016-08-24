@@ -12,7 +12,7 @@ The following example implements sticky headers within a fixed viewport through 
 /*
 import React from 'react';
 import { Table, Sticky } from 'reactabular';
-// import { Sticky } from 'reactabular-sticky';
+// import * as Sticky from 'reactabular-sticky';
 
 import { generateRows } from './helpers';
 */
