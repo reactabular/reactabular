@@ -6,11 +6,13 @@ class VirtualizedBody extends Body {
     const props = this.props;
     const style = props.style || {};
     const e = this.ref || {
-      offsetHeight: style.maxHeight
+      offsetHeight: style.maxHeight,
+      scrollTop: 0
     };
 
     return {
-      bodyHeight: e.offsetHeight
+      offsetHeight: e.offsetHeight,
+      scrollTop: e.scrollTop
     };
   }
 }

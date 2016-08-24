@@ -8,22 +8,22 @@ class Row extends React.Component {
     this.ref = null;
   }
   componentDidMount() {
-    const { bodyHeight } = this.context;
+    const { offsetHeight, scrollTop } = this.context;
     const e = this.ref;
 
-    console.log('component did mount', bodyHeight, e.bodyHeight, e.offsetHeight, e.offsetTop);
+    console.log('component did mount', scrollTop, offsetHeight, e.offsetHeight, e.offsetTop);
   }
   componentDidUpdate() {
-    const { bodyHeight } = this.context;
+    const { offsetHeight, scrollTop } = this.context;
     const e = this.ref;
 
-    console.log('component did update', bodyHeight, e.bodyHeight, e.offsetHeight, e.offsetTop);
+    console.log('component did update', scrollTop, offsetHeight, e.offsetHeight, e.offsetTop);
   }
   shouldComponentUpdate() {
-    const { bodyHeight } = this.context;
+    const { offsetHeight, scrollTop } = this.context;
     const e = this.ref;
 
-    console.log('should component update', bodyHeight, e.bodyHeight, e.offsetHeight, e.offsetTop);
+    console.log('should component update', scrollTop, offsetHeight, e.offsetHeight, e.offsetTop);
 
     return true;
   }
