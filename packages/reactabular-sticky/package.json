@@ -1,6 +1,6 @@
 {
   "name": "reactabular-sticky",
-  "version": "2.0.1",
+  "version": "2.0.4",
   "description": "Sticky header and body for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
