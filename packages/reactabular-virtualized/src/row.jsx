@@ -25,7 +25,7 @@ class Row extends React.Component {
 
     console.log('should component update', scrollTop, offsetHeight, e.offsetHeight, e.offsetTop);
 
-    return true;
+    return e.offsetTop < offsetHeight + e.offsetHeight;
   }
   render() {
     return (
