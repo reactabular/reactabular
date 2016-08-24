@@ -1,3 +1,10 @@
+2.0.4 / 2016-08-24
+==================
+
+## reactabular-sticky
+
+  * Bug fix - Calculate extra padding to table body so that header and body widths match even if a scrollbar is visible.
+
 2.0.3 / 2016-08-22
 ==================
 

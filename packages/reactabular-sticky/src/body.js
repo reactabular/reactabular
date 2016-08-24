@@ -10,6 +10,9 @@ class Body extends React.Component {
   }
   render() {
     const { style, tableHeader, ...props } = this.props;
+    const tableHeaderWidth = tableHeader ? tableHeader.clientWidth : 0;
+    const tableBodyWidth = this.ref ? this.ref.clientWidth : 0;
+    const scrollOffset = tableHeaderWidth - tableBodyWidth;
 
     return React.createElement(
       TableBody,
@@ -20,7 +23,8 @@ class Body extends React.Component {
         style: {
           ...style || {},
           display: 'block',
-          overflow: 'auto'
+          overflow: 'auto',
+          paddingRight: scrollOffset
         },
         ...props,
         // Override onScroll as otherwise the logic won't work

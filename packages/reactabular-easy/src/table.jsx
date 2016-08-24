@@ -115,9 +115,6 @@ class EasyTable extends React.Component {
         })
       })
     )(this.state.rows);
-    const tableHeaderWidth = this.tableHeader ? this.tableHeader.scrollWidth : 0;
-    const tableBodyWidth = this.tableBody ? this.tableBody.scrollWidth : 0;
-    const scrollOffset = tableHeaderWidth - tableBodyWidth;
     const selectedRowIndex = getSelectedRowIndex({
       rows: this.state.rows,
       rowKey: this.props.rowKey,
@@ -154,7 +151,6 @@ class EasyTable extends React.Component {
           rowKey={rowKey}
           onRow={this.onRow}
           style={{
-            paddingRight: scrollOffset,
             maxWidth: tableWidth,
             maxHeight: tableHeight
           }}

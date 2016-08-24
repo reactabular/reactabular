@@ -142,9 +142,6 @@ class ResizableColumnsTable extends React.Component {
   }
   render() {
     const { rows, columns } = this.state;
-    const tableHeaderWidth = this.tableHeader && this.tableHeader.scrollWidth;
-    const tableBodyWidth = this.tableBody && this.tableBody.scrollWidth;
-    const scrollOffset = tableHeaderWidth - tableBodyWidth;
 
     return (
       <Table.Provider
@@ -167,7 +164,6 @@ class ResizableColumnsTable extends React.Component {
           rowKey="id"
           onRow={this.onRow}
           style={{
-            paddingRight: scrollOffset,
             maxWidth: 800,
             maxHeight: 400
           }}

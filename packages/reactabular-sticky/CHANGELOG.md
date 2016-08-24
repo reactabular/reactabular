@@ -1,3 +1,8 @@
+2.0.4 / 2016-08-24
+==================
+
+  * Bug fix - Calculate extra padding to table body so that header and body widths match even if a scrollbar is visible.
+
 1.1.2 / 2016-08-04
 ==================
 
