@@ -44,7 +44,7 @@ const columns = [
   {
     property: 'name',
     props: {
-      style: { minWidth: 300, width: 300 }
+      style: { minWidth: 300 }
     },
     header: {
       label: 'Name'
@@ -53,7 +53,7 @@ const columns = [
   {
     property: 'age',
     props: {
-      style: { minWidth: 100, width: 100 }
+      style: { minWidth: 100 }
     },
     header: {
       label: 'Age'
@@ -62,7 +62,7 @@ const columns = [
   {
     property: 'company',
     props: {
-      style: { minWidth: 400, width: 400 }
+      style: { minWidth: 400 }
     },
     header: {
       label: 'Company'
@@ -71,7 +71,7 @@ const columns = [
   {
     property: 'product',
     props: {
-      style: { minWidth: 400, width: 400 }
+      style: { minWidth: 400 }
     },
     header: {
       label: 'Product'
