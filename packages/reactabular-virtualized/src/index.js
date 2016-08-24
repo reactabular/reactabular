@@ -1,4 +1,7 @@
-import Virtualized from './Virtualized';
+import Body from './body';
+import Header from './header';
 
-export default Virtualized;
-
+export {
+  Body,
+  Header
+};

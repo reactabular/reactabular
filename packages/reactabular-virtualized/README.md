@@ -1,22 +1,121 @@
-`reactabular-virtualized` works in conjunction with `reactabular-sticky` and enhances performance by implementing a technique known as virtualization. The idea is that instead of rendering all table cells, it renders only ones visible at the viewport.
+`reactabular-virtualized` is a virtualized variant of `reactabular-sticky`. The idea is that instead of rendering all table cells, it renders only ones visible at the viewport.
 
 **Example:**
 
 ```jsx
 /*
 import React from 'react';
-import { Table } from 'reactabular';
+import * as Virtualized from 'reactabular-virtualized';
+
+import { generateRows } from './helpers';
 */
 
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string'
+    },
+    name: {
+      type: 'string'
+    },
+    product: {
+      type: 'string'
+    },
+    company: {
+      type: 'string'
+    },
+    age: {
+      type: 'integer'
+    }
+  },
+  required: ['id', 'name', 'product', 'company', 'age']
+};
+const rows = generateRows(100, schema);
+
+const columns = [
+  {
+    property: 'name',
+    props: {
+      style: { minWidth: 300 }
+    },
+    header: {
+      label: 'Name'
+    }
+  },
+  {
+    property: 'age',
+    props: {
+      style: { minWidth: 100 }
+    },
+    header: {
+      label: 'Age'
+    }
+  },
+  {
+    property: 'company',
+    props: {
+      style: { minWidth: 400 }
+    },
+    header: {
+      label: 'Company'
+    }
+  },
+  {
+    property: 'product',
+    props: {
+      style: { minWidth: 400 }
+    },
+    header: {
+      label: 'Product'
+    }
+  }
+];
+
 class VirtualizedTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      rows,
+      columns
+    };
+
+    this.tableHeader = null;
+    this.tableBody = null;
+  }
+  componentDidMount() {
+    // We have refs now. Force update to get those to Header/Body.
+    this.forceUpdate();
+  }
   render() {
     return (
       <Table.Provider
+        className="pure-table pure-table-striped"
         columns={columns}
       >
-        <Table.Header />
+        <Virtualized.Header
+          style={{
+            maxWidth: 800
+          }}
+          ref={tableHeader => {
+            this.tableHeader = tableHeader && tableHeader.getRef();
+          }}
+          tableBody={this.tableBody}
+        />
 
-        <Table.Body rows={rows} rowKey="id" />
+        <Virtualized.Body
+          rows={rows}
+          rowKey="id"
+          style={{
+            maxWidth: 800,
+            maxHeight: 400
+          }}
+          ref={tableBody => {
+            this.tableBody = tableBody && tableBody.getRef();
+          }}
+          tableHeader={this.tableHeader}
+        />
       </Table.Provider>
     );
   }
