@@ -9,6 +9,8 @@ class VirtualizedBody extends React.Component {
     this.measuredRows = [];
     this.allRows = [];
     this.rowsToRender = [];
+
+    this.ref = null;
   }
   componentWillMount() {
     // Stash only first few rows for the first rendering. We'll use
@@ -35,6 +37,19 @@ class VirtualizedBody extends React.Component {
     }
 
     this.rowsToRender = this.allRows.slice(0, amountOfRowsToRender);
+
+    // No need to tweak the scrollbar height if there's no scrollbar in the
+    // first place.
+    if (amountOfRowsToRender * averageHeight < this.ref.offsetHeight) {
+      return;
+    }
+
+    const remainingHeight = (this.allRows.length - amountOfRowsToRender) * averageHeight;
+
+    // Calculate the padding of the last row so we can match whole height. This
+    // won't be totally accurate if row heights differ but should get close
+    // enough in most cases.
+    this.rowsToRender[this.rowsToRender.length - 1].lastHeight = remainingHeight;
   }
   getChildContext() {
     const props = this.props;
@@ -62,16 +77,36 @@ class VirtualizedBody extends React.Component {
       );
     }
 
+    const { onRow, ...props } = this.props;
+
+    // TODO: compose onRow handler here??? - capture style prop from row and attach
+    // it to the row
+
     // TODO: mark and render a special row to take the remaining space based on
     // measurements
     return (
       <Body
-        {...this.props}
-        rows={this.rowsToRender}
-        ref={e => {
-          if (e) {
-            this.ref = e;
+        {...props}
+        onRow={(row, rowIndex) => {
+          // Tweak the height of the last row so that scrollbar looks fine.
+          const { style, ...rowProps } = onRow ? onRow(row, rowIndex) : {};
+          let customStyle = style;
+
+          if (row.lastHeight) {
+            customStyle = {
+              ...style,
+              height: row.lastHeight
+            };
           }
+
+          return {
+            rowProps,
+            style: customStyle
+          };
+        }}
+        rows={this.rowsToRender}
+        ref={body => {
+          this.ref = body && body.getRef();
         }}
       />
     );
