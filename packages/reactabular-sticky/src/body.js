@@ -9,7 +9,7 @@ class Body extends React.Component {
     this.ref = null;
   }
   render() {
-    const { style, tableHeader, ...props } = this.props;
+    const { style, tableHeader, onScroll, ...props } = this.props;
     const tableHeaderWidth = tableHeader ? tableHeader.clientWidth : 0;
     const tableBodyWidth = this.ref ? this.ref.clientWidth : 0;
     const scrollOffset = tableHeaderWidth - tableBodyWidth;
@@ -26,13 +26,17 @@ class Body extends React.Component {
           overflow: 'auto',
           paddingRight: scrollOffset
         },
-        ...props,
-        // Override onScroll as otherwise the logic won't work
-        onScroll: ({ target: { scrollLeft } }) => {
+        // Expand onScroll as otherwise the logic won't work
+        onScroll: e => {
+          onScroll && onScroll(e);
+
+          const { target: { scrollLeft } } = e;
+
           if (tableHeader) {
             tableHeader.scrollLeft = scrollLeft;
           }
-        }
+        },
+        ...props
       }
     );
   }
@@ -42,7 +46,8 @@ class Body extends React.Component {
 }
 Body.propTypes = {
   style: React.PropTypes.any,
-  tableHeader: React.PropTypes.any
+  tableHeader: React.PropTypes.any,
+  onScroll: React.PropTypes.func
 };
 
 export default Body;

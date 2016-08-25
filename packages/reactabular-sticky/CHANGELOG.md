@@ -1,3 +1,5 @@
+  * Improvement - Allow `onScroll` handler to be defined for `Body`. Previously it overrode that.
+
 2.0.4 / 2016-08-24
 ==================
 
