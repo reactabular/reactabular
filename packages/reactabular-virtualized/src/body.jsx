@@ -108,6 +108,11 @@ class VirtualizedBody extends React.Component {
         ref={body => {
           this.ref = body && body.getRef();
         }}
+        onScroll={({ target: { scrollTop } }) => {
+          console.log('on scroll', scrollTop); // eslint-disable-line no-console
+
+          // TODO: update rows now
+        }}
       />
     );
   }
