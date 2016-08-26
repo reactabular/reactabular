@@ -1,3 +1,10 @@
+2.0.5 / 2016-08-26
+==================
+
+## reactabular-sticky
+
+  * Improvement - Allow `onScroll` handler to be defined for `Body`. Previously it overrode that.
+
 2.0.4 / 2016-08-24
 ==================
 
