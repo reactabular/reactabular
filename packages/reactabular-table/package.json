@@ -1,6 +1,6 @@
 {
   "name": "reactabular-table",
-  "version": "2.0.1",
+  "version": "2.0.5",
   "description": "Table components for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
