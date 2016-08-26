@@ -12,6 +12,8 @@
 
 `select.row` is a helper that resets the selection state of the given `rows` based on `isSelected` check and `selectedRowId` and sets the matching row as selected. The `isSelected` check defaults to a check by `id`, but you can override it with something more custom.
 
+It is important to note that Reactabular expects you to maintain `editing` state within your row data. This is necessary for it to detect which rows to update as you toggle editing.
+
 **Example:**
 
 ```jsx
