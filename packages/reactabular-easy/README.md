@@ -70,7 +70,6 @@ class Demo extends React.Component {
         header: {
           label: 'Demo',
           draggable: true,
-          sortable: true,
           resizable: true,
           format: () => <span>Testing</span>
         },
