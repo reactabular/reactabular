@@ -1,4 +1,4 @@
-// import isEqual from 'lodash/isEqual';
+import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';
 import BodyRow from './body-row';
@@ -14,10 +14,8 @@ class Body extends React.Component {
     // That's not particularly good practice but you never know how the users
     // prefer to define the handler.
 
-    return true;
-    // XXXXX
-    // return !(isEqual(omitOnRow(this.props), omitOnRow(nextProps)) &&
-    //  isEqual(this.context, nextContext));
+    return !(isEqual(omitOnRow(this.props), omitOnRow(nextProps)) &&
+      isEqual(this.context, nextContext));
   }
   render() {
     const { onRow, rows, rowKey, ...props } = this.props;
@@ -67,12 +65,10 @@ function resolveRowKey({ rowData, rowIndex, rowKey }) {
   return `${rowData[rowKey] || rowIndex}-row`;
 }
 
-/*
 function omitOnRow(props) {
   const { onRow, ...ret } = props; // eslint-disable-line no-unused-vars
 
   return ret;
 }
-*/
 
 export default Body;

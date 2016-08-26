@@ -6,34 +6,19 @@ class VirtualizedBody extends React.Component {
   constructor(props) {
     super(props);
 
-    this.startIndex = 0;
     this.measuredRows = [];
-    this.allRows = [];
-    this.lastRow = {
-      height: -1,
-      index: -1
-    };
-
-    this.state = {
-      rowsToRender: []
-    };
-
     this.ref = null;
 
+    this.state = {
+      amountOfRowsToRender: 3, // First few rows for initial measurement
+      startIndex: 0,
+      lastRow: {
+        height: -1,
+        index: -1
+      }
+    };
+
     this.updateRowsToRender = this.updateRowsToRender.bind(this);
-  }
-  componentWillMount() {
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('virtualized-body will mount'); // eslint-disable-line no-console
-    }
-
-    // Stash only first few rows for the first rendering. We'll use
-    // this data for initial measurements
-    this.allRows = this.props.rows;
-
-    this.setState({
-      rowsToRender: this.allRows.slice(0, 3)
-    });
   }
   componentDidMount() {
     this.updateRowsToRender();
@@ -50,7 +35,7 @@ class VirtualizedBody extends React.Component {
       offsetHeight: e.offsetHeight,
       scrollTop: e.scrollTop,
       updateHeight: (index, height) => {
-        if (index !== this.lastRow.index) {
+        if (index !== this.state.lastRow.index) {
           this.measuredRows[index] = height;
         }
       },
@@ -58,18 +43,21 @@ class VirtualizedBody extends React.Component {
     };
   }
   render() {
-    const { rowsToRender } = this.state;
+    const { onRow, rows, ...props } = this.props;
+    const { startIndex, amountOfRowsToRender, lastRow } = this.state;
+    const rowsToRender = rows.slice(
+      startIndex,
+      startIndex + amountOfRowsToRender
+    );
 
     if (process.env.NODE_ENV !== 'production') {
       console.log( // eslint-disable-line no-console
-        'rendering',
-        rowsToRender.length, '/', this.props.rows.length,
-        'rows',
-        rowsToRender
+        'rendering', rowsToRender.length, '/', rows.length,
+        'rows to render', rowsToRender,
+        'start index', startIndex,
+        'amount of rows to render', amountOfRowsToRender
       );
     }
-
-    const { onRow, ...props } = this.props;
 
     return (
       <Body
@@ -79,15 +67,15 @@ class VirtualizedBody extends React.Component {
           const { style, ...rowProps } = onRow ? onRow(row, rowIndex) : {};
           let customStyle = style;
 
-          if (this.startIndex + rowIndex === this.lastRow.index) {
+          if (startIndex + rowIndex === lastRow.index) {
             customStyle = {
               ...style,
-              height: this.lastRow.height
+              height: lastRow.height
             };
           }
 
           return {
-            'data-rowindex': this.startIndex + rowIndex,
+            'data-rowindex': startIndex + rowIndex,
             ...rowProps,
             style: customStyle
           };
@@ -116,7 +104,6 @@ class VirtualizedBody extends React.Component {
     const amountOfRowsToRender = Math.ceil(bodyHeight / averageHeight) + 2;
 
     const startIndex = Math.floor(scrollTop / averageHeight);
-    this.startIndex = startIndex;
 
     if (process.env.NODE_ENV !== 'production') {
       console.log( // eslint-disable-line no-console
@@ -127,11 +114,11 @@ class VirtualizedBody extends React.Component {
         'amount of rows to render', amountOfRowsToRender,
         'start index', startIndex,
         'scroll top', scrollTop,
-        'last row', this.lastRow
+        'last row', this.state.lastRow
       );
     }
 
-    const rowsToRender = this.allRows.slice(
+    const rowsToRender = this.props.rows.slice(
       startIndex,
       startIndex + amountOfRowsToRender
     );
@@ -149,17 +136,20 @@ class VirtualizedBody extends React.Component {
 
     // TODO: calculate startHeight to push rows to the correct place
 
-    const remainingHeight = (this.allRows.length - amountOfRowsToRender) * averageHeight;
+    const remainingHeight = (this.props.rows.length - amountOfRowsToRender) * averageHeight;
 
-    // Calculate the padding of the last row so we can match whole height. This
-    // won't be totally accurate if row heights differ but should get close
-    // enough in most cases.
-    this.lastRow = {
-      height: remainingHeight,
-      index: startIndex + rowsToRender.length - 1 // eslint-disable-line no-mixed-operators
-    };
-
-    this.setState({ rowsToRender });
+    // Update state and render now that data has changed
+    this.setState({
+      amountOfRowsToRender,
+      startIndex,
+      // Calculate the padding of the last row so we can match whole height. This
+      // won't be totally accurate if row heights differ but should get close
+      // enough in most cases.
+      lastRow: {
+        height: remainingHeight,
+        index: (startIndex + rowsToRender.length) - 1
+      }
+    });
   }
   getRef() {
     return this.ref;
