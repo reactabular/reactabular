@@ -8,12 +8,8 @@ class Row extends React.Component {
     this.ref = null;
   }
   componentDidMount() {
+    // TODO: skip for last row - check through a prop
     this.context.updateHeight(this.props['data-rowindex'], this.ref.offsetHeight);
-  }
-  shouldComponentUpdate() {
-    // Skip rendering if not visible since VirtualizedBody might try to render
-    // a few extra.
-    return this.ref.offsetTop < this.context.offsetHeight + this.ref.offsetHeight;
   }
   render() {
     return (

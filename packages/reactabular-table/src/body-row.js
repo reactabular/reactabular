@@ -1,4 +1,4 @@
-import isEqual from 'lodash/isEqual';
+// import isEqual from 'lodash/isEqual';
 import React from 'react';
 import {
   evaluateTransforms, mergePropPair
@@ -6,13 +6,17 @@ import {
 import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
 
 class BodyRow extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    const previousProps = this.props;
+  shouldComponentUpdate(nextProps) { // eslint-disable-line no-unused-vars
+    // XXXXX
+    /* const previousProps = this.props;
 
     return !(
       isEqual(previousProps.columns, nextProps.columns) &&
       isEqual(previousProps.rowData, nextProps.rowData)
-    );
+    );*/
+
+    // TODO: figure out why rowData is equal for virtualization (reference problem?)
+    return true;
   }
   render() {
     const { columns, components, onRow, rowIndex, rowData } = this.props;
