@@ -79,11 +79,6 @@ class VirtualizedBody extends React.Component {
 
     const { onRow, ...props } = this.props;
 
-    // TODO: compose onRow handler here??? - capture style prop from row and attach
-    // it to the row
-
-    // TODO: mark and render a special row to take the remaining space based on
-    // measurements
     return (
       <Body
         {...props}
