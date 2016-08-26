@@ -24,6 +24,14 @@ const rowsType = React.PropTypes.oneOfType([
   arrayOfObjectColumns,
   arrayOfArrayColumns
 ]);
+const rowKeyType = React.PropTypes.oneOfType([
+  React.PropTypes.func,
+  React.PropTypes.string
+]);
+const rowDataType = React.PropTypes.oneOfType([
+  React.PropTypes.array,
+  React.PropTypes.object
+]);
 const tableTypes = {
   columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
@@ -33,17 +41,27 @@ const tableContextTypes = {
   bodyColumns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
+const tableBodyDefaults = {
+  onRow: () => {}
+};
 const tableBodyTypes = {
   onRow: React.PropTypes.func,
   rows: rowsType.isRequired,
-  rowKey: React.PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.string
-  ])
+  rowKey: rowKeyType
 };
 const tableBodyContextTypes = {
   bodyColumns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
+};
+const tableBodyRowDefaults = {
+  onRow: () => ({})
+};
+const tableBodyRowTypes = {
+  columns: React.PropTypes.array.isRequired,
+  components: React.PropTypes.object,
+  onRow: React.PropTypes.func,
+  rowIndex: React.PropTypes.number.isRequired,
+  rowData: rowDataType.isRequired
 };
 const tableHeaderContextTypes = {
   headerRows: React.PropTypes.array.isRequired,
@@ -69,7 +87,10 @@ export {
   tableTypes,
   tableContextTypes,
   tableBodyTypes,
+  tableBodyDefaults,
   tableBodyContextTypes,
+  tableBodyRowTypes,
+  tableBodyRowDefaults,
   tableHeaderContextTypes,
   tableDefaults
 };

@@ -1,6 +1,6 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import { tableBodyTypes, tableBodyContextTypes } from './types';
+import { tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';
 import BodyRow from './body-row';
 
 class Body extends React.Component {
@@ -45,9 +45,7 @@ class Body extends React.Component {
   }
 }
 Body.propTypes = tableBodyTypes;
-Body.defaultProps = {
-  onRow: () => {}
-};
+Body.defaultProps = tableBodyDefaults;
 Body.contextTypes = tableBodyContextTypes;
 
 function resolveRowKey({ rowData, rowIndex, rowKey }) {

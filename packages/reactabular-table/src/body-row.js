@@ -3,6 +3,7 @@ import React from 'react';
 import {
   evaluateTransforms, mergePropPair
 } from 'reactabular-utils';
+import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
 
 class BodyRow extends React.Component {
   shouldComponentUpdate(nextProps) {
@@ -18,7 +19,7 @@ class BodyRow extends React.Component {
 
     return React.createElement(
       components.row,
-      onRow(rowData, rowIndex),
+      onRow(rowData, rowIndex), // TODO: refactor into object format
       columns.map(({ column, cell, property, props }, j) => {
         const {
           transforms = [],
@@ -53,18 +54,7 @@ class BodyRow extends React.Component {
     );
   }
 }
-BodyRow.defaultProps = {
-  onRow: () => ({})
-};
-BodyRow.propTypes = {
-  columns: React.PropTypes.array.isRequired,
-  components: React.PropTypes.object,
-  onRow: React.PropTypes.func,
-  rowIndex: React.PropTypes.number.isRequired,
-  rowData: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object
-  ]).isRequired
-};
+BodyRow.defaultProps = tableBodyRowDefaults;
+BodyRow.propTypes = tableBodyRowTypes;
 
 export default BodyRow;
