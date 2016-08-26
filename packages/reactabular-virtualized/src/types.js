@@ -9,8 +9,12 @@ const types = {
 };
 const bodyChildContextTypes = types;
 const bodyRowContextTypes = types;
+const bodyRowTypes = {
+  'data-rowindex': React.PropTypes.number
+};
 
 export {
   bodyChildContextTypes,
-  bodyRowContextTypes
+  bodyRowContextTypes,
+  bodyRowTypes
 };

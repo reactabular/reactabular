@@ -1,5 +1,5 @@
 import React from 'react';
-import { bodyRowContextTypes } from './types';
+import { bodyRowContextTypes, bodyRowTypes } from './types';
 
 class Row extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class Row extends React.Component {
     this.ref = null;
   }
   componentDidMount() {
-    this.context.updateHeight(this.ref.offsetHeight);
+    this.context.updateHeight(this.props['data-rowindex'], this.ref.offsetHeight);
   }
   shouldComponentUpdate() {
     // Skip rendering if not visible since VirtualizedBody might try to render
@@ -29,5 +29,6 @@ class Row extends React.Component {
   }
 }
 Row.contextTypes = bodyRowContextTypes;
+Row.propTypes = bodyRowTypes;
 
 export default Row;

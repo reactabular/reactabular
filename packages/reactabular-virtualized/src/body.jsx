@@ -62,9 +62,8 @@ class VirtualizedBody extends React.Component {
     return {
       offsetHeight: e.offsetHeight,
       scrollTop: e.scrollTop,
-      updateHeight: height => {
-        // XXXXX: this probably needs the concept of id (row[rowKey])
-        this.measuredRows.push(height);
+      updateHeight: (index, height) => {
+        this.measuredRows[index] = height;
       },
       rows: this.rows
     };
@@ -95,7 +94,8 @@ class VirtualizedBody extends React.Component {
           }
 
           return {
-            rowProps,
+            'data-rowindex': rowIndex,
+            ...rowProps,
             style: customStyle
           };
         }}
