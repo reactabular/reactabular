@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import defaultOrder from './default_order';
 
 const byColumns = ({
@@ -20,7 +21,7 @@ const byColumns = ({
     };
   } else if ({}.hasOwnProperty.call(sortingColumns, selectedColumn)) {
     // Clone to avoid mutating the original structure
-    newSortingColumns = { ...sortingColumns };
+    newSortingColumns = cloneDeep(sortingColumns);
 
     const newSort = sortingOrder[newSortingColumns[selectedColumn].direction];
 

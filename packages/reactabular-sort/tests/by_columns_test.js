@@ -187,4 +187,38 @@ describe('sort.byColumns', function () {
 
     expect(result).to.deep.equal(sortingColumns);
   });
+
+  it('does not mutate original data', function () {
+    const selectedColumn = 0;
+    const sortingColumns = {
+      0: {
+        direction: 'desc',
+        position: 0
+      },
+      1: {
+        direction: 'asc',
+        position: 1
+      }
+    };
+
+    const expected = {
+      1: {
+        direction: 'asc',
+        position: 0
+      }
+    };
+    const result = byColumns({ sortingColumns, selectedColumn });
+
+    expect(result).to.deep.equal(expected);
+    expect(sortingColumns).to.deep.equal({
+      0: {
+        direction: 'desc',
+        position: 0
+      },
+      1: {
+        direction: 'asc',
+        position: 1
+      }
+    });
+  });
 });

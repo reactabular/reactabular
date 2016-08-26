@@ -1,3 +1,8 @@
+2.0.5 / 2016-08-26
+==================
+
+  * Bug fix - Make sure `sort.byColumns` does not mutate passed `sortingColumns`. Now it performs a deep clone using lodash.
+
 2.0.0 / 2016-08-16
 ==================
 

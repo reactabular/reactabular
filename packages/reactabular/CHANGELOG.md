@@ -1,6 +1,10 @@
 2.0.5 / 2016-08-26
 ==================
 
+## reactabular-sort
+
+  * Bug fix - Make sure `sort.byColumns` does not mutate passed `sortingColumns`. Now it performs a deep clone using lodash.
+
 ## reactabular-sticky
 
   * Improvement - Allow `onScroll` handler to be defined for `Body`. Previously it overrode that.
