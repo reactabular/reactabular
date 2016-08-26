@@ -9,6 +9,10 @@
 
   * Improvement - Allow `onScroll` handler to be defined for `Body`. Previously it overrode that.
 
+## reactabular-table
+
+  * Improvement - Allow `Body` `rowKey` to be defined as a function (`({ rowData, rowIndex }) => {... return a rowKey ...}`). #193
+
 2.0.4 / 2016-08-24
 ==================
 

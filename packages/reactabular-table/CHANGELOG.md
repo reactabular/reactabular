@@ -1,3 +1,8 @@
+2.0.5 / 2016-08-26
+==================
+
+  * Improvement - Allow `Body` `rowKey` to be defined as a function (`({ rowData, rowIndex }) => {... return a rowKey ...}`). #193
+
 2.0.0 / 2016-08-16
 ==================
 

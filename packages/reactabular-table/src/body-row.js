@@ -10,16 +10,15 @@ class BodyRow extends React.Component {
 
     return !(
       isEqual(previousProps.columns, nextProps.columns) &&
-      isEqual(previousProps.row, nextProps.row) &&
       isEqual(previousProps.rowData, nextProps.rowData)
     );
   }
   render() {
-    const { columns, components, row, onRow, rowIndex, rowData } = this.props;
+    const { columns, components, onRow, rowIndex, rowData } = this.props;
 
     return React.createElement(
       components.row,
-      onRow(row, rowIndex),
+      onRow(rowData, rowIndex),
       columns.map(({ column, cell, property, props }, j) => {
         const {
           transforms = [],
@@ -32,7 +31,9 @@ class BodyRow extends React.Component {
           rowIndex,
           property
         };
-        const transformed = evaluateTransforms(transforms, row[property], extraParameters);
+        const transformed = evaluateTransforms(
+          transforms, rowData[property], extraParameters
+        );
 
         if (!transformed) {
           console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
@@ -44,7 +45,9 @@ class BodyRow extends React.Component {
             key: `${j}-cell`,
             ...mergePropPair(props, transformed)
           },
-          transformed.children || format(row[`_${property}`] || row[property], extraParameters)
+          transformed.children ||
+          format(rowData[`_${property}`] ||
+          rowData[property], extraParameters)
         );
       })
     );
@@ -56,10 +59,6 @@ BodyRow.defaultProps = {
 BodyRow.propTypes = {
   columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object,
-  row: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object
-  ]),
   onRow: React.PropTypes.func,
   rowIndex: React.PropTypes.number.isRequired,
   rowData: React.PropTypes.oneOfType([

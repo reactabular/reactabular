@@ -908,4 +908,68 @@ describe('Table.Body', function () {
     expect(receivedRowIndex).to.equal(0);
     expect(tr).to.exist;
   });
+
+  it('accepts a function for rowKey', function () {
+    const cellClass = 'test-cell';
+    const columns = [
+      {
+        property: 'age',
+        props: {
+          className: cellClass
+        },
+        header: {
+          label: 'Age'
+        }
+      }
+    ];
+    const id = 0;
+    const rows = [
+      { position: 'foo', age: 111, name: 'foo', nested: { id } }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey={({ rowData }) => rowData.nested.id} />
+      </Table.Provider>
+    );
+    const tableBodyRow = TestUtils.findRenderedComponentWithType(
+      table, Table.BodyRow
+    );
+    // XXX: there's likely a lot better way to dig the key
+    // Shallow rendering perhaps? https://github.com/facebook/react/issues/3721#issuecomment-106318499
+    const key = tableBodyRow._reactInternalInstance._currentElement.key;
+
+    expect(key).to.equal(`${id}-row`);
+  });
+
+  it('rowKey function received rowIndex', function () {
+    const cellClass = 'test-cell';
+    const columns = [
+      {
+        property: 'age',
+        props: {
+          className: cellClass
+        },
+        header: {
+          label: 'Age'
+        }
+      }
+    ];
+    const index = 0;
+    const rows = [
+      { position: 'foo', age: 111, name: 'foo' }
+    ];
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns}>
+        <Table.Body rows={rows} rowKey={({ rowIndex }) => rowIndex} />
+      </Table.Provider>
+    );
+    const tableBodyRow = TestUtils.findRenderedComponentWithType(
+      table, Table.BodyRow
+    );
+    // XXX: there's likely a lot better way to dig the key
+    // Shallow rendering perhaps? https://github.com/facebook/react/issues/3721#issuecomment-106318499
+    const key = tableBodyRow._reactInternalInstance._currentElement.key;
+
+    expect(key).to.equal(`${index}-row`);
+  });
 });

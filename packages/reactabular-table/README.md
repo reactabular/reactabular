@@ -95,6 +95,10 @@ Here `VisibilityToggles` injects an additional row for the filter controls. An a
 
 `Table.Body` renders table `rows` within a `Table.Provider` context. It accepts either an array of objects or an array of arrays (see the [Excel example](/examples/excel)). In the former case you should define a `rowKey`. This allows React to render in a more performant way.
 
+Most often you'll define `rowKey` as a string. An alternative is to define it using a function like this: `rowKey={({ rowData, rowIndex }) => rowData.nested.id}`. This is useful if your key is nested or related to some other data. Another way to avoid this problem is to generate the field using `reactabular-resolve` and then point to that through a string.
+
+**Example:**
+
 ```react
 <Table.Provider
   className="pure-table pure-table-striped"

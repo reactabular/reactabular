@@ -36,7 +36,10 @@ const tableContextTypes = {
 const tableBodyTypes = {
   onRow: React.PropTypes.func,
   rows: rowsType.isRequired,
-  rowKey: React.PropTypes.string
+  rowKey: React.PropTypes.oneOfType([
+    React.PropTypes.func,
+    React.PropTypes.string
+  ])
 };
 const tableBodyContextTypes = {
   bodyColumns: React.PropTypes.array.isRequired,
