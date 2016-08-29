@@ -11,9 +11,11 @@ class VirtualizedBody extends React.Component {
 
     this.state = {
       amountOfRowsToRender: 3, // First few rows for initial measurement
-      startIndex: 0,
-      startPadding: 0,
-      endPadding: 0
+      startIndex: 0, // Index where to start rendering
+
+      // Heights for extra rows to mimic scrolling
+      startHeight: 0,
+      endHeight: 0
     };
 
     this.updateRowsToRender = this.updateRowsToRender.bind(this);
@@ -22,11 +24,11 @@ class VirtualizedBody extends React.Component {
     this.updateRowsToRender();
   }
   getChildContext() {
-    const { startPadding, endPadding } = this.state;
+    const { startHeight, endHeight } = this.state;
 
     return {
-      startPadding,
-      endPadding,
+      startHeight,
+      endHeight,
       updateHeight: (index, height) => {
         this.measuredRows[index] = height;
       }
@@ -95,8 +97,8 @@ class VirtualizedBody extends React.Component {
         'amount of rows to render', amountOfRowsToRender,
         'start index', startIndex,
         'scroll top', scrollTop,
-        'start padding', this.state.startPadding,
-        'end padding', this.state.endPadding
+        'start height', this.state.startHeight,
+        'end height', this.state.endHeight
       );
     }
 
@@ -122,11 +124,11 @@ class VirtualizedBody extends React.Component {
     this.setState({
       amountOfRowsToRender,
       startIndex,
-      startPadding: 0, // XXXXX: calculate this
+      startHeight: 0, // XXXXX: calculate this
       // Calculate the padding of the last row so we can match whole height. This
       // won't be totally accurate if row heights differ but should get close
       // enough in most cases.
-      endPadding: remainingHeight
+      endHeight: remainingHeight
     });
   }
   getRef() {

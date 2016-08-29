@@ -7,8 +7,8 @@ const bodyRowTypes = {
   'data-rowindex': React.PropTypes.number
 };
 const bodyWrapperContextTypes = {
-  startPadding: React.PropTypes.number,
-  endPadding: React.PropTypes.number
+  startHeight: React.PropTypes.number,
+  endHeight: React.PropTypes.number
 };
 const bodyWrapperTypes = {
   children: React.PropTypes.any

@@ -3,15 +3,23 @@ import { bodyWrapperContextTypes, bodyWrapperTypes } from './types';
 
 class BodyWrapper extends React.Component {
   render() {
-    const { startPadding, endPadding } = this.context;
     const { children, ...props } = this.props;
-
-    console.log('body wrapper', startPadding, endPadding, children);
+    const { startHeight, endHeight } = this.context;
+    const startRow = React.createElement('tr', {
+      style: {
+        height: startHeight
+      }
+    });
+    const endRow = React.createElement('tr', {
+      style: {
+        height: endHeight
+      }
+    });
 
     return React.createElement(
       'tbody',
       props,
-      children // TODO: attach start/end padding here
+      [startRow].concat(children).concat(endRow)
     );
   }
 }
