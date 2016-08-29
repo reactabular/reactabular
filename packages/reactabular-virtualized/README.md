@@ -96,6 +96,7 @@ class VirtualizedTable extends React.Component {
         columns={columns}
         components={{
           body: {
+            wrapper: Virtualized.BodyWrapper,
             row: Virtualized.Row
           }
         }}

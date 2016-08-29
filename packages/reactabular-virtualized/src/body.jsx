@@ -12,6 +12,10 @@ class VirtualizedBody extends React.Component {
     this.state = {
       amountOfRowsToRender: 3, // First few rows for initial measurement
       startIndex: 0,
+      firstRow: {
+        height: -1
+        // No need to track index given it's zero always
+      },
       lastRow: {
         height: -1,
         index: -1
