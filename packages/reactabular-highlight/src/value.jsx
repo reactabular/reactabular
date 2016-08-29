@@ -7,7 +7,7 @@ const highlightValue = (value, highlights) => {
 
   const val = String(value); // deals with arrays/numbers/...
 
-  let children = [];
+  const children = [];
   let currentPosition = 0;
   let x = 0;
 
