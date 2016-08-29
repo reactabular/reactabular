@@ -15,7 +15,10 @@ class VirtualizedBody extends React.Component {
 
       // Heights for extra rows to mimic scrolling
       startHeight: 0,
-      endHeight: 0
+      endHeight: 0,
+
+      // Show extra row (even/odd issue)
+      showExtraRow: false
     };
 
     this.updateRowsToRender = this.updateRowsToRender.bind(this);
@@ -24,11 +27,12 @@ class VirtualizedBody extends React.Component {
     this.updateRowsToRender();
   }
   getChildContext() {
-    const { startHeight, endHeight } = this.state;
+    const { startHeight, endHeight, showExtraRow } = this.state;
 
     return {
       startHeight,
       endHeight,
+      showExtraRow,
       updateHeight: (index, height) => {
         this.measuredRows[index] = height;
       }
@@ -124,6 +128,7 @@ class VirtualizedBody extends React.Component {
     this.setState({
       amountOfRowsToRender,
       startIndex,
+      showExtraRow: !(startIndex % 2),
       startHeight,
       endHeight
     });

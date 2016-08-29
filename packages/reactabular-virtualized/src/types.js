@@ -8,7 +8,8 @@ const bodyRowTypes = {
 };
 const bodyWrapperContextTypes = {
   startHeight: React.PropTypes.number,
-  endHeight: React.PropTypes.number
+  endHeight: React.PropTypes.number,
+  showExtraRow: React.PropTypes.bool
 };
 const bodyWrapperTypes = {
   children: React.PropTypes.any
