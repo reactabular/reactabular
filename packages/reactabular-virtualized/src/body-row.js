@@ -8,8 +8,10 @@ class BodyRow extends React.Component {
     this.ref = null;
   }
   componentDidMount() {
-    // TODO: skip for last row - check through a prop
-    this.context.updateHeight(this.props['data-rowindex'], this.ref.offsetHeight);
+    this.context.updateHeight(
+      this.props['data-rowindex'],
+      this.ref.offsetHeight
+    );
   }
   render() {
     return React.createElement(

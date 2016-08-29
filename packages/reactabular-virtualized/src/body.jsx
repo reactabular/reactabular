@@ -97,12 +97,6 @@ class VirtualizedBody extends React.Component {
       return;
     }
 
-    // No need to tweak the scrollbar height if there's no scrollbar in the
-    // first place.
-    if (amountOfRowsToRender * averageHeight < this.ref.offsetHeight) {
-      return;
-    }
-
     const startHeight = Math.max(
       scrollTop - (scrollTop - ((startIndex - 1) * averageHeight)),
       0
