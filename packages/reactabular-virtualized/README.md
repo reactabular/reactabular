@@ -36,6 +36,17 @@ const rows = generateRows(1000, schema);
 
 const columns = [
   {
+    props: {
+      style: { minWidth: 50 }
+    },
+    header: {
+      label: 'Index'
+    },
+    cell: {
+      format: (value, { rowIndex }) => <span>{rowIndex}</span>
+    }
+  },
+  {
     property: 'name',
     props: {
       style: { minWidth: 300 }
