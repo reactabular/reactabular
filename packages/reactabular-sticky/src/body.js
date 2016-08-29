@@ -12,7 +12,7 @@ class Body extends React.Component {
     const { style, tableHeader, onScroll, ...props } = this.props;
     const tableHeaderWidth = tableHeader ? tableHeader.clientWidth : 0;
     const tableBodyWidth = this.ref ? this.ref.clientWidth : 0;
-    const scrollOffset = tableHeaderWidth - tableBodyWidth;
+    const scrollOffset = tableHeaderWidth - tableBodyWidth || 0;
 
     return React.createElement(
       TableBody,
