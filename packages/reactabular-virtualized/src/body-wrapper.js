@@ -1,14 +1,12 @@
 import React from 'react';
-//import { bodyRowContextTypes, bodyRowTypes } from './types';
+import { bodyWrapperContextTypes, bodyWrapperTypes } from './types';
 
 class BodyWrapper extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.ref = null;
-  }
   render() {
+    const { startPadding, endPadding } = this.context;
     const { children, ...props } = this.props;
+
+    console.log('body wrapper', startPadding, endPadding, children);
 
     return React.createElement(
       'tbody',
@@ -17,8 +15,7 @@ class BodyWrapper extends React.Component {
     );
   }
 }
-// TODO: dig start/end from context
-//BodyWrapper.contextTypes = bodyRowContextTypes;
-//BodyWrapper.propTypes = bodyRowTypes;
+BodyWrapper.contextTypes = bodyWrapperContextTypes;
+BodyWrapper.propTypes = bodyWrapperTypes;
 
 export default BodyWrapper;

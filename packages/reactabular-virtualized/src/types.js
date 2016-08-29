@@ -1,20 +1,27 @@
 import React from 'react';
 
-const types = {
-  offsetHeight: React.PropTypes.number,
-  scrollTop: React.PropTypes.number,
-  updateHeight: React.PropTypes.func,
-  rows: React.PropTypes.object,
-  previousRow: React.PropTypes.object
+const bodyRowContextTypes = {
+  updateHeight: React.PropTypes.func
 };
-const bodyChildContextTypes = types;
-const bodyRowContextTypes = types;
 const bodyRowTypes = {
   'data-rowindex': React.PropTypes.number
+};
+const bodyWrapperContextTypes = {
+  startPadding: React.PropTypes.number,
+  endPadding: React.PropTypes.number
+};
+const bodyWrapperTypes = {
+  children: React.PropTypes.any
+};
+const bodyChildContextTypes = {
+  ...bodyRowContextTypes,
+  ...bodyWrapperContextTypes
 };
 
 export {
   bodyChildContextTypes,
   bodyRowContextTypes,
-  bodyRowTypes
+  bodyRowTypes,
+  bodyWrapperContextTypes,
+  bodyWrapperTypes
 };

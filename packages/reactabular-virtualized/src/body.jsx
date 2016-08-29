@@ -12,14 +12,8 @@ class VirtualizedBody extends React.Component {
     this.state = {
       amountOfRowsToRender: 3, // First few rows for initial measurement
       startIndex: 0,
-      firstRow: {
-        height: -1
-        // No need to track index given it's zero always
-      },
-      lastRow: {
-        height: -1,
-        index: -1
-      }
+      startPadding: 0,
+      endPadding: 0
     };
 
     this.updateRowsToRender = this.updateRowsToRender.bind(this);
@@ -28,27 +22,19 @@ class VirtualizedBody extends React.Component {
     this.updateRowsToRender();
   }
   getChildContext() {
-    const props = this.props;
-    const style = props.style || {};
-    const e = this.ref || {
-      offsetHeight: style.maxHeight,
-      scrollTop: 0
-    };
+    const { startPadding, endPadding } = this.state;
 
     return {
-      offsetHeight: e.offsetHeight,
-      scrollTop: e.scrollTop,
+      startPadding,
+      endPadding,
       updateHeight: (index, height) => {
-        if (index !== this.state.lastRow.index) {
-          this.measuredRows[index] = height;
-        }
-      },
-      rows: this.rows
+        this.measuredRows[index] = height;
+      }
     };
   }
   render() {
     const { onRow, rows, ...props } = this.props;
-    const { startIndex, amountOfRowsToRender, lastRow } = this.state;
+    const { startIndex, amountOfRowsToRender } = this.state;
     const rowsToRender = rows.slice(
       startIndex,
       startIndex + amountOfRowsToRender
@@ -67,21 +53,12 @@ class VirtualizedBody extends React.Component {
       <Body
         {...props}
         onRow={(row, rowIndex) => {
-          // Tweak the height of the last row so that scrollbar looks fine.
-          const { style, ...rowProps } = onRow ? onRow(row, rowIndex) : {};
-          let customStyle = style;
-
-          if (startIndex + rowIndex === lastRow.index) {
-            customStyle = {
-              ...style,
-              height: lastRow.height
-            };
-          }
+          const rowProps = onRow ? onRow(row, rowIndex) : {};
 
           return {
+            // Pass index so that row heights can be tracked properly
             'data-rowindex': startIndex + rowIndex,
-            ...rowProps,
-            style: customStyle
+            ...rowProps
           };
         }}
         rows={rowsToRender}
@@ -118,7 +95,8 @@ class VirtualizedBody extends React.Component {
         'amount of rows to render', amountOfRowsToRender,
         'start index', startIndex,
         'scroll top', scrollTop,
-        'last row', this.state.lastRow
+        'start padding', this.state.startPadding,
+        'end padding', this.state.endPadding
       );
     }
 
@@ -138,21 +116,17 @@ class VirtualizedBody extends React.Component {
       return;
     }
 
-    // TODO: calculate startHeight to push rows to the correct place
-
     const remainingHeight = (this.props.rows.length - amountOfRowsToRender) * averageHeight;
 
     // Update state and render now that data has changed
     this.setState({
       amountOfRowsToRender,
       startIndex,
+      startPadding: 0, // XXXXX: calculate this
       // Calculate the padding of the last row so we can match whole height. This
       // won't be totally accurate if row heights differ but should get close
       // enough in most cases.
-      lastRow: {
-        height: remainingHeight,
-        index: (startIndex + rowsToRender.length) - 1
-      }
+      endPadding: remainingHeight
     });
   }
   getRef() {
