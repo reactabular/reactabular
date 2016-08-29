@@ -7,11 +7,13 @@ class BodyWrapper extends React.Component { // eslint-disable-line react/prefer-
     const { children, ...props } = this.props;
     const { startHeight, endHeight } = this.context;
     const startRow = React.createElement('tr', {
+      key: 'start-row',
       style: {
         height: startHeight
       }
     });
     const endRow = React.createElement('tr', {
+      key: 'end-row',
       style: {
         height: endHeight
       }
