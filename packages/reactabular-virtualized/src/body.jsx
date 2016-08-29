@@ -87,21 +87,6 @@ class VirtualizedBody extends React.Component {
     const amountOfRowsToRender = Math.ceil(bodyHeight / averageHeight) + 2;
 
     const startIndex = Math.floor(scrollTop / averageHeight);
-
-    if (process.env.NODE_ENV !== 'production') {
-      console.log( // eslint-disable-line no-console
-        'measured sample', measuredSample,
-        'measured rows', this.measuredRows,
-        'average height', averageHeight,
-        'body height', bodyHeight,
-        'amount of rows to render', amountOfRowsToRender,
-        'start index', startIndex,
-        'scroll top', scrollTop,
-        'start height', this.state.startHeight,
-        'end height', this.state.endHeight
-      );
-    }
-
     const rowsToRender = this.props.rows.slice(
       startIndex,
       startIndex + amountOfRowsToRender
@@ -118,17 +103,35 @@ class VirtualizedBody extends React.Component {
       return;
     }
 
-    const remainingHeight = (this.props.rows.length - amountOfRowsToRender) * averageHeight;
+    const startHeight = scrollTop - (scrollTop - ((startIndex - 1) * averageHeight));
+
+    // Calculate the padding of the last row so we can match whole height. This
+    // won't be totally accurate if row heights differ but should get close
+    // enough in most cases.
+    const endHeight = (
+      (this.props.rows.length - amountOfRowsToRender) * averageHeight
+    ) - startHeight;
+
+    if (process.env.NODE_ENV !== 'production') {
+      console.log( // eslint-disable-line no-console
+        'measured sample', measuredSample,
+        'measured rows', this.measuredRows,
+        'average height', averageHeight,
+        'body height', bodyHeight,
+        'amount of rows to render', amountOfRowsToRender,
+        'start index', startIndex,
+        'scroll top', scrollTop,
+        'start height', startHeight,
+        'end height', endHeight
+      );
+    }
 
     // Update state and render now that data has changed
     this.setState({
       amountOfRowsToRender,
       startIndex,
-      startHeight: 0, // XXXXX: calculate this
-      // Calculate the padding of the last row so we can match whole height. This
-      // won't be totally accurate if row heights differ but should get close
-      // enough in most cases.
-      endHeight: remainingHeight
+      startHeight,
+      endHeight
     });
   }
   getRef() {
