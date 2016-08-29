@@ -32,7 +32,7 @@ const schema = {
   },
   required: ['id', 'name', 'product', 'company', 'age']
 };
-const rows = generateRows(100, schema);
+const rows = generateRows(1000, schema);
 
 const columns = [
   {

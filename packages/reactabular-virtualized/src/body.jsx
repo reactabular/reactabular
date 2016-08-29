@@ -83,7 +83,7 @@ class VirtualizedBody extends React.Component {
     const measuredSample = this.measuredRows;
 
     // Calculate amount of rows to render based on average height
-    const amountOfMeasuredRows = measuredSample.length;
+    const amountOfMeasuredRows = measuredSample.filter(a => a).length;
     const averageHeight = measuredSample
       .reduce((a, b) => (
         a + (b / amountOfMeasuredRows)
@@ -106,9 +106,14 @@ class VirtualizedBody extends React.Component {
     // Calculate the padding of the last row so we can match whole height. This
     // won't be totally accurate if row heights differ but should get close
     // enough in most cases.
-    const endHeight = (
-      (this.props.rows.length - amountOfRowsToRender) * averageHeight
-    ) - startHeight;
+    const endHeight = Math.max(
+      (
+        (
+          this.props.rows.length - amountOfRowsToRender
+        ) * averageHeight
+      ) - startHeight,
+      0
+    );
 
     if (process.env.NODE_ENV !== 'production') {
       console.log( // eslint-disable-line no-console
