@@ -103,7 +103,10 @@ class VirtualizedBody extends React.Component {
       return;
     }
 
-    const startHeight = scrollTop - (scrollTop - ((startIndex - 1) * averageHeight));
+    const startHeight = Math.max(
+      scrollTop - (scrollTop - ((startIndex - 1) * averageHeight)),
+      0
+    );
 
     // Calculate the padding of the last row so we can match whole height. This
     // won't be totally accurate if row heights differ but should get close
