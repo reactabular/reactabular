@@ -1,9 +1,9 @@
 import Body from './body';
+import BodyRow from './body-row';
 import BodyWrapper from './body-wrapper';
-import Row from './row';
 
 export {
   Body,
-  BodyWrapper,
-  Row
+  BodyRow,
+  BodyWrapper
 };

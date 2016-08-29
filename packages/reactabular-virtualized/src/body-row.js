@@ -1,7 +1,7 @@
 import React from 'react';
 import { bodyRowContextTypes, bodyRowTypes } from './types';
 
-class Row extends React.Component {
+class BodyRow extends React.Component {
   constructor(props) {
     super(props);
 
@@ -25,7 +25,7 @@ class Row extends React.Component {
     );
   }
 }
-Row.contextTypes = bodyRowContextTypes;
-Row.propTypes = bodyRowTypes;
+BodyRow.contextTypes = bodyRowContextTypes;
+BodyRow.propTypes = bodyRowTypes;
 
-export default Row;
+export default BodyRow;
