@@ -7,32 +7,10 @@
 import React from 'react';
 import * as Sticky from 'reactabular-sticky';
 import * as Virtualized from 'reactabular-virtualized';
+import * as resolve from 'reactabular-resolve';
 
 import { generateRows } from './helpers';
 */
-
-const schema = {
-  type: 'object',
-  properties: {
-    id: {
-      type: 'string'
-    },
-    name: {
-      type: 'string'
-    },
-    product: {
-      type: 'string'
-    },
-    company: {
-      type: 'string'
-    },
-    age: {
-      type: 'integer'
-    }
-  },
-  required: ['id', 'name', 'product', 'company', 'age']
-};
-const rows = generateRows(1000, schema);
 
 const columns = [
   {
@@ -83,6 +61,36 @@ const columns = [
     }
   }
 ];
+
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string'
+    },
+    name: {
+      type: 'string'
+    },
+    product: {
+      type: 'string'
+    },
+    company: {
+      type: 'string'
+    },
+    age: {
+      type: 'integer'
+    }
+  },
+  required: ['id', 'name', 'product', 'company', 'age']
+};
+// Resolving indices is an optional step. You can skip it if you don't
+// rely on rowIndex anywhere. But if you do, it's good to calculate and
+// include to the data. Reactabular's rendering logic is able to pick it
+// up by convention (`_index` field).
+const rows = resolve.resolve({
+  columns,
+  method: resolve.index
+})(generateRows(1000, schema));
 
 class VirtualizedTable extends React.Component {
   constructor(props) {
