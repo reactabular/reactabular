@@ -972,4 +972,34 @@ describe('Table.Body', function () {
 
     expect(key).to.equal(`${index}-row`);
   });
+
+  it('allows passing custom row keys through _index', function () {
+    const testIndex = 13;
+    const testRow = { name: 'demo', _index: testIndex };
+    const columns = [
+      {
+        property: 'name',
+        header: {
+          label: 'Name'
+        }
+      }
+    ];
+
+    const table = TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns}>
+        <Table.Body
+          rows={[testRow]}
+          rowKey="name"
+          onRow={(row, rowIndex) => ({
+            className: rowIndex
+          })}
+        />
+      </Table.Provider>
+    );
+    const tr = TestUtils.findRenderedDOMComponentWithClass(
+      table, testIndex.toString()
+    );
+
+    expect(tr).to.exist;
+  });
 });

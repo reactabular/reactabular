@@ -28,16 +28,18 @@ class Body extends React.Component {
     return React.createElement(
       components.body.wrapper,
       props,
-      rows.map((rowData, rowIndex) => (
-        React.createElement(BodyRow, {
+      rows.map((rowData, index) => {
+        const rowIndex = rowData._index || index;
+
+        return React.createElement(BodyRow, {
           key: resolveRowKey({ rowData, rowIndex, rowKey }),
           components: components.body,
           onRow,
           rowIndex,
           rowData,
           columns: bodyColumns
-        })
-      ))
+        });
+      })
     );
   }
   getRef() {
