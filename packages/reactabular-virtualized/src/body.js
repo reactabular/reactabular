@@ -39,7 +39,7 @@ class VirtualizedBody extends React.Component {
     };
   }
   render() {
-    const { onRow, rows, ...props } = this.props;
+    const { onRow, rows, onScroll, ...props } = this.props;
     const { startIndex, amountOfRowsToRender } = this.state;
     const rowsToRender = rows.slice(
       startIndex,
@@ -72,7 +72,11 @@ class VirtualizedBody extends React.Component {
         ref: body => {
           this.ref = body && body.getRef();
         },
-        onScroll: ({ target: { scrollTop } }) => {
+        onScroll: e => {
+          onScroll && onScroll(e);
+
+          const { target: { scrollTop } } = e;
+
           this.updateRowsToRender(scrollTop);
         }
       }
