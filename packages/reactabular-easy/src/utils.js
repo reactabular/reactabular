@@ -1,13 +1,14 @@
 import findIndex from 'lodash/findIndex';
 import * as stylesheet from 'stylesheet-helpers';
 
-function createStylesheet() {
-  return stylesheet.create();
+function createStylesheet(document) {
+  return stylesheet.create(document);
 }
 
-function initializeStyles({ styleSheet, columns, id }) {
+function initializeStyles({ document, styleSheet, columns, id }) {
   columns.forEach((column, i) => (
     stylesheet.updateProperties(
+      document,
       styleSheet,
       getColumnClassName(id, i),
       {
@@ -18,8 +19,9 @@ function initializeStyles({ styleSheet, columns, id }) {
   ));
 }
 
-function updateWidth({ styleSheet, width, id, columnIndex }) {
+function updateWidth({ document, styleSheet, width, id, columnIndex }) {
   stylesheet.updateProperties(
+    document,
     styleSheet,
     getColumnClassName(id, columnIndex),
     {

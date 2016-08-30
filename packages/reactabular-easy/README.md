@@ -54,6 +54,11 @@ class Demo extends React.Component {
   constructor(props) {
     super(props);
 
+    // Resolve iframe document as otherwise width logic won't work. If you aren't
+    // using an iframe, you don't need this.
+    this.iframe = document.getElementsByTagName('iframe')[0];
+    this.document = this.iframe.contentWindow.document;
+
     this.state = {
       rows,
       columns: this.getColumns(),
@@ -65,6 +70,7 @@ class Demo extends React.Component {
     this.onSelectRow = this.onSelectRow.bind(this);
     this.onRemove = this.onRemove.bind(this);
     this.onSort = this.onSort.bind(this);
+    this.onWidth = this.onWidth.bind(this);
   }
   getColumns() {
     return [
@@ -183,6 +189,7 @@ class Demo extends React.Component {
         </div>
 
         <EasyTable
+          document={this.document}
           rows={rows}
           rowKey="id"
           sortingColumns={sortingColumns}
@@ -207,6 +214,7 @@ class Demo extends React.Component {
           onSelectRow={this.onSelectRow}
           onSort={this.onSort}
           onRow={this.onRow}
+          onWidth={this.onWidth}
         />
       </div>
     );
@@ -245,6 +253,13 @@ class Demo extends React.Component {
     rows.splice(idx, 1);
 
     this.setState({ rows });
+  }
+  onWidth(width) {
+    // XXXXX - The problem is that initial calculation (startX) goes wrong
+    // with iframe.
+    // Take iframe position into account. Without an iframe you
+    // can skip this check.
+    return width; // + this.iframe.getBoundingClientRect().left;
   }
 }
 

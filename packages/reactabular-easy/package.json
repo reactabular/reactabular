@@ -37,7 +37,7 @@
   "dependencies": {
     "react-dnd": "^2.1.4",
     "redux": "^3.5.2",
-    "stylesheet-helpers": "^0.1.2",
+    "stylesheet-helpers": "^0.2.2",
     "uuid": "^2.0.2"
   },
   "devDependencies": {

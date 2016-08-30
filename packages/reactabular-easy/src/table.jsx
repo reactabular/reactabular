@@ -47,12 +47,13 @@ class EasyTable extends React.Component {
     this.styleSheet = null;
   }
   componentDidMount() {
-    const { styleSheetElement, styleSheet } = createStylesheet();
+    const { styleSheetElement, styleSheet } = createStylesheet(this.props.document);
 
     this.styleSheetElement = styleSheetElement;
     this.styleSheet = styleSheet;
 
     initializeStyles({
+      document: this.props.document,
       styleSheet: this.styleSheet,
       columns: this.state.columns,
       id: this.id
@@ -172,13 +173,14 @@ class EasyTable extends React.Component {
   }
   bindColumns({ columns, styles }) {
     const resizable = resizableColumn({
-      getWidth: column => column.props.style.width,
+      document: this.props.document,
       onDrag: (width, { columnIndex }) => {
         // Update the width of the changed column class
         updateWidth({
+          doc: this.props.document,
           styleSheet: this.styleSheet,
           id: this.id,
-          width,
+          width: this.props.onWidth(width),
           columnIndex
         });
 

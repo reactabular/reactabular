@@ -1,6 +1,7 @@
 import React from 'react';
 
 const propTypes = {
+  document: React.PropTypes.object, // DOM document
   columns: React.PropTypes.array,
   rows: React.PropTypes.array,
   rowKey: React.PropTypes.string.isRequired,
@@ -13,6 +14,7 @@ const propTypes = {
   styles: React.PropTypes.object,
   components: React.PropTypes.object,
   onRow: React.PropTypes.func,
+  onWidth: React.PropTypes.func,
   onDragColumn: React.PropTypes.func,
   onMoveColumns: React.PropTypes.func,
   onSelectRow: React.PropTypes.func,
@@ -52,6 +54,7 @@ const defaultProps = {
     }
   },
   components: {},
+  onWidth: width => width,
   onRow: () => ({}),
   onDragColumn: () => {},
   onMoveColumns: () => {},
