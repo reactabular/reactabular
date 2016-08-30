@@ -3,6 +3,7 @@ import React from 'react';
 // Adapted from https://stackoverflow.com/questions/20926551/recommended-way-of-making-react-component-div-draggable
 const resizableColumn = (
   {
+    doc = document,
     onDrag,
     minWidth = 100,
     styles = {
@@ -56,8 +57,8 @@ const resizableColumn = (
         e.stopPropagation();
         e.preventDefault();
 
-        document.addEventListener('mousemove', this.onMouseMove);
-        document.addEventListener('mouseup', this.onMouseUp);
+        doc.addEventListener('mousemove', this.onMouseMove);
+        doc.addEventListener('mouseup', this.onMouseUp);
 
         this.startX = e.clientX;
         this.startWidth = this.column.offsetWidth;
@@ -77,8 +78,8 @@ const resizableColumn = (
         e.stopPropagation();
         e.preventDefault();
 
-        document.removeEventListener('mousemove', this.onMouseMove);
-        document.removeEventListener('mouseup', this.onMouseUp);
+        doc.removeEventListener('mousemove', this.onMouseMove);
+        doc.removeEventListener('mouseup', this.onMouseUp);
       }
     }
 
