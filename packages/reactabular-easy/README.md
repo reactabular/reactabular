@@ -3,6 +3,8 @@ Given Reactabular is flexible by design, it's not the easiest to use and you may
 To make the drag and drop functionality work, you have to set up [react-dnd-html5-backend](https://www.npmjs.com/package/react-dnd-html5-backend) or some other React DnD backend.
 
 ```jsx
+frame: true
+---
 /*
 import React from 'react';
 import { search, Search, SearchColumns } from 'reactabular';
