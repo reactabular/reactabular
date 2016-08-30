@@ -4,6 +4,7 @@ import {
 } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import { mergeClassNames } from 'reactabular-utils';
+import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
 import uuid from 'uuid';
 import find from 'lodash/find';
@@ -87,6 +88,10 @@ class EasyTable extends React.Component {
       ...components,
       header: {
         cell: dnd.Header
+      },
+      body: {
+        wrapper: Virtualized.BodyWrapper,
+        row: Virtualized.BodyRow
       }
     };
     const { columns, selectedRow } = this.state;
@@ -148,15 +153,15 @@ class EasyTable extends React.Component {
           {headerExtra}
         </Sticky.Header>
 
-        <Sticky.Body
+        <Virtualized.Body
           className={classNames.body && classNames.body.wrapper}
           rows={rows}
           rowKey={rowKey}
           onRow={this.onRow}
           style={{
-            maxWidth: tableWidth,
-            maxHeight: tableHeight
+            maxWidth: tableWidth
           }}
+          height={tableHeight}
           ref={tableBody => {
             this.tableBody = tableBody && tableBody.getRef();
           }}

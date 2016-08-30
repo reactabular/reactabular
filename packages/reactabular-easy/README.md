@@ -46,7 +46,7 @@ const schema = {
     }
   }
 };
-const rows = generateRows(30, schema);
+const rows = generateRows(1000, schema);
 
 class Demo extends React.Component {
   constructor(props) {

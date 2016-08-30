@@ -49,6 +49,7 @@
     "react": ">= 0.11.2 < 16.0.0",
     "reactabular": "^2.0.5",
     "reactabular-dnd": "^2.0.1",
-    "reactabular-utils": "^2.0.1"
+    "reactabular-utils": "^2.0.1",
+    "reactabular-virtualized": "^2.0.6"
   }
 }
