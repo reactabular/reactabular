@@ -55,10 +55,11 @@ class VirtualizedBody extends React.Component {
       );
     }
 
-    return (
-      <Body
-        {...props}
-        onRow={(row, rowIndex) => {
+    return React.createElement(
+      Body,
+      {
+        ...props,
+        onRow: (row, rowIndex) => {
           const rowProps = onRow ? onRow(row, rowIndex) : {};
 
           return {
@@ -66,15 +67,15 @@ class VirtualizedBody extends React.Component {
             'data-rowindex': startIndex + rowIndex,
             ...rowProps
           };
-        }}
-        rows={rowsToRender}
-        ref={body => {
+        },
+        rows: rowsToRender,
+        ref: body => {
           this.ref = body && body.getRef();
-        }}
-        onScroll={({ target: { scrollTop } }) => {
+        },
+        onScroll: ({ target: { scrollTop } }) => {
           this.updateRowsToRender(scrollTop);
-        }}
-      />
+        }
+      }
     );
   }
   updateRowsToRender(scrollTop = 0) {
