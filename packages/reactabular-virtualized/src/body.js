@@ -1,3 +1,4 @@
+import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { Body } from 'reactabular-sticky';
 import { bodyChildContextTypes } from './types';
@@ -25,6 +26,21 @@ class VirtualizedBody extends React.Component {
   }
   componentDidMount() {
     this.updateRowsToRender();
+  }
+  componentWillReceiveProps(nextProps) {
+    // If rows change, invalidate measurement data
+    if (!isEqual(this.props.rows, nextProps.rows)) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('invalidating measurements'); // eslint-disable-line no-console
+      }
+
+      this.measuredRows = [];
+
+      this.setState({
+        startIndex: 0,
+        amountOfRowsToRender: 3
+      }, () => this.updateRowsToRender());
+    }
   }
   getChildContext() {
     const { startHeight, endHeight, showExtraRow } = this.state;
@@ -84,16 +100,17 @@ class VirtualizedBody extends React.Component {
   }
   updateRowsToRender(scrollTop = 0) {
     // Render visible rows after initial measurement
-    const bodyHeight = this.props.height;
+    const { height } = this.props;
     const measuredSample = this.measuredRows;
 
-    // Calculate amount of rows to render based on average height
+    // Calculate amount of rows to render based on average height and take the
+    // amount of actual rows into account.
     const amountOfMeasuredRows = measuredSample.filter(a => a).length;
     const averageHeight = measuredSample
       .reduce((a, b) => (
         a + (b / amountOfMeasuredRows)
       ), 0);
-    const amountOfRowsToRender = Math.ceil(bodyHeight / averageHeight) + 2;
+    const amountOfRowsToRender = Math.ceil(height / averageHeight) + 2;
 
     const startIndex = Math.floor(scrollTop / averageHeight);
     const rowsToRender = this.props.rows.slice(
@@ -122,10 +139,11 @@ class VirtualizedBody extends React.Component {
 
     if (process.env.NODE_ENV !== 'production') {
       console.log( // eslint-disable-line no-console
+        'amount of measured rows', amountOfMeasuredRows,
         'measured sample', measuredSample,
         'measured rows', this.measuredRows,
         'average height', averageHeight,
-        'body height', bodyHeight,
+        'body height', height,
         'amount of rows to render', amountOfRowsToRender,
         'start index', startIndex,
         'scroll top', scrollTop,
