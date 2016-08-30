@@ -109,8 +109,11 @@ class EasyTable extends React.Component {
       search.multipleColumns({ columns, query }),
       resolve.resolve({
         columns,
-        method: (row, column) => resolve.byFunction('cell.resolve')({
-          rowData: resolve.nested(row, column),
+        method: ({ rowData, rowIndex, column }) => resolve.byFunction('cell.resolve')({
+          rowData: resolve.nested({
+            rowData: resolve.index({ rowData, rowIndex }),
+            column
+          }),
           column
         })
       })
