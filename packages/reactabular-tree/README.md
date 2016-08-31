@@ -91,38 +91,13 @@ class TreeTable extends React.Component {
           transforms: [sortable]
         },
         cell: {
-          format: (name, { rowData }) => {
-            const { allRows, rowsShowingChildren } = this.state;
-            const cellIndex = rowData._index;
-
-            return (
-              <div style={{ paddingLeft: `${tree.getLevel(allRows, cellIndex) * 1}em` }}>
-                {tree.hasChildren(allRows, cellIndex) && <span
-                  className={rowsShowingChildren.indexOf(cellIndex) >= 0 ? 'show-less' : 'show-more'}
-                  onClick={e => {
-                    const { rowsShowingChildren } = this.state;
-                    const index = rowsShowingChildren.indexOf(cellIndex);
-
-                    if (index >= 0) {
-                      this.setState({
-                        rowsShowingChildren: rowsShowingChildren.
-                          slice(0, index).
-                          concat(
-                            rowsShowingChildren.slice(index + 1)
-                          )
-                      })
-                    }
-                    else {
-                      this.setState({
-                        rowsShowingChildren: rowsShowingChildren.concat([cellIndex])
-                      });
-                    }
-                  }}
-                />}
-                {name}
-              </div>
-            );
-          }
+          format: tree.toggleChildren({
+            getRows: () => this.state.allRows,
+            getRowsShowingChildren: () => this.state.rowsShowingChildren,
+            setRowsShowingChildren: rowsShowingChildren => (
+              this.setState({ rowsShowingChildren })
+            )
+          })
         },
         visible: true
       },

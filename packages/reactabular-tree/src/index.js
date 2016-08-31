@@ -6,3 +6,5 @@ export { default as pack } from './pack';
 export { default as unpack } from './unpack';
 export { default as sort } from './sort';
 export { default as search } from './search';
+export { default as toggleChildren } from './toggle_children';
+
