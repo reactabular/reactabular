@@ -1,6 +1,6 @@
 {
   "name": "reactabular-search",
-  "version": "2.0.1",
+  "version": "2.0.5-alpha.f20b57cb",
   "description": "Search for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
