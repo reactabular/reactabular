@@ -3,12 +3,12 @@ import {
   Table, Sticky, sort, resizableColumn, resolve, highlight, search, select
 } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
+import * as tree from 'reactabular-tree';
 import { mergeClassNames } from 'reactabular-utils';
 import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
 import uuid from 'uuid';
 import find from 'lodash/find';
-import orderBy from 'lodash/orderBy';
 import { defaultProps, propTypes } from './types';
 import {
   createStylesheet, getColumnClassName, initializeStyles, updateWidth,
@@ -103,16 +103,14 @@ class EasyTable extends React.Component {
     }
 
     const rows = compose(
-      sort.sorter(
-        {
-          columns,
-          sortingColumns,
-          sort: orderBy,
-          getColumn: (columns, property) => find(columns, { property }) // eslint-disable-line no-shadow, max-len
-        }
-      ),
+      // TODO: Tidy up tree sorting interface. It returns more than just data.
+      tree.sort({
+        columns,
+        sortingColumns,
+        getColumn: (columns, property) => find(columns, { property }) // eslint-disable-line no-shadow, max-len
+      }),
       highlight.highlighter({ columns, matches: search.matches, query }),
-      search.multipleColumns({ columns, query }),
+      tree.search({ columns, query }),
       resolve.resolve({
         columns,
         method: ({ rowData, rowIndex, column }) => resolve.byFunction('cell.resolve')({

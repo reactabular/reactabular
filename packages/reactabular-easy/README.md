@@ -9,11 +9,14 @@ frame: true
 import React from 'react';
 import { search, Search, SearchColumns } from 'reactabular';
 import EasyTable from 'reactabular-easy';
+import VisibilityToggles from 'reactabular-visibility-toggles';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import cloneDeep from 'lodash/cloneDeep';
 
-import { generateRows, VisibilityToggles } from './helpers';
+import {
+  generateParents, generateRows
+} from './helpers';
 */
 
 const schema = {
@@ -48,7 +51,7 @@ const schema = {
     }
   }
 };
-const rows = generateRows(1000, schema);
+const rows = generateParents(generateRows(1000, schema));
 
 class EasyDemo extends React.Component {
   constructor(props) {
@@ -230,7 +233,7 @@ class EasyDemo extends React.Component {
 
     this.setState({ sortingColumns });
   }
-  onRow(row, rowIndex) {
+  onRow(row, { rowIndex }) {
     return {
       className: rowIndex % 2 ? 'odd-row' : 'even-row'
     };
