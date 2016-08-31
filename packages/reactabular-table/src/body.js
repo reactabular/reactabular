@@ -30,11 +30,13 @@ class Body extends React.Component {
       props,
       rows.map((rowData, index) => {
         const rowIndex = rowData._index || index;
+        const key = resolveRowKey({ rowData, rowIndex, rowKey });
 
         return React.createElement(BodyRow, {
-          key: resolveRowKey({ rowData, rowIndex, rowKey }),
+          key,
           components: components.body,
           onRow,
+          rowKey: key,
           rowIndex,
           rowData,
           columns: bodyColumns

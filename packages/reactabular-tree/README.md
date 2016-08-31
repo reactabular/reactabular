@@ -219,7 +219,7 @@ class TreeTable extends React.Component {
 
     this.setState({ columns });
   }
-  onRow(row, rowIndex) {
+  onRow(row, { rowIndex }) {
     return {
       className: rowIndex % 2 ? 'odd-row' : 'even-row'
     };

@@ -150,7 +150,7 @@ class SelectionTable extends React.Component {
       </div>
     );
   }
-  onRow(row, rowIndex) {
+  onRow(row, { rowIndex }) {
     return {
       className: classnames(
         rowIndex % 2 ? 'odd-row' : 'even-row',

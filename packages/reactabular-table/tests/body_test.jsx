@@ -873,6 +873,7 @@ describe('Table.Body', function () {
   it('allows attaching custom props per row through onRow', function () {
     let receivedRow;
     let receivedRowIndex;
+    let receivedRowKey;
     const testRow = { name: 'demo' };
     const rowClass = 'test-row';
     const columns = [
@@ -889,9 +890,10 @@ describe('Table.Body', function () {
         <Table.Body
           rows={[testRow]}
           rowKey="name"
-          onRow={(row, rowIndex) => {
+          onRow={(row, { rowIndex, rowKey }) => {
             receivedRow = row;
             receivedRowIndex = rowIndex;
+            receivedRowKey = rowKey;
 
             return {
               className: rowClass
@@ -906,6 +908,7 @@ describe('Table.Body', function () {
 
     expect(receivedRow).to.deep.equal(testRow);
     expect(receivedRowIndex).to.equal(0);
+    expect(receivedRowKey).to.equal(`${testRow.name}-row`);
     expect(tr).to.exist;
   });
 
@@ -990,7 +993,7 @@ describe('Table.Body', function () {
         <Table.Body
           rows={[testRow]}
           rowKey="name"
-          onRow={(row, rowIndex) => ({
+          onRow={(row, { rowIndex }) => ({
             className: rowIndex
           })}
         />

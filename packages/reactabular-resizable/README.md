@@ -175,7 +175,7 @@ class ResizableColumnsTable extends React.Component {
       </Table.Provider>
     );
   }
-  onRow(row, rowIndex) {
+  onRow(row, { rowIndex }) {
     return {
       className: rowIndex % 2 ? 'odd-row' : 'even-row',
     };

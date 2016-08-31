@@ -12,7 +12,7 @@ The project root contains a file, **style.css**, which you can import to your pr
   <Table.Body
     rows={rows}
     rowKey="id"
-    onRow={(row, rowIndex) => ({
+    onRow={(row, { rowIndex }) => ({
       className: rowIndex % 2 ? 'odd-row' : 'even-row',
     })}
   />

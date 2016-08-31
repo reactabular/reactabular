@@ -61,7 +61,8 @@ const tableBodyRowTypes = {
   components: React.PropTypes.object,
   onRow: React.PropTypes.func,
   rowIndex: React.PropTypes.number.isRequired,
-  rowData: rowDataType.isRequired
+  rowData: rowDataType.isRequired,
+  rowKey: React.PropTypes.string.isRequired
 };
 const tableHeaderContextTypes = {
   headerRows: React.PropTypes.array.isRequired,

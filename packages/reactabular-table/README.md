@@ -147,7 +147,7 @@ class RefTable extends React.Component {
       </Table.Provider>
     );
   }
-  onRow(row, rowIndex) {
+  onRow(row, { rowIndex, rowKey }) {
     return {
       onClick: () => console.log(this.headerRef, this.bodyRef)
     };
@@ -161,7 +161,7 @@ It's the same idea for `Table.Body`.
 
 ## Customizing `Table.Body` Rows
 
-It is possible to customize body behavior on a row level. `onRow` prop accepts function `(row, rowIndex) => ({...})` that allows you to set custom attributes per each row.
+It is possible to customize body behavior on a row level. `onRow` prop accepts function `(row, { rowIndex, rowKey }) => ({...})` that allows you to set custom attributes per each row.
 
 ```react
 class CustomTable extends React.Component {
@@ -181,7 +181,7 @@ class CustomTable extends React.Component {
       </Table.Provider>
     );
   }
-  onRow(row, rowIndex) {
+  onRow(row, { rowIndex, rowKey }) {
     return {
       className: rowIndex % 2 ? 'odd-row' : 'even-row',
       onClick: () => console.log('clicked row', row)

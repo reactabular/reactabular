@@ -81,7 +81,7 @@ class VirtualizedBody extends React.Component {
       Body,
       {
         ...props,
-        onRow: (row, rowIndex) => {
+        onRow: (row, { rowIndex }) => {
           const rowProps = onRow ? onRow(row, rowIndex) : {};
 
           return {

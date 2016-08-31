@@ -15,11 +15,11 @@ class BodyRow extends React.Component {
     );
   }
   render() {
-    const { columns, components, onRow, rowIndex, rowData } = this.props;
+    const { columns, components, onRow, rowKey, rowIndex, rowData } = this.props;
 
     return React.createElement(
       components.row,
-      onRow(rowData, rowIndex), // TODO: refactor into object format
+      onRow(rowData, { rowIndex, rowKey }),
       columns.map(({ column, cell, property, props }, j) => {
         const {
           transforms = [],
@@ -30,6 +30,7 @@ class BodyRow extends React.Component {
           column,
           rowData,
           rowIndex,
+          rowKey,
           property
         };
         const transformed = evaluateTransforms(
