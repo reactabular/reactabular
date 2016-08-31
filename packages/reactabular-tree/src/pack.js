@@ -20,7 +20,7 @@ function packTree(rows = []) {
     }
   });
 
-  if (pack) {
+  if (pack && previousParent) {
     previousParent._pack = pack;
   }
 
