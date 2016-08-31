@@ -100,7 +100,7 @@ const pages = [
   {
     path: 'easy',
     title: 'Easy Version',
-    component: require('../packages/reactabular-easy/README.md')
+    component: require('reactabular-easy/../README.md')
   },
   examplesPages('examples'),
   {
@@ -112,7 +112,7 @@ const pages = [
   {
     path: 'changelog',
     title: 'Changelog',
-    component: require('../packages/reactabular/CHANGELOG.md')
+    component: require('reactabular/../CHANGELOG.md')
   },
   {
     path: 'license',
