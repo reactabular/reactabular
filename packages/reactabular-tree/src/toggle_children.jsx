@@ -26,6 +26,7 @@ const toggleChildren = ({
     e.stopPropagation();
     e.preventDefault();
 
+    // TODO: callback using index to toggle
     const rowsShowingChildren = getRowsShowingChildren();
     const index = rowsShowingChildren.indexOf(cellIndex);
 
@@ -45,6 +46,7 @@ const toggleChildren = ({
     const rowsShowingChildren = getRowsShowingChildren();
     const cellIndex = rowData._index;
 
+    // TODO: isShowing check (callback)
     return (
       <div style={{ paddingLeft: `${getLevel(rows, cellIndex) * 1}em` }}>
         {hasChildren(rows, cellIndex) && <span
