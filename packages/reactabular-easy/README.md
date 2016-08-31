@@ -83,7 +83,8 @@ class EasyDemo extends React.Component {
           format: () => <span>Testing</span>
         },
         cell: {
-          format: () => <span>Demo</span>
+          format: () => <span>Demo</span>,
+          toggleChildren: true
         },
         width: 100,
         visible: true

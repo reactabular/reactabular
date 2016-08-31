@@ -27,6 +27,7 @@ class EasyTable extends React.Component {
       originalColumns: props.columns,
       columns: this.bindColumns(props),
       rows: props.rows,
+      rowsShowingChildren: [],
       selectedRow: {}
     };
 
@@ -95,7 +96,7 @@ class EasyTable extends React.Component {
         row: Virtualized.BodyRow
       }
     };
-    const { columns, selectedRow } = this.state;
+    const { columns, selectedRow, rowsShowingChildren } = this.state;
 
     // Escape early if there are no columns to display
     if (!columns.length) {
@@ -103,7 +104,7 @@ class EasyTable extends React.Component {
     }
 
     const rows = compose(
-      // TODO: Tidy up tree sorting interface. It returns more than just data.
+      tree.filter(rowsShowingChildren),
       tree.sort({
         columns,
         sortingColumns,
@@ -217,10 +218,10 @@ class EasyTable extends React.Component {
         const existingHeaderFormat = header.format || (v => v);
         const existingHeaderTransforms = header.transforms || [];
         const existingCellFormat = cell.format || (v => v);
+        const newCellFormats = [existingCellFormat];
         const newHeaderFormats = [existingHeaderFormat];
         let newHeaderProps = existingHeaderProps;
         let newHeaderTransforms = existingHeaderTransforms;
-        let newCellFormat = existingCellFormat;
 
         if (header.sortable) {
           newHeaderFormats.push(sort.header({
@@ -245,11 +246,30 @@ class EasyTable extends React.Component {
         }
 
         if (cell.highlight) {
-          newCellFormat = (v, extra) => highlight.cell(
+          newCellFormats.push((v, extra) => highlight.cell(
             existingCellFormat(v, extra),
             extra
-          );
+          ));
         }
+
+        if (cell.toggleChildren) {
+          newCellFormats.push(tree.toggleChildren({
+            getRows: () => this.state.rows,
+            getRowsShowingChildren: () => this.state.rowsShowingChildren,
+            setRowsShowingChildren: rowsShowingChildren => (
+              this.setState({ rowsShowingChildren })
+            )
+          }));
+        }
+
+        const newCellFormat = (value, extra) => (
+          newCellFormats.reduce((parameters, format) => (
+            {
+              value: format(parameters.value, parameters.extra),
+              extra
+            }
+          ), { value, extra }).value
+        );
 
         const newHeaderFormat = (value, extra) => (
           newHeaderFormats.reduce((parameters, format) => (
