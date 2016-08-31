@@ -36,7 +36,8 @@ import countries from './data/countries';
 
 import tablePages from './table';
 import columnDefinitionPages from './column-definition';
-import searchingPages from './searching';
+import dataPages from './data';
+import featuresPages from './features';
 import examplesPages from './examples';
 
 import './main.css';
@@ -93,62 +94,8 @@ const pages = [
   },
   tablePages('table'),
   columnDefinitionPages('column-definition'),
-  {
-    path: 'resolving-data',
-    title: 'Resolving Data',
-    component: require('../packages/reactabular-resolve/README.md')
-  },
-  {
-    path: 'inline-editing',
-    title: 'Inline Editing',
-    component: require('./inline-editing.md')
-  },
-  {
-    path: 'sorting',
-    title: 'Sorting',
-    component: require('../packages/reactabular-sort/README.md')
-  },
-  searchingPages('searching'),
-  {
-    path: 'paginating',
-    title: 'Paginating',
-    component: require('./paginating.md')
-  },
-  {
-    path: 'resizing-columns',
-    title: 'Resizing Columns',
-    component: require('../packages/reactabular-resizable/README.md')
-  },
-  {
-    path: 'toggling-column-visibility',
-    title: 'Toggling Column Visibility',
-    component: require('../packages/reactabular-visibility-toggles/README.md')
-  },
-  {
-    path: 'selecting-rows',
-    title: 'Selecting Rows',
-    component: require('../packages/reactabular-select/README.md')
-  },
-  {
-    path: 'drag-and-drop',
-    title: 'Drag and Drop',
-    component: require('../packages/reactabular-dnd/README.md')
-  },
-  {
-    path: 'sticky',
-    title: 'Sticky',
-    component: require('../packages/reactabular-sticky/README.md')
-  },
-  {
-    path: 'virtualization',
-    title: 'Virtualization',
-    component: require('../packages/reactabular-virtualized/README.md')
-  },
-  {
-    path: 'tree',
-    title: 'Tree',
-    component: require('../packages/reactabular-tree/README.md')
-  },
+  dataPages('data'),
+  featuresPages('features'),
   {
     path: 'easy',
     title: 'Easy Version',
