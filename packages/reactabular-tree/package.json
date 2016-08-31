@@ -39,5 +39,10 @@
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"
+  },
+  "peerDependencies": {
+    "lodash": ">= 3.0.0 < 5.0.0",
+    "reactabular-sort": ">= 2.0.0 < 3.0.0",
+    "redux": ">= 3.0.0 < 4.0.0"
   }
 }

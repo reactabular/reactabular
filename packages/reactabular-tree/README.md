@@ -6,7 +6,6 @@
 /*
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
-import orderBy from 'lodash/orderBy';
 import { compose } from 'redux';
 import { Table, search, Search, sort, resolve } from 'reactabular';
 import * as tree from 'reactabular-tree';
@@ -71,7 +70,8 @@ class TreeTable extends React.Component {
         const { columns, sortingColumns, filteredRows } = this.state;
 
         this.setState(
-          sortTree({
+          tree.sort({
+            sortStrategy: sort.byColumns, // sort.byColumn is ok too
             selectedColumn,
             columns,
             sortingColumns,
@@ -198,7 +198,8 @@ class TreeTable extends React.Component {
     // search and sort (avoids one pack/unpack).
     if (nextQueryLength < queryLength) {
       this.setState({
-        ...sortTree({
+        ...tree.sort({
+          sortStrategy: sort.byColumns,
           columns,
           sortingColumns,
           rows: newRows
@@ -225,40 +226,6 @@ class TreeTable extends React.Component {
       className: rowIndex % 2 ? 'odd-row' : 'even-row'
     };
   }
-}
-
-function sortTree({ columns, sortingColumns, selectedColumn, rows }) {
-  let newSortingColumns;
-
-  if (selectedColumn >= 0) {
-    newSortingColumns = sort.byColumns({ // sort.byColumn would work too
-      sortingColumns,
-      selectedColumn
-    });
-  }
-
-  const newRows = sortTreeKernel({
-    columns: columns.filter(column => column.visible),
-    sortingColumns: newSortingColumns || sortingColumns,
-    rows
-  });
-
-  return {
-    filteredRows: newRows,
-    sortingColumns: newSortingColumns || sortingColumns
-  };
-}
-
-function sortTreeKernel({ columns, sortingColumns, rows}) {
-  return compose(
-    tree.unpack,
-    sort.sorter({
-      columns,
-      sortingColumns,
-      sort: orderBy
-    }),
-    tree.pack
-  )(rows);
 }
 
 function searchTree({ column, rows, query }) {
