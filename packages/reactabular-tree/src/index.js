@@ -5,3 +5,4 @@ export { default as hasChildren } from './has_children';
 export { default as pack } from './pack';
 export { default as unpack } from './unpack';
 export { default as sort } from './sort';
+export { default as search } from './search';

@@ -188,8 +188,8 @@ class TreeTable extends React.Component {
     const queryLength = getQueryLength(query);
     const nextQueryLength = getQueryLength(nextQuery);
 
-    const newRows = searchTree({
-      column: visibleColumns,
+    const newRows = tree.search({
+      columns: visibleColumns,
       rows: nextQueryLength > queryLength ? filteredRows : allRows,
       query: nextQuery
     });
@@ -226,17 +226,6 @@ class TreeTable extends React.Component {
       className: rowIndex % 2 ? 'odd-row' : 'even-row'
     };
   }
-}
-
-function searchTree({ column, rows, query }) {
-  return compose(
-    tree.unpack,
-    search.multipleColumns({
-      columns,
-      query
-    }),
-    tree.pack
-  )(rows);
 }
 
 // This picks only the length of the first query part.
