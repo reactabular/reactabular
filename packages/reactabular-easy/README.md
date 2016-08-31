@@ -50,7 +50,7 @@ const schema = {
 };
 const rows = generateRows(1000, schema);
 
-class Demo extends React.Component {
+class EasyDemo extends React.Component {
   constructor(props) {
     super(props);
 
@@ -253,9 +253,10 @@ class Demo extends React.Component {
   }
 }
 
-const DragAndDropDemo = DragDropContext(HTML5Backend)(Demo);
+// Set up drag and drop context
+// const DragAndDropDemo = DragDropContext(HTML5Backend)(Demo);
 
-<DragAndDropDemo />
+<EasyDemo />
 ```
 
 ## Styling

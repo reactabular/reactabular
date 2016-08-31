@@ -222,7 +222,8 @@ class DragAndDropTable extends React.Component {
   }
 }
 
-const DragAndDrop = DragDropContext(HTML5Backend)(DragAndDropTable);
+// Set up drag and drop context
+//const DragAndDrop = DragDropContext(HTML5Backend)(DragAndDropTable);
 
-<DragAndDrop />
+<DragAndDropTable />
 ```

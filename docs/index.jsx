@@ -60,7 +60,6 @@ const documentationImports = {
   EasyTable,
   stylesheet: { ...stylesheet },
   ...reactDnd,
-  HTML5Backend,
   classnames,
   compose,
   uuid,
@@ -314,28 +313,34 @@ const pages = [
   }
 ];
 
-ReactDOM.render(
-  <div>
-    <GithubCorner
-      href="https://github.com/reactabular/reactabular"
-      bannerColor="#fff"
-      octoColor="#000"
-      width={80}
-      height={80}
-      direction="right"
-    />
-    <Catalog
-      title={title}
-      logoSrc="../images/logo.png"
-      pages={pages}
-      imports={documentationImports}
-      specimens={{
-        css: props => <CodeSpecimen {...props} lang="css" />,
-        javascript: props => <CodeSpecimen {...props} lang="javascript" />,
-        js: props => <CodeSpecimen {...props} lang="javascript" />,
-        jsx: props => <ReactSpecimen {...props} />
-      }}
-    />
-  </div>,
-  document.getElementById('app')
-);
+class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  render() {
+    return (
+      <div>
+        <GithubCorner
+          href="https://github.com/reactabular/reactabular"
+          bannerColor="#fff"
+          octoColor="#000"
+          width={80}
+          height={80}
+          direction="right"
+        />
+        <Catalog
+          title={title}
+          logoSrc="../images/logo.png"
+          pages={pages}
+          imports={documentationImports}
+          specimens={{
+            css: props => <CodeSpecimen {...props} lang="css" />,
+            javascript: props => <CodeSpecimen {...props} lang="javascript" />,
+            js: props => <CodeSpecimen {...props} lang="javascript" />,
+            jsx: props => <ReactSpecimen {...props} />
+          }}
+        />
+      </div>
+    );
+  }
+}
+const DndApp = reactDnd.DragDropContext(HTML5Backend)(App); // eslint-disable-line new-cap
+
+ReactDOM.render(<DndApp />, document.getElementById('app'));
