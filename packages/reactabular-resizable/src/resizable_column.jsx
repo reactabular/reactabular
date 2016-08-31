@@ -3,7 +3,7 @@ import React from 'react';
 // Adapted from https://stackoverflow.com/questions/20926551/recommended-way-of-making-react-component-div-draggable
 const resizableColumn = (
   {
-    doc = document,
+    parent = document,
     onDrag,
     minWidth = 100,
     styles = {
@@ -49,7 +49,9 @@ const resizableColumn = (
               className="resize-handle"
               onMouseDown={this.onMouseDown}
               style={styles.handle}
-            >&nbsp;</span>
+            >
+              &nbsp;
+            </span>
           </div>
         );
       }
@@ -57,8 +59,8 @@ const resizableColumn = (
         e.stopPropagation();
         e.preventDefault();
 
-        doc.addEventListener('mousemove', this.onMouseMove);
-        doc.addEventListener('mouseup', this.onMouseUp);
+        parent.addEventListener('mousemove', this.onMouseMove);
+        parent.addEventListener('mouseup', this.onMouseUp);
 
         this.startX = e.clientX;
         this.startWidth = this.column.offsetWidth;
@@ -67,10 +69,8 @@ const resizableColumn = (
         e.stopPropagation();
         e.preventDefault();
 
-        const offset = this.startX - e.clientX;
-
         onDrag(
-          Math.max(this.startWidth - offset, minWidth),
+          Math.max((this.startWidth - this.startX) + e.clientX, minWidth),
           extraParameters
         );
       }
@@ -78,8 +78,8 @@ const resizableColumn = (
         e.stopPropagation();
         e.preventDefault();
 
-        doc.removeEventListener('mousemove', this.onMouseMove);
-        doc.removeEventListener('mouseup', this.onMouseUp);
+        parent.removeEventListener('mousemove', this.onMouseMove);
+        parent.removeEventListener('mouseup', this.onMouseUp);
       }
     }
 
