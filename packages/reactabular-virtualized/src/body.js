@@ -25,7 +25,11 @@ class VirtualizedBody extends React.Component {
     this.updateRowsToRender = this.updateRowsToRender.bind(this);
   }
   componentDidMount() {
-    this.updateRowsToRender();
+    this.updateRowsToRender({
+      measuredRows: this.measuredRows,
+      height: this.props.height,
+      rows: this.props.rows
+    });
   }
   componentWillReceiveProps(nextProps) {
     // If rows change, invalidate measurement data
@@ -34,12 +38,14 @@ class VirtualizedBody extends React.Component {
         console.log('invalidating measurements'); // eslint-disable-line no-console
       }
 
-      this.measuredRows = [];
-
-      this.setState({
-        startIndex: 0,
-        amountOfRowsToRender: 3
-      }, () => this.updateRowsToRender());
+      // XXXXX: Figure out how to handle measurement filtering since not
+      // all of it is needed now.
+      // The measurement data needs a notion of id for this purpose.
+      this.updateRowsToRender({
+        measuredRows: this.measuredRows,
+        height: nextProps.height,
+        rows: nextProps.rows
+      });
     }
   }
   getChildContext() {
@@ -93,30 +99,42 @@ class VirtualizedBody extends React.Component {
 
           const { target: { scrollTop } } = e;
 
-          this.updateRowsToRender(scrollTop);
+          this.updateRowsToRender({
+            scrollTop,
+            measuredRows: this.measuredRows,
+            height: this.props.height,
+            rows: this.props.rows
+          });
         }
       }
     );
   }
-  updateRowsToRender(scrollTop = 0) {
-    // Render visible rows after initial measurement
-    const { height } = this.props;
-    const measuredSample = this.measuredRows;
-
+  updateRowsToRender({ measuredRows, height, rows, scrollTop = 0 }) {
     // Calculate amount of rows to render based on average height and take the
     // amount of actual rows into account.
-    const amountOfMeasuredRows = measuredSample.filter(a => a).length;
-    const averageHeight = measuredSample
+    const amountOfMeasuredRows = measuredRows.filter(a => a).length;
+    const averageHeight = measuredRows
       .reduce((a, b) => (
         a + (b / amountOfMeasuredRows)
       ), 0);
     const amountOfRowsToRender = Math.ceil(height / averageHeight) + 2;
 
     const startIndex = Math.floor(scrollTop / averageHeight);
-    const rowsToRender = this.props.rows.slice(
+    const rowsToRender = rows.slice(
       startIndex,
       startIndex + amountOfRowsToRender
     );
+
+    if (process.env.NODE_ENV !== 'production') {
+      console.log( // eslint-disable-line no-console
+        'update rows to render',
+        'measured rows', measuredRows,
+        'amount of measured rows', amountOfMeasuredRows,
+        'amount of rows to render', amountOfRowsToRender,
+        'rows to render', rowsToRender,
+        'start index', startIndex
+      );
+    }
 
     // Escape if there are no rows to render for some reason
     if (!rowsToRender.length) {
@@ -139,13 +157,8 @@ class VirtualizedBody extends React.Component {
 
     if (process.env.NODE_ENV !== 'production') {
       console.log( // eslint-disable-line no-console
-        'amount of measured rows', amountOfMeasuredRows,
-        'measured sample', measuredSample,
-        'measured rows', this.measuredRows,
         'average height', averageHeight,
         'body height', height,
-        'amount of rows to render', amountOfRowsToRender,
-        'start index', startIndex,
         'scroll top', scrollTop,
         'start height', startHeight,
         'end height', endHeight
