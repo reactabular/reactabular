@@ -40,20 +40,20 @@ class EasyTable extends React.Component {
     this.tableHeader = null;
     this.tableBody = null;
 
-    // Custom stylesheet maintained for performance purposes.
+    // Custom stylesheet is maintained for performance purposes.
     //
     // This can fail on old IE due to low maximum stylesheet limit.
     this.styleSheetElement = null;
     this.styleSheet = null;
   }
   componentDidMount() {
-    const { styleSheetElement, styleSheet } = createStylesheet(this.props.document);
+    const { styleSheetElement, styleSheet } = createStylesheet(this.props.window.document);
 
     this.styleSheetElement = styleSheetElement;
     this.styleSheet = styleSheet;
 
     initializeStyles({
-      document: this.props.document,
+      document: this.props.window.document,
       styleSheet: this.styleSheet,
       columns: this.state.columns,
       id: this.id
@@ -173,20 +173,20 @@ class EasyTable extends React.Component {
   }
   bindColumns({ columns, styles }) {
     const resizable = resizableColumn({
-      document: this.props.document,
       onDrag: (width, { columnIndex }) => {
         // Update the width of the changed column class
         updateWidth({
-          doc: this.props.document,
+          doc: this.props.window.document,
           styleSheet: this.styleSheet,
           id: this.id,
-          width: this.props.onWidth(width),
+          width,
           columnIndex
         });
 
         this.props.onDragColumn(width, columnIndex);
       },
-      styles: styles.resize
+      styles: styles.resize,
+      parent: this.props.window
     });
 
     const getSortingColumns = () => this.props.sortingColumns || {};

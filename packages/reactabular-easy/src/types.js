@@ -1,7 +1,9 @@
 import React from 'react';
 
+const globalWindow = window;
+
 const propTypes = {
-  document: React.PropTypes.object, // DOM document
+  window: React.PropTypes.object, // DOM window
   columns: React.PropTypes.array,
   rows: React.PropTypes.array,
   rowKey: React.PropTypes.string.isRequired,
@@ -13,6 +15,7 @@ const propTypes = {
   classNames: React.PropTypes.object,
   styles: React.PropTypes.object,
   components: React.PropTypes.object,
+  // Handlers
   onRow: React.PropTypes.func,
   onWidth: React.PropTypes.func,
   onDragColumn: React.PropTypes.func,
@@ -22,6 +25,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  window: globalWindow,
   classNames: {
     table: null,
     header: {
@@ -54,7 +58,6 @@ const defaultProps = {
     }
   },
   components: {},
-  onWidth: width => width,
   onRow: () => ({}),
   onDragColumn: () => {},
   onMoveColumns: () => {},
