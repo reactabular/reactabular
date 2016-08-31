@@ -22,7 +22,10 @@ const toggleChildren = ({
     throw new Error('tree.toggleChildren - Missing setRowsShowingChildren!');
   }
 
-  const toggle = cellIndex => {
+  const toggle = (e, cellIndex) => {
+    e.stopPropagation();
+    e.preventDefault();
+
     const rowsShowingChildren = getRowsShowingChildren();
     const index = rowsShowingChildren.indexOf(cellIndex);
 
@@ -50,7 +53,7 @@ const toggleChildren = ({
             'show-less' :
             'show-more'
           }
-          onClick={() => toggle(cellIndex)}
+          onClick={e => toggle(e, cellIndex)}
         />}
         {value}
       </div>
