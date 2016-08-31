@@ -70,13 +70,12 @@ class TreeTable extends React.Component {
         const { columns, sortingColumns, filteredRows } = this.state;
 
         this.setState(
-          tree.sort({
+          sortTree({
             sortStrategy: sort.byColumns, // sort.byColumn is ok too
             selectedColumn,
             columns,
-            sortingColumns,
-            rows: filteredRows
-          })
+            sortingColumns
+          })(filteredRows)
         );
       }
     });
@@ -190,15 +189,14 @@ class TreeTable extends React.Component {
 
     const newRows = tree.search({
       columns: visibleColumns,
-      rows: nextQueryLength > queryLength ? filteredRows : allRows,
       query: nextQuery
-    });
+    })(nextQueryLength > queryLength ? filteredRows : allRows);
 
     // Restore sorting. This could be pushed further by composing
     // search and sort (avoids one pack/unpack).
     if (nextQueryLength < queryLength) {
       this.setState({
-        ...tree.sort({
+        ...sortTree({
           sortStrategy: sort.byColumns,
           columns,
           sortingColumns,
@@ -233,6 +231,36 @@ function getQueryLength(query) {
   const keys =  Object.keys(query);
 
   return keys.length ? query[keys[0]].length : 0;
+}
+
+function sortTree({
+  columns,
+  sortStrategy, // sort.byColumns, sort.byColumn
+  sortingColumns,
+  selectedColumn,
+  rows,
+  getColumn
+}) {
+  let newSortingColumns;
+
+  if (selectedColumn >= 0) {
+    newSortingColumns = sortStrategy({
+      sortingColumns,
+      selectedColumn
+    });
+  }
+
+  const newRows = tree.sort({
+    columns: columns.filter(column => column.visible),
+    sortingColumns: newSortingColumns || sortingColumns,
+    rows,
+    getColumn
+  });
+
+  return {
+    filteredRows: newRows,
+    sortingColumns: newSortingColumns || sortingColumns
+  };
 }
 
 <TreeTable />
