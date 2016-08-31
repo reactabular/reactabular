@@ -1,7 +1,7 @@
 import React from 'react';
 import { bodyWrapperContextTypes, bodyWrapperTypes } from './types';
 
-// XXX: This has to be a class as otherwise Virtualized.Body won't work (ref issue)
+// This has to be a class as otherwise Virtualized.Body won't work (ref issue)
 class BodyWrapper extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { children, ...props } = this.props;

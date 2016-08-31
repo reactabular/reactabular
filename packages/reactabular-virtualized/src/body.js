@@ -1,13 +1,14 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { Body } from 'reactabular-sticky';
+import { resolveRowKey } from 'reactabular-utils';
 import { bodyChildContextTypes } from './types';
 
 class VirtualizedBody extends React.Component {
   constructor(props) {
     super(props);
 
-    this.measuredRows = [];
+    this.measuredRows = {}; // row key -> measurement
     this.ref = null;
 
     this.state = {
@@ -28,22 +29,20 @@ class VirtualizedBody extends React.Component {
     this.updateRowsToRender({
       measuredRows: this.measuredRows,
       height: this.props.height,
+      rowKey: this.props.rowKey,
       rows: this.props.rows
     });
   }
   componentWillReceiveProps(nextProps) {
-    // If rows change, invalidate measurement data
     if (!isEqual(this.props.rows, nextProps.rows)) {
       if (process.env.NODE_ENV !== 'production') {
         console.log('invalidating measurements'); // eslint-disable-line no-console
       }
 
-      // XXXXX: Figure out how to handle measurement filtering since not
-      // all of it is needed now.
-      // The measurement data needs a notion of id for this purpose.
       this.updateRowsToRender({
         measuredRows: this.measuredRows,
         height: nextProps.height,
+        rowKey: nextProps.rowKey,
         rows: nextProps.rows
       });
     }
@@ -55,8 +54,8 @@ class VirtualizedBody extends React.Component {
       startHeight,
       endHeight,
       showExtraRow,
-      updateHeight: (index, height) => {
-        this.measuredRows[index] = height;
+      updateHeight: (rowKey, height) => {
+        this.measuredRows[rowKey] = height;
       }
     };
   }
@@ -81,12 +80,12 @@ class VirtualizedBody extends React.Component {
       Body,
       {
         ...props,
-        onRow: (row, { rowIndex }) => {
-          const rowProps = onRow ? onRow(row, rowIndex) : {};
+        onRow: (row, extra) => {
+          const rowProps = onRow ? onRow(row, extra) : {};
 
           return {
             // Pass index so that row heights can be tracked properly
-            'data-rowindex': startIndex + rowIndex,
+            'data-rowkey': extra.rowKey,
             ...rowProps
           };
         },
@@ -103,17 +102,25 @@ class VirtualizedBody extends React.Component {
             scrollTop,
             measuredRows: this.measuredRows,
             height: this.props.height,
+            rowKey: this.props.rowKey,
             rows: this.props.rows
           });
         }
       }
     );
   }
-  updateRowsToRender({ measuredRows, height, rows, scrollTop = 0 }) {
+  updateRowsToRender({ measuredRows, height, rowKey, rows, scrollTop = 0 }) {
+    const resolvedRowKeys = rows.map((rowData, rowIndex) => (
+      resolveRowKey({ rowData, rowIndex, rowKey }))
+    );
+    const measuredAmounts = Object.keys(measuredRows).filter(
+      key => resolvedRowKeys.indexOf(key) >= 0
+    ).map(key => measuredRows[key]);
+
     // Calculate amount of rows to render based on average height and take the
     // amount of actual rows into account.
-    const amountOfMeasuredRows = measuredRows.filter(a => a).length;
-    const averageHeight = measuredRows
+    const amountOfMeasuredRows = measuredAmounts.length;
+    const averageHeight = measuredAmounts
       .reduce((a, b) => (
         a + (b / amountOfMeasuredRows)
       ), 0);
@@ -129,6 +136,7 @@ class VirtualizedBody extends React.Component {
       console.log( // eslint-disable-line no-console
         'update rows to render',
         'measured rows', measuredRows,
+        'measured amounts', measuredAmounts,
         'amount of measured rows', amountOfMeasuredRows,
         'amount of rows to render', amountOfRowsToRender,
         'rows to render', rowsToRender,

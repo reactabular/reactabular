@@ -9,7 +9,7 @@ class BodyRow extends React.Component {
   }
   componentDidMount() {
     this.context.updateHeight(
-      this.props['data-rowindex'],
+      this.props['data-rowkey'],
       this.ref.offsetHeight
     );
   }

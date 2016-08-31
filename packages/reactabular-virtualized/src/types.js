@@ -4,7 +4,7 @@ const bodyRowContextTypes = {
   updateHeight: React.PropTypes.func
 };
 const bodyRowTypes = {
-  'data-rowindex': React.PropTypes.number
+  'data-rowkey': React.PropTypes.string
 };
 const bodyWrapperContextTypes = {
   startHeight: React.PropTypes.number,
