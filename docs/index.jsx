@@ -39,6 +39,7 @@ import columnDefinitionPages from './column-definition';
 import dataPages from './data';
 import featuresPages from './features';
 import examplesPages from './examples';
+import contributingPages from './contributing';
 
 import './main.css';
 import '../style.css';
@@ -107,21 +108,7 @@ const pages = [
     title: 'Installing',
     component: require('./installing.md')
   },
-  {
-    title: 'Contributing',
-    pages: [
-      {
-        path: 'contributing/how-to',
-        title: 'How to',
-        component: require('../CONTRIBUTING.md')
-      },
-      {
-        path: 'contributing/contributors',
-        title: 'Contributors',
-        component: require('../CONTRIBUTORS.md')
-      }
-    ]
-  },
+  contributingPages('contributing'),
   {
     path: 'changelog',
     title: 'Changelog',
