@@ -1,7 +1,7 @@
 import getParents from './get_parents';
 
-function filterTree(rows, rowsShowingChildren) {
-  return rows.filter((item, i) => {
+function filterTree(rowsShowingChildren) {
+  return rows => rows.filter((item, i) => {
     if (!item.parent) {
       return true;
     }

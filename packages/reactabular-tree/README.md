@@ -173,7 +173,7 @@ class TreeTable extends React.Component {
 
           <Table.Body
             onRow={this.onRow}
-            rows={tree.filter(filteredRows, rowsShowingChildren)}
+            rows={tree.filter(rowsShowingChildren)(filteredRows)}
             rowKey="id"
           />
         </Table.Provider>
