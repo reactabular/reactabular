@@ -10,6 +10,7 @@ class VirtualizedBody extends React.Component {
 
     this.measuredRows = {}; // row key -> measurement
     this.ref = null;
+    this.scrollTop = 0;
 
     this.state = {
       amountOfRowsToRender: 3, // First few rows for initial measurement
@@ -27,6 +28,7 @@ class VirtualizedBody extends React.Component {
   }
   componentDidMount() {
     this.updateRowsToRender({
+      scrollTop: this.scrollTop,
       measuredRows: this.measuredRows,
       height: this.props.height,
       rowKey: this.props.rowKey,
@@ -40,6 +42,7 @@ class VirtualizedBody extends React.Component {
       }
 
       this.updateRowsToRender({
+        scrollTop: this.scrollTop,
         measuredRows: this.measuredRows,
         height: nextProps.height,
         rowKey: nextProps.rowKey,
@@ -97,6 +100,8 @@ class VirtualizedBody extends React.Component {
           onScroll && onScroll(e);
 
           const { target: { scrollTop } } = e;
+
+          this.scrollTop = scrollTop;
 
           this.updateRowsToRender({
             scrollTop,
