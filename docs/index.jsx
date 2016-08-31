@@ -34,6 +34,11 @@ import * as rowsDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
 import countries from './data/countries';
 
+import tablePages from './table';
+import columnDefinitionPages from './column-definition';
+import searchingPages from './searching';
+import examplesPages from './examples';
+
 import './main.css';
 import '../style.css';
 
@@ -86,76 +91,8 @@ const pages = [
       }
     }
   },
-  {
-    title: 'Table',
-    pages: [
-      {
-        path: 'table',
-        title: 'Introduction',
-        component: require('./table/introduction.md')
-      },
-      {
-        path: 'table/components',
-        title: 'Components',
-        component: require('../packages/reactabular-table/README.md')
-      },
-      {
-        path: 'table/styling',
-        title: 'Styling',
-        component: require('./table/styling.md')
-      },
-      {
-        path: 'table/overriding-default-elements',
-        title: 'Overriding Default Elements',
-        component: require('./table/overriding-default-elements.md')
-      }
-    ]
-  },
-  {
-    title: 'Column Definition',
-    pages: [
-      {
-        path: 'column-definition',
-        title: 'Introduction',
-        component: require('./column-definition/introduction.md')
-      },
-      {
-        path: 'column-definition/property',
-        title: 'Property',
-        component: require('./column-definition/property.md')
-      },
-      {
-        path: 'column-definition/props',
-        title: 'Props',
-        component: require('./column-definition/props.md')
-      },
-      {
-        path: 'column-definition/header',
-        title: 'Header',
-        component: require('./column-definition/header.md')
-      },
-      {
-        path: 'column-definition/cell',
-        title: 'Cell',
-        component: require('./column-definition/cell.md')
-      },
-      {
-        path: 'column-definition/formatters',
-        title: 'Formatters',
-        component: require('./column-definition/formatters.md')
-      },
-      {
-        path: 'column-definition/transforms',
-        title: 'Transforms',
-        component: require('./column-definition/transforms.md')
-      },
-      {
-        path: 'column-definition/nested-columns',
-        title: 'Nested Columns',
-        component: require('./column-definition/nested-columns.md')
-      }
-    ]
-  },
+  tablePages('table'),
+  columnDefinitionPages('column-definition'),
   {
     path: 'resolving-data',
     title: 'Resolving Data',
@@ -171,31 +108,7 @@ const pages = [
     title: 'Sorting',
     component: require('../packages/reactabular-sort/README.md')
   },
-  {
-    title: 'Searching',
-    pages: [
-      {
-        path: 'searching/algorithms',
-        title: 'Algorithms',
-        component: require('../packages/reactabular-search/README.md')
-      },
-      {
-        path: 'searching/per-field',
-        title: 'Per Field',
-        component: require('../packages/reactabular-search-field/README.md')
-      },
-      {
-        path: 'searching/columns',
-        title: 'Columns',
-        component: require('../packages/reactabular-search-columns/README.md')
-      },
-      {
-        path: 'searching/highlighting-results',
-        title: 'Highlighting Results',
-        component: require('../packages/reactabular-highlight/README.md')
-      }
-    ]
-  },
+  searchingPages('searching'),
   {
     path: 'paginating',
     title: 'Paginating',
@@ -241,46 +154,7 @@ const pages = [
     title: 'Easy Version',
     component: require('../packages/reactabular-easy/README.md')
   },
-  {
-    title: 'Examples',
-    props: {
-      style: {
-        borderTop: '2px solid #ddd'
-      }
-    },
-    pages: [
-      {
-        path: 'examples/all-features',
-        title: 'All Features',
-        component: require('./examples/all-features.md')
-      },
-      {
-        path: 'examples/crud',
-        title: 'CRUD',
-        component: require('./examples/crud.md')
-      },
-      {
-        path: 'examples/excel',
-        title: 'Excel',
-        component: require('./examples/excel.md')
-      },
-      {
-        path: 'examples/expand-column-to-fit',
-        title: 'Expand Column to Fit',
-        component: require('./examples/expand-column-to-fit.md')
-      },
-      {
-        path: 'examples/fixed-width-columns',
-        title: 'Fixed Width Columns',
-        component: require('./examples/fixed-width-columns.md')
-      },
-      {
-        path: 'examples/infinite-scrolling',
-        title: 'Infinite Scrolling',
-        component: require('./examples/infinite-scrolling.md')
-      }
-    ]
-  },
+  examplesPages('examples'),
   {
     path: 'installing',
     title: 'Installing',
