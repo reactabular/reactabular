@@ -1,6 +1,6 @@
 {
   "name": "reactabular",
-  "version": "2.0.5-alpha.f20b57cb",
+  "version": "2.0.5-alpha.331d29a6",
   "description": "Spectacular tables for React",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
@@ -34,16 +34,16 @@
   "module": "dist",
   "jsnext:main": "dist",
   "dependencies": {
-    "reactabular-highlight": "^2.0.5-alpha.f20b57cb",
-    "reactabular-resizable": "^2.0.5-alpha.f20b57cb",
-    "reactabular-resolve": "^2.0.5-alpha.f20b57cb",
-    "reactabular-search": "^2.0.5-alpha.f20b57cb",
-    "reactabular-search-columns": "^2.0.5-alpha.f20b57cb",
-    "reactabular-search-field": "^2.0.5-alpha.f20b57cb",
-    "reactabular-select": "^2.0.5-alpha.f20b57cb",
-    "reactabular-sticky": "^2.0.5-alpha.f20b57cb",
-    "reactabular-sort": "^2.0.5-alpha.f20b57cb",
-    "reactabular-table": "^2.0.5-alpha.f20b57cb"
+    "reactabular-highlight": "^2.0.5-alpha.331d29a6",
+    "reactabular-resizable": "^2.0.5-alpha.331d29a6",
+    "reactabular-resolve": "^2.0.5-alpha.331d29a6",
+    "reactabular-search": "^2.0.5-alpha.331d29a6",
+    "reactabular-search-columns": "^2.0.5-alpha.331d29a6",
+    "reactabular-search-field": "^2.0.5-alpha.331d29a6",
+    "reactabular-select": "^2.0.5-alpha.331d29a6",
+    "reactabular-sticky": "^2.0.5-alpha.331d29a6",
+    "reactabular-sort": "^2.0.5-alpha.331d29a6",
+    "reactabular-table": "^2.0.5-alpha.331d29a6"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

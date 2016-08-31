@@ -1,6 +1,6 @@
 {
   "name": "reactabular-tree",
-  "version": "2.0.5-alpha.f20b57cb",
+  "version": "2.0.5-alpha.331d29a6",
   "description": "Tree helpers for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
@@ -43,8 +43,8 @@
   "peerDependencies": {
     "lodash": ">= 3.0.0 < 5.0.0",
     "react": ">= 0.11.2 < 16.0.0",
-    "reactabular-search": "^2.0.5-alpha.f20b57cb",
-    "reactabular-sort": "^2.0.5-alpha.f20b57cb",
+    "reactabular-search": "^2.0.5-alpha.331d29a6",
+    "reactabular-sort": "^2.0.5-alpha.331d29a6",
     "redux": ">= 3.0.0 < 4.0.0"
   }
 }

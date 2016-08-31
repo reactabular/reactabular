@@ -1,6 +1,6 @@
 {
   "name": "reactabular-sort",
-  "version": "2.0.5-alpha.f20b57cb",
+  "version": "2.0.5-alpha.331d29a6",
   "description": "Sorting for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
@@ -35,7 +35,7 @@
   "module": "dist",
   "jsnext:main": "dist",
   "dependencies": {
-    "reactabular-utils": "^2.0.5-alpha.f20b57cb"
+    "reactabular-utils": "^2.0.5-alpha.331d29a6"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
