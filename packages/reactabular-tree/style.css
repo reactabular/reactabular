@@ -1,12 +1,12 @@
 .show-more:after {
-    cursor: pointer;
-    padding-right: 0.5em;
-    content: "\25B8";
-    font-size: small;
+  cursor: pointer;
+  padding-right: 0.5em;
+  content: "\25B8";
+  font-size: small;
 }
 .show-less:after {
-    cursor: pointer;
-    padding-right: 0.5em;
-    content: "\25BE";
-    font-size: small;
+  cursor: pointer;
+  padding-right: 0.5em;
+  content: "\25BE";
+  font-size: small;
 }
