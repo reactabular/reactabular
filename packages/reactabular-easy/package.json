@@ -1,6 +1,6 @@
 {
   "name": "reactabular-easy",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Easy, opinionated wrapper for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
@@ -47,10 +47,10 @@
   "peerDependencies": {
     "lodash": ">= 3.0.0 < 5.0.0",
     "react": ">= 0.11.2 < 16.0.0",
-    "reactabular": "^3.0.1",
+    "reactabular": "^3.0.2",
     "reactabular-dnd": "^3.0.0",
-    "reactabular-tree": "^3.0.1",
+    "reactabular-tree": "^3.0.2",
     "reactabular-utils": "^3.0.0",
-    "reactabular-virtualized": "^3.0.1"
+    "reactabular-virtualized": "^3.0.2"
   }
 }
