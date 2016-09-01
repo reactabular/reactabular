@@ -1,3 +1,8 @@
+3.0.0 / 2016-09-01
+==================
+
+  * Improvement - Expose `parent` prop (defaults to `document`). This is handy if you use an iframe and need something more custom.
+
 2.0.0 / 2016-08-16
 ==================
 

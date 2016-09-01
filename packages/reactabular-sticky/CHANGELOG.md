@@ -1,3 +1,8 @@
+3.0.0 / 2016-09-01
+==================
+
+  * Bug fix - Make sure `scrollOffset` gets a value no matter what. This avoid a React warning.
+
 2.0.5 / 2016-08-26
 ==================
 

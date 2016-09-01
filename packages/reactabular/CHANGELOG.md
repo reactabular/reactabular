@@ -1,3 +1,37 @@
+3.0.0 / 2016-09-01
+==================
+
+## reactabular-virtualized
+
+  * Improvement - New standalone package. Virtualization provides a nice performance increase for large datasets. The package works in tandem with reactabular-sticky.
+
+## reactabular-table
+
+  * Breaking - `onRow` accepts `row, { rowIndex, rowKey }` instead of `row, rowIndex`.
+  * Improvement - If a row contains `_index`, use that as a `rowIndex`. This allows custom indexing (useful for virtualization).
+
+## reactabular-easy
+
+  * Improvement - Integrate virtualization for extra performance.
+  * Improvement - Integrate `reactabular-tree`. Now it works with tree style data. You should set `cell.toggleChildren: true` to show the UI control for toggling row children visibility.
+
+## reactabular-resizable
+
+  * Improvement - Expose `parent` prop (defaults to `document`). This is handy if you use an iframe and need something more custom.
+
+## reactabular-tree
+
+  * Breaking - Rewrite API. Now most parts accept objects and you can also customize field names.
+  * Improvement - Add `tree.sort` to wrap toggling row children.
+
+## reactabular-sticky
+
+  * Bug fix - Make sure `scrollOffset` gets a value no matter what. This avoid a React warning.
+
+## reactabular-utils
+
+  * Add `resolveRowKey`.
+
 2.0.5 / 2016-08-26
 ==================
 

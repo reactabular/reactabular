@@ -1,3 +1,8 @@
+3.0.0 / 2016-09-01
+==================
+
+  * Breaking - `onRow` accepts `row, { rowIndex, rowKey }` instead of `row, rowIndex`.
+
 2.0.5 / 2016-08-26
 ==================
 
