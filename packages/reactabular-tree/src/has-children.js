@@ -1,11 +1,15 @@
-// This can be memoized for extra performance.
-function hasChildren(rows, itemIndex) {
+function hasChildren({
+  rows,
+  index,
+  id = 'id',
+  parent = 'parent'
+}) {
   // See if the next item points to the current one.
   // This relies on rows order!
-  const currentItem = rows[itemIndex];
-  const nextItem = rows[itemIndex + 1];
+  const currentItem = rows[index];
+  const nextItem = rows[index + 1];
 
-  const ret = nextItem && currentItem.id === nextItem.parent;
+  const ret = nextItem && currentItem[id] === nextItem[parent];
 
   return ret;
 }

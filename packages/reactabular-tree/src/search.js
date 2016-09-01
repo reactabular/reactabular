@@ -3,14 +3,17 @@ import { multipleColumns } from 'reactabular-search';
 import pack from './pack';
 import unpack from './unpack';
 
-function searchTree({ columns, query }) {
+function searchTree({
+  columns,
+  query
+}) {
   return compose(
     unpack,
     multipleColumns({
       columns,
       query
     }),
-    pack
+    pack()
   );
 }
 

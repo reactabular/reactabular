@@ -1,17 +1,15 @@
 import getParents from './get-parents';
 
-function filterTree(fieldName) {
-  return rows => rows.filter((item, i) => {
-    if (!item.parent) {
-      return true;
-    }
+const filterTree = fieldName => rows => rows.filter((item, index) => {
+  if (!item.parent) {
+    return true;
+  }
 
-    const parents = getParents(rows, i);
+  const parents = getParents({ rows, index });
 
-    return parents.filter(
-      parent => parent[fieldName]
-    ).length === parents.length;
-  });
-}
+  return parents.filter(
+    parent => parent[fieldName]
+  ).length === parents.length;
+});
 
 export default filterTree;

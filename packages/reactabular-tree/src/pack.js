@@ -1,11 +1,13 @@
 // Folds children inside root parents
-function packTree(rows = []) {
+const packTree = ({
+  parent = 'parent'
+} = {}) => rows => {
   const ret = [];
   let pack = [];
   let previousParent;
 
   rows.forEach(row => {
-    if (row.parent) {
+    if (row[parent]) {
       pack.push(row);
     } else {
       ret.push(row);
@@ -25,6 +27,6 @@ function packTree(rows = []) {
   }
 
   return ret;
-}
+};
 
 export default packTree;

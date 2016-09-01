@@ -1,21 +1,25 @@
-// This can be memoized for extra performance.
-function getParents(rows, itemIndex) {
+function getParents({
+  rows,
+  index,
+  id = 'id',
+  parent = 'parent'
+}) {
   const parents = [];
-  let currentIndex = itemIndex;
-  let cell = rows[itemIndex];
+  let currentIndex = index;
+  let cell = rows[index];
   let previousParent;
 
   while (cell) {
-    if (cell.id === previousParent) {
+    if (cell[id] === previousParent) {
       parents.push(cell);
 
-      if (!cell.parent) {
+      if (!cell[parent]) {
         break;
       }
     }
 
-    if (cell.parent !== previousParent) {
-      previousParent = cell.parent;
+    if (cell[parent] !== previousParent) {
+      previousParent = cell[parent];
     }
 
     currentIndex--;

@@ -17,7 +17,7 @@ function sortTree({
       sort: orderBy,
       getColumn
     }),
-    pack
+    pack()
   );
 }
 

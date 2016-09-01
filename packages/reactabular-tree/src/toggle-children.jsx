@@ -19,24 +19,24 @@ const toggleChildren = ({
     throw new Error('tree.toggleChildren - Missing toggleShowingChildren!');
   }
 
-  const toggle = (e, cellIndex) => {
+  const toggle = (e, index) => {
     e.stopPropagation();
     e.preventDefault();
 
-    toggleShowingChildren(cellIndex);
+    toggleShowingChildren(index);
   };
 
   return (value, extra) => {
     const { rowData } = extra;
     const rows = getRows();
     const showingChildren = getShowingChildren(extra);
-    const cellIndex = rowData._index;
+    const index = rowData._index;
 
     return (
-      <div style={{ paddingLeft: `${getLevel(rows, cellIndex) * 1}em` }}>
-        {hasChildren(rows, cellIndex) && <span
+      <div style={{ paddingLeft: `${getLevel({ rows, index }) * 1}em` }}>
+        {hasChildren({ rows, index }) && <span
           className={showingChildren ? 'show-less' : 'show-more'}
-          onClick={e => toggle(e, cellIndex)}
+          onClick={e => toggle(e, index)}
         />}
         {value}
       </div>

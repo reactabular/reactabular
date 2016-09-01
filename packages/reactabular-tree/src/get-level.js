@@ -1,15 +1,18 @@
-// This can be memoized for extra performance.
-function getLevel(rows, itemIndex) {
+function getLevel({
+  rows,
+  index,
+  parent = 'parent'
+}) {
   // Get parent of parent till there is no parent -> level.
   // This relies on rows order!
   let level = 0;
-  let currentIndex = itemIndex;
-  let cell = rows[itemIndex];
+  let currentIndex = index;
+  let cell = rows[index];
   let previousParent;
 
   while (cell) {
-    if (cell.parent) {
-      if (previousParent !== cell.parent) {
+    if (cell[parent]) {
+      if (previousParent !== cell[parent]) {
         level++;
       }
     } else {
@@ -18,7 +21,7 @@ function getLevel(rows, itemIndex) {
 
     currentIndex--;
 
-    previousParent = cell.parent;
+    previousParent = cell[parent];
     cell = rows[currentIndex];
   }
 
