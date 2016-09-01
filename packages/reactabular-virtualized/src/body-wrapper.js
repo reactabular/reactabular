@@ -1,8 +1,12 @@
 import React from 'react';
 import { bodyWrapperContextTypes, bodyWrapperTypes } from './types';
 
-// This has to be a class as otherwise Virtualized.Body won't work (ref issue)
-class BodyWrapper extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class BodyWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.ref = null;
+  }
   render() {
     const { children, ...props } = this.props;
     const { startHeight, endHeight, showExtraRow } = this.context;
@@ -31,7 +35,19 @@ class BodyWrapper extends React.Component { // eslint-disable-line react/prefer-
       }));
     }
 
-    return React.createElement('tbody', props, rows);
+    return React.createElement(
+      'tbody',
+      {
+        ...props,
+        ref: e => {
+          this.ref = e;
+        }
+      },
+      rows
+    );
+  }
+  getRef() {
+    return this.ref;
   }
 }
 BodyWrapper.contextTypes = bodyWrapperContextTypes;

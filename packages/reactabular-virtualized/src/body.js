@@ -84,7 +84,7 @@ class VirtualizedBody extends React.Component {
         },
         rows: rowsToRender,
         ref: body => {
-          this.ref = body && body.getRef();
+          this.ref = body && body.getRef().getRef();
         },
         onScroll: e => {
           onScroll && onScroll(e);

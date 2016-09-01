@@ -1,3 +1,14 @@
+3.0.1 / 2016-09-01
+==================
+
+## reactabular-virtualized
+
+  * Bug fix - Keep header and body in sync when scrolling at header.
+
+## reactabular-tree
+
+  * Bug fix - Pass `strategy` to `sorter` at `tree.sort`.
+
 3.0.0 / 2016-09-01
 ==================
 

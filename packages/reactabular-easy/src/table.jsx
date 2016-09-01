@@ -128,6 +128,8 @@ class EasyTable extends React.Component {
       selectedRow
     });
 
+    console.log('table body', this.tableBody, this.tableHeader);
+
     return select.byArrowKeys({
       rows,
       selectedRowIndex,

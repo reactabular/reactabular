@@ -7,7 +7,7 @@ import unpack from './unpack';
 function sortTree({
   columns,
   sortingColumns,
-  getColumn
+  strategy
 }) {
   return compose(
     unpack,
@@ -15,7 +15,7 @@ function sortTree({
       columns,
       sortingColumns,
       sort: orderBy,
-      getColumn
+      strategy
     }),
     pack()
   );
