@@ -1,8 +1,13 @@
+3.0.3 / 2016-09-01
+==================
+
+  * Bug fix - Drop redundant `console.log`.
+
 3.0.0 / 2016-09-01
 ==================
 
-* Improvement - Integrate virtualization for extra performance.
-* Improvement - Integrate `reactabular-tree`. Now it works with tree style data. You should set `cell.toggleChildren: true` to show the UI control for toggling row children visibility.
+  * Improvement - Integrate virtualization for extra performance.
+  * Improvement - Integrate `reactabular-tree`. Now it works with tree style data. You should set `cell.toggleChildren: true` to show the UI control for toggling row children visibility.
 
 2.0.3 / 2016-08-22
 ==================

@@ -1,3 +1,10 @@
+3.0.3 / 2016-09-01
+==================
+
+## reactabular-easy
+
+  * Bug fix - Drop redundant `console.log`.
+
 3.0.2 / 2016-09-01
 ==================
 
