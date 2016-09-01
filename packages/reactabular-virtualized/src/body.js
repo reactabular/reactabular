@@ -12,17 +12,7 @@ class VirtualizedBody extends React.Component {
     this.ref = null;
     this.scrollTop = 0;
 
-    this.state = {
-      amountOfRowsToRender: 3, // First few rows for initial measurement
-      startIndex: 0, // Index where to start rendering
-
-      // Heights for extra rows to mimic scrolling
-      startHeight: 0,
-      endHeight: 0,
-
-      // Show extra row (even/odd issue)
-      showExtraRow: false
-    };
+    this.state = getInitialState();
 
     this.updateRowsToRender = this.updateRowsToRender.bind(this);
   }
@@ -118,13 +108,7 @@ class VirtualizedBody extends React.Component {
     return this.ref;
   }
   updateRowsToRender(options) {
-    const result = calculateRows(options);
-
-    if (result) {
-      this.setState(result);
-    } else {
-      this.scrollTop = 0;
-    }
+    this.setState(calculateRows(options) || getInitialState());
   }
 }
 VirtualizedBody.defaultProps = Body.defaultProps;
@@ -133,5 +117,19 @@ VirtualizedBody.propTypes = {
   height: React.PropTypes.number.isRequired
 };
 VirtualizedBody.childContextTypes = bodyChildContextTypes;
+
+function getInitialState() {
+  return {
+    amountOfRowsToRender: 3, // First few rows for initial measurement
+    startIndex: 0, // Index where to start rendering
+
+    // Heights for extra rows to mimic scrolling
+    startHeight: 0,
+    endHeight: 0,
+
+    // Show extra row (even/odd issue)
+    showExtraRow: false
+  };
+}
 
 export default VirtualizedBody;
