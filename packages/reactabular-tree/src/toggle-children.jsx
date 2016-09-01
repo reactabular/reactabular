@@ -1,6 +1,6 @@
 import React from 'react';
-import getLevel from './get_level';
-import hasChildren from './has_children';
+import getLevel from './get-level';
+import hasChildren from './has-children';
 
 const toggleChildren = ({
   getRows,

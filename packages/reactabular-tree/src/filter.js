@@ -1,4 +1,4 @@
-import getParents from './get_parents';
+import getParents from './get-parents';
 
 function filterTree(fieldName) {
   return rows => rows.filter((item, i) => {

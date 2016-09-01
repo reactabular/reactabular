@@ -1,5 +1,5 @@
 // Extracts children from rows
-function unpackTree(rows = [9]) {
+function unpackTree(rows = []) {
   let ret = [];
 
   rows.forEach(row => {
