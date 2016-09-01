@@ -1,6 +1,6 @@
 {
   "name": "reactabular-utils",
-  "version": "2.0.5-alpha.331d29a6",
+  "version": "3.0.0",
   "description": "Internal utilities for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
