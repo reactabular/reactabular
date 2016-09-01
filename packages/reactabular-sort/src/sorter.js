@@ -1,10 +1,12 @@
+import strategies from './strategies';
+
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy
 const sorter = ({
   columns,
   sortingColumns,
   sort,
-  getColumn = (columns, sortingColumnKey) => columns[sortingColumnKey] // eslint-disable-line max-len, no-shadow
+  strategy = strategies.byIndex
 } = {}) => data => {
   if (!columns) {
     throw new Error('sort.sorter - Missing columns!');
@@ -18,7 +20,7 @@ const sorter = ({
   const orderList = new Array(sortingColumns.length);
 
   Object.keys(sortingColumns).forEach(sortingColumnKey => {
-    const realColumn = getColumn(columns, sortingColumnKey) || {};
+    const realColumn = strategy.getColumn(columns, sortingColumnKey) || {};
     const sortingColumn = sortingColumns[sortingColumnKey];
 
     columnIndexList[sortingColumn.position] = row => {

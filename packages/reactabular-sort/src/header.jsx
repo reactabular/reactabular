@@ -1,4 +1,5 @@
 import React from 'react';
+import strategies from './strategies';
 
 const defaultStyles = {
   container: {},
@@ -10,7 +11,7 @@ const header = ({
   sortable,
   getSortingColumns,
   styles = {},
-  fieldName = 'columnIndex'
+  strategy = strategies.byIndex
 }) => {
   if (!sortable) {
     throw new Error('header - Missing sortable!');
@@ -26,7 +27,9 @@ const header = ({
 
   return (value, extra) => {
     const sortingColumns = getSortingColumns();
-    const sortingColumn = (sortingColumns && sortingColumns[extra[fieldName]]) || {};
+    const sortingColumn = (
+      sortingColumns && sortingColumns[extra[strategy.fieldName]]
+    ) || {};
     const sortingPosition = sortingColumn.position;
 
     return (

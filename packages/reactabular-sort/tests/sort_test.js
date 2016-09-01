@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { sort } from '../src';
+import { sort, strategies } from '../src';
 
 describe('sort.sort', function () {
   it('defaults to sort-none class', function () {
@@ -46,7 +46,7 @@ describe('sort.sort', function () {
     expect(sorted).to.equal(testColumnIndex);
   });
 
-  it('allows fieldName to be customized', function () {
+  it('allows strategy to be customized', function () {
     const testProperty = 'foobar';
     const sortDirection = 'asc';
     const _sorter = sort({
@@ -58,7 +58,7 @@ describe('sort.sort', function () {
           }
         };
       },
-      fieldName: 'property'
+      strategy: strategies.byProperty
     });
     const result = _sorter('testValue', {
       property: testProperty

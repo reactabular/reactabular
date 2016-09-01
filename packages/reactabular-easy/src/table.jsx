@@ -9,7 +9,6 @@ import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
 import uuid from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
-import find from 'lodash/find';
 import { defaultProps, propTypes } from './types';
 import {
   createStylesheet, getColumnClassName, initializeStyles, updateWidth,
@@ -108,7 +107,7 @@ class EasyTable extends React.Component {
       tree.sort({
         columns,
         sortingColumns,
-        getColumn: (columns, property) => find(columns, { property }) // eslint-disable-line no-shadow, max-len
+        strategy: sort.strategies.byProperty
       }),
       highlight.highlighter({ columns, matches: search.matches, query }),
       tree.search({ columns, query }),
@@ -199,13 +198,13 @@ class EasyTable extends React.Component {
 
         this.props.onSort(sortingColumns);
       },
-      fieldName: 'property',
+      strategy: sort.strategies.byProperty,
       styles: styles.sort
     });
     const resetable = sort.reset({
       event: 'onDoubleClick',
       getSortingColumns,
-      fieldName: 'property',
+      strategy: sort.strategies.byProperty,
       onReset: ({ sortingColumns }) => this.props.onSort(sortingColumns)
     });
 
@@ -227,7 +226,7 @@ class EasyTable extends React.Component {
           newHeaderFormats.push(sort.header({
             sortable,
             getSortingColumns,
-            fieldName: 'property'
+            strategy: sort.strategies.byProperty
           }));
           newHeaderTransforms = newHeaderTransforms.concat([resetable]);
         }

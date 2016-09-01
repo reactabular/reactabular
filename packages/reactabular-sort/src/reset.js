@@ -1,8 +1,10 @@
+import strategies from './strategies';
+
 const reset = ({
   event = 'onDoubleClick',
   getSortingColumns = () => [],
   onReset = () => {},
-  fieldName = 'columnIndex'
+  strategy = strategies.byIndex
 }) => (value, extra) => ({
   [event]: () => {
     const sortingColumns = getSortingColumns();
@@ -11,7 +13,7 @@ const reset = ({
       return;
     }
 
-    const field = extra[fieldName];
+    const field = extra[strategy.fieldName];
 
     const position = sortingColumns[field].position;
     const newSortingColumns = {};

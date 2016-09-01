@@ -1,13 +1,14 @@
 import { mergeClassNames } from 'reactabular-utils';
+import strategies from './strategies';
 
 const sort = ({
   event = 'onClick',
   getSortingColumns = () => [],
   onSort = () => {},
-  fieldName = 'columnIndex'
+  strategy = strategies.byIndex
 } = {}) => (_value, extra, { className, ...props } = {}) => {
   const sortingColumns = getSortingColumns();
-  const field = extra[fieldName];
+  const field = extra[strategy.fieldName];
   let headerClass = 'sort sort-none';
 
   // Check against undefined to allow zero

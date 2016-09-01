@@ -136,16 +136,59 @@ class SortTable extends React.Component {
 
 ## API
 
-The API consists of the following functions:
+The API consists of the sort helpers, transforms, formatters, and strategies. These can be combined together to set up sort in various ways. There's control over the algorithm used as well as how it's bound to the user interface. You can also control how sorting is tracked (per column index or per property).
 
-* `sort.byColumn` - Helper for sorting per one column. Discard possible existing sorting state.
-* `sort.byColumns` - Helper for sorting per multiple columns.
-* `sort.sorter` - Helper for sorting based on the sorting protocol.
-* `sort.sort` - Sorting transform that can be used to select a sorting algorithm.
-* `sort.reset` - Sorting transform that can be used to reset the sorting status of the current column.
-* `sort.header` - Sorting formatter that can be used to sort within a header cell. This works will with `sort.reset` since then you can apply both reseting and sorting to the same cell without conflicts.
+### Helpers
 
-### Sorting Protocol
+**`sort.byColumn({ sortingColumns: <sorting columns>, sortingOrder: {FIRST: <string>, <string>: <string>}, selectedColumn: <string> }) => <sorting colums> || {}`**
+
+`sort.byColumn` allows you to sort per one column. It discards possible existing sorting state. If you are trying to sort the same column, it will cycle between ascending, descending, and no sorting. In case you are trying to sort some other column, it will start from the ascending state while discarding the existing sorting state.
+
+**`sort.byColumns({ sortingColumns: <sorting columns>, sortingOrder: {FIRST: <string>, <string>: <string>}, selectedColumn: <string> }) => <sorting columns> || {}`**
+
+`sort.byColumns` is like `sort.byColumn` except it doesn't discard possible existing sort state and instead accumulates it. This allows you to perform sorting over multiple columns while refining the results.
+
+**`sort.sorter({ columns: [<object>], sortingColumns: <sorting columns>, sort: <function>, strategy = strategies.byIndex })([<rows to sort>]) => [<sorted rows>]`**
+
+`sort.sorter` sorts the passed `rows` using a `sortingColumns` definitions and a `sort` function. It has been designed to work based on [lodash.orderBy](https://lodash.com/docs#orderBy) signature.
+
+If you want to evaluate columns in a reverse order instead of the default, you can reverse `sort` function like this:
+
+```javascript
+const reverseSort = (data, columnIndexList, orderList) => (
+  orderBy(data, columnIndexList.slice().reverse(), orderList.slice().reverse())
+);
+```
+
+### Transforms
+
+**`sort.sort = ({ event = 'onClick', getSortingColumns = () => [], strategy = strategies.byIndex, onSort = (columnIndex) => {} } = {}) => (value, { columnIndex }, props)`**
+
+`sort.sort` can be applied as a transform. It expects `getSortingColumns` and `onSort` callbacks. The former should return the sorting column data, the latter is called when the user sorts based on `event`.
+
+**`sort.reset = ({ event = 'onDoubleClick', getSortingColumns = () => [], strategy = strategies.byIndex, onReset = (columnIndex) => {} } = {}) => (value, { columnIndex }, props)`**
+
+`sort.reset` can be applied as a transform. It expects `getSortingColumns` and `onReset` callbacks. The former should return the sorting column data, the latter is called when the user sorts based on `event`.
+
+### Formatters
+
+**`sort.header = ({ sortable, strategy = strategies.byIndex, getSortingColumns  = () => [] }) => (value, { columnIndex })`**
+
+`sort.header` can be used to sort within a header cell. This works will with `sort.reset` since then you can apply both reseting and sorting to the same cell without conflicts. It expects an initialized sortable (i.e., `sort.sort`) and `getSortingColumns`. If sorting is active at a column, it displays the current order number.
+
+### Strategies
+
+Most of the functions accept a strategy. This allows you to modify their sorting behavior. By default they'll track sorting by column index. It's possible to change it to sort by property.
+
+**`sort.strategies.byIndex`**
+
+`byIndex` is the default strategy used by other functions. It literally means the system will track sorting per index.
+
+**`sort.strategies.byProperty`**
+
+`byProperty` ties sorting state to column property. This can be useful if you want to retain the sorting state within a column while moving it around.
+
+## Sorting Protocol
 
 Sorting relies on a structure like this to describe what is being sorted and in what order:
 
@@ -163,38 +206,6 @@ const sortingColumns = {
 ```
 
 It maps column index to sorting state and can contain multiple sorters.
-
-### `sort.byColumn({ sortingColumns: <sorting columns>, sortingOrder: {FIRST: <string>, <string>: <string>}, selectedColumn: <string> }) => <sorting colums> || {}`
-
-`sort.byColumn` allows you to sort per one column. If you are trying to sort the same column, it will cycle between ascending, descending, and no sorting. In case you are trying to sort some other column, it will start from the ascending state while discarding the existing sorting state.
-
-### `sort.byColumns({ sortingColumns: <sorting columns>, sortingOrder: {FIRST: <string>, <string>: <string>}, selectedColumn: <string> }) => <sorting columns> || {}`
-
-`sort.byColumns` is like `sort.byColumn` except it doesn't discard possible existing sort state and instead accumulates it. This allows you to perform sorting over multiple columns while refining the results.
-
-### `sort.sorter({ columns: [<object>], sortingColumns: <sorting columns>, sort: <function>, getColumn = (columns, sortingColumnKey) => columns[sortingColumnKey]})([<rows to sort>]) => [<sorted rows>]`
-
-`sort.sorter` sorts the passed `rows` using a `sortingColumns` definitions and a `sort` function. It has been designed to work based on [lodash.orderBy](https://lodash.com/docs#orderBy) signature.
-
-If you want to evaluate columns in a reverse order instead of the default, you can reverse `sort` function like this:
-
-```javascript
-const reverseSort = (data, columnIndexList, orderList) => (
-  orderBy(data, columnIndexList.slice().reverse(), orderList.slice().reverse())
-);
-```
-
-### `sort.sort = ({ event = 'onClick', getSortingColumns = () => [], fieldName = 'columnIndex', onSort = (columnIndex) => {} } = {}) => (value, { columnIndex }, props)`
-
-`sort.sort` can be applied as a transform. It expects `getSortingColumns` and `onSort` callbacks. The former should return the sorting column data, the latter is called when the user sorts based on `event`.
-
-### `sort.reset = ({ event = 'onDoubleClick', getSortingColumns = () => [], fieldName = 'columnIndex', onReset = (columnIndex) => {} } = {}) => (value, { columnIndex }, props)`
-
-`sort.reset` can be applied as a transform. It expects `getSortingColumns` and `onReset` callbacks. The former should return the sorting column data, the latter is called when the user sorts based on `event`.
-
-### `sort.header = ({ sortable, fieldName = 'columnIndex', getSortingColumns  = () => [] }) => (value, { columnIndex })`
-
-`sort.header` formatter expects an initialized sortable (i.e., `sort.sort`) and `getSortingColumns`. If sorting is active at a column, it displays the current order number.
 
 ## Customizing Sorting Order
 

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { reset } from '../src';
+import { reset, strategies } from '../src';
 
 describe('sort.reset', function () {
   it('resets by columnIndex by default', function () {
@@ -31,7 +31,7 @@ describe('sort.reset', function () {
     expect(result).to.deep.equal(expected);
   });
 
-  it('resets by property', function () {
+  it('resets by property strategy', function () {
     let result;
 
     const key = 'foo';
@@ -48,7 +48,7 @@ describe('sort.reset', function () {
       onReset: ({ sortingColumns }) => {
         result = sortingColumns;
       },
-      fieldName: 'property'
+      strategy: strategies.byProperty
     });
 
     const expected = {
