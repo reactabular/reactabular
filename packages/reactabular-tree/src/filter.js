@@ -1,6 +1,6 @@
 import getParents from './get_parents';
 
-function filterTree(rowsShowingChildren = []) {
+function filterTree(fieldName) {
   return rows => rows.filter((item, i) => {
     if (!item.parent) {
       return true;
@@ -9,7 +9,7 @@ function filterTree(rowsShowingChildren = []) {
     const parents = getParents(rows, i);
 
     return parents.filter(
-      parent => rowsShowingChildren.indexOf(parent._index) >= 0
+      parent => parent[fieldName]
     ).length === parents.length;
   });
 }

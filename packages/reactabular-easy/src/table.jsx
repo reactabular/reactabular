@@ -8,6 +8,7 @@ import { mergeClassNames } from 'reactabular-utils';
 import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
 import uuid from 'uuid';
+import cloneDeep from 'lodash/cloneDeep';
 import find from 'lodash/find';
 import { defaultProps, propTypes } from './types';
 import {
@@ -27,7 +28,6 @@ class EasyTable extends React.Component {
       originalColumns: props.columns,
       columns: this.bindColumns(props),
       rows: props.rows,
-      rowsShowingChildren: [],
       selectedRow: {}
     };
 
@@ -96,7 +96,7 @@ class EasyTable extends React.Component {
         row: Virtualized.BodyRow
       }
     };
-    const { columns, selectedRow, rowsShowingChildren } = this.state;
+    const { columns, selectedRow } = this.state;
 
     // Escape early if there are no columns to display
     if (!columns.length) {
@@ -104,7 +104,7 @@ class EasyTable extends React.Component {
     }
 
     const rows = compose(
-      tree.filter(rowsShowingChildren),
+      tree.filter('showingChildren'),
       tree.sort({
         columns,
         sortingColumns,
@@ -255,10 +255,16 @@ class EasyTable extends React.Component {
         if (cell.toggleChildren) {
           newCellFormats.push(tree.toggleChildren({
             getRows: () => this.state.rows,
-            getRowsShowingChildren: () => this.state.rowsShowingChildren,
-            setRowsShowingChildren: rowsShowingChildren => (
-              this.setState({ rowsShowingChildren })
-            )
+            getShowingChildren: ({ rowData }) => rowData.showingChildren,
+            toggleShowingChildren: rowIndex => {
+              // TODO: This would be a good place for a callback if
+              // we want to push the control to user.
+              const rows = cloneDeep(this.state.rows);
+
+              rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
+
+              this.setState({ rows });
+            }
           }));
         }
 

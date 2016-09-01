@@ -2,59 +2,40 @@ import React from 'react';
 import getLevel from './get_level';
 import hasChildren from './has_children';
 
-// XXXXX: The problem is that given this doesn't modify the original row
-// data, the toggled rows won't get refreshed. The visibility of children
-// needs to become row level data for this to work.
 const toggleChildren = ({
   getRows,
-  getRowsShowingChildren,
-  setRowsShowingChildren
+  getShowingChildren,
+  toggleShowingChildren
 }) => {
   if (!getRows) {
     throw new Error('tree.toggleChildren - Missing getRows!');
   }
 
-  if (!getRowsShowingChildren) {
-    throw new Error('tree.toggleChildren - Missing getRowsShowingChildren!');
+  if (!getShowingChildren) {
+    throw new Error('tree.toggleChildren - Missing getShowingChildren!');
   }
 
-  if (!setRowsShowingChildren) {
-    throw new Error('tree.toggleChildren - Missing setRowsShowingChildren!');
+  if (!toggleShowingChildren) {
+    throw new Error('tree.toggleChildren - Missing toggleShowingChildren!');
   }
 
   const toggle = (e, cellIndex) => {
     e.stopPropagation();
     e.preventDefault();
 
-    // TODO: callback using index to toggle
-    const rowsShowingChildren = getRowsShowingChildren();
-    const index = rowsShowingChildren.indexOf(cellIndex);
-
-    setRowsShowingChildren(
-      index >= 0 ?
-        rowsShowingChildren
-        .slice(0, index)
-        .concat(
-          rowsShowingChildren.slice(index + 1)
-        ) :
-        rowsShowingChildren.concat([cellIndex])
-    );
+    toggleShowingChildren(cellIndex);
   };
 
-  return (value, { rowData }) => {
+  return (value, extra) => {
+    const { rowData } = extra;
     const rows = getRows();
-    const rowsShowingChildren = getRowsShowingChildren();
+    const showingChildren = getShowingChildren(extra);
     const cellIndex = rowData._index;
 
-    // TODO: isShowing check (callback)
     return (
       <div style={{ paddingLeft: `${getLevel(rows, cellIndex) * 1}em` }}>
         {hasChildren(rows, cellIndex) && <span
-          className={
-            rowsShowingChildren.indexOf(cellIndex) >= 0 ?
-            'show-less' :
-            'show-more'
-          }
+          className={showingChildren ? 'show-less' : 'show-more'}
           onClick={e => toggle(e, cellIndex)}
         />}
         {value}

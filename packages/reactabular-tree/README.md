@@ -7,7 +7,9 @@
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import { compose } from 'redux';
-import { Table, search, Search, sort, resolve } from 'reactabular';
+import {
+  Table, search, Search, sort, resolve
+} from 'reactabular';
 import * as tree from 'reactabular-tree';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 
@@ -31,31 +33,29 @@ const schema = {
   },
   required: ['id', 'name', 'age']
 };
-const rows = generateParents(generateRows(100, schema));
 
 class TreeTable extends React.Component {
   constructor(props) {
     super(props);
 
     const columns = this.getColumns();
-    const allRows = resolve.resolve(
+    const rows = resolve.resolve(
       {
         columns,
         method: resolve.index
       }
-    )(rows);
+    )(
+      generateParents(generateRows(100, schema))
+    );
 
     this.state = {
       searchColumn: 'all',
       query: {},
       sortingColumns: null,
-      allRows: allRows,
-      filteredRows: allRows,
-      rowsShowingChildren: [],
+      rows,
       columns
     };
 
-    this.onSearch = this.onSearch.bind(this);
     this.onToggleColumn = this.onToggleColumn.bind(this);
   }
   getColumns() {
@@ -67,16 +67,12 @@ class TreeTable extends React.Component {
       // The user requested sorting, adjust the sorting state accordingly.
       // This is a good chance to pass the request through a sorter.
       onSort: selectedColumn => {
-        const { columns, sortingColumns, filteredRows } = this.state;
+        const sortingColumns = sort.byColumns({
+          sortingColumns: this.state.sortingColumns,
+          selectedColumn
+        });
 
-        this.setState(
-          sortTree({
-            sortStrategy: sort.byColumns, // sort.byColumn is ok too
-            selectedColumn,
-            columns,
-            sortingColumns
-          })(filteredRows)
-        );
+        this.setState({ sortingColumns });
       }
     });
 
@@ -92,11 +88,15 @@ class TreeTable extends React.Component {
         },
         cell: {
           format: tree.toggleChildren({
-            getRows: () => this.state.allRows,
-            getRowsShowingChildren: () => this.state.rowsShowingChildren,
-            setRowsShowingChildren: rowsShowingChildren => (
-              this.setState({ rowsShowingChildren })
-            )
+            getRows: () => this.state.rows,
+            getShowingChildren: ({ rowData }) => rowData.showingChildren,
+            toggleShowingChildren: rowIndex => {
+              const rows = cloneDeep(this.state.rows);
+
+              rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
+
+              this.setState({ rows });
+            }
           })
         },
         visible: true
@@ -116,10 +116,17 @@ class TreeTable extends React.Component {
   }
   render() {
     const {
-      searchColumn, columns, sortingColumns,
-      allRows, filteredRows, rowsShowingChildren, query,
+      searchColumn, columns, sortingColumns, query
     } = this.state;
     const visibleColumns = columns.filter(column => column.visible);
+    const rows = compose(
+      tree.filter('showingChildren'),
+      tree.sort({
+        columns,
+        sortingColumns
+      }),
+      tree.search({ columns, query })
+    )(this.state.rows);
 
     return (
       <div>
@@ -134,9 +141,9 @@ class TreeTable extends React.Component {
             column={searchColumn}
             query={query}
             columns={visibleColumns}
-            rows={allRows}
+            rows={rows}
             onColumnChange={searchColumn => this.setState({ searchColumn })}
-            onChange={this.onSearch}
+            onChange={query => this.setState({ query })}
           />
         </div>
 
@@ -148,47 +155,15 @@ class TreeTable extends React.Component {
 
           <Table.Body
             onRow={this.onRow}
-            rows={tree.filter(rowsShowingChildren)(filteredRows)}
+            rows={rows}
             rowKey="id"
           />
         </Table.Provider>
       </div>
     );
   }
-  onSearch(nextQuery) {
-    const { columns, sortingColumns, allRows, filteredRows, query } = this.state;
-    const visibleColumns = columns.filter(column => column.visible);
-
-    const queryLength = getQueryLength(query);
-    const nextQueryLength = getQueryLength(nextQuery);
-
-    const newRows = tree.search({
-      columns: visibleColumns,
-      query: nextQuery
-    })(nextQueryLength > queryLength ? filteredRows : allRows);
-
-    // Restore sorting. This could be pushed further by composing
-    // search and sort (avoids one pack/unpack).
-    if (nextQueryLength < queryLength) {
-      this.setState({
-        ...sortTree({
-          sortStrategy: sort.byColumns,
-          columns,
-          sortingColumns,
-          rows: newRows
-        }),
-        query: nextQuery
-      });
-    }
-    else {
-      this.setState({
-        filteredRows: newRows,
-        query: nextQuery
-      });
-    }
-  }
   onToggleColumn(columnIndex) {
-    const columns = this.state.columns;
+    const columns = cloneDeep(this.state.columns);
 
     columns[columnIndex].visible = !columns[columnIndex].visible;
 
@@ -199,43 +174,6 @@ class TreeTable extends React.Component {
       className: rowIndex % 2 ? 'odd-row' : 'even-row'
     };
   }
-}
-
-// This picks only the length of the first query part.
-function getQueryLength(query) {
-  const keys =  Object.keys(query);
-
-  return keys.length ? query[keys[0]].length : 0;
-}
-
-function sortTree({
-  columns,
-  sortStrategy, // sort.byColumns, sort.byColumn
-  sortingColumns,
-  selectedColumn,
-  rows,
-  getColumn
-}) {
-  let newSortingColumns;
-
-  if (selectedColumn >= 0) {
-    newSortingColumns = sortStrategy({
-      sortingColumns,
-      selectedColumn
-    });
-  }
-
-  const newRows = tree.sort({
-    columns: columns.filter(column => column.visible),
-    sortingColumns: newSortingColumns || sortingColumns,
-    rows,
-    getColumn
-  });
-
-  return {
-    filteredRows: newRows,
-    sortingColumns: newSortingColumns || sortingColumns
-  };
 }
 
 <TreeTable />
