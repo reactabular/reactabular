@@ -27,7 +27,7 @@ class VirtualizedBody extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.rows, nextProps.rows)) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== 'production' && window.LOG_VIRTUALIZED) {
         console.log('invalidating measurements'); // eslint-disable-line no-console
       }
 
@@ -60,7 +60,7 @@ class VirtualizedBody extends React.Component {
       startIndex + amountOfRowsToRender
     );
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== 'production' && window.LOG_VIRTUALIZED) {
       console.log( // eslint-disable-line no-console
         'rendering', rowsToRender.length, '/', rows.length,
         'rows to render', rowsToRender,

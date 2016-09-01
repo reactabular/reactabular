@@ -1,6 +1,10 @@
 3.0.2 / 2016-09-01
 ==================
 
+## reactabular-virtualized
+
+  * Improvement - Push development logging behind `window.LOG_VIRTUALIZED`.
+
 ## reactabular-tree
 
   * Improvement - Include suggested default styling for the toggle arrow.
