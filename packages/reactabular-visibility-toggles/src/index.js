@@ -1,4 +1,4 @@
-import VisibilityToggles from './VisibilityToggles';
+import VisibilityToggles from './visibility-toggles';
 
 export default VisibilityToggles;
 
