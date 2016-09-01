@@ -1,4 +1,4 @@
-import mergeClassNames from './merge_class_names';
+import mergeClassNames from './merge-class-names';
 
 function mergePropPair(a = {}, b = {}) {
   const ret = {

@@ -1,4 +1,4 @@
-import countRowSpan from './count_row_span';
+import countRowSpan from './count-row-span';
 
 function resolveHeaderRows(columns = []) {
   let resolvedChildren = [];
