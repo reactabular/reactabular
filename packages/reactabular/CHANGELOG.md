@@ -1,3 +1,10 @@
+3.0.4 / 2016-09-02
+==================
+
+## reactabular-tree
+
+  * Improvement - Allow `toggleChildren` `id` to be customized (not just "id" anymore).
+
 3.0.3 / 2016-09-01
 ==================
 

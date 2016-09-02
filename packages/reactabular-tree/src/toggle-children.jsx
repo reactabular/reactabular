@@ -5,7 +5,8 @@ import hasChildren from './has-children';
 const toggleChildren = ({
   getRows,
   getShowingChildren,
-  toggleShowingChildren
+  toggleShowingChildren,
+  id
 }) => {
   if (!getRows) {
     throw new Error('tree.toggleChildren - Missing getRows!');
@@ -34,7 +35,7 @@ const toggleChildren = ({
 
     return (
       <div style={{ paddingLeft: `${getLevel({ rows, index }) * 1}em` }}>
-        {hasChildren({ rows, index }) && <span
+        {hasChildren({ rows, index, id }) && <span
           className={showingChildren ? 'show-less' : 'show-more'}
           onClick={e => toggle(e, index)}
         />}
