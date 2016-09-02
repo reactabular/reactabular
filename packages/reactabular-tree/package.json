@@ -1,6 +1,6 @@
 {
   "name": "reactabular-tree",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "Tree helpers for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
