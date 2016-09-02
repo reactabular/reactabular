@@ -1,3 +1,8 @@
+3.0.5 / 2016-09-02
+==================
+
+  * Bug fix - Pass `rowKey` to `tree.filter`. This way it filters correctly with arbitrary ids.
+
 3.0.4 / 2016-09-02
 ==================
 

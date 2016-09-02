@@ -103,7 +103,7 @@ class EasyTable extends React.Component {
     }
 
     const rows = compose(
-      tree.filter('showingChildren'),
+      tree.filter('showingChildren', rowKey),
       tree.sort({
         columns,
         sortingColumns,

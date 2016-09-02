@@ -5,6 +5,10 @@
 
   * Improvement - Allow `id` to be passed to `filter`.
 
+## reactabular-easy
+
+  * Bug fix - Pass `rowKey` to `tree.filter`. This way it filters correctly with arbitrary ids.
+
 3.0.4 / 2016-09-02
 ==================
 
