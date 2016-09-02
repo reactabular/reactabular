@@ -1,3 +1,10 @@
+3.0.5 / 2016-09-02
+==================
+
+## reactabular-tree
+
+  * Improvement - Allow `id` to be passed to `filter`.
+
 3.0.4 / 2016-09-02
 ==================
 
