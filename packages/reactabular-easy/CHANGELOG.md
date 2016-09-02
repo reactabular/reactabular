@@ -1,3 +1,8 @@
+3.0.4 / 2016-09-02
+==================
+
+  * Bug fix - Pass `rowKey` to `tree.toggleChildren`. This way toggling can work with arbitrary ids.
+
 3.0.3 / 2016-09-01
 ==================
 

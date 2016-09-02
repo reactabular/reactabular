@@ -5,6 +5,10 @@
 
   * Improvement - Allow `toggleChildren` `id` to be customized (not just "id" anymore).
 
+## reactabular-easy
+
+  * Bug fix - Pass `rowKey` to `tree.toggleChildren`. This way toggling can work with arbitrary ids.
+
 3.0.3 / 2016-09-01
 ==================
 

@@ -263,7 +263,9 @@ class EasyTable extends React.Component {
               rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
 
               this.setState({ rows });
-            }
+            },
+            // Without this it will perform checks against default id
+            id: this.props.rowKey
           }));
         }
 
