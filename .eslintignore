@@ -1,6 +1,7 @@
-node_modules/
-gh-pages/
-dist/
-build/
-coverage/
+packages/*/node_modules
+node_modules
+gh-pages
+dist
+build
+coverage
 
