@@ -11,9 +11,10 @@ import keys from 'lodash/keys';
 import values from 'lodash/values';
 import transform from 'lodash/transform';
 import {
-  Table, search, edit, sort, highlight, resolve,
+  Table, search, sort, highlight, resolve,
   SearchColumns, resizableColumn
 } from 'reactabular';
+import * as edit from 'react-edit';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 
 import {
