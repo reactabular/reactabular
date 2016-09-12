@@ -7,21 +7,13 @@ import * as tree from 'reactabular-tree';
 import { mergeClassNames } from 'reactabular-utils';
 import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
-import uuid from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
+import findIndex from 'lodash/findIndex';
 import { defaultProps, propTypes } from './types';
-import {
-  createStylesheet, getColumnClassName, initializeStyles, updateWidth,
-  getSelectedRowIndex
-} from './utils';
 
 class EasyTable extends React.Component {
   constructor(props) {
     super(props);
-
-    // Generate a unique id for the instance so we
-    // don't get clashing class names for resizing.
-    this.id = uuid.v4();
 
     this.state = {
       originalColumns: props.columns,
@@ -39,31 +31,10 @@ class EasyTable extends React.Component {
     // kept in sync while scrolling.
     this.tableHeader = null;
     this.tableBody = null;
-
-    // Custom stylesheet is maintained for performance purposes.
-    //
-    // This can fail on old IE due to low maximum stylesheet limit.
-    this.styleSheetElement = null;
-    this.styleSheet = null;
   }
   componentDidMount() {
-    const { styleSheetElement, styleSheet } = createStylesheet(this.props.window.document);
-
-    this.styleSheetElement = styleSheetElement;
-    this.styleSheet = styleSheet;
-
-    initializeStyles({
-      document: this.props.window.document,
-      styleSheet: this.styleSheet,
-      columns: this.state.columns,
-      id: this.id
-    });
-
     // We have refs now. Force update to get those to Header/Body.
     this.forceUpdate();
-  }
-  componentWillUnmount() {
-    this.styleSheetElement.remove();
   }
   componentWillReceiveProps(nextProps) {
     if (this.state.originalColumns !== nextProps.columns) {
@@ -171,18 +142,7 @@ class EasyTable extends React.Component {
   }
   bindColumns({ columns, styles }) {
     const resizable = resizableColumn({
-      onDrag: (width, { columnIndex }) => {
-        // Update the width of the changed column class
-        updateWidth({
-          doc: this.props.window.document,
-          styleSheet: this.styleSheet,
-          id: this.id,
-          width,
-          columnIndex
-        });
-
-        this.props.onDragColumn(width, columnIndex);
-      },
+      onDrag: this.props.onDragColumn,
       styles: styles.resize,
       parent: this.props.window
     });
@@ -208,7 +168,7 @@ class EasyTable extends React.Component {
       onReset: ({ sortingColumns }) => this.props.onSort(sortingColumns)
     });
 
-    return columns.map((column, i) => {
+    return columns.map(column => {
       if (column.header || column.cell) {
         const props = column.props || {};
         const header = column.header || {};
@@ -221,6 +181,7 @@ class EasyTable extends React.Component {
         const newHeaderFormats = [existingHeaderFormat];
         let newHeaderProps = existingHeaderProps;
         let newHeaderTransforms = existingHeaderTransforms;
+        let newStyle = {};
 
         if (header.sortable) {
           newHeaderFormats.push(sort.header({
@@ -287,14 +248,21 @@ class EasyTable extends React.Component {
           ), { value, extra }).value
         );
 
+        if (column.width) {
+          newStyle = {
+            width: column.width,
+            minWidth: column.width
+          };
+        }
+
         return {
           ...column,
           props: {
             ...props,
-            className: mergeClassNames(
-              getColumnClassName(this.id, i),
-              props && props.className
-            )
+            style: {
+              ...props.style,
+              ...newStyle
+            }
           },
           header: {
             ...header,
@@ -362,5 +330,11 @@ class EasyTable extends React.Component {
 }
 EasyTable.propTypes = propTypes;
 EasyTable.defaultProps = defaultProps;
+
+function getSelectedRowIndex({ rows, selectedRow, rowKey }) {
+  return findIndex(rows, {
+    [rowKey]: selectedRow[rowKey]
+  });
+}
 
 export default EasyTable;

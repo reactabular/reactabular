@@ -62,6 +62,7 @@ class EasyDemo extends React.Component {
       query: {}
     };
 
+    this.onDragColumn = this.onDragColumn.bind(this);
     this.onToggleColumn = this.onToggleColumn.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
     this.onRemove = this.onRemove.bind(this);
@@ -213,8 +214,12 @@ class EasyDemo extends React.Component {
       </div>
     );
   }
-  onDragColumn(width, columnIndex) {
-    console.log('onDragColumn', width, columnIndex);
+  onDragColumn(width, { columnIndex }) {
+    const columns = cloneDeep(this.state.columns);
+
+    columns[columnIndex].width = width;
+
+    this.setState({ columns });
   }
   onMoveColumns(columns) {
     console.log('onMoveColumns', columns);

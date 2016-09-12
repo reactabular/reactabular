@@ -1,3 +1,8 @@
+4.0.0 / 2016-09-12
+==================
+
+  * Breaking - Push `onDragColumn` control to user. Earlier it managed widths through CSS (more performant, but also more brittle). The problem with that was that the initial update of a stylesheet could fail (no widths were set). Now widths are controlled by React completely. Note that the API changed to `onDragColumn(width, { columnIndex })`.
+
 3.0.5 / 2016-09-02
 ==================
 
