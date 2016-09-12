@@ -1,3 +1,8 @@
+3.0.6 / 2016-09-12
+==================
+
+  * Bug fix - Rework initial measurement so that it works with CSS solutions like Radium.
+
 3.0.2 / 2016-09-01
 ==================
 

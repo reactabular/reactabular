@@ -1,6 +1,7 @@
 import React from 'react';
 
 const bodyRowContextTypes = {
+  initialMeasurement: React.PropTypes.bool,
   updateHeight: React.PropTypes.func
 };
 const bodyRowTypes = {

@@ -5,6 +5,10 @@
 
   * Improvement - Allow `BodyRow` `shouldComponentUpdate` to be overridden by setting `components.body.row.shouldComponentUpdate = true`.
 
+## reactabular-virtualized
+
+  * Bug fix - Rework initial measurement so that it works with CSS solutions like Radium.
+
 3.0.5 / 2016-09-02
 ==================
 

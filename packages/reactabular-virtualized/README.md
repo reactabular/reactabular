@@ -5,8 +5,6 @@
 **Example:**
 
 ```jsx
-frame: true
----
 /*
 import React from 'react';
 import * as Sticky from 'reactabular-sticky';
