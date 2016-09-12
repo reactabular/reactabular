@@ -1,3 +1,10 @@
+3.0.6 / 2016-09-12
+==================
+
+## reactabular-table
+
+  * Improvement - Allow `BodyRow` `shouldComponentUpdate` to be overridden by setting `components.body.row.shouldComponentUpdate = true`.
+
 3.0.5 / 2016-09-02
 ==================
 

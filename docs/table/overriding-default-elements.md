@@ -34,6 +34,8 @@ The defaults are as follows:
 };
 ```
 
+If you set `component.body.row.shouldComponentUpdate = true`, you can override the default `shouldComponentUpdate` behavior. `reactabular-virtualized` uses this feature.
+
 ## See Also
 
 * [Fixed Width Columns](/examples/fixed-width-columns)

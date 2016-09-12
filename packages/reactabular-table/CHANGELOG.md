@@ -1,3 +1,8 @@
+3.0.6 / 2016-09-12
+==================
+
+  * Improvement - Allow `BodyRow` `shouldComponentUpdate` to be overridden by setting `components.body.row.shouldComponentUpdate = true`.
+
 3.0.0 / 2016-09-01
 ==================
 

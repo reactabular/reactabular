@@ -9,6 +9,13 @@ class BodyRow extends React.Component {
   shouldComponentUpdate(nextProps) { // eslint-disable-line no-unused-vars
     const previousProps = this.props;
 
+    // Check for row based override.
+    const { components } = nextProps;
+
+    if (components && components.row && components.row.shouldComponentUpdate) {
+      return true;
+    }
+
     return !(
       isEqual(previousProps.columns, nextProps.columns) &&
       isEqual(previousProps.rowData, nextProps.rowData)
