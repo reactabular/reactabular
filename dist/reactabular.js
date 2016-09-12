@@ -3691,6 +3691,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // eslint-disable-line no-unused-vars
 	      var previousProps = this.props;
 	
+	      // Check for row based override.
+	      var components = nextProps.components;
+	
+	
+	      if (components && components.row && components.row.shouldComponentUpdate) {
+	        return true;
+	      }
+	
 	      return !((0, _isEqual2.default)(previousProps.columns, nextProps.columns) && (0, _isEqual2.default)(previousProps.rowData, nextProps.rowData));
 	    }
 	  }, {
