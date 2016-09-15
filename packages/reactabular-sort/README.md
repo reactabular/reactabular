@@ -146,7 +146,12 @@ The API consists of the sort helpers, transforms, formatters, and strategies. Th
 
 **`sort.byColumns({ sortingColumns: <sorting columns>, sortingOrder: {FIRST: <string>, <string>: <string>}, selectedColumn: <string> }) => <sorting columns> || {}`**
 
-`sort.byColumns` is like `sort.byColumn` except it doesn't discard possible existing sort state and instead accumulates it. This allows you to perform sorting over multiple columns while refining the results.
+`sort.byColumns` is like `sort.byColumn` except it doesn't discard possible existing sort state and instead accumulates it. This allows you to perform sorting over multiple columns while refining the results. The last-sorted column always has the highest `position` value, i.e. the lowest sorting priority.
+
+**`sort.byColumnsPrioritizeLastSorted({ sortingColumns: <sorting columns>, sortingOrder: {FIRST: <string>, <string>: <string>}, selectedColumn: <string> }) => <sorting columns> || {}`**
+
+`sort.byColumnsPrioritizeLastSorted` is like `sort.byColumns` except it
+always gives the last-sorted column the highest sorting priority.
 
 **`sort.sorter({ columns: [<object>], sortingColumns: <sorting columns>, sort: <function>, strategy = strategies.byIndex })([<rows to sort>]) => [<sorted rows>]`**
 
