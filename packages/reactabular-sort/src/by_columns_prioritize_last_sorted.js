@@ -27,7 +27,7 @@ const byColumnsPrioritizeLastSorted = ({
     const oldPosition = newSortingColumns[selectedColumn].position;
 
     if (newSort) { // sort direction is being updated
-      // demote all previously higher-priority columns by 1 
+      // demote all previously higher-priority columns by 1
       // by incrementing their position
       Object.keys(newSortingColumns).forEach(k => {
         const v = newSortingColumns[k];
@@ -41,7 +41,6 @@ const byColumnsPrioritizeLastSorted = ({
         position: 0
       };
     } else {
-
       delete newSortingColumns[selectedColumn];
 
       // Update position of columns after the deleted one
@@ -68,7 +67,7 @@ const byColumnsPrioritizeLastSorted = ({
     ...newSortingColumns,
     [selectedColumn]: {
       direction: sortingOrder.FIRST,
-      position: 0,
+      position: 0
     }
   };
 };

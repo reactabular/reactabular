@@ -141,7 +141,11 @@ describe('sort.byColumnsPrioritizeLastSorted', function () {
       }
     };
 
-    const firstResult = byColumnsPrioritizeLastSorted({ sortingColumns, sortingOrder, selectedColumn });
+    const firstResult = byColumnsPrioritizeLastSorted({
+      sortingColumns,
+      sortingOrder,
+      selectedColumn
+    });
     const secondResult = byColumnsPrioritizeLastSorted({
       sortingColumns: firstResult,
       sortingOrder,
