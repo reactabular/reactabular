@@ -85,31 +85,26 @@ describe('edit.edit', function () {
   });
 
   it('passes extraParameters to an editor', function () {
-    let receivedValue;
-    let receivedProperty;
     const editor = edit({
       isEditing() {
         return true;
       },
       onActivate() {},
-      onValue({ value, property }) {
-        receivedValue = value;
-        receivedProperty = property;
-      }
+      onValue: () => {}
     });
-    const value = 'foo';
+    const rowValue = 'foo';
     const rowDataBar = 'baz';
-    const editorElement = ({ props } = {}) => {
-      const editorComponent = ({ value, onValue, extraParameters }) => {
-        return <div extra={extraParameters}/>
-      }
-    }
-    const result = editor(editorElement)(value, {
-      rowData: { bar: rowDataBar},
+    const editorElement = () => {
+      const editorComponent = ({ value, onValue, extraParameters }) =>
+        <div value={value} onValue={onValue} onValue extra={extraParameters} />;
+      return editorComponent;
+    };
+    const result = editor(editorElement)(rowValue, {
+      rowData: { bar: rowDataBar },
       property: 'foo'
     });
 
-    expect(result.children.props.value).to.equal(value);
+    expect(result.children.props.value).to.equal(rowValue);
     expect(result.children.props.extraParameters.rowData.bar).to.equal(rowDataBar);
   });
 
