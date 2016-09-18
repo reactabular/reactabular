@@ -32,6 +32,7 @@ const edit = ({
           editorComponent,
           {
             ...props,
+            extraParameters,
             [editingProps.value || 'value']: getEditedValue(value),
             [editingProps.onValue || 'onValue']: v => onValue(
               { value: v, ...extraParameters }
