@@ -84,6 +84,35 @@ describe('edit.edit', function () {
     expect(receivedProperty).to.equal(editorProperty);
   });
 
+  it('passes extraParameters to an editor', function () {
+    let receivedValue;
+    let receivedProperty;
+    const editor = edit({
+      isEditing() {
+        return true;
+      },
+      onActivate() {},
+      onValue({ value, property }) {
+        receivedValue = value;
+        receivedProperty = property;
+      }
+    });
+    const value = 'foo';
+    const rowDataBar = 'baz';
+    const editorElement = ({ props } = {}) => {
+      const editorComponent = ({ value, onValue, extraParameters }) => {
+        return <div extra={extraParameters}/>
+      }
+    }
+    const result = editor(editorElement)(value, {
+      rowData: { bar: rowDataBar},
+      property: 'foo'
+    });
+
+    expect(result.children.props.value).to.equal(value);
+    expect(result.children.props.extraParameters.rowData.bar).to.equal(rowDataBar);
+  });
+
   it('allows value passed to edit to be shaped', function () {
     let receivedValue;
     let receivedProperty;
