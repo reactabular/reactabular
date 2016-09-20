@@ -1,4 +1,6 @@
-`reactabular-tree` provides tree helpers for Reactabular. To get children folding work, you should include default styling (`style.css`) to your project.
+`reactabular-tree` provides tree helpers for Reactabular.
+
+> You can find suggested default styling for the package at `style.css` in the package root.
 
 **Example:**
 

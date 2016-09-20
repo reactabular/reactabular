@@ -9,6 +9,8 @@ The general workflow goes as follows:
 3. Sort the rows before rendering.
 4. Feed the sorted rows to a `Table`.
 
+> You can find suggested default styling for the package at `style.css` in the package root.
+
 **Example:**
 
 ```jsx

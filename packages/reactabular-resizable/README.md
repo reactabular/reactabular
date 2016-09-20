@@ -6,6 +6,8 @@ Note that the current implementation doesn't constrain the total width of the ta
 
 The following example adjusts column widths through CSS to keep the performance high while using a sticky header/body. This way we can avoid touching the DOM through React and let the browser do the work.
 
+> You can find suggested default styling for the package at `style.css` in the package root.
+
 ```jsx
 /*
 import React from 'react';

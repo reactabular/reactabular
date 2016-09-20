@@ -1,6 +1,10 @@
 Given Reactabular is flexible by design, it's not the easiest to use and you may have to do quite a bit of wiring to make it work the way you want. `reactabular-easy` has been designed to make using it easier. It is opinionated and takes away some power. But on the plus side it allows you to render a fully featured table faster.
 
+## How to Use?
+
 To make the drag and drop functionality work, you have to set up [react-dnd-html5-backend](https://www.npmjs.com/package/react-dnd-html5-backend) or some other React DnD backend.
+
+> You can find suggested default styling for the package at `style.css` in the package root.
 
 ```jsx
 /*

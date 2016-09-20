@@ -10,8 +10,7 @@
     "dist",
     "CHANGELOG.md",
     "LICENSE",
-    "README.md",
-    "style.css"
+    "README.md"
   ],
   "readmeFilename": "README.md",
   "repository": {
