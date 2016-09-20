@@ -76,9 +76,9 @@ React.createElement('div', editable(edit.input())(
 
 An editor should follow the following interface:
 
-* `({ value, onValue }) => <React element>`
+* `({ value, onValue, extraParameters }) => <React element>`
 
-It will receive the current `value` and is expected to emit the result through `onValue` upon completion.
+It will receive the current `value` and is expected to emit the result through `onValue` upon completion. You can capture row data, property name, and such through `extraParameters`.
 
 ## Editors
 

@@ -1,3 +1,10 @@
+4.1.0 / 2016-09-20
+==================
+
+## react-edit
+
+  * Improvement - Pass `extraParameters` to `edit` interface. #201
+
 4.0.0 / 2016-09-12
 ==================
 

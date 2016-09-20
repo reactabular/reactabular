@@ -1,3 +1,8 @@
+4.1.0 / 2016-09-20
+==================
+
+  * Improvement - Pass `extraParameters` to `edit` interface. #201
+
 2.0.2 / 2016-08-17
 ==================
 
