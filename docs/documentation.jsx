@@ -5,7 +5,8 @@ import { Catalog, CodeSpecimen, ReactSpecimen } from 'catalog';
 import * as reactDnd from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import classnames from 'classnames';
-import { compose } from 'redux';
+import { compose, createStore } from 'redux';
+import { connect } from 'react-redux';
 import uuid from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
 import keys from 'lodash/keys';
@@ -48,6 +49,8 @@ const documentationImports = {
   ...reactDnd,
   classnames,
   compose,
+  connect,
+  createStore,
   uuid,
   cloneDeep,
   find,

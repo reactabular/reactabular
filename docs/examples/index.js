@@ -18,6 +18,11 @@ export default rootPath => ({
       component: require('./crud.md')
     },
     {
+      path: `${rootPath}/crud-redux`,
+      title: 'CRUD with Redux',
+      component: require('./crud-redux.md')
+    },
+    {
       path: `${rootPath}/excel`,
       title: 'Excel',
       component: require('./excel.md')
