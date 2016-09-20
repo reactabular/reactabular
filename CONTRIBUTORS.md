@@ -17,7 +17,7 @@
 * [Christopher Dieringer](https://github.com/cdaringe) - Improved sorting documentation.
 * [szdc](https://github.com/szdc) - Added support for multiple search filters.
 * [Mark Stacey](https://github.com/Gudahtt) - Fixed `postinstall` script for Node 0.10.
-* [Sebastian Kosch](https://github.com/skosch) - Fixed `resolve` call at Search, prototyped better sort interface, fixed typo at docs. #164, 174.
+* [Sebastian Kosch](https://github.com/skosch) - Fixed `resolve` call at Search, prototyped better sort interface, fixed typo at docs, added `sort.byColumnsPrioritizeLastSorted`. #164, 174, #199.
 * [Isaac Hinman](https://github.com/isaachinman) - Added `FixedWidthTable` demo.
 * [Julen Ruiz Aizpuru](https://github.com/julen) - Fixed a typo at documentation.
 * [Koen Punt](https://github.com/koenpunt) - Fixed a close tag at documentation.
