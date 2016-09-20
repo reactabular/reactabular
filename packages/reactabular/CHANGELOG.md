@@ -5,6 +5,10 @@
 
   * Improvement - Pass `extraParameters` to `edit` interface. #201
 
+## reactabular-sort
+
+  * Improvement - Add `sort.byColumnsPrioritizeLastSorted`. #199
+
 4.0.0 / 2016-09-12
 ==================
 

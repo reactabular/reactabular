@@ -1,3 +1,8 @@
+4.1.0 / 2016-09-20
+==================
+
+  * Improvement - Add `sort.byColumnsPrioritizeLastSorted`. #199
+
 2.0.5 / 2016-08-26
 ==================
 
