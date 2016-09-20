@@ -128,7 +128,7 @@ if (TARGET.startsWith('gh-pages')) {
       vendor: Object.keys(catalogPkg.dependencies).concat([
         'schema2object', 'lodash', 'react', 'react-dom',
         'react-dnd', 'react-dnd-html5-backend',
-        'react-github-corner', 'redux', 'uuid',
+        'react-github-corner', 'react-redux', 'redux', 'uuid',
         'annogenerate'
       ])
     },
