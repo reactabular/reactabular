@@ -45,7 +45,3 @@ The strategies operate in two passes - evaluation and matching. The evaluation p
 **`search.strategies.prefix(queryTerm: <string>) => { evaluate(searchText: <string>) => <string>, matches(searchText) => [{ startIndex: <number>, length: <number> }]`**
 
 `prefix` strategy matches from the start.
-
-## See Also
-
-* [Sort and Search](http://reactabular.js.org/#/examples/sort-and-search)

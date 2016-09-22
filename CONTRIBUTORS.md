@@ -22,6 +22,7 @@
 * [Julen Ruiz Aizpuru](https://github.com/julen) - Fixed a typo at documentation.
 * [Koen Punt](https://github.com/koenpunt) - Fixed a close tag at documentation.
 * [Jun Matsushita](https://github.com/jmatsushita) - Passed `extraParameters` to editable components (react-edit).
+* [Melissa Noelle](https://github.com/melissanoelle) - Pointed out a broken link.
 
 ## Acknowledgments
 
