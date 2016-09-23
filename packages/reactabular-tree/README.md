@@ -98,6 +98,9 @@ class TreeTable extends React.Component {
               rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
 
               this.setState({ rows });
+            },
+            props: {
+              className: 'toggle-children'
             }
           })
         },

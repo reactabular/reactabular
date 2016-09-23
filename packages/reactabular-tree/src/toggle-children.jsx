@@ -6,6 +6,7 @@ const toggleChildren = ({
   getRows,
   getShowingChildren,
   toggleShowingChildren,
+  props,
   id
 }) => {
   if (!getRows) {
@@ -34,7 +35,7 @@ const toggleChildren = ({
     const index = rowData._index;
 
     return (
-      <div style={{ paddingLeft: `${getLevel({ rows, index }) * 1}em` }}>
+      <div style={{ paddingLeft: `${getLevel({ rows, index }) * 1}em` }} {...props}>
         {hasChildren({ rows, index, id }) && <span
           className={showingChildren ? 'show-less' : 'show-more'}
           onClick={e => toggle(e, index)}

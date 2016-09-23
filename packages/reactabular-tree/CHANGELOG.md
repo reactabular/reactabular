@@ -1,3 +1,8 @@
+4.2.0 / 2016-09-23
+==================
+
+  * Improvement - Allow `toggleChildren` to accept `props` for customization.
+
 3.0.5 / 2016-09-02
 ==================
 

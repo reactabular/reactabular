@@ -1,3 +1,10 @@
+4.2.0 / 2016-09-23
+==================
+
+## reactabular-tree
+
+  * Improvement - Allow `toggleChildren` to accept `props` for customization.
+
 4.1.0 / 2016-09-20
 ==================
 
