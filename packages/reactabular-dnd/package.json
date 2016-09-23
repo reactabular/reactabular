@@ -1,6 +1,6 @@
 {
   "name": "reactabular-dnd",
-  "version": "3.0.0",
+  "version": "4.2.0",
   "description": "Drag and drop helpers for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
