@@ -226,7 +226,8 @@ class EasyTable extends React.Component {
               this.setState({ rows });
             },
             // Without this it will perform checks against default id
-            id: this.props.rowKey
+            id: this.props.rowKey,
+            props: this.props.toggleChildrenProps
           }));
         }
 

@@ -15,6 +15,7 @@ const propTypes = {
   classNames: React.PropTypes.object,
   styles: React.PropTypes.object,
   components: React.PropTypes.object,
+  toggleChildrenProps: React.PropTypes.object,
   // Handlers
   onRow: React.PropTypes.func,
   onWidth: React.PropTypes.func,
@@ -58,6 +59,7 @@ const defaultProps = {
     }
   },
   components: {},
+  toggleChildrenProps: {},
   onRow: () => ({}),
   onDragColumn: () => {},
   onMoveColumns: () => {},

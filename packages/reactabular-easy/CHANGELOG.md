@@ -1,3 +1,8 @@
+4.2.0 / 2016-09-23
+==================
+
+  * Improvement - Accept `toggleChildrenProps` for customization.
+
 4.0.0 / 2016-09-12
 ==================
 

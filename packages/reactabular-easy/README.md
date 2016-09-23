@@ -209,6 +209,7 @@ class EasyDemo extends React.Component {
               onChange={query => this.setState({ query })}
             />
           }
+          toggleChildrenProps={{ className: 'toggle-children' }}
           onDragColumn={this.onDragColumn}
           onMoveColumns={this.onMoveColumns}
           onSelectRow={this.onSelectRow}
