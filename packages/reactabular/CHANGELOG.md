@@ -1,3 +1,10 @@
+4.3.0 / 2016-09-27
+==================
+
+## reactabular-tree
+
+  * Improvement - Let `toggleChildren` toggle when cell is clicked. If you want the old behavior, override `onClick` through `props`.
+
 4.2.0 / 2016-09-23
 ==================
 
