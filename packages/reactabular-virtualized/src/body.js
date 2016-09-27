@@ -117,22 +117,25 @@ class VirtualizedBody extends React.Component {
     // given they can take a while to set container height.
     if (this.initialMeasurement) {
       setTimeout(() => {
-        // Refresh the rows to trigger measurement.
-        this.forceUpdate(
+        const rows = calculateRows({
+          scrollTop: this.scrollTop,
+          measuredRows: this.measuredRows,
+          height: this.props.height,
+          rowKey: this.props.rowKey,
+          rows: this.props.rows
+        });
+
+        if (!rows) {
+          // Refresh the rows to trigger measurement.
+          this.forceUpdate();
+
+          return;
+        }
+
+        this.setState(
+          rows,
           () => {
-            // Recalculate rows upon completion.
-            this.setState(
-              calculateRows({
-                scrollTop: this.scrollTop,
-                measuredRows: this.measuredRows,
-                height: this.props.height,
-                rowKey: this.props.rowKey,
-                rows: this.props.rows
-              }),
-              () => {
-                this.initialMeasurement = false;
-              }
-            );
+            this.initialMeasurement = false;
           }
         );
       }, 100);

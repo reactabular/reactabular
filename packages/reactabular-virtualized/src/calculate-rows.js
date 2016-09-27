@@ -44,7 +44,7 @@ const calculateRows = ({
 
   // Escape if there are no rows to render for some reason
   if (!rowsToRender.length) {
-    return {};
+    return null;
   }
 
   const startHeight = startIndex * averageHeight;
