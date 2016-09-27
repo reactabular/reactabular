@@ -4,6 +4,7 @@
 ## reactabular-tree
 
   * Improvement - Let `toggleChildren` toggle when cell is clicked. If you want the old behavior, override `onClick` through `props`.
+  * Improvement - Add `collapseAll` and `expandAll` helpers.
 
 4.2.0 / 2016-09-23
 ==================

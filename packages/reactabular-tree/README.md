@@ -58,6 +58,8 @@ class TreeTable extends React.Component {
       columns
     };
 
+    this.onExpandAll = this.onExpandAll.bind(this);
+    this.onCollapseAll = this.onCollapseAll.bind(this);
     this.onToggleColumn = this.onToggleColumn.bind(this);
   }
   getColumns() {
@@ -140,6 +142,9 @@ class TreeTable extends React.Component {
           onToggleColumn={this.onToggleColumn}
         />
 
+        <button onClick={this.onExpandAll}>Expand all</button>
+        <button onClick={this.onCollapseAll}>Collapse all</button>
+
         <div className="search-container">
           <span>Search</span>
           <Search
@@ -166,6 +171,16 @@ class TreeTable extends React.Component {
         </Table.Provider>
       </div>
     );
+  }
+  onExpandAll() {
+    this.setState({
+      rows: tree.expandAll(this.state.rows)
+    });
+  }
+  onCollapseAll() {
+    this.setState({
+      rows: tree.collapseAll(this.state.rows)
+    });
   }
   onToggleColumn(columnIndex) {
     const columns = cloneDeep(this.state.columns);

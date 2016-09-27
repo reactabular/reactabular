@@ -7,4 +7,6 @@ export { default as unpack } from './unpack';
 export { default as sort } from './sort';
 export { default as search } from './search';
 export { default as toggleChildren } from './toggle-children';
+export { default as collapseAll } from './collapse-all';
+export { default as expandAll } from './expand-all';
 
