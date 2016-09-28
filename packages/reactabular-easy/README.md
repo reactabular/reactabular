@@ -6,6 +6,8 @@ To make the drag and drop functionality work, you have to set up [react-dnd-html
 
 > You can find suggested default styling for the package at `style.css` in the package root.
 
+> If you want to use the drag and drop functionality, you have to set up React DnD!
+
 ```jsx
 /*
 import React from 'react';

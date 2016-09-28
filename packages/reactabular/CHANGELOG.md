@@ -1,3 +1,10 @@
+5.0.1 / 2016-09-28
+==================
+
+## reactabular-easy
+
+  * Bug fix - If there are no draggable headers, do *not* inject `dnd.Header`. This means you don't need to set up React DnD if you aren't using drag and drop functionality. #209
+
 5.0.0 / 2016-09-28
 ==================
 

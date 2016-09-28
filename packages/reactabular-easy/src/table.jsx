@@ -50,15 +50,20 @@ class EasyTable extends React.Component {
     } = this.props;
     const tableComponents = {
       ...components,
-      header: {
-        cell: dnd.Header
-      },
       body: {
         wrapper: Virtualized.BodyWrapper,
         row: Virtualized.BodyRow
       }
     };
-    const { columns, selectedRow } = this.state;
+    const {
+      columns, selectedRow, originalColumns
+    } = this.state;
+
+    if (hasDraggableHeaders(originalColumns)) {
+      tableComponents.header = {
+        cell: dnd.Header
+      };
+    }
 
     // Escape early if there are no columns to display
     if (!columns.length) {
@@ -314,6 +319,10 @@ class EasyTable extends React.Component {
 }
 EasyTable.propTypes = propTypes;
 EasyTable.defaultProps = defaultProps;
+
+function hasDraggableHeaders(columns) {
+  return columns.some(column => column.header && column.header.draggable);
+}
 
 function getSelectedRowIndex({ rows, selectedRow, rowKey }) {
   return findIndex(rows, {
