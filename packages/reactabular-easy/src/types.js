@@ -22,7 +22,8 @@ const propTypes = {
   onDragColumn: React.PropTypes.func,
   onMoveColumns: React.PropTypes.func,
   onSelectRow: React.PropTypes.func,
-  onSort: React.PropTypes.func
+  onSort: React.PropTypes.func,
+  onToggleShowingChildren: React.PropTypes.func
 };
 
 const defaultProps = {
@@ -64,7 +65,8 @@ const defaultProps = {
   onDragColumn: () => {},
   onMoveColumns: () => {},
   onSelectRow: () => {},
-  onSort: () => {}
+  onSort: () => {},
+  onToggleShowingChildren: () => {}
 };
 
 export {

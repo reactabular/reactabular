@@ -7,7 +7,6 @@ import * as tree from 'reactabular-tree';
 import { mergeClassNames } from 'reactabular-utils';
 import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
-import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import { defaultProps, propTypes } from './types';
 
@@ -18,7 +17,6 @@ class EasyTable extends React.Component {
     this.state = {
       originalColumns: props.columns,
       columns: this.bindColumns(props),
-      rows: props.rows,
       selectedRow: {}
     };
 
@@ -41,12 +39,6 @@ class EasyTable extends React.Component {
       this.setState({
         originalColumns: nextProps.columns,
         columns: this.bindColumns(nextProps)
-      });
-    }
-
-    if (this.state.rows !== nextProps.rows) {
-      this.setState({
-        rows: nextProps.rows
       });
     }
   }
@@ -92,9 +84,9 @@ class EasyTable extends React.Component {
           column
         })
       })
-    )(this.state.rows);
+    )(this.props.rows);
     const selectedRowIndex = getSelectedRowIndex({
-      rows: this.state.rows,
+      rows: this.props.rows,
       rowKey: this.props.rowKey,
       selectedRow
     });
@@ -214,17 +206,9 @@ class EasyTable extends React.Component {
 
         if (cell.toggleChildren) {
           newCellFormats.push(tree.toggleChildren({
-            getRows: () => this.state.rows,
+            getRows: () => this.props.rows,
             getShowingChildren: ({ rowData }) => rowData.showingChildren,
-            toggleShowingChildren: rowIndex => {
-              // TODO: This would be a good place for a callback if
-              // we want to push the control to user.
-              const rows = cloneDeep(this.state.rows);
-
-              rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
-
-              this.setState({ rows });
-            },
+            toggleShowingChildren: this.props.onToggleShowingChildren,
             // Without this it will perform checks against default id
             id: this.props.rowKey,
             props: this.props.toggleChildrenProps
@@ -311,8 +295,7 @@ class EasyTable extends React.Component {
     };
   }
   selectRow(selectedRowIndex) {
-    const { rowKey } = this.props;
-    const { rows } = this.state;
+    const { rowKey, rows } = this.props;
     const selected = select.row({
       rows,
       isSelected: (row, selectedRowId) => (

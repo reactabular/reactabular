@@ -1,3 +1,8 @@
+5.0.0 / 2016-09-28
+==================
+
+  * Breaking - Push children toggle behavior to `onToggleShowingChildren` prop. See the readme for a sample implementation. This makes the implementation more flexible. You can trigger `reactabular-tree` `collapseAll` and `expandAll` over `showingChildren` for instance.
+
 4.2.0 / 2016-09-23
 ==================
 

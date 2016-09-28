@@ -71,6 +71,7 @@ class EasyDemo extends React.Component {
     this.onSelectRow = this.onSelectRow.bind(this);
     this.onRemove = this.onRemove.bind(this);
     this.onSort = this.onSort.bind(this);
+    this.onToggleShowingChildren = this.onToggleShowingChildren.bind(this);
   }
   getColumns() {
     return [
@@ -215,6 +216,7 @@ class EasyDemo extends React.Component {
           onSelectRow={this.onSelectRow}
           onSort={this.onSort}
           onRow={this.onRow}
+          onToggleShowingChildren={this.onToggleShowingChildren}
         />
       </div>
     );
@@ -257,6 +259,14 @@ class EasyDemo extends React.Component {
     rows.splice(idx, 1);
 
     this.setState({ rows });
+  }
+  onToggleShowingChildren(rowIndex) {
+    const rows = cloneDeep(this.state.rows);
+
+    rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
+
+    this.setState({ rows });
+  //},
   }
 }
 
