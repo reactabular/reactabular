@@ -325,6 +325,7 @@ class AllFeaturesTable extends React.Component {
         <Table.Provider
           className="pure-table pure-table-striped"
           columns={cols}
+          style={{ overflowX: 'auto' }}
         >
           <Table.Header>
             <SearchColumns query={query} columns={cols} onChange={this.onSearch} />
