@@ -29,15 +29,19 @@ class VirtualizedBody extends React.Component {
         console.log('invalidating measurements'); // eslint-disable-line no-console
       }
 
-      this.setState(
-        calculateRows({
-          scrollTop: this.scrollTop,
-          measuredRows: this.measuredRows,
-          height: nextProps.height,
-          rowKey: nextProps.rowKey,
-          rows: nextProps.rows
-        })
-      );
+      const rows = calculateRows({
+        scrollTop: this.scrollTop,
+        measuredRows: this.measuredRows,
+        height: nextProps.height,
+        rowKey: nextProps.rowKey,
+        rows: nextProps.rows
+      });
+
+      if (!rows) {
+        return;
+      }
+
+      this.setState(rows);
     }
   }
   getChildContext() {

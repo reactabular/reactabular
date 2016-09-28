@@ -1,3 +1,8 @@
+5.0.2 / 2016-09-28
+==================
+
+  * Bug fix - Skip `setState` on `componentWillReceiveProps` if no rows were calculated. #209
+
 3.0.6 / 2016-09-12
 ==================
 

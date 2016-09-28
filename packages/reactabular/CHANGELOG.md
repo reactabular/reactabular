@@ -1,3 +1,10 @@
+5.0.2 / 2016-09-28
+==================
+
+## reactabular-virtualized
+
+  * Bug fix - Skip `setState` on `componentWillReceiveProps` if no rows were calculated. #209
+
 5.0.1 / 2016-09-28
 ==================
 
