@@ -1,6 +1,6 @@
 {
   "name": "reactabular-select",
-  "version": "3.0.0",
+  "version": "5.0.0",
   "description": "Row selection utilities for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
