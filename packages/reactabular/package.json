@@ -1,6 +1,6 @@
 {
   "name": "reactabular",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Spectacular tables for React",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
