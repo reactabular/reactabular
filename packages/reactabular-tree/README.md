@@ -31,19 +31,19 @@ If there's a `parent` relation, the children must follow their parent right afte
 
 ### Transformations
 
-**`tree.collapseAll = (rows, property = 'showingChildren') => rows`**
+**`tree.collapseAll = (rows, property = 'showingChildren') => <collapsedRows>`**
 
 Collapses rows by setting `showingChildren` of each row to `false`.
 
-**`tree.expandAll = (rows, property = 'showingChildren') => rows`**
+**`tree.expandAll = (rows, property = 'showingChildren') => <expandedRows>`**
 
 Expands rows by setting `showingChildren` of each row to `true`.
 
-**`tree.filter = (fieldName, id) => rows => filteredRows`**
+**`tree.filter = (fieldName, id) => (rows) => filteredRows`**
 
 Filters the given rows using `fieldName` and `id`. This is handy if you want only rows that are visible assuming visibility logic has been defined.
 
-**`tree.flatten = ({ tree, parentField = 'parent', parent, idField = 'id'}) => rows`**
+**`tree.flatten = ({ tree, parentField = 'parent', parent, idField = 'id'}) => <flattenedRows>`**
 
 Flattens a nested tree structure into a flat one compatible with the algorithms.
 
@@ -61,17 +61,17 @@ Returns parents based on given `rows` and `index`.
 
 Returns a boolean based on whether or not the row at the given `index` has children.
 
-**`tree.search = ({ columns, query }) => rows => <searchedRows>`**
+**`tree.search = ({ columns, query }) => (rows) => <searchedRows>`**
 
 Allows you to search against a tree structure (packs/unpacks internally).
 
-**`tree.sort = ({ columns, sortingColumns, strategy }) => rows => <sortedRows>`**
+**`tree.sort = ({ columns, sortingColumns, strategy }) => (rows) => <sortedRows>`**
 
 Allows you to sort a tree (packs/unpacks internally).
 
 ### Packing
 
-**`tree.pack = ({ parent = 'parent' }) => rows => <packedRows>`**
+**`tree.pack = ({ parent = 'parent' }) => (rows) => <packedRows>`**
 
 Packs children inside root level nodes. This is useful with sorting and filtering.
 
