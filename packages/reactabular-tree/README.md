@@ -1,8 +1,91 @@
-`reactabular-tree` provides tree helpers for Reactabular.
+`reactabular-tree` provides tree helpers for Reactabular. It relies on a flat structure like this:
+
+```javascript
+const tree = [
+  {
+    id: 123,
+    name: 'Demo'
+  },
+  {
+    id: 456,
+    name: 'Another',
+    parent: 123
+  },
+  {
+    id: 789,
+    name: 'Yet Another',
+    parent: 123
+  },
+  {
+    id: 532,
+    name: 'Foobar'
+  }
+];
+```
+
+If there's a `parent` relation, the children must follow their parent right after it.
 
 > You can find suggested default styling for the package at `style.css` in the package root.
 
-**Example:**
+## API
+
+### Transformations
+
+**`tree.collapseAll = (rows, property = 'showingChildren') => rows`**
+
+Collapses rows by setting `showingChildren` of each row to `false`.
+
+**`tree.expandAll = (rows, property = 'showingChildren') => rows`**
+
+Expands rows by setting `showingChildren` of each row to `true`.
+
+**`tree.filter = (fieldName, id) => rows => filteredRows`**
+
+Filters the given rows using `fieldName` and `id`. This is handy if you want only rows that are visible assuming visibility logic has been defined.
+
+**`tree.flatten = ({ tree, parentField = 'parent', parent, idField = 'id'}) => rows`**
+
+Flattens a nested tree structure into a flat one compatible with the algorithms.
+
+### Queries
+
+**`tree.getLevel = ({ rows, index, parent = 'parent' }) => <level>`**
+
+Returns the nesting level of the row at the given `index` within `rows`.
+
+**`tree.getParents = ({ rows, index, id = 'id', parent = 'parent' }) => [<parent>]`**
+
+Returns parents based on given `rows` and `index`.
+
+**`tree.hasChildren = ({ rows, index, id = 'id', parent = 'parent '}) => <boolean>`**
+
+Returns a boolean based on whether or not the row at the given `index` has children.
+
+**`tree.search = ({ columns, query }) => rows => <searchedRows>`**
+
+Allows you to search against a tree structure (packs/unpacks internally).
+
+**`tree.sort = ({ columns, sortingColumns, strategy }) => rows => <sortedRows>`**
+
+Allows you to sort a tree (packs/unpacks internally).
+
+### Packing
+
+**`tree.pack = ({ parent = 'parent' }) => rows => <packedRows>`**
+
+Packs children inside root level nodes. This is useful with sorting and filtering.
+
+**`tree.unpack = (rows) => <unpackedRows>`**
+
+Unpacks children from root level nodes. This is useful with sorting and filtering.
+
+### UI
+
+**`tree.toggleChildren = ({ getRows, getShowingChildren, toggleShowingChildren, props, id }) => (value, extra) => <React element>`**
+
+Makes it possible to toggle node children through a user interface.
+
+## Example
 
 ```jsx
 /*
