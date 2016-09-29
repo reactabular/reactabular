@@ -29,7 +29,9 @@ describe('Table.Provider', function () {
     const table = TestUtils.renderIntoDocument(
       <Table.Provider columns={columns}>
         <tfoot>
-          <tr>Dancing is the poetry of the foot.</tr>
+          <tr>
+            <td>Dancing is the poetry of the foot.</td>
+          </tr>
         </tfoot>
       </Table.Provider>
     );
@@ -53,7 +55,9 @@ describe('Table.Provider', function () {
     const table = TestUtils.renderIntoDocument(
       <Table.Provider columns={columns}>
         <tfoot>
-          <tr>Dancing is the poetry of the foot.</tr>
+          <tr>
+            <td>Dancing is the poetry of the foot.</td>
+          </tr>
         </tfoot>
       </Table.Provider>
     );
