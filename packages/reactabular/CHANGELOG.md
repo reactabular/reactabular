@@ -1,3 +1,10 @@
+5.1.0 / 2016-09-29
+==================
+
+## reactabular-tree
+
+  * Feature - Add `tree.flatten` to allow transforming a nested tree structure into a flat structure used by the algorithms.
+
 5.0.2 / 2016-09-28
 ==================
 

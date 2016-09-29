@@ -1,3 +1,8 @@
+5.1.0 / 2016-09-29
+==================
+
+  * Feature - Add `tree.flatten` to allow transforming a nested tree structure into a flat structure used by the algorithms.
+
 4.3.0 / 2016-09-27
 ==================
 
