@@ -39,13 +39,11 @@ const toggleChildren = ({
     const containsChildren = hasChildren({ rows, index, id }) ? 'has-children' : '';
     const hasParent = getParents({ rows, index, id, parent }).length > 0 ? 'has-parent' : '';
 
-    console.log(getParents({ rows, index, id, parent }));
-
     return (
       <div
         style={{ paddingLeft: `${getLevel({ rows, index }) * 1}em` }}
         onClick={e => toggle(e, index)}
-        className={`${containsChildren} ${hasParent} ${className}`}
+        className={`${containsChildren} ${hasParent} ${className || ''}`}
         {...restProps}
       >
         {containsChildren && <span

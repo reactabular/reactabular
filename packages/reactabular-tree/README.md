@@ -184,9 +184,8 @@ class TreeTable extends React.Component {
 
               this.setState({ rows });
             },
-            props: {
-              className: 'toggle-children'
-            }
+            // inject custom class name per row here etc.
+            props: {}
           })
         },
         visible: true

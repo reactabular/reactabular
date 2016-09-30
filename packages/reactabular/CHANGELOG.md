@@ -1,3 +1,10 @@
+5.2.1 / 2016-09-30
+==================
+
+## reactabular-tree
+
+  * Bug fix - If `className` is not provided to `tree.toggleChildren`, do not render `undefined` as a class. Also dropped extra `console.log`.
+
 5.2.0 / 2016-09-30
 ==================
 
