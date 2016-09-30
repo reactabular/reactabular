@@ -6,9 +6,7 @@
 
 ## Development
 
-```code
-lang: bash
----
+```bash
 npm run init
 npm start
 open http://localhost:8080
