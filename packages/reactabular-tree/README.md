@@ -246,11 +246,7 @@ class TreeTable extends React.Component {
         >
           <Table.Header />
 
-          <Table.Body
-            onRow={this.onRow}
-            rows={rows}
-            rowKey="id"
-          />
+          <Table.Body rows={rows} rowKey="id" />
         </Table.Provider>
       </div>
     );
@@ -271,11 +267,6 @@ class TreeTable extends React.Component {
     columns[columnIndex].visible = !columns[columnIndex].visible;
 
     this.setState({ columns });
-  }
-  onRow(row, { rowIndex }) {
-    return {
-      className: rowIndex % 2 ? 'odd-row' : 'even-row'
-    };
   }
 }
 
