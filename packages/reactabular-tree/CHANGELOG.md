@@ -1,3 +1,9 @@
+5.2.0 / 2016-09-30
+==================
+
+  * Bug fix - Calculate `tree.getParents` correctly for root level nodes without parents. Previously that gave false positives.
+  * Feature - Annotate `tree.toggleChildren` with `has-children` and `has-parent` classes. Easier to style this way.
+
 5.1.0 / 2016-09-29
 ==================
 

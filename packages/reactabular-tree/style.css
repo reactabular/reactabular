@@ -2,11 +2,16 @@
   cursor: pointer;
   padding-right: 0.5em;
   content: "\25B8";
-  font-size: small;
+  font-size: large;
 }
 .show-less:after {
   cursor: pointer;
   padding-right: 0.5em;
   content: "\25BE";
-  font-size: small;
+  font-size: large;
+}
+.has-parent:not(.has-children):before {
+  padding-right: 0.5em;
+  content: "\0007C";
+  font-size: large;
 }

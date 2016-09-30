@@ -1,5 +1,6 @@
 import React from 'react';
 import getLevel from './get-level';
+import getParents from './get-parents';
 import hasChildren from './has-children';
 
 const toggleChildren = ({
@@ -7,7 +8,8 @@ const toggleChildren = ({
   getShowingChildren,
   toggleShowingChildren,
   props,
-  id
+  id,
+  parent
 }) => {
   if (!getRows) {
     throw new Error('tree.toggleChildren - Missing getRows!');
@@ -29,18 +31,24 @@ const toggleChildren = ({
   };
 
   return (value, extra) => {
+    const { className, ...restProps } = props; // eslint-disable-line react/prop-types
     const { rowData } = extra;
     const rows = getRows();
     const showingChildren = getShowingChildren(extra);
     const index = rowData._index;
+    const containsChildren = hasChildren({ rows, index, id }) ? 'has-children' : '';
+    const hasParent = getParents({ rows, index, id, parent }).length > 0 ? 'has-parent' : '';
+
+    console.log(getParents({ rows, index, id, parent }));
 
     return (
       <div
         style={{ paddingLeft: `${getLevel({ rows, index }) * 1}em` }}
         onClick={e => toggle(e, index)}
-        {...props}
+        className={`${containsChildren} ${hasParent} ${className}`}
+        {...restProps}
       >
-        {hasChildren({ rows, index, id }) && <span
+        {containsChildren && <span
           className={showingChildren ? 'show-less' : 'show-more'}
           onClick={e => toggle(e, index)}
         />}

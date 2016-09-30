@@ -22,6 +22,10 @@ function getParents({
       previousParent = cell[parent];
     }
 
+    if (!cell[parent]) {
+      break;
+    }
+
     currentIndex--;
 
     cell = rows[currentIndex];

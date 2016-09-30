@@ -81,7 +81,7 @@ Unpacks children from root level nodes. This is useful with sorting and filterin
 
 ### UI
 
-**`tree.toggleChildren = ({ getRows, getShowingChildren, toggleShowingChildren, props, id }) => (value, extra) => <React element>`**
+**`tree.toggleChildren = ({ getRows, getShowingChildren, toggleShowingChildren, props, id, parent }) => (value, extra) => <React element>`**
 
 Makes it possible to toggle node children through a user interface.
 
