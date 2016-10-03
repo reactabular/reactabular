@@ -48,6 +48,22 @@ describe('search._columnMatches', function () {
     expect(result).to.equal(false);
   });
 
+  it('accepts alternative casting strategy', function () {
+    const query = 'foobar';
+    const result = _columnMatches({
+      query,
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: 'foo'
+      },
+      castingStrategy: v => `${v}bar`
+    });
+
+    expect(result).to.equal(true);
+  });
+
   it('accepts alternative transform', function () {
     const query = 'oba';
     const result = _columnMatches({
@@ -78,6 +94,21 @@ describe('search._columnMatches', function () {
     });
 
     expect(result).to.equal(true);
+  });
+
+  it('does not cast arrays to strings', function () {
+    const query = 'foo,bar';
+    const result = _columnMatches({
+      query,
+      column: {
+        property: 'demo'
+      },
+      row: {
+        demo: ['foo', 'bar']
+      }
+    });
+
+    expect(result).to.equal(false);
   });
 
   it('formats property', function () {
