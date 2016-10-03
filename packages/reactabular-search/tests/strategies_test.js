@@ -40,6 +40,62 @@ describe('search.strategies.infix', function () {
     expect(predicate.matches(text)).to.deep.equal(expected);
   });
 
+  it('matches arrays correctly', function () {
+    const queryTerm = 'bl';
+    const text = ['black', 'red', 'able'];
+
+    const predicate = infix(queryTerm);
+    const expected = [ // eslint-disable-line no-sparse-arrays
+      [{
+        startIndex: 0,
+        length: queryTerm.length
+      }],,
+      [{
+        startIndex: 1,
+        length: queryTerm.length
+      }]
+    ];
+
+    expect(predicate.evaluate(text)).to.equal(true);
+    expect(predicate.matches(text)).to.deep.equal(expected);
+  });
+
+  it('matches nested arrays correctly', function () {
+    const queryTerm = 'bl';
+    const text = ['orange', 'black', ['red', ['no', 'blabla', 'no']], 'able'];
+
+    const predicate = infix(queryTerm);
+    const expected = [, // eslint-disable-line no-sparse-arrays
+      [{
+        startIndex: 0,
+        length: queryTerm.length
+      }],
+      [
+        [, // eslint-disable-line no-sparse-arrays
+          [, // eslint-disable-line no-sparse-arrays
+            [
+              {
+                startIndex: 0,
+                length: queryTerm.length
+              },
+              {
+                startIndex: 3,
+                length: queryTerm.length
+              }
+            ],,
+          ]
+        ]
+      ],
+      [{
+        startIndex: 1,
+        length: queryTerm.length
+      }]
+    ];
+
+    expect(predicate.evaluate(text)).to.equal(true);
+    expect(predicate.matches(text)).to.deep.equal(expected);
+  });
+
   it('does not match', function () {
     const queryTerm = 'light';
     const text = 'dark';
@@ -61,6 +117,48 @@ describe('search.strategies.prefix', function () {
       startIndex: 0,
       length: queryTerm.length
     }];
+
+    expect(predicate.evaluate(text)).to.equal(true);
+    expect(predicate.matches(text)).to.deep.equal(expected);
+  });
+
+  it('matches arrays correctly', function () {
+    const queryTerm = 'bl';
+    const text = ['black', 'red', 'able'];
+
+    const predicate = prefix(queryTerm);
+    const expected = [ // eslint-disable-line no-sparse-arrays
+      [{
+        startIndex: 0,
+        length: queryTerm.length
+      }],,,
+    ];
+
+    expect(predicate.evaluate(text)).to.equal(true);
+    expect(predicate.matches(text)).to.deep.equal(expected);
+  });
+
+  it('matches nested arrays correctly', function () {
+    const queryTerm = 'bl';
+    const text = ['orange', 'black', ['red', ['no', 'blabla', 'no']], 'able'];
+
+    const predicate = prefix(queryTerm);
+    const expected = [, // eslint-disable-line no-sparse-arrays
+      [{
+        startIndex: 0,
+        length: queryTerm.length
+      }],
+      [
+        [, // eslint-disable-line no-sparse-arrays
+          [, // eslint-disable-line no-sparse-arrays
+            [{
+              startIndex: 0,
+              length: queryTerm.length
+            }],,
+          ]
+        ]
+      ],,
+    ];
 
     expect(predicate.evaluate(text)).to.equal(true);
     expect(predicate.matches(text)).to.deep.equal(expected);
