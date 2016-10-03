@@ -70,20 +70,18 @@ describe('search.strategies.infix', function () {
         startIndex: 0,
         length: queryTerm.length
       }],
-      [
+      [, // eslint-disable-line no-sparse-arrays
         [, // eslint-disable-line no-sparse-arrays
-          [, // eslint-disable-line no-sparse-arrays
-            [
-              {
-                startIndex: 0,
-                length: queryTerm.length
-              },
-              {
-                startIndex: 3,
-                length: queryTerm.length
-              }
-            ],,
-          ]
+          [
+            {
+              startIndex: 0,
+              length: queryTerm.length
+            },
+            {
+              startIndex: 3,
+              length: queryTerm.length
+            }
+          ],,
         ]
       ],
       [{
@@ -148,14 +146,12 @@ describe('search.strategies.prefix', function () {
         startIndex: 0,
         length: queryTerm.length
       }],
-      [
+      [, // eslint-disable-line no-sparse-arrays
         [, // eslint-disable-line no-sparse-arrays
-          [, // eslint-disable-line no-sparse-arrays
-            [{
-              startIndex: 0,
-              length: queryTerm.length
-            }],,
-          ]
+          [{
+            startIndex: 0,
+            length: queryTerm.length
+          }],,
         ]
       ],,
     ];
