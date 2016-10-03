@@ -97,4 +97,21 @@ describe('search.singleColumn', function () {
 
     expect(result).to.deep.equal(rows);
   });
+
+  it('accepts alternative casting strategy', function () {
+    const query = 'foobar';
+    const rows = [{ demo: 'foo' }];
+    const result = singleColumn({
+      query,
+      columns: [
+        {
+          property: 'demo'
+        }
+      ],
+      searchColumn: 'all',
+      castingStrategy: v => `${v}bar`
+    })(rows);
+
+    expect(result).to.deep.equal(rows);
+  });
 });

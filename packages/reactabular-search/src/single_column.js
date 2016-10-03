@@ -1,7 +1,7 @@
 import _columnMatches from './_column_matches';
 
 const singleColumn = ({
-  columns, searchColumn = 'all', query, strategy, transform
+  castingStrategy, columns, searchColumn = 'all', query, strategy, transform
 }) => rows => {
   if (!query) {
     return rows;
@@ -14,7 +14,7 @@ const singleColumn = ({
   }
 
   return rows.filter(row => ret.filter(column => _columnMatches({
-    query, column, strategy, transform, row
+    query, castingStrategy, column, strategy, transform, row
   })).length > 0);
 };
 

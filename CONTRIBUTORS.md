@@ -23,7 +23,7 @@
 * [Koen Punt](https://github.com/koenpunt) - Fixed a close tag at documentation.
 * [Jun Matsushita](https://github.com/jmatsushita) - Passed `extraParameters` to editable components (react-edit).
 * [Melissa Noelle](https://github.com/melissanoelle) - Pointed out a broken link.
-* [Mathieu M-Gosselin](https://github.com/mathieumg) - Fixed code snippet. #210
+* [Mathieu M-Gosselin](https://github.com/mathieumg) - Nested array search and custom casting strategies. #212
 
 ## Acknowledgments
 
