@@ -1,12 +1,13 @@
 import singleColumn from './single_column';
 
 const multipleColumns = ({
-  columns, query, strategy, transform
+  castingStrategy, columns, query, strategy, transform
 }) => data => (
   query ?
     Object.keys(query).reduce(
       (filteredData, searchColumn) =>
         singleColumn({
+          castingStrategy,
           columns,
           searchColumn,
           query: query[searchColumn],
