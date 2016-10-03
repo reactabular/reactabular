@@ -1,3 +1,11 @@
+5.3.0 / ?
+==================
+
+## reactabular-search
+
+  * `search.multipleColumns` and `search.singleColumn` now accept a `castingStrategy` parameter to define how to cast properties when searching. By default, everything buy arrays is casted to a string.
+  * `search.matches` now traverses arrays and returns results in the same shape.
+
 5.2.1 / 2016-09-30
 ==================
 

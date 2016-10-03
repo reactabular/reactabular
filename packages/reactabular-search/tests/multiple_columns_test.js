@@ -79,4 +79,20 @@ describe('search.multipleColumns', function () {
 
     expect(result).to.deep.equal(rows);
   });
+
+  it('accepts alternative casting strategy', function () {
+    const query = { demo: 'foobar' };
+    const rows = [{ demo: 'foo' }, { demo: 'barfoo' }];
+    const result = multipleColumns({
+      query,
+      columns: [
+        {
+          property: 'demo'
+        }
+      ],
+      castingStrategy: v => `${v}bar`
+    })(rows);
+
+    expect(result).to.deep.equal(rows);
+  });
 });

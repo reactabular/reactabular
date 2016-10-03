@@ -4,11 +4,30 @@ const infix = queryTerm => ({
       return false;
     }
 
+    if (Array.isArray(searchText)) {
+      return searchText.some(v => this.evaluate(v));
+    }
+
     return searchText.indexOf(queryTerm) !== -1;
   },
   matches(searchText = '') {
     if (!searchText) {
       return [];
+    }
+
+    if (Array.isArray(searchText)) {
+      return searchText.reduce(
+        (result, text, index) => {
+          const search = this.matches(text);
+
+          if (search.length) {
+            result[index] = search; // eslint-disable-line no-param-reassign
+          }
+
+          return result;
+        },
+        new Array(searchText.length)
+      );
     }
 
     const splitString = searchText.split(queryTerm);
@@ -36,11 +55,30 @@ const prefix = queryTerm => ({
       return false;
     }
 
+    if (Array.isArray(searchText)) {
+      return searchText.some(v => this.evaluate(v));
+    }
+
     return searchText.indexOf(queryTerm) === 0;
   },
   matches(searchText = '') {
     if (!searchText) {
       return [];
+    }
+
+    if (Array.isArray(searchText)) {
+      return searchText.reduce(
+        (result, text, index) => {
+          const search = this.matches(text);
+
+          if (search.length) {
+            result[index] = search; // eslint-disable-line no-param-reassign
+          }
+
+          return result;
+        },
+        new Array(searchText.length)
+      );
     }
 
     const prefixIndex = searchText.indexOf(queryTerm);

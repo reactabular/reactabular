@@ -14,23 +14,35 @@ The Search API consists of three parts. Out of these `search.multipleColumns` an
 
 ### Search
 
-**`search.multipleColumns({ columns: [<object>], query: {<column>: <query>}, strategy: <strategy>, transform: <transform> })([<rows to query>]) => [<filtered rows>]`**
+**`search.multipleColumns({ castingStrategy: <castingStrategy>, columns: [<object>], query: {<column>: <query>}, strategy: <strategy>, transform: <transform> })([<rows to query>]) => [<filtered rows>]`**
 
 This is the highest level search function available. It expects `rows` and `columns` in the same format the `Table` uses. `query` object describes column specific search queries.
 
 It uses `infix` strategy underneath although it is possible to change it. By default it matches in a case **insensitive** manner. If you want case sensitive behavior, pass `a => a`(identity function) as `transform`.
 
-**`search.singleColumn({ columns: [<object>], searchColumn: <string>, query: <string>, strategy: <strategy>, transform: <transform> })([<rows to query>]) => [<filtered rows>]`**
+It will cast everything but arrays to a string by default. If you want a custom casting behavior, pass a custom function to `castingStrategy`.
+
+**`search.singleColumn({ castingStrategy: <castingStrategy>, columns: [<object>], searchColumn: <string>, query: <string>, strategy: <strategy>, transform: <transform> })([<rows to query>]) => [<filtered rows>]`**
 
 This is a more specialized version of `search.multipleColumns`. You can use it to search a specific column through `searchColumn` and `query`.
 
 ### Matchers
 
-**`search._columnMatches({ rows: [<object>], column: [<object>], row: <object>, strategy: <strategy>, transform: <transform> }) => <boolean>`**
+**`search._columnMatches({ query: <string>, castingStrategy: <castingStrategy>, column: <object>, row: <object>, strategy: <strategy>, transform: <transform> }) => <boolean>`**
 
 This is a function that can be used to figure out all column specific matches. It is meant only for **internal usage** of the library.
 
+When dealing with strings:
+
 **`search.matches({ value: <string>, query: <string>, strategy: <strategy>, transform: <transform> }) => [{ startIndex: <number>, length: <number> }]`**
+
+Returns an array with the matches.
+
+When dealing with arrays:
+
+**`search.matches({ value: <string>, query: [<string|[...]>], strategy: <strategy>, transform: <transform> }) => [[{ startIndex: <number>, length: <number> }], ...]`**
+
+Returns a sparse array with the same shape as the original query. If there was a match for an item, it will have the same shape as the string version above, otherwise the array will have a hole in that location.
 
 This function returns matches against the given value and query. This is particularly useful with highlighting.
 
