@@ -7708,7 +7708,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /* eslint-disable react/prop-types */
+	
 	
 	var _react = __webpack_require__(4);
 	
@@ -7729,6 +7730,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var header = function header(_ref) {
 	  var sortable = _ref.sortable;
 	  var getSortingColumns = _ref.getSortingColumns;
+	  var _ref$props = _ref.props;
+	  var props = _ref$props === undefined ? {
+	    container: {},
+	    value: {},
+	    order: {}
+	  } : _ref$props;
 	  var _ref$styles = _ref.styles;
 	  var styles = _ref$styles === undefined ? {} : _ref$styles;
 	  var _ref$strategy = _ref.strategy;
@@ -7750,21 +7757,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'sort-container', style: headerStyles.container },
+	      _extends({
+	        className: 'sort-container',
+	        style: headerStyles.container
+	      }, props.container),
 	      _react2.default.createElement(
 	        'span',
-	        {
+	        _extends({
 	          className: 'sort-value',
 	          style: headerStyles.value
-	        },
+	        }, props.value),
 	        value
 	      ),
 	      {}.hasOwnProperty.call(sortingColumn, 'position') ? _react2.default.createElement(
 	        'span',
-	        {
+	        _extends({
 	          className: 'sort-order',
 	          style: headerStyles.order
-	        },
+	        }, props.order),
 	        sortingPosition + 1
 	      ) : null,
 	      _react2.default.createElement('span', sortable(value, extra))
@@ -12068,6 +12078,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(4);
@@ -12089,6 +12101,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var onDrag = _ref.onDrag;
 	  var _ref$minWidth = _ref.minWidth;
 	  var minWidth = _ref$minWidth === undefined ? 100 : _ref$minWidth;
+	  var _ref$props = _ref.props;
+	  var props = _ref$props === undefined ? {
+	    container: {},
+	    value: {},
+	    handle: {}
+	  } : _ref$props;
 	  var _ref$styles = _ref.styles;
 	  var styles = _ref$styles === undefined ? {
 	    container: {},
@@ -12108,7 +12126,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _classCallCheck(this, ResizableColumn);
 	
 	        // Track coordinate rows at instance, no React state needed
-	        var _this = _possibleConstructorReturn(this, (ResizableColumn.__proto__ || Object.getPrototypeOf(ResizableColumn)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (ResizableColumn.__proto__ || Object.getPrototypeOf(ResizableColumn)).call(this, props)); // eslint-disable-line no-shadow
+	
 	
 	        _this.startX = null;
 	        _this.startWidth = null;
@@ -12129,7 +12148,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	          return _react2.default.createElement(
 	            'div',
-	            {
+	            _extends({
 	              className: 'resize-container',
 	              ref: function ref(column) {
 	                if (column) {
@@ -12137,19 +12156,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	              },
 	              style: styles.container
-	            },
+	            }, props.container),
 	            _react2.default.createElement(
 	              'span',
-	              { className: 'resize-value', style: styles.value },
+	              _extends({
+	                className: 'resize-value',
+	                style: styles.value
+	              }, props.value),
 	              label
 	            ),
 	            _react2.default.createElement(
 	              'span',
-	              {
+	              _extends({
 	                className: 'resize-handle',
 	                onMouseDown: this.onMouseDown,
 	                style: styles.handle
-	              },
+	              }, props.handle),
 	              ' '
 	            )
 	          );
