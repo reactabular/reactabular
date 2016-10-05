@@ -57,7 +57,7 @@ describe('sort.header', function () {
     expect(order.innerHTML).to.equal((position + 1).toString());
   });
 
-  it('allows styling container through the styles parameter', function () {
+  it('allows styling container through the styles prop', function () {
     const color = 'red';
     const styles = {
       container: {
@@ -80,7 +80,7 @@ describe('sort.header', function () {
     expect(container.style.color).to.equal(color);
   });
 
-  it('allows styling value through the styles parameter', function () {
+  it('allows styling value through the styles prop', function () {
     const color = 'red';
     const styles = {
       value: {
@@ -103,7 +103,7 @@ describe('sort.header', function () {
     expect(value.style.color).to.equal(color);
   });
 
-  it('allows styling order through the styles parameter', function () {
+  it('allows styling order through the styles prop', function () {
     const color = 'red';
     const styles = {
       order: {
@@ -128,6 +128,54 @@ describe('sort.header', function () {
       renderedHeader, 'sort-order'
     );
 
+    expect(order.style.color).to.equal(color);
+  });
+
+  it('allows customization through the props prop', function () {
+    const color = 'red';
+    const props = {
+      container: {
+        style: {
+          color
+        }
+      },
+      value: {
+        style: {
+          color
+        }
+      },
+      order: {
+        style: {
+          color
+        }
+      }
+    };
+
+    const headerTransform = header({
+      getSortingColumns: () => ({
+        0: {
+          direction: 'asc',
+          position: 0
+        }
+      }),
+      sortable: byColumn,
+      props
+    })('foo', { columnIndex: 0 });
+    const renderedHeader = TestUtils.renderIntoDocument(
+      <Wrapper>{headerTransform}</Wrapper>
+    );
+    const container = TestUtils.findRenderedDOMComponentWithClass(
+      renderedHeader, 'sort-container'
+    );
+    const value = TestUtils.findRenderedDOMComponentWithClass(
+      renderedHeader, 'sort-value'
+    );
+    const order = TestUtils.findRenderedDOMComponentWithClass(
+      renderedHeader, 'sort-order'
+    );
+
+    expect(container.style.color).to.equal(color);
+    expect(value.style.color).to.equal(color);
     expect(order.style.color).to.equal(color);
   });
 });

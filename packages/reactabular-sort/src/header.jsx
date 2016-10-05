@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import strategies from './strategies';
 
@@ -10,6 +11,12 @@ const defaultStyles = {
 const header = ({
   sortable,
   getSortingColumns,
+  props = {
+    container: {},
+    value: {},
+    order: {}
+  },
+  // XXXXX: remove in the next major version
   styles = {},
   strategy = strategies.byIndex
 }) => {
@@ -33,10 +40,15 @@ const header = ({
     const sortingPosition = sortingColumn.position;
 
     return (
-      <div className="sort-container" style={headerStyles.container}>
+      <div
+        className="sort-container"
+        style={headerStyles.container}
+        {...props.container}
+      >
         <span
           className="sort-value"
           style={headerStyles.value}
+          {...props.value}
         >
           {value}
         </span>
@@ -44,6 +56,7 @@ const header = ({
           <span
             className="sort-order"
             style={headerStyles.order}
+            {...props.order}
           >
             {sortingPosition + 1}
           </span> : null

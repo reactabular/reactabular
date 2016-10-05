@@ -5,6 +5,10 @@
 
   * Improvement - Expose `props` prop for customizing `props` of the component. This will replace `styles` eventually.
 
+## reactabular-sort
+
+  * Improvement - Expose `props` prop for customizing `sort.header` `props` of the component. This will replace `styles` eventually.
+
 5.2.1 / 2016-09-30
 ==================
 

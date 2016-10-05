@@ -1,3 +1,8 @@
+5.2.2 / 2016-10-05
+==================
+
+  * Improvement - Expose `props` prop for customizing `sort.header` `props` of the component. This will replace `styles` eventually.
+
 4.1.0 / 2016-09-20
 ==================
 
