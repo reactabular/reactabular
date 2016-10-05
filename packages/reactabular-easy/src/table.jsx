@@ -137,9 +137,10 @@ class EasyTable extends React.Component {
       </Table.Provider>
     );
   }
-  bindColumns({ columns, styles }) {
+  bindColumns({ columns, styles, props }) {
     const resizable = resizableColumn({
       onDrag: this.props.onDragColumn,
+      props: props.resize,
       styles: styles.resize,
       parent: this.props.window
     });
@@ -156,6 +157,7 @@ class EasyTable extends React.Component {
         this.props.onSort(sortingColumns);
       },
       strategy: sort.strategies.byProperty,
+      props: props.sort,
       styles: styles.sort
     });
     const resetable = sort.reset({
@@ -165,110 +167,119 @@ class EasyTable extends React.Component {
       onReset: ({ sortingColumns }) => this.props.onSort(sortingColumns)
     });
 
-    return columns.map(column => {
-      if (column.header || column.cell) {
-        const props = column.props || {};
-        const header = column.header || {};
-        const cell = column.cell || {};
-        const existingHeaderProps = header.props;
-        const existingHeaderFormat = header.format || (v => v);
-        const existingHeaderTransforms = header.transforms || [];
-        const existingCellFormat = cell.format || (v => v);
-        const newCellFormats = [existingCellFormat];
-        const newHeaderFormats = [existingHeaderFormat];
-        let newHeaderProps = existingHeaderProps;
-        let newHeaderTransforms = existingHeaderTransforms;
-        let newStyle = {};
+    return columns.map(
+      column => this.bindColumn({
+        column,
+        sortable,
+        getSortingColumns,
+        resetable,
+        resizable
+      })
+    );
+  }
+  bindColumn({ column, sortable, getSortingColumns, resetable, resizable }) {
+    if (column.header || column.cell) {
+      const props = column.props || {};
+      const header = column.header || {};
+      const cell = column.cell || {};
+      const existingHeaderProps = header.props;
+      const existingHeaderFormat = header.format || (v => v);
+      const existingHeaderTransforms = header.transforms || [];
+      const existingCellFormat = cell.format || (v => v);
+      const newCellFormats = [existingCellFormat];
+      const newHeaderFormats = [existingHeaderFormat];
+      let newHeaderProps = existingHeaderProps;
+      let newHeaderTransforms = existingHeaderTransforms;
+      let newStyle = {};
 
-        if (header.sortable) {
-          newHeaderFormats.push(sort.header({
-            sortable,
-            getSortingColumns,
-            strategy: sort.strategies.byProperty
-          }));
-          newHeaderTransforms = newHeaderTransforms.concat([resetable]);
-        }
+      if (header.sortable) {
+        newHeaderFormats.push(sort.header({
+          sortable,
+          getSortingColumns,
+          strategy: sort.strategies.byProperty
+        }));
+        newHeaderTransforms = newHeaderTransforms.concat([resetable]);
+      }
 
-        if (header.resizable) {
-          newHeaderFormats.push(resizable);
-        }
+      if (header.resizable) {
+        newHeaderFormats.push(resizable);
+      }
 
-        if (header.draggable) {
-          newHeaderProps = {
-            // DnD needs this to tell header cells apart
-            label: header.label,
-            onFinishMove: () => this.props.onMoveColumns(this.state.columns),
-            onMove: o => this.onMove(o)
-          };
-        }
-
-        if (cell.highlight) {
-          newCellFormats.push((v, extra) => highlight.cell(
-            existingCellFormat(v, extra),
-            extra
-          ));
-        }
-
-        if (cell.toggleChildren) {
-          newCellFormats.push(tree.toggleChildren({
-            getRows: () => this.props.rows,
-            getShowingChildren: ({ rowData }) => rowData.showingChildren,
-            toggleShowingChildren: this.props.onToggleShowingChildren,
-            // Without this it will perform checks against default id
-            id: this.props.rowKey,
-            props: this.props.toggleChildrenProps
-          }));
-        }
-
-        const newCellFormat = (value, extra) => (
-          newCellFormats.reduce((parameters, format) => (
-            {
-              value: format(parameters.value, parameters.extra),
-              extra
-            }
-          ), { value, extra }).value
-        );
-
-        const newHeaderFormat = (value, extra) => (
-          newHeaderFormats.reduce((parameters, format) => (
-            {
-              value: format(parameters.value, parameters.extra),
-              extra
-            }
-          ), { value, extra }).value
-        );
-
-        if (column.width) {
-          newStyle = {
-            width: column.width,
-            minWidth: column.width
-          };
-        }
-
-        return {
-          ...column,
-          props: {
-            ...props,
-            style: {
-              ...props.style,
-              ...newStyle
-            }
-          },
-          header: {
-            ...header,
-            props: newHeaderProps,
-            transforms: newHeaderTransforms,
-            format: newHeaderFormat
-          },
-          cell: {
-            ...cell,
-            format: newCellFormat
-          }
+      if (header.draggable) {
+        newHeaderProps = {
+          // DnD needs this to tell header cells apart
+          label: header.label,
+          onFinishMove: () => this.props.onMoveColumns(this.state.columns),
+          onMove: o => this.onMove(o)
         };
       }
 
-      return column;
-    });
+      if (cell.highlight) {
+        newCellFormats.push((v, extra) => highlight.cell(
+          existingCellFormat(v, extra),
+          extra
+        ));
+      }
+
+      if (cell.toggleChildren) {
+        newCellFormats.push(tree.toggleChildren({
+          getRows: () => this.props.rows,
+          getShowingChildren: ({ rowData }) => rowData.showingChildren,
+          toggleShowingChildren: this.props.onToggleShowingChildren,
+          // Without this it will perform checks against default id
+          id: this.props.rowKey,
+          props: this.props.toggleChildrenProps
+        }));
+      }
+
+      const newCellFormat = (value, extra) => (
+        newCellFormats.reduce((parameters, format) => (
+          {
+            value: format(parameters.value, parameters.extra),
+            extra
+          }
+        ), { value, extra }).value
+      );
+
+      const newHeaderFormat = (value, extra) => (
+        newHeaderFormats.reduce((parameters, format) => (
+          {
+            value: format(parameters.value, parameters.extra),
+            extra
+          }
+        ), { value, extra }).value
+      );
+
+      if (column.width) {
+        newStyle = {
+          width: column.width,
+          minWidth: column.width
+        };
+      }
+
+      return {
+        ...column,
+        props: {
+          ...props,
+          style: {
+            ...props.style,
+            ...newStyle
+          }
+        },
+        header: {
+          ...header,
+          props: newHeaderProps,
+          transforms: newHeaderTransforms,
+          format: newHeaderFormat
+        },
+        cell: {
+          ...cell,
+          format: newCellFormat
+        }
+      };
+    }
+
+    return column;
   }
   onMove(labels) {
     // This returns a new instance, no need to cloneDeep.

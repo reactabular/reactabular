@@ -317,3 +317,22 @@ styles: {
 ```
 
 For more control, you can also override `components` and also inject styling and class names through the column definition and the `onRow` handler.
+
+## Customization
+
+If you want to customize resize/sort controls further (add `className`s etc.), pass `props` like this:
+
+```javascript
+props: {
+  resize: {
+    container: {},
+    value: {},
+    handle: {}
+  },
+  sort: {
+    container: {},
+    value: {},
+    order: {}
+  }
+},
+```

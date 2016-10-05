@@ -13,6 +13,7 @@ const propTypes = {
   tableWidth: React.PropTypes.any.isRequired,
   tableHeight: React.PropTypes.any.isRequired,
   classNames: React.PropTypes.object,
+  props: React.PropTypes.object,
   styles: React.PropTypes.object,
   components: React.PropTypes.object,
   toggleChildrenProps: React.PropTypes.object,
@@ -47,6 +48,19 @@ const defaultProps = {
       */
     }
   },
+  props: {
+    resize: {
+      container: {},
+      value: {},
+      handle: {}
+    },
+    sort: {
+      container: {},
+      value: {},
+      order: {}
+    }
+  },
+  // XXXXX: deprecate in the next major version
   styles: {
     resize: {
       container: {},

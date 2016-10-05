@@ -1,6 +1,10 @@
 5.2.2 / 2016-10-05
 ==================
 
+## reactabular-easy
+
+  * Improvement - Expose `props` prop for customizing `props` of the component. This will replace `styles` eventually.
+
 ## reactabular-resizable
 
   * Improvement - Expose `props` prop for customizing `props` of the component. This will replace `styles` eventually.
