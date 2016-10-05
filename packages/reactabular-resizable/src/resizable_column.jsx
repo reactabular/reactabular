@@ -6,6 +6,12 @@ const resizableColumn = (
     parent = document,
     onDrag,
     minWidth = 100,
+    props = {
+      container: {},
+      value: {},
+      handle: {}
+    },
+    // XXXXX: remove in the next major version
     styles = {
       container: {},
       value: {},
@@ -19,7 +25,7 @@ const resizableColumn = (
 
   return (label, extraParameters) => {
     class ResizableColumn extends React.Component {
-      constructor(props) {
+      constructor(props) { // eslint-disable-line no-shadow
         super(props);
 
         // Track coordinate rows at instance, no React state needed
@@ -43,12 +49,18 @@ const resizableColumn = (
               }
             }}
             style={styles.container}
+            {...props.container}
           >
-            <span className="resize-value" style={styles.value}>{label}</span>
+            <span
+              className="resize-value"
+              style={styles.value}
+              {...props.value}
+            >{label}</span>
             <span
               className="resize-handle"
               onMouseDown={this.onMouseDown}
               style={styles.handle}
+              {...props.handle}
             >
               &nbsp;
             </span>

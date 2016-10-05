@@ -1,3 +1,8 @@
+5.2.2 / 2016-10-05
+==================
+
+  * Improvement - Expose `props` prop for customizing `props` of the component. This will replace `styles` eventually.
+
 3.0.0 / 2016-09-01
 ==================
 

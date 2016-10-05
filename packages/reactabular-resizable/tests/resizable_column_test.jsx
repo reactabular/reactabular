@@ -9,7 +9,7 @@ describe('resizableColumn', function () {
     expect(resizableColumn).to.throw(Error);
   });
 
-  it('allows styling container through the styles parameter', function () {
+  it('allows styling container through the styles prop', function () {
     const color = 'red';
     const styles = {
       container: {
@@ -31,7 +31,7 @@ describe('resizableColumn', function () {
     expect(container.style.color).to.equal(color);
   });
 
-  it('allows styling value through the styles parameter', function () {
+  it('allows styling value through the styles prop', function () {
     const color = 'red';
     const styles = {
       value: {
@@ -53,7 +53,7 @@ describe('resizableColumn', function () {
     expect(value.style.color).to.equal(color);
   });
 
-  it('allows styling handle through the styles parameter', function () {
+  it('allows styling handle through the styles prop', function () {
     const color = 'red';
     const styles = {
       handle: {
@@ -73,6 +73,48 @@ describe('resizableColumn', function () {
     );
 
     expect(handle.style.color).to.equal(color);
+  });
+
+  it('allows customization of props', function () {
+    const color = 'red';
+    const props = {
+      container: {
+        style: {
+          color
+        }
+      },
+      value: {
+        style: {
+          color
+        }
+      },
+      handle: {
+        style: {
+          color
+        }
+      }
+    };
+
+    const resizableTransform = resizableColumn({
+      onDrag: () => {},
+      props
+    })('foo', {});
+    const renderedContainer = TestUtils.renderIntoDocument(
+      <Wrapper>{resizableTransform}</Wrapper>
+    );
+    const container = TestUtils.findRenderedDOMComponentWithClass(
+      renderedContainer, 'resize-container'
+    );
+    const handle = TestUtils.findRenderedDOMComponentWithClass(
+      renderedContainer, 'resize-handle'
+    );
+    const value = TestUtils.findRenderedDOMComponentWithClass(
+      renderedContainer, 'resize-value'
+    );
+
+    expect(container.style.color).to.equal(color);
+    expect(handle.style.color).to.equal(color);
+    expect(value.style.color).to.equal(color);
   });
 });
 
