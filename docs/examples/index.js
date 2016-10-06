@@ -41,6 +41,11 @@ export default rootPath => ({
       path: `${rootPath}/infinite-scrolling`,
       title: 'Infinite Scrolling',
       component: require('./infinite-scrolling.md')
+    },
+    {
+      path: `${rootPath}/multiple-instances-async`,
+      title: 'Multiple Async Instances',
+      component: require('./multiple-instances-async.md')
     }
   ]
 });
