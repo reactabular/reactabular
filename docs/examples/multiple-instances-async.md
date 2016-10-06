@@ -1,7 +1,18 @@
-Sometimes blablablalbla
-- More than one table
-- We dont know columns beforehand
-- Columns and rows are received via props asyncly
+A usual scenario is one where we need to show several tables on the same page, where each table displays different data sets (either columns or rows, or both) received asynchronously. Ideally we'd like to re-use
+the same *Reactabular* component. Here is an example use-case that fulfills the following requirements:
+- Both columns and rows are received/updated asynchronously via props, hence not known beforehand at first render.
+- Multiple instances of the same Reactabular-based component are simultaneously rendered.
+- Columns are configurable as *editable* dynamically.
+- `Container` component manages the data externally.
+
+In this particular case the data is received in this particular formart(or a permutation of it):
+```javascript
+rows = [{id:'4348efbbb2e0',product:'Apple', company:'Apple Inc.', stock:34772, price:2.56},...{}]
+
+columns = [['product','Product'], ['price','Unit Cost'],['company','Retailer']]
+```
+Note that each object in `rows` contain more fields than the ones desired to be displayed ( as indicated by `columns` )
+
 
 ```jsx
 /*
@@ -10,11 +21,9 @@ import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import { Table, edit } from 'reactabular';
 import uuid from 'uuid';
-import hasIn from 'lodash/hasIn';
 
 import { generateRows } from './helpers';
 */
-//import hasIn from 'lodash/hasIn';
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -30,7 +39,7 @@ function shuffle(array) {
   }
   return array;
 }
-let fields=['id','product','price','stock','company','address']
+let fields=[['id','SKU'],['product','Product'],['price','Unit Cost'],['stock','Stock'],['company','Retailer'],['address','Address']]
 const schema = {
   type: 'object',
   properties: {
@@ -57,8 +66,9 @@ const schema = {
 };
 function getColumns(){
   let fixed = ['product','price']
-  let additional = shuffle(fields).filter(e => !fixed.includes(e)).slice(0,2)
-  return fixed.concat(additional).map(el => [el,el.toUpperCase()])
+  let fixedfields = fields.filter(e=> fixed.includes(e[0]))
+  let additional = shuffle(fields.filter(e => !fixed.includes(e[0])) ).slice(0,2)
+  return fixedfields.concat(additional)
 }
 function formatColumns(colin){
   return colin.map(function(c){
@@ -171,13 +181,19 @@ class Container extends React.Component {
     return(
       <div>
         <div>
-          <h4>Table A</h4>
-          <button onClick={()=> this.changeSet('A')}>Change Table A</button>
+          <h4>
+            Table A
+            &emsp;
+            <button title='Click to randomize the dataset' onClick={()=> this.changeSet('A')}>Change Table A</button>
+          </h4>
           <MyTable rows={tableA.rows} columns={tableA.columns}/>
         </div>
         <div>
-          <h4>Table B</h4>
-          <button onClick={()=> this.changeSet('B')}>Change Table B</button>
+          <h4>
+            Table B
+            &emsp; 
+            <button title='Click to randomize the dataset' onClick={()=> this.changeSet('B')}>Change Table B</button>
+          </h4>
           <MyTable rows={tableB.rows} columns={tableB.columns}/>
         </div>
       </div>
