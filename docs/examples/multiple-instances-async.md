@@ -124,7 +124,6 @@ class MyTable extends React.Component {
   }
   render(){
     let { columns, rows } = this.state;
-    //console.log('mytab render ',columns)
     return (
       <div>
         <Table.Provider
