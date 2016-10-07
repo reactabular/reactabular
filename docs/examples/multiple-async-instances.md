@@ -25,21 +25,14 @@ import uuid from 'uuid';
 import { generateRows } from './helpers';
 */
 
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-  return array;
-}
-let fields=[['id','SKU'],['product','Product'],['price','Unit Cost'],['stock','Stock'],['company','Retailer'],['address','Address']]
+const fields = [
+  ['id', 'SKU'],
+  ['product', 'Product'],
+  ['price', 'Unit Cost'],
+  ['stock', 'Stock'],
+  ['company', 'Retailer'],
+  ['address', 'Address']
+];
 const schema = {
   type: 'object',
   properties: {
@@ -65,61 +58,63 @@ const schema = {
   required: fields
 };
 function getColumns(){
-  let fixed = ['product','price']
-  let fixedfields = fields.filter(e=> fixed.includes(e[0]))
-  let additional = shuffle(fields.filter(e => !fixed.includes(e[0])) ).slice(0,2)
-  return fixedfields.concat(additional)
+  let fixed = ['product','price'];
+  let fixedfields = fields.filter(e=> fixed.includes(e[0]));
+  let additional = shuffle(fields.filter(e => !fixed.includes(e[0])) ).slice(0,2);
+
+  return fixedfields.concat(additional);
 }
-function formatColumns(colin){
-  return colin.map(function(c){
-      return {
-        property: c[0],
-        header:{
-          label: c[1]
-        }
-      }
-      })
+function formatColumns(colin) {
+  return colin.map(c => ({
+    property: c[0],
+    header:{
+      label: c[1]
+    }
+  }));
 }
 function setEditableColumns(colin){
-   let editable = edit.edit({
-     isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
-     onActivate: ({ columnIndex, rowData }) => {
-       const index = findIndex(this.state.rows, { id: rowData.id });
-       const rows = cloneDeep(this.state.rows);
+  let editable = edit.edit({
+    isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
+    onActivate: ({ columnIndex, rowData }) => {
+      const index = findIndex(this.state.rows, { id: rowData.id });
+      const rows = cloneDeep(this.state.rows);
 
-       rows[index].editing = columnIndex;
+      rows[index].editing = columnIndex;
 
-       this.setState({ rows });
-     },
-     onValue: ({ value, rowData, property }) => {
-       const index = findIndex(this.state.rows, { id: rowData.id });
-       const rows = cloneDeep(this.state.rows);
+      this.setState({ rows });
+    },
+    onValue: ({ value, rowData, property }) => {
+      const index = findIndex(this.state.rows, { id: rowData.id });
+      const rows = cloneDeep(this.state.rows);
 
-       rows[index][property] = value;
-       rows[index].editing = false;
+      rows[index][property] = value;
+      rows[index].editing = false;
 
-       this.setState({ rows });
-     }
-   });
+      this.setState({ rows });
+    }
+  });
+
   return cloneDeep(colin).map(function(c){
     c['cell']={}
     c['cell']['transforms'] = [editable(edit.input())]
-    return c
-  })
+
+    return c;
+  });
 }
 
 class MyTable extends React.Component {
   constructor(props){
     super(props);
+
     this.state = {
       rows: [], // NO initial rows
       columns: [] // NO initial columns
     };
   }
   componentWillReceiveProps(nextProps){
-    let {rows, columns} = nextProps;
+    let { rows, columns } = nextProps;
     columns = setEditableColumns.call(this, formatColumns(columns))
-    
+
     this.setState({ rows, columns });
   }
   render(){
@@ -143,31 +138,33 @@ class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableA:{
-        rows:[],
-        columns:[]
+      tableA: {
+        rows: [],
+        columns: []
       },
-      tableB:{
-        rows:[],
-        columns:[]
+      tableB: {
+        rows: [],
+        columns: []
       }
     };
     this.changeSet=this.changeSet.bind(this)
   }
   changeSet(letter){
-    let newset = {}  
+    const newset = {}
+
     newset['table'+letter] = {
       columns: getColumns(),
       rows: generateRows(5,schema)
-    }
-    this.setState({...newset})
+    };
+
+    this.setState({ ...newset });
   }
   componentWillMount(){
-    let tableA = {
+    const tableA = {
       columns: getColumns(),
       rows: generateRows(5,schema)
     };
-    let tableB = {
+    const tableB = {
       columns: getColumns(),
       rows: generateRows(5,schema)
     };
@@ -176,8 +173,9 @@ class Container extends React.Component {
     },300)
   }
   render() {
-    const {tableA,tableB} = this.state
-    return(
+    const {tableA,tableB} = this.state;
+
+    return (
       <div>
         <div>
           <h4>
@@ -190,7 +188,7 @@ class Container extends React.Component {
         <div>
           <h4>
             Table B
-            &emsp; 
+            &emsp;
             <button title='Click to randomize the dataset' onClick={()=> this.changeSet('B')}>Change Table B</button>
           </h4>
           <MyTable rows={tableB.rows} columns={tableB.columns}/>
@@ -198,6 +196,23 @@ class Container extends React.Component {
       </div>
     );
   }
+}
+
+function shuffle(array) {
+  let currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
 
 <Container />
