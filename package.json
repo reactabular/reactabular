@@ -17,7 +17,7 @@
     "dist:all": "npm run dist:build && npm run dist:build-min",
     "dist:build": "webpack",
     "dist:build-min": "webpack",
-    "postinstall": "npm install lerna@2.0.0-beta.25 && lerna bootstrap"
+    "postinstall": "npm install lerna@2.0.0-beta.30 && lerna bootstrap"
   },
   "repository": {
     "type": "git",
@@ -77,7 +77,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-webpack": "^1.8.0",
-    "lerna": "2.0.0-beta.25",
+    "lerna": "2.0.0-beta.30",
     "lodash": "^4.15.0",
     "mocha": "^3.0.2",
     "phantomjs-polyfill": "0.0.2",
