@@ -6,6 +6,10 @@
   * Breaking - `search.multipleColumns` and `search.singleColumn` now accept a `castingStrategy` parameter to define how to cast properties when searching. By default, everything by arrays is cast to a string.
   * Improvement - `search.matches` now traverses arrays and returns results in the same shape.
 
+## reactabular-search-columns
+
+  * Bug fix - Make toggling behavior rely on `property` over `id`. Now the behavior is more consistent with filtered sets. #216
+
 5.3.0 / 2016-10-05
 ==================
 
