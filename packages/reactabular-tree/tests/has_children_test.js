@@ -45,7 +45,7 @@ describe('tree.hasChildren', function () {
         foo: 'foo'
       },
       {
-        id: 2
+        id: 2,
         parent: 0,
         foo: 'barbar'
       }
