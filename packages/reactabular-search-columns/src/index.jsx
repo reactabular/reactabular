@@ -11,14 +11,14 @@ const SearchColumns = ({ columns, query, onChange }) => {
   return (
     <tr>
       {columns.map((column, i) => (
-        <th key={`${i}-column-filter`} className="column-filter">
+        <th key={`${column.property}-column-filter`} className="column-filter">
           {column && column.property ?
             <input
               onChange={onQueryChange}
               className="column-filter-input"
               name={column.property}
               placeholder={column.filterPlaceholder || ''}
-              value={query[i]}
+              value={query[column.property]}
             />
           : ''}
         </th>

@@ -396,10 +396,11 @@ class AllFeaturesTable extends React.Component {
   }
   onToggleColumn(columnIndex) {
     const columns = cloneDeep(this.state.columns);
-
-    columns[columnIndex].visible = !columns[columnIndex].visible;
-
-    this.setState({ columns });
+    const column = columns[columnIndex];
+    column.visible = !column.visible;
+    const query = cloneDeep(this.state.query);
+    delete query[column.property];
+    this.setState({ columns, query });
   }
 }
 
