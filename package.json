@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "reactabular-monorepo",
+  "name": "reactabular",
   "version": "1.0.0",
   "description": "Spectacular tables for React",
   "scripts": {
@@ -16,7 +16,8 @@
     "dist:update": "npm run dist:all && git commit --allow-empty -am \"Update dist\"",
     "dist:all": "npm run dist:build && npm run dist:build-min",
     "dist:build": "webpack",
-    "dist:build-min": "webpack"
+    "dist:build-min": "webpack",
+    "postinstall": "lerna bootstrap && lerna run build"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
   ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
+  "main": "packages/reactabular",
   "bugs": {
     "url": "https://github.com/reactabular/reactabular/issues"
   },
