@@ -7,7 +7,7 @@ const packTree = ({
   let previousParent;
 
   rows.forEach(row => {
-    if (row[parent]) {
+    if (typeof row[parent] !== 'undefined') {
       pack.push(row);
     } else {
       ret.push(row);
@@ -22,7 +22,7 @@ const packTree = ({
     }
   });
 
-  if (pack && previousParent) {
+  if (pack.length && previousParent) {
     previousParent._pack = pack;
   }
 
