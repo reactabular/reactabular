@@ -9,9 +9,7 @@ function hasChildren({
   const currentItem = rows[index];
   const nextItem = rows[index + 1];
 
-  const ret = nextItem && currentItem[id] === nextItem[parent];
-
-  return ret;
+  return nextItem && currentItem[id] === nextItem[parent];
 }
 
 export default hasChildren;
