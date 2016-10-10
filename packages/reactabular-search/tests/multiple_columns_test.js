@@ -17,6 +17,24 @@ describe('search.multipleColumns', function () {
     expect(result).to.deep.equal(rows);
   });
 
+  it('matches all II', function () {
+    const given = [
+      {
+        foo: 'bar'
+      }
+    ];
+    const columns = [
+      {
+        property: 'foo'
+      }
+    ];
+    const query = {
+      foo: 'bar'
+    };
+
+    expect(multipleColumns({ columns, query })(given)).to.deep.equal(given);
+  });
+
   it('matches some', function () {
     const query = { demo: 'foo' };
     const match = { demo: 'foobar' };

@@ -8,7 +8,7 @@ function unpackTree(rows = []) {
     ret = ret.concat([rest]).concat(_pack);
   });
 
-  return ret;
+  return ret.filter(a => a);
 }
 
 export default unpackTree;
