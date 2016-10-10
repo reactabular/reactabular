@@ -49,35 +49,4 @@ describe('tree.filter', function () {
 
     expect(filter('showingChildren')(given)).to.deep.equal(expected);
   });
-
-  it('allows id to be customized', function () {
-    const property = '_id';
-    const given = [
-      {
-        foo: 'bar'
-      },
-      {
-        [property]: 123,
-        foo: 'foo',
-        showingChildren: false
-      },
-      {
-        [property]: 234,
-        parent: 123,
-        foo: 'foo'
-      }
-    ];
-    const expected = [
-      {
-        foo: 'bar'
-      },
-      {
-        [property]: 123,
-        foo: 'foo',
-        showingChildren: false
-      }
-    ];
-
-    expect(filter('showingChildren', property)(given)).to.deep.equal(expected);
-  });
 });

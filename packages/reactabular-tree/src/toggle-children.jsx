@@ -37,7 +37,7 @@ const toggleChildren = ({
     const showingChildren = getShowingChildren(extra);
     const index = rowData._index;
     const containsChildren = hasChildren({ rows, index, id }) ? 'has-children' : '';
-    const hasParent = getParents({ rows, index, id, parent }).length > 0 ? 'has-parent' : '';
+    const hasParent = getParents({ rows, index, parent }).length > 0 ? 'has-parent' : '';
 
     return (
       <div

@@ -39,9 +39,9 @@ Collapses rows by setting `showingChildren` of each row to `false`.
 
 Expands rows by setting `showingChildren` of each row to `true`.
 
-**`tree.filter = (fieldName, id) => (rows) => filteredRows`**
+**`tree.filter = (fieldName) => (rows) => filteredRows`**
 
-Filters the given rows using `fieldName` and `id`. This is handy if you want only rows that are visible assuming visibility logic has been defined.
+Filters the given rows using `fieldName`. This is handy if you want only rows that are visible assuming visibility logic has been defined.
 
 **`tree.flatten = ({ tree, parentField = 'parent', parent, idField = 'id'}) => <flattenedRows>`**
 
@@ -53,7 +53,7 @@ Flattens a nested tree structure into a flat one compatible with the algorithms.
 
 Returns the nesting level of the row at the given `index` within `rows`.
 
-**`tree.getParents = ({ rows, index, id = 'id', parent = 'parent' }) => [<parent>]`**
+**`tree.getParents = ({ rows, index, parent = 'parent' }) => [<parent>]`**
 
 Returns parents based on given `rows` and `index`.
 

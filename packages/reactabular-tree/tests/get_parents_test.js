@@ -1,23 +1,23 @@
 import { expect } from 'chai';
-import { getLevel } from '../src';
+import { getParents } from '../src';
 
-describe('tree.getLevel', function () {
-  it('returns zero if empty rows are passed', function () {
-    expect(getLevel({ rows: [] })).to.deep.equal(0);
+describe('tree.getParents', function () {
+  it('returns an empty array if empty rows are passed', function () {
+    expect(getParents({ rows: [] })).to.deep.equal([]);
   });
 
-  it('returns zero if there are no parents', function () {
+  it('returns an empty array if there are no parents', function () {
     const given = [
       {
         foo: 'bar'
       }
     ];
-    const expected = 0;
+    const expected = [];
 
-    expect(getLevel({ rows: given, index: 0 })).to.deep.equal(expected);
+    expect(getParents({ rows: given, index: 0 })).to.deep.equal(expected);
   });
 
-  it('returns one if there is one parent', function () {
+  it('returns an array with parent if there is one parent', function () {
     const given = [
       {
         foo: 'bar'
@@ -27,9 +27,13 @@ describe('tree.getLevel', function () {
         foo: 'foo'
       }
     ];
-    const expected = 1;
+    const expected = [
+      {
+        foo: 'bar'
+      }
+    ];
 
-    expect(getLevel({ rows: given, index: 1 })).to.deep.equal(expected);
+    expect(getParents({ rows: given, index: 1 })).to.deep.equal(expected);
   });
 
   it('works with sibling children', function () {
@@ -46,9 +50,13 @@ describe('tree.getLevel', function () {
         foo: 'barbar'
       }
     ];
-    const expected = 1;
+    const expected = [
+      {
+        foo: 'bar'
+      }
+    ];
 
-    expect(getLevel({ rows: given, index: 2 })).to.deep.equal(expected);
+    expect(getParents({ rows: given, index: 2 })).to.deep.equal(expected);
   });
 
   it('works with nested children', function () {
@@ -65,9 +73,17 @@ describe('tree.getLevel', function () {
         foo: 'barbar'
       }
     ];
-    const expected = 2;
+    const expected = [
+      {
+        foo: 'bar'
+      },
+      {
+        parent: 'baz',
+        foo: 'foo'
+      }
+    ];
 
-    expect(getLevel({ rows: given, index: 2 })).to.deep.equal(expected);
+    expect(getParents({ rows: given, index: 2 })).to.deep.equal(expected);
   });
 
   it('allows parent field to be customized', function () {
@@ -85,9 +101,17 @@ describe('tree.getLevel', function () {
         foo: 'barbar'
       }
     ];
-    const expected = 2;
+    const expected = [
+      {
+        foo: 'bar'
+      },
+      {
+        [property]: 'baz',
+        foo: 'foo'
+      }
+    ];
 
-    expect(getLevel({
+    expect(getParents({
       rows: given, index: 2, parent: property
     })).to.deep.equal(expected);
   });

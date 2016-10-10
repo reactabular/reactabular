@@ -1,7 +1,6 @@
 function getParents({
   rows,
   index,
-  id = 'id',
   parent = 'parent'
 }) {
   const parents = [];
@@ -10,24 +9,21 @@ function getParents({
   let previousParent;
 
   while (cell) {
-    if (cell[id] === previousParent) {
-      parents.push(cell);
-
-      if (!cell[parent]) {
-        break;
+    if (cell[parent]) {
+      if (typeof previousParent !== 'undefined' && previousParent !== cell[parent]) {
+        parents.unshift(cell);
       }
-    }
+    } else {
+      if (typeof previousParent !== 'undefined') {
+        parents.unshift(cell);
+      }
 
-    if (cell[parent] !== previousParent) {
-      previousParent = cell[parent];
-    }
-
-    if (!cell[parent]) {
       break;
     }
 
     currentIndex--;
 
+    previousParent = cell[parent];
     cell = rows[currentIndex];
   }
 
