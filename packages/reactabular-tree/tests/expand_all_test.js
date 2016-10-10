@@ -1,12 +1,12 @@
 import { expect } from 'chai';
-import { collapseAll } from '../src';
+import { expandAll } from '../src';
 
-describe('tree.collapseAll', function () {
+describe('tree.expandAll', function () {
   it('returns empty rows if empty rows are passed', function () {
-    expect(collapseAll([])).to.deep.equal([]);
+    expect(expandAll([])).to.deep.equal([]);
   });
 
-  it('returns rows with showingChildren set false', function () {
+  it('returns rows with showingChildren set true', function () {
     const given = [
       {
         foo: 'bar'
@@ -15,11 +15,11 @@ describe('tree.collapseAll', function () {
     const expected = [
       {
         foo: 'bar',
-        showingChildren: false
+        showingChildren: true
       }
     ];
 
-    expect(collapseAll(given)).to.deep.equal(expected);
+    expect(expandAll(given)).to.deep.equal(expected);
   });
 
   it('allows property to be customized', function () {
@@ -32,10 +32,10 @@ describe('tree.collapseAll', function () {
     const expected = [
       {
         foo: 'bar',
-        [property]: false
+        [property]: true
       }
     ];
 
-    expect(collapseAll(given, property)).to.deep.equal(expected);
+    expect(expandAll(given, property)).to.deep.equal(expected);
   });
 });
