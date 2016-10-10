@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Spectacular tables for React",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "init": "npm install && lerna bootstrap",
     "start": "webpack-dev-server",
     "test": "karma start --",
@@ -17,7 +18,7 @@
     "dist:all": "npm run dist:build && npm run dist:build-min",
     "dist:build": "webpack",
     "dist:build-min": "webpack",
-    "postinstall": "npm install lerna@2.0.0-beta.30 && lerna bootstrap"
+    "postinstall": "node lib/post_install.js"
   },
   "repository": {
     "type": "git",
