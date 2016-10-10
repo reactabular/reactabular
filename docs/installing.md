@@ -23,6 +23,24 @@ The [source repository](https://github.com/reactabular/reactabular) contains a `
 
 Reactabular has been packaged in the UMD format. This means you can consume it from CommonJS, AMD, and global environment. If you use the global environment, you'll find Reactabular there as `Reactabular`.
 
+## Consuming through GitHub
+
+If you want to point to a custom version of Reactabular, you can do this by pointing to GitHub through `package.json` like this:
+
+```json
+{
+  ...
+  "dependencies": {
+    ...
+    "reactabular": "git+https://github.com/reactabular/reactabular.git",
+    ...
+  },
+  ...
+}
+```
+
+Another way to achieve the same results would be to publish a custom version of your own through npm using [npm scopes](https://docs.npmjs.com/misc/scope).
+
 ## Building from the Source
 
 If you want to build Reactabular from the source, follow the instructions below:
