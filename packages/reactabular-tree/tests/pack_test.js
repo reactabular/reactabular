@@ -108,7 +108,7 @@ describe('tree.pack', function () {
           {
             id: 1,
             parent: 0,
-            foo: 'foo',
+            foo: 'foo'
           },
           {
             id: 2,
@@ -149,7 +149,7 @@ describe('tree.pack', function () {
           {
             id: 1,
             [property]: 0,
-            foo: 'foo',
+            foo: 'foo'
           },
           {
             id: 2,
