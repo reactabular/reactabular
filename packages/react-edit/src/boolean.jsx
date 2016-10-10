@@ -17,7 +17,6 @@ const boolean = ({ props } = {}) => {
   );
   Boolean.propTypes = {
     value: React.PropTypes.any,
-    onClick: React.PropTypes.func,
     onValue: React.PropTypes.func
   };
 

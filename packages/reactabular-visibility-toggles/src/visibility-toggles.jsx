@@ -56,9 +56,9 @@ const VisibilityToggles = ({
   );
 };
 VisibilityToggles.propTypes = {
-  columns: React.PropTypes.array,
+  columns: React.PropTypes.arrayOf(React.PropTypes.object),
   onToggleColumn: React.PropTypes.func,
-  styles: React.PropTypes.object
+  styles: React.PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 export default VisibilityToggles;

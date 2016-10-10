@@ -24,7 +24,7 @@ const getOptions = (columns, i18n) => (
   (columns.length > 1 ? [{
     value: 'all',
     name: i18n.all
-  }] : []).concat(columns.map(column => {
+  }] : []).concat(columns.map((column) => {
     if (
       (column.property) &&
       (column.header && column.header.label)

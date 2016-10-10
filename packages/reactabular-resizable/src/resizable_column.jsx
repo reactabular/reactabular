@@ -43,7 +43,7 @@ const resizableColumn = (
         return (
           <div
             className="resize-container"
-            ref={column => {
+            ref={(column) => {
               if (column) {
                 this.column = column;
               }

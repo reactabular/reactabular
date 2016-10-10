@@ -335,7 +335,7 @@ describe('Table.Body', function () {
         cell: {
           resolve: v => v + v,
           transforms: [
-            v => {
+            (v) => {
               receivedValue = v;
             }
           ]
@@ -860,7 +860,7 @@ describe('Table.Body', function () {
       <Table.Provider columns={[]}>
         <Table.Body
           rows={[]}
-          ref={r => {
+          ref={(r) => {
             ref = r;
           }}
         />

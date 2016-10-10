@@ -11,7 +11,7 @@ const highlightValue = (value, highlights) => {
   let currentPosition = 0;
   let x = 0;
 
-  for (x = 0; x < highlights.length; x++) {
+  for (x = 0; x < highlights.length; x += 1) {
     const nonMatchingPrefix = val.slice(
       currentPosition,
       highlights[x].startIndex

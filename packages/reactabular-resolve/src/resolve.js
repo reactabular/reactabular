@@ -13,7 +13,7 @@ function resolve({ columns, method }) {
   return (rows = []) => rows.map((rowData, rowIndex) => {
     let ret = {};
 
-    resolvedColumns.forEach(column => {
+    resolvedColumns.forEach((column) => {
       const result = method({
         rowData,
         rowIndex,

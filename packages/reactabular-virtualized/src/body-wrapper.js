@@ -39,7 +39,7 @@ class BodyWrapper extends React.Component {
       'tbody',
       {
         ...props,
-        ref: e => {
+        ref: (e) => {
           this.ref = e;
         }
       },

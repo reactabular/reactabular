@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SearchColumns = ({ columns, query, onChange }) => {
-  const onQueryChange = event => {
+  const onQueryChange = (event) => {
     onChange({
       ...query,
       [event.target.name]: event.target.value
@@ -10,7 +10,7 @@ const SearchColumns = ({ columns, query, onChange }) => {
 
   return (
     <tr>
-      {columns.map((column) => (
+      {columns.map(column => (
         <th key={`${column.property}-column-filter`} className="column-filter">
           {column && column.property ?
             <input

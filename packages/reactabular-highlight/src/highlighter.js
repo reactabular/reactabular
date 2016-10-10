@@ -9,12 +9,12 @@ function highlighter({ columns, matches, query } = {}) {
     throw new Error('highlighter - Missing query!');
   }
 
-  return rows => rows.map(row => {
+  return rows => rows.map((row) => {
     const ret = {
       _highlights: {}
     };
 
-    columns.forEach(column => {
+    columns.forEach((column) => {
       const property = column.property;
       const value = row[property];
       // Pick resolved value by convention

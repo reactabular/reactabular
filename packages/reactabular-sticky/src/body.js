@@ -17,7 +17,7 @@ class Body extends React.Component {
     return React.createElement(
       TableBody,
       {
-        ref: body => {
+        ref: (body) => {
           this.ref = body && body.getRef();
         },
         style: {
@@ -27,7 +27,7 @@ class Body extends React.Component {
           paddingRight: scrollOffset
         },
         // Expand onScroll as otherwise the logic won't work
-        onScroll: e => {
+        onScroll: (e) => {
           onScroll && onScroll(e);
 
           const { target: { scrollLeft } } = e;

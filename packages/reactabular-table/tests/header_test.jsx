@@ -503,7 +503,7 @@ describe('Table.Header', function () {
     TestUtils.renderIntoDocument(
       <Table.Provider columns={[]}>
         <Table.Header
-          ref={r => {
+          ref={(r) => {
             ref = r;
           }}
         />

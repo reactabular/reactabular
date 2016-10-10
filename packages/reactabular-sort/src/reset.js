@@ -20,7 +20,7 @@ const reset = ({
 
     delete sortingColumns[field];
 
-    Object.keys(sortingColumns).forEach(k => {
+    Object.keys(sortingColumns).forEach((k) => {
       const column = sortingColumns[k];
 
       if (column.position > position) {

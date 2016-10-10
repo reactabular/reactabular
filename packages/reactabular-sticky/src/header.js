@@ -14,7 +14,7 @@ class Header extends React.Component {
     return React.createElement(
       TableHeader,
       {
-        ref: header => {
+        ref: (header) => {
           this.ref = header && header.getRef();
         },
         style: {

@@ -12,7 +12,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     const { children, ...props } = this.props;
     const { headerRows, components } = this.context;
 
-    props.ref = header => {
+    props.ref = (header) => {
       this.ref = header;
     };
 

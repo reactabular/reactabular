@@ -36,11 +36,11 @@ const byColumns = ({
       delete newSortingColumns[selectedColumn];
 
       // Update position of columns after the deleted one
-      Object.keys(newSortingColumns).forEach(k => {
+      Object.keys(newSortingColumns).forEach((k) => {
         const v = newSortingColumns[k];
 
         if (v.position > oldPosition) {
-          v.position--;
+          v.position -= 1;
         }
       });
     }

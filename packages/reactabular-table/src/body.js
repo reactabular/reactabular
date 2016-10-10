@@ -22,7 +22,7 @@ class Body extends React.Component {
     const { onRow, rows, rowKey, ...props } = this.props;
     const { bodyColumns, components } = this.context;
 
-    props.ref = body => {
+    props.ref = (body) => {
       this.ref = body;
     };
 

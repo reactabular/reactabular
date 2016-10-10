@@ -1,7 +1,7 @@
 function generateParents(rows) {
   let previousParent;
 
-  return rows.map(d => {
+  return rows.map((d) => {
     const ret = {
       ...d,
       parent: previousParent

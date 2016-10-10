@@ -21,7 +21,7 @@ function getParents({
       break;
     }
 
-    currentIndex--;
+    currentIndex -= 1;
 
     previousParent = cell[parent];
     cell = rows[currentIndex];

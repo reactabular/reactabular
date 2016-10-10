@@ -34,7 +34,7 @@ const infix = queryTerm => ({
     const result = [];
     let currentPosition = 0;
 
-    for (let x = 0; x < splitString.length; x++) {
+    for (let x = 0; x < splitString.length; x += 1) {
       result.push({
         startIndex: currentPosition + splitString[x].length,
         length: queryTerm.length

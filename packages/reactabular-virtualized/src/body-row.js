@@ -25,7 +25,7 @@ class BodyRow extends React.Component {
       'tr',
       {
         ...this.props,
-        ref: e => {
+        ref: (e) => {
           if (e) {
             this.ref = e;
           }

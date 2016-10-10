@@ -2,7 +2,7 @@
 function unpackTree(rows = []) {
   let ret = [];
 
-  rows.forEach(row => {
+  rows.forEach((row) => {
     const { _pack, ...rest } = row;
 
     ret = ret.concat([rest]).concat(_pack);

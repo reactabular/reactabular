@@ -96,7 +96,7 @@ describe('edit.edit', function () {
     const rowDataBar = 'baz';
     const editorElement = () => {
       const editorComponent = ({ value, onValue, extraParameters }) =>
-        <div value={value} onValue={onValue} onValue extra={extraParameters} />;
+        <div value={value} onValue={onValue} extra={extraParameters} />;
       return editorComponent;
     };
     const result = editor(editorElement)(rowValue, {

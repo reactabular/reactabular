@@ -3,7 +3,7 @@ import countRowSpan from './count-row-span';
 function resolveHeaderRows(columns = []) {
   let resolvedChildren = [];
 
-  const ret = columns.map(column => {
+  const ret = columns.map((column) => {
     const { children, ...col } = column;
 
     if (children && children.length) {

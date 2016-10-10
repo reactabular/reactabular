@@ -6,7 +6,7 @@ function selectRow({
   let selectedRow;
 
   // Reset selected flags and select the given row
-  const newRows = rows.map(row => {
+  const newRows = rows.map((row) => {
     let selected = false;
 
     if (isSelected(row, selectedRowId)) {

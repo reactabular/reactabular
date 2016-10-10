@@ -7,7 +7,7 @@ const sorter = ({
   sortingColumns,
   sort,
   strategy = strategies.byIndex
-} = {}) => data => {
+} = {}) => (data) => {
   if (!columns) {
     throw new Error('sort.sorter - Missing columns!');
   }
@@ -19,11 +19,11 @@ const sorter = ({
   const columnIndexList = new Array(sortingColumns.length);
   const orderList = new Array(sortingColumns.length);
 
-  Object.keys(sortingColumns).forEach(sortingColumnKey => {
+  Object.keys(sortingColumns).forEach((sortingColumnKey) => {
     const realColumn = strategy.getColumn(columns, sortingColumnKey) || {};
     const sortingColumn = sortingColumns[sortingColumnKey];
 
-    columnIndexList[sortingColumn.position] = row => {
+    columnIndexList[sortingColumn.position] = (row) => {
       const property = realColumn.property;
       const value = row[property];
       // Pick resolved value by convention

@@ -29,11 +29,11 @@ const byColumnsPrioritizeLastSorted = ({
     if (newSort) { // sort direction is being updated
       // demote all previously higher-priority columns by 1
       // by incrementing their position
-      Object.keys(newSortingColumns).forEach(k => {
+      Object.keys(newSortingColumns).forEach((k) => {
         const v = newSortingColumns[k];
 
         if (v.position < oldPosition) {
-          v.position++;
+          v.position += 1;
         }
       });
       newSortingColumns[selectedColumn] = {
@@ -44,11 +44,11 @@ const byColumnsPrioritizeLastSorted = ({
       delete newSortingColumns[selectedColumn];
 
       // Update position of columns after the deleted one
-      Object.keys(newSortingColumns).forEach(k => {
+      Object.keys(newSortingColumns).forEach((k) => {
         const v = newSortingColumns[k];
 
         if (v.position > oldPosition) {
-          v.position--;
+          v.position -= 1;
         }
       });
     }
@@ -58,9 +58,9 @@ const byColumnsPrioritizeLastSorted = ({
 
   // clone and insert new column at position 0, increment all others
   newSortingColumns = cloneDeep(sortingColumns);
-  Object.keys(newSortingColumns).forEach(k => {
+  Object.keys(newSortingColumns).forEach((k) => {
     const v = newSortingColumns[k];
-    v.position++;
+    v.position += 1;
   });
 
   return {

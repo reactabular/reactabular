@@ -81,7 +81,7 @@ describe('edit.input', function () {
       <Wrapper>
         <Input
           value={123}
-          onValue={v => {
+          onValue={(v) => {
             receivedValue = v;
           }}
         />

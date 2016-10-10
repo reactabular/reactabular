@@ -1,7 +1,7 @@
 function countRowSpan(columns) {
   let maximumCount = 0;
 
-  columns.forEach(column => {
+  columns.forEach((column) => {
     if (column.children && column.children.length) {
       maximumCount = Math.max(
         maximumCount,

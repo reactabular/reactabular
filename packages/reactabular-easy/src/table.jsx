@@ -112,7 +112,7 @@ class EasyTable extends React.Component {
           style={{
             maxWidth: tableWidth
           }}
-          ref={tableHeader => {
+          ref={(tableHeader) => {
             this.tableHeader = tableHeader && tableHeader.getRef();
           }}
           tableBody={this.tableBody}
@@ -129,7 +129,7 @@ class EasyTable extends React.Component {
             maxWidth: tableWidth
           }}
           height={tableHeight}
-          ref={tableBody => {
+          ref={(tableBody) => {
             this.tableBody = tableBody && tableBody.getRef();
           }}
           tableHeader={this.tableHeader}
@@ -148,7 +148,7 @@ class EasyTable extends React.Component {
     const getSortingColumns = () => this.props.sortingColumns || {};
     const sortable = sort.sort({
       getSortingColumns,
-      onSort: selectedColumn => {
+      onSort: (selectedColumn) => {
         const sortingColumns = sort.byColumns({
           sortingColumns: this.props.sortingColumns,
           selectedColumn
