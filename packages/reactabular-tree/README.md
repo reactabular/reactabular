@@ -85,6 +85,8 @@ Unpacks children from root level nodes. This is useful with sorting and filterin
 
 Makes it possible to toggle node children through a user interface.
 
+> This depends on [resolve.index](http://reactabular.js.org/#/data/resolving)!
+
 ## Example
 
 ```jsx
