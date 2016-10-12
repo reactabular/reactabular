@@ -35,6 +35,7 @@ describe('tree.unpack', function () {
   });
 
   it('allows parent field to be customized', function () {
+    const parentField = 'p';
     const rows = [
       {
         id: 'foobar',
@@ -53,24 +54,24 @@ describe('tree.unpack', function () {
         name: 'foo'
       },
       {
-        p: 'foobar',
+        [parentField]: 'foobar',
         id: 'barfoo',
         name: 'bar'
       }
     ];
 
-    expect(unpack({ parentField: 'p' })(rows)).to.deep.equal(expected);
+    expect(unpack({ parentField })(rows)).to.deep.equal(expected);
   });
 
-
   it('allows id field to be customized', function () {
+    const idField = '_id';
     const rows = [
       {
-        _id: 'foobar',
+        [idField]: 'foobar',
         name: 'foo',
         children: [
           {
-            _id: 'barfoo',
+            [idField]: 'barfoo',
             name: 'bar'
           }
         ]
@@ -78,17 +79,17 @@ describe('tree.unpack', function () {
     ];
     const expected = [
       {
-        _id: 'foobar',
+        [idField]: 'foobar',
         name: 'foo'
       },
       {
         parent: 'foobar',
-        _id: 'barfoo',
+        [idField]: 'barfoo',
         name: 'bar'
       }
     ];
 
-    expect(unpack({ idField: '_id' })(rows)).to.deep.equal(expected);
+    expect(unpack({ idField })(rows)).to.deep.equal(expected);
   });
 
   it('returns an empty array with invalid input', function () {
