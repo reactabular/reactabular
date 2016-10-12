@@ -11,6 +11,7 @@ If you want to consume something more granular, it's possible to use separate pa
 Even though Lodash range goes to 3, you will need to tweak your build a little to make it work as Reactabular relies on Lodash 4 style imports listed below:
 
 * `import cloneDeep from 'lodash/cloneDeep';`
+* `import find from 'lodash/find';`
 * `import get from 'lodash/get';`
 * `import has from 'lodash/has';`
 * `import isEqual from 'lodash/isEqual';`

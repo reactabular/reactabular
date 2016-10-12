@@ -15,6 +15,7 @@
   * Breaking - Merge `tree.flatten` with `tree.unpack`. The new signature for `tree.unpack` is `tree.unpack = ({ parentField = 'parent', parent, idField = 'id'}) => (rows) => <unpackedRows>`.
   * Breaking - Rework API so that all functions except `tree.toggleChildren` work in curry format (`(...) => (rows) => <new rows>`). This way the API is consistent and easy to extend.
   * Breaking - Expose `childrenField` for `tree.pack` and `tree.unpack`. It defaults to `children`.
+  * Breaking - Make `tree.pack` to work in a recursive manner (packs children within children).
 
 5.3.0 / 2016-10-05
 ==================

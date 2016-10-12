@@ -33,7 +33,6 @@ describe('tree.pack', function () {
         foo: 'bar',
         children: [
           {
-            parent: 0,
             foo: 'foo'
           }
         ]
@@ -67,12 +66,10 @@ describe('tree.pack', function () {
         children: [
           {
             id: 1,
-            parent: 0,
             foo: 'foo'
           },
           {
             id: 2,
-            parent: 0,
             foo: 'barbar'
           }
         ]
@@ -97,9 +94,13 @@ describe('tree.pack', function () {
         id: 2,
         parent: 1,
         foo: 'barbar'
+      },
+      {
+        id: 3,
+        parent: 1,
+        foo: 'barbarbar'
       }
     ];
-    // TODO: this could be made recursive
     const expected = [
       {
         id: 0,
@@ -107,18 +108,25 @@ describe('tree.pack', function () {
         children: [
           {
             id: 1,
-            parent: 0,
-            foo: 'foo'
-          },
-          {
-            id: 2,
-            parent: 1,
-            foo: 'barbar'
+            foo: 'foo',
+            children: [
+              {
+                id: 2,
+                foo: 'barbar'
+              },
+              {
+                id: 3,
+                foo: 'barbarbar'
+              }
+            ]
           }
         ]
       }
     ];
 
+    expect(pack()(given)).to.deep.equal(expected);
+
+    // Should be immutable
     expect(pack()(given)).to.deep.equal(expected);
   });
 
@@ -148,13 +156,13 @@ describe('tree.pack', function () {
         children: [
           {
             id: 1,
-            [parentField]: 0,
-            foo: 'foo'
-          },
-          {
-            id: 2,
-            [parentField]: 1,
-            foo: 'barbar'
+            foo: 'foo',
+            children: [
+              {
+                id: 2,
+                foo: 'barbar'
+              }
+            ]
           }
         ]
       }
@@ -181,7 +189,6 @@ describe('tree.pack', function () {
         foo: 'barbar'
       }
     ];
-    // TODO: this could be made recursive
     const expected = [
       {
         id: 0,
@@ -189,18 +196,22 @@ describe('tree.pack', function () {
         [childrenField]: [
           {
             id: 1,
-            parent: 0,
-            foo: 'foo'
-          },
-          {
-            id: 2,
-            parent: 1,
-            foo: 'barbar'
+            foo: 'foo',
+            [childrenField]: [
+              {
+                id: 2,
+                foo: 'barbar'
+              }
+            ]
           }
         ]
       }
     ];
 
     expect(pack({ childrenField })(given)).to.deep.equal(expected);
+  });
+
+  it('returns an empty array with invalid input', function () {
+    expect(pack()('foobar')).to.deep.equal([]);
   });
 });
