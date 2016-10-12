@@ -34,6 +34,45 @@ describe('tree.unpack', function () {
     expect(unpack()(rows)).to.deep.equal(expected);
   });
 
+  it('unpacks recursive structures', function () {
+    const rows = [
+      {
+        id: 'foobar',
+        name: 'foo',
+        children: [
+          {
+            id: 'barfoo',
+            name: 'bar',
+            children: [
+              {
+                id: 'foofoo',
+                name: 'zoo'
+              }
+            ]
+          }
+        ]
+      }
+    ];
+    const expected = [
+      {
+        id: 'foobar',
+        name: 'foo'
+      },
+      {
+        parent: 'foobar',
+        id: 'barfoo',
+        name: 'bar'
+      },
+      {
+        parent: 'barfoo',
+        id: 'foofoo',
+        name: 'zoo'
+      }
+    ];
+
+    expect(unpack()(rows)).to.deep.equal(expected);
+  });
+
   it('allows parent field to be customized', function () {
     const parentField = 'p';
     const rows = [
