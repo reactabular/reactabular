@@ -1,7 +1,7 @@
 function unpack({
   parentField = 'parent',
-  parent,
-  idField = 'id'
+  idField = 'id',
+  parent
 } = {}) {
   return (rows) => {
     if (!Array.isArray(rows)) {

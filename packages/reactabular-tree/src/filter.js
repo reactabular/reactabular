@@ -6,7 +6,7 @@ const filterTree = fieldName => rows => rows.filter((item, index) => {
     return true;
   }
 
-  const parents = getParents({ rows, index });
+  const parents = getParents({ index })(rows);
 
   return parents.filter(
     parent => parent[fieldName]

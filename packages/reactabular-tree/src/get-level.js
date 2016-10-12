@@ -1,11 +1,10 @@
 import getParents from './get-parents';
 
-function getLevel({
-  rows,
+const getLevel = ({
   index,
-  parent = 'parent'
-}) {
-  return getParents({ rows, index, parent }).length;
-}
+  parentField = 'parent'
+} = {}) => rows => (
+  getParents({ index, parentField })(rows).length
+);
 
 export default getLevel;

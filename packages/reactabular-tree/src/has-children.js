@@ -1,15 +1,14 @@
-function hasChildren({
-  rows,
+const hasChildren = ({
   index,
-  id = 'id',
-  parent = 'parent'
-}) {
+  idField = 'id',
+  parentField = 'parent'
+} = {}) => (rows) => {
   // See if the next item points to the current one.
   // This relies on rows order!
   const currentItem = rows[index];
   const nextItem = rows[index + 1];
 
-  return !!(nextItem && currentItem[id] === nextItem[parent]);
-}
+  return !!(nextItem && currentItem[idField] === nextItem[parentField]);
+};
 
 export default hasChildren;

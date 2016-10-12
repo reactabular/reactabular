@@ -10,7 +10,7 @@ const toggleChildren = ({
   props,
   id,
   parent
-}) => {
+} = {}) => {
   if (!getRows) {
     throw new Error('tree.toggleChildren - Missing getRows!');
   }
@@ -36,12 +36,12 @@ const toggleChildren = ({
     const rows = getRows();
     const showingChildren = getShowingChildren(extra);
     const index = rowData._index;
-    const containsChildren = hasChildren({ rows, index, id }) ? 'has-children' : '';
-    const hasParent = getParents({ rows, index, parent }).length > 0 ? 'has-parent' : '';
+    const containsChildren = hasChildren({ index, id })(rows) ? 'has-children' : '';
+    const hasParent = getParents({ index, parent })(rows).length > 0 ? 'has-parent' : '';
 
     return (
       <div
-        style={{ paddingLeft: `${getLevel({ rows, index }) * 1}em` }}
+        style={{ paddingLeft: `${getLevel({ index })(rows) * 1}em` }}
         onClick={e => toggle(e, index)}
         className={`${containsChildren} ${hasParent} ${className || ''}`}
         {...restProps}

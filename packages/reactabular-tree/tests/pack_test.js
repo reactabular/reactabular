@@ -123,7 +123,7 @@ describe('tree.pack', function () {
   });
 
   it('allows parent field to be customized', function () {
-    const property = 'demo';
+    const parentField = 'demo';
     const given = [
       {
         id: 0,
@@ -131,12 +131,12 @@ describe('tree.pack', function () {
       },
       {
         id: 1,
-        [property]: 0,
+        [parentField]: 0,
         foo: 'foo'
       },
       {
         id: 2,
-        [property]: 1,
+        [parentField]: 1,
         foo: 'barbar'
       }
     ];
@@ -148,18 +148,18 @@ describe('tree.pack', function () {
         _pack: [
           {
             id: 1,
-            [property]: 0,
+            [parentField]: 0,
             foo: 'foo'
           },
           {
             id: 2,
-            [property]: 1,
+            [parentField]: 1,
             foo: 'barbar'
           }
         ]
       }
     ];
 
-    expect(pack({ parent: property })(given)).to.deep.equal(expected);
+    expect(pack({ parentField })(given)).to.deep.equal(expected);
   });
 });

@@ -1,13 +1,13 @@
 // Folds children inside root parents
 const packTree = ({
-  parent = 'parent'
+  parentField = 'parent'
 } = {}) => (rows) => {
   const ret = [];
   let pack = [];
   let previousParent;
 
   rows.forEach((row) => {
-    if (typeof row[parent] !== 'undefined') {
+    if (typeof row[parentField] !== 'undefined') {
       pack.push(row);
     } else {
       ret.push(row);

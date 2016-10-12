@@ -3,7 +3,7 @@ import { hasChildren } from '../src';
 
 describe('tree.hasChildren', function () {
   it('returns false if empty rows are passed', function () {
-    expect(hasChildren({ rows: [] })).to.deep.equal(false);
+    expect(hasChildren()([])).to.deep.equal(false);
   });
 
   it('returns false if there are no children', function () {
@@ -14,7 +14,7 @@ describe('tree.hasChildren', function () {
     ];
     const expected = false;
 
-    expect(hasChildren({ rows: given, index: 0 })).to.deep.equal(expected);
+    expect(hasChildren({ index: 0 })(given)).to.deep.equal(expected);
   });
 
   it('returns true if there is one child', function () {
@@ -30,7 +30,7 @@ describe('tree.hasChildren', function () {
     ];
     const expected = true;
 
-    expect(hasChildren({ rows: given, index: 0 })).to.deep.equal(expected);
+    expect(hasChildren({ index: 0 })(given)).to.deep.equal(expected);
   });
 
   it('works with sibling children', function () {
@@ -52,7 +52,7 @@ describe('tree.hasChildren', function () {
     ];
     const expected = true;
 
-    expect(hasChildren({ rows: given, index: 0 })).to.deep.equal(expected);
+    expect(hasChildren({ index: 0 })(given)).to.deep.equal(expected);
   });
 
   it('works with nested children', function () {
@@ -74,11 +74,11 @@ describe('tree.hasChildren', function () {
     ];
     const expected = true;
 
-    expect(hasChildren({ rows: given, index: 1 })).to.deep.equal(expected);
+    expect(hasChildren({ index: 1 })(given)).to.deep.equal(expected);
   });
 
   it('allows parent field to be customized', function () {
-    const property = 'demo';
+    const parentField = 'demo';
     const given = [
       {
         id: 0,
@@ -86,44 +86,40 @@ describe('tree.hasChildren', function () {
       },
       {
         id: 1,
-        [property]: 0,
+        [parentField]: 0,
         foo: 'foo'
       },
       {
         id: 2,
-        [property]: 1,
+        [parentField]: 1,
         foo: 'barbar'
       }
     ];
     const expected = true;
 
-    expect(hasChildren({
-      rows: given, index: 1, parent: property
-    })).to.deep.equal(expected);
+    expect(hasChildren({ index: 1, parentField })(given)).to.deep.equal(expected);
   });
 
   it('allows id field to be customized', function () {
-    const property = 'demo';
+    const idField = 'demo';
     const given = [
       {
-        [property]: 0,
+        [idField]: 0,
         foo: 'bar'
       },
       {
-        [property]: 1,
+        [idField]: 1,
         parent: 0,
         foo: 'foo'
       },
       {
-        [property]: 2,
+        [idField]: 2,
         parent: 1,
         foo: 'barbar'
       }
     ];
     const expected = true;
 
-    expect(hasChildren({
-      rows: given, index: 1, id: property
-    })).to.deep.equal(expected);
+    expect(hasChildren({ index: 1, idField })(given)).to.deep.equal(expected);
   });
 });

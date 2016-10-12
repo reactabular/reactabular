@@ -1,4 +1,4 @@
-const expandAll = (rows, property = 'showingChildren') => (
+const expandAll = ({ property = 'showingChildren' } = {}) => rows => (
   rows.map(row => ({ ...row, [property]: true }))
 );
 

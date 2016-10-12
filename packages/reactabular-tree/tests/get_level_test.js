@@ -3,7 +3,7 @@ import { getLevel } from '../src';
 
 describe('tree.getLevel', function () {
   it('returns zero if empty rows are passed', function () {
-    expect(getLevel({ rows: [] })).to.deep.equal(0);
+    expect(getLevel()([])).to.deep.equal(0);
   });
 
   it('returns zero if there are no parents', function () {
@@ -14,7 +14,7 @@ describe('tree.getLevel', function () {
     ];
     const expected = 0;
 
-    expect(getLevel({ rows: given, index: 0 })).to.deep.equal(expected);
+    expect(getLevel({ index: 0 })(given)).to.deep.equal(expected);
   });
 
   it('returns one if there is one parent', function () {
@@ -29,7 +29,7 @@ describe('tree.getLevel', function () {
     ];
     const expected = 1;
 
-    expect(getLevel({ rows: given, index: 1 })).to.deep.equal(expected);
+    expect(getLevel({ index: 1 })(given)).to.deep.equal(expected);
   });
 
   it('works with sibling children', function () {
@@ -48,7 +48,7 @@ describe('tree.getLevel', function () {
     ];
     const expected = 1;
 
-    expect(getLevel({ rows: given, index: 2 })).to.deep.equal(expected);
+    expect(getLevel({ index: 2 })(given)).to.deep.equal(expected);
   });
 
   it('works with nested children', function () {
@@ -67,28 +67,26 @@ describe('tree.getLevel', function () {
     ];
     const expected = 2;
 
-    expect(getLevel({ rows: given, index: 2 })).to.deep.equal(expected);
+    expect(getLevel({ index: 2 })(given)).to.deep.equal(expected);
   });
 
   it('allows parent field to be customized', function () {
-    const property = 'demo';
+    const parentField = 'demo';
     const given = [
       {
         foo: 'bar'
       },
       {
-        [property]: 'baz',
+        [parentField]: 'baz',
         foo: 'foo'
       },
       {
-        [property]: 'foo',
+        [parentField]: 'foo',
         foo: 'barbar'
       }
     ];
     const expected = 2;
 
-    expect(getLevel({
-      rows: given, index: 2, parent: property
-    })).to.deep.equal(expected);
+    expect(getLevel({ index: 2, parentField })(given)).to.deep.equal(expected);
   });
 });

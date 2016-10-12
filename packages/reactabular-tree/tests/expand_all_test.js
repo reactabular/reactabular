@@ -3,7 +3,7 @@ import { expandAll } from '../src';
 
 describe('tree.expandAll', function () {
   it('returns empty rows if empty rows are passed', function () {
-    expect(expandAll([])).to.deep.equal([]);
+    expect(expandAll()([])).to.deep.equal([]);
   });
 
   it('returns rows with showingChildren set true', function () {
@@ -19,7 +19,7 @@ describe('tree.expandAll', function () {
       }
     ];
 
-    expect(expandAll(given)).to.deep.equal(expected);
+    expect(expandAll()(given)).to.deep.equal(expected);
   });
 
   it('allows property to be customized', function () {
@@ -36,6 +36,6 @@ describe('tree.expandAll', function () {
       }
     ];
 
-    expect(expandAll(given, property)).to.deep.equal(expected);
+    expect(expandAll({ property })(given)).to.deep.equal(expected);
   });
 });

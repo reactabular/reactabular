@@ -31,11 +31,11 @@ If there's a `parent` relation, the children must follow their parent right afte
 
 ### Transformations
 
-**`tree.collapseAll = (rows, property = 'showingChildren') => <collapsedRows>`**
+**`tree.collapseAll = ({ property = 'showingChildren' }) => (rows) => <collapsedRows>`**
 
 Collapses rows by setting `showingChildren` of each row to `false`.
 
-**`tree.expandAll = (rows, property = 'showingChildren') => <expandedRows>`**
+**`tree.expandAll = ({ property = 'showingChildren' }) => (rows) => <expandedRows>`**
 
 Expands rows by setting `showingChildren` of each row to `true`.
 
@@ -45,15 +45,15 @@ Filters the given rows using `fieldName`. This is handy if you want only rows th
 
 ### Queries
 
-**`tree.getLevel = ({ rows, index, parent = 'parent' }) => <level>`**
+**`tree.getLevel = ({ index, parentField = 'parent' }) => (rows) => <level>`**
 
 Returns the nesting level of the row at the given `index` within `rows`.
 
-**`tree.getParents = ({ rows, index, parent = 'parent' }) => [<parent>]`**
+**`tree.getParents = ({ index, parentField = 'parent' }) => (rows) => [<parent>]`**
 
 Returns parents based on given `rows` and `index`.
 
-**`tree.hasChildren = ({ rows, index, id = 'id', parent = 'parent '}) => <boolean>`**
+**`tree.hasChildren = ({ index, idField = 'id', parentField = 'parent '}) => (rows) => <boolean>`**
 
 Returns a boolean based on whether or not the row at the given `index` has children.
 
@@ -67,11 +67,11 @@ Allows you to sort a tree (packs/unpacks internally).
 
 ### Packing
 
-**`tree.pack = ({ parent = 'parent' }) => (rows) => <packedRows>`**
+**`tree.pack = ({ parentField = 'parent' }) => (rows) => <packedRows>`**
 
 Packs children inside root level nodes. This is useful with sorting and filtering.
 
-**`tree.unpack = ({ parentField = 'parent', parent, idField = 'id'}) => (rows) => <unpackedRows>`**
+**`tree.unpack = ({ parentField = 'parent', idField = 'id', parent }) => (rows) => <unpackedRows>`**
 
 Unpacks children from root level nodes. This is useful with sorting and filtering.
 
@@ -250,12 +250,12 @@ class TreeTable extends React.Component {
   }
   onExpandAll() {
     this.setState({
-      rows: tree.expandAll(this.state.rows)
+      rows: tree.expandAll()(this.state.rows)
     });
   }
   onCollapseAll() {
     this.setState({
-      rows: tree.collapseAll(this.state.rows)
+      rows: tree.collapseAll()(this.state.rows)
     });
   }
   onToggleColumn(columnIndex) {

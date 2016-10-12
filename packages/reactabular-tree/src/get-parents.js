@@ -1,33 +1,34 @@
 function getParents({
-  rows,
   index,
-  parent = 'parent'
-}) {
-  const parents = [];
-  let currentIndex = index;
-  let cell = rows[index];
-  let previousParent;
+  parentField = 'parent'
+} = {}) {
+  return (rows) => {
+    const parents = [];
+    let currentIndex = index;
+    let cell = rows[index];
+    let previousParent;
 
-  while (cell) {
-    if (cell[parent]) {
-      if (typeof previousParent !== 'undefined' && previousParent !== cell[parent]) {
-        parents.unshift(cell);
-      }
-    } else {
-      if (typeof previousParent !== 'undefined') {
-        parents.unshift(cell);
+    while (cell) {
+      if (cell[parentField]) {
+        if (typeof previousParent !== 'undefined' && previousParent !== cell[parentField]) {
+          parents.unshift(cell);
+        }
+      } else {
+        if (typeof previousParent !== 'undefined') {
+          parents.unshift(cell);
+        }
+
+        break;
       }
 
-      break;
+      currentIndex -= 1;
+
+      previousParent = cell[parentField];
+      cell = rows[currentIndex];
     }
 
-    currentIndex -= 1;
-
-    previousParent = cell[parent];
-    cell = rows[currentIndex];
-  }
-
-  return parents;
+    return parents;
+  };
 }
 
 export default getParents;

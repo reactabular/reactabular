@@ -3,7 +3,7 @@ import { getParents } from '../src';
 
 describe('tree.getParents', function () {
   it('returns an empty array if empty rows are passed', function () {
-    expect(getParents({ rows: [] })).to.deep.equal([]);
+    expect(getParents()([])).to.deep.equal([]);
   });
 
   it('returns an empty array if there are no parents', function () {
@@ -14,7 +14,7 @@ describe('tree.getParents', function () {
     ];
     const expected = [];
 
-    expect(getParents({ rows: given, index: 0 })).to.deep.equal(expected);
+    expect(getParents({ index: 0 })(given)).to.deep.equal(expected);
   });
 
   it('returns an array with parent if there is one parent', function () {
@@ -33,7 +33,7 @@ describe('tree.getParents', function () {
       }
     ];
 
-    expect(getParents({ rows: given, index: 1 })).to.deep.equal(expected);
+    expect(getParents({ index: 1 })(given)).to.deep.equal(expected);
   });
 
   it('works with sibling children', function () {
@@ -56,7 +56,7 @@ describe('tree.getParents', function () {
       }
     ];
 
-    expect(getParents({ rows: given, index: 2 })).to.deep.equal(expected);
+    expect(getParents({ index: 2 })(given)).to.deep.equal(expected);
   });
 
   it('works with nested children', function () {
@@ -83,21 +83,21 @@ describe('tree.getParents', function () {
       }
     ];
 
-    expect(getParents({ rows: given, index: 2 })).to.deep.equal(expected);
+    expect(getParents({ index: 2 })(given)).to.deep.equal(expected);
   });
 
   it('allows parent field to be customized', function () {
-    const property = 'demo';
+    const parentField = 'demo';
     const given = [
       {
         foo: 'bar'
       },
       {
-        [property]: 'baz',
+        [parentField]: 'baz',
         foo: 'foo'
       },
       {
-        [property]: 'foo',
+        [parentField]: 'foo',
         foo: 'barbar'
       }
     ];
@@ -106,13 +106,11 @@ describe('tree.getParents', function () {
         foo: 'bar'
       },
       {
-        [property]: 'baz',
+        [parentField]: 'baz',
         foo: 'foo'
       }
     ];
 
-    expect(getParents({
-      rows: given, index: 2, parent: property
-    })).to.deep.equal(expected);
+    expect(getParents({ index: 2, parentField })(given)).to.deep.equal(expected);
   });
 });
