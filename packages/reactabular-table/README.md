@@ -89,7 +89,7 @@ Here `VisibilityToggles` injects an additional row for the filter controls. An a
 </Table.Provider>
 ```
 
-> `ColumnFilters` isn't included in the standard distribution. You can [find it at the project repository](https://github.com/reactabular/reactabular/blob/master/docs/helpers/ColumnFilters.jsx).
+> `SearchColumns` isn't included in the standard distribution. You can find it in the [reactabular-search-columns package](https://github.com/reactabular/reactabular/tree/master/packages/reactabular-search-columns).
 
 ## `Table.Body`
 
