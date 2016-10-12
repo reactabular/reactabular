@@ -43,10 +43,6 @@ Expands rows by setting `showingChildren` of each row to `true`.
 
 Filters the given rows using `fieldName`. This is handy if you want only rows that are visible assuming visibility logic has been defined.
 
-**`tree.flatten = ({ tree, parentField = 'parent', parent, idField = 'id'}) => <flattenedRows>`**
-
-Flattens a nested tree structure into a flat one compatible with the algorithms.
-
 ### Queries
 
 **`tree.getLevel = ({ rows, index, parent = 'parent' }) => <level>`**
@@ -75,7 +71,7 @@ Allows you to sort a tree (packs/unpacks internally).
 
 Packs children inside root level nodes. This is useful with sorting and filtering.
 
-**`tree.unpack = (rows) => <unpackedRows>`**
+**`tree.unpack = ({ parentField = 'parent', parent, idField = 'id'}) => (rows) => <unpackedRows>`**
 
 Unpacks children from root level nodes. This is useful with sorting and filtering.
 

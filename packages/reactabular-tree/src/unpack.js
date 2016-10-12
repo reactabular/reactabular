@@ -1,14 +1,34 @@
-// Extracts children from rows
-function unpackTree(rows = []) {
-  let ret = [];
+function unpack({
+  parentField = 'parent',
+  parent,
+  idField = 'id'
+} = {}) {
+  return (rows) => {
+    if (!Array.isArray(rows)) {
+      return [];
+    }
 
-  rows.forEach((row) => {
-    const { _pack, ...rest } = row;
+    if (!rows.length) {
+      return rows;
+    }
 
-    ret = ret.concat([rest]).concat(_pack);
-  });
+    return [].concat(
+      ...rows.map(({ children, ...node }) => {
+        const d = parent ? {
+          ...node,
+          [parentField]: parent
+        } : node;
 
-  return ret.filter(a => a);
+        return [d].concat(
+          unpack({
+            parentField,
+            parent: d[idField],
+            idField
+          })(children)
+        );
+      })
+    );
+  };
 }
 
-export default unpackTree;
+export default unpack;

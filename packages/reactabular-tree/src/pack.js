@@ -12,7 +12,7 @@ const packTree = ({
     } else {
       ret.push(row);
 
-      if (previousParent && pack) {
+      if (previousParent && pack && pack.length) {
         previousParent._pack = pack;
 
         pack = [];

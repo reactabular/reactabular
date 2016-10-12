@@ -1,3 +1,8 @@
+6.0.0 / 2016-xx-xx
+==================
+
+  * Breaking - Merge `tree.flatten` with `tree.unpack`. The new signature for `tree.unpack` is `tree.unpack = ({ parentField = 'parent', parent, idField = 'id'}) => (rows) => <unpackedRows>`.
+
 5.2.1 / 2016-09-30
 ==================
 

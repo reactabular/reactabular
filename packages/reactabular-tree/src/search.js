@@ -8,7 +8,7 @@ function searchTree({
   query
 }) {
   return compose(
-    unpack,
+    unpack(),
     multipleColumns({
       columns,
       query

@@ -10,7 +10,7 @@ function sortTree({
   strategy
 }) {
   return compose(
-    unpack,
+    unpack(),
     sorter({
       columns,
       sortingColumns,

@@ -10,6 +10,10 @@
 
   * Bug fix - Make toggling behavior rely on `property` over `id`. Now the behavior is more consistent with filtered sets. #216
 
+## reactabular-tree
+
+  * Breaking - Merge `tree.flatten` with `tree.unpack`. The new signature for `tree.unpack` is `tree.unpack = ({ parentField = 'parent', parent, idField = 'id'}) => (rows) => <unpackedRows>`.
+
 5.3.0 / 2016-10-05
 ==================
 
