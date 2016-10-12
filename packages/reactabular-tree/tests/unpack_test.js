@@ -63,6 +63,35 @@ describe('tree.unpack', function () {
     expect(unpack({ parentField })(rows)).to.deep.equal(expected);
   });
 
+  it('allows parent field to be customized', function () {
+    const childrenField = 'c';
+    const rows = [
+      {
+        id: 'foobar',
+        name: 'foo',
+        [childrenField]: [
+          {
+            id: 'barfoo',
+            name: 'bar'
+          }
+        ]
+      }
+    ];
+    const expected = [
+      {
+        id: 'foobar',
+        name: 'foo'
+      },
+      {
+        parent: 'foobar',
+        id: 'barfoo',
+        name: 'bar'
+      }
+    ];
+
+    expect(unpack({ childrenField })(rows)).to.deep.equal(expected);
+  });
+
   it('allows id field to be customized', function () {
     const idField = '_id';
     const rows = [

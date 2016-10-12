@@ -67,11 +67,11 @@ Allows you to sort a tree (packs/unpacks internally).
 
 ### Packing
 
-**`tree.pack = ({ parentField = 'parent' }) => (rows) => <packedRows>`**
+**`tree.pack = ({ parentField = 'parent', childrenField = 'children' }) => (rows) => <packedRows>`**
 
 Packs children inside root level nodes. This is useful with sorting and filtering.
 
-**`tree.unpack = ({ parentField = 'parent', idField = 'id', parent }) => (rows) => <unpackedRows>`**
+**`tree.unpack = ({ parentField = 'parent', childrenField = 'children', idField = 'id', parent }) => (rows) => <unpackedRows>`**
 
 Unpacks children from root level nodes. This is useful with sorting and filtering.
 

@@ -1,6 +1,6 @@
-// Folds children inside root parents
 const packTree = ({
-  parentField = 'parent'
+  parentField = 'parent',
+  childrenField = 'children'
 } = {}) => (rows) => {
   const ret = [];
   let pack = [];
@@ -13,7 +13,7 @@ const packTree = ({
       ret.push(row);
 
       if (previousParent && pack && pack.length) {
-        previousParent._pack = pack;
+        previousParent[childrenField] = pack;
 
         pack = [];
       }
@@ -23,7 +23,7 @@ const packTree = ({
   });
 
   if (pack.length && previousParent) {
-    previousParent._pack = pack;
+    previousParent[childrenField] = pack;
   }
 
   return ret;

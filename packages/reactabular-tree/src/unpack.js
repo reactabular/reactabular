@@ -1,5 +1,8 @@
+import omit from 'lodash/omit';
+
 function unpack({
   parentField = 'parent',
+  childrenField = 'children',
   idField = 'id',
   parent
 } = {}) {
@@ -13,11 +16,12 @@ function unpack({
     }
 
     return [].concat(
-      ...rows.map(({ children, ...node }) => {
+      ...rows.map(node => {
+        const children = node[childrenField];
         const d = parent ? {
-          ...node,
+          ...omit(node, childrenField),
           [parentField]: parent
-        } : node;
+        } : omit(node, childrenField);
 
         return [d].concat(
           unpack({

@@ -31,7 +31,7 @@ describe('tree.pack', function () {
       {
         id: 0,
         foo: 'bar',
-        _pack: [
+        children: [
           {
             parent: 0,
             foo: 'foo'
@@ -64,7 +64,7 @@ describe('tree.pack', function () {
       {
         id: 0,
         foo: 'bar',
-        _pack: [
+        children: [
           {
             id: 1,
             parent: 0,
@@ -104,7 +104,7 @@ describe('tree.pack', function () {
       {
         id: 0,
         foo: 'bar',
-        _pack: [
+        children: [
           {
             id: 1,
             parent: 0,
@@ -145,7 +145,7 @@ describe('tree.pack', function () {
       {
         id: 0,
         foo: 'bar',
-        _pack: [
+        children: [
           {
             id: 1,
             [parentField]: 0,
@@ -161,5 +161,46 @@ describe('tree.pack', function () {
     ];
 
     expect(pack({ parentField })(given)).to.deep.equal(expected);
+  });
+
+  it('allows children field to be customized', function () {
+    const childrenField = 'demo';
+    const given = [
+      {
+        id: 0,
+        foo: 'bar'
+      },
+      {
+        id: 1,
+        parent: 0,
+        foo: 'foo'
+      },
+      {
+        id: 2,
+        parent: 1,
+        foo: 'barbar'
+      }
+    ];
+    // TODO: this could be made recursive
+    const expected = [
+      {
+        id: 0,
+        foo: 'bar',
+        [childrenField]: [
+          {
+            id: 1,
+            parent: 0,
+            foo: 'foo'
+          },
+          {
+            id: 2,
+            parent: 1,
+            foo: 'barbar'
+          }
+        ]
+      }
+    ];
+
+    expect(pack({ childrenField })(given)).to.deep.equal(expected);
   });
 });
