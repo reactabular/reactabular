@@ -29,6 +29,9 @@
     "table",
     "tables"
   ],
+  "files": [
+    "lerna.json"
+  ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
   "main": "packages/reactabular",
