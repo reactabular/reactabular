@@ -31,7 +31,9 @@
     "tables"
   ],
   "files": [
-    "lerna.json"
+    "lib/post_install.js",
+    "lerna.json",
+    "packages/**/*.js"
   ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
