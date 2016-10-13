@@ -227,10 +227,6 @@ if (TARGET === 'dist:build-min') {
   });
 }
 
-if (TARGET.startsWith('test') || !TARGET) {
-  module.exports = merge(common, {
-    entry: {}, // karma will set this
-    output: {}, // karma will set this
-    devtool: 'inline-source-map'
-  });
+if (!TARGET) {
+  module.exports = common;
 }

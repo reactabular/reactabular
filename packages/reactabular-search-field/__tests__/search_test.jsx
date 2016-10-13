@@ -151,9 +151,9 @@ describe('Search', function () {
         <Search columns={columns} i18n={{ all: expected }} />
       </Wrapper>
     );
-    const select = TestUtils.findRenderedDOMComponentWithTag(search, 'select')[0];
+    const option = TestUtils.scryRenderedDOMComponentsWithTag(search, 'option')[0];
 
-    expect(select.text).to.equal(expected);
+    expect(option.text).to.equal(expected);
   });
 });
 
