@@ -44,15 +44,17 @@ Given the default `shouldComponentUpdate` for Table body can be somewhat strict,
 
 ```javascript
 const BodyWrapper = props => <tbody {...props} />;
-BodyWrapper.shouldComponentUpdate = (nextProps, nextState, nextContext) => {
+BodyWrapper.shouldComponentUpdate = function (nextProps, nextState, nextContext) {
   // Perform a custom check now
+  // this.props is available here too
   return true;
 };
 // You can also use
 // BodyWrapper.shouldComponentUpdate = true;
 const RowWrapper = props => <tr {...props} />;
-RowWrapper.shouldComponentUpdate = (nextProps) => {
+RowWrapper.shouldComponentUpdate = function (nextProps) {
   // Perform a custom check now
+  // this.props is available here too
   return true;
 };
 // RowWrapper.shouldComponentUpdate = true;

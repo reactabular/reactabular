@@ -15,7 +15,7 @@ class BodyRow extends React.Component {
 
     if (components && components.row && components.row.shouldComponentUpdate) {
       if (isFunction(components.row.shouldComponentUpdate)) {
-        return components.row.shouldComponentUpdate(nextProps);
+        return components.row.shouldComponentUpdate.call(this, nextProps);
       }
 
       return true;

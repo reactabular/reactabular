@@ -21,8 +21,8 @@ class Body extends React.Component {
 
     if (components && components.body && components.body.wrapper.shouldComponentUpdate) {
       if (isFunction(components.body.wrapper.shouldComponentUpdate)) {
-        return components.body.wrapper.shouldComponentUpdate(
-          nextProps, nextState, nextContext
+        return components.body.wrapper.shouldComponentUpdate.call(
+          this, nextProps, nextState, nextContext
         );
       }
 

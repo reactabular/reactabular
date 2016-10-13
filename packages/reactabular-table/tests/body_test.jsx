@@ -842,7 +842,9 @@ describe('Table.Body', function () {
   it('allows Body shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
     const BodyWrapper = props => <tbody {...props} />;
-    BodyWrapper.shouldComponentUpdate = () => {
+    BodyWrapper.shouldComponentUpdate = function () {
+      expect(this.props).to.exist;
+
       calledUpdate = true;
 
       return true;
@@ -883,13 +885,17 @@ describe('Table.Body', function () {
   it('allows BodyRow shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
     const BodyWrapper = props => <tbody {...props} />;
-    BodyWrapper.shouldComponentUpdate = () => {
+    BodyWrapper.shouldComponentUpdate = function () {
+      expect(this.props).to.exist;
+
       calledUpdate = true;
 
       return true;
     };
     const RowWrapper = props => <tr {...props} />;
-    RowWrapper.shouldComponentUpdate = () => {
+    RowWrapper.shouldComponentUpdate = function () {
+      expect(this.props).to.exist;
+
       calledUpdate = true;
 
       return true;
