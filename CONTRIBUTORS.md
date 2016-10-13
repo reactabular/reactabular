@@ -26,6 +26,7 @@
 * [Mathieu M-Gosselin](https://github.com/mathieumg) - Nested array search and custom casting strategies. #212
 * [Toni](https://github.com/git-toni) - Added example showing multiple async instances. #214
 * [Vijay Thirugnanam](https://github.com/vijayst) - Fixed `reactabular-search-columns` behavior for filtered data. #216
+* [Artem Sapegin](https://github.com/sapegin) - Fixed `SearchColumns` typo. #217
 
 ## Acknowledgments
 
