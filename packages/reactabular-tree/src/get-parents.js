@@ -9,7 +9,7 @@ function getParents({
     let previousParent;
 
     while (cell) {
-      if (cell[parentField]) {
+      if (typeof cell[parentField] !== 'undefined') {
         if (typeof previousParent !== 'undefined' && previousParent !== cell[parentField]) {
           parents.unshift(cell);
         }

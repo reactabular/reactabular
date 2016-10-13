@@ -20,6 +20,7 @@
   * Breaking - Rework API so that all functions except `tree.toggleChildren` work in curry format (`(...) => (rows) => <new rows>`). This way the API is consistent and easy to extend.
   * Breaking - Expose `childrenField` for `tree.pack` and `tree.unpack`. It defaults to `children`.
   * Breaking - Make `tree.pack` to work in a recursive manner (packs children within children).
+  * Breaking - Make `tree.search` match against children as well. If children as matched, it will return parents as well.
 
 5.3.0 / 2016-10-05
 ==================
