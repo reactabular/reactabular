@@ -51,6 +51,20 @@ describe('tree.getLevel', function () {
     expect(getLevel({ index: 2 })(given)).to.deep.equal(expected);
   });
 
+  it('works with sibling children without parents', function () {
+    const given = [
+      {
+        foo: 'bar'
+      },
+      {
+        foo: 'foo'
+      }
+    ];
+    const expected = 0;
+
+    expect(getLevel({ index: 1 })(given)).to.deep.equal(expected);
+  });
+
   it('works with nested children', function () {
     const given = [
       {
