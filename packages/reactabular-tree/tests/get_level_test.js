@@ -51,6 +51,43 @@ describe('tree.getLevel', function () {
     expect(getLevel({ index: 2 })(given)).to.deep.equal(expected);
   });
 
+  it('works with preceding parent', function () {
+    const given = [
+      {
+        foo: 'bar'
+      },
+      {
+        parent: 'baz',
+        foo: 'foo'
+      },
+      {
+        foo: 'barbar'
+      }
+    ];
+    const expected = 0;
+
+    expect(getLevel({ index: 2 })(given)).to.deep.equal(expected);
+  });
+
+  it('works with preceding parent if own parent is null', function () {
+    const given = [
+      {
+        foo: 'bar'
+      },
+      {
+        parent: 'baz',
+        foo: 'foo'
+      },
+      {
+        parent: null,
+        foo: 'barbar'
+      }
+    ];
+    const expected = 0;
+
+    expect(getLevel({ index: 2 })(given)).to.deep.equal(expected);
+  });
+
   it('works with sibling children without parents', function () {
     const given = [
       {
