@@ -1,4 +1,5 @@
 import isEqual from 'lodash/isEqual';
+import isFunction from 'lodash/isFunction';
 import React from 'react';
 import { resolveRowKey } from 'reactabular-utils';
 import { tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';
@@ -15,8 +16,23 @@ class Body extends React.Component {
     // That's not particularly good practice but you never know how the users
     // prefer to define the handler.
 
-    return !(isEqual(omitOnRow(this.props), omitOnRow(nextProps)) &&
-      isEqual(this.context, nextContext));
+    // Check for wrapper based override.
+    const { components } = nextContext;
+
+    if (components && components.body && components.body.wrapper.shouldComponentUpdate) {
+      if (isFunction(components.body.wrapper.shouldComponentUpdate)) {
+        return components.body.wrapper.shouldComponentUpdate(
+          nextProps, nextState, nextContext
+        );
+      }
+
+      return true;
+    }
+
+    return (
+      !(isEqual(omitOnRow(this.props), omitOnRow(nextProps)) &&
+      isEqual(this.context, nextContext))
+    );
   }
   render() {
     const { onRow, rows, rowKey, ...props } = this.props;

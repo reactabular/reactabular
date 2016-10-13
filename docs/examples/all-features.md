@@ -348,7 +348,6 @@ class AllFeaturesTable extends React.Component {
   }
   onRow(row, { rowIndex }) {
     return {
-      className: rowIndex % 2 ? 'odd-row' : 'even-row',
       onClick: () => this.onRowSelected(row)
     };
   }

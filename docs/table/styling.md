@@ -12,9 +12,14 @@ The project root contains a file, **style.css**, which you can import to your pr
   <Table.Body
     rows={rows}
     rowKey="id"
-    onRow={(row, { rowIndex }) => ({
-      className: rowIndex % 2 ? 'odd-row' : 'even-row',
-    })}
+    onRow={(row, { rowIndex }) => {
+      // Important! This gets called only when the row is updated. It is
+      // preferable to handle even/odd styling through CSS unless you
+      // override default shouldComponentUpdate behavior or use virtualization.
+      return {
+        className: rowIndex % 2 ? 'odd-row' : 'even-row',
+      }
+  }}
   />
 </Table.Provider>
 ```

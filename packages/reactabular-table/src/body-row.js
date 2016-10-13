@@ -1,4 +1,5 @@
 import isEqual from 'lodash/isEqual';
+import isFunction from 'lodash/isFunction';
 import React from 'react';
 import {
   evaluateTransforms, mergePropPair
@@ -13,6 +14,10 @@ class BodyRow extends React.Component {
     const { components } = nextProps;
 
     if (components && components.row && components.row.shouldComponentUpdate) {
+      if (isFunction(components.row.shouldComponentUpdate)) {
+        return components.row.shouldComponentUpdate(nextProps);
+      }
+
       return true;
     }
 

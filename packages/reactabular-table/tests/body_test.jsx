@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import * as Table from '../src';
@@ -836,6 +837,95 @@ describe('Table.Body', function () {
 
       expect(div).to.exist;
     });
+  });
+
+  it('allows Body shouldComponentUpdate to be overridden', function () {
+    let calledUpdate = false;
+    const BodyWrapper = props => <tbody {...props} />;
+    BodyWrapper.shouldComponentUpdate = () => {
+      calledUpdate = true;
+
+      return true;
+    };
+    const columns = [
+      {
+        property: 'name',
+        header: {
+          label: 'Name'
+        }
+      }
+    ];
+    const rows = [{ name: 'demo' }];
+
+    const node = document.createElement('div');
+    const component = ReactDOM.render( // eslint-disable-line react/no-render-return-value
+      <Table.Provider
+        columns={columns}
+        components={{
+          body: {
+            wrapper: BodyWrapper
+          }
+        }}
+      >
+        <Table.Body
+          rows={rows}
+          rowKey="name"
+        />
+      </Table.Provider>,
+      node
+    );
+
+    component.forceUpdate();
+
+    expect(calledUpdate).to.be.true;
+  });
+
+  it('allows BodyRow shouldComponentUpdate to be overridden', function () {
+    let calledUpdate = false;
+    const BodyWrapper = props => <tbody {...props} />;
+    BodyWrapper.shouldComponentUpdate = () => {
+      calledUpdate = true;
+
+      return true;
+    };
+    const RowWrapper = props => <tr {...props} />;
+    RowWrapper.shouldComponentUpdate = () => {
+      calledUpdate = true;
+
+      return true;
+    };
+    const columns = [
+      {
+        property: 'name',
+        header: {
+          label: 'Name'
+        }
+      }
+    ];
+    const rows = [{ name: 'demo' }];
+
+    const node = document.createElement('div');
+    const component = ReactDOM.render( // eslint-disable-line react/no-render-return-value
+      <Table.Provider
+        columns={columns}
+        components={{
+          body: {
+            wrapper: BodyWrapper, // Needed as otherwise it won't get to row
+            row: RowWrapper
+          }
+        }}
+      >
+        <Table.Body
+          rows={rows}
+          rowKey="name"
+        />
+      </Table.Provider>,
+      node
+    );
+
+    component.forceUpdate();
+
+    expect(calledUpdate).to.be.true;
   });
 
   it('supports custom props', function () {
