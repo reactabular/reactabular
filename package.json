@@ -46,8 +46,7 @@
   "jest": {
     "collectCoverage": true,
     "moduleFileExtensions": ["js", "jsx"],
-    "moduleDirectories": ["node_modules", "packages"],
-    "modulePaths": ["packages"]
+    "moduleDirectories": ["node_modules", "packages"]
   },
   "dependencies": {},
   "devDependencies": {
