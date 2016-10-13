@@ -32,6 +32,22 @@ describe('tree.getLevel', function () {
     expect(getLevel({ index: 1 })(given)).to.deep.equal(expected);
   });
 
+  it('returns one if there is one parent and parent has null parent', function () {
+    const given = [
+      {
+        parent: null,
+        foo: 'bar'
+      },
+      {
+        parent: 'baz',
+        foo: 'foo'
+      }
+    ];
+    const expected = 1;
+
+    expect(getLevel({ index: 1 })(given)).to.deep.equal(expected);
+  });
+
   it('works with sibling children', function () {
     const given = [
       {

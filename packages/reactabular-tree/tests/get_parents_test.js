@@ -36,6 +36,27 @@ describe('tree.getParents', function () {
     expect(getParents({ index: 1 })(given)).to.deep.equal(expected);
   });
 
+  it('returns an array with parent if there is one parent and parent has null parent', function () {
+    const given = [
+      {
+        parent: null,
+        foo: 'bar'
+      },
+      {
+        parent: 'baz',
+        foo: 'foo'
+      }
+    ];
+    const expected = [
+      {
+        parent: null,
+        foo: 'bar'
+      }
+    ];
+
+    expect(getParents({ index: 1 })(given)).to.deep.equal(expected);
+  });
+
   it('works with sibling children', function () {
     const given = [
       {

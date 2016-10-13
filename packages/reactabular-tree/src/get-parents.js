@@ -8,8 +8,20 @@ function getParents({
     let cell = rows[index];
     let previousParent;
 
+    if (
+      !cell ||
+      typeof cell[parentField] === 'undefined' ||
+      cell[parentField] === null
+    ) {
+      return parents;
+    }
+
     while (cell) {
       if (cell[parentField] === null) {
+        if (previousParent !== cell[parentField]) {
+          parents.unshift(cell);
+        }
+
         break;
       }
       if (typeof cell[parentField] !== 'undefined') {
