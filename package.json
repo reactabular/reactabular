@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "description": "Spectacular tables for React",
   "scripts": {
-    "bootstrap": "lerna bootstrap",
     "init": "npm install && lerna bootstrap",
     "start": "webpack-dev-server",
     "test": "karma start --",
