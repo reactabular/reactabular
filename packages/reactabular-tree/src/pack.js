@@ -23,7 +23,7 @@ const pack = ({
   cloneDeep(rows).forEach((row) => {
     const rowParent = row[parentField];
 
-    if (typeof rowParent !== 'undefined') {
+    if (typeof rowParent !== 'undefined' && rowParent !== null) {
       // Check if the parent field matches the accumulated potential parents
       const foundParent = find(previousParents, { [idField]: rowParent });
 

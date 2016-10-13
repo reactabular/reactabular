@@ -42,6 +42,21 @@ describe('tree.pack', function () {
     expect(pack()(given)).to.deep.equal(expected);
   });
 
+  it('works with null parent', function () {
+    const given = [
+      {
+        id: 0,
+        foo: 'bar'
+      },
+      {
+        parent: null,
+        foo: 'foo'
+      }
+    ];
+
+    expect(pack()(given)).to.deep.equal(given);
+  });
+
   it('works with sibling children', function () {
     const given = [
       {
