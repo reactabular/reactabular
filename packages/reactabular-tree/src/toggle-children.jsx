@@ -39,8 +39,6 @@ const toggleChildren = ({
     const level = getLevel({ index, parentField })(rows);
     const hasParent = level > 0 ? 'has-parent' : '';
 
-    console.log('level', level, rows[index]);
-
     return (
       <div
         style={{ paddingLeft: `${level}em` }}
