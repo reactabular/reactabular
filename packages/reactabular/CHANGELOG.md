@@ -13,6 +13,7 @@
 ## reactabular-search-columns
 
   * Bug fix - Make toggling behavior rely on `property` over `id`. Now the behavior is more consistent with filtered sets. #216
+  * Bug fix - If `column.property` is not set, generate key based on column index instead.
 
 ## reactabular-table
 
