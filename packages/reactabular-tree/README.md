@@ -61,7 +61,7 @@ Returns parents based on given `rows` and `index`.
 
 Returns a boolean based on whether or not the row at the given `index` has children.
 
-**`tree.search = ({ columns, query, parentField = 'parent' }) => (rows) => <searchedRows>`**
+**`tree.search = ({ columns, query, idField = 'id', parentField = 'parent' }) => (rows) => <searchedRows>`**
 
 Searches against a tree structure while matching against children too. If children are found, associated parents are returned as well.
 

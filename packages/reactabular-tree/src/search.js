@@ -1,10 +1,12 @@
 import uniq from 'lodash/uniq';
 import { multipleColumns } from 'reactabular-search';
+import getChildren from './get-children';
 import getParents from './get-parents';
 
 function searchTree({
   columns,
   query,
+  idField = 'id',
   parentField = 'parent'
 } = {}) {
   return rows => {
@@ -28,10 +30,10 @@ function searchTree({
 
         fetchedParents[rowParent] = true;
 
-        return getParents({
-          index: row._index,
-          parentField
-        })(rows).concat(row);
+        const children = getChildren({ index: row._index, idField, parentField })(rows);
+        const parents = getParents({ index: row._index, parentField })(rows);
+
+        return parents.concat(row).concat(children);
       }).filter(a => a)
     ));
   };

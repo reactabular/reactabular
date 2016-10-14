@@ -12,6 +12,11 @@ const getChildren =({
   let currentIndex = index;
   let currentItem = rows[currentIndex];
   let nextItem = rows[currentIndex + 1];
+
+  if (!currentItem) {
+    return [];
+  }
+
   const previousParents = {
     [currentItem[idField]]: true
   };
