@@ -28,6 +28,10 @@
   * Breaking - Make `tree.search` match against children as well. If children as matched, it will return parents as well.
   * Feature - Add `tree.getChildren` utilities for getting node children.
 
+## reactabular-virtualized
+
+  * Feature - Add `scrollTo(index)` method to `Virtualized.Body` `ref`.
+
 5.3.0 / 2016-10-05
 ==================
 

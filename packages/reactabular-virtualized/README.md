@@ -112,42 +112,56 @@ class VirtualizedTable extends React.Component {
   }
   render() {
     return (
-      <Table.Provider
-        className="pure-table pure-table-striped"
-        columns={columns}
-        components={{
-          body: {
-            wrapper: Virtualized.BodyWrapper,
-            row: Virtualized.BodyRow
-          }
-        }}
-      >
-        <Sticky.Header
-          style={{
-            maxWidth: 800
-          }}
-          ref={tableHeader => {
-            this.tableHeader = tableHeader && tableHeader.getRef();
-          }}
-          tableBody={this.tableBody}
-        />
+      <div>
+        <div>
+          <label>Scroll to index: </label>
+          <input
+            type="text"
+            onChange={e => this.tableBody.scrollTo(e.target.value)}
+          />
+        </div>
 
-        <Virtualized.Body
-          rows={rows}
-          rowKey="id"
-          style={{
-            maxWidth: 800
+        <Table.Provider
+          className="pure-table pure-table-striped"
+          columns={columns}
+          components={{
+            body: {
+              wrapper: Virtualized.BodyWrapper,
+              row: Virtualized.BodyRow
+            }
           }}
-          height={400}
-          ref={tableBody => {
-            this.tableBody = tableBody && tableBody.getRef();
-          }}
-          tableHeader={this.tableHeader}
-        />
-      </Table.Provider>
+        >
+          <Sticky.Header
+            style={{
+              maxWidth: 800
+            }}
+            ref={tableHeader => {
+              this.tableHeader = tableHeader && tableHeader.getRef();
+            }}
+            tableBody={this.tableBody}
+          />
+
+          <Virtualized.Body
+            rows={rows}
+            rowKey="id"
+            style={{
+              maxWidth: 800
+            }}
+            height={400}
+            ref={tableBody => {
+              this.tableBody = tableBody && tableBody.getRef();
+            }}
+            tableHeader={this.tableHeader}
+          />
+        </Table.Provider>
+      </div>
     );
   }
 }
 
 <VirtualizedTable />
 ```
+
+## Scrolling to Index
+
+`Virtualized.Body` `ref` exposes `scrollTo` method for scrolling through index. If you want to scroll based on some field value, search the dataset first and pass the resulting index here.

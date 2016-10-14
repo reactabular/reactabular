@@ -1,3 +1,8 @@
+6.0.0 / 2016-xx-xx
+==================
+
+  * Feature - Add `scrollTo(index)` method to `Virtualized.Body` `ref`.
+
 5.0.2 / 2016-09-28
 ==================
 

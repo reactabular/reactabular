@@ -2,6 +2,7 @@ import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { Body } from 'reactabular-sticky';
 import { bodyChildContextTypes } from './types';
+import calculateAverageHeight from './calculate-average-height';
 import calculateRows from './calculate-rows';
 
 class VirtualizedBody extends React.Component {
@@ -113,7 +114,24 @@ class VirtualizedBody extends React.Component {
     );
   }
   getRef() {
-    return this.ref;
+    const ref = this.ref;
+
+    ref.scrollTo = (index) => {
+      const startIndex = parseInt(index, 10);
+
+      if (startIndex >= 0) {
+        const startHeight = calculateAverageHeight({
+          measuredRows: this.measuredRows,
+          rows: this.props.rows,
+          rowKey: this.props.rowKey
+        }) * startIndex;
+
+        this.scrollTop = startHeight;
+        this.ref.scrollTop = startHeight;
+      }
+    };
+
+    return ref;
   }
   checkMeasurements() {
     // If there are no valid measurements, calculate some after waiting a while.

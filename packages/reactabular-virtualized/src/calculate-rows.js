@@ -1,4 +1,4 @@
-import { resolveRowKey } from 'reactabular-utils';
+import calculateAverageHeight from './calculate-average-height';
 
 const calculateRows = ({
   measuredRows,
@@ -7,20 +7,9 @@ const calculateRows = ({
   rows,
   scrollTop = 0
 }) => {
-  const resolvedRowKeys = rows.map((rowData, rowIndex) => (
-    resolveRowKey({ rowData, rowIndex, rowKey }))
-  );
-  const measuredAmounts = Object.keys(measuredRows).filter(
-    key => resolvedRowKeys.indexOf(key) >= 0
-  ).map(key => measuredRows[key]);
-
   // Calculate amount of rows to render based on average height and take the
   // amount of actual rows into account.
-  const amountOfMeasuredRows = measuredAmounts.length;
-  const averageHeight = measuredAmounts
-    .reduce((a, b) => (
-      a + (b / amountOfMeasuredRows)
-    ), 0);
+  const averageHeight = calculateAverageHeight({ measuredRows, rows, rowKey });
   const amountOfRowsToRender = Math.ceil(height / averageHeight) + 2;
 
   const startIndex = Math.floor(scrollTop / averageHeight);
@@ -34,8 +23,6 @@ const calculateRows = ({
       'update rows to render',
       'scroll top', scrollTop,
       'measured rows', measuredRows,
-      'measured amounts', measuredAmounts,
-      'amount of measured rows', amountOfMeasuredRows,
       'amount of rows to render', amountOfRowsToRender,
       'rows to render', rowsToRender,
       'start index', startIndex
