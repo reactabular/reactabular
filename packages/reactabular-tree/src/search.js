@@ -9,7 +9,7 @@ function searchTree({
   idField = 'id',
   parentField = 'parent'
 } = {}) {
-  return rows => {
+  return (rows) => {
     // Track fetched parents to get them into the results only once
     const fetchedParents = {};
 

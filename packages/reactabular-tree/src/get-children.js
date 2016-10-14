@@ -1,4 +1,4 @@
-const getChildren =({
+const getChildren = ({
   index,
   idField = 'id',
   parentField = 'parent'
@@ -22,7 +22,7 @@ const getChildren =({
   };
   const ret = [];
 
-  while(nextItem && previousParents[nextItem[parentField]]) {
+  while (nextItem && previousParents[nextItem[parentField]]) {
     ret.push(nextItem);
 
     previousParents[nextItem[idField]] = true;
