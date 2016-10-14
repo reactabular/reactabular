@@ -1,3 +1,8 @@
+6.0.0 / 2016-xx-xx
+==================
+
+  * Breaking - Drop `styles` prop. Use `props` instead.
+
 5.3.0 / 2016-10-05
 ==================
 

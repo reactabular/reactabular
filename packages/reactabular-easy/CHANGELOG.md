@@ -2,6 +2,7 @@
 ==================
 
   * Breaking - Expose `idField` and `parentField` `props` for customizing tree field types. Earlier `rowKey` handled `idField` but now it has been separated for clarity.
+  * Breaking - Drop `styles` prop. Use `props` instead.
 
 5.3.0 / 2016-10-05
 ==================

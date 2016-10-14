@@ -10,12 +10,6 @@ const resizableColumn = (
       container: {},
       value: {},
       handle: {}
-    },
-    // XXXXX: remove in the next major version
-    styles = {
-      container: {},
-      value: {},
-      handle: {}
     }
   }
 ) => {
@@ -48,18 +42,15 @@ const resizableColumn = (
                 this.column = column;
               }
             }}
-            style={styles.container}
             {...props.container}
           >
             <span
               className="resize-value"
-              style={styles.value}
               {...props.value}
             >{label}</span>
             <span
               className="resize-handle"
               onMouseDown={this.onMouseDown}
-              style={styles.handle}
               {...props.handle}
             >
               &nbsp;

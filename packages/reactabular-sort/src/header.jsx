@@ -16,8 +16,6 @@ const header = ({
     value: {},
     order: {}
   },
-  // XXXXX: remove in the next major version
-  styles = {},
   strategy = strategies.byIndex
 }) => {
   if (!sortable) {
@@ -26,11 +24,6 @@ const header = ({
   if (!getSortingColumns) {
     throw new Error('header - Missing getSortingColumns!');
   }
-
-  const headerStyles = {
-    ...defaultStyles,
-    ...styles
-  };
 
   return (value, extra) => {
     const sortingColumns = getSortingColumns();
@@ -42,12 +35,12 @@ const header = ({
     return (
       <div
         className="sort-container"
-        style={headerStyles.container}
+        style={defaultStyles.container}
         {...props.container}
       >
         <span
           className="sort-value"
-          style={headerStyles.value}
+          style={defaultStyles.value}
           {...props.value}
         >
           {value}
@@ -55,7 +48,7 @@ const header = ({
         {{}.hasOwnProperty.call(sortingColumn, 'position') ?
           <span
             className="sort-order"
-            style={headerStyles.order}
+            style={defaultStyles.order}
             {...props.order}
           >
             {sortingPosition + 1}

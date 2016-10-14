@@ -4,6 +4,7 @@
 ## reactabular-easy
 
   * Breaking - Expose `idField` and `parentField` `props` for customizing tree field types. Earlier `rowKey` handled `idField` but now it has been separated for clarity.
+  * Breaking - Drop `styles` prop. Use `props` instead.
 
 ## reactabular-search
 
@@ -14,6 +15,14 @@
 
   * Bug fix - Make toggling behavior rely on `property` over `id`. Now the behavior is more consistent with filtered sets. #216
   * Bug fix - If `column.property` is not set, generate key based on column index instead.
+
+## reactabular-resizable
+
+  * Breaking - Drop `styles` prop. Use `props` instead.
+
+## reactabular-sort
+
+  * Breaking - Drop `styles` prop. Use `props` instead.
 
 ## reactabular-table
 

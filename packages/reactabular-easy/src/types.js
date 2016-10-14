@@ -63,19 +63,6 @@ const defaultProps = {
       order: {}
     }
   },
-  // XXXXX: deprecate in the next major version
-  styles: {
-    resize: {
-      container: {},
-      value: {},
-      handle: {}
-    },
-    sort: {
-      container: {},
-      value: {},
-      order: {}
-    }
-  },
   components: {},
   toggleChildrenProps: {},
   // Custom tree fields
