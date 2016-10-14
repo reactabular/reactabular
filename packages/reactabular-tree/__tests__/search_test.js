@@ -81,4 +81,34 @@ describe('tree.search', function () {
 
     expect(search({ columns, query })(given)).to.deep.equal(given);
   });
+
+  it('returns the same structure with an empty query', function () {
+    const given = [
+      {
+        _index: 0,
+        id: 0,
+        foo: 'bar'
+      },
+      {
+        _index: 1,
+        id: 1,
+        parent: 0,
+        foo: 'zoo'
+      },
+      {
+        _index: 2,
+        id: 2,
+        parent: 0,
+        foo: 'zoo'
+      }
+    ];
+    const columns = [
+      {
+        property: 'foo'
+      }
+    ];
+    const query = {};
+
+    expect(search({ columns, query })(given)).to.deep.equal(given);
+  });
 });

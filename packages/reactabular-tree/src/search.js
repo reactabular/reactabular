@@ -6,28 +6,34 @@ function searchTree({
   query,
   parentField = 'parent'
 } = {}) {
-  // Track fetched parents to get them into the results only once
-  const fetchedParents = {};
+  return rows => {
+    // Track fetched parents to get them into the results only once
+    const fetchedParents = {};
 
-  return rows => [].concat(
-    ...multipleColumns({
-      columns,
-      query
-    })(rows).map((row) => {
-      const rowParent = row[parentField];
+    if (!Object.keys(query).length) {
+      return rows;
+    }
 
-      if (fetchedParents[rowParent]) {
-        return row;
-      }
+    return [].concat(
+      ...multipleColumns({
+        columns,
+        query
+      })(rows).map((row) => {
+        const rowParent = row[parentField];
 
-      fetchedParents[rowParent] = true;
+        if (fetchedParents[rowParent]) {
+          return row;
+        }
 
-      return getParents({
-        index: row._index,
-        parentField
-      })(rows).concat(row);
-    }).filter(a => a)
-  );
+        fetchedParents[rowParent] = true;
+
+        return getParents({
+          index: row._index,
+          parentField
+        })(rows).concat(row);
+      }).filter(a => a)
+    );
+  };
 }
 
 export default searchTree;
