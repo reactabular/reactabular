@@ -1,6 +1,10 @@
 6.0.0 / 2016-xx-xx
 ==================
 
+## reactabular-easy
+
+  * Breaking - Expose `idField` and `parentField` `props` for customizing tree field types. Earlier `rowKey` handled `idField` but now it has been separated for clarity.
+
 ## reactabular-search
 
   * Breaking - `search.multipleColumns` and `search.singleColumn` now accept a `castingStrategy` parameter to define how to cast properties when searching. By default, everything by arrays is cast to a string.

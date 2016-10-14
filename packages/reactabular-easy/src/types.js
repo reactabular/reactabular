@@ -17,6 +17,9 @@ const propTypes = {
   styles: React.PropTypes.object,
   components: React.PropTypes.object,
   toggleChildrenProps: React.PropTypes.object,
+  // Custom tree fields
+  idField: React.PropTypes.string,
+  parentField: React.PropTypes.string,
   // Handlers
   onRow: React.PropTypes.func,
   onWidth: React.PropTypes.func,
@@ -75,6 +78,10 @@ const defaultProps = {
   },
   components: {},
   toggleChildrenProps: {},
+  // Custom tree fields
+  idField: 'id',
+  parentField: 'parent',
+  // Handlers
   onRow: () => ({}),
   onDragColumn: () => {},
   onMoveColumns: () => {},

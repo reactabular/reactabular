@@ -213,6 +213,10 @@ class EasyDemo extends React.Component {
             />
           }
           toggleChildrenProps={{ className: 'toggle-children' }}
+
+          idField="id"
+          parentField="parent"
+
           onDragColumn={this.onDragColumn}
           onMoveColumns={this.onMoveColumns}
           onSelectRow={this.onSelectRow}
