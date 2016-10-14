@@ -49,7 +49,7 @@ Filters the given rows using `fieldName`. This is handy if you want only rows th
 
 Returns the nesting level of the row at the given `index` within `rows`.
 
-`tree.getChildren = ({ index, idField = 'id', parentField = 'parent' }) => (rows) => [<parent>]`**
+**`tree.getChildren = ({ index, idField = 'id', parentField = 'parent' }) => (rows) => [<parent>]`**
 
 Returns children based on given `rows` and `index`.
 
