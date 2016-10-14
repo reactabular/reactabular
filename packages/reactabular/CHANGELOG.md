@@ -21,6 +21,7 @@
   * Breaking - Expose `childrenField` for `tree.pack` and `tree.unpack`. It defaults to `children`.
   * Breaking - Make `tree.pack` to work in a recursive manner (packs children within children).
   * Breaking - Make `tree.search` match against children as well. If children as matched, it will return parents as well.
+  * Feature - Add `tree.getChildren` utilities for getting node children.
 
 5.3.0 / 2016-10-05
 ==================
