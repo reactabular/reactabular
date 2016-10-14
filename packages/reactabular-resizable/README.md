@@ -88,6 +88,7 @@ class ResizableColumnsTable extends React.Component {
       const className = this.getClassName(column, i);
 
       stylesheet.updateProperties(
+        window,
         this.styleSheet,
         className,
         {
@@ -112,6 +113,7 @@ class ResizableColumnsTable extends React.Component {
 
         // Update the width of the changed column class
         stylesheet.updateProperties(
+          window,
           this.styleSheet,
           this.getClassName(column, columnIndex),
           {
