@@ -181,7 +181,6 @@ class CustomTable extends React.Component {
   }
   onRow(row, { rowIndex, rowKey }) {
     return {
-      className: rowIndex % 2 ? 'odd-row' : 'even-row',
       onClick: () => console.log('clicked row', row)
     };
   }
