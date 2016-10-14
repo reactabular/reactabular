@@ -284,7 +284,7 @@ class EasyDemo extends React.Component {
 
 ## Styling
 
-It is possible to pass custom `classNames` and `styles` as listed below:
+It is possible to pass custom `classNames` and `props` as listed below:
 
 ```js
 classNames: {
@@ -306,9 +306,13 @@ classNames: {
     */
   }
 },
-styles: {
+props: {
   resize: {
-    container: {},
+    container: {
+      style: {
+        color: 'red'
+      }
+    },
     value: {},
     handle: {}
   },

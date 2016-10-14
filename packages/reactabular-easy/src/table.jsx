@@ -138,11 +138,10 @@ class EasyTable extends React.Component {
       </Table.Provider>
     );
   }
-  bindColumns({ columns, styles, props }) {
+  bindColumns({ columns, props }) {
     const resizable = resizableColumn({
       onDrag: this.props.onDragColumn,
       props: props.resize,
-      styles: styles.resize,
       parent: this.props.window
     });
 
@@ -158,8 +157,7 @@ class EasyTable extends React.Component {
         this.props.onSort(sortingColumns);
       },
       strategy: sort.strategies.byProperty,
-      props: props.sort,
-      styles: styles.sort
+      props: props.sort
     });
     const resetable = sort.reset({
       event: 'onDoubleClick',
