@@ -563,7 +563,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
 	function resolveHeaderRows() {
-	  var columns = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var columns = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	
 	  var resolvedChildren = [];
 	
@@ -694,9 +694,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function evaluateTransforms() {
-	  var transforms = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var transforms = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var value = arguments[1];
-	  var extraParameters = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+	  var extraParameters = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 	
 	  return transforms.map(function (transform) {
 	    return transform(value, extraParameters);
@@ -726,8 +726,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function mergePropPair() {
-	  var a = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	  var b = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	  var a = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 	
 	  var ret = _extends({}, a, b, {
 	    style: _extends({}, a.style, b.style),
@@ -1029,6 +1029,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isEqual2 = _interopRequireDefault(_isEqual);
 	
+	var _isFunction = __webpack_require__(41);
+	
+	var _isFunction2 = _interopRequireDefault(_isFunction);
+	
 	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -1070,6 +1074,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // Skip checking props against `onRow` since that can be bound at render().
 	      // That's not particularly good practice but you never know how the users
 	      // prefer to define the handler.
+	
+	      // Check for wrapper based override.
+	      var components = nextContext.components;
+	
+	
+	      if (components && components.body && components.body.wrapper.shouldComponentUpdate) {
+	        if ((0, _isFunction2.default)(components.body.wrapper.shouldComponentUpdate)) {
+	          return components.body.wrapper.shouldComponentUpdate.call(this, nextProps, nextState, nextContext);
+	        }
+	
+	        return true;
+	      }
 	
 	      return !((0, _isEqual2.default)(omitOnRow(this.props), omitOnRow(nextProps)) && (0, _isEqual2.default)(this.context, nextContext));
 	    }
@@ -3680,6 +3696,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isEqual2 = _interopRequireDefault(_isEqual);
 	
+	var _isFunction = __webpack_require__(41);
+	
+	var _isFunction2 = _interopRequireDefault(_isFunction);
+	
 	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -3716,6 +3736,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	      if (components && components.row && components.row.shouldComponentUpdate) {
+	        if ((0, _isFunction2.default)(components.row.shouldComponentUpdate)) {
+	          return components.row.shouldComponentUpdate.call(this, nextProps);
+	        }
+	
 	        return true;
 	      }
 	
@@ -4067,6 +4091,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var multipleColumns = function multipleColumns(_ref) {
+	  var castingStrategy = _ref.castingStrategy;
 	  var columns = _ref.columns;
 	  var query = _ref.query;
 	  var strategy = _ref.strategy;
@@ -4074,6 +4099,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return function (data) {
 	    return query ? Object.keys(query).reduce(function (filteredData, searchColumn) {
 	      return (0, _single_column2.default)({
+	        castingStrategy: castingStrategy,
 	        columns: columns,
 	        searchColumn: searchColumn,
 	        query: query[searchColumn],
@@ -4103,6 +4129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var singleColumn = function singleColumn(_ref) {
+	  var castingStrategy = _ref.castingStrategy;
 	  var columns = _ref.columns;
 	  var _ref$searchColumn = _ref.searchColumn;
 	  var searchColumn = _ref$searchColumn === undefined ? 'all' : _ref$searchColumn;
@@ -4125,7 +4152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return rows.filter(function (row) {
 	      return ret.filter(function (column) {
 	        return (0, _column_matches2.default)({
-	          query: query, column: column, strategy: strategy, transform: transform, row: row
+	          query: query, castingStrategy: castingStrategy, column: column, strategy: strategy, transform: transform, row: row
 	        });
 	      }).length > 0;
 	    });
@@ -4152,6 +4179,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _columnMatches = function _columnMatches(_ref) {
 	  var query = _ref.query;
+	  var _ref$castingStrategy = _ref.castingStrategy;
+	  var castingStrategy = _ref$castingStrategy === undefined ? function (v) {
+	    return Array.isArray(v) ? v : String(v);
+	  } : _ref$castingStrategy;
 	  var _ref$column = _ref.column;
 	  var column = _ref$column === undefined ? {} : _ref$column;
 	  var row = _ref.row;
@@ -4159,13 +4190,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var strategy = _ref$strategy === undefined ? _strategies2.default.infix : _ref$strategy;
 	  var _ref$transform = _ref.transform;
 	  var transform = _ref$transform === undefined ? function () {
-	    var v = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+	    var v = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 	    return v && v.toLowerCase && v.toLowerCase();
 	  } : _ref$transform;
 	
 	  var property = column.property;
 	  // Pick resolved value by convention
-	  var resolvedValue = String(row['_' + property] || row[property]);
+	  var resolvedValue = castingStrategy(row['_' + property] || row[property]);
 	
 	  return strategy(transform(query)).evaluate(transform(resolvedValue));
 	};
@@ -4184,26 +4215,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	var infix = function infix(queryTerm) {
 	  return {
 	    evaluate: function evaluate() {
-	      var searchText = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+	      var _this = this;
+	
+	      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 	
 	      if (!searchText) {
 	        return false;
 	      }
 	
+	      if (Array.isArray(searchText)) {
+	        return searchText.some(function (v) {
+	          return _this.evaluate(v);
+	        });
+	      }
+	
 	      return searchText.indexOf(queryTerm) !== -1;
 	    },
 	    matches: function matches() {
-	      var searchText = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+	      var _this2 = this;
+	
+	      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 	
 	      if (!searchText) {
 	        return [];
+	      }
+	
+	      if (Array.isArray(searchText)) {
+	        return searchText.reduce(function (result, text, index) {
+	          var search = _this2.matches(text);
+	
+	          if (search.length) {
+	            result[index] = search; // eslint-disable-line no-param-reassign
+	          }
+	
+	          return result;
+	        }, new Array(searchText.length));
 	      }
 	
 	      var splitString = searchText.split(queryTerm);
 	      var result = [];
 	      var currentPosition = 0;
 	
-	      for (var x = 0; x < splitString.length; x++) {
+	      for (var x = 0; x < splitString.length; x += 1) {
 	        result.push({
 	          startIndex: currentPosition + splitString[x].length,
 	          length: queryTerm.length
@@ -4222,19 +4275,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	var prefix = function prefix(queryTerm) {
 	  return {
 	    evaluate: function evaluate() {
-	      var searchText = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+	      var _this3 = this;
+	
+	      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 	
 	      if (!searchText) {
 	        return false;
 	      }
 	
+	      if (Array.isArray(searchText)) {
+	        return searchText.some(function (v) {
+	          return _this3.evaluate(v);
+	        });
+	      }
+	
 	      return searchText.indexOf(queryTerm) === 0;
 	    },
 	    matches: function matches() {
-	      var searchText = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+	      var _this4 = this;
+	
+	      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 	
 	      if (!searchText) {
 	        return [];
+	      }
+	
+	      if (Array.isArray(searchText)) {
+	        return searchText.reduce(function (result, text, index) {
+	          var search = _this4.matches(text);
+	
+	          if (search.length) {
+	            result[index] = search; // eslint-disable-line no-param-reassign
+	          }
+	
+	          return result;
+	        }, new Array(searchText.length));
 	      }
 	
 	      var prefixIndex = searchText.indexOf(queryTerm);
@@ -4273,7 +4348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var matches = function matches() {
-	  var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	
 	  var value = _ref.value;
 	  var query = _ref.query;
@@ -4717,7 +4792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var v = newSortingColumns[k];
 	
 	          if (v.position > oldPosition) {
-	            v.position--;
+	            v.position -= 1;
 	          }
 	        });
 	      })();
@@ -7607,7 +7682,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	var _cloneDeep = __webpack_require__(113);
 	
@@ -7655,7 +7730,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var v = newSortingColumns[k];
 	
 	          if (v.position < oldPosition) {
-	            v.position++;
+	            v.position += 1;
 	          }
 	        });
 	        newSortingColumns[selectedColumn] = {
@@ -7670,7 +7745,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var v = newSortingColumns[k];
 	
 	          if (v.position > oldPosition) {
-	            v.position--;
+	            v.position -= 1;
 	          }
 	        });
 	      }
@@ -7687,7 +7762,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  newSortingColumns = (0, _cloneDeep2.default)(sortingColumns);
 	  Object.keys(newSortingColumns).forEach(function (k) {
 	    var v = newSortingColumns[k];
-	    v.position++;
+	    v.position += 1;
 	  });
 	
 	  return _extends({}, newSortingColumns, _defineProperty({}, selectedColumn, {
@@ -7736,8 +7811,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: {},
 	    order: {}
 	  } : _ref$props;
-	  var _ref$styles = _ref.styles;
-	  var styles = _ref$styles === undefined ? {} : _ref$styles;
 	  var _ref$strategy = _ref.strategy;
 	  var strategy = _ref$strategy === undefined ? _strategies2.default.byIndex : _ref$strategy;
 	
@@ -7748,8 +7821,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    throw new Error('header - Missing getSortingColumns!');
 	  }
 	
-	  var headerStyles = _extends({}, defaultStyles, styles);
-	
 	  return function (value, extra) {
 	    var sortingColumns = getSortingColumns();
 	    var sortingColumn = sortingColumns && sortingColumns[extra[strategy.fieldName]] || {};
@@ -7759,13 +7830,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      'div',
 	      _extends({
 	        className: 'sort-container',
-	        style: headerStyles.container
+	        style: defaultStyles.container
 	      }, props.container),
 	      _react2.default.createElement(
 	        'span',
 	        _extends({
 	          className: 'sort-value',
-	          style: headerStyles.value
+	          style: defaultStyles.value
 	        }, props.value),
 	        value
 	      ),
@@ -7773,7 +7844,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        'span',
 	        _extends({
 	          className: 'sort-order',
-	          style: headerStyles.order
+	          style: defaultStyles.order
 	        }, props.order),
 	        sortingPosition + 1
 	      ) : null,
@@ -9612,7 +9683,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// sorter === lodash orderBy
 	// https://lodash.com/docs#orderBy
 	var sorter = function sorter() {
-	  var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	
 	  var columns = _ref.columns;
 	  var sortingColumns = _ref.sortingColumns;
@@ -9753,7 +9824,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
 	var sort = function sort() {
-	  var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	
 	  var _ref$event = _ref.event;
 	  var event = _ref$event === undefined ? 'onClick' : _ref$event;
@@ -9766,7 +9837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _ref$strategy = _ref.strategy;
 	  var strategy = _ref$strategy === undefined ? _strategies2.default.byIndex : _ref$strategy;
 	  return function (_value, extra) {
-	    var _ref2 = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+	    var _ref2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 	
 	    var className = _ref2.className;
 	
@@ -9847,7 +9918,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var highlightCell = function highlightCell(value) {
-	  var _ref = arguments.length <= 1 || arguments[1] === undefined ? { rowData: { _highlights: {} } } : arguments[1];
+	  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { rowData: { _highlights: {} } };
 	
 	  var rowData = _ref.rowData;
 	  var property = _ref.property;
@@ -9887,7 +9958,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var currentPosition = 0;
 	  var x = 0;
 	
-	  for (x = 0; x < highlights.length; x++) {
+	  for (x = 0; x < highlights.length; x += 1) {
 	    var nonMatchingPrefix = val.slice(currentPosition, highlights[x].startIndex);
 	    var matchingText = val.slice(highlights[x].startIndex, highlights[x].startIndex + highlights[x].length);
 	
@@ -9934,7 +10005,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	function highlighter() {
-	  var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	
 	  var columns = _ref.columns;
 	  var matches = _ref.matches;
@@ -10065,7 +10136,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var resolvedColumns = (0, _reactabularUtils.resolveBodyColumns)(columns);
 	
 	  return function () {
-	    var rows = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	    var rows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	    return rows.map(function (rowData, rowIndex) {
 	      var ret = {};
 	
@@ -12107,12 +12178,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: {},
 	    handle: {}
 	  } : _ref$props;
-	  var _ref$styles = _ref.styles;
-	  var styles = _ref$styles === undefined ? {
-	    container: {},
-	    value: {},
-	    handle: {}
-	  } : _ref$styles;
 	
 	  if (!onDrag) {
 	    throw new Error('resizableColumn - Missing onDrag!');
@@ -12154,14 +12219,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (column) {
 	                  _this2.column = column;
 	                }
-	              },
-	              style: styles.container
+	              }
 	            }, props.container),
 	            _react2.default.createElement(
 	              'span',
 	              _extends({
-	                className: 'resize-value',
-	                style: styles.value
+	                className: 'resize-value'
 	              }, props.value),
 	              label
 	            ),
@@ -12169,10 +12232,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	              'span',
 	              _extends({
 	                className: 'resize-handle',
-	                onMouseDown: this.onMouseDown,
-	                style: styles.handle
+	                onMouseDown: this.onMouseDown
 	              }, props.handle),
-	              ' '
+	              '\xA0'
 	            )
 	          );
 	        }
@@ -12251,13 +12313,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    columns.map(function (column, i) {
 	      return _react2.default.createElement(
 	        "th",
-	        { key: i + "-column-filter", className: "column-filter" },
+	        { key: (column.property || i) + "-column-filter", className: "column-filter" },
 	        column && column.property ? _react2.default.createElement("input", {
 	          onChange: onQueryChange,
 	          className: "column-filter-input",
 	          name: column.property,
 	          placeholder: column.filterPlaceholder || '',
-	          value: query[i]
+	          value: query[column.property]
 	        }) : ''
 	      );
 	    })
