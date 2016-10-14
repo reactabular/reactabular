@@ -1,4 +1,4 @@
-6.0.0 / 2016-xx-xx
+6.0.0 / 2016-10-14
 ==================
 
   * Improvement - Allow table body and body row `shouldComponentUpdate` to be overridden.

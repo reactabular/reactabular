@@ -1,4 +1,4 @@
-6.0.0 / 2016-xx-xx
+6.0.0 / 2016-10-14
 ==================
 
   * Breaking - Drop `styles` prop. Use `props` instead.

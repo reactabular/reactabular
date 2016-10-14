@@ -1,4 +1,4 @@
-6.0.0 / 2016-xx-xx
+6.0.0 / 2016-10-14
 ==================
 
   * Bug fix - Make toggling behavior rely on `property` over `id`. Now the behavior is more consistent with filtered sets. #216

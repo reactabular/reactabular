@@ -1,4 +1,4 @@
-6.0.0 / 2016-xx-xx
+6.0.0 / 2016-10-14
 ==================
 
   * Breaking - `search.multipleColumns` and `search.singleColumn` now accept a `castingStrategy` parameter to define how to cast properties when searching. By default, everything by arrays is cast to a string.

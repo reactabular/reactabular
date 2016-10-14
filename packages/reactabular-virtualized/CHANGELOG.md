@@ -1,4 +1,4 @@
-6.0.0 / 2016-xx-xx
+6.0.0 / 2016-10-14
 ==================
 
   * Feature - Add `scrollTo(index)` method to `Virtualized.Body` `ref`.

@@ -1,4 +1,4 @@
-6.0.0 / 2016-xx-xx
+6.0.0 / 2016-10-14
 ==================
 
   * Breaking - Expose `idField` and `parentField` `props` for customizing tree field types. Earlier `rowKey` handled `idField` but now it has been separated for clarity.
