@@ -1,3 +1,4 @@
+import uniq from 'lodash/uniq';
 import { multipleColumns } from 'reactabular-search';
 import getParents from './get-parents';
 
@@ -14,7 +15,7 @@ function searchTree({
       return rows;
     }
 
-    return [].concat(
+    return uniq([].concat(
       ...multipleColumns({
         columns,
         query
@@ -32,7 +33,7 @@ function searchTree({
           parentField
         })(rows).concat(row);
       }).filter(a => a)
-    );
+    ));
   };
 }
 
