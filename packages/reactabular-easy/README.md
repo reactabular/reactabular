@@ -17,6 +17,7 @@ import VisibilityToggles from 'reactabular-visibility-toggles';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import cloneDeep from 'lodash/cloneDeep';
+import findIndex from 'lodash/findIndex';
 
 import {
   generateParents, generateRows
