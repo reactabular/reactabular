@@ -4,7 +4,8 @@ The following example implements a light version of Excel through the transform 
 /*
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
-import { Table, edit } from 'reactabular';
+import { Table } from 'reactabular';
+import * as edit from 'react-edit';
 */
 
 class ExcelTable extends React.Component {
