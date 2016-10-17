@@ -82,6 +82,7 @@ const commonSite = {
     new HtmlWebpackPlugin({
       template: config.paths.indexTemplate,
       inject: false,
+      mobile: true,
       title: pkg.name,
       appMountId: 'app'
     }),
