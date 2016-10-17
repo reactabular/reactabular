@@ -1,6 +1,6 @@
 {
   "name": "reactabular",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Spectacular tables for React",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
@@ -41,7 +41,7 @@
     "reactabular-search-columns": "^6.0.0",
     "reactabular-search-field": "^6.0.0",
     "reactabular-select": "^6.0.0",
-    "reactabular-sticky": "^6.0.0",
+    "reactabular-sticky": "^6.0.1",
     "reactabular-sort": "^6.0.0",
     "reactabular-table": "^6.0.0"
   },
