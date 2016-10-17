@@ -5,7 +5,8 @@ The following example shows how to implement basic editing functionality.
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
-import { Table, edit } from 'reactabular';
+import { Table } from 'reactabular';
+import * as edit from 'react-edit';
 import uuid from 'uuid';
 
 import { generateRows } from './helpers';
