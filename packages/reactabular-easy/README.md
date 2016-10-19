@@ -68,6 +68,7 @@ class EasyDemo extends React.Component {
       sortingColumns: {},
       query: {}
     };
+    this.table = null;
 
     this.onDragColumn = this.onDragColumn.bind(this);
     this.onToggleColumn = this.onToggleColumn.bind(this);
@@ -183,6 +184,16 @@ class EasyDemo extends React.Component {
           onToggleColumn={this.onToggleColumn}
         />
 
+        <div className="scroll-container">
+          <label>Scroll to index: </label>
+          <div>
+            <input
+              type="text"
+              onChange={e => this.table.tableBody.scrollTo(e.target.value)}
+            />
+          </div>
+        </div>
+
         <div className="search-container">
           <span>Search</span>
           <Search
@@ -194,6 +205,9 @@ class EasyDemo extends React.Component {
         </div>
 
         <EasyTable
+          ref={table => {
+            this.table = table
+          }}
           rows={rows}
           rowKey="id"
           sortingColumns={sortingColumns}

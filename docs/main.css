@@ -17,6 +17,11 @@ table {
 .per-page-container input {
     margin-left: 1em;
 }
+.scroll-container {
+    margin: 1em;
+
+    float: left;
+}
 .search-container {
     margin: 1em;
 

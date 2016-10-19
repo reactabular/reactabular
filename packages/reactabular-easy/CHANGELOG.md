@@ -1,3 +1,8 @@
+6.0.2 / 2016-10-19
+==================
+
+  * Improvement - Add an example showing how to access `scrollTo`.
+
 6.0.0 / 2016-10-14
 ==================
 
