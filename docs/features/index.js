@@ -8,6 +8,11 @@ export default rootPath => ({
       component: require('./inline-editing.md')
     },
     {
+      path: `${rootPath}/sorting`,
+      title: 'Sorting',
+      component: require('reactabular-sort/../README.md')
+    },
+    {
       path: `${rootPath}/resizing-columns`,
       title: 'Resizing Columns',
       component: require('reactabular-resizable/../README.md')
