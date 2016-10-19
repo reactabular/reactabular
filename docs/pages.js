@@ -4,6 +4,7 @@ import columnDefinitionPages from './column-definition';
 import dataPages from './data';
 import featuresPages from './features';
 import examplesPages from './examples';
+import searchPages from './search';
 import contributingPages from './contributing';
 
 export default [
@@ -20,6 +21,7 @@ export default [
   tablePages('table'),
   columnDefinitionPages('column-definition'),
   dataPages('data'),
+  searchPages('search'),
   featuresPages('features'),
   {
     path: 'easy',

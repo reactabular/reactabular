@@ -8,24 +8,9 @@ export default rootPath => ({
       component: require('reactabular-resolve/../README.md')
     },
     {
-      path: `${rootPath}/search-algorithms`,
-      title: 'Search Algorithms',
-      component: require('reactabular-search/../README.md')
-    },
-    {
-      path: `${rootPath}/search-per-field`,
-      title: 'Search per Field',
-      component: require('reactabular-search-field/../README.md')
-    },
-    {
-      path: `${rootPath}/search-columns`,
-      title: 'Search Columns',
-      component: require('reactabular-search-columns/../README.md')
-    },
-    {
-      path: `${rootPath}/highlighting-search-results`,
-      title: 'Highlighting Search Results',
-      component: require('reactabular-highlight/../README.md')
+      path: `${rootPath}/inline-editing`,
+      title: 'Inline Editing',
+      component: require('./inline-editing.md')
     },
     {
       path: `${rootPath}/sorting`,
@@ -36,6 +21,16 @@ export default rootPath => ({
       path: `${rootPath}/paginating`,
       title: 'Paginating',
       component: require('./paginating.md')
+    },
+    {
+      path: `${rootPath}/drag-and-drop`,
+      title: 'Drag and Drop',
+      component: require('reactabular-dnd/../README.md')
+    },
+    {
+      path: `${rootPath}/tree`,
+      title: 'Tree',
+      component: require('reactabular-tree/../README.md')
     }
   ]
 });
