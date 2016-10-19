@@ -1,3 +1,18 @@
+6.0.3 / 2016-10-19
+==================
+
+## reactabular-easy
+
+  * Bug fix - Bump peer version ranges to avoid npm warnings.
+
+## reactabular-tree
+
+  * Bug fix - Bump peer version ranges to avoid npm warnings.
+
+## reactabular-virtualized
+
+  * Bug fix - Bump peer version ranges to avoid npm warnings.
+
 6.0.2 / 2016-10-19
 ==================
 

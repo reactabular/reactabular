@@ -1,3 +1,8 @@
+6.0.3 / 2016-10-19
+==================
+
+  * Bug fix - Bump peer version ranges to avoid npm warnings.
+
 6.0.2 / 2016-10-19
 ==================
 
