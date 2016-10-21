@@ -163,7 +163,6 @@ describe('tree.pack', function () {
         foo: 'barbar'
       }
     ];
-    // TODO: this could be made recursive
     const expected = [
       {
         id: 0,
