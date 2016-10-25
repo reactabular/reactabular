@@ -8,6 +8,7 @@ const filterTree = fieldName => rows => rows.filter((item, index) => {
 
   const parents = getParents({ index })(rows);
 
+  // XXX: this can fail if parent[fieldName] returns zero!
   return parents.filter(
     parent => parent[fieldName]
   ).length === parents.length;
