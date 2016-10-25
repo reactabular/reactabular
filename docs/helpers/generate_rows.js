@@ -15,6 +15,9 @@ const generateRows = (amount, { definitions, properties }) => range(amount).map(
       id() {
         return uuid.v4();
       },
+      Id() {
+        return uuid.v4();
+      },
       boss() {
         return {
           name: this.name()
