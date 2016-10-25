@@ -1,4 +1,4 @@
-function generateParents(rows) {
+function generateParents(rows, idField = 'id') {
   let previousParent;
 
   return rows.map((d) => {
@@ -14,7 +14,7 @@ function generateParents(rows) {
       // Back to root
       previousParent = null;
     } else {
-      previousParent = d.id;
+      previousParent = d[idField];
     }
 
     return ret;
