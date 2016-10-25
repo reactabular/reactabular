@@ -137,4 +137,4 @@ const rows = [
 ## See Also
 
 * [All Features](http://reactabular.js.org/#/examples/all-features)
-* [Drag and Drop](http://reactabular.js.org/#/examples/drag-and-drop)
+* [Drag and Drop](http://reactabular.js.org/#/data/drag-and-drop)
