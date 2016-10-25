@@ -1,6 +1,10 @@
 6.1.0 / 2016-10-25
 ==================
 
+## reactabular-easy
+
+  * Bug fix - Make sure `idField` `prop` works correctly. `tree.sort` needed to receive `idField` for the logic to work.
+
 ## reactabular-tree
 
   * Feature - Allow `idField` to be passed to `tree.sort`.

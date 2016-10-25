@@ -75,6 +75,7 @@ class EasyTable extends React.Component {
       tree.filter('showingChildren'),
       tree.sort({
         columns,
+        idField,
         sortingColumns,
         strategy: sort.strategies.byProperty
       }),

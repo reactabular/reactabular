@@ -1,3 +1,8 @@
+6.1.0 / 2016-10-25
+==================
+
+  * Bug fix - Make sure `idField` `prop` works correctly. `tree.sort` needed to receive `idField` for the logic to work.
+
 6.0.3 / 2016-10-19
 ==================
 

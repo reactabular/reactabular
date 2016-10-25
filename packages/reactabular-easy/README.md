@@ -27,7 +27,7 @@ import {
 const schema = {
   type: 'object',
   properties: {
-    id: {
+    Id: {
       type: 'string'
     },
     name: {
@@ -43,7 +43,7 @@ const schema = {
       $ref: '#/definitions/boss'
     }
   },
-  required: ['id', 'name', 'company', 'age', 'boss'],
+  required: ['Id', 'name', 'company', 'age', 'boss'],
   definitions: {
     boss: {
       type: 'object',
@@ -56,7 +56,7 @@ const schema = {
     }
   }
 };
-const rows = generateParents(generateRows(1000, schema));
+const rows = generateParents(generateRows(1000, schema), 'Id');
 
 class EasyDemo extends React.Component {
   constructor(props) {
@@ -160,7 +160,7 @@ class EasyDemo extends React.Component {
               />
               <span
                 className="remove"
-                onClick={() => this.onRemove(rowData.id)}
+                onClick={() => this.onRemove(rowData.Id)}
                 style={{ marginLeft: '1em', cursor: 'pointer' }}
               >
                 &#10007;
@@ -209,7 +209,7 @@ class EasyDemo extends React.Component {
             this.table = table
           }}
           rows={rows}
-          rowKey="id"
+          rowKey="Id"
           sortingColumns={sortingColumns}
           tableWidth={800}
           tableHeight={400}
@@ -229,7 +229,7 @@ class EasyDemo extends React.Component {
           }
           toggleChildrenProps={{ className: 'toggle-children' }}
 
-          idField="id"
+          idField="Id"
           parentField="parent"
 
           onDragColumn={this.onDragColumn}
@@ -274,7 +274,7 @@ class EasyDemo extends React.Component {
   }
   onRemove(id) {
     const rows = cloneDeep(this.state.rows);
-    const idx = findIndex(rows, { id });
+    const idx = findIndex(rows, { Id });
 
     // this could go through flux etc.
     rows.splice(idx, 1);
