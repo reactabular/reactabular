@@ -67,7 +67,7 @@ Searches against a tree structure while matching against children too. If childr
 
 > This depends on [resolve.index](http://reactabular.js.org/#/data/resolving)!
 
-**`tree.sort = ({ columns, sortingColumns, strategy }) => (rows) => <sortedRows>`**
+**`tree.sort = ({ columns, sortingColumns, strategy, idField = 'id' }) => (rows) => <sortedRows>`**
 
 Sorts a tree (packs/unpacks internally to maintain root level sorting).
 

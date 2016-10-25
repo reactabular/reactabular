@@ -1,3 +1,10 @@
+6.1.0 / 2016-10-25
+==================
+
+## reactabular-tree
+
+  * Feature - Allow `idField` to be passed to `tree.sort`.
+
 6.0.3 / 2016-10-19
 ==================
 

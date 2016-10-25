@@ -6,18 +6,23 @@ import unpack from './unpack';
 
 function sortTree({
   columns,
+  idField,
   sortingColumns,
   strategy
-}) {
+} = {}) {
   return compose(
-    unpack(),
+    unpack({
+      idField
+    }),
     sorter({
       columns,
       sortingColumns,
       sort: orderBy,
       strategy
     }),
-    pack()
+    pack({
+      idField
+    })
   );
 }
 
