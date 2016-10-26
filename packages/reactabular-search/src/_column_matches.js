@@ -1,12 +1,15 @@
 import strategies from './strategies';
 
+const defaultTransform = (v = '') => v && v.toLowerCase && v.toLowerCase();
+const defaultCastingStrategy = v => (Array.isArray(v) ? v : String(v));
+
 const _columnMatches = ({
   query,
-  castingStrategy = v => (Array.isArray(v) ? v : String(v)),
+  castingStrategy = defaultCastingStrategy,
   column = {},
   row,
   strategy = strategies.infix,
-  transform = (v = '') => v && v.toLowerCase && v.toLowerCase()
+  transform = defaultTransform
 }) => {
   const property = column.property;
   if (!property) {
