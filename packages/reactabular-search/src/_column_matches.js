@@ -9,8 +9,15 @@ const _columnMatches = ({
   transform = (v = '') => v && v.toLowerCase && v.toLowerCase()
 }) => {
   const property = column.property;
+  if (!property) {
+    return false;
+  }
+  const value = row[`_${property}`] || row[property];
+  if (value == null) {
+    return false;
+  }
   // Pick resolved value by convention
-  const resolvedValue = castingStrategy(row[`_${property}`] || row[property]);
+  const resolvedValue = castingStrategy(value);
 
   return strategy(transform(query)).evaluate(transform(resolvedValue));
 };
