@@ -1,3 +1,10 @@
+6.1.1 / 2016-10-27
+==================
+
+## reactabular-search
+
+  * Bug fix - Return `false` if `property` is not defined. #228
+
 6.1.0 / 2016-10-25
 ==================
 
