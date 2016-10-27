@@ -49,4 +49,36 @@ describe('tree.filter', function () {
 
     expect(filter('showingChildren')(given)).to.deep.equal(expected);
   });
+
+  it('works if parent id is zero', function () {
+    const given = [
+      {
+        foo: 'bar'
+      },
+      {
+        id: 0,
+        foo: 'foo',
+        showingChildren: false
+      },
+      {
+        id: 234,
+        parent: 0,
+        foo: 'foo'
+      }
+    ];
+    const expected = [
+      {
+        foo: 'bar'
+      },
+      {
+        id: 0,
+        foo: 'foo',
+        showingChildren: false
+      }
+    ];
+
+    console.log(filter('showingChildren')(given));
+
+    expect(filter('showingChildren')(given)).to.deep.equal(expected);
+  });
 });

@@ -5,6 +5,10 @@
 
   * Bug fix - Return `false` if `property` is not defined. #228
 
+## reactabular-tree
+
+  * Bug fix - Allow `tree.filter` `parent` to be zero.
+
 6.1.0 / 2016-10-25
 ==================
 
