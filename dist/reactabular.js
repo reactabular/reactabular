@@ -4177,26 +4177,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var defaultTransform = function defaultTransform() {
+	  var v = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	  return v && v.toLowerCase && v.toLowerCase();
+	};
+	var defaultCastingStrategy = function defaultCastingStrategy(v) {
+	  return Array.isArray(v) ? v : String(v);
+	};
+	
 	var _columnMatches = function _columnMatches(_ref) {
 	  var query = _ref.query;
 	  var _ref$castingStrategy = _ref.castingStrategy;
-	  var castingStrategy = _ref$castingStrategy === undefined ? function (v) {
-	    return Array.isArray(v) ? v : String(v);
-	  } : _ref$castingStrategy;
+	  var castingStrategy = _ref$castingStrategy === undefined ? defaultCastingStrategy : _ref$castingStrategy;
 	  var _ref$column = _ref.column;
 	  var column = _ref$column === undefined ? {} : _ref$column;
 	  var row = _ref.row;
 	  var _ref$strategy = _ref.strategy;
 	  var strategy = _ref$strategy === undefined ? _strategies2.default.infix : _ref$strategy;
 	  var _ref$transform = _ref.transform;
-	  var transform = _ref$transform === undefined ? function () {
-	    var v = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-	    return v && v.toLowerCase && v.toLowerCase();
-	  } : _ref$transform;
+	  var transform = _ref$transform === undefined ? defaultTransform : _ref$transform;
 	
 	  var property = column.property;
+	  if (!property) {
+	    return false;
+	  }
+	  var value = row['_' + property] || row[property];
+	  if (value == null) {
+	    return false;
+	  }
 	  // Pick resolved value by convention
-	  var resolvedValue = castingStrategy(row['_' + property] || row[property]);
+	  var resolvedValue = castingStrategy(value);
 	
 	  return strategy(transform(query)).evaluate(transform(resolvedValue));
 	};
