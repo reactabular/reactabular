@@ -76,24 +76,6 @@ function moveLabels(columns, { sourceLabel, targetLabel }) {
   };
 }
 
-function move(data, sourceIndex, targetIndex) {
-  // Idea
-  // a, b, c, d, e -> move(b, d) -> a, c, d, b, e
-  // a, b, c, d, e -> move(d, a) -> d, a, b, c, e
-  // a, b, c, d, e -> move(a, d) -> b, c, d, a, e
-  const sourceItem = data[sourceIndex];
-
-  // 1. detach - a, c, d, e - a, b, c, e, - b, c, d, e
-  const ret = data.slice(0, sourceIndex).concat(
-    data.slice(sourceIndex + 1)
-  );
-
-  // 2. attach - a, c, d, b, e - d, a, b, c, e - b, c, d, a, e
-  return ret.slice(0, targetIndex).concat([sourceItem]).concat(
-    ret.slice(targetIndex)
-  );
-}
-
 function moveRows(rows, { sourceRowId, targetRowId }) {
   const sourceIndex = findIndex(
     rows,
@@ -114,6 +96,24 @@ function moveRows(rows, { sourceRowId, targetRowId }) {
   }
 
   return move(rows, sourceIndex, targetIndex);
+}
+
+function move(data, sourceIndex, targetIndex) {
+  // Idea
+  // a, b, c, d, e -> move(b, d) -> a, c, d, b, e
+  // a, b, c, d, e -> move(d, a) -> d, a, b, c, e
+  // a, b, c, d, e -> move(a, d) -> b, c, d, a, e
+  const sourceItem = data[sourceIndex];
+
+  // 1. detach - a, c, d, e - a, b, c, e, - b, c, d, e
+  const ret = data.slice(0, sourceIndex).concat(
+    data.slice(sourceIndex + 1)
+  );
+
+  // 2. attach - a, c, d, b, e - d, a, b, c, e - b, c, d, a, e
+  return ret.slice(0, targetIndex).concat([sourceItem]).concat(
+    ret.slice(targetIndex)
+  );
 }
 
 export {
