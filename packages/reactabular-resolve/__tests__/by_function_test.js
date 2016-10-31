@@ -13,7 +13,7 @@ describe('resolve.byFunction', function () {
     };
 
     expect(
-      byFunction('column.cell.resolve')({ rowData, column })
+      byFunction('cell.resolve')({ rowData, column })
     ).to.deep.equal({
       [property]: name
     });
