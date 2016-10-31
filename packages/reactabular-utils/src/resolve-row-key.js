@@ -12,6 +12,10 @@ function resolveRowKey({ rowData, rowIndex, rowKey }) {
     }
   }
 
+  if (rowData[rowKey] === 0) {
+    return `${rowData[rowKey]}-row`;
+  }
+
   return `${rowData[rowKey] || rowIndex}-row`;
 }
 

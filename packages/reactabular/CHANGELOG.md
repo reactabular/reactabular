@@ -5,6 +5,10 @@
 
   * Bug fix - Allow `tree.toggleChildren` to work without column `props` defined.
 
+## reactabular-utils
+
+  * Bug fix - If `rowKey` value is zero, `resolveRowKey` should return `0-row`.
+
 6.1.2 / 2016-10-31
 ==================
 

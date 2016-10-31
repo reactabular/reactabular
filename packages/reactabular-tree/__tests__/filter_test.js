@@ -77,8 +77,6 @@ describe('tree.filter', function () {
       }
     ];
 
-    console.log(filter('showingChildren')(given));
-
     expect(filter('showingChildren')(given)).to.deep.equal(expected);
   });
 });
