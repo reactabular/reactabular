@@ -302,8 +302,8 @@ class EasyTable extends React.Component {
 
     return movedColumns;
   }
-  onRow(row, rowIndex) {
-    const { className, ...props } = this.props.onRow(row, rowIndex);
+  onRow(row, { rowIndex, rowKey }) {
+    const { className, ...props } = this.props.onRow(row, { rowIndex, rowKey });
 
     return {
       className: mergeClassNames(className, row.selected && 'selected-row'),
