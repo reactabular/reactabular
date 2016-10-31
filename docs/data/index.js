@@ -31,6 +31,11 @@ export default rootPath => ({
       path: `${rootPath}/tree`,
       title: 'Tree',
       component: require('reactabular-tree/../README.md')
+    },
+    {
+      path: `${rootPath}/drag-and-drop-with-tree`,
+      title: 'Drag and Drop with Tree',
+      component: require('./drag-and-drop-with-tree.md')
     }
   ]
 });
