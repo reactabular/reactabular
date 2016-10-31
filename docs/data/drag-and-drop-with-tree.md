@@ -7,9 +7,7 @@ The following example shows how to handle dragging rows within a tree.
 import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import cloneDeep from 'lodash/cloneDeep';
-import findIndex from 'lodash/findIndex';
-import { Table, resolve } from 'reactabular';
+import { Table } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 */
 
@@ -106,7 +104,7 @@ class DragAndDropTreeTable extends React.Component {
         <Table.Header />
 
         <Table.Body
-          rows={resolve.resolve({ columns, method: resolve.nested})(rows)}
+          rows={rows}
           rowKey="id"
           onRow={this.onRow}
         />
