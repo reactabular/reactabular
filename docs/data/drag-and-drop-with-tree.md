@@ -139,10 +139,10 @@ class DragAndDropTreeTable extends React.Component {
     if (rows) {
       const sourceRow = this.state.rows[sourceIndex];
       const targetRow = this.state.rows[targetIndex];
-      const sourceChildren = tree.getChildren({
+      const sourceChildren = tree.getImmediateChildren({
         index: findIndex(this.state.rows, { id: sourceRowId })
       })(this.state.rows);
-      const targetChildren = tree.getChildren({
+      const targetChildren = tree.getImmediateChildren({
         index: findIndex(this.state.rows, { id: targetRowId })
       })(this.state.rows);
 
@@ -155,8 +155,6 @@ class DragAndDropTreeTable extends React.Component {
       targetChildren.forEach(child => {
         child.parent = sourceRow.id;
       });
-
-      // TODO: fix sibling parent references
 
       // Swap parents
       const tmpParent = sourceRow.parent;
