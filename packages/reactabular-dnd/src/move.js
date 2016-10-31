@@ -98,6 +98,38 @@ function moveRows(rows, { sourceRowId, targetRowId }) {
   return move(rows, sourceIndex, targetIndex);
 }
 
+// XXX: This should replace regular moveRows once stable enough
+function moveRowsEnhanced({
+  rows,
+  sourceRowId,
+  targetRowId,
+  idField = 'id'
+} = {}) {
+  const sourceIndex = findIndex(
+    rows,
+    { [idField]: sourceRowId }
+  );
+
+  if (sourceIndex < 0) {
+    return null;
+  }
+
+  const targetIndex = findIndex(
+    rows,
+    { [idField]: targetRowId }
+  );
+
+  if (targetIndex < 0) {
+    return null;
+  }
+
+  return {
+    sourceIndex,
+    targetIndex,
+    rows: move(rows, sourceIndex, targetIndex)
+  };
+}
+
 function move(data, sourceIndex, targetIndex) {
   // Idea
   // a, b, c, d, e -> move(b, d) -> a, c, d, b, e
@@ -119,5 +151,6 @@ function move(data, sourceIndex, targetIndex) {
 export {
   moveChildrenLabels,
   moveLabels,
-  moveRows
+  moveRows,
+  moveRowsEnhanced
 };
