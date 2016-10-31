@@ -12,38 +12,46 @@ import cloneDeep from 'lodash/cloneDeep';
 import { Table, resolve } from 'reactabular';
 import * as tree from 'reactabular-tree';
 import * as dnd from 'reactabular-dnd';
-
-import {
-  generateParents, generateRows
-} from './helpers';
 */
 
-const schema = {
-  type: 'object',
-  properties: {
-    id: {
-      type: 'string'
-    },
-    name: {
-      type: 'string'
-    },
-    age: {
-      type: 'integer'
-    }
+const rows = [
+  {
+    id: 0,
+    name: 'Mike Johnson',
+    age: 63
   },
-  required: ['id', 'name', 'age']
-};
+  {
+    parent: 0,
+    id: 1,
+    name: 'John White',
+    age: 34
+  },
+  {
+    parent: 0,
+    id: 2,
+    name: 'Fiona Black',
+    age: 31
+  },
+  {
+    parent: 2,
+    id: 3,
+    name: 'Ulrich White',
+    age: 74
+  },
+  {
+    id: 4,
+    name: 'Zack Yellow',
+    age: 52
+  }
+];
 
 class DragAndDropTreeTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const columns = this.getColumns();
-    const rows = generateParents(generateRows(10, schema));
-
     this.state = {
       rows,
-      columns
+      columns: this.getColumns()
     };
 
     this.onRow = this.onRow.bind(this);
