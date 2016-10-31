@@ -7,6 +7,7 @@ The following example shows how to handle dragging rows within a tree.
 import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import { compose } from 'redux';
 import cloneDeep from 'lodash/cloneDeep';
 import { Table, resolve } from 'reactabular';
 import * as tree from 'reactabular-tree';
@@ -38,14 +39,7 @@ class DragAndDropTreeTable extends React.Component {
     super(props);
 
     const columns = this.getColumns();
-    const rows = resolve.resolve(
-      {
-        columns,
-        method: resolve.index
-      }
-    )(
-      generateParents(generateRows(10, schema))
-    );
+    const rows = generateParents(generateRows(10, schema));
 
     this.state = {
       rows,
@@ -100,7 +94,10 @@ class DragAndDropTreeTable extends React.Component {
       }
     };
     const { columns } = this.state;
-    const rows = tree.filter('showingChildren')(this.state.rows);
+    const rows = compose(
+      tree.filter('showingChildren'),
+      resolve.resolve({ columns, method: resolve.index })
+    )(this.state.rows);
 
     return (
       <Table.Provider
@@ -131,8 +128,10 @@ class DragAndDropTreeTable extends React.Component {
     });
 
     if (rows) {
+      const sourceRow = rows[sourceIndex];
+      const targetRow = rows[targetIndex];
       // TODO: alter row data based on source/target indices now
-      console.log(sourceIndex, targetIndex);
+      console.log(sourceIndex, targetIndex, sourceRow, targetRow);
 
       this.setState({ rows });
     }
