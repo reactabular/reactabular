@@ -146,23 +146,17 @@ class DragAndDropTreeTable extends React.Component {
         index: findIndex(this.state.rows, { id: targetRowId })
       })(this.state.rows);
 
-      if (sourceRow.showingChildren) {
-        // If open, change children point at the new parent
-        sourceChildren.forEach(child => {
-          child.parent = targetRow.id;
-        });
-      } else {
-        // TODO: Move possible children if closed
-      }
+      // Change source children point at the new parent
+      sourceChildren.forEach(child => {
+        child.parent = targetRow.id;
+      });
 
-      if (targetRow.showingChildren) {
-        // If open, change children point at the new parent
-        targetChildren.forEach(child => {
-          child.parent = sourceRow.id;
-        });
-      } else {
-        // TODO: Move possible children if closed
-      }
+      // Change target children point at the new parent
+      targetChildren.forEach(child => {
+        child.parent = sourceRow.id;
+      });
+
+      // TODO: fix sibling parent references
 
       // Swap parents
       const tmpParent = sourceRow.parent;
