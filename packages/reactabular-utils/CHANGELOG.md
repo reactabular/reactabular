@@ -1,4 +1,4 @@
-6.1.3 / 2016-10-31
+6.2.0 / 2016-10-31
 ==================
 
   * Bug fix - If `rowKey` value is zero, `resolveRowKey` should return `0-row`.

@@ -51,7 +51,11 @@ Returns the nesting level of the row at the given `index` within `rows`.
 
 **`tree.getChildren = ({ index, idField = 'id', parentField = 'parent' }) => (rows) => [<child>]`**
 
-Returns children based on given `rows` and `index`.
+Returns children based on given `rows` and `index`. This includes children of children.
+
+**`tree.getImmediateChildren = ({ index, idField = 'id', parentField = 'parent' }) => (rows) => [<child>]`**
+
+Returns immediate children based on given `rows` and `index`.
 
 **`tree.getParents = ({ index, parentField = 'parent' }) => (rows) => [<parent>]`**
 

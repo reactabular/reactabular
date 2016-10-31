@@ -1,7 +1,8 @@
-6.1.3 / 2016-10-31
+6.2.0 / 2016-10-31
 ==================
 
   * Bug fix - Allow `tree.toggleChildren` to work without column `props` defined.
+  * Feature - Add `tree.getImmediateChildren`.
 
 6.1.1 / 2016-10-27
 ==================
