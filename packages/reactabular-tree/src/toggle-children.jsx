@@ -30,7 +30,7 @@ const toggleChildren = ({
   };
 
   return (value, extra) => {
-    const { className, ...restProps } = props; // eslint-disable-line react/prop-types
+    const { className, ...restProps } = props || {}; // eslint-disable-line react/prop-types
     const { rowData } = extra;
     const rows = getRows();
     const showingChildren = getShowingChildren(extra);

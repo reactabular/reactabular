@@ -1,3 +1,10 @@
+6.1.3 / 2016-10-31
+==================
+
+## reactabular-tree
+
+  * Bug fix - Allow `tree.toggleChildren` to work without column `props` defined.
+
 6.1.2 / 2016-10-31
 ==================
 
