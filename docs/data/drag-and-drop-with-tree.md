@@ -9,6 +9,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { compose } from 'redux';
 import cloneDeep from 'lodash/cloneDeep';
+import findIndex from 'lodash/findIndex';
 import { Table, resolve } from 'reactabular';
 import * as tree from 'reactabular-tree';
 import * as dnd from 'reactabular-dnd';
@@ -138,8 +139,20 @@ class DragAndDropTreeTable extends React.Component {
     if (rows) {
       const sourceRow = rows[sourceIndex];
       const targetRow = rows[targetIndex];
-      // TODO: alter row data based on source/target indices now
-      console.log(sourceIndex, targetIndex, sourceRow, targetRow);
+      const children = tree.getChildren({
+        index: findIndex(this.state.rows, { id: sourceRowId })
+      })(this.state.rows);
+
+      if (sourceRow.showingChildren) {
+        // TODO: If open, change children point at the new parent
+      } else {
+        // TODO: Move possible children if closed
+      }
+
+      // Swap parents
+      const tmpParent = sourceRow.parent;
+      sourceRow.parent = targetRow.parent;
+      targetRow.parent = tmpParent;
 
       this.setState({ rows });
     }
