@@ -7,83 +7,88 @@ The following example shows how to handle dragging rows within a tree.
 import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { Table } from 'reactabular';
+import cloneDeep from 'lodash/cloneDeep';
+import { Table, resolve } from 'reactabular';
+import * as tree from 'reactabular-tree';
 import * as dnd from 'reactabular-dnd';
+
+import {
+  generateParents, generateRows
+} from './helpers';
 */
 
-const rows = [
-  {
-    id: 1,
-    name: 'John Johnson',
-    company: 'John Inc.',
-    sentence: 'consequatur nihil minima corporis omnis nihil rem'
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string'
+    },
+    name: {
+      type: 'string'
+    },
+    age: {
+      type: 'integer'
+    }
   },
-  {
-    id: 2,
-    name: 'Mike Mikeson',
-    company: 'Mike Inc.',
-    sentence: 'a sequi doloremque sed id quo voluptatem voluptatem ut voluptatibus'
-  },
-  {
-    id: 3,
-    name: 'Jake Jackson',
-    company: 'Jake Inc.',
-    sentence: 'sed id quo voluptatem voluptatem ut voluptatibus'
-  },
-  {
-    id: 4,
-    name: 'Don Donson',
-    company: 'Don Inc.',
-    sentence: 'voluptatem voluptatem ut voluptatibus'
-  }
-];
+  required: ['id', 'name', 'age']
+};
 
 class DragAndDropTreeTable extends React.Component {
   constructor(props) {
     super(props);
 
+    const columns = this.getColumns();
+    const rows = resolve.resolve(
+      {
+        columns,
+        method: resolve.index
+      }
+    )(
+      generateParents(generateRows(10, schema))
+    );
+
     this.state = {
-      columns: [
-        {
-          property: 'name',
-          props: {
-            style: {
-              width: 100
-            }
-          },
-          header: {
-            label: 'Name'
-          }
-        },
-        {
-          property: 'company',
-          props: {
-            label: 'Company',
-            style: {
-              width: 100
-            }
-          },
-          header: {
-            label: 'Company'
-          }
-        },
-        {
-          property: 'sentence',
-          props: {
-            style: {
-              width: 300
-            }
-          },
-          header: {
-            label: 'Sentence'
-          }
-        }
-      ],
-      rows
+      rows,
+      columns
     };
 
     this.onRow = this.onRow.bind(this);
     this.onMoveRow = this.onMoveRow.bind(this);
+  }
+  getColumns() {
+    return [
+      {
+        property: 'name',
+        props: {
+          style: { width: 200 }
+        },
+        header: {
+          label: 'Name'
+        },
+        cell: {
+          format: tree.toggleChildren({
+            getRows: () => this.state.rows,
+            getShowingChildren: ({ rowData }) => rowData.showingChildren,
+            toggleShowingChildren: rowIndex => {
+              const rows = cloneDeep(this.state.rows);
+
+              rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
+
+              this.setState({ rows });
+            }
+          })
+        }
+      },
+      {
+        property: 'age',
+        props: {
+          style: { width: 300 }
+        },
+        header: {
+          label: 'Age'
+        }
+      }
+    ];
   }
   render() {
     const components = {
@@ -94,7 +99,8 @@ class DragAndDropTreeTable extends React.Component {
         row: dnd.Row
       }
     };
-    const { columns, rows } = this.state;
+    const { columns } = this.state;
+    const rows = tree.filter('showingChildren')(this.state.rows);
 
     return (
       <Table.Provider
