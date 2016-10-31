@@ -1,3 +1,10 @@
+6.1.2 / 2016-10-31
+==================
+
+## reactabular-easy
+
+  * Bug fix - Fix `onRow` behavior (match interface with `reactabular-table`). #229
+
 6.1.1 / 2016-10-27
 ==================
 
