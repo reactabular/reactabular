@@ -3,8 +3,8 @@ module.exports = {
   "parser": "babel-eslint",
   "env": {
     "browser": true,
-    "node": true,
-    "mocha": true
+    "jasmine": true,
+    "node": true
   },
   "plugins": [
     "react"

@@ -42,13 +42,15 @@ function moveRows({
 
     // Swap showingChildren state
     // XXX: This needs to be exposed somehow
+    /*
     const tmpShowingChildren = sourceRow.showingChildren;
     sourceRow.showingChildren = targetRow.showingChildren;
     targetRow.showingChildren = tmpShowingChildren;
+    */
   }
 
   return {
-    rows,
+    rows: movedRows,
     sourceIndex,
     targetIndex
   };
