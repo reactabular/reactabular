@@ -145,6 +145,9 @@ if (TARGET.startsWith('gh-pages')) {
       }, {
         from: './CNAME',
         to: './'
+      }, {
+        from: './favicon.ico',
+        to: './'
       }]),
       new webpack.DefinePlugin({
         'process.env': {
