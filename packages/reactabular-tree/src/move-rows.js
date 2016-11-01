@@ -18,6 +18,9 @@ function moveRows({
   if (movedRows) {
     const sourceRow = rows[sourceIndex];
     const targetRow = rows[targetIndex];
+
+    // XXX: Source parent relation can cascade
+
     const sourceChildren = getImmediateChildren({
       index: findIndex(rows, { [idField]: sourceRowId })
     })(rows);

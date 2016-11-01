@@ -118,4 +118,210 @@ describe('tree.moveRows', function () {
       targetIndex: targetRowId
     });
   });
+
+  it('swaps three rows with a parent relation I', function () {
+    const rows = [
+      {
+        id: 0,
+        name: 'foo'
+      },
+      {
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 1,
+        id: 2,
+        name: 'zoo'
+      }
+    ];
+    const sourceRowId = 0;
+    const targetRowId = 2;
+    const expectedRows = [
+      {
+        id: 1,
+        name: 'bar'
+      },
+      {
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 2,
+        id: 0,
+        name: 'foo'
+      }
+    ];
+
+    expect(moveRows({
+      rows,
+      sourceRowId,
+      targetRowId
+    })).toEqual({
+      rows: expectedRows,
+      sourceIndex: sourceRowId,
+      targetIndex: targetRowId
+    });
+  });
+
+  it('swaps three rows with a parent relation II', function () {
+    const rows = [
+      {
+        id: 0,
+        name: 'foo'
+      },
+      {
+        parent: 0,
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 1,
+        id: 2,
+        name: 'zoo'
+      }
+    ];
+    const sourceRowId = 0;
+    const targetRowId = 2;
+    const expectedRows = [
+      {
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 1,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 2,
+        id: 0,
+        name: 'foo'
+      }
+    ];
+
+    expect(moveRows({
+      rows,
+      sourceRowId,
+      targetRowId
+    })).toEqual({
+      rows: expectedRows,
+      sourceIndex: sourceRowId,
+      targetIndex: targetRowId
+    });
+  });
+
+  it('swaps four rows with a parent relation I', function () {
+    const rows = [
+      {
+        id: 0,
+        name: 'foo'
+      },
+      {
+        parent: 0,
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 1,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 2,
+        id: 3,
+        name: 'meh'
+      }
+    ];
+    const sourceRowId = 0;
+    const targetRowId = 3;
+    const expectedRows = [
+      {
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 1,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 2,
+        id: 3,
+        name: 'meh'
+      },
+      {
+        parent: 3,
+        id: 0,
+        name: 'foo'
+      }
+    ];
+
+    expect(moveRows({
+      rows,
+      sourceRowId,
+      targetRowId
+    })).toEqual({
+      rows: expectedRows,
+      sourceIndex: sourceRowId,
+      targetIndex: targetRowId
+    });
+  });
+
+  it('swaps four rows with a parent relation II', function () {
+    const rows = [
+      {
+        id: 0,
+        name: 'foo'
+      },
+      {
+        parent: 0,
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 0,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 2,
+        id: 3,
+        name: 'meh'
+      }
+    ];
+    const sourceRowId = 0;
+    const targetRowId = 3;
+    const expectedRows = [
+      {
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 1,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 1,
+        id: 3,
+        name: 'meh'
+      },
+      {
+        parent: 3,
+        id: 0,
+        name: 'foo'
+      }
+    ];
+
+    expect(moveRows({
+      rows,
+      sourceRowId,
+      targetRowId
+    })).toEqual({
+      rows: expectedRows,
+      sourceIndex: sourceRowId,
+      targetIndex: targetRowId
+    });
+  });
 });
