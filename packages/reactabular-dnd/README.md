@@ -176,12 +176,14 @@ class DragAndDropTable extends React.Component {
     };
   }
   onMoveRow({ sourceRowId, targetRowId }) {
-    const movedRows = dnd.moveRows(this.state.rows, { sourceRowId, targetRowId });
+    const { rows } = dnd.moveRows({
+      rows: this.state.rows,
+      sourceRowId,
+      targetRowId
+    });
 
-    if (movedRows) {
-      this.setState({
-        rows: movedRows
-      });
+    if (rows) {
+      this.setState({ rows });
     }
   }
   onMove(labels) {

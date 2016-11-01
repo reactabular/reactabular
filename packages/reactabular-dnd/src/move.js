@@ -76,30 +76,7 @@ function moveLabels(columns, { sourceLabel, targetLabel }) {
   };
 }
 
-function moveRows(rows, { sourceRowId, targetRowId }) {
-  const sourceIndex = findIndex(
-    rows,
-    { id: sourceRowId }
-  );
-
-  if (sourceIndex < 0) {
-    return null;
-  }
-
-  const targetIndex = findIndex(
-    rows,
-    { id: targetRowId }
-  );
-
-  if (targetIndex < 0) {
-    return null;
-  }
-
-  return move(rows, sourceIndex, targetIndex);
-}
-
-// XXX: This should replace regular moveRows once stable enough
-function moveRowsEnhanced({
+function moveRows({
   rows,
   sourceRowId,
   targetRowId,
@@ -111,7 +88,7 @@ function moveRowsEnhanced({
   );
 
   if (sourceIndex < 0) {
-    return null;
+    return {};
   }
 
   const targetIndex = findIndex(
@@ -120,7 +97,7 @@ function moveRowsEnhanced({
   );
 
   if (targetIndex < 0) {
-    return null;
+    return {};
   }
 
   return {
@@ -151,6 +128,5 @@ function move(data, sourceIndex, targetIndex) {
 export {
   moveChildrenLabels,
   moveLabels,
-  moveRows,
-  moveRowsEnhanced
+  moveRows
 };

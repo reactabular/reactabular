@@ -130,7 +130,7 @@ class DragAndDropTreeTable extends React.Component {
     };
   }
   onMoveRow({ sourceRowId, targetRowId }) {
-    const { rows, sourceIndex, targetIndex } = dnd.moveRowsEnhanced({
+    const { rows, sourceIndex, targetIndex } = dnd.moveRows({
       rows: this.state.rows,
       sourceRowId,
       targetRowId

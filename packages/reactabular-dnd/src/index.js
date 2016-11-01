@@ -1,15 +1,13 @@
 import Header from './header';
 import Row from './row';
 import {
-  moveChildrenLabels, moveLabels, moveRows,
-  moveRowsEnhanced // XXX
+  moveChildrenLabels, moveLabels, moveRows
 } from './move';
 
 export {
   moveChildrenLabels,
   moveLabels,
   moveRows,
-  moveRowsEnhanced, // XXX
   Header,
   Row
 };

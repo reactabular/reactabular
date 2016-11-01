@@ -1,5 +1,9 @@
-6.2.0 / 2016-10-31
+7.0.0 / 2016-xx-xx
 ==================
+
+## reactabular-dnd
+
+  * Breaking - Rework `moveRows` interface. Instead of `moveRows(rows, { sourceRowId, targetRowId }) => rows` it's `moveRows({ rows, sourceRowId, targetRowId }) => { rows, sourceIndex, targetIndex }` now.
 
 ## reactabular-tree
 
