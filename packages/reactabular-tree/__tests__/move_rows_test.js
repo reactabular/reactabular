@@ -381,4 +381,71 @@ describe('tree.moveRows', function () {
       targetIndex: targetRowId
     });
   });
+
+  it('swaps with siblings that have children', function () {
+    const rows = [
+      {
+        id: 0,
+        name: 'foo'
+      },
+      {
+        parent: 0,
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 1,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 2,
+        id: 3,
+        name: 'mehmeh'
+      },
+      {
+        parent: 1,
+        id: 4,
+        name: 'meh'
+      }
+    ];
+    const sourceRowId = 0;
+    const targetRowId = 4;
+    const expectedRows = [
+      {
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 1,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 2,
+        id: 3,
+        name: 'mehmeh'
+      },
+      {
+        parent: 3,
+        id: 4,
+        name: 'meh'
+      },
+      {
+        parent: 2,
+        id: 0,
+        name: 'foo'
+      }
+    ];
+
+    expect(moveRows({
+      rows,
+      sourceRowId,
+      targetRowId
+    })).toEqual({
+      rows: expectedRows,
+      sourceIndex: sourceRowId,
+      targetIndex: targetRowId
+    });
+  });
 });
