@@ -130,42 +130,14 @@ class DragAndDropTreeTable extends React.Component {
     };
   }
   onMoveRow({ sourceRowId, targetRowId }) {
-    const { rows, sourceIndex, targetIndex } = dnd.moveRows({
+    const { rows } = tree.moveRows({
       rows: this.state.rows,
       sourceRowId,
-      targetRowId
+      targetRowId,
+      retain: ['showingChildren']
     });
 
     if (rows) {
-      const sourceRow = this.state.rows[sourceIndex];
-      const targetRow = this.state.rows[targetIndex];
-      const sourceChildren = tree.getImmediateChildren({
-        index: findIndex(this.state.rows, { id: sourceRowId })
-      })(this.state.rows);
-      const targetChildren = tree.getImmediateChildren({
-        index: findIndex(this.state.rows, { id: targetRowId })
-      })(this.state.rows);
-
-      // Change source children point at the new parent
-      sourceChildren.forEach(child => {
-        child.parent = targetRow.id;
-      });
-
-      // Change target children point at the new parent
-      targetChildren.forEach(child => {
-        child.parent = sourceRow.id;
-      });
-
-      // Swap parents
-      const tmpParent = sourceRow.parent;
-      sourceRow.parent = targetRow.parent;
-      targetRow.parent = tmpParent;
-
-      // Swap showingChildren state
-      const tmpShowingChildren = sourceRow.showingChildren;
-      sourceRow.showingChildren = targetRow.showingChildren;
-      targetRow.showingChildren = tmpShowingChildren;
-
       this.setState({ rows });
     }
   }
