@@ -1,3 +1,8 @@
+7.0.0 / 2016-xx-xx
+==================
+
+  * Bug fix - Pass `parentField` to `tree.filter`. Now toggling should work.
+
 6.1.2 / 2016-10-31
 ==================
 

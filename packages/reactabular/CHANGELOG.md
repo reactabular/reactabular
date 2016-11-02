@@ -5,6 +5,10 @@
 
   * Breaking - Rework `moveRows` interface. Instead of `moveRows(rows, { sourceRowId, targetRowId }) => rows` it's `moveRows({ rows, sourceRowId, targetRowId }) => rows` now.
 
+## reactabular-easy
+
+  * Bug fix - Pass `parentField` to `tree.filter`. Now toggling should work.
+
 ## reactabular-tree
 
   * Bug fix - Allow `tree.toggleChildren` to work without column `props` defined.
