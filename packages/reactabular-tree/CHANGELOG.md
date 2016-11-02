@@ -3,6 +3,7 @@
 
   * Bug fix - Allow `tree.toggleChildren` to work without column `props` defined.
   * Feature - Add `tree.getImmediateChildren`.
+  * Feature - Add `tree.moveRows`.
 
 6.1.1 / 2016-10-27
 ==================
