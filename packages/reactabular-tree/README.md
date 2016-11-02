@@ -87,7 +87,7 @@ Unpacks children from root level nodes. This is useful with sorting and filterin
 
 ### Drag and Drop
 
-**`tree.moveRows = ({ rows, sourceRowId, targetRowId, retain = [], idField = 'id', parentField = 'parent' }) => <movedRows>`**
+**`tree.moveRows = ({ sourceRowId, targetRowId, retain = [], idField = 'id', parentField = 'parent' }) => (rows) => <movedRows>`**
 
 Allows moving tree rows while `retain`ing given fields at their original rows.
 

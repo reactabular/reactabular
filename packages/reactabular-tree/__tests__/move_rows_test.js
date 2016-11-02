@@ -17,10 +17,9 @@ describe('tree.moveRows', function () {
     const targetRowId = 0;
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).toEqual(rows);
+    })(rows)).toEqual(rows);
   });
 
   it('swaps two rows', function () {
@@ -38,10 +37,9 @@ describe('tree.moveRows', function () {
     const targetRowId = 1;
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).toEqual(reverse(rows));
+    })(rows)).toEqual(reverse(rows));
   });
 
   it('swaps three rows', function () {
@@ -63,10 +61,9 @@ describe('tree.moveRows', function () {
     const targetRowId = 2;
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).toEqual([rows[1], rows[2], rows[0]]);
+    })(rows)).toEqual([rows[1], rows[2], rows[0]]);
   });
 
   it('swaps two rows with a parent relation', function () {
@@ -97,10 +94,9 @@ describe('tree.moveRows', function () {
     ];
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).toEqual(expectedRows);
+    })(rows)).toEqual(expectedRows);
   });
 
   it('retains custom fields', function () {
@@ -134,11 +130,10 @@ describe('tree.moveRows', function () {
     ];
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId,
       retain: [retainedField]
-    })).toEqual(expectedRows);
+    })(rows)).toEqual(expectedRows);
   });
 
   it('swaps three rows with a parent relation I', function () {
@@ -176,10 +171,9 @@ describe('tree.moveRows', function () {
     ];
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).toEqual(expectedRows);
+    })(rows)).toEqual(expectedRows);
   });
 
   it('swaps three rows with a parent relation II', function () {
@@ -219,10 +213,9 @@ describe('tree.moveRows', function () {
     ];
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).toEqual(expectedRows);
+    })(rows)).toEqual(expectedRows);
   });
 
   it('swaps with a nested parent relation I', function () {
@@ -272,10 +265,9 @@ describe('tree.moveRows', function () {
     ];
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).toEqual(expectedRows);
+    })(rows)).toEqual(expectedRows);
   });
 
   it('swaps with a nested parent relation II', function () {
@@ -326,10 +318,9 @@ describe('tree.moveRows', function () {
     ];
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).toEqual(expectedRows);
+    })(rows)).toEqual(expectedRows);
   });
 
   it('swaps with siblings', function () {
@@ -380,10 +371,9 @@ describe('tree.moveRows', function () {
     ];
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).toEqual(expectedRows);
+    })(rows)).toEqual(expectedRows);
   });
 
   it('swaps with siblings that have children', function () {
@@ -444,9 +434,8 @@ describe('tree.moveRows', function () {
     ];
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).toEqual(expectedRows);
+    })(rows)).toEqual(expectedRows);
   });
 });

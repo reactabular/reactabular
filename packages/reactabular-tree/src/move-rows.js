@@ -3,14 +3,13 @@ import omit from 'lodash/omit';
 import pick from 'lodash/pick';
 import { moveRows } from 'reactabular-dnd';
 
-function moveTreeRows({
-  rows,
+const moveTreeRows = ({
   sourceRowId,
   targetRowId,
   retain = [],
   idField = 'id',
   parentField = 'parent'
-} = {}) {
+} = {}) => (rows) => {
   let movedRows = moveRows({
     rows,
     sourceRowId,
