@@ -19,7 +19,7 @@ const moveTreeRows = ({
     // Walk through the old row definition, patch parent relations and fields
     // of the new one
     movedRows = rows.map((row, i) => {
-      if (typeof row[parentField] === 'undefined') {
+      if (typeof row[parentField] === 'undefined' || row[parentField] === null) {
         return {
           ...omit(movedRows[i], retain),
           ...pick(row, retain),

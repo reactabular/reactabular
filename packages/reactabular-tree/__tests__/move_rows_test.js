@@ -99,6 +99,92 @@ describe('tree.moveRows', function () {
     })(rows)).toEqual(expectedRows);
   });
 
+  it('swaps rows with a parent', function () {
+    const rows = [
+      {
+        id: 0,
+        name: 'foo'
+      },
+      {
+        parent: 0,
+        id: 1,
+        name: 'bar'
+      },
+      {
+        id: 2,
+        name: 'zoo'
+      }
+    ];
+    const sourceRowId = 2;
+    const targetRowId = 0;
+    const expectedRows = [
+      {
+        parent: undefined,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 2,
+        id: 0,
+        name: 'foo'
+      },
+      {
+        parent: undefined,
+        id: 1,
+        name: 'bar'
+      }
+    ];
+
+    expect(moveRows({
+      sourceRowId,
+      targetRowId
+    })(rows)).toEqual(expectedRows);
+  });
+
+  it('swaps rows with a null parent', function () {
+    const rows = [
+      {
+        parent: null,
+        id: 0,
+        name: 'foo'
+      },
+      {
+        parent: 0,
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: null,
+        id: 2,
+        name: 'zoo'
+      }
+    ];
+    const sourceRowId = 2;
+    const targetRowId = 0;
+    const expectedRows = [
+      {
+        parent: undefined,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 2,
+        id: 0,
+        name: 'foo'
+      },
+      {
+        parent: undefined,
+        id: 1,
+        name: 'bar'
+      }
+    ];
+
+    expect(moveRows({
+      sourceRowId,
+      targetRowId
+    })(rows)).toEqual(expectedRows);
+  });
+
   it('retains custom fields', function () {
     const retainedField = 'showChildren';
     const rows = [
