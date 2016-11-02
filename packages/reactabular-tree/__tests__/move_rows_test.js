@@ -119,6 +119,48 @@ describe('tree.moveRows', function () {
     });
   });
 
+  it('retains custom fields', function () {
+    const retainedField = 'showChildren';
+    const rows = [
+      {
+        id: 0,
+        name: 'foo',
+        [retainedField]: true
+      },
+      {
+        parent: 0,
+        id: 1,
+        name: 'bar'
+      }
+    ];
+    const sourceRowId = 0;
+    const targetRowId = 1;
+    const expectedRows = [
+      {
+        parent: undefined,
+        id: 1,
+        name: 'bar',
+        [retainedField]: true
+      },
+      {
+        parent: 1,
+        id: 0,
+        name: 'foo'
+      }
+    ];
+
+    expect(moveRows({
+      rows,
+      sourceRowId,
+      targetRowId,
+      retain: [retainedField]
+    })).toEqual({
+      rows: expectedRows,
+      sourceIndex: sourceRowId,
+      targetIndex: targetRowId
+    });
+  });
+
   it('swaps three rows with a parent relation I', function () {
     const rows = [
       {

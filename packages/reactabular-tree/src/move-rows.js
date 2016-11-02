@@ -1,10 +1,13 @@
 import findIndex from 'lodash/findIndex';
+import omit from 'lodash/omit';
+import pick from 'lodash/pick';
 import * as dnd from 'reactabular-dnd';
 
 function moveRows({
   rows,
   sourceRowId,
   targetRowId,
+  retain = [],
   idField = 'id',
   parentField = 'parent'
 } = {}) {
@@ -18,12 +21,14 @@ function moveRows({
     const sourceRow = rows[sourceIndex];
     const targetRow = rows[targetIndex];
 
-    // Walk through the old row definition and patch parent relations of the new
-    // one
+    // Walk through the old row definition, patch parent relations and fields
+    // of the new one
     movedRows = rows.map((row, i) => {
       if (typeof row[parentField] === 'undefined') {
         return {
-          ...movedRows[i],
+          ...omit(movedRows[i], retain),
+          ...pick(row, retain),
+          [idField]: movedRows[i][idField],
           [parentField]: undefined
         };
       }
@@ -37,7 +42,9 @@ function moveRows({
       const id = movedRows[index][idField];
 
       return {
-        ...movedRows[i],
+        ...omit(movedRows[i], retain),
+        ...pick(row, retain),
+        [idField]: movedRows[i][idField],
         [parentField]: id
       };
     });
