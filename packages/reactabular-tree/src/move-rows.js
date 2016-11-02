@@ -33,6 +33,14 @@ const moveTreeRows = ({
         [idField]: row[parentField]
       });
 
+      if (index < 0) {
+        console.warn( // eslint-disable-line no-console
+          'Failed to find the old parent', rows, row, idField, parentField
+        );
+
+        return row;
+      }
+
       // Figure out the new id based on that index
       const id = movedRows[index][idField];
 
