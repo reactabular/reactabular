@@ -20,11 +20,7 @@ describe('tree.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).toEqual({
-      rows,
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual(rows);
   });
 
   it('swaps two rows', function () {
@@ -45,11 +41,7 @@ describe('tree.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).toEqual({
-      rows: reverse(rows),
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual(reverse(rows));
   });
 
   it('swaps three rows', function () {
@@ -74,11 +66,7 @@ describe('tree.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).toEqual({
-      rows: [rows[1], rows[2], rows[0]],
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual([rows[1], rows[2], rows[0]]);
   });
 
   it('swaps two rows with a parent relation', function () {
@@ -112,11 +100,7 @@ describe('tree.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).toEqual({
-      rows: expectedRows,
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual(expectedRows);
   });
 
   it('retains custom fields', function () {
@@ -154,11 +138,7 @@ describe('tree.moveRows', function () {
       sourceRowId,
       targetRowId,
       retain: [retainedField]
-    })).toEqual({
-      rows: expectedRows,
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual(expectedRows);
   });
 
   it('swaps three rows with a parent relation I', function () {
@@ -199,11 +179,7 @@ describe('tree.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).toEqual({
-      rows: expectedRows,
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual(expectedRows);
   });
 
   it('swaps three rows with a parent relation II', function () {
@@ -246,11 +222,7 @@ describe('tree.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).toEqual({
-      rows: expectedRows,
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual(expectedRows);
   });
 
   it('swaps with a nested parent relation I', function () {
@@ -303,11 +275,7 @@ describe('tree.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).toEqual({
-      rows: expectedRows,
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual(expectedRows);
   });
 
   it('swaps with a nested parent relation II', function () {
@@ -361,11 +329,7 @@ describe('tree.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).toEqual({
-      rows: expectedRows,
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual(expectedRows);
   });
 
   it('swaps with siblings', function () {
@@ -419,11 +383,7 @@ describe('tree.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).toEqual({
-      rows: expectedRows,
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual(expectedRows);
   });
 
   it('swaps with siblings that have children', function () {
@@ -487,10 +447,6 @@ describe('tree.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).toEqual({
-      rows: expectedRows,
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).toEqual(expectedRows);
   });
 });

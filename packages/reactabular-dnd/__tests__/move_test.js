@@ -21,11 +21,7 @@ describe('dnd.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).to.deep.equal({
-      rows,
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).to.deep.equal(rows);
   });
 
   it('swaps two rows', function () {
@@ -46,11 +42,7 @@ describe('dnd.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).to.deep.equal({
-      rows: reverse(rows),
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).to.deep.equal(reverse(rows));
   });
 
   it('swaps three rows', function () {
@@ -75,10 +67,6 @@ describe('dnd.moveRows', function () {
       rows,
       sourceRowId,
       targetRowId
-    })).to.deep.equal({
-      rows: [rows[1], rows[2], rows[0]],
-      sourceIndex: sourceRowId,
-      targetIndex: targetRowId
-    });
+    })).to.deep.equal([rows[1], rows[2], rows[0]]);
   });
 });

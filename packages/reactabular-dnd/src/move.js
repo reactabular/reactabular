@@ -88,7 +88,7 @@ function moveRows({
   );
 
   if (sourceIndex < 0) {
-    return {};
+    return null;
   }
 
   const targetIndex = findIndex(
@@ -97,14 +97,10 @@ function moveRows({
   );
 
   if (targetIndex < 0) {
-    return {};
+    return null;
   }
 
-  return {
-    sourceIndex,
-    targetIndex,
-    rows: move(rows, sourceIndex, targetIndex)
-  };
+  return move(rows, sourceIndex, targetIndex);
 }
 
 function move(data, sourceIndex, targetIndex) {

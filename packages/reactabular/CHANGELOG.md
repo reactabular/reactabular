@@ -3,7 +3,7 @@
 
 ## reactabular-dnd
 
-  * Breaking - Rework `moveRows` interface. Instead of `moveRows(rows, { sourceRowId, targetRowId }) => rows` it's `moveRows({ rows, sourceRowId, targetRowId }) => { rows, sourceIndex, targetIndex }` now.
+  * Breaking - Rework `moveRows` interface. Instead of `moveRows(rows, { sourceRowId, targetRowId }) => rows` it's `moveRows({ rows, sourceRowId, targetRowId }) => rows` now.
 
 ## reactabular-tree
 

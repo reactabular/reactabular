@@ -1,9 +1,9 @@
 import findIndex from 'lodash/findIndex';
 import omit from 'lodash/omit';
 import pick from 'lodash/pick';
-import * as dnd from 'reactabular-dnd';
+import { moveRows } from 'reactabular-dnd';
 
-function moveRows({
+function moveTreeRows({
   rows,
   sourceRowId,
   targetRowId,
@@ -11,13 +11,11 @@ function moveRows({
   idField = 'id',
   parentField = 'parent'
 } = {}) {
-  const moved = dnd.moveRows({
+  let movedRows = moveRows({
     rows,
     sourceRowId,
     targetRowId
   });
-  const { sourceIndex, targetIndex } = moved;
-  let movedRows = moved.rows;
 
   if (movedRows) {
     // Walk through the old row definition, patch parent relations and fields
@@ -49,11 +47,7 @@ function moveRows({
     });
   }
 
-  return {
-    rows: movedRows,
-    sourceIndex,
-    targetIndex
-  };
+  return movedRows;
 }
 
-export default moveRows;
+export default moveTreeRows;
