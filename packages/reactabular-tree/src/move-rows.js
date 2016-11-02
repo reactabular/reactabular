@@ -1,6 +1,5 @@
 import findIndex from 'lodash/findIndex';
 import * as dnd from 'reactabular-dnd';
-import getImmediateChildren from './/get-immediate-children';
 
 function moveRows({
   rows,
@@ -9,7 +8,7 @@ function moveRows({
   idField = 'id',
   parentField = 'parent'
 } = {}) {
-  const { rows: movedRows, sourceIndex, targetIndex } = dnd.moveRows({
+  let { rows: movedRows, sourceIndex, targetIndex } = dnd.moveRows({
     rows,
     sourceRowId,
     targetRowId
@@ -19,37 +18,29 @@ function moveRows({
     const sourceRow = rows[sourceIndex];
     const targetRow = rows[targetIndex];
 
-    // XXX: Source parent relation can cascade
+    // Walk through the old row definition and patch parent relations of the new
+    // one
+    movedRows = rows.map((row, i) => {
+      if (typeof row[parentField] === 'undefined') {
+        return {
+          ...movedRows[i],
+          [parentField]: undefined
+        };
+      }
 
-    const sourceChildren = getImmediateChildren({
-      index: findIndex(rows, { [idField]: sourceRowId })
-    })(rows);
-    const targetChildren = getImmediateChildren({
-      index: findIndex(rows, { [idField]: targetRowId })
-    })(rows);
+      // Find the index of the old parent
+      const index = findIndex(rows, {
+        [idField]: row[parentField]
+      });
 
-    // Change source children point at the new parent
-    sourceChildren.forEach((child) => {
-      child[parentField] = targetRow.id; // eslint-disable-line no-param-reassign
+      // Figure out the new id based on that index
+      const id = movedRows[index][idField];
+
+      return {
+        ...movedRows[i],
+        [parentField]: id
+      };
     });
-
-    // Change target children point at the new parent
-    targetChildren.forEach((child) => {
-      child[parentField] = sourceRow.id; // eslint-disable-line no-param-reassign
-    });
-
-    // Swap parents
-    const tmpParent = sourceRow[parentField];
-    sourceRow[parentField] = targetRow[parentField];
-    targetRow[parentField] = tmpParent;
-
-    // Swap showingChildren state
-    // XXX: This needs to be exposed somehow
-    /*
-    const tmpShowingChildren = sourceRow.showingChildren;
-    sourceRow.showingChildren = targetRow.showingChildren;
-    targetRow.showingChildren = tmpShowingChildren;
-    */
   }
 
   return {

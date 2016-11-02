@@ -294,6 +294,7 @@ describe('tree.moveRows', function () {
     const targetRowId = 3;
     const expectedRows = [
       {
+        parent: undefined,
         id: 1,
         name: 'bar'
       },
@@ -351,6 +352,7 @@ describe('tree.moveRows', function () {
     const targetRowId = 3;
     const expectedRows = [
       {
+        parent: undefined,
         id: 1,
         name: 'bar'
       },
@@ -413,6 +415,7 @@ describe('tree.moveRows', function () {
     const targetRowId = 4;
     const expectedRows = [
       {
+        parent: undefined,
         id: 1,
         name: 'bar'
       },
