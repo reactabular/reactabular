@@ -11,16 +11,15 @@ function moveRows({
   idField = 'id',
   parentField = 'parent'
 } = {}) {
-  let { rows: movedRows, sourceIndex, targetIndex } = dnd.moveRows({
+  const moved = dnd.moveRows({
     rows,
     sourceRowId,
     targetRowId
   });
+  const { sourceIndex, targetIndex } = moved;
+  let movedRows = moved.rows;
 
   if (movedRows) {
-    const sourceRow = rows[sourceIndex];
-    const targetRow = rows[targetIndex];
-
     // Walk through the old row definition, patch parent relations and fields
     // of the new one
     movedRows = rows.map((row, i) => {
