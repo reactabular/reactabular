@@ -46,6 +46,6 @@ const moveTreeRows = ({
   }
 
   return movedRows;
-}
+};
 
 export default moveTreeRows;

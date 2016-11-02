@@ -100,7 +100,7 @@ const moveRows = ({
   }
 
   return move(rows, sourceIndex, targetIndex);
-}
+};
 
 function move(data, sourceIndex, targetIndex) {
   // Idea
