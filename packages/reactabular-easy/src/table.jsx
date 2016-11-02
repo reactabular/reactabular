@@ -72,7 +72,7 @@ class EasyTable extends React.Component {
     }
 
     const rows = compose(
-      tree.filter('showingChildren'),
+      tree.filter({ fieldName: 'showingChildren' }),
       tree.sort({
         columns,
         idField,

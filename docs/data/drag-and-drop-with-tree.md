@@ -104,7 +104,7 @@ class DragAndDropTreeTable extends React.Component {
     };
     const { columns } = this.state;
     const rows = compose(
-      tree.filter('showingChildren'),
+      tree.filter({ fieldName: 'showingChildren' }),
       resolve.resolve({ columns, method: resolve.index })
     )(this.state.rows);
 
@@ -131,11 +131,10 @@ class DragAndDropTreeTable extends React.Component {
   }
   onMoveRow({ sourceRowId, targetRowId }) {
     const rows = tree.moveRows({
-      rows: this.state.rows,
       sourceRowId,
       targetRowId,
       retain: ['showingChildren']
-    });
+    })(this.state.rows);
 
     if (rows) {
       this.setState({ rows });
