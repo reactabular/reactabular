@@ -76,12 +76,11 @@ function moveLabels(columns, { sourceLabel, targetLabel }) {
   };
 }
 
-function moveRows({
-  rows,
+const moveRows = ({
   sourceRowId,
   targetRowId,
   idField = 'id'
-} = {}) {
+} = {}) => (rows) => {
   const sourceIndex = findIndex(
     rows,
     { [idField]: sourceRowId }

@@ -11,10 +11,9 @@ const moveTreeRows = ({
   parentField = 'parent'
 } = {}) => (rows) => {
   let movedRows = moveRows({
-    rows,
     sourceRowId,
     targetRowId
-  });
+  })(rows);
 
   if (movedRows) {
     // Walk through the old row definition, patch parent relations and fields

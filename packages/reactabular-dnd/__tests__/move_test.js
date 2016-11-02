@@ -18,10 +18,9 @@ describe('dnd.moveRows', function () {
     const targetRowId = 0;
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).to.deep.equal(rows);
+    })(rows)).to.deep.equal(rows);
   });
 
   it('swaps two rows', function () {
@@ -39,10 +38,9 @@ describe('dnd.moveRows', function () {
     const targetRowId = 1;
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).to.deep.equal(reverse(rows));
+    })(rows)).to.deep.equal(reverse(rows));
   });
 
   it('swaps three rows', function () {
@@ -64,9 +62,8 @@ describe('dnd.moveRows', function () {
     const targetRowId = 2;
 
     expect(moveRows({
-      rows,
       sourceRowId,
       targetRowId
-    })).to.deep.equal([rows[1], rows[2], rows[0]]);
+    })(rows)).to.deep.equal([rows[1], rows[2], rows[0]]);
   });
 });
