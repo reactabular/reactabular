@@ -211,7 +211,7 @@ describe('tree.moveRows', function () {
     });
   });
 
-  it('swaps four rows with a parent relation I', function () {
+  it('swaps with a nested parent relation I', function () {
     const rows = [
       {
         id: 0,
@@ -268,7 +268,7 @@ describe('tree.moveRows', function () {
     });
   });
 
-  it('swaps four rows with a parent relation II', function () {
+  it('swaps with a nested parent relation II', function () {
     const rows = [
       {
         id: 0,
@@ -309,6 +309,63 @@ describe('tree.moveRows', function () {
       },
       {
         parent: 3,
+        id: 0,
+        name: 'foo'
+      }
+    ];
+
+    expect(moveRows({
+      rows,
+      sourceRowId,
+      targetRowId
+    })).toEqual({
+      rows: expectedRows,
+      sourceIndex: sourceRowId,
+      targetIndex: targetRowId
+    });
+  });
+
+  it('swaps with siblings', function () {
+    const rows = [
+      {
+        id: 0,
+        name: 'foo'
+      },
+      {
+        parent: 0,
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 1,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 1,
+        id: 3,
+        name: 'meh'
+      }
+    ];
+    const sourceRowId = 0;
+    const targetRowId = 3;
+    const expectedRows = [
+      {
+        id: 1,
+        name: 'bar'
+      },
+      {
+        parent: 1,
+        id: 2,
+        name: 'zoo'
+      },
+      {
+        parent: 2,
+        id: 3,
+        name: 'meh'
+      },
+      {
+        parent: 2,
         id: 0,
         name: 'foo'
       }
