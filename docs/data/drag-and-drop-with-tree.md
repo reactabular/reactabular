@@ -13,46 +13,35 @@ import findIndex from 'lodash/findIndex';
 import { Table, resolve } from 'reactabular';
 import * as tree from 'reactabular-tree';
 import * as dnd from 'reactabular-dnd';
+
+import {
+  generateParents, generateRows
+} from './helpers';
 */
 
-const rows = [
-  {
-    id: 0,
-    name: 'Mike Johnson',
-    age: 63
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string'
+    },
+    name: {
+      type: 'string'
+    },
+    age: {
+      type: 'integer'
+    }
   },
-  {
-    parent: 0,
-    id: 1,
-    name: 'John White',
-    age: 34
-  },
-  {
-    parent: 0,
-    id: 2,
-    name: 'Fiona Black',
-    age: 31
-  },
-  {
-    parent: 2,
-    id: 3,
-    name: 'Ulrich White',
-    age: 74
-  },
-  {
-    id: 4,
-    name: 'Zack Yellow',
-    age: 52
-  }
-];
+  required: ['id', 'name', 'age']
+};
 
 class DragAndDropTreeTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      rows,
-      columns: this.getColumns()
+      columns: this.getColumns(),
+      rows: generateParents(generateRows(100, schema))
     };
 
     this.onRow = this.onRow.bind(this);
