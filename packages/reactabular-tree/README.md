@@ -85,6 +85,12 @@ Packs children inside root level nodes. This is useful with sorting and filterin
 
 Unpacks children from root level nodes. This is useful with sorting and filtering.
 
+### Drag and Drop
+
+**`tree.moveRows = ({ rows, sourceRowId, targetRowId, retain = [], idField = 'id', parentField = 'parent' }) => <movedRows>`**
+
+Allows moving tree rows while `retain`ing given fields at their original rows.
+
 ### UI
 
 **`tree.toggleChildren = ({ getRows, getShowingChildren, toggleShowingChildren, props, idField, parentField }) => (value, extra) => <React element>`**
