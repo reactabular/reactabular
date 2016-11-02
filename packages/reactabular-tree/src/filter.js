@@ -1,12 +1,14 @@
 import getParents from './get-parents';
 
-// TODO: Refactor the first parameter into an object
-const filterTree = fieldName => rows => rows.filter((row, index) => {
-  if (typeof row.parent === 'undefined' || row.parent === null) {
+const filterTree = ({
+  fieldName,
+  parentField = 'parent'
+} = {}) => rows => rows.filter((row, index) => {
+  if (typeof row[parentField] === 'undefined' || row[parentField] === null) {
     return true;
   }
 
-  const parents = getParents({ index })(rows);
+  const parents = getParents({ index, parentField })(rows);
 
   return parents.filter(
     parent => parent[fieldName]

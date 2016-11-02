@@ -10,6 +10,7 @@
   * Bug fix - Allow `tree.toggleChildren` to work without column `props` defined.
   * Feature - Add `tree.getImmediateChildren`.
   * Feature - Add `tree.moveRows`.
+  * Breaking - Refactor `tree.filter` as `({ fieldName, parentField = 'parent' }) => (rows) => filteredRows`.
 
 ## reactabular-utils
 

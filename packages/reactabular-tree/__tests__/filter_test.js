@@ -17,7 +17,7 @@ describe('tree.filter', function () {
       }
     ];
 
-    expect(filter('showingChildren')(given)).to.deep.equal(given);
+    expect(filter({ fieldName: 'showingChildren' })(given)).to.deep.equal(given);
   });
 
   it('returns rows with showingChildren set true while checking parents', function () {
@@ -47,7 +47,7 @@ describe('tree.filter', function () {
       }
     ];
 
-    expect(filter('showingChildren')(given)).to.deep.equal(expected);
+    expect(filter({ fieldName: 'showingChildren' })(given)).to.deep.equal(expected);
   });
 
   it('works if parent id is zero', function () {
@@ -77,6 +77,40 @@ describe('tree.filter', function () {
       }
     ];
 
-    expect(filter('showingChildren')(given)).to.deep.equal(expected);
+    expect(filter({ fieldName: 'showingChildren' })(given)).to.deep.equal(expected);
+  });
+
+  it('allow parent field to be customized', function () {
+    const parentField = 'demo';
+    const given = [
+      {
+        foo: 'bar'
+      },
+      {
+        id: 123,
+        foo: 'foo',
+        showingChildren: false
+      },
+      {
+        id: 234,
+        [parentField]: 123,
+        foo: 'foo'
+      }
+    ];
+    const expected = [
+      {
+        foo: 'bar'
+      },
+      {
+        id: 123,
+        foo: 'foo',
+        showingChildren: false
+      }
+    ];
+
+    expect(filter({
+      fieldName: 'showingChildren',
+      parentField
+    })(given)).to.deep.equal(expected);
   });
 });
