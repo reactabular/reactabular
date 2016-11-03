@@ -200,9 +200,21 @@ class EasyTable extends React.Component {
           // DnD needs this to tell header cells apart
           label: header.label,
           onMove: (labels) => {
-            this.props.onMoveColumns(
-              dnd.moveLabels(this.props.columns, labels)
-            );
+            const {
+              source,
+              target,
+              columns
+            } = dnd.moveLabels(this.props.columns, labels);
+
+            const tmpWidth = source.width;
+            source.width = target.width;
+            target.width = tmpWidth;
+
+            this.props.onMoveColumns({
+              source,
+              target,
+              columns
+            });
           }
         };
       }
