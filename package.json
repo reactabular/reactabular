@@ -19,6 +19,7 @@
     "dist:all": "npm run dist:build && npm run dist:build-min",
     "dist:build": "webpack",
     "dist:build-min": "webpack",
+    "publish": "lerna publish && lerna-npm-readme-hack",
     "postinstall": "node lib/post_install.js"
   },
   "repository": {
@@ -89,6 +90,7 @@
     "html-webpack-plugin": "^2.22.0",
     "jest": "^16.0.1",
     "lerna": "2.0.0-beta.30",
+    "lerna-npm-readme-hack": "^1.0.6",
     "lodash": "^4.16.4",
     "purecss": "^0.6.0",
     "raw-loader": "^0.5.1",
