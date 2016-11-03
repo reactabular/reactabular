@@ -1,12 +1,14 @@
 import React from 'react';
 import {
-  Table, Sticky, sort, resizableColumn, resolve, highlight, search, select
+  Table, Sticky, sort, resizableColumn, resolve, highlight, search
 } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as tree from 'reactabular-tree';
 import { mergeClassNames } from 'reactabular-utils';
+import { byArrowKeys } from 'reactabular-select';
 import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
+import select from 'selectabular';
 import findIndex from 'lodash/findIndex';
 import { defaultProps, propTypes } from './types';
 
@@ -98,7 +100,7 @@ class EasyTable extends React.Component {
       selectedRow
     });
 
-    return select.byArrowKeys({
+    return byArrowKeys({
       rows,
       selectedRowIndex,
       onSelectRow: this.selectRow
@@ -313,20 +315,22 @@ class EasyTable extends React.Component {
   }
   selectRow(selectedRowIndex) {
     const { rowKey, rows } = this.props;
-    const selected = select.row({
-      rows,
-      isSelected: (row, selectedRowId) => (
-        row[rowKey] === selectedRowId
-      ),
-      selectedRowId: rows[selectedRowIndex][rowKey]
-    });
+    const selectedRowId = rows[selectedRowIndex][rowKey];
+    const result = compose(
+      select.rows(row => row[rowKey] === selectedRowId),
+      select.none
+    )(rows);
+    const selectedRow = result.selectedRows[0];
 
     this.props.onSelectRow({
-      selectedRowId: selected.selectedRow[rowKey],
-      selectedRow: selected.selectedRow
+      selectedRowId: selectedRow && selectedRow[rowKey],
+      selectedRow
     });
 
-    this.setState(selected);
+    this.setState({
+      rows: result.rows,
+      selectedRow
+    });
   }
 }
 EasyTable.propTypes = propTypes;

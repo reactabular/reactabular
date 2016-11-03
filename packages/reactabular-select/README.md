@@ -1,4 +1,4 @@
-`reactabular-select` provides a selection helper that makes it easier to handle row selection. You still need to update your state after selection.
+`reactabular-select` provides a selection helper that makes it easier to track up/down arrows using React. Actual search logic is implemented by [selectabular](https://www.npmjs.com/package/selectabular) and you'll need to install it separately to your project. The same goes for `reactabular-select`.
 
 ## API
 
@@ -8,46 +8,9 @@
 
 `select.byArrowKeys` is a React level helper that tracks up/down arrows. If there a selection (`selectedRowIndex`), then it triggers `onSelectRow` with the new `selectedRowIndex` which you can then use to update your selection state.
 
-### `select.row({ rows: <rows>, isSelected: (row, selectedRowId) => <boolean>, selectedRowId: <any>}) => { rows: <rows>, selectedRow: <object> }`
-
-`select.row` is a helper that resets the selection state of the given `rows` based on `isSelected` check and `selectedRowId` and sets the matching row as selected. The `isSelected` check defaults to a check by `id`, but you can override it with something more custom.
-
-It is important to note that Reactabular expects you to maintain `editing` state within your row data. This is necessary for it to detect which rows to update as you toggle editing.
-
-**Example:**
-
-```jsx
-/*
-import {
-  select
-} from 'reactabular';
-*/
-
-const rows = [
-  {
-    id: 123,
-    name: 'Joe'
-  },
-  {
-    id: 321,
-    name: 'Adam'
-  }
-];
-
-const result = select.row({
-  rows,
-  selectedRowId: 123
-});
-
-<div>
-  <div>Rows: {JSON.stringify(result.rows, null, 2)}</div>
-  <div>Selected row: {JSON.stringify(result.selectedRow, null, 2)}</div>
-</div>
-```
-
 ## How to Use?
 
-The following example illustrates how to use the selection helpers with a table. You can select a row by clicking in the following example. If there's a selection, you can move up and down using the arrow keys.
+The following example illustrates how to use `reactabular-select` and `selectabular` with a table. You can select a row by clicking in the following example. If there's a selection, you can move up and down using the arrow keys.
 
 ```jsx
 /*
@@ -57,8 +20,11 @@ import cloneDeep from 'lodash/cloneDeep';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import {
-  select, Table
+  Table
 } from 'reactabular';
+import { byArrowKeys } from 'reactabular-select';
+import { compose } from 'redux';
+import select from 'selectabular';
 */
 
 const rows = [
@@ -111,7 +77,7 @@ class SelectionTable extends React.Component {
     this.state = {
       rows,
       columns,
-      selectedRow: {}
+      selectedRows: []
     };
 
     this.onRow = this.onRow.bind(this);
@@ -119,10 +85,10 @@ class SelectionTable extends React.Component {
     this.getSelectedRowIndex = this.getSelectedRowIndex.bind(this);
   }
   render() {
-    const { columns, rows, selectedRow } = this.state;
-    const selectedRowIndex = this.getSelectedRowIndex(selectedRow);
+    const { columns, rows, selectedRows } = this.state;
+    const selectedRowIndex = this.getSelectedRowIndex(selectedRows);
 
-    return select.byArrowKeys({
+    return byArrowKeys({
       rows,
       selectedRowIndex,
       onSelectRow: this.onSelectRow
@@ -142,7 +108,7 @@ class SelectionTable extends React.Component {
 
           <tfoot>
             <tr>
-              <td>Selected: {selectedRow.name}</td>
+              <td>Selected: {selectedRows[0] && selectedRows[0].name}</td>
               <td></td>
             </tr>
           </tfoot>
@@ -161,17 +127,18 @@ class SelectionTable extends React.Component {
   }
   onSelectRow(selectedRowIndex) {
     const { rows } = this.state;
+    const selectedRowId = rows[selectedRowIndex].id;
 
     this.setState(
-      select.row({
-        rows,
-        selectedRowId: rows[selectedRowIndex].id
-      })
+      compose(
+        select.rows(row => row.id === selectedRowId),
+        select.none
+      )(rows)
     );
   }
-  getSelectedRowIndex(selectedRow) {
+  getSelectedRowIndex(selectedRows) {
     return findIndex(this.state.rows, {
-      id: selectedRow.id
+      id: selectedRows[0] && selectedRows[0].id
     });
   }
 }

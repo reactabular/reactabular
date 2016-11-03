@@ -9,6 +9,10 @@
 
   * Bug fix - Pass `parentField` to `tree.filter`. Now toggling should work.
 
+## reactabular-select
+
+  * Breaking - Push logic to [selectabular](https://www.npmjs.com/package/selectabular). See the selection demo (features -> selecting rows) for the new, more powerful API.
+
 ## reactabular-tree
 
   * Bug fix - Allow `tree.toggleChildren` to work without column `props` defined.

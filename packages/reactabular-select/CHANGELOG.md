@@ -1,3 +1,8 @@
+7.0.0 / 2016-xx-xx
+==================
+
+  * Breaking - Push logic to [selectabular](https://www.npmjs.com/package/selectabular). See the selection demo (features -> selecting rows) for the new, more powerful API.
+
 1.2.6 / 2016-08-11
 ==================
 

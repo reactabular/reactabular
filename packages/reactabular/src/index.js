@@ -1,7 +1,6 @@
 import * as Table from 'reactabular-table';
 import * as Sticky from 'reactabular-sticky';
 import * as search from 'reactabular-search';
-import * as select from 'reactabular-select';
 import * as sort from 'reactabular-sort';
 import * as highlight from 'reactabular-highlight';
 import * as resolve from 'reactabular-resolve';
@@ -15,7 +14,6 @@ export {
   SearchColumns,
   Search,
   search,
-  select,
   sort,
   highlight,
   resolve,
