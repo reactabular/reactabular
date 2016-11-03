@@ -1,4 +1,4 @@
-7.0.0 / 2016-xx-xx
+7.0.0 / 2016-11-03
 ==================
 
   * Bug fix - Pass `parentField` to `tree.filter`. Now toggling should work.
