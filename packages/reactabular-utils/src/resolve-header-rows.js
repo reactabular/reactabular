@@ -14,8 +14,8 @@ function resolveHeaderRows(columns = []) {
       return {
         ...col,
         props: {
-          ...col.props,
-          colSpan: children.length
+          colSpan: children.length,
+          ...col.props
         }
       };
     }
@@ -23,8 +23,8 @@ function resolveHeaderRows(columns = []) {
     return {
       ...col,
       props: {
-        ...col.props,
-        rowSpan: countRowSpan(columns)
+        rowSpan: countRowSpan(columns),
+        ...col.props
       }
     };
   });

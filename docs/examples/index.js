@@ -13,6 +13,11 @@ export default rootPath => ({
       component: require('./all-features.md')
     },
     {
+      path: `${rootPath}/adjusting-colspan`,
+      title: 'Adjusting Colspan',
+      component: require('./adjusting-colspan.md')
+    },
+    {
       path: `${rootPath}/crud`,
       title: 'CRUD',
       component: require('./crud.md')

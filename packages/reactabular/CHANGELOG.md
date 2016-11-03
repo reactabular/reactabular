@@ -19,6 +19,7 @@
 ## reactabular-utils
 
   * Bug fix - If `rowKey` value is zero, `resolveRowKey` should return `0-row`.
+  * Feature - Allow `colSpan` and `rowSpan` to be overridden at `resolveHeaderRows`.
 
 6.1.2 / 2016-10-31
 ==================
