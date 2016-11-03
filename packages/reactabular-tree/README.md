@@ -31,15 +31,15 @@ If there's a `parent` relation, the children must follow their parent right afte
 
 ### Transformations
 
-**`tree.collapseAll = ({ property = 'showingChildren' }) => (rows) => <collapsedRows>`**
+**`tree.collapseAll = ({ property = 'showingChildren' }) => (rows) => [<collapsedRow>]`**
 
 Collapses rows by setting `showingChildren` of each row to `false`.
 
-**`tree.expandAll = ({ property = 'showingChildren' }) => (rows) => <expandedRows>`**
+**`tree.expandAll = ({ property = 'showingChildren' }) => (rows) => [<expandedRow>]`**
 
 Expands rows by setting `showingChildren` of each row to `true`.
 
-**`tree.filter = ({ fieldName, parentField = 'parent' }) => (rows) => filteredRows`**
+**`tree.filter = ({ fieldName, parentField = 'parent' }) => (rows) => [<filteredRow>]`**
 
 Filters the given rows using `fieldName`. This is handy if you want only rows that are visible assuming visibility logic has been defined.
 
@@ -65,29 +65,29 @@ Returns parents based on given `rows` and `index`.
 
 Returns a boolean based on whether or not the row at the given `index` has children.
 
-**`tree.search = ({ columns, query, idField = 'id', parentField = 'parent' }) => (rows) => <searchedRows>`**
+**`tree.search = ({ columns, query, idField = 'id', parentField = 'parent' }) => (rows) => [<searchedRow>]`**
 
 Searches against a tree structure while matching against children too. If children are found, associated parents are returned as well.
 
 > This depends on [resolve.index](http://reactabular.js.org/#/data/resolving)!
 
-**`tree.sort = ({ columns, sortingColumns, strategy, idField = 'id' }) => (rows) => <sortedRows>`**
+**`tree.sort = ({ columns, sortingColumns, strategy, idField = 'id' }) => (rows) => [<sortedRow>]`**
 
 Sorts a tree (packs/unpacks internally to maintain root level sorting).
 
 ### Packing
 
-**`tree.pack = ({ parentField = 'parent', childrenField = 'children', idField = 'id' }) => (rows) => <packedRows>`**
+**`tree.pack = ({ parentField = 'parent', childrenField = 'children', idField = 'id' }) => (rows) => [<packedRow>]`**
 
 Packs children inside root level nodes. This is useful with sorting and filtering.
 
-**`tree.unpack = ({ parentField = 'parent', childrenField = 'children', idField = 'id', parent }) => (rows) => <unpackedRows>`**
+**`tree.unpack = ({ parentField = 'parent', childrenField = 'children', idField = 'id', parent }) => (rows) => [<unpackedRow>]`**
 
 Unpacks children from root level nodes. This is useful with sorting and filtering.
 
 ### Drag and Drop
 
-**`tree.moveRows = ({ sourceRowId, targetRowId, retain = [], idField = 'id', parentField = 'parent' }) => (rows) => <movedRows>`**
+**`tree.moveRows = ({ sourceRowId, targetRowId, retain = [], idField = 'id', parentField = 'parent' }) => (rows) => [<movedRow>]`**
 
 Allows moving tree rows while `retain`ing given fields at their original rows.
 
