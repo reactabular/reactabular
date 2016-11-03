@@ -24,4 +24,4 @@ The project root contains a file, **style.css**, which you can import to your pr
 </Table.Provider>
 ```
 
-If you need even more control, override the default elements as discussed in the next section.
+If you need even more control, override the default elements as discussed in the next section. You can also override styling on cell level by implementing [transforms](column-definition/transforms) that inject either `className`s or `style`.
