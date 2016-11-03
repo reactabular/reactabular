@@ -71,6 +71,7 @@ class EasyDemo extends React.Component {
     this.table = null;
 
     this.onDragColumn = this.onDragColumn.bind(this);
+    this.onMoveColumns = this.onMoveColumns.bind(this);
     this.onToggleColumn = this.onToggleColumn.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
     this.onRemove = this.onRemove.bind(this);
@@ -249,8 +250,8 @@ class EasyDemo extends React.Component {
 
     this.setState({ columns });
   }
-  onMoveColumns(columns) {
-    console.log('onMoveColumns', columns);
+  onMoveColumns({ columns, source, target }) {
+    this.setState({ columns });
   }
   onSelectRow({ selectedRowId, selectedRow }) {
     console.log('onSelectRow', selectedRowId, selectedRow);

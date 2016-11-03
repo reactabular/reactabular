@@ -17,14 +17,11 @@ class EasyTable extends React.Component {
     super(props);
 
     this.state = {
-      originalColumns: props.columns,
-      columns: this.bindColumns(props),
       selectedRow: {}
     };
 
     this.bindColumns = this.bindColumns.bind(this);
     this.selectRow = this.selectRow.bind(this);
-    this.onMove = this.onMove.bind(this);
     this.onRow = this.onRow.bind(this);
 
     // References to header/body elements so they can be
@@ -35,14 +32,6 @@ class EasyTable extends React.Component {
   componentDidMount() {
     // We have refs now. Force update to get those to Header/Body.
     this.forceUpdate();
-  }
-  componentWillReceiveProps(nextProps) {
-    if (this.state.originalColumns !== nextProps.columns) {
-      this.setState({
-        originalColumns: nextProps.columns,
-        columns: this.bindColumns(nextProps)
-      });
-    }
   }
   render() {
     const {
@@ -58,11 +47,10 @@ class EasyTable extends React.Component {
         row: Virtualized.BodyRow
       }
     };
-    const {
-      columns, selectedRow, originalColumns
-    } = this.state;
+    const { selectedRow } = this.state;
+    const columns = this.bindColumns(this.props);
 
-    if (hasDraggableHeaders(originalColumns)) {
+    if (hasDraggableHeaders(columns)) {
       tableComponents.header = {
         cell: dnd.Header
       };
@@ -211,8 +199,11 @@ class EasyTable extends React.Component {
         newHeaderProps = {
           // DnD needs this to tell header cells apart
           label: header.label,
-          onFinishMove: () => this.props.onMoveColumns(this.state.columns),
-          onMove: o => this.onMove(o)
+          onMove: (labels) => {
+            this.props.onMoveColumns(
+              dnd.moveLabels(this.props.columns, labels)
+            );
+          }
         };
       }
 
@@ -283,26 +274,6 @@ class EasyTable extends React.Component {
     }
 
     return column;
-  }
-  onMove(labels) {
-    // This returns a new instance, no need to cloneDeep.
-    const movedColumns = dnd.moveLabels(this.state.columns, labels);
-
-    if (movedColumns) {
-      // Retain widths to avoid flashing while drag and dropping.
-      const source = movedColumns.source;
-      const target = movedColumns.target;
-
-      const tmpClassName = source.props.className;
-      source.props.className = target.props.className;
-      target.props.className = tmpClassName;
-
-      this.setState({
-        columns: movedColumns.columns
-      });
-    }
-
-    return movedColumns;
   }
   onRow(row, { rowIndex, rowKey }) {
     const { className, ...props } = this.props.onRow(row, { rowIndex, rowKey });

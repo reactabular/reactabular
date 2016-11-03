@@ -8,6 +8,13 @@
 ## reactabular-easy
 
   * Bug fix - Pass `parentField` to `tree.filter`. Now toggling should work.
+  * Breaking - Push `onMoveColumns` behavior out of table core. Now it doesn't maintain table state at all. As a result you need to implement `onMoveColumns` handler like this to make column moving work:
+
+```javascript
+onMoveColumns({ columns, source, target }) {
+  this.setState({ columns });
+}
+```
 
 ## reactabular-select
 
