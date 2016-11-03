@@ -59,9 +59,9 @@ const schema = {
   },
   required: fields
 };
-function getColumns(){
+function getColumns() {
   let fixed = ['product','price'];
-  let fixedfields = fields.filter(e=> fixed.includes(e[0]));
+  let fixedfields = fields.filter(e => fixed.includes(e[0]));
   let additional = shuffle(fields.filter(e => !fixed.includes(e[0])) ).slice(0,2);
 
   return fixedfields.concat(additional);
@@ -74,7 +74,7 @@ function formatColumns(colin) {
     }
   }));
 }
-function setEditableColumns(colin){
+function setEditableColumns(colin) {
   let editable = edit.edit({
     isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
     onActivate: ({ columnIndex, rowData }) => {
@@ -96,8 +96,8 @@ function setEditableColumns(colin){
     }
   });
 
-  return cloneDeep(colin).map(function(c){
-    c['cell']={}
+  return cloneDeep(colin).map(function(c) {
+    c['cell'] = {}
     c['cell']['transforms'] = [editable(edit.input())]
 
     return c;
@@ -105,7 +105,7 @@ function setEditableColumns(colin){
 }
 
 class MyTable extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -113,7 +113,7 @@ class MyTable extends React.Component {
       columns: [] // NO initial columns
     };
   }
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     let { rows, columns } = nextProps;
     columns = setEditableColumns.call(this, formatColumns(columns))
 
@@ -151,7 +151,7 @@ class Container extends React.Component {
     };
     this.changeSet=this.changeSet.bind(this)
   }
-  changeSet(letter){
+  changeSet(letter) {
     const newset = {}
 
     newset['table'+letter] = {
@@ -161,7 +161,7 @@ class Container extends React.Component {
 
     this.setState({ ...newset });
   }
-  componentWillMount(){
+  componentWillMount() {
     const tableA = {
       columns: getColumns(),
       rows: generateRows(5,schema)
