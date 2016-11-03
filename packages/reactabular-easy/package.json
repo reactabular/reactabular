@@ -45,12 +45,12 @@
   "peerDependencies": {
     "lodash": ">= 3.0.0 < 5.0.0",
     "react": ">= 0.11.2 < 16.0.0",
-    "reactabular": ">= 6.0.0 < 7.0.0",
-    "reactabular-dnd": ">= 4.2.0 < 7.0.0",
-    "reactabular-select": ">= 6.0.0 < 7.0.0",
-    "reactabular-tree": ">= 6.0.0 < 7.0.0",
-    "reactabular-utils": ">= 6.0.0 < 7.0.0",
-    "reactabular-virtualized": ">= 6.0.0 < 7.0.0",
+    "reactabular": ">= 6.0.0 < 8.0.0",
+    "reactabular-dnd": ">= 4.2.0 < 8.0.0",
+    "reactabular-select": ">= 6.0.0 < 8.0.0",
+    "reactabular-tree": ">= 6.0.0 < 8.0.0",
+    "reactabular-utils": ">= 6.0.0 < 8.0.0",
+    "reactabular-virtualized": ">= 6.0.0 < 8.0.0",
     "selectabular": ">= 0.0.0 < 1.0.0"
   }
 }
