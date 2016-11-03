@@ -135,7 +135,7 @@ if (TARGET.startsWith('gh-pages')) {
     },
     output: {
       path: config.paths.ghPages,
-      filename: 'bundle.[chunkhash].js'
+      filename: 'js/bundle.[chunkhash].js'
     },
     plugins: [
       new CleanWebpackPlugin(['gh-pages']),
@@ -162,10 +162,10 @@ if (TARGET.startsWith('gh-pages')) {
           warnings: false
         }
       }),
-      new webpack.optimize.CommonsChunkPlugin(
-        'vendor',
-        '[name].[chunkhash].js'
-      )
+      new webpack.optimize.CommonsChunkPlugin({
+        names: ['vendor', 'manifest'],
+        filename: 'js/[name].[chunkhash].js'
+      })
     ],
     module: {
       loaders: [
