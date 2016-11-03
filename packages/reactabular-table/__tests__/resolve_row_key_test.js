@@ -44,4 +44,21 @@ describe('table.resolveRowKey', function () {
 
     expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual(`${rowIndex}-row`);
   });
+
+  it('allows rowKey to be a getter', function () {
+    class Row {
+      constructor() {
+        this.val = 'bar';
+      }
+      get foo() {
+        return this.val;
+      }
+    }
+
+    const rowIndex = 0;
+    const rowKey = 'foo';
+    const rowData = new Row();
+
+    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual('bar-row');
+  });
 });
