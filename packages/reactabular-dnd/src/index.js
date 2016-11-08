@@ -1,3 +1,4 @@
+import draggableRow from './draggable-row';
 import Header from './header';
 import Row from './row';
 import {
@@ -5,6 +6,7 @@ import {
 } from './move';
 
 export {
+  draggableRow,
   moveChildrenLabels,
   moveLabels,
   moveRows,
