@@ -22,6 +22,7 @@ const propTypes = {
   parentField: React.PropTypes.string,
   // Handlers
   onRow: React.PropTypes.func,
+  onMoveRow: React.PropTypes.func,
   onWidth: React.PropTypes.func,
   onDragColumn: React.PropTypes.func,
   onMoveColumns: React.PropTypes.func,
@@ -70,6 +71,7 @@ const defaultProps = {
   parentField: 'parent',
   // Handlers
   onRow: () => ({}),
+  onMoveRow: () => ({}),
   onDragColumn: () => {},
   onMoveColumns: () => {},
   onSelectRow: () => {},

@@ -15,7 +15,7 @@ import { search, Search, SearchColumns } from 'reactabular';
 import EasyTable from 'reactabular-easy';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContext } from 'react-dnd';
+import { DragDropContext, moveRows } from 'react-dnd';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 
@@ -70,6 +70,7 @@ class EasyDemo extends React.Component {
     };
     this.table = null;
 
+    this.onMoveRow = this.onMoveRow.bind(this);
     this.onDragColumn = this.onDragColumn.bind(this);
     this.onMoveColumns = this.onMoveColumns.bind(this);
     this.onToggleColumn = this.onToggleColumn.bind(this);
@@ -233,6 +234,7 @@ class EasyDemo extends React.Component {
           idField="Id"
           parentField="parent"
 
+          onMoveRow={this.onMoveRow}
           onDragColumn={this.onDragColumn}
           onMoveColumns={this.onMoveColumns}
           onSelectRow={this.onSelectRow}
@@ -242,6 +244,17 @@ class EasyDemo extends React.Component {
         />
       </div>
     );
+  }
+  onMoveRow({ sourceRowId, targetRowId }) {
+    const rows = dnd.moveRows({
+      sourceRowId,
+      targetRowId,
+      idField: 'Id' // Defaults to id
+    })(this.state.rows);
+
+    if (rows) {
+      this.setState({ rows });
+    }
   }
   onDragColumn(width, { columnIndex }) {
     const columns = cloneDeep(this.state.columns);

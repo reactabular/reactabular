@@ -1,5 +1,6 @@
 import React from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
+import { findDOMNode } from 'react-dom';
 
 const DragTypes = {
   ROW: 'row'
@@ -15,6 +16,7 @@ const rowTarget = {
     const sourceProps = monitor.getItem();
     const sourceRowId = sourceProps.rowId;
 
+    // TODO: check if sourceRowId and targetRowId are undefined -> warning
     if (sourceRowId !== targetRowId) {
       targetProps.onMove({ sourceRowId, targetRowId });
     }
@@ -33,28 +35,48 @@ const dropTarget = DropTarget( // eslint-disable-line new-cap
 );
 const DraggableRow = ({
   _parent,
-  connectDragSource, connectDropTarget, children,
+  connectDragSource, connectDropTarget,
   onMove, rowId, ...props // eslint-disable-line no-unused-vars
 }) => (
   // If you want to drag using a handle instead, then you need to pass
   // connectDragSource to a customized cell (DndCell) through React
   // context and wrap the handle there. You also need to annotate
   // this function using connectDragPreview.
-  connectDragSource(connectDropTarget(
-    <_parent {...props}>{children}</_parent>
-  ))
-);
-
-export default (_parent) => (children) => (
+  //
+  // https://github.com/gaearon/react-dnd/releases/tag/v2.0.0 - ref trick
   React.createElement(
-    dragSource(
-      dropTarget(
-        DraggableRow
-      )
-    ),
+    _parent,
+    {
+      ...props,
+      ref: (e) => {
+        if (!e) {
+          return;
+        }
+
+        const node = findDOMNode(e);
+
+        // Chaining is not allowed
+        // https://github.com/gaearon/react-dnd/issues/305#issuecomment-164490014
+        connectDropTarget(node);
+        connectDragSource(node);
+      }
+    }
+  )
+);
+DraggableRow.propTypes = {
+  _parent: React.PropTypes.node.isRequired,
+  connectDragSource: React.PropTypes.func.isRequired,
+  connectDropTarget: React.PropTypes.func.isRequired,
+  onMove: React.PropTypes.func.isRequired,
+  rowId: React.PropTypes.string.isRequired
+};
+
+export default _parent => children => (
+  React.createElement(
+    dragSource(dropTarget(DraggableRow)),
     {
       _parent,
       ...children
     }
   )
-)
+);

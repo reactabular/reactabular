@@ -44,7 +44,7 @@ class EasyTable extends React.Component {
       ...components,
       body: {
         wrapper: Virtualized.BodyWrapper,
-        row: Virtualized.BodyRow
+        row: dnd.draggableRow(Virtualized.BodyRow)
       }
     };
     const { selectedRow } = this.state;
@@ -288,11 +288,14 @@ class EasyTable extends React.Component {
     return column;
   }
   onRow(row, { rowIndex, rowKey }) {
-    const { className, ...props } = this.props.onRow(row, { rowIndex, rowKey });
+    const { idField, onRow, onMoveRow } = this.props;
+    const { className, ...props } = onRow(row, { rowIndex, rowKey });
 
     return {
       className: mergeClassNames(className, row.selected && 'selected-row'),
+      rowId: row[idField],
       onClick: () => this.selectRow(rowIndex),
+      onMove: onMoveRow,
       ...props
     };
   }
