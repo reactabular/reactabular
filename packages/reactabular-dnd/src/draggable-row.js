@@ -71,7 +71,7 @@ DraggableRow.propTypes = {
   connectDragSource: React.PropTypes.func.isRequired,
   connectDropTarget: React.PropTypes.func.isRequired,
   onMove: React.PropTypes.func.isRequired,
-  rowId: React.PropTypes.string.isRequired
+  rowId: React.PropTypes.any.isRequired
 };
 
 export default _parent => children => (
