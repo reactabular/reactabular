@@ -12,7 +12,8 @@ const moveTreeRows = ({
 } = {}) => (rows) => {
   let movedRows = moveRows({
     sourceRowId,
-    targetRowId
+    targetRowId,
+    idField
   })(rows);
 
   if (movedRows) {

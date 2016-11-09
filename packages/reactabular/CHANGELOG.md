@@ -1,3 +1,10 @@
+7.1.0 / 2016-xx-xx
+==================
+
+## reactabular-tree
+
+  * Bug fix - Respect `idField` properly at `tree.moveRows`.
+
 7.0.0 / 2016-11-03
 ==================
 
