@@ -74,12 +74,22 @@ DraggableRow.propTypes = {
   rowId: React.PropTypes.any.isRequired
 };
 
-export default _parent => children => (
-  React.createElement(
-    dragSource(dropTarget(DraggableRow)),
-    {
-      _parent,
-      ...children
-    }
-  )
-);
+const draggableRow = (_parent) => {
+  function draggable(children) {
+    return React.createElement(
+      dragSource(dropTarget(DraggableRow)),
+      {
+        _parent,
+        ...children
+      }
+    );
+  }
+
+  // Copy possible shouldComponentUpdate over or otherwise features
+  // like virtualization won't work.
+  draggable.shouldComponentUpdate = _parent.shouldComponentUpdate;
+
+  return draggable;
+};
+
+export default draggableRow;
