@@ -64,7 +64,10 @@ const DraggableRow = ({
   )
 );
 DraggableRow.propTypes = {
-  _parent: React.PropTypes.node.isRequired,
+  _parent: React.PropTypes.oneOfType([
+    React.PropTypes.func,
+    React.PropTypes.node
+  ]).isRequired,
   connectDragSource: React.PropTypes.func.isRequired,
   connectDropTarget: React.PropTypes.func.isRequired,
   onMove: React.PropTypes.func.isRequired,
