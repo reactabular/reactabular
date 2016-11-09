@@ -2,6 +2,7 @@
 import tablePages from './table';
 import columnDefinitionPages from './column-definition';
 import dataPages from './data';
+import dragAndDropPages from './drag-and-drop';
 import featuresPages from './features';
 import examplesPages from './examples';
 import searchPages from './search';
@@ -22,6 +23,7 @@ export default [
   columnDefinitionPages('column-definition'),
   dataPages('data'),
   searchPages('search'),
+  dragAndDropPages('drag-and-drop'),
   featuresPages('features'),
   {
     path: 'easy',

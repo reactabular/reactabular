@@ -23,19 +23,9 @@ export default rootPath => ({
       component: require('./paginating.md')
     },
     {
-      path: `${rootPath}/drag-and-drop`,
-      title: 'Drag and Drop',
-      component: require('reactabular-dnd/../README.md')
-    },
-    {
       path: `${rootPath}/tree`,
       title: 'Tree',
       component: require('reactabular-tree/../README.md')
-    },
-    {
-      path: `${rootPath}/drag-and-drop-with-tree`,
-      title: 'Drag and Drop with Tree',
-      component: require('./drag-and-drop-with-tree.md')
     }
   ]
 });
