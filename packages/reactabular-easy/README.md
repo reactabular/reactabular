@@ -14,8 +14,9 @@ import React from 'react';
 import { search, Search, SearchColumns } from 'reactabular';
 import EasyTable from 'reactabular-easy';
 import VisibilityToggles from 'reactabular-visibility-toggles';
+import * as tree from 'reactabular-tree';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContext, moveRows } from 'react-dnd';
+import { DragDropContext } from 'react-dnd';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 
@@ -246,10 +247,11 @@ class EasyDemo extends React.Component {
     );
   }
   onMoveRow({ sourceRowId, targetRowId }) {
-    const rows = dnd.moveRows({
+    const rows = tree.moveRows({
       sourceRowId,
       targetRowId,
-      idField: 'Id' // Defaults to id
+      idField: 'Id', // Defaults to id
+      parentField: 'parent'
     })(this.state.rows);
 
     if (rows) {
