@@ -57,7 +57,7 @@ const schema = {
     }
   }
 };
-const rows = generateParents(generateRows(1000, schema), 'Id');
+const rows = generateParents(generateRows(200, schema), 'Id');
 
 class EasyDemo extends React.Component {
   constructor(props) {
@@ -247,6 +247,8 @@ class EasyDemo extends React.Component {
     );
   }
   onMoveRow({ sourceRowId, targetRowId }) {
+    // Given this can be a heavy operation, consider pushing it
+    // to a web worker so performing it doesn't block React.
     const rows = tree.moveRows({
       sourceRowId,
       targetRowId,
@@ -254,9 +256,7 @@ class EasyDemo extends React.Component {
       parentField: 'parent'
     })(this.state.rows);
 
-    if (rows) {
-      this.setState({ rows });
-    }
+    rows && this.setState({ rows });
   }
   onDragColumn(width, { columnIndex }) {
     const columns = cloneDeep(this.state.columns);
