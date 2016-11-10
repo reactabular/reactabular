@@ -1,6 +1,14 @@
 7.1.0 / 2016-xx-xx
 ==================
 
+## reactabular-dnd
+
+  * Feature - Expose `dnd.draggableRow`. This allows you to use row dragging with virtualization. Example: `body.row = dnd.draggableRow(Virtualized.BodyRow)`.
+
+## reactabular-easy
+
+  * Feature - Support row dragging. This has been exposed through `onMoveRow({ sourceRowId, targetRowId })`. You are expected to call an algorithm that actually moves the row there. `reactabular-dnd` implements these.
+
 ## reactabular-tree
 
   * Bug fix - Respect `idField` properly at `tree.moveRows`.
