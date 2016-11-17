@@ -259,7 +259,8 @@ class EasyTable extends React.Component {
       if (column.width) {
         newStyle = {
           width: column.width,
-          minWidth: column.width
+          minWidth: column.width,
+          maxWidth: column.width
         };
       }
 
