@@ -40,6 +40,9 @@ class EditableTable extends React.Component {
         rows[index][property] = value;
         rows[index].editing = false;
 
+        // Optional: capture the fact that a field was edited for visualization
+        rows[index].edited = true;
+
         this.setState({ rows });
       }
     });
@@ -53,7 +56,11 @@ class EditableTable extends React.Component {
             label: 'Name'
           },
           cell: {
-            transforms: [editable(edit.input())]
+            transforms: [
+              (value, extra) => editable(edit.input())(value, extra, {
+                className: extra.rowData.edited && 'edited'
+              })
+            ]
           }
         }
       ],

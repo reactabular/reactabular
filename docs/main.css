@@ -49,3 +49,9 @@ table {
 .selected-row td {
     background: rgb(255, 255, 175) !important; /* XXX */
 }
+
+/* inline-editing.md */
+.edited {
+    border-left: 0.2em solid orange;
+    padding-left: 0.2em;
+}
