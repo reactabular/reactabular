@@ -9,6 +9,7 @@
 
   * Feature - Support row dragging. This has been exposed through `onMoveRow({ sourceRowId, targetRowId })`. You are expected to call an algorithm that actually moves the row there. `reactabular-dnd` implements these.
   * Bug fix - Inject `className` per row only if it has been defined at `onRow`.
+  * Bug fix - If a column has width set, set `maxWidth` to it as well. #238
 
 ## reactabular-table
 
@@ -17,6 +18,10 @@
 ## reactabular-tree
 
   * Bug fix - Respect `idField` properly at `tree.moveRows`.
+
+## reactabular-resizable
+
+  * Feature - Allow `minWidth` to be set per `column` explicitly.
 
 ## reactabular-search-columns
 
