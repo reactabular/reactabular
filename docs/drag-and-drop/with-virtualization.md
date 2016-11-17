@@ -103,23 +103,20 @@ class VirtualizedTable extends React.Component {
 
     this.state = {
       rows,
-      columns
+      columns,
+      scroll: {}
     };
 
+    this.onScroll = this.onScroll.bind(this);
     this.onRow = this.onRow.bind(this);
     this.onMoveRow = this.onMoveRow.bind(this);
-
-    this.tableHeader = null;
-    this.tableBody = null;
-  }
-  componentDidMount() {
-    // We have refs now. Force update to get those to Header/Body.
-    this.forceUpdate();
   }
   render() {
+    const { rows, scroll } = this.state;
+
     return (
       <div>
-        <Table.Provider
+        <Sticky.Provider
           className="pure-table pure-table-striped"
           columns={columns}
           components={{
@@ -128,33 +125,31 @@ class VirtualizedTable extends React.Component {
               row: dnd.draggableRow(Virtualized.BodyRow)
             }
           }}
+          onScroll={this.onScroll}
         >
           <Sticky.Header
             style={{
               maxWidth: 800
             }}
-            ref={tableHeader => {
-              this.tableHeader = tableHeader && tableHeader.getRef();
-            }}
-            tableBody={this.tableBody}
+            scroll={scroll}
           />
 
           <Virtualized.Body
-            rows={this.state.rows}
+            rows={rows}
             rowKey="id"
             style={{
               maxWidth: 800
             }}
             height={400}
-            ref={tableBody => {
-              this.tableBody = tableBody && tableBody.getRef();
-            }}
-            tableHeader={this.tableHeader}
             onRow={this.onRow}
+            scroll={scroll}
           />
-        </Table.Provider>
+        </Sticky.Provider>
       </div>
     );
+  }
+  onScroll(scroll) {
+    this.setState({ scroll });
   }
   onRow(row) {
     return {

@@ -22,8 +22,8 @@ class BodyRow extends React.Component {
     }
 
     return !(
-      isEqual(previousProps.columns, nextProps.columns) &&
-      isEqual(previousProps.rowData, nextProps.rowData)
+      isEqual(previousProps.rowData, nextProps.rowData) &&
+      isEqual(previousProps.columns, nextProps.columns)
     );
   }
   render() {

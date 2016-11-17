@@ -23,22 +23,13 @@ class EasyTable extends React.Component {
     this.bindColumns = this.bindColumns.bind(this);
     this.selectRow = this.selectRow.bind(this);
     this.onRow = this.onRow.bind(this);
-
-    // References to header/body elements so they can be
-    // kept in sync while scrolling.
-    this.tableHeader = null;
-    this.tableBody = null;
-  }
-  componentDidMount() {
-    // We have refs now. Force update to get those to Header/Body.
-    this.forceUpdate();
   }
   render() {
     const {
       rowKey, query, headerExtra, sortingColumns,
-      tableWidth, tableHeight, components,
-      idField, parentField,
-      classNames, onRow // eslint-disable-line no-unused-vars
+      tableWidth, tableHeight, components, scroll,
+      idField, parentField, classNames,
+      onScroll, onRow // eslint-disable-line no-unused-vars
     } = this.props;
     const tableComponents = {
       ...components,
@@ -93,21 +84,19 @@ class EasyTable extends React.Component {
       selectedRowIndex,
       onSelectRow: this.selectRow
     })(
-      <Table.Provider
+      <Sticky.Provider
         className={classNames.table && classNames.table.wrapper}
         components={tableComponents}
         columns={columns}
         style={{ width: tableWidth }}
+        onScroll={onScroll}
       >
         <Sticky.Header
           className={classNames.header && classNames.header.wrapper}
           style={{
             maxWidth: tableWidth
           }}
-          ref={(tableHeader) => {
-            this.tableHeader = tableHeader && tableHeader.getRef();
-          }}
-          tableBody={this.tableBody}
+          scroll={scroll}
         >
           {headerExtra}
         </Sticky.Header>
@@ -121,12 +110,9 @@ class EasyTable extends React.Component {
             maxWidth: tableWidth
           }}
           height={tableHeight}
-          ref={(tableBody) => {
-            this.tableBody = tableBody && tableBody.getRef();
-          }}
-          tableHeader={this.tableHeader}
+          scroll={scroll}
         />
-      </Table.Provider>
+      </Sticky.Provider>
     );
   }
   bindColumns({ columns, props }) {

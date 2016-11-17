@@ -2,7 +2,7 @@ Sometimes you might want to display data within a fixed container. That's where 
 
 ## API
 
-The API is exactly the same as for `reactabular-table` apart from naming. Here you need to use `Sticky.Header` and `Sticky.Body` over `Table.Header` and `Table.Body`.
+The API is exactly the same as for `reactabular-table` apart from naming. Here you need to use `Sticky.Provider`, `Sticky.Header` and `Sticky.Body` over `Table.Provider`, `Table.Header` and `Table.Body`.
 
 ## How to Use?
 
@@ -85,32 +85,26 @@ class StickyTable extends React.Component {
 
     this.state = {
       rows,
-      columns
+      columns,
+      scroll: {}
     };
 
-    this.tableHeader = null;
-    this.tableBody = null;
-  }
-  componentDidMount() {
-    // We have refs now. Force update to get those to Header/Body.
-    this.forceUpdate();
+    this.onScroll = this.onScroll.bind(this);
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, scroll } = this.state;
 
     return (
-      <Table.Provider
+      <Sticky.Provider
         className="pure-table pure-table-striped"
         columns={columns}
+        onScroll={this.onScroll}
       >
         <Sticky.Header
           style={{
             maxWidth: 800
           }}
-          ref={tableHeader => {
-            this.tableHeader = tableHeader && tableHeader.getRef();
-          }}
-          tableBody={this.tableBody}
+          scroll={scroll}
         />
 
         <Sticky.Body
@@ -120,13 +114,13 @@ class StickyTable extends React.Component {
             maxWidth: 800,
             maxHeight: 400
           }}
-          ref={tableBody => {
-            this.tableBody = tableBody && tableBody.getRef();
-          }}
-          tableHeader={this.tableHeader}
+          scroll={scroll}
         />
-      </Table.Provider>
+      </Sticky.Provider>
     );
+  }
+  onScroll(scroll) {
+    this.setState({ scroll });
   }
 }
 

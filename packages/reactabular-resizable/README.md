@@ -58,11 +58,11 @@ class ResizableColumnsTable extends React.Component {
 
     this.state = {
       columns: this.getColumns(),
-      rows
+      rows,
+      scroll: {}
     };
 
-    this.tableHeader = null;
-    this.tableBody = null;
+    this.onScroll = this.onScroll.bind(this);
   }
   componentDidMount() {
     // Create a custom stylesheet for tracking styles.
@@ -155,22 +155,20 @@ class ResizableColumnsTable extends React.Component {
     return `column-${this.id}-${i}`;
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, scroll } = this.state;
 
     return (
-      <Table.Provider
+      <Sticky.Provider
         className="pure-table pure-table-striped"
         columns={columns}
         style={{ width: 'auto' }}
+        onScroll={this.onScroll}
       >
         <Sticky.Header
           style={{
             maxWidth: 800
           }}
-          ref={tableHeader => {
-            this.tableHeader = tableHeader && tableHeader.getRef();
-          }}
-          tableBody={this.tableBody}
+          scroll={scroll}
         />
 
         <Sticky.Body
@@ -181,13 +179,13 @@ class ResizableColumnsTable extends React.Component {
             maxWidth: 800,
             maxHeight: 400
           }}
-          ref={tableBody => {
-            this.tableBody = tableBody && tableBody.getRef();
-          }}
-          tableHeader={this.tableHeader}
+          scroll={scroll}
         />
-      </Table.Provider>
+      </Sticky.Provider>
     );
+  }
+  onScroll(scroll) {
+    this.setState({ scroll });
   }
   onRow(row, { rowIndex }) {
     return {

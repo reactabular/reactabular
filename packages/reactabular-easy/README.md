@@ -67,10 +67,12 @@ class EasyDemo extends React.Component {
       rows,
       columns: this.getColumns(),
       sortingColumns: {},
-      query: {}
+      query: {},
+      scroll: {}
     };
     this.table = null;
 
+    this.onScroll = this.onScroll.bind(this);
     this.onMoveRow = this.onMoveRow.bind(this);
     this.onDragColumn = this.onDragColumn.bind(this);
     this.onMoveColumns = this.onMoveColumns.bind(this);
@@ -177,7 +179,7 @@ class EasyDemo extends React.Component {
     ];
   }
   render() {
-    const { columns, sortingColumns, rows, query } = this.state;
+    const { columns, sortingColumns, rows, query, scroll } = this.state;
     const visibleColumns = this.state.columns.filter(column => column.visible);
 
     return (
@@ -235,6 +237,9 @@ class EasyDemo extends React.Component {
           idField="Id"
           parentField="parent"
 
+          scroll={scroll}
+          onScroll={this.onScroll}
+
           onMoveRow={this.onMoveRow}
           onDragColumn={this.onDragColumn}
           onMoveColumns={this.onMoveColumns}
@@ -244,6 +249,9 @@ class EasyDemo extends React.Component {
         />
       </div>
     );
+  }
+  onScroll(scroll) {
+    this.setState({ scroll });
   }
   onMoveRow({ sourceRowId, targetRowId }) {
     // Given this can be a heavy operation, consider pushing it

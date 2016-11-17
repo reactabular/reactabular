@@ -20,6 +20,13 @@ const propTypes = {
   // Custom tree fields
   idField: React.PropTypes.string,
   parentField: React.PropTypes.string,
+
+  // Scrolling
+  scroll: React.PropTypes.shape({
+    left: React.PropTypes.number
+  }),
+  onScroll: React.PropTypes.func.isRequired,
+
   // Handlers
   onRow: React.PropTypes.func,
   onMoveRow: React.PropTypes.func,

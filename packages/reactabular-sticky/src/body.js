@@ -8,11 +8,18 @@ class Body extends React.Component {
 
     this.ref = null;
   }
+  componentWillReceiveProps(nextProps) {
+    const nextLeft = nextProps.scroll.left;
+
+    if (
+      this.props.scroll.left !== nextLeft &&
+      this.ref.scrollLeft !== nextLeft
+    ) {
+      this.ref.scrollLeft = nextLeft;
+    }
+  }
   render() {
-    const { style, tableHeader, onScroll, ...props } = this.props;
-    const tableHeaderWidth = tableHeader ? tableHeader.clientWidth : 0;
-    const tableBodyWidth = this.ref ? this.ref.clientWidth : 0;
-    const scrollOffset = tableHeaderWidth - tableBodyWidth || 0;
+    const { style, scroll, ...props } = this.props;
 
     return React.createElement(
       TableBody,
@@ -23,18 +30,7 @@ class Body extends React.Component {
         style: {
           ...style || {},
           display: 'block',
-          overflow: 'auto',
-          paddingRight: scrollOffset
-        },
-        // Expand onScroll as otherwise the logic won't work
-        onScroll: (e) => {
-          onScroll && onScroll(e);
-
-          const { target: { scrollLeft } } = e;
-
-          if (tableHeader) {
-            tableHeader.scrollLeft = scrollLeft;
-          }
+          overflow: 'scroll'
         },
         ...props
       }
@@ -46,8 +42,9 @@ class Body extends React.Component {
 }
 Body.propTypes = {
   style: React.PropTypes.any,
-  tableHeader: React.PropTypes.any,
-  onScroll: React.PropTypes.func
+  scroll: React.PropTypes.shape({
+    left: React.PropTypes.number
+  })
 };
 
 export default Body;

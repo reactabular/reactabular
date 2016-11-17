@@ -8,8 +8,18 @@ class Header extends React.Component {
 
     this.ref = null;
   }
+  componentWillReceiveProps(nextProps) {
+    const nextLeft = nextProps.scroll.left;
+
+    if (
+      this.props.scroll.left !== nextLeft &&
+      this.ref.scrollLeft !== nextLeft
+    ) {
+      this.ref.scrollLeft = nextLeft;
+    }
+  }
   render() {
-    const { style, tableBody, ...props } = this.props;
+    const { style, scroll, ...props } = this.props;
 
     return React.createElement(
       TableHeader,
@@ -20,15 +30,9 @@ class Header extends React.Component {
         style: {
           ...style || {},
           display: 'block',
-          overflow: 'auto'
+          overflow: 'scroll'
         },
-        ...props,
-        // Override onScroll as otherwise the logic won't work
-        onScroll: ({ target: { scrollLeft } }) => {
-          if (tableBody) {
-            tableBody.scrollLeft = scrollLeft;
-          }
-        }
+        ...props
       }
     );
   }
@@ -38,7 +42,12 @@ class Header extends React.Component {
 }
 Header.propTypes = {
   style: React.PropTypes.any,
-  tableBody: React.PropTypes.any
+  scroll: React.PropTypes.shape({
+    left: React.PropTypes.number
+  })
+};
+Header.defaultProps = {
+  scroll: {}
 };
 
 export default Header;
