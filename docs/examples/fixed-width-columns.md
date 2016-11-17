@@ -107,9 +107,6 @@ class FixedWidthHeader extends React.Component {
     );
   }
 }
-FixedWidthHeader.propTypes = {
-  children: React.PropTypes.any
-};
 
 <FixedWidthColumnsTable />
 ```
