@@ -1,4 +1,5 @@
 import React from 'react';
+import isEqual from 'lodash/isEqual';
 import { bodyRowContextTypes, bodyRowTypes } from './types';
 
 class BodyRow extends React.Component {
@@ -43,7 +44,19 @@ class BodyRow extends React.Component {
 BodyRow.contextTypes = bodyRowContextTypes;
 BodyRow.propTypes = bodyRowTypes;
 
-// Tell reactabular-table to update anyway.
-BodyRow.shouldComponentUpdate = true;
+BodyRow.shouldComponentUpdate = function (nextProps) {
+  const previousProps = this.props;
+
+  // Update only if a row has not been measured and either
+  // columns or rowData hasn't changed
+  if (nextProps.rowData._measured) {
+    return !(
+      isEqual(previousProps.columns, nextProps.columns) &&
+      isEqual(previousProps.rowData, nextProps.rowData)
+    );
+  }
+
+  return true;
+};
 
 export default BodyRow;

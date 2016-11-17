@@ -1,6 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 import { Body } from 'reactabular-sticky';
+import { resolveRowKey } from 'reactabular-utils';
 import { bodyChildContextTypes } from './types';
 import calculateAverageHeight from './calculate-average-height';
 import calculateRows from './calculate-rows';
@@ -62,10 +63,22 @@ class VirtualizedBody extends React.Component {
   render() {
     const { onRow, rows, onScroll, ...props } = this.props;
     const { startIndex, amountOfRowsToRender } = this.state;
+
+    // Attach information about measuring status. This way we can implement
+    // proper shouldComponentUpdate
     const rowsToRender = rows.slice(
       startIndex,
       startIndex + amountOfRowsToRender
-    );
+    ).map((rowData, rowIndex) => ({
+      ...rowData,
+      _measured: !!this.measuredRows[
+        resolveRowKey({
+          rowData,
+          rowIndex,
+          rowKey: this.props.rowKey
+        })
+      ]
+    }));
 
     if (process.env.NODE_ENV !== 'production' && window.LOG_VIRTUALIZED) {
       console.log( // eslint-disable-line no-console
