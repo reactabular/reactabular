@@ -246,8 +246,6 @@ class EasyDemo extends React.Component {
     );
   }
   onMoveRow({ sourceRowId, targetRowId }) {
-    // Given this can be a heavy operation, consider pushing it
-    // to a web worker so performing it doesn't block React.
     const rows = tree.moveRows({
       sourceRowId,
       targetRowId,
