@@ -1,3 +1,5 @@
+export { default as columnsAreEqual } from './columns-are-equal';
+export { default as rowsAreEqual } from './rows-are-equal';
 export { default as resolveHeaderRows } from './resolve-header-rows';
 export { default as countRowSpan } from './count-row-span';
 export { default as resolveBodyColumns } from './resolve-body-columns';

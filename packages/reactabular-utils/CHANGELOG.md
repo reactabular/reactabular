@@ -1,3 +1,8 @@
+7.1.0 / 2016-xx-xx
+==================
+
+  * Feature - Add `columnsAreEqual` and `rowsAreEqual` checkers.
+
 7.0.0 / 2016-11-03
 ==================
 

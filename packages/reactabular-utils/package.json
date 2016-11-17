@@ -33,7 +33,9 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
-  "dependencies": {},
+  "dependencies": {
+    "deep-diff": "^0.3.4"
+  },
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"
