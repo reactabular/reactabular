@@ -94,6 +94,8 @@ const columns = [
 
 > If you've struggled with other React table components, you'll see why this one is the best! - [Tim Dorr](https://twitter.com/timdorr/status/750346565374455808)
 
+> It’s not a regular table component it’s a whole framework to work with tables: sorting, drag’n’drop, filtering, etc. And it’s easy to change every part if you need something specific. - [Artem Sapegin](http://sapegin.me/)
+
 If you are using Reactabular and want to endorse it, [let me know](https://github.com/reactabular/reactabular/issues/new).
 
 ## Sponsors
