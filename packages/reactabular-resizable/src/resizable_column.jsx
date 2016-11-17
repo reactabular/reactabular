@@ -5,7 +5,7 @@ const resizableColumn = (
   {
     parent = document,
     onDrag,
-    minWidth = 100,
+    minWidth = 10,
     props = {
       container: {},
       value: {},
@@ -73,7 +73,10 @@ const resizableColumn = (
         e.preventDefault();
 
         onDrag(
-          Math.max((this.startWidth - this.startX) + e.clientX, minWidth),
+          Math.max(
+              (this.startWidth - this.startX) + e.clientX,
+              (extraParameters.column && extraParameters.column.minWidth) || minWidth
+          ),
           extraParameters
         );
       }
