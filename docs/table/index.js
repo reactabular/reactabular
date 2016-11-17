@@ -21,6 +21,11 @@ export default rootPath => ({
       path: `${rootPath}/overriding-default-elements`,
       title: 'Overriding Default Elements',
       component: require('./overriding-default-elements.md')
+    },
+    {
+      path: `${rootPath}/overriding-should-component-update`,
+      title: 'Overriding shouldComponentUpdate',
+      component: require('./overriding-should-component-update.md')
     }
   ]
 });
