@@ -130,7 +130,7 @@ if (TARGET.startsWith('gh-pages')) {
         'schema2object', 'lodash', 'react', 'react-dom',
         'react-dnd', 'react-dnd-html5-backend',
         'react-github-corner', 'react-redux', 'redux', 'uuid',
-        'annogenerate', 'selectabular'
+        'annogenerate', 'selectabular', 'deep-diff'
       ])
     },
     output: {

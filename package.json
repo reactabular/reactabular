@@ -75,6 +75,7 @@
     "clean-webpack-plugin": "^0.1.14",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.25.0",
+    "deep-diff": "^0.3.4",
     "eslint": "^3.10.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
