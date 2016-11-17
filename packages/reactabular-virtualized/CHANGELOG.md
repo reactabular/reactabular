@@ -2,6 +2,7 @@
 ==================
 
   * Bug fix - Improve horizontal scrolling performance when used with reactabular-sticky. If it detects Y didn't change while scrolling, it skips rendering now.
+  * Bug fix - Skip functions at `BodyRow` `shouldComponentUpdate`.
   * Breaking - Speed up vertical scrolling by implementing `shouldComponentUpdate` for rows. Now it detects whether or not a row has been measured and also does check based on column and row changes like default SCU at reactabular-table.
 
 6.0.3 / 2016-10-19

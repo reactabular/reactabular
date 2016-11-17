@@ -1,5 +1,5 @@
 import React from 'react';
-import isEqual from 'lodash/isEqual';
+import { columnsAreEqual, rowsAreEqual } from 'reactabular-utils';
 import { bodyRowContextTypes, bodyRowTypes } from './types';
 
 class BodyRow extends React.Component {
@@ -51,8 +51,8 @@ BodyRow.shouldComponentUpdate = function (nextProps) {
   // columns or rowData hasn't changed
   if (nextProps.rowData._measured) {
     return !(
-      isEqual(previousProps.columns, nextProps.columns) &&
-      isEqual(previousProps.rowData, nextProps.rowData)
+      columnsAreEqual(previousProps.columns, nextProps.columns) &&
+      rowsAreEqual(previousProps.rowData, nextProps.rowData)
     );
   }
 
