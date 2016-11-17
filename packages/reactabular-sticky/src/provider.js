@@ -11,7 +11,11 @@ class Provider extends React.Component {
   render() {
     return <TableProvider {...this.props} onScroll={this.onScroll} />
   }
-  onScroll({ target: { scrollLeft, scrollTop } }) {
+  onScroll(e) {
+    e.preventDefault(); // Stop bubbling further
+
+    const { target: { scrollLeft, scrollTop } } = e;
+
     this.props.onScroll({
       left: scrollLeft,
       top: scrollTop
