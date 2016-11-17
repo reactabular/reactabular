@@ -13,6 +13,10 @@
 
   * Bug fix - Respect `idField` properly at `tree.moveRows`.
 
+## reactabular-search-columns
+
+  * Bug fix - Make sure search `input`s get an empty default value to avoid a React warning about converting from an uncontrolled component to a controlled one.
+
 7.0.0 / 2016-11-03
 ==================
 

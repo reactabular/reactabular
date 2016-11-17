@@ -1,3 +1,8 @@
+7.1.0 / 2016-xx-xx
+==================
+
+  * Bug fix - Make sure search `input`s get an empty default value to avoid a React warning about converting from an uncontrolled component to a controlled one.
+
 6.0.0 / 2016-10-14
 ==================
 

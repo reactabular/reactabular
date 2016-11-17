@@ -18,7 +18,7 @@ const SearchColumns = ({ columns, query, onChange }) => {
               className="column-filter-input"
               name={column.property}
               placeholder={column.filterPlaceholder || ''}
-              value={query[column.property]}
+              value={query[column.property] || ''}
             />
           : ''}
         </th>
