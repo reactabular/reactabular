@@ -8,6 +8,7 @@
 ## reactabular-easy
 
   * Feature - Support row dragging. This has been exposed through `onMoveRow({ sourceRowId, targetRowId })`. You are expected to call an algorithm that actually moves the row there. `reactabular-dnd` implements these.
+  * Bug fix - Inject `className` per row only if it has been defined at `onRow`.
 
 ## reactabular-tree
 

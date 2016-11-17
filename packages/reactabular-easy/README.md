@@ -240,7 +240,6 @@ class EasyDemo extends React.Component {
           onMoveColumns={this.onMoveColumns}
           onSelectRow={this.onSelectRow}
           onSort={this.onSort}
-          onRow={this.onRow}
           onToggleShowingChildren={this.onToggleShowingChildren}
         />
       </div>
@@ -275,11 +274,6 @@ class EasyDemo extends React.Component {
     console.log('onSort', sortingColumns);
 
     this.setState({ sortingColumns });
-  }
-  onRow(row, { rowIndex }) {
-    return {
-      className: rowIndex % 2 ? 'odd-row' : 'even-row'
-    };
   }
   onToggleColumn(columnIndex) {
     const columns = cloneDeep(this.state.columns);
