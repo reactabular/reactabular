@@ -98,6 +98,11 @@ class VirtualizedBody extends React.Component {
 
           const { target: { scrollTop } } = e;
 
+          // Y didn't change, bail to avoid rendering rows
+          if (this.scrollTop === scrollTop) {
+            return;
+          }
+
           this.scrollTop = scrollTop;
 
           this.setState(

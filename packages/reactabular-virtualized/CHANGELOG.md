@@ -1,3 +1,8 @@
+7.1.0 / 2016-xx-xx
+==================
+
+  * Bug fix - Improve horizontal scrolling performance when used with reactabular-sticky. If it detects Y didn't change while scrolling, it skips rendering now.
+
 6.0.3 / 2016-10-19
 ==================
 

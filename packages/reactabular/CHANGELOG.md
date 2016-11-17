@@ -17,6 +17,10 @@
 
   * Bug fix - Make sure search `input`s get an empty default value to avoid a React warning about converting from an uncontrolled component to a controlled one.
 
+## reactabular-virtualized
+
+  * Bug fix - Improve horizontal scrolling performance when used with reactabular-sticky. If it detects Y didn't change while scrolling, it skips rendering now.
+
 7.0.0 / 2016-11-03
 ==================
 
