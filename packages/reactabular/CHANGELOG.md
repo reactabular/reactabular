@@ -10,6 +10,10 @@
   * Feature - Support row dragging. This has been exposed through `onMoveRow({ sourceRowId, targetRowId })`. You are expected to call an algorithm that actually moves the row there. `reactabular-dnd` implements these.
   * Bug fix - Inject `className` per row only if it has been defined at `onRow`.
 
+## reactabular-table
+
+  * Bug fix - Skip functions at `BodyRow` `shouldComponentUpdate`.
+
 ## reactabular-tree
 
   * Bug fix - Respect `idField` properly at `tree.moveRows`.

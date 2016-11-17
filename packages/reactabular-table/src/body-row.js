@@ -1,8 +1,8 @@
-import isEqual from 'lodash/isEqual';
 import isFunction from 'lodash/isFunction';
 import React from 'react';
 import {
-  evaluateTransforms, mergePropPair
+  evaluateTransforms, mergePropPair,
+  columnsAreEqual, rowsAreEqual
 } from 'reactabular-utils';
 import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
 
@@ -22,8 +22,8 @@ class BodyRow extends React.Component {
     }
 
     return !(
-      isEqual(previousProps.columns, nextProps.columns) &&
-      isEqual(previousProps.rowData, nextProps.rowData)
+      columnsAreEqual(previousProps.columns, nextProps.columns) &&
+      rowsAreEqual(previousProps.rowData, nextProps.rowData)
     );
   }
   render() {
