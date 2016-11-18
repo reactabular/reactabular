@@ -5,6 +5,7 @@ import * as tree from 'reactabular-tree';
 import { compose } from 'redux';
 
 function processRows({
+  movingRow,
   query,
   sortingColumns,
   idField,
@@ -13,13 +14,13 @@ function processRows({
 }) {
   return compose(
     tree.filter({ fieldName: 'showingChildren', parentField }),
-    tree.sort({
+    movingRow ? id : tree.sort({
       columns,
       idField,
       sortingColumns,
       strategy: sort.strategies.byProperty
     }),
-    highlight.highlighter({ columns, matches: search.matches, query }),
+    movingRow ? id : highlight.highlighter({ columns, matches: search.matches, query }),
     tree.search({ columns, query, idField, parentField }),
     resolve.resolve({
       columns,
@@ -31,5 +32,7 @@ function processRows({
     })
   );
 }
+
+function id(a) { return a; }
 
 export default processRows;

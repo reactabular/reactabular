@@ -26,6 +26,11 @@ class EasyTable extends React.Component {
     // kept in sync while scrolling.
     this.tableHeader = null;
     this.tableBody = null;
+
+    // Drag and drop
+    this.onMoveRowStart = this.onMoveRowStart.bind(this);
+    this.onMoveRowEnd = this.onMoveRowEnd.bind(this);
+    this.movingRow = false;
   }
   componentDidMount() {
     // We have refs now. Force update to get those to Header/Body.
@@ -46,7 +51,13 @@ class EasyTable extends React.Component {
       }
     };
     const { selectedRow } = this.state;
-    const columns = bindColumns(this.props);
+
+    // Track row move state for optimizing drag and drop
+    const columns = bindColumns({
+      ...this.props,
+      onMoveStart: this.onMoveRowStart,
+      onMoveEnd: this.onMoveRowEnd
+    });
 
     if (hasDraggableHeaders(columns)) {
       tableComponents.header = {
@@ -59,9 +70,8 @@ class EasyTable extends React.Component {
       return null;
     }
 
-    // Partition the problem here - perform most of this on drag start
-    // and skip during dragging.
     const rows = processRows({
+      movingRow: this.movingRow,
       query,
       sortingColumns,
       idField,
@@ -123,6 +133,8 @@ class EasyTable extends React.Component {
       rowId: row[idField],
       onClick: () => this.selectRow(rowIndex),
       onMove: onMoveRow,
+      onMoveStart: this.onMoveRowStart,
+      onMoveEnd: this.onMoveRowEnd,
       ...props
     };
 
@@ -133,6 +145,15 @@ class EasyTable extends React.Component {
     }
 
     return ret;
+  }
+  onMoveRowStart() {
+    this.movingRow = true;
+  }
+  onMoveRowEnd() {
+    this.movingRow = false;
+
+    // Done, force update to skip optimization and sort again
+    this.forceUpdate();
   }
   selectRow(selectedRowIndex) {
     const { rowKey, rows } = this.props;
