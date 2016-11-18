@@ -4,7 +4,7 @@ function resolveHeaderRows(columns = []) {
   let resolvedChildren = [];
 
   const ret = columns.map((column) => {
-    const { children, ...col } = column;
+    const { children } = column;
 
     if (children && children.length) {
       resolvedChildren = resolvedChildren.concat(
@@ -12,19 +12,19 @@ function resolveHeaderRows(columns = []) {
       );
 
       return {
-        ...col,
+        ...column,
         props: {
           colSpan: children.length,
-          ...col.props
+          ...column.props
         }
       };
     }
 
     return {
-      ...col,
+      ...column,
       props: {
         rowSpan: countRowSpan(columns),
-        ...col.props
+        ...column.props
       }
     };
   });

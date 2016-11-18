@@ -23,6 +23,7 @@ import * as tree from 'reactabular-tree';
 import * as select from 'reactabular-select';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as Virtualized from 'reactabular-virtualized';
+import { getColumnByPath } from 'reactabular-utils';
 import * as stylesheet from 'stylesheet-helpers';
 import selectabular from 'selectabular';
 
@@ -58,6 +59,7 @@ const documentationImports = {
   cloneDeep,
   find,
   findIndex,
+  getColumnByPath,
   keys,
   values,
   orderBy,

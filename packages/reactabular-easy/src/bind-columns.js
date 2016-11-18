@@ -36,8 +36,9 @@ function bindColumns({
   });
 
   return columns.map(
-    column => bindColumn({
+    (column, columnIndex) => bindColumn({
       column,
+      columnIndex,
       rows,
       idField,
       parentField,
@@ -54,6 +55,7 @@ function bindColumns({
 
 function bindColumn({
   column, rows,
+  columnIndex, parentColumnPath,
   sortable, getSortingColumns, resetable, resizable,
   idField, parentField, toggleChildrenProps,
   onMoveColumns, onToggleShowingChildren
@@ -68,6 +70,7 @@ function bindColumn({
     const existingCellFormat = cell.format || (v => v);
     const newCellFormats = [existingCellFormat];
     const newHeaderFormats = [existingHeaderFormat];
+    const columnPath = (typeof parentColumnPath !== 'undefined' ? `${parentColumnPath}.children.` : '') + columnIndex;
     let newHeaderProps = existingHeaderProps;
     let newHeaderTransforms = existingHeaderTransforms;
     let newStyle = {};
@@ -154,8 +157,31 @@ function bindColumn({
       };
     }
 
+    let children = column.children;
+    if (children && children.length) {
+      children = children.map(
+          (childColumn, childColumnIndex) => bindColumn({
+            column: childColumn,
+            rows,
+            columnIndex: childColumnIndex,
+            parentColumnPath: columnPath,
+            sortable,
+            getSortingColumns,
+            resetable,
+            resizable,
+            idField,
+            parentField,
+            toggleChildrenProps,
+            onMoveColumns,
+            onToggleShowingChildren
+          })
+      );
+    }
+
     return {
       ...column,
+      columnPath,
+      children,
       props: {
         ...props,
         style: {

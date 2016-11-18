@@ -12,6 +12,7 @@ To make the drag and drop functionality work, you have to set up [react-dnd-html
 /*
 import React from 'react';
 import { search, Search, SearchColumns } from 'reactabular';
+import { getColumnByPath } from 'reactabular-utils';
 import EasyTable from 'reactabular-easy';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as tree from 'reactabular-tree';
@@ -296,10 +297,10 @@ class EasyDemo extends React.Component {
 
     rows && this.setState({ rows });
   }
-  onDragColumn(width, { columnIndex }) {
+  onDragColumn(width, { columnPath }) {
     const columns = cloneDeep(this.state.columns);
 
-    columns[columnIndex].width = width;
+    getColumnByPath(columns, columnPath).width = width;
 
     this.setState({ columns });
   }

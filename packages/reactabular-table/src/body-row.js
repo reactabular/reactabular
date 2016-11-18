@@ -39,6 +39,7 @@ class BodyRow extends React.Component {
         } = cell || {}; // TODO: test against this case
         const extraParameters = {
           columnIndex: j,
+          columnPath: (column && column.columnPath) || String(j),
           column,
           rowData,
           rowIndex,

@@ -15,6 +15,7 @@ const HeaderRow = ({ row, components }) => (
       } = header;
       const extraParameters = {
         columnIndex: j,
+        columnPath: (column && column.columnPath) || String(j),
         column,
         property: column && column.property // TODO: test that this is passed properly
       };
