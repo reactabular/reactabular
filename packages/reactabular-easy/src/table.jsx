@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Table, Sticky, sort, resizableColumn, resolve, highlight, search
+  Table, Sticky, sort, resolve, highlight, search
 } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as tree from 'reactabular-tree';
@@ -10,6 +10,7 @@ import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
 import select from 'selectabular';
 import findIndex from 'lodash/findIndex';
+import bindColumns from './bind-columns';
 import { defaultProps, propTypes } from './types';
 
 class EasyTable extends React.Component {
@@ -20,7 +21,6 @@ class EasyTable extends React.Component {
       selectedRow: {}
     };
 
-    this.bindColumns = this.bindColumns.bind(this);
     this.selectRow = this.selectRow.bind(this);
     this.onRow = this.onRow.bind(this);
 
@@ -48,7 +48,7 @@ class EasyTable extends React.Component {
       }
     };
     const { selectedRow } = this.state;
-    const columns = this.bindColumns(this.props);
+    const columns = bindColumns(this.props);
 
     if (hasDraggableHeaders(columns)) {
       tableComponents.header = {
@@ -61,6 +61,8 @@ class EasyTable extends React.Component {
       return null;
     }
 
+    // Partition the problem here - perform most of this on drag start
+    // and skip during dragging.
     const rows = compose(
       tree.filter({ fieldName: 'showingChildren', parentField }),
       tree.sort({
@@ -128,165 +130,6 @@ class EasyTable extends React.Component {
         />
       </Table.Provider>
     );
-  }
-  bindColumns({ columns, props }) {
-    const resizable = resizableColumn({
-      onDrag: this.props.onDragColumn,
-      props: props.resize,
-      parent: this.props.window
-    });
-
-    const getSortingColumns = () => this.props.sortingColumns || {};
-    const sortable = sort.sort({
-      getSortingColumns,
-      onSort: (selectedColumn) => {
-        const sortingColumns = sort.byColumns({
-          sortingColumns: this.props.sortingColumns,
-          selectedColumn
-        });
-
-        this.props.onSort(sortingColumns);
-      },
-      strategy: sort.strategies.byProperty,
-      props: props.sort
-    });
-    const resetable = sort.reset({
-      event: 'onDoubleClick',
-      getSortingColumns,
-      strategy: sort.strategies.byProperty,
-      onReset: ({ sortingColumns }) => this.props.onSort(sortingColumns)
-    });
-
-    return columns.map(
-      column => this.bindColumn({
-        column,
-        sortable,
-        getSortingColumns,
-        resetable,
-        resizable
-      })
-    );
-  }
-  bindColumn({ column, sortable, getSortingColumns, resetable, resizable }) {
-    if (column.header || column.cell) {
-      const props = column.props || {};
-      const header = column.header || {};
-      const cell = column.cell || {};
-      const existingHeaderProps = header.props;
-      const existingHeaderFormat = header.format || (v => v);
-      const existingHeaderTransforms = header.transforms || [];
-      const existingCellFormat = cell.format || (v => v);
-      const newCellFormats = [existingCellFormat];
-      const newHeaderFormats = [existingHeaderFormat];
-      let newHeaderProps = existingHeaderProps;
-      let newHeaderTransforms = existingHeaderTransforms;
-      let newStyle = {};
-
-      if (header.sortable) {
-        newHeaderFormats.push(sort.header({
-          sortable,
-          getSortingColumns,
-          strategy: sort.strategies.byProperty
-        }));
-        newHeaderTransforms = newHeaderTransforms.concat([resetable]);
-      }
-
-      if (header.resizable) {
-        newHeaderFormats.push(resizable);
-      }
-
-      if (header.draggable) {
-        newHeaderProps = {
-          // DnD needs this to tell header cells apart
-          label: header.label,
-          onMove: (labels) => {
-            const {
-              source,
-              target,
-              columns
-            } = dnd.moveLabels(this.props.columns, labels);
-
-            const tmpWidth = source.width;
-            source.width = target.width;
-            target.width = tmpWidth;
-
-            this.props.onMoveColumns({
-              source,
-              target,
-              columns
-            });
-          }
-        };
-      }
-
-      if (cell.highlight) {
-        newCellFormats.push((v, extra) => highlight.cell(
-          existingCellFormat(v, extra),
-          extra
-        ));
-      }
-
-      if (cell.toggleChildren) {
-        newCellFormats.push(tree.toggleChildren({
-          getRows: () => this.props.rows,
-          getShowingChildren: ({ rowData }) => rowData.showingChildren,
-          toggleShowingChildren: this.props.onToggleShowingChildren,
-          // Without this it will perform checks against default id
-          idField: this.props.idField,
-          parentField: this.props.parentField,
-          props: this.props.toggleChildrenProps
-        }));
-      }
-
-      const newCellFormat = (value, extra) => (
-        newCellFormats.reduce((parameters, format) => (
-          {
-            value: format(parameters.value, parameters.extra),
-            extra
-          }
-        ), { value, extra }).value
-      );
-
-      const newHeaderFormat = (value, extra) => (
-        newHeaderFormats.reduce((parameters, format) => (
-          {
-            value: format(parameters.value, parameters.extra),
-            extra
-          }
-        ), { value, extra }).value
-      );
-
-      if (column.width) {
-        newStyle = {
-          width: column.width,
-          minWidth: column.width,
-          maxWidth: column.width
-        };
-      }
-
-      return {
-        ...column,
-        props: {
-          ...props,
-          style: {
-            ...props.style,
-            ...newStyle
-          }
-        },
-        header: {
-          ...header,
-          props: newHeaderProps,
-          transforms: newHeaderTransforms,
-          format: newHeaderFormat
-        },
-        cell: {
-          ...cell,
-          format: newCellFormat
-        }
-      };
-    }
-
-    return column;
   }
   onRow(row, { rowIndex, rowKey }) {
     const { idField, onRow, onMoveRow } = this.props;
