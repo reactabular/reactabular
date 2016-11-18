@@ -24,7 +24,7 @@ function processRows({
     tree.search({ columns, query, idField, parentField }),
     resolve.resolve({
       columns,
-      method: (extra) => compose(
+      method: extra => compose(
         resolve.index(extra),
         resolve.byFunction('cell.resolve')(extra),
         resolve.nested(extra)

@@ -1,6 +1,7 @@
 import {
   resizableColumn, sort, highlight
 } from 'reactabular';
+import * as dnd from 'reactabular-dnd';
 import * as tree from 'reactabular-tree';
 
 function bindColumns({
@@ -19,12 +20,10 @@ function bindColumns({
   const sortable = sort.sort({
     getSortingColumns,
     onSort: (selectedColumn) => {
-      const sortingColumns = sort.byColumns({
+      onSort(sort.byColumns({
         sortingColumns,
         selectedColumn
-      });
-
-      onSort(sortingColumns);
+      }));
     },
     strategy: sort.strategies.byProperty,
     props: props.sort
@@ -33,12 +32,11 @@ function bindColumns({
     event: 'onDoubleClick',
     getSortingColumns,
     strategy: sort.strategies.byProperty,
-    onReset: ({ sortingColumns }) => onSort(sortingColumns)
+    onReset: params => onSort(params.sortingColumns)
   });
 
   return columns.map(
     column => bindColumn({
-      columns,
       column,
       rows,
       idField,
@@ -55,7 +53,7 @@ function bindColumns({
 }
 
 function bindColumn({
-  columns, column, rows,
+  column, rows,
   sortable, getSortingColumns, resetable, resizable,
   idField, parentField, toggleChildrenProps,
   onMoveColumns, onToggleShowingChildren
