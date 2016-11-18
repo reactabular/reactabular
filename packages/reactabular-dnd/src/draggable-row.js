@@ -6,8 +6,13 @@ const DragTypes = {
   ROW: 'row'
 };
 const rowSource = {
-  beginDrag({ rowId }) {
+  beginDrag({ rowId, onMoveStart }) {
+    onMoveStart && onMoveStart({ rowId });
+
     return { rowId };
+  },
+  endDrag({ rowId, onMoveEnd }) {
+    onMoveEnd && onMoveEnd({ rowId });
   }
 };
 const rowTarget = {
