@@ -3,7 +3,7 @@ import { filter } from '../src';
 
 describe('tree.filter', function () {
   it('returns empty rows if empty rows are passed', function () {
-    expect(filter()([])).to.deep.equal([]);
+    expect(filter({ fieldName: 'showingChildren' })([])).to.deep.equal([]);
   });
 
   it('returns rows that do not have parents', function () {
@@ -112,5 +112,9 @@ describe('tree.filter', function () {
       fieldName: 'showingChildren',
       parentField
     })(given)).to.deep.equal(expected);
+  });
+
+  it('throws an error if fieldName is not passed', function () {
+    expect(filter()).to.throw(Error);
   });
 });

@@ -18,6 +18,7 @@
 ## reactabular-tree
 
   * Bug fix - Respect `idField` properly at `tree.moveRows`.
+  * Breaking - Make `tree.filter` throw if `fieldName` is not passed. Without this it would fail silently.
 
 ## reactabular-resizable
 
