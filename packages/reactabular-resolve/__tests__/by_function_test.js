@@ -13,7 +13,7 @@ describe('resolve.byFunction', function () {
     };
 
     expect(
-      byFunction('cell.resolve')({ rowData, column })
+      byFunction('cell.resolve')({ column })(rowData)
     ).to.deep.equal({
       [property]: name
     });
@@ -34,7 +34,7 @@ describe('resolve.byFunction', function () {
     };
 
     expect(
-      byFunction('cell.resolve')({ rowData, column })
+      byFunction('cell.resolve')({ column })(rowData)
     ).to.deep.equal({
       [property]: country,
       [`_${property}`]: countries.dk
@@ -58,7 +58,7 @@ describe('resolve.byFunction', function () {
     };
 
     expect(
-      byFunction('cell.resolve')({ rowData, column })
+      byFunction('cell.resolve')({ column })(rowData)
     ).to.deep.equal({
       data,
       [property]: country,

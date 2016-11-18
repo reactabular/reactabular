@@ -1,3 +1,18 @@
+7.1.0 / 2016-xx-xx
+==================
+
+  * Breaking - Allow resolvers to be composed more easily. Now the API follows the pattern `(extra) => (rowData) => <resolved row>. This means the functions fit within `compose` like this:
+
+```javascript
+const resolver = resolve.resolve({
+  columns,
+  method: (extra) => compose(
+    resolve.byFunction('cell.resolve')(extra),
+    resolve.nested(extra)
+  )
+});
+```
+
 2.0.2 / 2016-08-17
 ==================
 

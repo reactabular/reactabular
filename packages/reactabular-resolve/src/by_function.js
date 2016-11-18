@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 
 function byFunction(path) {
-  return ({ rowData, column = {} }) => {
+  return ({ column = {} }) => (rowData) => {
     const { property } = column;
 
     if (!property) {

@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { compose } from 'redux';
 import { resolve, nested, byFunction } from '../src';
 
 describe('resolve.resolve', function () {
@@ -31,7 +32,7 @@ describe('resolve.resolve', function () {
         _name: rows[0].name
       }
     ];
-    const method = ({ rowData, column }) => ({
+    const method = ({ column }) => rowData => ({
       [column.property]: rowData.name,
       [`_${column.property}`]: rowData.name
     });
@@ -64,7 +65,7 @@ describe('resolve.resolve', function () {
         name
       }
     ];
-    const method = ({ rowData, column }) => ({
+    const method = ({ column }) => rowData => ({
       [column.property]: rowData.name
     });
 
@@ -105,10 +106,10 @@ describe('resolve.resolve', function () {
     ];
     const resolver = resolve({
       columns,
-      method: ({ rowData, column }) => byFunction('cell.resolve')({
-        rowData: nested({ rowData, column }),
-        column
-      })
+      method: extra => compose(
+        byFunction('cell.resolve')(extra),
+        nested(extra)
+      )
     });
 
     expect(resolver(rows)).to.deep.equal(expected);
@@ -145,10 +146,10 @@ describe('resolve.resolve', function () {
     ];
     const resolver = resolve({
       columns,
-      method: ({ rowData, column }) => byFunction('cell.resolve')({
-        rowData: nested({ rowData, column }),
-        column
-      })
+      method: extra => compose(
+        byFunction('cell.resolve')(extra),
+        nested(extra)
+      )
     });
 
     expect(resolver(rows)).to.deep.equal(expected);
@@ -174,7 +175,7 @@ describe('resolve.resolve', function () {
         _index: 0
       }
     ];
-    const method = ({ rowData, rowIndex }) => ({
+    const method = ({ rowIndex }) => rowData => ({
       ...rowData,
       _index: rowIndex
     });
@@ -207,10 +208,10 @@ describe('resolve.resolve', function () {
     ];
     const resolver = resolve({
       columns,
-      method: ({ rowData, column }) => byFunction('cell.resolve')({
-        rowData: nested({ rowData, column }),
-        column
-      })
+      method: extra => compose(
+        byFunction('cell.resolve')(extra),
+        nested(extra)
+      )
     });
 
     expect(resolver(rows)).to.deep.equal(expected);

@@ -15,10 +15,9 @@ function resolve({ columns, method }) {
 
     resolvedColumns.forEach((column) => {
       const result = method({
-        rowData,
         rowIndex,
         column
-      });
+      })(rowData);
 
       delete result.undefined;
 

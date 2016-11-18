@@ -12,19 +12,19 @@ The `resolve` iterator accepts columns and a method. When applied with rows, it 
 
 ### `resolve.index`
 
-**`({ rowData, rowIndex }) => <resolved row>`**
+**`({ rowIndex }) => (rowData) => <resolved row>`**
 
 `resolve.index` attached `rowIndex` at `_index` field of the returned row. This can be handy information to have for optimization purposes (`reactabular-tree`) but most often you don't have to use this one.
 
 ### `resolve.nested`
 
-**`({ rowData, column }) => <resolved row>`**
+**`({ column }) => (rowData) => <resolved row>`**
 
 The `nested` resolver digs rows from a `property: 'name.first'` kind of definition and maps the received value to property name. It replaces the original value with the resolved one.
 
 ### `resolve.byFunction`
 
-**`(path: <string>) => ({ rowData, column }) => <resolved row>`**
+**`(path: <string>) => ({ column }) => (rowData) => <resolved row>`**
 
 The `byFunction` resolver accepts a path from where to look for a resolving function. It could be `column.cell.resolve` for example and you can use a nested definition for getting it from your column definition.
 
@@ -35,12 +35,12 @@ Instead of replacing the original value, `byFunction` generates `_<property>` ki
 If you want to combine resolvers, you can achieve it like this.
 
 ```javascript
-const resolver = resolve({
+const resolver = resolve.resolve({
   columns,
-  method: ({ rowData, column }) => byFunction('cell.resolve')({
-    rowData: nested({ rowData, column }),
-    column
-  })
+  method: (extra) => compose(
+    resolve.byFunction('cell.resolve')(extra),
+    resolve.nested(extra)
+  )
 });
 ```
 

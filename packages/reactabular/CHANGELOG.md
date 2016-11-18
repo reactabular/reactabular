@@ -31,6 +31,20 @@
 
   * Feature - Add `columnsAreEqual` and `rowsAreEqual` checkers.
 
+## reactabular-resolve
+
+  * Breaking - Allow resolvers to be composed more easily. Now the API follows the pattern `(extra) => (rowData) => <resolved row>. This means the functions fit within `compose` like this:
+
+```javascript
+const resolver = resolve.resolve({
+  columns,
+  method: (extra) => compose(
+    resolve.byFunction('cell.resolve')(extra),
+    resolve.nested(extra)
+  )
+});
+```
+
 ## reactabular-virtualized
 
   * Bug fix - Improve horizontal scrolling performance when used with reactabular-sticky. If it detects Y didn't change while scrolling, it skips rendering now.

@@ -18,7 +18,7 @@ describe('resolve.nested', function () {
     };
     const column = { property };
 
-    expect(nested({ rowData, column })).to.deep.equal(expected);
+    expect(nested({ column })(rowData)).to.deep.equal(expected);
   });
 
   it('resolves normal values', function () {
@@ -29,7 +29,7 @@ describe('resolve.nested', function () {
     };
     const column = { property };
 
-    expect(nested({ rowData, column })).to.deep.equal({ [property]: name });
+    expect(nested({ column })(rowData)).to.deep.equal({ [property]: name });
   });
 
   it('does nothing if there is no property', function () {
@@ -39,7 +39,7 @@ describe('resolve.nested', function () {
     };
     const column = { property: undefined };
 
-    expect(nested({ rowData, column })).to.deep.equal({});
+    expect(nested({ column })(rowData)).to.deep.equal({});
   });
 
   it('does not crash without a property', function () {
@@ -49,7 +49,7 @@ describe('resolve.nested', function () {
     };
     const column = { cell: {} };
 
-    expect(nested({ rowData, column })).to.deep.equal({});
+    expect(nested({ column })(rowData)).to.deep.equal({});
   });
 
   it('does not crash without a cell', function () {
@@ -59,6 +59,6 @@ describe('resolve.nested', function () {
     };
     const column = {};
 
-    expect(nested({ rowData, column })).to.deep.equal({});
+    expect(nested({ column })(rowData)).to.deep.equal({});
   });
 });

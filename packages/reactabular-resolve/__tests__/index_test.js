@@ -20,6 +20,6 @@ describe('resolve.index', function () {
       property: 'name'
     };
 
-    expect(index({ rowData, rowIndex, column })).to.deep.equal(expected);
+    expect(index({ rowIndex, column })(rowData)).to.deep.equal(expected);
   });
 });

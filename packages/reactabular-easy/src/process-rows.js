@@ -24,13 +24,11 @@ function processRows({
     tree.search({ columns, query, idField, parentField }),
     resolve.resolve({
       columns,
-      method: ({ rowData, rowIndex, column }) => resolve.byFunction('cell.resolve')({
-        rowData: resolve.nested({
-          rowData: resolve.index({ rowData, rowIndex }),
-          column
-        }),
-        column
-      })
+      method: (extra) => compose(
+        resolve.index(extra),
+        resolve.byFunction('cell.resolve')(extra),
+        resolve.nested(extra)
+      )
     })
   )(rows);
 }
