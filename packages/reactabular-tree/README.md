@@ -223,7 +223,7 @@ class TreeTable extends React.Component {
     } = this.state;
     const visibleColumns = columns.filter(column => column.visible);
     const rows = compose(
-      tree.filter('showingChildren'),
+      tree.filter({ fieldName: 'showingChildren' }),
       tree.sort({
         columns,
         sortingColumns
