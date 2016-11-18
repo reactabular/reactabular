@@ -66,9 +66,8 @@ class EasyTable extends React.Component {
       sortingColumns,
       idField,
       parentField,
-      columns,
-      rows: this.props.rows
-    });
+      columns
+    })(this.props.rows);
     const selectedRowIndex = getSelectedRowIndex({
       rows: this.props.rows,
       rowKey: this.props.rowKey,

@@ -9,8 +9,7 @@ function processRows({
   sortingColumns,
   idField,
   parentField,
-  columns,
-  rows
+  columns
 }) {
   return compose(
     tree.filter({ fieldName: 'showingChildren', parentField }),
@@ -30,7 +29,7 @@ function processRows({
         resolve.nested(extra)
       )
     })
-  )(rows);
+  );
 }
 
 export default processRows;
