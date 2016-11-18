@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  Table, Sticky, sort, resolve, highlight, search
-} from 'reactabular';
+import { Table, Sticky } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
-import * as tree from 'reactabular-tree';
 import { mergeClassNames } from 'reactabular-utils';
 import { byArrowKeys } from 'reactabular-select';
 import * as Virtualized from 'reactabular-virtualized';
@@ -11,6 +8,7 @@ import { compose } from 'redux';
 import select from 'selectabular';
 import findIndex from 'lodash/findIndex';
 import bindColumns from './bind-columns';
+import processRows from './process-rows';
 import { defaultProps, propTypes } from './types';
 
 class EasyTable extends React.Component {
@@ -63,27 +61,14 @@ class EasyTable extends React.Component {
 
     // Partition the problem here - perform most of this on drag start
     // and skip during dragging.
-    const rows = compose(
-      tree.filter({ fieldName: 'showingChildren', parentField }),
-      tree.sort({
-        columns,
-        idField,
-        sortingColumns,
-        strategy: sort.strategies.byProperty
-      }),
-      highlight.highlighter({ columns, matches: search.matches, query }),
-      tree.search({ columns, query, idField, parentField }),
-      resolve.resolve({
-        columns,
-        method: ({ rowData, rowIndex, column }) => resolve.byFunction('cell.resolve')({
-          rowData: resolve.nested({
-            rowData: resolve.index({ rowData, rowIndex }),
-            column
-          }),
-          column
-        })
-      })
-    )(this.props.rows);
+    const rows = processRows({
+      query,
+      sortingColumns,
+      idField,
+      parentField,
+      columns,
+      rows: this.props.rows
+    });
     const selectedRowIndex = getSelectedRowIndex({
       rows: this.props.rows,
       rowKey: this.props.rowKey,
