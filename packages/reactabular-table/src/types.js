@@ -37,7 +37,6 @@ const tableTypes = {
   components: React.PropTypes.object
 };
 const tableContextTypes = {
-  headerRows: React.PropTypes.array.isRequired,
   bodyColumns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
@@ -64,8 +63,14 @@ const tableBodyRowTypes = {
   rowData: rowDataType.isRequired,
   rowKey: React.PropTypes.string.isRequired
 };
+const tableHeaderTypes = {
+  headerRows: React.PropTypes.arrayOf(
+    arrayOfObjectColumns
+  ),
+  children: React.PropTypes.any
+};
 const tableHeaderContextTypes = {
-  headerRows: React.PropTypes.array.isRequired,
+  bodyColumns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
 const tableDefaults = {
@@ -92,6 +97,7 @@ export {
   tableBodyContextTypes,
   tableBodyRowTypes,
   tableBodyRowDefaults,
+  tableHeaderTypes,
   tableHeaderContextTypes,
   tableDefaults
 };

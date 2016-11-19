@@ -1,15 +1,22 @@
-import { mergePropPair } from 'reactabular-utils';
+import omit from 'lodash/omit';
 import countRowSpan from './count-row-span';
 
-function resolveHeaderRows(columns = []) {
+function resolveHeaderRows({
+  columns,
+  childrenField = 'children'
+}) {
   let resolvedChildren = [];
 
   const ret = columns.map((column) => {
-    const { children, ...col } = column;
+    const children = column[childrenField];
+    const col = omit(column, [childrenField]);
 
     if (children && children.length) {
       resolvedChildren = resolvedChildren.concat(
-        resolveHeaderRows(children)[0]
+        resolveHeaderRows({
+          columns: children,
+          childrenField
+        })[0]
       );
 
       return {
@@ -30,24 +37,7 @@ function resolveHeaderRows(columns = []) {
     };
   });
 
-  return mergeColumnProps(
-    resolvedChildren.length ?
-    [ret].concat([resolvedChildren]) :
-    [ret]
-  );
-}
-
-function mergeColumnProps(columns) {
-  return columns.map(
-    row => row.map(column => (
-      column.header ? {
-        props: mergePropPair(column.props, column.header.props),
-        header: column.header,
-        children: column.children || [], // TODO: test for this case
-        column
-      } : {}
-    )
-  ));
+  return resolvedChildren.length ? [ret].concat([resolvedChildren]) : [ret];
 }
 
 export default resolveHeaderRows;

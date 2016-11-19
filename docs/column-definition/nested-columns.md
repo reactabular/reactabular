@@ -79,8 +79,10 @@ const rows = [
 ];
 
 const NestedColumnsTable = () => (
-  <Table.Provider columns={columns}>
-    <Table.Header />
+  <Table.Provider columns={resolve.columnChildren({ columns })}>
+    <Table.Header
+      headerRows={resolve.headerRows({ columns })}
+    />
 
     <Table.Body
       rows={resolve.resolve({ columns, method: resolve.nested })(rows)}
