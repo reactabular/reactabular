@@ -17,7 +17,7 @@ _highlights: {
 import React from 'react';
 import { compose } from 'redux';
 import {
-  Table, search, Search, highlight
+  Table, search, Search, highlight, resolve
 } from 'reactabular';
 */
 
@@ -29,13 +29,29 @@ class HighlightTable extends React.Component {
       query: {},
       columns: [
         {
-          property: 'name',
           header: {
             label: 'Name'
           },
-          cell: {
-            format: highlight.cell
-          }
+          children: [
+            {
+              property: 'name.first',
+              header: {
+                label: 'First Name'
+              },
+              cell: {
+                format: highlight.cell
+              }
+            },
+            {
+              property: 'name.last',
+              header: {
+                label: 'Last Name'
+              },
+              cell: {
+                format: highlight.cell
+              }
+            }
+          ]
         },
         {
           property: 'age',
@@ -50,23 +66,35 @@ class HighlightTable extends React.Component {
       rows: [
         {
           id: 100,
-          name: 'Adam',
-          age: 12
+          name: {
+            first: 'Adam',
+            last: 'West'
+          },
+          age: 10
         },
         {
           id: 101,
-          name: 'Brian',
-          age: 7
-        },
-        {
-          id: 102,
-          name: 'Jake',
-          age: 88
+          name: {
+            first: 'Brian',
+            last: 'Eno'
+          },
+          age: 43
         },
         {
           id: 103,
-          name: 'Jill',
-          age: 50
+          name: {
+            first: 'Jake',
+            last: 'Dalton'
+          },
+          age: 33
+        },
+        {
+          id: 104,
+          name: {
+            first: 'Jill',
+            last: 'Jackson'
+          },
+          age: 63
         }
       ]
     };
@@ -75,7 +103,8 @@ class HighlightTable extends React.Component {
     const { rows, columns, query } = this.state;
     const filteredRows = compose(
       highlight.highlighter({ columns, matches: search.matches, query }),
-      search.multipleColumns({ columns, query })
+      search.multipleColumns({ columns, query }),
+      resolve.resolve({ columns, method: resolve.nested })
     )(rows);
 
     return (

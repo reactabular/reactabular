@@ -1,3 +1,5 @@
+import { resolveBodyColumns } from 'reactabular-utils';
+
 function highlighter({ columns, matches, query } = {}) {
   if (!columns) {
     throw new Error('highlighter - Missing columns!');
@@ -14,7 +16,7 @@ function highlighter({ columns, matches, query } = {}) {
       _highlights: {}
     };
 
-    columns.forEach((column) => {
+    resolveBodyColumns(columns).forEach((column) => {
       const property = column.property;
       const value = row[property];
       // Pick resolved value by convention
