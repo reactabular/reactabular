@@ -33,7 +33,9 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
-  "dependencies": {},
+  "dependencies": {
+    "reactabular-utils": "^7.0.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"
