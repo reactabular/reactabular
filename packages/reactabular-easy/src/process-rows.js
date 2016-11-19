@@ -12,6 +12,8 @@ function processRows({
   parentField,
   columns
 }) {
+  // Moving rows is allowed only when there's no sort/search so we can skip a few
+  // operations there to speed it up.
   return compose(
     tree.filter({ fieldName: 'showingChildren', parentField }),
     movingRow ? id : tree.sort({
@@ -21,7 +23,7 @@ function processRows({
       strategy: sort.strategies.byProperty
     }),
     movingRow ? id : highlight.highlighter({ columns, matches: search.matches, query }),
-    tree.search({ columns, query, idField, parentField }),
+    movingRow ? id : tree.search({ columns, query, idField, parentField }),
     resolve.resolve({
       columns,
       method: extra => compose(

@@ -7,6 +7,7 @@ import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
 import select from 'selectabular';
 import findIndex from 'lodash/findIndex';
+import values from 'lodash/values';
 import bindColumns from './bind-columns';
 import processRows from './process-rows';
 import { defaultProps, propTypes } from './types';
@@ -27,7 +28,8 @@ class EasyTable extends React.Component {
     this.tableHeader = null;
     this.tableBody = null;
 
-    // Drag and drop
+    // Drag and drop for rows
+    this.onCanMoveRow = this.onCanMoveRow.bind(this);
     this.onMoveRowStart = this.onMoveRowStart.bind(this);
     this.onMoveRowEnd = this.onMoveRowEnd.bind(this);
     this.movingRow = false;
@@ -51,13 +53,7 @@ class EasyTable extends React.Component {
       }
     };
     const { selectedRow } = this.state;
-
-    // Track row move state for optimizing drag and drop
-    const columns = bindColumns({
-      ...this.props,
-      onMoveStart: this.onMoveRowStart,
-      onMoveEnd: this.onMoveRowEnd
-    });
+    const columns = bindColumns(this.props);
 
     if (hasDraggableHeaders(columns)) {
       tableComponents.header = {
@@ -133,6 +129,7 @@ class EasyTable extends React.Component {
       rowId: row[idField],
       onClick: () => this.selectRow(rowIndex),
       onMove: onMoveRow,
+      onCanMove: this.onCanMoveRow,
       onMoveStart: this.onMoveRowStart,
       onMoveEnd: this.onMoveRowEnd,
       ...props
@@ -145,6 +142,14 @@ class EasyTable extends React.Component {
     }
 
     return ret;
+  }
+  onCanMoveRow() {
+    const { query, sortingColumns } = this.props;
+
+    return (
+      values(query).filter(id).length === 0 &&
+      values(sortingColumns).filter(id).length === 0
+    );
   }
   onMoveRowStart() {
     this.movingRow = true;
@@ -186,6 +191,10 @@ function getSelectedRowIndex({ rows, selectedRow, rowKey }) {
   return findIndex(rows, {
     [rowKey]: selectedRow[rowKey]
   });
+}
+
+function id(a) {
+  return a;
 }
 
 export default EasyTable;
