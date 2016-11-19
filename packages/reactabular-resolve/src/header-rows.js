@@ -1,3 +1,4 @@
+import { mergePropPair } from 'reactabular-utils';
 import countRowSpan from './count-row-span';
 
 function resolveHeaderRows(columns = []) {
@@ -29,11 +30,24 @@ function resolveHeaderRows(columns = []) {
     };
   });
 
-  if (resolvedChildren.length) {
-    return [ret].concat([resolvedChildren]);
-  }
+  return mergeColumnProps(
+    resolvedChildren.length ?
+    [ret].concat([resolvedChildren]) :
+    [ret]
+  );
+}
 
-  return [ret];
+function mergeColumnProps(columns) {
+  return columns.map(
+    row => row.map(column => (
+      column.header ? {
+        props: mergePropPair(column.props, column.header.props),
+        header: column.header,
+        children: column.children || [], // TODO: test for this case
+        column
+      } : {}
+    )
+  ));
 }
 
 export default resolveHeaderRows;

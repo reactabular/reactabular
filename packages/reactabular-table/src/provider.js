@@ -13,16 +13,7 @@ export default class Provider extends React.Component {
     // XXXXX: problematic if columns have been resolved already! merge this idea
     // with the column resolver somehow?
     // Merge column props with header/body specific ones so that can be avoided later
-    const headerRows = resolveHeaderRows(columns).map(
-      row => row.map(column => (
-        column.header ? {
-          props: mergePropPair(column.props, column.header.props),
-          header: column.header,
-          children: column.children || [], // TODO: test for this case
-          column
-        } : {}
-      )
-    ));
+    const headerRows = resolveHeaderRows(columns);
 
     const bodyColumns = columns.map(
       column => ({

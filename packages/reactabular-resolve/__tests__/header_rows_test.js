@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import * as resolve from '../src';
 
 const resolveHeaderRows = resolve.headerRows;
@@ -6,21 +5,32 @@ const resolveHeaderRows = resolve.headerRows;
 describe('resolveHeaderRows', function () {
   it('returns columns wrapped in an array', function () {
     const column = {
-      foo: 'bar'
+      header: {
+        label: 'bar'
+      }
     };
     const columns = [column];
     const expected = [
       [
         {
-          ...column,
+          column: {
+            ...column,
+            props: {
+              rowSpan: 1
+            }
+          },
+          children: [],
           props: {
-            rowSpan: 1
-          }
+            className: '',
+            rowSpan: 1,
+            style: {}
+          },
+          ...column
         }
       ]
     ];
 
-    expect(resolveHeaderRows(columns)).to.deep.equal(expected);
+    expect(resolveHeaderRows(columns)).toEqual(expected);
   });
 
   it('passes props to column result', function () {
@@ -28,31 +38,47 @@ describe('resolveHeaderRows', function () {
       bar: 'bar'
     };
     const column = {
-      foo: 'bar',
+      header: {
+        label: 'bar'
+      },
       props
     };
     const columns = [column];
     const expected = [
       [
         {
+          column: {
+            ...column,
+            props: {
+              ...props,
+              rowSpan: 1
+            }
+          },
+          children: [],
           ...column,
           props: {
             ...props,
-            rowSpan: 1
+            className: '',
+            rowSpan: 1,
+            style: {}
           }
         }
       ]
     ];
 
-    expect(resolveHeaderRows(columns)).to.deep.equal(expected);
+    expect(resolveHeaderRows(columns)).toEqual(expected);
   });
 
   it('returns columns with child wrapped in an array', function () {
     const childColumn = {
-      bar: 'foo'
+      header: {
+        label: 'foo'
+      }
     };
     const column = {
-      foo: 'bar',
+      header: {
+        label: 'bar'
+      },
       children: [
         childColumn
       ]
@@ -61,31 +87,62 @@ describe('resolveHeaderRows', function () {
     const expected = [
       [
         {
-          foo: column.foo,
+          ...column,
+          children: [],
+          column: {
+            header: column.header,
+            props: {
+              colSpan: 1
+            }
+          },
           props: {
-            colSpan: 1
+            className: '',
+            colSpan: 1,
+            style: {}
           }
         }
       ],
       [
         {
           ...childColumn,
+          children: [],
+          column: {
+            children: [],
+            column: {
+              header: childColumn.header,
+              props: {
+                rowSpan: 1
+              }
+            },
+            header: childColumn.header,
+            props: {
+              className: '',
+              rowSpan: 1,
+              style: {}
+            }
+          },
           props: {
-            rowSpan: 1
+            className: '',
+            rowSpan: 1,
+            style: {}
           }
         }
       ]
     ];
 
-    expect(resolveHeaderRows(columns)).to.deep.equal(expected);
+    expect(resolveHeaderRows(columns)).toEqual(expected);
   });
 
   it('calculates colSpan based on children', function () {
     const childColumn = {
-      bar: 'foo'
+      header: {
+        label: 'foo'
+      }
     };
     const column = {
-      foo: 'bar',
+      header: {
+        label: 'bar'
+      },
       children: [
         childColumn,
         childColumn
@@ -95,37 +152,94 @@ describe('resolveHeaderRows', function () {
     const expected = [
       [
         {
-          foo: column.foo,
+          children: [],
+          column: {
+            header: column.header,
+            props: {
+              colSpan: 2
+            }
+          },
+          header: column.header,
           props: {
-            colSpan: 2
+            className: '',
+            colSpan: 2,
+            style: {}
           }
         }
       ],
       [
         {
           ...childColumn,
+          children: [],
+          column: {
+            children: [],
+            column: {
+              header: {
+                label: 'foo'
+              },
+              props: {
+                rowSpan: 1
+              }
+            },
+            header: {
+              label: 'foo'
+            },
+            props: {
+              className: '',
+              rowSpan: 1,
+              style: {}
+            }
+          },
           props: {
-            rowSpan: 1
+            className: '',
+            rowSpan: 1,
+            style: {}
           }
         },
         {
           ...childColumn,
+          children: [],
+          column: {
+            children: [],
+            column: {
+              header: {
+                label: 'foo'
+              },
+              props: {
+                rowSpan: 1
+              }
+            },
+            header: {
+              label: 'foo'
+            },
+            props: {
+              className: '',
+              rowSpan: 1,
+              style: {}
+            }
+          },
           props: {
-            rowSpan: 1
+            className: '',
+            rowSpan: 1,
+            style: {}
           }
         }
       ]
     ];
 
-    expect(resolveHeaderRows(columns)).to.deep.equal(expected);
+    expect(resolveHeaderRows(columns)).toEqual(expected);
   });
 
   it('calculates rowSpan based on siblings', function () {
     const basicColumn = {
-      bar: 'foo'
+      header: {
+        label: 'foo'
+      }
     };
     const column = {
-      foo: 'bar',
+      header: {
+        label: 'bar'
+      },
       children: [
         basicColumn,
         basicColumn
@@ -136,33 +250,101 @@ describe('resolveHeaderRows', function () {
       [
         {
           ...basicColumn,
+          children: [],
+          column: {
+            header: {
+              label: 'foo'
+            },
+            props: {
+              rowSpan: 2
+            }
+          },
           props: {
-            rowSpan: 2
+            className: '',
+            rowSpan: 2,
+            style: {}
           }
         },
         {
-          foo: column.foo,
+          children: [],
+          column: {
+            header: {
+              label: 'bar'
+            },
+            props: {
+              colSpan: 2
+            }
+          },
+          header: {
+            label: 'bar'
+          },
           props: {
-            colSpan: 2
+            className: '',
+            colSpan: 2,
+            style: {}
           }
         }
       ],
       [
         {
           ...basicColumn,
+          children: [],
+          column: {
+            children: [],
+            column: {
+              header: {
+                label: 'foo'
+              },
+              props: {
+                rowSpan: 1
+              }
+            },
+            header: {
+              label: 'foo'
+            },
+            props: {
+              className: '',
+              rowSpan: 1,
+              style: {}
+            }
+          },
           props: {
-            rowSpan: 1
+            className: '',
+            rowSpan: 1,
+            style: {}
           }
         },
         {
           ...basicColumn,
+          children: [],
+          column: {
+            children: [],
+            column: {
+              header: {
+                label: 'foo'
+              },
+              props: {
+                rowSpan: 1
+              }
+            },
+            header: {
+              label: 'foo'
+            },
+            props: {
+              className: '',
+              rowSpan: 1,
+              style: {}
+            }
+          },
           props: {
-            rowSpan: 1
+            className: '',
+            rowSpan: 1,
+            style: {}
           }
         }
       ]
     ];
 
-    expect(resolveHeaderRows(columns)).to.deep.equal(expected);
+    expect(resolveHeaderRows(columns)).toEqual(expected);
   });
 });
