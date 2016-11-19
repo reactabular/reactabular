@@ -17,33 +17,49 @@ The general workflow goes as follows:
 /*
 import React from 'react';
 import orderBy from 'lodash/orderBy';
-import { Table, sort } from 'reactabular';
+import { Table, sort, resolve } from 'reactabular';
+import { compose } from 'redux';
 */
 
 const initialRows = [
   {
     id: 100,
-    name: 'Adam',
+    name: {
+      first: 'Adam',
+      last: 'West'
+    },
     age: 10
   },
   {
     id: 101,
-    name: 'Brian',
+    name: {
+      first: 'Brian',
+      last: 'Eno'
+    },
     age: 43
   },
   {
     id: 102,
-    name: 'Brian',
+    name: {
+      first: 'Brian',
+      last: 'Wilson'
+    },
     age: 23
   },
   {
     id: 103,
-    name: 'Jake',
+    name: {
+      first: 'Jake',
+      last: 'Dalton'
+    },
     age: 33
   },
   {
     id: 104,
-    name: 'Jill',
+    name: {
+      first: 'Jill',
+      last: 'Jackson'
+    },
     age: 63
   }
 ];
@@ -86,15 +102,33 @@ class SortTable extends React.Component {
       },
       columns: [
         {
-          property: 'name',
           header: {
-            label: 'Name',
-            transforms: [resetable],
-            format: sort.header({
-              sortable,
-              getSortingColumns
-            })
-          }
+            label: 'Name'
+          },
+          children: [
+            {
+              property: 'name.first',
+              header: {
+                label: 'First Name',
+                transforms: [resetable],
+                format: sort.header({
+                  sortable,
+                  getSortingColumns
+                })
+              }
+            },
+            {
+              property: 'name.last',
+              header: {
+                label: 'Last Name',
+                transforms: [resetable],
+                format: sort.header({
+                  sortable,
+                  getSortingColumns
+                })
+              }
+            }
+          ]
         },
         {
           property: 'age',
@@ -115,11 +149,14 @@ class SortTable extends React.Component {
   }
   render() {
     const { rows, columns, sortingColumns } = this.state;
-    const sortedRows = sort.sorter({
-      columns,
-      sortingColumns,
-      sort: orderBy
-    })(rows);
+    const sortedRows = compose(
+      sort.sorter({
+        columns,
+        sortingColumns,
+        sort: orderBy
+      }),
+      resolve.resolve({ columns, method: resolve.nested })
+    )(rows);
 
     return (
       <div>
