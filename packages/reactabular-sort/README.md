@@ -148,7 +148,8 @@ class SortTable extends React.Component {
     };
   }
   render() {
-    const { rows, columns, sortingColumns } = this.state;
+    const { rows, sortingColumns } = this.state;
+    const columns = resolve.columnChildren({ columns: this.state.columns });
     const sortedRows = compose(
       sort.sorter({
         columns,

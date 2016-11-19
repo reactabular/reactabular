@@ -1,7 +1,9 @@
 import { expect } from 'chai';
-import { resolveHeaderRows } from '../src';
+import * as resolve from '../src';
 
-describe('utils.resolveHeaderRows', function () {
+const resolveHeaderRows = resolve.headerRows;
+
+describe('resolveHeaderRows', function () {
   it('returns columns wrapped in an array', function () {
     const column = {
       foo: 'bar'

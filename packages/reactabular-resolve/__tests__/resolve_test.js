@@ -43,38 +43,6 @@ describe('resolve.resolve', function () {
     })(rows)).to.deep.equal(expected);
   });
 
-  it('executes resolver over nested rows', function () {
-    const name = 'Demo';
-    const columns = [
-      {
-        header: {
-          label: 'Last name'
-        },
-        children: [
-          {
-            property: 'name',
-            header: {
-              label: 'First Name'
-            }
-          }
-        ]
-      }
-    ];
-    const rows = [
-      {
-        name
-      }
-    ];
-    const method = ({ column }) => rowData => ({
-      [column.property]: rowData.name
-    });
-
-    expect(resolve({
-      columns,
-      method
-    })(rows)).to.deep.equal(rows);
-  });
-
   it('resolves using multiple resolvers', function () {
     const lastName = 'Demo';
     const columns = [

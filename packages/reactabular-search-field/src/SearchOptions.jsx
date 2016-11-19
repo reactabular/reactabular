@@ -1,5 +1,4 @@
 import React from 'react';
-import { resolveBodyColumns } from 'reactabular-utils';
 
 const SearchOptions = ({
   columns,
@@ -25,7 +24,7 @@ const getOptions = (columns, i18n) => (
   (columns.length > 1 ? [{
     value: 'all',
     name: i18n.all
-  }] : []).concat(resolveBodyColumns(columns).map((column) => {
+  }] : []).concat(columns.map((column) => {
     if (
       (column.property) &&
       (column.header && column.header.label)

@@ -1,5 +1,4 @@
 import React from 'react';
-import { resolveBodyColumns } from 'reactabular-utils';
 
 const SearchColumns = ({ columns, query, onChange }) => {
   const onQueryChange = (event) => {
@@ -11,7 +10,7 @@ const SearchColumns = ({ columns, query, onChange }) => {
 
   return (
     <tr>
-      {resolveBodyColumns(columns).map((column, i) => (
+      {columns.map((column, i) => (
         <th key={`${column.property || i}-column-filter`} className="column-filter">
           {column && column.property ?
             <input

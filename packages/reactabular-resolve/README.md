@@ -30,6 +30,12 @@ The `byFunction` resolver accepts a path from where to look for a resolving func
 
 Instead of replacing the original value, `byFunction` generates `_<property>` kind of field to the resulting rows. Other functionality of Reactabular can use this hint and use the underscore field for user facing portions while using actual values for logic that relies on that.
 
+### `resolve.columnChildren`
+
+**`({ columns, childrenField = 'children' }) => <resolved columns>`**
+
+Assuming your column definition is nested, you will need to resolve it to a flat format before other functionality of Reactabular can work. `resolve.columnChildren` does exactly that.
+
 ## Combining Resolvers
 
 If you want to combine resolvers, you can achieve it like this.

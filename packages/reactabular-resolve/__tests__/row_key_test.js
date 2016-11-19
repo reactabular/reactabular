@@ -1,7 +1,9 @@
 import { expect } from 'chai';
-import { resolveRowKey } from '../src';
+import * as resolve from '../src';
 
-describe('resolveRowKey', function () {
+const resolveRowKey = resolve.rowKey;
+
+describe('rowKey', function () {
   it('resolves to rowKey', function () {
     const rowKey = 'id';
     const rowData = {

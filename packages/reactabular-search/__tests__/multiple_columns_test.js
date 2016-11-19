@@ -113,35 +113,4 @@ describe('search.multipleColumns', function () {
 
     expect(result).to.deep.equal(rows);
   });
-
-  it('searches against nested columns', function () {
-    const query = { 'name.first': 'Jack' };
-    const rows = [{ 'name.first': 'Jack', 'name.last': 'Dalton' }];
-    const result = multipleColumns({
-      query,
-      columns: [
-        {
-          header: {
-            label: 'Name'
-          },
-          children: [
-            {
-              property: 'name.first',
-              header: {
-                label: 'First Name'
-              }
-            },
-            {
-              property: 'name.last',
-              header: {
-                label: 'Last Name'
-              }
-            }
-          ]
-        }
-      ]
-    })(rows);
-
-    expect(result).to.deep.equal(rows);
-  });
 });

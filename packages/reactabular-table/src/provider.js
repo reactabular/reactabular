@@ -1,7 +1,6 @@
 import React from 'react';
-import {
-  mergePropPair, resolveBodyColumns, resolveHeaderRows
-} from 'reactabular-utils';
+import { mergePropPair } from 'reactabular-utils';
+import { headerRows as resolveHeaderRows } from 'reactabular-resolve';
 import { tableTypes, tableDefaults, tableContextTypes } from './types';
 
 const componentDefaults = tableDefaults.components;
@@ -11,6 +10,8 @@ export default class Provider extends React.Component {
   getChildContext() {
     const { columns, components } = this.props;
 
+    // XXXXX: problematic if columns have been resolved already! merge this idea
+    // with the column resolver somehow?
     // Merge column props with header/body specific ones so that can be avoided later
     const headerRows = resolveHeaderRows(columns).map(
       row => row.map(column => (
@@ -23,7 +24,7 @@ export default class Provider extends React.Component {
       )
     ));
 
-    const bodyColumns = resolveBodyColumns(columns).map(
+    const bodyColumns = columns.map(
       column => ({
         props: mergePropPair(column.props, column.cell && column.cell.props),
         cell: column.cell || {},
