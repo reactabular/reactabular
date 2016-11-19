@@ -68,4 +68,8 @@ describe('utils.evaluateTransforms', function () {
   it('returns an object without any input', function () {
     expect(evaluateTransforms()).to.deep.equal({});
   });
+
+  it('throws an error if all transforms are not functions', function () {
+    expect(evaluateTransforms.bind(null, [() => {}, null])).to.throw(Error);
+  });
 });

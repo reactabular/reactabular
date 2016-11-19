@@ -32,6 +32,7 @@
 ## reactabular-utils
 
   * Feature - Add `columnsAreEqual` and `rowsAreEqual` checkers.
+  * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
 
 ## reactabular-resolve
 

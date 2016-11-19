@@ -2,6 +2,7 @@
 ==================
 
   * Feature - Add `columnsAreEqual` and `rowsAreEqual` checkers.
+  * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
 
 7.0.0 / 2016-11-03
 ==================
