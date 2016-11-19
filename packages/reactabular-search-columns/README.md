@@ -10,7 +10,7 @@ Consider the example below.
 /*
 import React from 'react';
 import {
-  Table, SearchColumns, search
+  Table, SearchColumns, search, resolve
 } from 'reactabular';
 */
 
@@ -22,10 +22,23 @@ class SearchColumnsTable extends React.Component {
       query: {}, // Search query
       columns: [
         {
-          property: 'name',
           header: {
             label: 'Name'
-          }
+          },
+          children: [
+            {
+              property: 'name.first',
+              header: {
+                label: 'First Name'
+              }
+            },
+            {
+              property: 'name.last',
+              header: {
+                label: 'Last Name'
+              }
+            }
+          ]
         },
         {
           property: 'age',
@@ -37,29 +50,42 @@ class SearchColumnsTable extends React.Component {
       rows: [
         {
           id: 100,
-          name: 'Adam',
-          age: 12
+          name: {
+            first: 'Adam',
+            last: 'West'
+          },
+          age: 10
         },
         {
           id: 101,
-          name: 'Brian',
-          age: 7
-        },
-        {
-          id: 102,
-          name: 'Jake',
-          age: 88
+          name: {
+            first: 'Brian',
+            last: 'Eno'
+          },
+          age: 43
         },
         {
           id: 103,
-          name: 'Jill',
-          age: 50
+          name: {
+            first: 'Jake',
+            last: 'Dalton'
+          },
+          age: 33
+        },
+        {
+          id: 104,
+          name: {
+            first: 'Jill',
+            last: 'Jackson'
+          },
+          age: 63
         }
       ]
     };
   }
   render() {
-    const { rows, columns, query } = this.state;
+    const { columns, query } = this.state;
+    const rows = resolve.resolve({ columns, method: resolve.nested })(this.state.rows);
     const searchedRows = search.multipleColumns({ columns, query })(rows);
 
     return (
