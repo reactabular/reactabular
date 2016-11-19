@@ -36,6 +36,21 @@ const generateRows = (amount, { definitions, properties }) => range(amount).map(
 
         return `${sample(forenames)} ${sample(surnames)}`;
       },
+      fullName() {
+        const forenames = [
+          'Jack', 'Bo', 'John', 'Jill', 'Angus', 'Janet', 'Cecilia',
+          'Daniel', 'Marge', 'Homer', 'Trevor', 'Fiona', 'Margaret', 'Ofelia',
+          'Mike', 'Don', 'Dirk', 'Greg', 'Arthur', 'Ike', 'Robert', 'Ulrich'
+        ];
+        const surnames = [
+          'MacGyver', 'Johnson', 'Jackson', 'Robertson', 'Hull', 'Hill', 'Simpson',
+          'Ikesen', 'Cruise', 'Schwarz', 'Xu', 'Li', 'Lee', 'White', 'Brown'
+        ];
+
+        return {
+          first: sample(forenames), last: sample(surnames)
+        };
+      },
       company() {
         const first = ['App', 'No', 'Micro', 'Ora', 'Sun', 'Soft', 'Accen', 'Syman'];
         const second = [

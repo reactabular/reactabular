@@ -12,6 +12,7 @@ To make the drag and drop functionality work, you have to set up [react-dnd-html
 /*
 import React from 'react';
 import { search, Search, SearchColumns } from 'reactabular';
+import { getColumnByPath } from 'reactabular-utils';
 import EasyTable from 'reactabular-easy';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as tree from 'reactabular-tree';
@@ -31,8 +32,8 @@ const schema = {
     Id: {
       type: 'string'
     },
-    name: {
-      type: 'string'
+    fullName: {
+      $ref: '#/definitions/fullName'
     },
     company: {
       type: 'string'
@@ -44,7 +45,7 @@ const schema = {
       $ref: '#/definitions/boss'
     }
   },
-  required: ['Id', 'name', 'company', 'age', 'boss'],
+  required: ['Id', 'name', 'company', 'age', 'boss', 'fullName'],
   definitions: {
     boss: {
       type: 'object',
@@ -54,6 +55,18 @@ const schema = {
         }
       },
       required: ['name']
+    },
+    fullName: {
+      type: 'object',
+      properties: {
+        first: {
+          type: 'string'
+        },
+        last: {
+          type: 'string'
+        }
+      },
+      required: ['first', 'last']
     }
   }
 };
@@ -97,18 +110,47 @@ class EasyDemo extends React.Component {
         visible: true
       },
       {
-        property: 'name',
+        // property: 'name',
         header: {
           label: 'Name',
           draggable: true,
+          //sortable: true,
+          //resizable: true
+        },
+        cell: {
+          highlight: true
+        },
+        // width: 250,
+        // minWidth: 100,
+        visible: true,
+        children: [
+          {
+            property: 'fullName.first',
+            header: {
+              label: 'First Name',
+              draggable: true,
           sortable: true,
           resizable: true
         },
         cell: {
           highlight: true
         },
-        width: 250,
-        visible: true
+            width: 125
+          },
+          {
+            property: 'fullName.last',
+            header: {
+              label: 'Last Name',
+              draggable: true,
+              sortable: true,
+              resizable: true
+            },
+            cell: {
+              highlight: true
+            },
+            width: 125
+          }
+        ]
       },
       {
         property: 'age',
@@ -255,10 +297,10 @@ class EasyDemo extends React.Component {
 
     rows && this.setState({ rows });
   }
-  onDragColumn(width, { columnIndex }) {
+  onDragColumn(width, { columnPath }) {
     const columns = cloneDeep(this.state.columns);
 
-    columns[columnIndex].width = width;
+    getColumnByPath(columns, columnPath).width = width;
 
     this.setState({ columns });
   }
