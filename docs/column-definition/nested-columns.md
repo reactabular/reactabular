@@ -78,18 +78,26 @@ const rows = [
   }
 ];
 
-const NestedColumnsTable = () => (
-  <Table.Provider columns={resolve.columnChildren({ columns })}>
-    <Table.Header
-      headerRows={resolve.headerRows({ columns })}
-    />
+const NestedColumnsTable = () => {
+  const resolvedColumns = resolve.columnChildren({ columns });
+  const resolvedRows = resolve.resolve({
+    columns: resolvedColumns,
+    method: resolve.nested
+  })(rows);
 
-    <Table.Body
-      rows={resolve.resolve({ columns, method: resolve.nested })(rows)}
-      rowKey="id"
-    />
-  </Table.Provider>
-);
+  return (
+    <Table.Provider columns={resolvedColumns}>
+      <Table.Header
+        headerRows={resolve.headerRows({ columns })}
+      />
+
+      <Table.Body
+        rows={resolvedRows}
+        rowKey="id"
+      />
+    </Table.Provider>
+  );
+};
 
 <NestedColumnsTable />
 ```
