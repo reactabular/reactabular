@@ -6,6 +6,9 @@ const DragTypes = {
   ROW: 'row'
 };
 const rowSource = {
+  canDrag({ rowId, onCanMove }) {
+    return onCanMove ? onCanMove({ rowId }) : true;
+  },
   beginDrag({ rowId, onMoveStart }) {
     onMoveStart && onMoveStart({ rowId });
 
@@ -41,6 +44,7 @@ const dropTarget = DropTarget( // eslint-disable-line new-cap
 const DraggableRow = ({
   _parent,
   connectDragSource, connectDropTarget,
+  onCanMove, onMoveStart, onMoveEnd, // eslint-disable-line no-unused-vars
   onMove, rowId, ...props // eslint-disable-line no-unused-vars
 }) => (
   // If you want to drag using a handle instead, then you need to pass
@@ -76,6 +80,9 @@ DraggableRow.propTypes = {
   connectDragSource: React.PropTypes.func.isRequired,
   connectDropTarget: React.PropTypes.func.isRequired,
   onMove: React.PropTypes.func.isRequired,
+  onCanMove: React.PropTypes.func,
+  onMoveStart: React.PropTypes.func,
+  onMoveEnd: React.PropTypes.func,
   rowId: React.PropTypes.any.isRequired
 };
 
