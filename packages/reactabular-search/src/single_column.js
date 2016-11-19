@@ -1,3 +1,4 @@
+import { resolveBodyColumns } from 'reactabular-utils';
 import _columnMatches from './_column_matches';
 
 const singleColumn = ({
@@ -7,10 +8,10 @@ const singleColumn = ({
     return rows;
   }
 
-  let ret = columns;
+  let ret = resolveBodyColumns(columns);
 
   if (searchColumn !== 'all') {
-    ret = columns.filter(col => col && col.property === searchColumn);
+    ret = ret.filter(col => col && col.property === searchColumn);
   }
 
   return rows.filter(row => ret.filter(column => _columnMatches({
