@@ -7,3 +7,5 @@ export { default as resolveRowKey } from './resolve-row-key';
 export { default as evaluateTransforms } from './evaluate-transforms';
 export { default as mergePropPair } from './merge-prop-pair';
 export { default as mergeClassNames } from './merge-class-names';
+export { default as findColumn } from './find-column';
+export { default as getColumnByIndex } from './get-column-by-index';

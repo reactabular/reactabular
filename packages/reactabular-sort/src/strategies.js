@@ -1,16 +1,16 @@
-import find from 'lodash/find';
+import { findColumn, getColumnByIndex } from 'reactabular-utils';
 
 const byIndex = {
   fieldName: 'columnIndex',
   getColumn(columns, sortingColumnKey) {
-    return columns[sortingColumnKey];
+    return getColumnByIndex(columns, sortingColumnKey);
   }
 };
 
 const byProperty = {
   fieldName: 'property',
   getColumn(columns, property) {
-    return find(columns, { property });
+    return findColumn(columns, { property });
   }
 };
 
