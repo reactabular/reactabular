@@ -23,7 +23,7 @@ const VisibilityToggles = ({
       style={visibilityStyles.container}
       {...props}
     >
-      {columns.filter(column => column.header).map(
+      {columns.filter(column => column.header && column.header.label).map(
         ({ header: { label }, visible }, columnIndex) => {
           const key = `visibility-toggle-${columnIndex}`;
 
