@@ -101,10 +101,21 @@ class HighlightTable extends React.Component {
   }
   render() {
     const { rows, columns, query } = this.state;
+    const resolvedColumns = resolve.columnChildren({ columns });
     const filteredRows = compose(
-      highlight.highlighter({ columns, matches: search.matches, query }),
-      search.multipleColumns({ columns, query }),
-      resolve.resolve({ columns, method: resolve.nested })
+      highlight.highlighter({
+        columns: resolvedColumns,
+        matches: search.matches,
+        query
+      }),
+      search.multipleColumns({
+        columns: resolvedColumns,
+        query
+      }),
+      resolve.resolve({
+        columns: resolvedColumns,
+        method: resolve.nested
+      })
     )(rows);
 
     return (
@@ -113,13 +124,15 @@ class HighlightTable extends React.Component {
           <span>Search</span>
           <Search
             query={query}
-            columns={columns}
+            columns={resolvedColumns}
             rows={rows}
             onChange={query => this.setState({ query })}
           />
         </div>
-        <Table.Provider columns={columns}>
-          <Table.Header />
+        <Table.Provider columns={resolvedColumns}>
+          <Table.Header
+            headerRows={resolve.headerRows({ columns })}
+          />
 
           <Table.Body rows={filteredRows} rowKey="id" />
         </Table.Provider>

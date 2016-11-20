@@ -153,16 +153,23 @@ class DragAndDropTable extends React.Component {
       }
     };
     const { columns, rows } = this.state;
+    const resolvedColumns = resolve.columnChildren({ columns });
+    const resolvedRows = resolve.resolve({
+      columns: resolvedColumns,
+      method: resolve.nested
+    })(rows);
 
     return (
       <Table.Provider
         components={components}
-        columns={columns}
+        columns={resolvedColumns}
       >
-        <Table.Header />
+        <Table.Header
+          headerRows={resolve.headerRows({ columns })}
+        />
 
         <Table.Body
-          rows={resolve.resolve({ columns, method: resolve.nested })(rows)}
+          rows={resolvedRows}
           rowKey="id"
           onRow={this.onRow}
         />

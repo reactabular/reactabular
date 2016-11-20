@@ -84,16 +84,25 @@ class SearchColumnsTable extends React.Component {
     };
   }
   render() {
-    const { columns, query } = this.state;
-    const rows = resolve.resolve({ columns, method: resolve.nested })(this.state.rows);
-    const searchedRows = search.multipleColumns({ columns, query })(rows);
+    const { columns, query, rows } = this.state;
+    const resolvedColumns = resolve.columnChildren({ columns });
+    const resolvedRows = resolve.resolve({
+      columns: resolvedColumns,
+      method: resolve.nested
+    })(rows);
+    const searchedRows = search.multipleColumns({
+      columns: resolvedColumns,
+      query
+    })(resolvedRows);
 
     return (
-      <Table.Provider columns={columns}>
-        <Table.Header>
+      <Table.Provider columns={resolvedColumns}>
+        <Table.Header
+          headerRows={resolve.headerRows({ columns })}
+        >
           <SearchColumns
             query={query}
-            columns={columns}
+            columns={resolvedColumns}
             onChange={query => this.setState({ query })}
           />
         </Table.Header>

@@ -148,21 +148,26 @@ class SortTable extends React.Component {
     };
   }
   render() {
-    const { rows, sortingColumns } = this.state;
-    const columns = resolve.columnChildren({ columns: this.state.columns });
+    const { rows, sortingColumns, columns } = this.state;
+    const resolvedColumns = resolve.columnChildren({ columns });
     const sortedRows = compose(
       sort.sorter({
-        columns,
+        columns: resolvedColumns,
         sortingColumns,
         sort: orderBy
       }),
-      resolve.resolve({ columns, method: resolve.nested })
+      resolve.resolve({
+        columns: resolvedColumns,
+        method: resolve.nested
+      })
     )(rows);
 
     return (
       <div>
-        <Table.Provider columns={columns}>
-          <Table.Header />
+        <Table.Provider columns={resolvedColumns}>
+          <Table.Header
+            headerRows={resolve.headerRows({ columns })}
+          />
 
           <Table.Body rows={sortedRows} rowKey="id" />
         </Table.Provider>

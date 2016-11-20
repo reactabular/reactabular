@@ -85,9 +85,16 @@ class SearchTable extends React.Component {
     };
   }
   render() {
-    const { searchColumn, columns, query } = this.state;
-    const rows = resolve.resolve({ columns, method: resolve.nested })(this.state.rows);
-    const searchedRows = search.multipleColumns({ columns, query })(rows);
+    const { searchColumn, columns, rows, query } = this.state;
+    const resolvedColumns = resolve.columnChildren({ columns });
+    const resolvedRows = resolve.resolve({
+      columns: resolvedColumns,
+      method: resolve.nested
+    })(rows);
+    const searchedRows = search.multipleColumns({
+      columns: resolvedColumns,
+      query
+    })(resolvedRows);
 
     return (
       <div>
@@ -97,13 +104,15 @@ class SearchTable extends React.Component {
             column={searchColumn}
             query={query}
             columns={columns}
-            rows={rows}
+            rows={resolvedRows}
             onColumnChange={searchColumn => this.setState({ searchColumn })}
             onChange={query => this.setState({ query })}
           />
         </div>
-        <Table.Provider columns={columns}>
-          <Table.Header />
+        <Table.Provider columns={resolvedColumns}>
+          <Table.Header
+            headerRows={resolve.headerRows({ columns })}
+          />
 
           <Table.Body rows={searchedRows} rowKey="id" />
         </Table.Provider>
