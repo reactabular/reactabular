@@ -7,6 +7,15 @@ import generators from 'annogenerate';
 const generate = schema2object.properties2object;
 
 const adjectives = ['Super', 'Hyper', 'Awesome', 'Lame', 'Standard'];
+const forenames = [
+  'Jack', 'Bo', 'John', 'Jill', 'Angus', 'Janet', 'Cecilia',
+  'Daniel', 'Marge', 'Homer', 'Trevor', 'Fiona', 'Margaret', 'Ofelia',
+  'Mike', 'Don', 'Dirk', 'Greg', 'Arthur', 'Ike', 'Robert', 'Ulrich'
+];
+const surnames = [
+  'MacGyver', 'Johnson', 'Jackson', 'Robertson', 'Hull', 'Hill', 'Simpson',
+  'Ikesen', 'Cruise', 'Schwarz', 'Xu', 'Li', 'Lee', 'White', 'Brown'
+];
 
 const generateRows = (amount, { definitions, properties }) => range(amount).map(
   () => generate({
@@ -24,17 +33,12 @@ const generateRows = (amount, { definitions, properties }) => range(amount).map(
         };
       },
       name() {
-        const forenames = [
-          'Jack', 'Bo', 'John', 'Jill', 'Angus', 'Janet', 'Cecilia',
-          'Daniel', 'Marge', 'Homer', 'Trevor', 'Fiona', 'Margaret', 'Ofelia',
-          'Mike', 'Don', 'Dirk', 'Greg', 'Arthur', 'Ike', 'Robert', 'Ulrich'
-        ];
-        const surnames = [
-          'MacGyver', 'Johnson', 'Jackson', 'Robertson', 'Hull', 'Hill', 'Simpson',
-          'Ikesen', 'Cruise', 'Schwarz', 'Xu', 'Li', 'Lee', 'White', 'Brown'
-        ];
-
         return `${sample(forenames)} ${sample(surnames)}`;
+      },
+      fullName() {
+        return {
+          first: sample(forenames), last: sample(surnames)
+        };
       },
       company() {
         const first = ['App', 'No', 'Micro', 'Ora', 'Sun', 'Soft', 'Accen', 'Syman'];
