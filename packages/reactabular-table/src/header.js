@@ -1,5 +1,4 @@
 import React from 'react';
-import { mergePropPair } from 'reactabular-utils';
 import { tableHeaderTypes, tableHeaderContextTypes } from './types';
 import HeaderRow from './header-row';
 
@@ -11,7 +10,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
   }
   render() {
     const { children, headerRows, ...props } = this.props;
-    const { components, bodyColumns } = this.context;
+    const { components, columns } = this.context;
 
     props.ref = (header) => {
       this.ref = header;
@@ -21,7 +20,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     return React.createElement(
       components.header.wrapper,
       props,
-      [(mergeColumnProps(headerRows || [bodyColumns])).map((row, i) =>
+      [(headerRows || [columns]).map((row, i) =>
         React.createElement(HeaderRow, {
           key: `${i}-header-row`,
           components: components.header,
@@ -36,17 +35,5 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
 }
 Header.propTypes = tableHeaderTypes;
 Header.contextTypes = tableHeaderContextTypes;
-
-function mergeColumnProps(columns) {
-  return columns.map(
-    row => row.map(column => (
-      column.header ? {
-        props: mergePropPair(column.props, column.header.props),
-        header: column.header,
-        column
-      } : {}
-    )
-  ));
-}
 
 export default Header;

@@ -37,7 +37,7 @@ const tableTypes = {
   components: React.PropTypes.object
 };
 const tableContextTypes = {
-  bodyColumns: React.PropTypes.array.isRequired,
+  columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
 const tableBodyDefaults = {
@@ -49,7 +49,7 @@ const tableBodyTypes = {
   rowKey: rowKeyType
 };
 const tableBodyContextTypes = {
-  bodyColumns: React.PropTypes.array.isRequired,
+  columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
 const tableBodyRowDefaults = {
@@ -70,7 +70,7 @@ const tableHeaderTypes = {
   children: React.PropTypes.any
 };
 const tableHeaderContextTypes = {
-  bodyColumns: React.PropTypes.array.isRequired,
+  columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
 const tableDefaults = {

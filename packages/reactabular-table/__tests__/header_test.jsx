@@ -282,6 +282,7 @@ describe('Table.Header', function () {
       {
         header: {
           label: initialLabel,
+          property: initialLabel,
           transforms: [
             (label, extraValues) => {
               receivedLabel = label;
@@ -300,8 +301,45 @@ describe('Table.Header', function () {
 
     expect(receivedLabel).to.equal(initialLabel);
     expect(receivedValues).to.exist;
-    expect(receivedValues.columnIndex).to.equal(0);
-    expect(receivedValues.column.header).to.deep.equal(columns[0].header);
+    expect(receivedValues.property).to.equal(initialLabel);
+    expect(receivedValues.column).to.deep.equal({
+      ...columns[0],
+      cell: {}
+    });
+  });
+
+  it('passes column level property', function () {
+    const initialLabel = 'Name';
+    let receivedLabel;
+    let receivedValues;
+    const columns = [
+      {
+        property: initialLabel,
+        header: {
+          label: initialLabel,
+          transforms: [
+            (label, extraValues) => {
+              receivedLabel = label;
+              receivedValues = extraValues;
+            }
+          ]
+        }
+      }
+    ];
+
+    TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns}>
+        <Table.Header />
+      </Table.Provider>
+    );
+
+    expect(receivedLabel).to.equal(initialLabel);
+    expect(receivedValues).to.exist;
+    expect(receivedValues.property).to.equal(initialLabel);
+    expect(receivedValues.column).to.deep.equal({
+      header: columns[0].header,
+      cell: {}
+    });
   });
 
   it('can be transformed with multiple transforms', function () {

@@ -7,7 +7,8 @@ const HeaderRow = ({ row, components }) => (
   React.createElement(
     components.row,
     {},
-    row.map(({ column, header = {}, props = {} }, j) => {
+    row.map(({ property, header = {}, cell = {}, props = {} }, j) => {
+      const evaluatedProperty = property || (header && header.property);
       const {
         label,
         transforms = [],
@@ -15,8 +16,11 @@ const HeaderRow = ({ row, components }) => (
       } = header;
       const extraParameters = {
         columnIndex: j,
-        column,
-        property: column && column.property // TODO: test that this is passed properly
+        property: evaluatedProperty,
+        column: {
+          header,
+          cell
+        }
       };
       const transformedProps = evaluateTransforms(transforms, label, extraParameters);
 
@@ -28,7 +32,10 @@ const HeaderRow = ({ row, components }) => (
         components.cell,
         {
           key: `${j}-header`,
-          ...mergePropPair(props, transformedProps)
+          ...mergePropPair( // XXX: convert to a single function call
+            mergePropPair(props, header && header.props),
+            transformedProps
+          )
         },
         transformedProps.children || format(label, extraParameters)
       );

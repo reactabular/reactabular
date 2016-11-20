@@ -32,21 +32,25 @@ class BodyRow extends React.Component {
     return React.createElement(
       components.row,
       onRow(rowData, { rowIndex, rowKey }),
-      columns.map(({ column, cell, property, props }, j) => {
+      columns.map(({ property, header, cell, props }, j) => {
+        const evaluatedProperty = property || (cell && cell.property);
         const {
           transforms = [],
           format = a => a
         } = cell || {}; // TODO: test against this case
         const extraParameters = {
           columnIndex: j,
-          column,
+          property: evaluatedProperty,
+          column: {
+            header,
+            cell
+          },
           rowData,
           rowIndex,
-          rowKey,
-          property
+          rowKey
         };
         const transformed = evaluateTransforms(
-          transforms, rowData[property], extraParameters
+          transforms, rowData[evaluatedProperty], extraParameters
         );
 
         if (!transformed) {
@@ -57,11 +61,14 @@ class BodyRow extends React.Component {
           components.cell,
           {
             key: `${j}-cell`,
-            ...mergePropPair(props, transformed)
+            ...mergePropPair( // XXX: single call
+              mergePropPair(props, cell && cell.props),
+              transformed
+            )
           },
           transformed.children ||
-          format(rowData[`_${property}`] ||
-          rowData[property], extraParameters)
+          format(rowData[`_${evaluatedProperty}`] ||
+          rowData[evaluatedProperty], extraParameters)
         );
       })
     );

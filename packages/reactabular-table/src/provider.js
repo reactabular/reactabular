@@ -1,5 +1,4 @@
 import React from 'react';
-import { mergePropPair } from 'reactabular-utils';
 import { tableTypes, tableDefaults, tableContextTypes } from './types';
 
 const componentDefaults = tableDefaults.components;
@@ -9,18 +8,8 @@ export default class Provider extends React.Component {
   getChildContext() {
     const { columns, components } = this.props;
 
-    const bodyColumns = columns.map(
-      column => ({
-        ...column,
-        props: mergePropPair(column.props, column.cell && column.cell.props),
-        cell: column.cell || {},
-        property: column.property,
-        column
-      })
-    );
-
     return {
-      bodyColumns,
+      columns,
       components: {
         table: components.table || componentDefaults.table,
         header: { ...componentDefaults.header, ...components.header },
