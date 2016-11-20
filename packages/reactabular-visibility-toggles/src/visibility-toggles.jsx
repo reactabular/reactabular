@@ -24,7 +24,7 @@ const VisibilityToggles = ({
       {...props}
     >
       {columns.filter(column => column.header && column.header.label).map(
-        ({ header: { label }, visible }, columnIndex) => {
+        (column, columnIndex) => {
           const key = `visibility-toggle-${columnIndex}`;
 
           return (
@@ -38,15 +38,15 @@ const VisibilityToggles = ({
                 className="visibility-value"
                 style={visibilityStyles.value}
               >
-                {label}
+                {column.header.label}
               </span>
               <input
                 className="visibility-toggle"
                 type="checkbox"
                 id={key}
                 style={visibilityStyles.toggle}
-                checked={visible}
-                onChange={() => onToggleColumn(columnIndex)}
+                checked={column.visible}
+                onChange={() => onToggleColumn({ column, columnIndex })}
               />
             </label>
           );

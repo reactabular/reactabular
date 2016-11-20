@@ -85,7 +85,7 @@ class ToggleColumnsTable extends React.Component {
       </div>
     );
   }
-  onToggleColumn(columnIndex) {
+  onToggleColumn({ columnIndex }) {
     const columns = cloneDeep(this.state.columns);
 
     columns[columnIndex].visible = !columns[columnIndex].visible;
