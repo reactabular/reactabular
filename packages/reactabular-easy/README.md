@@ -11,12 +11,13 @@ To make the drag and drop functionality work, you have to set up [react-dnd-html
 ```jsx
 /*
 import React from 'react';
-import { search, Search, SearchColumns } from 'reactabular';
-import EasyTable from 'reactabular-easy';
+import { search, Search, SearchColumns, resolve } from 'reactabular';
+import * as easy from 'reactabular-easy';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as tree from 'reactabular-tree';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
+import { compose } from 'redux';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 
@@ -31,8 +32,8 @@ const schema = {
     Id: {
       type: 'string'
     },
-    name: {
-      type: 'string'
+    fullName: {
+      $ref: '#/definitions/fullName'
     },
     company: {
       type: 'string'
@@ -44,7 +45,7 @@ const schema = {
       $ref: '#/definitions/boss'
     }
   },
-  required: ['Id', 'name', 'company', 'age', 'boss'],
+  required: ['Id', 'fullName', 'company', 'age', 'boss'],
   definitions: {
     boss: {
       type: 'object',
@@ -54,6 +55,18 @@ const schema = {
         }
       },
       required: ['name']
+    },
+    fullName: {
+      type: 'object',
+      properties: {
+        first: {
+          type: 'string'
+        },
+        last: {
+          type: 'string'
+        }
+      },
+      required: ['first', 'last']
     }
   }
 };
@@ -97,17 +110,43 @@ class EasyDemo extends React.Component {
         visible: true
       },
       {
-        property: 'name',
         header: {
           label: 'Name',
-          draggable: true,
-          sortable: true,
-          resizable: true
+          draggable: true
         },
         cell: {
           highlight: true
         },
-        width: 250,
+        children: [
+          {
+            property: 'fullName.first',
+            header: {
+              label: 'First Name',
+              draggable: true,
+              sortable: true,
+              resizable: true
+            },
+            cell: {
+              highlight: true
+            },
+            width: 125,
+            visible: true
+          },
+          {
+            property: 'fullName.last',
+            header: {
+              label: 'Last Name',
+              draggable: true,
+              sortable: true,
+              resizable: true
+            },
+            cell: {
+              highlight: true
+            },
+            width: 125,
+            visible: true
+          }
+        ],
         visible: true
       },
       {
@@ -178,12 +217,44 @@ class EasyDemo extends React.Component {
   }
   render() {
     const { columns, sortingColumns, rows, query } = this.state;
-    const visibleColumns = this.state.columns.filter(column => column.visible);
+    const idField = 'Id';
+    const parentField = 'parent';
+
+    // TODO: figure out nested resize
+    const flatColumns = compose(
+      // 4. Bind columns (extra functionality)
+      easy.bindColumns({
+        toggleChildrenProps: { className: 'toggle-children' },
+        sortingColumns,
+        rows,
+        idField,
+        parentField,
+
+        // Handlers
+        onMoveColumns: this.onMoveColumns,
+        onSort: this.onSort,
+        onDragColumn: this.onDragColumn,
+        onToggleShowingChildren: this.onToggleShowingChildren
+      }),
+      // TODO: 3. Filter out hidden columns
+      //columns => columns.filter(column => column.visible),
+      // 2. Unpack
+      tree.unpack({ idField: 'label' }),
+      // 1. Copy labels so it's possible to unpack using those
+      columns => columns.map(column => ({
+        ...column,
+        label: column.header && column.header.label
+      }))
+    )(columns);
+    const columnChildren = flatColumns.filter(column => !column._isParent);
+    const headerRows = resolve.headerRows({
+      columns: tree.pack({ idField: 'label' })(flatColumns)
+    });
 
     return (
       <div>
         <VisibilityToggles
-          columns={columns}
+          columns={flatColumns}
           onToggleColumn={this.onToggleColumn}
         />
 
@@ -201,22 +272,23 @@ class EasyDemo extends React.Component {
           <span>Search</span>
           <Search
             query={query}
-            columns={visibleColumns}
+            columns={columnChildren}
             rows={rows}
             onChange={query => this.setState({ query })}
           />
         </div>
 
-        <EasyTable
+        <easy.Table
           ref={table => {
             this.table = table
           }}
           rows={rows}
+          headerRows={headerRows}
           rowKey="Id"
           sortingColumns={sortingColumns}
           tableWidth={800}
           tableHeight={400}
-          columns={visibleColumns}
+          columns={columnChildren}
           query={query}
           classNames={{
             table: {
@@ -226,21 +298,16 @@ class EasyDemo extends React.Component {
           headerExtra={
             <SearchColumns
               query={query}
-              columns={visibleColumns}
+              columns={columnChildren}
               onChange={query => this.setState({ query })}
             />
           }
-          toggleChildrenProps={{ className: 'toggle-children' }}
 
-          idField="Id"
-          parentField="parent"
+          idField={idField}
+          parentField={parentField}
 
           onMoveRow={this.onMoveRow}
-          onDragColumn={this.onDragColumn}
-          onMoveColumns={this.onMoveColumns}
           onSelectRow={this.onSelectRow}
-          onSort={this.onSort}
-          onToggleShowingChildren={this.onToggleShowingChildren}
         />
       </div>
     );
@@ -273,12 +340,14 @@ class EasyDemo extends React.Component {
 
     this.setState({ sortingColumns });
   }
-  onToggleColumn(columnIndex) {
+  onToggleColumn({ column }) {
     const columns = cloneDeep(this.state.columns);
 
-    columns[columnIndex].visible = !columns[columnIndex].visible;
-
-    this.setState({ columns });
+    // TODO: figure out a nice way to set visibility against a nested structure
+    // Maybe it's better to maintain a separate list???
+    console.log('on toggle column', this.state.columns, column);
+    //columns[columnIndex].visible = !columns[columnIndex].visible;
+    //this.setState({ columns });
   }
   onRemove(id) {
     const rows = cloneDeep(this.state.rows);

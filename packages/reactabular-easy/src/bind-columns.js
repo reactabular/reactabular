@@ -5,51 +5,55 @@ import * as dnd from 'reactabular-dnd';
 import * as tree from 'reactabular-tree';
 
 function bindColumns({
-  columns, props, window,
+  window,
+  props = {},
   onDragColumn, onSort, onMoveColumns, onToggleShowingChildren,
-  idField, parentField, toggleChildrenProps,
+  idField = 'id', parentField = 'parent',
+  toggleChildrenProps,
   sortingColumns, rows
 }) {
-  const resizable = resizableColumn({
-    onDrag: onDragColumn,
-    props: props.resize,
-    parent: window
-  });
+  return (columns) => {
+    const resizable = resizableColumn({
+      onDrag: onDragColumn,
+      props: props.resize,
+      parent: window
+    });
 
-  const getSortingColumns = () => sortingColumns || {};
-  const sortable = sort.sort({
-    getSortingColumns,
-    onSort: (selectedColumn) => {
-      onSort(sort.byColumns({
-        sortingColumns,
-        selectedColumn
-      }));
-    },
-    strategy: sort.strategies.byProperty,
-    props: props.sort
-  });
-  const resetable = sort.reset({
-    event: 'onDoubleClick',
-    getSortingColumns,
-    strategy: sort.strategies.byProperty,
-    onReset: params => onSort(params.sortingColumns)
-  });
-
-  return columns.map(
-    column => bindColumn({
-      column,
-      rows,
-      idField,
-      parentField,
-      sortable,
+    const getSortingColumns = () => sortingColumns || {};
+    const sortable = sort.sort({
       getSortingColumns,
-      resetable,
-      resizable,
-      toggleChildrenProps,
-      onMoveColumns,
-      onToggleShowingChildren
-    })
-  );
+      onSort: (selectedColumn) => {
+        onSort(sort.byColumns({
+          sortingColumns,
+          selectedColumn
+        }));
+      },
+      strategy: sort.strategies.byProperty,
+      props: props.sort
+    });
+    const resetable = sort.reset({
+      event: 'onDoubleClick',
+      getSortingColumns,
+      strategy: sort.strategies.byProperty,
+      onReset: params => onSort(params.sortingColumns)
+    });
+
+    return columns.map(
+      column => bindColumn({
+        column,
+        rows,
+        idField,
+        parentField,
+        sortable,
+        getSortingColumns,
+        resetable,
+        resizable,
+        toggleChildrenProps,
+        onMoveColumns,
+        onToggleShowingChildren
+      })
+    );
+  };
 }
 
 function bindColumn({
@@ -117,15 +121,17 @@ function bindColumn({
     }
 
     if (cell.toggleChildren) {
-      newCellFormats.push(tree.toggleChildren({
-        getRows: () => rows,
-        getShowingChildren: ({ rowData }) => rowData.showingChildren,
-        toggleShowingChildren: onToggleShowingChildren,
-        // Without this it will perform checks against default id
-        idField,
-        parentField,
-        props: toggleChildrenProps
-      }));
+      newCellFormats.push(
+        tree.toggleChildren({
+          getRows: () => rows,
+          getShowingChildren: ({ rowData }) => rowData.showingChildren,
+          toggleShowingChildren: onToggleShowingChildren,
+          // Without this it will perform checks against default id
+          idField,
+          parentField,
+          props: toggleChildrenProps
+        })
+      );
     }
 
     const newCellFormat = (value, extra) => (

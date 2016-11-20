@@ -15,7 +15,7 @@ import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import transform from 'lodash/transform';
-import EasyTable from 'reactabular-easy';
+import * as easy from 'reactabular-easy';
 import * as reactEdit from 'react-edit';
 import * as reactabular from 'reactabular';
 import * as dnd from 'reactabular-dnd';
@@ -42,10 +42,10 @@ const documentationImports = {
   Search: reactabular.Search,
   dnd: { ...dnd },
   tree: { ...tree },
+  easy: { ...easy },
   resizableColumn: reactabular.resizableColumn,
   VisibilityToggles,
   Virtualized: { ...Virtualized },
-  EasyTable,
   stylesheet: { ...stylesheet },
   select: { ...selectabular },
   ...select,
