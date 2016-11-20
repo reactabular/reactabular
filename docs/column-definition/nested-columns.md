@@ -1,4 +1,4 @@
-Given sometimes you might want to display rows in a nested manner, there's a `children` field for that. It accepts an array of column definitions and is recursive. If `children` has been set, then `cell` specific sibling field won't do anything. `header` will still work as usual.
+Given sometimes you might want to display rows in a nested manner, you can use resolvers for this purpose. One way to do this is to use a `children` field and then convert the tree structure to something flat that Reactabular understands. Reactabular core doesn't know anything about trees but it works thanks to this conversion step.
 
 **Example:**
 
