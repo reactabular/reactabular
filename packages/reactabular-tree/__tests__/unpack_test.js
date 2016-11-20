@@ -1,9 +1,8 @@
-import { expect } from 'chai';
 import { unpack } from '../src';
 
 describe('tree.unpack', function () {
   it('returns an empty tree as an empty array', function () {
-    expect(unpack()([])).to.deep.equal([]);
+    expect(unpack()([])).toEqual([]);
   });
 
   it('returns an unpacked array', function () {
@@ -21,6 +20,7 @@ describe('tree.unpack', function () {
     ];
     const expected = [
       {
+        _isParent: true,
         id: 'foobar',
         name: 'foo'
       },
@@ -31,7 +31,7 @@ describe('tree.unpack', function () {
       }
     ];
 
-    expect(unpack()(rows)).to.deep.equal(expected);
+    expect(unpack()(rows)).toEqual(expected);
   });
 
   it('unpacks recursive structures', function () {
@@ -55,10 +55,12 @@ describe('tree.unpack', function () {
     ];
     const expected = [
       {
+        _isParent: true,
         id: 'foobar',
         name: 'foo'
       },
       {
+        _isParent: true,
         parent: 'foobar',
         id: 'barfoo',
         name: 'bar'
@@ -70,7 +72,7 @@ describe('tree.unpack', function () {
       }
     ];
 
-    expect(unpack()(rows)).to.deep.equal(expected);
+    expect(unpack()(rows)).toEqual(expected);
   });
 
   it('allows parent field to be customized', function () {
@@ -89,6 +91,7 @@ describe('tree.unpack', function () {
     ];
     const expected = [
       {
+        _isParent: true,
         id: 'foobar',
         name: 'foo'
       },
@@ -99,7 +102,7 @@ describe('tree.unpack', function () {
       }
     ];
 
-    expect(unpack({ parentField })(rows)).to.deep.equal(expected);
+    expect(unpack({ parentField })(rows)).toEqual(expected);
   });
 
   it('allows parent field to be customized', function () {
@@ -118,6 +121,7 @@ describe('tree.unpack', function () {
     ];
     const expected = [
       {
+        _isParent: true,
         id: 'foobar',
         name: 'foo'
       },
@@ -128,7 +132,7 @@ describe('tree.unpack', function () {
       }
     ];
 
-    expect(unpack({ childrenField })(rows)).to.deep.equal(expected);
+    expect(unpack({ childrenField })(rows)).toEqual(expected);
   });
 
   it('allows id field to be customized', function () {
@@ -147,6 +151,7 @@ describe('tree.unpack', function () {
     ];
     const expected = [
       {
+        _isParent: true,
         [idField]: 'foobar',
         name: 'foo'
       },
@@ -157,10 +162,10 @@ describe('tree.unpack', function () {
       }
     ];
 
-    expect(unpack({ idField })(rows)).to.deep.equal(expected);
+    expect(unpack({ idField })(rows)).toEqual(expected);
   });
 
   it('returns an empty array with invalid input', function () {
-    expect(unpack()('foobar')).to.deep.equal([]);
+    expect(unpack()('foobar')).toEqual([]);
   });
 });

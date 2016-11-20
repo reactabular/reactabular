@@ -22,6 +22,10 @@ const unpack = ({
         [parentField]: parent
       } : omit(node, childrenField);
 
+      if (children) {
+        d._isParent = true;
+      }
+
       return [d].concat(
         unpack({
           parentField,
