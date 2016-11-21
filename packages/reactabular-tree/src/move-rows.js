@@ -36,7 +36,7 @@ const moveTreeRows = ({
 
       if (index < 0) {
         console.warn( // eslint-disable-line no-console
-          'Failed to find the old parent', rows, row, idField, parentField
+          'tree.moveRows - Failed to find the old parent', rows, row, idField, parentField
         );
 
         return row;
