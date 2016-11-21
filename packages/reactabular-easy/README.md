@@ -80,7 +80,8 @@ class EasyDemo extends React.Component {
       rows,
       columns: this.getColumns(),
       sortingColumns: {},
-      query: {}
+      query: {},
+      hiddenColumns: {} // <id>: <hidden> - show all by default
     };
     this.table = null;
 
@@ -96,6 +97,7 @@ class EasyDemo extends React.Component {
   getColumns() {
     return [
       {
+        id: 'demo', // Unique ids for handling visibility checks
         header: {
           label: 'Demo',
           draggable: true,
@@ -106,10 +108,10 @@ class EasyDemo extends React.Component {
           format: () => <span>Demo</span>,
           toggleChildren: true
         },
-        width: 100,
-        visible: true
+        width: 100
       },
       {
+        id: 'name',
         header: {
           label: 'Name',
           draggable: true
@@ -119,6 +121,7 @@ class EasyDemo extends React.Component {
         },
         children: [
           {
+            id: 'firstName',
             property: 'fullName.first',
             header: {
               label: 'First Name',
@@ -129,10 +132,10 @@ class EasyDemo extends React.Component {
             cell: {
               highlight: true
             },
-            width: 125,
-            visible: true
+            width: 125
           },
           {
+            id: 'lastName',
             property: 'fullName.last',
             header: {
               label: 'Last Name',
@@ -143,13 +146,12 @@ class EasyDemo extends React.Component {
             cell: {
               highlight: true
             },
-            width: 125,
-            visible: true
+            width: 125
           }
-        ],
-        visible: true
+        ]
       },
       {
+        id: 'age',
         property: 'age',
         header: {
           label: 'Age',
@@ -160,10 +162,10 @@ class EasyDemo extends React.Component {
         cell: {
           highlight: true
         },
-        width: 150,
-        visible: true
+        width: 150
       },
       {
+        id: 'company',
         property: 'company',
         header: {
           label: 'Company',
@@ -174,10 +176,10 @@ class EasyDemo extends React.Component {
         cell: {
           highlight: true
         },
-        width: 250,
-        visible: true
+        width: 250
       },
       {
+        id: 'bossName',
         property: 'boss.name',
         header: {
           label: 'Boss',
@@ -188,8 +190,7 @@ class EasyDemo extends React.Component {
         cell: {
           highlight: true
         },
-        width: 200,
-        visible: false
+        width: 200
       },
       {
         cell: {
@@ -210,18 +211,18 @@ class EasyDemo extends React.Component {
             </div>
           )
         },
-        width: 200,
-        visible: true
+        width: 200
       }
     ];
   }
   render() {
-    const { columns, sortingColumns, rows, query } = this.state;
+    const {
+      columns, sortingColumns, rows, query, hiddenColumns
+    } = this.state;
     const idField = 'Id';
     const parentField = 'parent';
 
-    // TODO: figure out nested resize
-    const flatColumns = compose(
+    const visibleColumns = compose(
       // 4. Bind columns (extra functionality)
       easy.bindColumns({
         toggleChildrenProps: { className: 'toggle-children' },
@@ -236,26 +237,24 @@ class EasyDemo extends React.Component {
         onDragColumn: this.onDragColumn,
         onToggleShowingChildren: this.onToggleShowingChildren
       }),
-      // TODO: 3. Filter out hidden columns
-      //columns => columns.filter(column => column.visible),
+      // 3. Filter based on visibility again (children level)
+      columns => columns.filter(column => !hiddenColumns[column.id]),
       // 2. Unpack
-      tree.unpack({ idField: 'label' }),
-      // 1. Copy labels so it's possible to unpack using those
-      columns => columns.map(column => ({
-        ...column,
-        label: column.header && column.header.label
-      }))
+      tree.unpack({ idField: 'id' }),
+      // 1. Filter based on visibility (root level)
+      columns => columns.filter(column => !hiddenColumns[column.id])
     )(columns);
-    const columnChildren = flatColumns.filter(column => !column._isParent);
+    const columnChildren = visibleColumns.filter(column => !column._isParent);
     const headerRows = resolve.headerRows({
-      columns: tree.pack({ idField: 'label' })(flatColumns)
+      columns: tree.pack({ idField: 'id' })(visibleColumns)
     });
 
     return (
       <div>
         <VisibilityToggles
-          columns={flatColumns}
+          columns={tree.unpack({ idField: 'id' })(columns)}
           onToggleColumn={this.onToggleColumn}
+          isVisible={({ id }) => !hiddenColumns[id]}
         />
 
         <div className="scroll-container">
@@ -341,13 +340,14 @@ class EasyDemo extends React.Component {
     this.setState({ sortingColumns });
   }
   onToggleColumn({ column }) {
-    const columns = cloneDeep(this.state.columns);
+    const { hiddenColumns } = this.state;
 
-    // TODO: figure out a nice way to set visibility against a nested structure
-    // Maybe it's better to maintain a separate list???
-    console.log('on toggle column', this.state.columns, column);
-    //columns[columnIndex].visible = !columns[columnIndex].visible;
-    //this.setState({ columns });
+    this.setState({
+      hiddenColumns: {
+        ...hiddenColumns,
+        [column.id]: !hiddenColumns[column.id]
+      }
+    });
   }
   onRemove(id) {
     const rows = cloneDeep(this.state.rows);
