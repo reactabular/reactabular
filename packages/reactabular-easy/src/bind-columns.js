@@ -1,7 +1,6 @@
 import {
   resizableColumn, sort, highlight
 } from 'reactabular';
-import * as dnd from 'reactabular-dnd';
 import * as tree from 'reactabular-tree';
 
 function bindColumns({
@@ -40,7 +39,6 @@ function bindColumns({
 
     return columns.map(
       column => bindColumn({
-        columns,
         column,
         rows,
         idField,
@@ -58,7 +56,7 @@ function bindColumns({
 }
 
 function bindColumn({
-  columns, column, rows,
+  column, rows,
   sortable, getSortingColumns, resetable, resizable,
   idField, parentField, toggleChildrenProps,
   onMoveColumns, onToggleShowingChildren
@@ -92,23 +90,10 @@ function bindColumn({
 
     if (header.draggable) {
       newHeaderProps = {
-        // DnD needs this to tell header cells apart
+        // DnD needs this to tell header cells apart.
+        // TODO: It might be a good idea to model this as an id instead.
         label: header.label,
-        onMove: (labels) => {
-          const moved = dnd.moveLabels(columns, labels);
-
-          if (!moved) {
-            console.warn('Failed to move labels', moved); // eslint-disable-line no-console
-
-            return;
-          }
-
-          const tmpWidth = moved.source.width;
-          moved.source.width = moved.target.width;
-          moved.target.width = tmpWidth;
-
-          onMoveColumns(moved);
-        }
+        onMove: onMoveColumns
       };
     }
 

@@ -12,6 +12,7 @@ To make the drag and drop functionality work, you have to set up [react-dnd-html
 /*
 import React from 'react';
 import { search, Search, SearchColumns, resolve } from 'reactabular';
+import * as dnd from 'reactabular-dnd';
 import * as easy from 'reactabular-easy';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as tree from 'reactabular-tree';
@@ -236,19 +237,19 @@ class EasyDemo extends React.Component {
       // 3. Filter based on visibility again (children level)
       columns => columns.filter(column => !hiddenColumns[column.id]),
       // 2. Unpack
-      tree.unpack({ idField: 'id' }),
+      tree.unpack(),
       // 1. Filter based on visibility (root level)
       columns => columns.filter(column => !hiddenColumns[column.id])
     )(columns);
     const columnChildren = visibleColumns.filter(column => !column._isParent);
     const headerRows = resolve.headerRows({
-      columns: tree.pack({ idField: 'id' })(visibleColumns)
+      columns: tree.pack()(visibleColumns)
     });
 
     return (
       <div>
         <VisibilityToggles
-          columns={tree.unpack({ idField: 'id' })(columns)}
+          columns={tree.unpack()(columns)}
           onToggleColumn={this.onToggleColumn}
           isVisible={({ id }) => !hiddenColumns[id]}
         />
@@ -325,7 +326,7 @@ class EasyDemo extends React.Component {
     // An option would be to use a flat structure by default.
     // That would affect the other logic, though.
     const columns = compose(
-      tree.pack({ idField: 'id' }),
+      tree.pack(),
       columns => {
         const cols = cloneDeep(columns);
         const index = findIndex(columns, { id });
@@ -336,13 +337,121 @@ class EasyDemo extends React.Component {
 
         return cols;
       },
-      tree.unpack({ idField: 'id' })
+      tree.unpack()
     )(this.state.columns);
 
     this.setState({ columns });
   }
-  onMoveColumns({ columns, source, target }) {
-    this.setState({ columns });
+  onMoveColumns({ sourceLabel, targetLabel }) {
+    const columns = tree.unpack()(this.state.columns);
+
+    const sourceIndex = findIndex(
+      columns,
+      { header: { label: sourceLabel } }
+    );
+
+    if (sourceIndex < 0) {
+      return null;
+    }
+
+    let targetIndex = findIndex(
+      columns,
+      { header: { label: targetLabel } }
+    );
+
+    if (targetIndex < 0) {
+      return null;
+    }
+
+    let source = columns[sourceIndex];
+    let target = columns[targetIndex];
+
+    // If source doesn't have a parent, make sure we are dragging to
+    // target parent by modifying the original structure.
+    if (!source.parent) {
+      const targetParents = tree.getParents({
+        index: findIndex(columns, { id: target.id })
+      })(columns);
+
+      // If trying to drag to a child, drag to its root
+      // parent instead.
+      if (targetParents.length) {
+        console.warn('Dragging to a nested column is not supported yet');
+
+        return;
+
+        target = targetParents[0];
+
+        targetIndex = findIndex(
+          columns,
+          { header: { label: target.header.label } }
+        );
+      }
+
+      const nestedSourceIndex = findIndex(
+        this.state.columns,
+        { header: { label: sourceLabel } }
+      );
+      source = this.state.columns[nestedSourceIndex];
+
+      if (nestedSourceIndex < 0) {
+        return null;
+      }
+
+      const nestedTargetIndex = findIndex(
+        this.state.columns,
+        { header: { label: target.header.label } }
+      );
+      target = this.state.columns[nestedTargetIndex];
+
+      if (nestedTargetIndex < 0) {
+        return null;
+      }
+
+      // We are operating at root level now so move accordingly.
+      const movedColumns = dnd.move(
+        this.state.columns, nestedSourceIndex, nestedTargetIndex
+      );
+
+      // Retain widths while moving.
+      // XXX: If target has children, this should adjust children widths
+      // to match source width somehow? Otherwise drag and drop will glitch.
+      const sourceWidth = calculateWidth(columns, source, sourceIndex);
+      const targetWidth = calculateWidth(columns, target, targetIndex);
+
+      movedColumns[nestedSourceIndex].width = targetWidth;
+      movedColumns[nestedTargetIndex].width = sourceWidth;
+
+      this.setState({
+        columns: movedColumns
+      });
+    } else if (source.parent === target.parent) {
+      // Dragging within children now. This has to be against flattened data.
+      const movedColumns = dnd.move(columns, sourceIndex, targetIndex);
+
+      // Retain widths while moving.
+      // XXX: This works only for single level nesting.
+      const sourceWidth = source.width;
+      const targetWidth = target.width;
+
+      source.width = targetWidth;
+      target.width = sourceWidth;
+
+      this.setState({
+        columns: tree.pack()(movedColumns)
+      });
+    }
+    // If trying to drag from children to other children or so, do nothing.
+
+    function calculateWidth(cols, col, index) {
+      if (!col.parent && col.width) {
+        return col.width;
+      }
+
+      return tree.getChildren({ index })(cols).
+        map(a => a.width).
+        reduce((a, b) => { return a + b; }, 0);
+    }
   }
   onSelectRow({ selectedRowId, selectedRow }) {
     console.log('onSelectRow', selectedRowId, selectedRow);
