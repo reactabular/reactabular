@@ -113,11 +113,7 @@ class EasyDemo extends React.Component {
       {
         id: 'name',
         header: {
-          label: 'Name',
-          draggable: true
-        },
-        cell: {
-          highlight: true
+          label: 'Name'
         },
         children: [
           {
@@ -321,10 +317,27 @@ class EasyDemo extends React.Component {
 
     rows && this.setState({ rows });
   }
-  onDragColumn(width, { columnIndex }) {
-    const columns = cloneDeep(this.state.columns);
+  onDragColumn(width, { column: { id } }) {
+    // Given we are dealing with a nested structure,
+    // modifying width is a little tricky. One solution
+    // is to unpack the structure before modifying and
+    // then finally pack it.
+    // An option would be to use a flat structure by default.
+    // That would affect the other logic, though.
+    const columns = compose(
+      tree.pack({ idField: 'id' }),
+      columns => {
+        const cols = cloneDeep(columns);
+        const index = findIndex(columns, { id });
 
-    columns[columnIndex].width = width;
+        if(index >= 0) {
+          cols[index].width = width;
+        }
+
+        return cols;
+      },
+      tree.unpack({ idField: 'id' })
+    )(this.state.columns);
 
     this.setState({ columns });
   }
