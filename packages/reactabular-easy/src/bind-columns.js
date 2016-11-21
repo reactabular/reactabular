@@ -40,6 +40,7 @@ function bindColumns({
 
     return columns.map(
       column => bindColumn({
+        columns,
         column,
         rows,
         idField,
@@ -57,7 +58,7 @@ function bindColumns({
 }
 
 function bindColumn({
-  column, rows,
+  columns, column, rows,
   sortable, getSortingColumns, resetable, resizable,
   idField, parentField, toggleChildrenProps,
   onMoveColumns, onToggleShowingChildren
@@ -94,21 +95,19 @@ function bindColumn({
         // DnD needs this to tell header cells apart
         label: header.label,
         onMove: (labels) => {
-          const {
-            source,
-            target,
-            columns
-          } = dnd.moveLabels(columns, labels);
+          const moved = dnd.moveLabels(columns, labels);
 
-          const tmpWidth = source.width;
-          source.width = target.width;
-          target.width = tmpWidth;
+          if (!moved) {
+            console.warn('Failed to move labels', moved); // eslint-disable-line no-console
 
-          onMoveColumns({
-            source,
-            target,
-            columns
-          });
+            return;
+          }
+
+          const tmpWidth = moved.source.width;
+          moved.source.width = moved.target.width;
+          moved.target.width = tmpWidth;
+
+          onMoveColumns(moved);
         }
       };
     }
