@@ -49,6 +49,10 @@ function moveChildrenLabels(columns, { sourceLabel, targetLabel }) {
 }
 
 function moveLabels(columns, { sourceLabel, targetLabel }) {
+  if (!columns) {
+    throw new Error('dnd.moveLabels - Missing columns!');
+  }
+
   const sourceIndex = findIndex(
     columns,
     { header: { label: sourceLabel } }
