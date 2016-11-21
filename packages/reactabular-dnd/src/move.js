@@ -127,5 +127,6 @@ function move(data, sourceIndex, targetIndex) {
 export {
   moveChildrenLabels,
   moveLabels,
-  moveRows
+  moveRows,
+  move
 };
