@@ -7,7 +7,8 @@ const HeaderRow = ({ row, components }) => (
   React.createElement(
     components.row,
     {},
-    row.map(({ property, header = {}, cell = {}, props = {} }, j) => {
+    row.map((column, columnIndex) => {
+      const { property, header = {}, props = {} } = column;
       const evaluatedProperty = property || (header && header.property);
       const {
         label,
@@ -15,12 +16,9 @@ const HeaderRow = ({ row, components }) => (
         format = a => a
       } = header;
       const extraParameters = {
-        columnIndex: j,
+        columnIndex,
         property: evaluatedProperty,
-        column: {
-          header,
-          cell
-        }
+        column
       };
       const transformedProps = evaluateTransforms(transforms, label, extraParameters);
 
@@ -31,7 +29,7 @@ const HeaderRow = ({ row, components }) => (
       return React.createElement(
         components.cell,
         {
-          key: `${j}-header`,
+          key: `${columnIndex}-header`,
           ...mergePropPair( // XXX: convert to a single function call
             mergePropPair(props, header && header.props),
             transformedProps

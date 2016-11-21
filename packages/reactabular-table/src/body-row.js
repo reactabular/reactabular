@@ -32,19 +32,17 @@ class BodyRow extends React.Component {
     return React.createElement(
       components.row,
       onRow(rowData, { rowIndex, rowKey }),
-      columns.map(({ property, header, cell, props }, j) => {
+      columns.map((column, columnIndex) => {
+        const { property, cell, props } = column;
         const evaluatedProperty = property || (cell && cell.property);
         const {
           transforms = [],
           format = a => a
         } = cell || {}; // TODO: test against this case
         const extraParameters = {
-          columnIndex: j,
+          columnIndex,
           property: evaluatedProperty,
-          column: {
-            header,
-            cell
-          },
+          column,
           rowData,
           rowIndex,
           rowKey
@@ -60,7 +58,7 @@ class BodyRow extends React.Component {
         return React.createElement(
           components.cell,
           {
-            key: `${j}-cell`,
+            key: `${columnIndex}-cell`,
             ...mergePropPair( // XXX: single call
               mergePropPair(props, cell && cell.props),
               transformed
