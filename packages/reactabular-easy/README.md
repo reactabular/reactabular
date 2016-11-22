@@ -425,8 +425,10 @@ class EasyDemo extends React.Component {
       const sourceWidth = calculateWidth(columns, source, sourceIndex);
       const targetWidth = calculateWidth(columns, target, targetIndex);
 
-      movedColumns[nestedSourceIndex].width = targetWidth;
-      movedColumns[nestedTargetIndex].width = sourceWidth;
+      // This is inversed due to the way movedColumns operates! It literally
+      // swaps the contents of these two indices in a specific way.
+      movedColumns[nestedSourceIndex].width = sourceWidth;
+      movedColumns[nestedTargetIndex].width = targetWidth;
 
       this.setState({
         columns: movedColumns
