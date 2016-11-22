@@ -1,3 +1,4 @@
+import merge from 'webpack-merge';
 import * as bind from './bind';
 
 function bindColumns({
@@ -55,14 +56,9 @@ function bindColumn({
     };
 
     return binding.match(col) && binding.evaluate(col);
-  }).filter(a => a);
+  });
 
-  console.log(matches); // eslint-disable-line no-console
-
-  // TODO: merge against the original column definition and return
-  // return merge(column, ...matches);
-
-  return column;
+  return merge(column, ...matches);
 }
 
 export default bindColumns;

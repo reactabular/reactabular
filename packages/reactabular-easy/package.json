@@ -36,7 +36,8 @@
   "jsnext:main": "dist",
   "dependencies": {
     "react-dnd": "^2.1.4",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "webpack-merge": "^0.17.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
