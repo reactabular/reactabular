@@ -12,7 +12,6 @@ import React from 'react';
 import {
   Table, search, Search, resolve
 } from 'reactabular';
-import * as tree from 'reactabular-tree';
 */
 
 class SearchTable extends React.Component {
@@ -104,7 +103,7 @@ class SearchTable extends React.Component {
           <Search
             column={searchColumn}
             query={query}
-            columns={tree.unpack()(columns)}
+            columns={resolvedColumns}
             rows={resolvedRows}
             onColumnChange={searchColumn => this.setState({ searchColumn })}
             onChange={query => this.setState({ query })}
