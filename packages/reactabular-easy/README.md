@@ -15,10 +15,12 @@ import { search, Search, SearchColumns, resolve } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as easy from 'reactabular-easy';
 import VisibilityToggles from 'reactabular-visibility-toggles';
+import * as resizable from 'reactabular-resizable';
 import * as tree from 'reactabular-tree';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import { compose } from 'redux';
+import uuid from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 
@@ -85,6 +87,11 @@ class EasyDemo extends React.Component {
       hiddenColumns: {} // <id>: <hidden> - show all by default
     };
     this.table = null;
+
+    this.resizableHelper = resizable.helper({
+      globalId: uuid.v4(),
+      getId: ({ id }) => id
+    });
 
     this.onMoveRow = this.onMoveRow.bind(this);
     this.onDragColumn = this.onDragColumn.bind(this);
@@ -219,6 +226,9 @@ class EasyDemo extends React.Component {
       }
     ];
   }
+  componentWillUnmount() {
+    this.resizableHelper.cleanup();
+  }
   render() {
     const {
       columns, sortingColumns, rows, query, hiddenColumns
@@ -227,6 +237,8 @@ class EasyDemo extends React.Component {
     const parentField = 'parent';
 
     const visibleColumns = compose(
+      // 5. Patch columns with classNames for resizing
+      this.resizableHelper.initialize,
       // 4. Bind columns (extra functionality)
       easy.bindColumns({
         toggleChildrenProps: { className: 'toggle-children' },
@@ -253,6 +265,8 @@ class EasyDemo extends React.Component {
     const headerRows = resolve.headerRows({
       columns: tree.pack()(visibleColumns)
     });
+
+    console.log(visibleColumns);
 
     return (
       <div>
@@ -326,29 +340,11 @@ class EasyDemo extends React.Component {
 
     rows && this.setState({ rows });
   }
-  onDragColumn(width, { column: { id } }) {
-    // Given we are dealing with a nested structure,
-    // modifying width is a little tricky. One solution
-    // is to unpack the structure before modifying and
-    // then finally pack it.
-    // An option would be to use a flat structure by default.
-    // That would affect the other logic, though.
-    const columns = compose(
-      tree.pack(),
-      columns => {
-        const cols = cloneDeep(columns);
-        const index = findIndex(columns, { id });
-
-        if(index >= 0) {
-          cols[index].width = width;
-        }
-
-        return cols;
-      },
-      tree.unpack()
-    )(this.state.columns);
-
-    this.setState({ columns });
+  onDragColumn(width, { column }) {
+    this.resizableHelper.update({
+      column,
+      width
+    });
   }
   onMoveColumns({ sourceLabel, targetLabel }) {
     const columns = tree.unpack()(this.state.columns);

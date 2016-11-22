@@ -4,25 +4,6 @@ import {
 import * as resizable from 'reactabular-resizable';
 import * as tree from 'reactabular-tree';
 
-function bindWidth() {
-  return {
-    match({ width }) {
-      return width;
-    },
-    evaluate({ width }) {
-      return {
-        props: {
-          style: {
-            width,
-            minWidth: width,
-            maxWidth: width
-          }
-        }
-      };
-    }
-  };
-}
-
 function bindHighlightCell() {
   return {
     match({ cell }) {
@@ -167,7 +148,6 @@ function bindSortableHeader({
 }
 
 export {
-  bindWidth as width,
   bindHighlightCell as highlightCell,
   bindToggleChildrenCell as toggleChildrenCell,
   bindDraggableHeader as draggableHeader,

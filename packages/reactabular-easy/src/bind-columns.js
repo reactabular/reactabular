@@ -11,7 +11,6 @@ function bindColumns({
 }) {
   return (columns) => {
     const bindings = [
-      bind.width(),
       bind.highlightCell(),
       bind.toggleChildrenCell({
         idField,
