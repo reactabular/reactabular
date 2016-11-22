@@ -234,6 +234,7 @@ class EasyDemo extends React.Component {
         rows,
         idField,
         parentField,
+        props: this.props,
 
         // Handlers
         onMoveColumns: this.onMoveColumns,
