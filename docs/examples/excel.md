@@ -179,6 +179,10 @@ function evaluator(getRows, key = 'value') {
   };
 
   return input => {
+    if (!input) {
+      return;
+    }
+
     const inp = input[key];
     const rows = getRows();
 
