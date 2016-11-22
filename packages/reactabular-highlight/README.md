@@ -26,6 +26,7 @@ class HighlightTable extends React.Component {
     super(props);
 
     this.state = {
+      searchColumn: 'all',
       query: {},
       columns: [
         {
@@ -100,9 +101,13 @@ class HighlightTable extends React.Component {
     };
   }
   render() {
-    const { rows, columns, query } = this.state;
+    const { searchColumn, columns, rows, query } = this.state;
     const resolvedColumns = resolve.columnChildren({ columns });
-    const filteredRows = compose(
+    const resolvedRows = resolve.resolve({
+      columns: resolvedColumns,
+      method: resolve.nested
+    })(rows);
+    const searchedRows = compose(
       highlight.highlighter({
         columns: resolvedColumns,
         matches: search.matches,
@@ -112,20 +117,18 @@ class HighlightTable extends React.Component {
         columns: resolvedColumns,
         query
       }),
-      resolve.resolve({
-        columns: resolvedColumns,
-        method: resolve.nested
-      })
-    )(rows);
+    )(resolvedRows);
 
     return (
       <div>
         <div className="search-container">
           <span>Search</span>
           <Search
+            column={searchColumn}
             query={query}
             columns={resolvedColumns}
-            rows={rows}
+            rows={resolvedRows}
+            onColumnChange={searchColumn => this.setState({ searchColumn })}
             onChange={query => this.setState({ query })}
           />
         </div>
@@ -134,7 +137,7 @@ class HighlightTable extends React.Component {
             headerRows={resolve.headerRows({ columns })}
           />
 
-          <Table.Body rows={filteredRows} rowKey="id" />
+          <Table.Body rows={searchedRows} rowKey="id" />
         </Table.Provider>
       </div>
     );
