@@ -9,7 +9,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     this.ref = null;
   }
   render() {
-    const { children, headerRows, ...props } = this.props;
+    const { children, headerRows, onRow, ...props } = this.props;
     const { components, columns } = this.context;
 
     props.ref = (header) => {
@@ -20,11 +20,13 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     return React.createElement(
       components.header.wrapper,
       props,
-      [(headerRows || [columns]).map((row, i) =>
+      [(headerRows || [columns]).map((rowData, rowIndex) =>
         React.createElement(HeaderRow, {
-          key: `${i}-header-row`,
+          key: `${rowIndex}-header-row`,
           components: components.header,
-          row
+          onRow,
+          rowData,
+          rowIndex
         })
       )].concat(children)
     );

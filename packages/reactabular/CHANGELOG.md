@@ -14,6 +14,7 @@
 
 ## reactabular-table
 
+  * Feature - Support `onRow` at `Table.Header`.
   * Bug fix - Skip functions at `BodyRow` `shouldComponentUpdate`.
 
 ## reactabular-tree

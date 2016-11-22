@@ -1,6 +1,7 @@
 7.1.0 / 2016-xx-xx
 ==================
 
+  * Feature - Support `onRow` at `Table.Header`.
   * Bug fix - Skip functions at `BodyRow` `shouldComponentUpdate`.
 
 6.0.0 / 2016-10-14

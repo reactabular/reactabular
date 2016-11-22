@@ -73,6 +73,15 @@ const tableHeaderContextTypes = {
   columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
+const tableHeaderRowDefaults = {
+  onRow: () => ({})
+};
+const tableHeaderRowTypes = {
+  components: React.PropTypes.object,
+  onRow: React.PropTypes.func,
+  rowIndex: React.PropTypes.number.isRequired,
+  rowData: rowDataType.isRequired
+};
 const tableDefaults = {
   components: {
     table: 'table',
@@ -99,5 +108,7 @@ export {
   tableBodyRowDefaults,
   tableHeaderTypes,
   tableHeaderContextTypes,
+  tableHeaderRowTypes,
+  tableHeaderRowDefaults,
   tableDefaults
 };

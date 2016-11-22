@@ -7,7 +7,14 @@ The project root contains a file, **style.css**, which you can import to your pr
   className="pure-table pure-table-striped"
   columns={columns}
 >
-  <Table.Header className="header" />
+  <Table.Header
+    className="header"
+    onRow={(row, { rowIndex }) => {
+      return {
+        className: rowIndex % 2 ? 'odd-row' : 'even-row',
+      }
+    }
+  />
 
   <Table.Body
     rows={rows}
@@ -19,7 +26,8 @@ The project root contains a file, **style.css**, which you can import to your pr
       return {
         className: rowIndex % 2 ? 'odd-row' : 'even-row',
       }
-  }}
+    }
+  }
   />
 </Table.Provider>
 ```

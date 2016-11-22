@@ -2,12 +2,13 @@ import React from 'react';
 import {
   evaluateTransforms, mergePropPair
 } from 'reactabular-utils';
+import { tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
 
-const HeaderRow = ({ row, components }) => (
+const HeaderRow = ({ rowData, rowIndex, components, onRow }) => (
   React.createElement(
     components.row,
-    {},
-    row.map((column, columnIndex) => {
+    onRow(rowData, { rowIndex }),
+    rowData.map((column, columnIndex) => {
       const { property, header = {}, props = {} } = column;
       const evaluatedProperty = property || (header && header.property);
       const {
@@ -40,9 +41,7 @@ const HeaderRow = ({ row, components }) => (
     })
   )
 );
-HeaderRow.propTypes = {
-  row: React.PropTypes.arrayOf(React.PropTypes.object),
-  components: React.PropTypes.object
-};
+HeaderRow.defaultProps = tableHeaderRowDefaults;
+HeaderRow.propTypes = tableHeaderRowTypes;
 
 export default HeaderRow;
