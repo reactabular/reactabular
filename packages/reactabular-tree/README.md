@@ -198,11 +198,11 @@ class TreeTable extends React.Component {
                 rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
 
                 this.setState({ rows });
-              }
-            ],
-            // inject custom class name per row here etc.
-            props: {}
-          })
+              },
+              // Inject custom class name per row here etc.
+              props: {}
+            })
+          ]
         },
         visible: true
       },
