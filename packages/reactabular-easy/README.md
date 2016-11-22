@@ -118,7 +118,8 @@ class EasyDemo extends React.Component {
       {
         id: 'name',
         header: {
-          label: 'Name'
+          label: 'Name',
+          draggable: true
         },
         children: [
           {
@@ -355,22 +356,23 @@ class EasyDemo extends React.Component {
       columns,
       { header: { label: sourceLabel } }
     );
-
-    if (sourceIndex < 0) {
-      return null;
-    }
-
-    let targetIndex = findIndex(
+    const targetIndex = findIndex(
       columns,
       { header: { label: targetLabel } }
     );
 
-    if (targetIndex < 0) {
+    if (sourceIndex < 0 || targetIndex < 0) {
       return null;
     }
 
     let source = columns[sourceIndex];
     let target = columns[targetIndex];
+
+    if (source._isParent) {
+      return console.warn(
+        'Dragging parents is not supported yet'
+      );
+    }
 
     // If source doesn't have a parent, make sure we are dragging to
     // target parent by modifying the original structure.
@@ -382,15 +384,8 @@ class EasyDemo extends React.Component {
       // If trying to drag to a child, drag to its root
       // parent instead.
       if (targetParents.length) {
-        console.warn('Dragging to a nested column is not supported yet');
-
-        return;
-
-        target = targetParents[0];
-
-        targetIndex = findIndex(
-          columns,
-          { header: { label: target.header.label } }
+        return console.warn(
+          'Dragging to a nested column is not supported yet'
         );
       }
 
@@ -400,17 +395,13 @@ class EasyDemo extends React.Component {
       );
       source = this.state.columns[nestedSourceIndex];
 
-      if (nestedSourceIndex < 0) {
-        return null;
-      }
-
       const nestedTargetIndex = findIndex(
         this.state.columns,
         { header: { label: target.header.label } }
       );
       target = this.state.columns[nestedTargetIndex];
 
-      if (nestedTargetIndex < 0) {
+      if (nestedSourceIndex < 0 || nestedTargetIndex < 0) {
         return null;
       }
 
@@ -419,16 +410,9 @@ class EasyDemo extends React.Component {
         this.state.columns, nestedSourceIndex, nestedTargetIndex
       );
 
-      // Retain widths while moving.
-      // XXX: If target has children, this should adjust children widths
-      // to match source width somehow? Otherwise drag and drop will glitch.
-      const sourceWidth = calculateWidth(columns, source, sourceIndex);
-      const targetWidth = calculateWidth(columns, target, targetIndex);
-
-      // This is inversed due to the way movedColumns operates! It literally
-      // swaps the contents of these two indices in a specific way.
-      movedColumns[nestedSourceIndex].width = sourceWidth;
-      movedColumns[nestedTargetIndex].width = targetWidth;
+      // Retain widths while moving
+      movedColumns[nestedSourceIndex].width = source.width;
+      movedColumns[nestedTargetIndex].width = target.width;
 
       this.setState({
         columns: movedColumns
@@ -450,16 +434,6 @@ class EasyDemo extends React.Component {
       });
     }
     // If trying to drag from children to other children or so, do nothing.
-
-    function calculateWidth(cols, col, index) {
-      if (!col.parent && col.width) {
-        return col.width;
-      }
-
-      return tree.getChildren({ index })(cols).
-        map(a => a.width).
-        reduce((a, b) => { return a + b; }, 0);
-    }
   }
   onSelectRow({ selectedRowId, selectedRow }) {
     console.log('onSelectRow', selectedRowId, selectedRow);
