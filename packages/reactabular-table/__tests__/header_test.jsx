@@ -10,7 +10,9 @@ describe('Table.Header', function () {
       {
         header: {
           label: 'Name',
-          format: name => <span className={headerClass}>{name}</span>
+          formatters: [
+            name => <span className={headerClass}>{name}</span>
+          ]
         }
       }
     ];

@@ -58,17 +58,19 @@ class DragAndDropTreeTable extends React.Component {
           label: 'Name'
         },
         cell: {
-          format: tree.toggleChildren({
-            getRows: () => this.state.rows,
-            getShowingChildren: ({ rowData }) => rowData.showingChildren,
-            toggleShowingChildren: rowIndex => {
-              const rows = cloneDeep(this.state.rows);
+          formatters: [
+            tree.toggleChildren({
+              getRows: () => this.state.rows,
+              getShowingChildren: ({ rowData }) => rowData.showingChildren,
+              toggleShowingChildren: rowIndex => {
+                const rows = cloneDeep(this.state.rows);
 
-              rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
+                rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
 
-              this.setState({ rows });
-            }
-          })
+                this.setState({ rows });
+              }
+            })
+          ]
         }
       },
       {

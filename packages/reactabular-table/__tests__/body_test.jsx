@@ -375,7 +375,9 @@ describe('Table.Body', function () {
           label: 'Identity'
         },
         cell: {
-          format: value => value
+          formatters: [
+            value => value
+          ]
         }
       },
       {
@@ -384,7 +386,9 @@ describe('Table.Body', function () {
           label: 'Simple Math'
         },
         cell: {
-          format: value => value - 23
+          formatters: [
+            value => value - 23
+          ]
         }
       }
     ];
@@ -417,7 +421,9 @@ describe('Table.Body', function () {
           label: 'Cell Props'
         },
         cell: {
-          format: value => <span className="complex">{value}</span>
+          formatters: [
+            value => <span className="complex">{value}</span>
+          ]
         }
       },
       {
@@ -426,7 +432,9 @@ describe('Table.Body', function () {
           label: 'JSX'
         },
         cell: {
-          format: value => <a href={`http://${value.id}`}>{value.name}</a>
+          formatters: [
+            value => <a href={`http://${value.id}`}>{value.name}</a>
+          ]
         }
       }
     ];

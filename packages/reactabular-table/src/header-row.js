@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  evaluateTransforms, mergePropPair
+  evaluateTransforms, evaluateFormatters, mergePropPair
 } from 'reactabular-utils';
 import { tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
 
@@ -14,7 +14,7 @@ const HeaderRow = ({ rowData, rowIndex, components, onRow }) => (
       const {
         label,
         transforms = [],
-        format = a => a
+        formatters = []
       } = header;
       const extraParameters = {
         columnIndex,
@@ -36,7 +36,9 @@ const HeaderRow = ({ rowData, rowIndex, components, onRow }) => (
             transformedProps
           )
         },
-        transformedProps.children || format(label, extraParameters)
+        transformedProps.children || evaluateFormatters(formatters)(
+          label, extraParameters
+        )
       );
     })
   )

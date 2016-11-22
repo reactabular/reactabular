@@ -103,10 +103,14 @@ class EasyDemo extends React.Component {
           label: 'Demo',
           draggable: true,
           resizable: true,
-          format: () => <span>Testing</span>
+          formatters: [
+            () => <span>Testing</span>
+          ]
         },
         cell: {
-          format: () => <span>Demo</span>,
+          formatters: [
+            () => <span>Demo</span>,
+          ],
           toggleChildren: true
         },
         width: 100
@@ -191,22 +195,24 @@ class EasyDemo extends React.Component {
       },
       {
         cell: {
-          format: (value, { rowData }) => (
-            <div>
-              <input
-                type="button"
-                value="Click me"
-                onClick={() => alert(`${JSON.stringify(rowData, null, 2)}`)}
-              />
-              <span
-                className="remove"
-                onClick={() => this.onRemove(rowData.Id)}
-                style={{ marginLeft: '1em', cursor: 'pointer' }}
-              >
-                &#10007;
-              </span>
-            </div>
-          )
+          formatters: [
+            (value, { rowData }) => (
+              <div>
+                <input
+                  type="button"
+                  value="Click me"
+                  onClick={() => alert(`${JSON.stringify(rowData, null, 2)}`)}
+                />
+                <span
+                  className="remove"
+                  onClick={() => this.onRemove(rowData.Id)}
+                  style={{ marginLeft: '1em', cursor: 'pointer' }}
+                >
+                  &#10007;
+                </span>
+              </div>
+            )
+          ]
         },
         width: 200
       }

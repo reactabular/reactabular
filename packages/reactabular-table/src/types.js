@@ -5,7 +5,7 @@ const arrayOfObjectColumns = React.PropTypes.arrayOf(
     header: React.PropTypes.shape({
       label: React.PropTypes.string,
       transforms: React.PropTypes.arrayOf(React.PropTypes.func),
-      format: React.PropTypes.func,
+      formatters: React.PropTypes.arrayOf(React.PropTypes.func),
       props: React.PropTypes.object
     }),
     cell: React.PropTypes.shape({
@@ -14,7 +14,7 @@ const arrayOfObjectColumns = React.PropTypes.arrayOf(
         React.PropTypes.string
       ]),
       transforms: React.PropTypes.arrayOf(React.PropTypes.func),
-      format: React.PropTypes.func,
+      formatters: React.PropTypes.arrayOf(React.PropTypes.func),
       props: React.PropTypes.object
     })
   })

@@ -167,7 +167,7 @@ describe('resolve.resolve', function () {
     const columns = [
       {
         cell: {
-          format: a => a
+          formatters: [a => a]
         }
       }
     ];
@@ -199,7 +199,7 @@ describe('resolve.resolve', function () {
     const columns = [
       {
         cell: {
-          format: a => a
+          formatters: [a => a]
         }
       }
     ];
@@ -228,7 +228,7 @@ describe('resolve.resolve', function () {
     const columns = [
       {
         cell: {
-          format: a => a
+          formatters: [a => a]
         }
       }
     ];

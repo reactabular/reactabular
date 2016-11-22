@@ -1,7 +1,8 @@
 import isFunction from 'lodash/isFunction';
 import React from 'react';
 import {
-  evaluateTransforms, mergePropPair,
+  evaluateTransforms, evaluateFormatters,
+  mergePropPair,
   columnsAreEqual, rowsAreEqual
 } from 'reactabular-utils';
 import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
@@ -37,7 +38,7 @@ class BodyRow extends React.Component {
         const evaluatedProperty = property || (cell && cell.property);
         const {
           transforms = [],
-          format = a => a
+          formatters = []
         } = cell || {}; // TODO: test against this case
         const extraParameters = {
           columnIndex,
@@ -64,9 +65,10 @@ class BodyRow extends React.Component {
               transformed
             )
           },
-          transformed.children ||
-          format(rowData[`_${evaluatedProperty}`] ||
-          rowData[evaluatedProperty], extraParameters)
+          transformed.children || evaluateFormatters(formatters)(
+              rowData[`_${evaluatedProperty}`] ||
+              rowData[evaluatedProperty], extraParameters
+            )
         );
       })
     );

@@ -129,7 +129,7 @@ class ResizableColumnsTable extends React.Component {
         property: 'name',
         header: {
           label: 'Name',
-          format: resizable
+          formatters: [resizable]
         },
         // Track style on CSS level (not React)
         width: 200
@@ -138,7 +138,7 @@ class ResizableColumnsTable extends React.Component {
         property: 'address',
         header: {
           label: 'Really Long Address Header',
-          format: resizable
+          formatters: [resizable]
         },
         width: 400
       },

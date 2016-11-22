@@ -1,7 +1,4 @@
-import {
-  resizableColumn, sort, highlight
-} from 'reactabular';
-import * as tree from 'reactabular-tree';
+import * as bind from './bind';
 
 function bindColumns({
   window,
@@ -12,157 +9,60 @@ function bindColumns({
   sortingColumns, rows
 }) {
   return (columns) => {
-    const resizable = resizableColumn({
-      onDrag: onDragColumn,
-      props: props.resize,
-      parent: window
-    });
-
-    const getSortingColumns = () => sortingColumns || {};
-    const sortable = sort.sort({
-      getSortingColumns,
-      onSort: (selectedColumn) => {
-        onSort(sort.byColumns({
-          sortingColumns,
-          selectedColumn
-        }));
-      },
-      strategy: sort.strategies.byProperty,
-      props: props.sort
-    });
-    const resetable = sort.reset({
-      event: 'onDoubleClick',
-      getSortingColumns,
-      strategy: sort.strategies.byProperty,
-      onReset: params => onSort(params.sortingColumns)
-    });
+    const bindings = [
+      bind.width(),
+      bind.highlightCell(),
+      bind.toggleChildrenCell({
+        idField,
+        parentField,
+        toggleChildrenProps,
+        onToggleShowingChildren,
+        rows
+      }),
+      bind.draggableHeader({
+        onMoveColumns
+      }),
+      bind.resizableHeader({
+        window,
+        onDragColumn,
+        props: props.resize
+      }),
+      bind.sortableHeader({
+        sortingColumns,
+        onSort,
+        props: props.sort
+      })
+    ];
 
     return columns.map(
       column => bindColumn({
         column,
-        rows,
-        idField,
-        parentField,
-        sortable,
-        getSortingColumns,
-        resetable,
-        resizable,
-        toggleChildrenProps,
-        onMoveColumns,
-        onToggleShowingChildren
+        bindings
       })
     );
   };
 }
 
 function bindColumn({
-  column, rows,
-  sortable, getSortingColumns, resetable, resizable,
-  idField, parentField, toggleChildrenProps,
-  onMoveColumns, onToggleShowingChildren
+  column,
+  bindings
 }) {
-  if (column.header || column.cell) {
-    const header = column.header || {};
-    const cell = column.cell || {};
-    const newCellFormats = [cell.format || id];
-    const newHeaderFormats = [header.format || id];
-    let newHeaderProps = header.props;
-    let newHeaderTransforms = header.transforms || [];
-    let newStyle = {};
-
-    if (header.sortable) {
-      newHeaderFormats.push(sort.header({
-        sortable,
-        getSortingColumns,
-        strategy: sort.strategies.byProperty
-      }));
-      newHeaderTransforms = newHeaderTransforms.concat([resetable]);
-    }
-
-    if (header.resizable) {
-      newHeaderFormats.push(resizable);
-    }
-
-    if (header.draggable) {
-      newHeaderProps = {
-        // DnD needs this to tell header cells apart.
-        // TODO: It might be a good idea to model this as an id instead.
-        label: header.label,
-        onMove: onMoveColumns
-      };
-    }
-
-    if (cell.highlight) {
-      newCellFormats.push(highlight.cell);
-    }
-
-    if (cell.toggleChildren) {
-      newCellFormats.push(
-        tree.toggleChildren({
-          getRows: () => rows,
-          getShowingChildren: ({ rowData }) => rowData.showingChildren,
-          toggleShowingChildren: onToggleShowingChildren,
-          // Without this it will perform checks against default id
-          idField,
-          parentField,
-          props: toggleChildrenProps
-        })
-      );
-    }
-
-    const newCellFormat = (value, extra) => (
-      newCellFormats.reduce((parameters, format) => (
-        {
-          value: format(parameters.value, parameters.extra),
-          extra
-        }
-      ), { value, extra }).value
-    );
-
-    const newHeaderFormat = (value, extra) => (
-      newHeaderFormats.reduce((parameters, format) => (
-        {
-          value: format(parameters.value, parameters.extra),
-          extra
-        }
-      ), { value, extra }).value
-    );
-
-    if (column.width) {
-      newStyle = {
-        width: column.width,
-        minWidth: column.width,
-        maxWidth: column.width
-      };
-    }
-
-    const props = column.props || {};
-
-    return {
-      ...column,
-      props: {
-        ...props,
-        style: {
-          ...props.style,
-          ...newStyle
-        }
-      },
-      header: {
-        ...header,
-        props: newHeaderProps,
-        transforms: newHeaderTransforms,
-        format: newHeaderFormat
-      },
-      cell: {
-        ...cell,
-        format: newCellFormat
-      }
+  const matches = bindings.map((binding) => {
+    const col = {
+      cell: {},
+      header: {},
+      ...column
     };
-  }
+
+    return binding.match(col) && binding.evaluate(col);
+  }).filter(a => a);
+
+  console.log(matches); // eslint-disable-line no-console
+
+  // TODO: merge against the original column definition and return
+  // return merge(column, ...matches);
 
   return column;
 }
-
-function id(a) { return a; }
 
 export default bindColumns;

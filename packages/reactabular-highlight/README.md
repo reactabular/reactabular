@@ -39,7 +39,7 @@ class HighlightTable extends React.Component {
                 label: 'First Name'
               },
               cell: {
-                format: highlight.cell
+                formatters: [highlight.cell]
               }
             },
             {
@@ -48,7 +48,7 @@ class HighlightTable extends React.Component {
                 label: 'Last Name'
               },
               cell: {
-                format: highlight.cell
+                formatters: [highlight.cell]
               }
             }
           ]
@@ -59,7 +59,7 @@ class HighlightTable extends React.Component {
             label: 'Age'
           },
           cell: {
-            format: highlight.cell
+            formatters: [highlight.cell]
           }
         }
       ],

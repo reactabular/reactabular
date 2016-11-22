@@ -111,10 +111,12 @@ class SortTable extends React.Component {
               header: {
                 label: 'First Name',
                 transforms: [resetable],
-                format: sort.header({
-                  sortable,
-                  getSortingColumns
-                })
+                formatters: [
+                  sort.header({
+                    sortable,
+                    getSortingColumns
+                  })
+                ]
               }
             },
             {
@@ -122,10 +124,12 @@ class SortTable extends React.Component {
               header: {
                 label: 'Last Name',
                 transforms: [resetable],
-                format: sort.header({
-                  sortable,
-                  getSortingColumns
-                })
+                formatters: [
+                  sort.header({
+                    sortable,
+                    getSortingColumns
+                  })
+                ]
               }
             }
           ]
@@ -135,10 +139,12 @@ class SortTable extends React.Component {
           header: {
             label: 'Age',
             transforms: [resetable],
-            format: sort.header({
-              sortable,
-              getSortingColumns
-            })
+            formatters: [
+              sort.header({
+                sortable,
+                getSortingColumns
+              })
+            ]
             // Alternative if you don't need reset.
             // transforms: [sortable]
           }
