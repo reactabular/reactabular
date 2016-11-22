@@ -62,17 +62,12 @@ function bindColumn({
   onMoveColumns, onToggleShowingChildren
 }) {
   if (column.header || column.cell) {
-    const props = column.props || {};
     const header = column.header || {};
     const cell = column.cell || {};
-    const existingHeaderProps = header.props;
-    const existingHeaderFormat = header.format || (v => v);
-    const existingHeaderTransforms = header.transforms || [];
-    const existingCellFormat = cell.format || (v => v);
-    const newCellFormats = [existingCellFormat];
-    const newHeaderFormats = [existingHeaderFormat];
-    let newHeaderProps = existingHeaderProps;
-    let newHeaderTransforms = existingHeaderTransforms;
+    const newCellFormats = [cell.format || id];
+    const newHeaderFormats = [header.format || id];
+    let newHeaderProps = header.props;
+    let newHeaderTransforms = header.transforms || [];
     let newStyle = {};
 
     if (header.sortable) {
@@ -141,6 +136,8 @@ function bindColumn({
       };
     }
 
+    const props = column.props || {};
+
     return {
       ...column,
       props: {
@@ -165,5 +162,7 @@ function bindColumn({
 
   return column;
 }
+
+function id(a) { return a; }
 
 export default bindColumns;
