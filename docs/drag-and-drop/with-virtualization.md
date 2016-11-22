@@ -26,7 +26,9 @@ const columns = [
       label: 'Index'
     },
     cell: {
-      format: (value, { rowIndex }) => <span>{rowIndex}</span>
+      formatters: [
+        (value, { rowIndex }) => <span>{rowIndex}</span>
+      ]
     }
   },
   {
