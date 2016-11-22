@@ -83,19 +83,23 @@ class SortTable extends React.Component {
             selectedColumn
           })
         });
-      }
+      },
+
+      // Use property strategy over index one given we have nested data
+      strategy: sort.strategies.byProperty
     });
     const resetable = sort.reset({
       event: 'onDoubleClick',
       getSortingColumns,
-      onReset: ({ sortingColumns }) => this.setState({ sortingColumns })
+      onReset: ({ sortingColumns }) => this.setState({ sortingColumns }),
+      strategy: sort.strategies.byProperty
     });
 
     this.state = {
       // Sort the first column in a descending way by default.
       // "asc" would work too and you can set multiple if you want.
       sortingColumns: {
-        0: {
+        'name.first': {
           direction: 'desc',
           position: 0
         }
@@ -114,7 +118,8 @@ class SortTable extends React.Component {
                 formatters: [
                   sort.header({
                     sortable,
-                    getSortingColumns
+                    getSortingColumns,
+                    strategy: sort.strategies.byProperty
                   })
                 ]
               }
@@ -127,7 +132,8 @@ class SortTable extends React.Component {
                 formatters: [
                   sort.header({
                     sortable,
-                    getSortingColumns
+                    getSortingColumns,
+                    strategy: sort.strategies.byProperty
                   })
                 ]
               }
@@ -142,7 +148,8 @@ class SortTable extends React.Component {
             formatters: [
               sort.header({
                 sortable,
-                getSortingColumns
+                getSortingColumns,
+                strategy: sort.strategies.byProperty
               })
             ]
             // Alternative if you don't need reset.
@@ -160,7 +167,8 @@ class SortTable extends React.Component {
       sort.sorter({
         columns: resolvedColumns,
         sortingColumns,
-        sort: orderBy
+        sort: orderBy,
+        strategy: sort.strategies.byProperty
       }),
       resolve.resolve({
         columns: resolvedColumns,
