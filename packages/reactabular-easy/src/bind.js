@@ -60,6 +60,10 @@ function bindDraggableHeader({
       return header.draggable;
     },
     evaluate({ header }) {
+      if (!header.label) {
+        console.warn('bind.draggableHeader - missing header.label!');
+      }
+
       return {
         header: {
           props: {
