@@ -266,8 +266,6 @@ class EasyDemo extends React.Component {
       columns: tree.pack()(visibleColumns)
     });
 
-    console.log(visibleColumns);
-
     return (
       <div>
         <VisibilityToggles
