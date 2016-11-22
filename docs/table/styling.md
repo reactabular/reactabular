@@ -13,7 +13,7 @@ The project root contains a file, **style.css**, which you can import to your pr
       return {
         className: rowIndex % 2 ? 'odd-row' : 'even-row',
       }
-    }
+    }}
   />
 
   <Table.Body
