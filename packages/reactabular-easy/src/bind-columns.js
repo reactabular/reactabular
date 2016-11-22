@@ -98,10 +98,7 @@ function bindColumn({
     }
 
     if (cell.highlight) {
-      newCellFormats.push((v, extra) => highlight.cell(
-        existingCellFormat(v, extra),
-        extra
-      ));
+      newCellFormats.push(highlight.cell);
     }
 
     if (cell.toggleChildren) {
