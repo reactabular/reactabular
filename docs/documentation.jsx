@@ -20,6 +20,7 @@ import * as reactEdit from 'react-edit';
 import * as reactabular from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as tree from 'reactabular-tree';
+import * as resizable from 'reactabular-resizable';
 import * as select from 'reactabular-select';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as Virtualized from 'reactabular-virtualized';
@@ -43,7 +44,7 @@ const documentationImports = {
   dnd: { ...dnd },
   tree: { ...tree },
   easy: { ...easy },
-  resizableColumn: reactabular.resizableColumn,
+  resizable: { ...resizable },
   VisibilityToggles,
   Virtualized: { ...Virtualized },
   stylesheet: { ...stylesheet },

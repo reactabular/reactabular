@@ -34,7 +34,9 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
-  "dependencies": {},
+  "dependencies": {
+    "stylesheet-helpers": "^0.2.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"

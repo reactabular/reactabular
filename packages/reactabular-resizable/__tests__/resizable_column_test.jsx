@@ -2,7 +2,9 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
-import resizableColumn from '../src';
+import * as resizable from '../src';
+
+const resizableColumn = resizable.column;
 
 describe('resizableColumn', function () {
   it('throws an error if onDrag is not passed', function () {

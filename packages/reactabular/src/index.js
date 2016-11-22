@@ -4,7 +4,6 @@ import * as search from 'reactabular-search';
 import * as sort from 'reactabular-sort';
 import * as highlight from 'reactabular-highlight';
 import * as resolve from 'reactabular-resolve';
-import resizableColumn from 'reactabular-resizable';
 import SearchColumns from 'reactabular-search-columns';
 import Search from 'reactabular-search-field';
 
@@ -16,6 +15,6 @@ export {
   search,
   sort,
   highlight,
-  resolve,
-  resizableColumn
+  resolve
 };
+

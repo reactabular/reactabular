@@ -1,6 +1,7 @@
 import {
-  resizableColumn, sort, highlight
+  sort, highlight
 } from 'reactabular';
+import * as resizable from 'reactabular-resizable';
 import * as tree from 'reactabular-tree';
 
 function bindWidth() {
@@ -105,7 +106,7 @@ function bindResizableHeader({
       return {
         header: {
           formatters: [
-            resizableColumn({
+            resizable.column({
               onDrag: onDragColumn,
               parent: window,
               props
