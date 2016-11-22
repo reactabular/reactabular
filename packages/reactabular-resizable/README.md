@@ -1,7 +1,7 @@
 `reactabular-resizable` implements a formatter that provides handles for altering column widths. It provides two functions:
 
 * `column({ parent = document, onDrag, minWidth = 10, props: { ... }})`. This formatter does most of the work.
-* `helper({ id })` returns an object with `initialize()`, `cleanup()`, and `update({ column, columnIndex, width })` methods. The helper can be used with the formatter to implement performant resizing. It utilizes CSS stylesheets for this purpose. It also expects you set `width` per each column at your column definition.
+* `helper({ globalId, getId })` returns an object with `initialize({ columns, getId: (column) => ...})`, `cleanup()`, and `update({ column, width })` methods. The helper can be used with the formatter to implement performant resizing. It utilizes CSS stylesheets for this purpose. It also expects you set `width` per each column at your column definition.
 
 Note that the current implementation doesn't constrain the total width of the table. That would require additional logic as you would have to check for this while altering a column width.
 
@@ -61,7 +61,8 @@ class ResizableColumnsTable extends React.Component {
     };
 
     this.resizableHelper = resizable.helper({
-      id: uuid.v4()
+      globalId: uuid.v4(),
+      getId: ({ property}) => property
     });
 
     this.tableHeader = null;
@@ -78,13 +79,9 @@ class ResizableColumnsTable extends React.Component {
   }
   getColumns() {
     const resizableFormatter = resizable.column({
-      onDrag: (width, { columnIndex }) => {
-        const columns = this.state.columns;
-        const column = columns[columnIndex];
-
+      onDrag: (width, { column }) => {
         this.resizableHelper.update({
           column,
-          columnIndex,
           width
         });
       }

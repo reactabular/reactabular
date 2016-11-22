@@ -1,6 +1,6 @@
 import * as stylesheet from 'stylesheet-helpers';
 
-function helper({ id }) {
+function helper({ globalId, getId }) {
   // Create a custom stylesheet for tracking styles.
   // Without creating a custom one we would need to modify
   // an existing one.
@@ -10,41 +10,39 @@ function helper({ id }) {
 
   return {
     initialize(columns) {
-      return initializeStyle({
-        columns,
-        id,
-        styleSheet
+      return columns.map((column) => {
+        const className = getClassName(globalId, getId(column));
+
+        updateWidth({
+          styleSheet,
+          className,
+          width: column.width
+        });
+
+        return {
+          props: {
+            ...column.props,
+            className // XXX: This overrides possible className!
+          },
+          ...column
+        };
       });
     },
     cleanup() {
       styleSheetElement.remove();
     },
-    update({ column, columnIndex, width }) {
-      const className = getClassName(column, columnIndex, id);
-
-      updateWidth({ styleSheet, className, width });
+    update({ column, width }) {
+      updateWidth({
+        styleSheet,
+        className: getClassName(globalId, getId(column)),
+        width
+      });
     }
   };
 }
 
-function initializeStyle({
-  columns,
-  id,
-  styleSheet
-}) {
-  return columns.map((column, columnIndex) => {
-    const className = getClassName(column, columnIndex, id);
-
-    updateWidth({ styleSheet, className, width: column.width });
-
-    return {
-      props: {
-        ...column.props,
-        className // XXX: This overrides possible className!
-      },
-      ...column
-    };
-  });
+function getClassName(globalId, localId) {
+  return `column-${globalId}-${localId}`;
 }
 
 function updateWidth({
@@ -62,10 +60,6 @@ function updateWidth({
       maxWidth: `${width}px`
     }
   );
-}
-
-function getClassName(column, columnIndex, id) {
-  return `column-${id}-${columnIndex}`;
 }
 
 export default helper;
