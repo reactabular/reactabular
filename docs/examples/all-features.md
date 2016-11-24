@@ -12,8 +12,9 @@ import values from 'lodash/values';
 import transform from 'lodash/transform';
 import {
   Table, search, sort, highlight, resolve,
-  SearchColumns, resizableColumn
+  SearchColumns
 } from 'reactabular';
+import * as resizable from 'reactabular-resizable';
 import * as edit from 'react-edit';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 
@@ -122,7 +123,7 @@ class AllFeaturesTable extends React.Component {
       }
     });
     const sortableHeader = sortHeader(sortable, () => this.state.sortingColumns);
-    const resizable = resizableColumn({
+    const resize = resizable.column({
       getWidth: column => column.header.props.style.width,
       onDrag: (width, { columnIndex }) => {
         const columns = this.state.columns;
@@ -143,7 +144,7 @@ class AllFeaturesTable extends React.Component {
         header: {
           label: 'Name',
           formatters: [
-            (name, extraParameters) => resizable(
+            (name, extraParameters) => resize(
               <div style={{ display: 'inline' }}>
                 <input
                   type="checkbox"
@@ -177,7 +178,7 @@ class AllFeaturesTable extends React.Component {
         header: {
           label: 'Position',
           formatters: [
-            (v, extra) => resizable(sortableHeader(v, extra), extra)
+            (v, extra) => resize(sortableHeader(v, extra), extra)
           ],
           props: {
             style: {
