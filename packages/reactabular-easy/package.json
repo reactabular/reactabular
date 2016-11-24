@@ -35,6 +35,7 @@
   "module": "dist",
   "jsnext:main": "dist",
   "dependencies": {
+    "classnames": "^2.2.5",
     "react-dnd": "^2.1.4",
     "redux": "^3.5.2",
     "webpack-merge": "^0.17.0"

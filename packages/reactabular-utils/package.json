@@ -34,6 +34,7 @@
   "module": "dist",
   "jsnext:main": "dist",
   "dependencies": {
+    "classnames": "^2.2.5",
     "deep-diff": "^0.3.4"
   },
   "devDependencies": {

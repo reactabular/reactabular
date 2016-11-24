@@ -1,7 +1,7 @@
 import React from 'react';
+import classnames from 'classnames';
 import { Table, Sticky } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
-import { mergeClassNames } from 'reactabular-utils';
 import { byArrowKeys } from 'reactabular-select';
 import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
@@ -135,7 +135,7 @@ class EasyTable extends React.Component {
       ...props
     };
 
-    const cls = mergeClassNames(className, row.selected && 'selected-row');
+    const cls = classnames(className, row.selected && 'selected-row');
 
     if (cls) {
       ret.className = cls;

@@ -35,7 +35,7 @@
   "module": "dist",
   "jsnext:main": "dist",
   "dependencies": {
-    "reactabular-utils": "^7.0.0"
+    "classnames": "^2.2.5"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

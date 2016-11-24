@@ -1,11 +1,11 @@
-import mergeClassNames from './merge-class-names';
+import classNames from 'classnames';
 
 function mergePropPair(a = {}, b = {}) {
   const ret = {
     ...a,
     ...b,
     style: { ...a.style, ...b.style },
-    className: mergeClassNames(a.className, b.className)
+    className: classNames(a.className, b.className)
   };
 
   if (a.children || b.children) {

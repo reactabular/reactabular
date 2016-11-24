@@ -1,4 +1,4 @@
-import { mergeClassNames } from 'reactabular-utils';
+import classNames from 'classnames';
 import strategies from './strategies';
 
 const sort = ({
@@ -18,7 +18,7 @@ const sort = ({
 
   return {
     ...props,
-    className: mergeClassNames(className, headerClass),
+    className: classNames(className, headerClass),
     [event]: () => onSort(field)
   };
 };
