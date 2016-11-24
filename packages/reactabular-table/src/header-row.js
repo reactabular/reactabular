@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  evaluateTransforms, evaluateFormatters, mergePropPair
+  evaluateTransforms, evaluateFormatters, mergeProps
 } from 'reactabular-utils';
 import { tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
 
@@ -31,8 +31,9 @@ const HeaderRow = ({ rowData, rowIndex, components, onRow }) => (
         components.cell,
         {
           key: `${columnIndex}-header`,
-          ...mergePropPair( // XXX: convert to a single function call
-            mergePropPair(props, header && header.props),
+          ...mergeProps(
+            props,
+            header && header.props,
             transformedProps
           )
         },

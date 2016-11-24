@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { evaluateTransforms } from '../src';
 
 describe('utils.evaluateTransforms', function () {
@@ -7,7 +6,7 @@ describe('utils.evaluateTransforms', function () {
     const output = 10;
     const transforms = [value => ({ value })];
 
-    expect(evaluateTransforms(transforms, input).value).to.equal(output);
+    expect(evaluateTransforms(transforms, input).value).toEqual(output);
   });
 
   it('accepts extra parameters passed to transforms', function () {
@@ -17,7 +16,7 @@ describe('utils.evaluateTransforms', function () {
 
     expect(evaluateTransforms(
       transforms, input, { result: output }
-    ).result).to.equal(output);
+    ).result).toEqual(output);
   });
 
   it('merges from left to right', function () {
@@ -27,17 +26,18 @@ describe('utils.evaluateTransforms', function () {
       () => ({ foo: output })
     ];
 
-    expect(evaluateTransforms(transforms).foo).to.equal(output);
+    expect(evaluateTransforms(transforms).foo).toEqual(output);
   });
 
-  it('performs a shallow merge', function () {
+  it('performs a deep merge', function () {
     const output = 'foobar';
     const transforms = [
       () => ({ foo: { bar: output } }),
       () => ({ foo: { zoo: output } })
     ];
 
-    expect(evaluateTransforms(transforms).foo).to.deep.equal({
+    expect(evaluateTransforms(transforms).foo).toEqual({
+      bar: output,
       zoo: output
     });
   });
@@ -49,7 +49,7 @@ describe('utils.evaluateTransforms', function () {
       () => ({ style: { zoo: output } })
     ];
 
-    expect(evaluateTransforms(transforms).style).to.deep.equal({
+    expect(evaluateTransforms(transforms).style).toEqual({
       bar: output,
       zoo: output
     });
@@ -62,14 +62,14 @@ describe('utils.evaluateTransforms', function () {
       () => ({ className: 'baz' })
     ];
 
-    expect(evaluateTransforms(transforms).className).to.equal('foo bar baz');
+    expect(evaluateTransforms(transforms).className).toEqual('foo bar baz');
   });
 
   it('returns an object without any input', function () {
-    expect(evaluateTransforms()).to.deep.equal({});
+    expect(evaluateTransforms()).toEqual({});
   });
 
   it('throws an error if all transforms are not functions', function () {
-    expect(evaluateTransforms.bind(null, [() => {}, null])).to.throw(Error);
+    expect(evaluateTransforms.bind(null, [() => {}, null])).toThrow(Error);
   });
 });

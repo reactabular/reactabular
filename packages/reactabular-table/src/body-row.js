@@ -3,8 +3,7 @@ import isFunction from 'lodash/isFunction';
 import React from 'react';
 import {
   evaluateTransforms, evaluateFormatters,
-  mergePropPair,
-  columnsAreEqual
+  mergeProps, columnsAreEqual
 } from 'reactabular-utils';
 import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
 
@@ -61,8 +60,9 @@ class BodyRow extends React.Component {
           components.cell,
           {
             key: `${columnIndex}-cell`,
-            ...mergePropPair( // XXX: single call
-              mergePropPair(props, cell && cell.props),
+            ...mergeProps(
+              props,
+              cell && cell.props,
               transformed
             )
           },
