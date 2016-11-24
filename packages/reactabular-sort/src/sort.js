@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import strategies from './strategies';
+import defaultStrategy from './default-strategy';
 
 const sort = ({
   event = 'onClick',
   getSortingColumns = () => [],
   onSort = () => {},
-  strategy = strategies.byIndex
+  strategy = defaultStrategy
 } = {}) => (_value, extra, { className, ...props } = {}) => {
   const sortingColumns = getSortingColumns();
   const field = extra[strategy.fieldName];
