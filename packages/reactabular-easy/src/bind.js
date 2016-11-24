@@ -61,7 +61,7 @@ function bindDraggableHeader({
     },
     evaluate({ header }) {
       if (!header.label) {
-        console.warn('bind.draggableHeader - missing header.label!');
+        console.warn('bind.draggableHeader - missing header.label!'); // eslint-disable-line no-console
       }
 
       return {
