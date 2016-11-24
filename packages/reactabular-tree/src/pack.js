@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
 import find from 'lodash/find';
+import isArray from 'lodash/isArray';
 import omit from 'lodash/omit';
 
 const pack = ({
@@ -7,7 +8,7 @@ const pack = ({
   parentField = 'parent',
   childrenField = 'children'
 } = {}) => (rows) => {
-  if (!Array.isArray(rows)) {
+  if (!isArray(rows)) {
     return [];
   }
 

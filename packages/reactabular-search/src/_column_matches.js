@@ -1,7 +1,8 @@
+import isArray from 'lodash/isArray';
 import strategies from './strategies';
 
 const defaultTransform = (v = '') => v && v.toLowerCase && v.toLowerCase();
-const defaultCastingStrategy = v => (Array.isArray(v) ? v : String(v));
+const defaultCastingStrategy = v => (isArray(v) ? v : String(v));
 
 const _columnMatches = ({
   query,

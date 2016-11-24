@@ -1,10 +1,12 @@
+import isArray from 'lodash/isArray';
+
 const infix = queryTerm => ({
   evaluate(searchText = '') {
     if (!searchText) {
       return false;
     }
 
-    if (Array.isArray(searchText)) {
+    if (isArray(searchText)) {
       return searchText.some(v => this.evaluate(v));
     }
 
@@ -15,7 +17,7 @@ const infix = queryTerm => ({
       return [];
     }
 
-    if (Array.isArray(searchText)) {
+    if (isArray(searchText)) {
       return searchText.reduce(
         (result, text, index) => {
           const search = this.matches(text);
@@ -55,7 +57,7 @@ const prefix = queryTerm => ({
       return false;
     }
 
-    if (Array.isArray(searchText)) {
+    if (isArray(searchText)) {
       return searchText.some(v => this.evaluate(v));
     }
 
@@ -66,7 +68,7 @@ const prefix = queryTerm => ({
       return [];
     }
 
-    if (Array.isArray(searchText)) {
+    if (isArray(searchText)) {
       return searchText.reduce(
         (result, text, index) => {
           const search = this.matches(text);

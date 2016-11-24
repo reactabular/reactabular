@@ -1,3 +1,4 @@
+import isArray from 'lodash/isArray';
 import omit from 'lodash/omit';
 
 const unpack = ({
@@ -6,7 +7,7 @@ const unpack = ({
   idField = 'id',
   parent
 } = {}) => (rows) => {
-  if (!Array.isArray(rows)) {
+  if (!isArray(rows)) {
     return [];
   }
 
