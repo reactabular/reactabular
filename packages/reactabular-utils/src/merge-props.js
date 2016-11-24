@@ -1,4 +1,4 @@
-import mergeWith from 'lodash/mergeWith';
+import { mergeWith } from 'lodash';
 import classNames from 'classnames';
 
 function mergePropPair(first, ...props) {

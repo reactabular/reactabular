@@ -1,4 +1,4 @@
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash';
 import diff from 'deep-diff';
 
 function columnsAreEqual(oldColumns, newColumns) {

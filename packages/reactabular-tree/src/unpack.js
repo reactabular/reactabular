@@ -1,5 +1,4 @@
-import isArray from 'lodash/isArray';
-import omit from 'lodash/omit';
+import { isArray, omit } from 'lodash';
 
 const unpack = ({
   parentField = 'parent',

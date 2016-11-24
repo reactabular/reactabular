@@ -1,4 +1,4 @@
-import isArray from 'lodash/isArray';
+import { isArray } from 'lodash';
 
 function resolveRowKey({ rowData, rowIndex, rowKey }) {
   if (typeof rowKey === 'function') {

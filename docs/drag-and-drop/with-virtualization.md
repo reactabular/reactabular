@@ -7,8 +7,7 @@ The following example shows how to integrate drag and drop with virtualization.
 import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import cloneDeep from 'lodash/cloneDeep';
-import findIndex from 'lodash/findIndex';
+import { cloneDeep, findIndex } from 'lodash';
 import { Table, resolve } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as Sticky from 'reactabular-sticky';

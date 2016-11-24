@@ -1,5 +1,4 @@
-import get from 'lodash/get';
-import has from 'lodash/has';
+import { get, has } from 'lodash';
 
 function nested({ column }) {
   return (rowData) => {

@@ -18,8 +18,7 @@ Note that each object in `rows` contain more fields than the ones desired to be 
 ```jsx
 /*
 import React from 'react';
-import cloneDeep from 'lodash/cloneDeep';
-import findIndex from 'lodash/findIndex';
+import { cloneDeep, findIndex } from 'lodash';
 import { Table } from 'reactabular';
 import * as edit from 'react-edit';
 import uuid from 'uuid';

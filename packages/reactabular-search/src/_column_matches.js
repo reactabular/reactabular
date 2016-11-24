@@ -1,4 +1,4 @@
-import isArray from 'lodash/isArray';
+import { isArray } from 'lodash';
 import strategies from './strategies';
 
 const defaultTransform = (v = '') => v && v.toLowerCase && v.toLowerCase();

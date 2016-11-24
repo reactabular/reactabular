@@ -1,6 +1,5 @@
 import uuid from 'uuid';
-import sample from 'lodash/sample';
-import range from 'lodash/range';
+import { sample, range } from 'lodash';
 import schema2object from 'schema2object';
 import generators from 'annogenerate';
 

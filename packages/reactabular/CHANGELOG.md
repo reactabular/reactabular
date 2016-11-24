@@ -6,6 +6,7 @@ This is a major release with plenty of improvements, but also some breakage so g
 Reactabular doesn't support nested column definitions out of the box anymore. Instead you have to resolve such definitions before passing them to Reactabular. Even though it's more code, now all the logic (search/sorting/...) works with nested definitions and you have control over naming.
 
   * Breaking - `resizableColumn` isn't included in the core distribution anymore. You should use `reactabular-resizable` instead.
+  * Breaking - Official support for lodash 3 has been dropped.
 
 ## reactabular-dnd
 

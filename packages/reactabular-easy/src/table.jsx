@@ -6,8 +6,7 @@ import { byArrowKeys } from 'reactabular-select';
 import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
 import select from 'selectabular';
-import findIndex from 'lodash/findIndex';
-import values from 'lodash/values';
+import { findIndex, values } from 'lodash';
 import processRows from './process-rows';
 import { defaultProps, propTypes } from './types';
 

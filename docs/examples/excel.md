@@ -3,7 +3,7 @@ The following example implements a light version of Excel through the transform 
 ```jsx
 /*
 import React from 'react';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash';
 import { Table } from 'reactabular';
 import * as edit from 'react-edit';
 */

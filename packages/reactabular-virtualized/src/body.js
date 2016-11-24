@@ -1,4 +1,4 @@
-import isEqual from 'lodash/isEqual';
+import { isEqual } from 'lodash';
 import React from 'react';
 import { Body } from 'reactabular-sticky';
 import { rowKey as resolveRowKey } from 'reactabular-resolve';

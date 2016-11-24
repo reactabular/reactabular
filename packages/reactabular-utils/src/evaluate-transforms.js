@@ -1,4 +1,4 @@
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash';
 import mergeProps from './merge-props';
 
 function evaluateTransforms(transforms = [], value, extraParameters = {}) {

@@ -1,4 +1,4 @@
-import orderBy from 'lodash/orderBy';
+import { orderBy } from 'lodash';
 import { compose } from 'redux';
 import { sorter } from 'reactabular-sort';
 import pack from './pack';

@@ -3,8 +3,7 @@ The following example shows how to implement basic editing functionality.
 ```jsx
 /*
 import React from 'react';
-import cloneDeep from 'lodash/cloneDeep';
-import findIndex from 'lodash/findIndex';
+import { cloneDeep, findIndex } from 'lodash';
 import { Table } from 'reactabular';
 import * as edit from 'react-edit';
 import uuid from 'uuid';

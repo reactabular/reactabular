@@ -4,12 +4,9 @@ The following example uses majority of Reactabular's features and combines them 
 /*
 import React from 'react';
 import { compose } from 'redux';
-import cloneDeep from 'lodash/cloneDeep';
-import findIndex from 'lodash/findIndex';
-import orderBy from 'lodash/orderBy';
-import keys from 'lodash/keys';
-import values from 'lodash/values';
-import transform from 'lodash/transform';
+import {
+  cloneDeep, findIndex, orderBy, keys, values, transforms
+} from 'lodash';
 import {
   Table, search, sort, highlight, resolve,
   SearchColumns

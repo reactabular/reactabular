@@ -1,4 +1,4 @@
-import isEqual from 'lodash/isEqual';
+import { isEqual } from 'lodash';
 import React from 'react';
 import { columnsAreEqual } from 'reactabular-utils';
 import { bodyRowContextTypes, bodyRowTypes } from './types';

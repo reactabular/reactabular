@@ -5,8 +5,7 @@ The following example shows how to implement basic editing functionality with Re
 import React from 'react';
 import { compose, createStore } from 'redux';
 import { connect } from 'react-redux';
-import cloneDeep from 'lodash/cloneDeep';
-import findIndex from 'lodash/findIndex';
+import { cloneDeep, findIndex } from 'lodash';
 import { Table } from 'reactabular';
 import * as edit from 'react-edit';
 import uuid from 'uuid';

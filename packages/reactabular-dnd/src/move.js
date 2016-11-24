@@ -1,4 +1,4 @@
-import findIndex from 'lodash/findIndex';
+import { findIndex } from 'lodash';
 
 function moveChildrenLabels(columns, { sourceLabel, targetLabel }) {
   const sourceIndex = findIndex(

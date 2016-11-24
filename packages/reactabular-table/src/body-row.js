@@ -1,5 +1,4 @@
-import isEqual from 'lodash/isEqual';
-import isFunction from 'lodash/isFunction';
+import { isEqual, isFunction } from 'lodash';
 import React from 'react';
 import {
   evaluateTransforms, evaluateFormatters,

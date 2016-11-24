@@ -1,6 +1,4 @@
-import findIndex from 'lodash/findIndex';
-import omit from 'lodash/omit';
-import pick from 'lodash/pick';
+import { findIndex, omit, pick } from 'lodash';
 import { moveRows } from 'reactabular-dnd';
 
 const moveTreeRows = ({

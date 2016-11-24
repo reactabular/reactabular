@@ -1,4 +1,4 @@
-import uniq from 'lodash/uniq';
+import { uniq } from 'lodash';
 import { multipleColumns } from 'reactabular-search';
 import getChildren from './get-children';
 import getParents from './get-parents';
