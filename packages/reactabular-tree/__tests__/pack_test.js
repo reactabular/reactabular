@@ -1,9 +1,8 @@
-import { expect } from 'chai';
 import { pack } from '../src';
 
 describe('tree.pack', function () {
   it('returns an empty array if empty rows are passed', function () {
-    expect(pack()([])).to.deep.equal([]);
+    expect(pack()([])).toEqual([]);
   });
 
   it('returns the array itself if there is nothing to pack', function () {
@@ -13,7 +12,7 @@ describe('tree.pack', function () {
       }
     ];
 
-    expect(pack()(given)).to.deep.equal(given);
+    expect(pack()(given)).toEqual(given);
   });
 
   it('packs a single child', function () {
@@ -39,7 +38,7 @@ describe('tree.pack', function () {
       }
     ];
 
-    expect(pack()(given)).to.deep.equal(expected);
+    expect(pack()(given)).toEqual(expected);
   });
 
   it('works with null parent', function () {
@@ -54,7 +53,24 @@ describe('tree.pack', function () {
       }
     ];
 
-    expect(pack()(given)).to.deep.equal(given);
+    expect(pack()(given)).toEqual(given);
+  });
+
+  it('warns with an invalid parent', function () {
+    const given = [
+      {
+        id: 0,
+        foo: 'bar'
+      },
+      {
+        parent: 10,
+        foo: 'foo'
+      }
+    ];
+
+    pack()(given);
+
+    expect(console.warn).toBeCalled(); // eslint-disable-line no-console
   });
 
   it('works with sibling children', function () {
@@ -91,7 +107,7 @@ describe('tree.pack', function () {
       }
     ];
 
-    expect(pack()(given)).to.deep.equal(expected);
+    expect(pack()(given)).toEqual(expected);
   });
 
   it('works with nested children', function () {
@@ -139,10 +155,10 @@ describe('tree.pack', function () {
       }
     ];
 
-    expect(pack()(given)).to.deep.equal(expected);
+    expect(pack()(given)).toEqual(expected);
 
     // Should be immutable
-    expect(pack()(given)).to.deep.equal(expected);
+    expect(pack()(given)).toEqual(expected);
   });
 
   it('allows parent field to be customized', function () {
@@ -182,7 +198,7 @@ describe('tree.pack', function () {
       }
     ];
 
-    expect(pack({ parentField })(given)).to.deep.equal(expected);
+    expect(pack({ parentField })(given)).toEqual(expected);
   });
 
   it('allows children field to be customized', function () {
@@ -222,10 +238,10 @@ describe('tree.pack', function () {
       }
     ];
 
-    expect(pack({ childrenField })(given)).to.deep.equal(expected);
+    expect(pack({ childrenField })(given)).toEqual(expected);
   });
 
   it('returns an empty array with invalid input', function () {
-    expect(pack()('foobar')).to.deep.equal([]);
+    expect(pack()('foobar')).toEqual([]);
   });
 });
