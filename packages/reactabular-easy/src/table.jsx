@@ -1,14 +1,13 @@
 import React from 'react';
+import classnames from 'classnames';
 import { Table, Sticky } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
-import { mergeClassNames } from 'reactabular-utils';
 import { byArrowKeys } from 'reactabular-select';
 import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
 import select from 'selectabular';
 import findIndex from 'lodash/findIndex';
 import values from 'lodash/values';
-import bindColumns from './bind-columns';
 import processRows from './process-rows';
 import { defaultProps, propTypes } from './types';
 
@@ -42,7 +41,8 @@ class EasyTable extends React.Component {
     const {
       rowKey, query, headerExtra, sortingColumns,
       tableWidth, tableHeight, components,
-      idField, parentField,
+      idField, parentField, headerRows,
+      columns,
       classNames, onRow // eslint-disable-line no-unused-vars
     } = this.props;
     const tableComponents = {
@@ -53,7 +53,6 @@ class EasyTable extends React.Component {
       }
     };
     const { selectedRow } = this.state;
-    const columns = bindColumns(this.props);
 
     if (hasDraggableHeaders(columns)) {
       tableComponents.header = {
@@ -92,6 +91,7 @@ class EasyTable extends React.Component {
         style={{ width: tableWidth }}
       >
         <Sticky.Header
+          headerRows={headerRows}
           className={classNames.header && classNames.header.wrapper}
           style={{
             maxWidth: tableWidth
@@ -135,7 +135,7 @@ class EasyTable extends React.Component {
       ...props
     };
 
-    const cls = mergeClassNames(className, row.selected && 'selected-row');
+    const cls = classnames(className, row.selected && 'selected-row');
 
     if (cls) {
       ret.className = cls;

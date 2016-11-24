@@ -6,6 +6,14 @@ describe('tree.getImmediateChildren', function () {
     expect(getImmediateChildren()([])).to.deep.equal([]);
   });
 
+  it('returns an empty array if index is not found', function () {
+    expect(getImmediateChildren({ index: 10 })([
+      {
+        demo: 100
+      }
+    ])).to.deep.equal([]);
+  });
+
   it('returns an empty array if there are no children', function () {
     const given = [
       {

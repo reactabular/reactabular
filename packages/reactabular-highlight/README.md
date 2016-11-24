@@ -17,7 +17,7 @@ _highlights: {
 import React from 'react';
 import { compose } from 'redux';
 import {
-  Table, search, Search, highlight
+  Table, search, Search, highlight, resolve
 } from 'reactabular';
 */
 
@@ -26,16 +26,33 @@ class HighlightTable extends React.Component {
     super(props);
 
     this.state = {
+      searchColumn: 'all',
       query: {},
       columns: [
         {
-          property: 'name',
           header: {
             label: 'Name'
           },
-          cell: {
-            format: highlight.cell
-          }
+          children: [
+            {
+              property: 'name.first',
+              header: {
+                label: 'First Name'
+              },
+              cell: {
+                formatters: [highlight.cell]
+              }
+            },
+            {
+              property: 'name.last',
+              header: {
+                label: 'Last Name'
+              },
+              cell: {
+                formatters: [highlight.cell]
+              }
+            }
+          ]
         },
         {
           property: 'age',
@@ -43,56 +60,84 @@ class HighlightTable extends React.Component {
             label: 'Age'
           },
           cell: {
-            format: highlight.cell
+            formatters: [highlight.cell]
           }
         }
       ],
       rows: [
         {
           id: 100,
-          name: 'Adam',
-          age: 12
+          name: {
+            first: 'Adam',
+            last: 'West'
+          },
+          age: 10
         },
         {
           id: 101,
-          name: 'Brian',
-          age: 7
-        },
-        {
-          id: 102,
-          name: 'Jake',
-          age: 88
+          name: {
+            first: 'Brian',
+            last: 'Eno'
+          },
+          age: 43
         },
         {
           id: 103,
-          name: 'Jill',
-          age: 50
+          name: {
+            first: 'Jake',
+            last: 'Dalton'
+          },
+          age: 33
+        },
+        {
+          id: 104,
+          name: {
+            first: 'Jill',
+            last: 'Jackson'
+          },
+          age: 63
         }
       ]
     };
   }
   render() {
-    const { rows, columns, query } = this.state;
-    const filteredRows = compose(
-      highlight.highlighter({ columns, matches: search.matches, query }),
-      search.multipleColumns({ columns, query })
-    )(rows);
+    const { searchColumn, columns, rows, query } = this.state;
+    const resolvedColumns = resolve.columnChildren({ columns });
+    const resolvedRows = resolve.resolve({
+      columns: resolvedColumns,
+      method: resolve.nested
+    })(rows);
+    const searchedRows = compose(
+      highlight.highlighter({
+        columns: resolvedColumns,
+        matches: search.matches,
+        query
+      }),
+      search.multipleColumns({
+        columns: resolvedColumns,
+        query
+      }),
+    )(resolvedRows);
 
     return (
       <div>
         <div className="search-container">
           <span>Search</span>
           <Search
+            column={searchColumn}
             query={query}
-            columns={columns}
-            rows={rows}
+            columns={resolvedColumns}
+            rows={resolvedRows}
+            onColumnChange={searchColumn => this.setState({ searchColumn })}
             onChange={query => this.setState({ query })}
           />
         </div>
-        <Table.Provider columns={columns}>
-          <Table.Header />
+        <Table.Provider columns={resolvedColumns}>
+          <Table.Header
+            headerRows={resolve.headerRows({ columns })}
+          />
 
-          <Table.Body rows={filteredRows} rowKey="id" />
+          <Table.Body rows={searchedRows} rowKey="id" />
         </Table.Provider>
       </div>
     );

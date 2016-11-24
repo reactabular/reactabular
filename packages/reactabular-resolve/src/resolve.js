@@ -1,5 +1,3 @@
-import { resolveBodyColumns } from 'reactabular-utils';
-
 function resolve({ columns, method }) {
   if (!columns) {
     throw new Error('resolve - Missing columns!');
@@ -8,12 +6,10 @@ function resolve({ columns, method }) {
     throw new Error('resolve - Missing method!');
   }
 
-  const resolvedColumns = resolveBodyColumns(columns);
-
   return (rows = []) => rows.map((rowData, rowIndex) => {
     let ret = {};
 
-    resolvedColumns.forEach((column) => {
+    columns.forEach((column) => {
       const result = method({
         rowIndex,
         column

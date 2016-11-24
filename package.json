@@ -53,6 +53,9 @@
     "moduleDirectories": [
       "node_modules",
       "packages"
+    ],
+    "setupFiles": [
+      "lib/test_setup.js"
     ]
   },
   "dependencies": {},

@@ -188,19 +188,21 @@ class TreeTable extends React.Component {
           transforms: [sortable]
         },
         cell: {
-          format: tree.toggleChildren({
-            getRows: () => this.state.rows,
-            getShowingChildren: ({ rowData }) => rowData.showingChildren,
-            toggleShowingChildren: rowIndex => {
-              const rows = cloneDeep(this.state.rows);
+          formatters: [
+            tree.toggleChildren({
+              getRows: () => this.state.rows,
+              getShowingChildren: ({ rowData }) => rowData.showingChildren,
+              toggleShowingChildren: rowIndex => {
+                const rows = cloneDeep(this.state.rows);
 
-              rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
+                rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
 
-              this.setState({ rows });
-            },
-            // inject custom class name per row here etc.
-            props: {}
-          })
+                this.setState({ rows });
+              },
+              // Inject custom class name per row here etc.
+              props: {}
+            })
+          ]
         },
         visible: true
       },

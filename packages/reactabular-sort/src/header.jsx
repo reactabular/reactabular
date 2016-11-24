@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import strategies from './strategies';
+import defaultStrategy from './default-strategy';
 
 const defaultStyles = {
   container: {},
@@ -16,7 +16,7 @@ const header = ({
     value: {},
     order: {}
   },
-  strategy = strategies.byIndex
+  strategy = defaultStrategy
 }) => {
   if (!sortable) {
     throw new Error('header - Missing sortable!');

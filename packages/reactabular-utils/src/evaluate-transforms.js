@@ -1,5 +1,5 @@
 import isFunction from 'lodash/isFunction';
-import mergePropPair from './merge-prop-pair';
+import mergeProps from './merge-props';
 
 function evaluateTransforms(transforms = [], value, extraParameters = {}) {
   if (process.env.NODE_ENV !== 'production') {
@@ -11,9 +11,9 @@ function evaluateTransforms(transforms = [], value, extraParameters = {}) {
     }
   }
 
-  return transforms.map(transform => transform(value, extraParameters))
-    .filter(p => p)
-    .reduce(mergePropPair, {}) || {};
+  return mergeProps(
+    ...transforms.map(transform => transform(value, extraParameters))
+  );
 }
 
 export default evaluateTransforms;

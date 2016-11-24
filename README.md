@@ -61,7 +61,9 @@ const columns = [
       ]
     },
     cell: {
-      format: tools => tools.hammer ? 'Hammertime' : 'nope'
+      formatters: [
+        tools => tools.hammer ? 'Hammertime' : 'nope'
+      ]
     }
   },
   {
@@ -75,7 +77,9 @@ const columns = [
       ]
     },
     cell: {
-      format: country => countries[country]
+      formatters: [
+        country => countries[country]
+      ]
     }
   },
 ];

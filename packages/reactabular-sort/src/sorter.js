@@ -1,4 +1,4 @@
-import strategies from './strategies';
+import defaultStrategy from './default-strategy';
 
 // sorter === lodash orderBy
 // https://lodash.com/docs#orderBy
@@ -6,7 +6,7 @@ const sorter = ({
   columns,
   sortingColumns,
   sort,
-  strategy = strategies.byIndex
+  strategy = defaultStrategy
 } = {}) => (data) => {
   if (!columns) {
     throw new Error('sort.sorter - Missing columns!');

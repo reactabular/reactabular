@@ -10,7 +10,7 @@ const singleColumn = ({
   let ret = columns;
 
   if (searchColumn !== 'all') {
-    ret = columns.filter(col => col && col.property === searchColumn);
+    ret = ret.filter(col => col && col.property === searchColumn);
   }
 
   return rows.filter(row => ret.filter(column => _columnMatches({

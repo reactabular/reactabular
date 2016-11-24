@@ -17,33 +17,49 @@ The general workflow goes as follows:
 /*
 import React from 'react';
 import orderBy from 'lodash/orderBy';
-import { Table, sort } from 'reactabular';
+import { Table, sort, resolve } from 'reactabular';
+import { compose } from 'redux';
 */
 
 const initialRows = [
   {
     id: 100,
-    name: 'Adam',
+    name: {
+      first: 'Adam',
+      last: 'West'
+    },
     age: 10
   },
   {
     id: 101,
-    name: 'Brian',
+    name: {
+      first: 'Brian',
+      last: 'Eno'
+    },
     age: 43
   },
   {
     id: 102,
-    name: 'Brian',
+    name: {
+      first: 'Brian',
+      last: 'Wilson'
+    },
     age: 23
   },
   {
     id: 103,
-    name: 'Jake',
+    name: {
+      first: 'Jake',
+      last: 'Dalton'
+    },
     age: 33
   },
   {
     id: 104,
-    name: 'Jill',
+    name: {
+      first: 'Jill',
+      last: 'Jackson'
+    },
     age: 63
   }
 ];
@@ -67,44 +83,75 @@ class SortTable extends React.Component {
             selectedColumn
           })
         });
-      }
+      },
+
+      // Use property strategy over index one given we have nested data
+      strategy: sort.strategies.byProperty
     });
     const resetable = sort.reset({
       event: 'onDoubleClick',
       getSortingColumns,
-      onReset: ({ sortingColumns }) => this.setState({ sortingColumns })
+      onReset: ({ sortingColumns }) => this.setState({ sortingColumns }),
+      strategy: sort.strategies.byProperty
     });
 
     this.state = {
       // Sort the first column in a descending way by default.
       // "asc" would work too and you can set multiple if you want.
       sortingColumns: {
-        0: {
+        'name.first': {
           direction: 'desc',
           position: 0
         }
       },
       columns: [
         {
-          property: 'name',
           header: {
-            label: 'Name',
-            transforms: [resetable],
-            format: sort.header({
-              sortable,
-              getSortingColumns
-            })
-          }
+            label: 'Name'
+          },
+          children: [
+            {
+              property: 'name.first',
+              header: {
+                label: 'First Name',
+                transforms: [resetable],
+                formatters: [
+                  sort.header({
+                    sortable,
+                    getSortingColumns,
+                    strategy: sort.strategies.byProperty
+                  })
+                ]
+              }
+            },
+            {
+              property: 'name.last',
+              header: {
+                label: 'Last Name',
+                transforms: [resetable],
+                formatters: [
+                  sort.header({
+                    sortable,
+                    getSortingColumns,
+                    strategy: sort.strategies.byProperty
+                  })
+                ]
+              }
+            }
+          ]
         },
         {
           property: 'age',
           header: {
             label: 'Age',
             transforms: [resetable],
-            format: sort.header({
-              sortable,
-              getSortingColumns
-            })
+            formatters: [
+              sort.header({
+                sortable,
+                getSortingColumns,
+                strategy: sort.strategies.byProperty
+              })
+            ]
             // Alternative if you don't need reset.
             // transforms: [sortable]
           }
@@ -114,17 +161,27 @@ class SortTable extends React.Component {
     };
   }
   render() {
-    const { rows, columns, sortingColumns } = this.state;
-    const sortedRows = sort.sorter({
-      columns,
-      sortingColumns,
-      sort: orderBy
-    })(rows);
+    const { rows, sortingColumns, columns } = this.state;
+    const resolvedColumns = resolve.columnChildren({ columns });
+    const sortedRows = compose(
+      sort.sorter({
+        columns: resolvedColumns,
+        sortingColumns,
+        sort: orderBy,
+        strategy: sort.strategies.byProperty
+      }),
+      resolve.resolve({
+        columns: resolvedColumns,
+        method: resolve.nested
+      })
+    )(rows);
 
     return (
       <div>
-        <Table.Provider columns={columns}>
-          <Table.Header />
+        <Table.Provider columns={resolvedColumns}>
+          <Table.Header
+            headerRows={resolve.headerRows({ columns })}
+          />
 
           <Table.Body rows={sortedRows} rowKey="id" />
         </Table.Provider>

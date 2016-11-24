@@ -1,22 +1,25 @@
 import React from 'react';
 import {
-  evaluateTransforms, mergePropPair
+  evaluateTransforms, evaluateFormatters, mergeProps
 } from 'reactabular-utils';
+import { tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
 
-const HeaderRow = ({ row, components }) => (
+const HeaderRow = ({ rowData, rowIndex, components, onRow }) => (
   React.createElement(
     components.row,
-    {},
-    row.map(({ column, header = {}, props = {} }, j) => {
+    onRow(rowData, { rowIndex }),
+    rowData.map((column, columnIndex) => {
+      const { property, header = {}, props = {} } = column;
+      const evaluatedProperty = property || (header && header.property);
       const {
         label,
         transforms = [],
-        format = a => a
+        formatters = []
       } = header;
       const extraParameters = {
-        columnIndex: j,
-        column,
-        property: column && column.property // TODO: test that this is passed properly
+        columnIndex,
+        property: evaluatedProperty,
+        column
       };
       const transformedProps = evaluateTransforms(transforms, label, extraParameters);
 
@@ -27,17 +30,21 @@ const HeaderRow = ({ row, components }) => (
       return React.createElement(
         components.cell,
         {
-          key: `${j}-header`,
-          ...mergePropPair(props, transformedProps)
+          key: `${columnIndex}-header`,
+          ...mergeProps(
+            props,
+            header && header.props,
+            transformedProps
+          )
         },
-        transformedProps.children || format(label, extraParameters)
+        transformedProps.children || evaluateFormatters(formatters)(
+          label, extraParameters
+        )
       );
     })
   )
 );
-HeaderRow.propTypes = {
-  row: React.PropTypes.arrayOf(React.PropTypes.object),
-  components: React.PropTypes.object
-};
+HeaderRow.defaultProps = tableHeaderRowDefaults;
+HeaderRow.propTypes = tableHeaderRowTypes;
 
 export default HeaderRow;

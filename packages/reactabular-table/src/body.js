@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import isFunction from 'lodash/isFunction';
 import React from 'react';
-import { resolveRowKey } from 'reactabular-utils';
+import { rowKey as resolveRowKey } from 'reactabular-resolve';
 import { tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';
 import BodyRow from './body-row';
 
@@ -36,7 +36,7 @@ class Body extends React.Component {
   }
   render() {
     const { onRow, rows, rowKey, ...props } = this.props;
-    const { bodyColumns, components } = this.context;
+    const { columns, components } = this.context;
 
     props.ref = (body) => {
       this.ref = body;
@@ -56,7 +56,7 @@ class Body extends React.Component {
           rowKey: key,
           rowIndex,
           rowData,
-          columns: bodyColumns
+          columns
         });
       })
     );

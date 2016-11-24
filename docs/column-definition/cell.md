@@ -28,9 +28,9 @@ cell.transforms = [
 }
 ```
 
-## **`cell.format = value => <string|React element>`**
+## **`cell.formatters = [value => <string|React element>]`**
 
-The idea here is the same as for `header.format`.
+The idea here is the same as for `header.formatters`.
 
 **Example:**
 
@@ -38,11 +38,13 @@ The idea here is the same as for `header.format`.
 {
   cell: {
     property: 'salary',
-    format: (salary, extra) => (
-      <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-        {highlight.cell(salary, extra)}
-      </span>
-    )
+    formatters: [
+      (salary, extra) => (
+        <span onDoubleClick={() => alert(`salary is ${salary}`)}>
+          {highlight.cell(salary, extra)}
+        </span>
+      )
+    ]
   }
 }
 ```

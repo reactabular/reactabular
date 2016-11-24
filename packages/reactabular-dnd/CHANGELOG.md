@@ -3,6 +3,8 @@
 
   * Feature - Expose `dnd.draggableRow`. This allows you to use row dragging with virtualization. Example: `body.row = dnd.draggableRow(Virtualized.BodyRow)`.
   * Feature - `dnd.draggableRow` hooks into row level (`onRow({ rowId })`) props `onCanMove({ rowId })`, `onMoveStart({ rowId })`, `onMove({ sourceRowId, targetRowId })`, and `onMoveEnd({ rowId })` instead of just `onMove`.
+  * Feature - Fail fas if `moveLabels` is missing data.
+  * Feature - Expose `move` core algorithm. This can be useful standalone.
 
 7.0.0 / 2016-11-03
 ==================

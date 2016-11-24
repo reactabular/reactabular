@@ -1,11 +1,11 @@
-import { mergeClassNames } from 'reactabular-utils';
-import strategies from './strategies';
+import classNames from 'classnames';
+import defaultStrategy from './default-strategy';
 
 const sort = ({
   event = 'onClick',
   getSortingColumns = () => [],
   onSort = () => {},
-  strategy = strategies.byIndex
+  strategy = defaultStrategy
 } = {}) => (_value, extra, { className, ...props } = {}) => {
   const sortingColumns = getSortingColumns();
   const field = extra[strategy.fieldName];
@@ -18,7 +18,7 @@ const sort = ({
 
   return {
     ...props,
-    className: mergeClassNames(className, headerClass),
+    className: classNames(className, headerClass),
     [event]: () => onSort(field)
   };
 };

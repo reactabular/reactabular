@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { expect } from 'chai';
 import * as Table from '../src';
 
 describe('Table.Header', function () {
@@ -11,7 +10,9 @@ describe('Table.Header', function () {
       {
         header: {
           label: 'Name',
-          format: name => <span className={headerClass}>{name}</span>
+          formatters: [
+            name => <span className={headerClass}>{name}</span>
+          ]
         }
       }
     ];
@@ -24,7 +25,7 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th).to.exist;
+    expect(th).toBeDefined();
   });
 
   it('supports root props', function () {
@@ -48,7 +49,7 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th).to.exist;
+    expect(th).toBeDefined();
   });
 
   it('supports header props', function () {
@@ -72,7 +73,7 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th).to.exist;
+    expect(th).toBeDefined();
   });
 
   it('merges props', function () {
@@ -106,8 +107,8 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th.style.color).to.equal(color);
-    expect(th.style.backgroundColor).to.equal(backgroundColor);
+    expect(th.style.color).toEqual(color);
+    expect(th.style.backgroundColor).toEqual(backgroundColor);
   });
 
   it('merges classNames of props', function () {
@@ -135,7 +136,7 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th.className).to.equal(`${anotherClass} ${headerClass}`);
+    expect(th.className).toEqual(`${anotherClass} ${headerClass}`);
   });
 
   it('overrides styles in the right order', function () {
@@ -185,9 +186,9 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th.style.color).to.equal(finalColor);
-    expect(th.style.backgroundColor).to.equal(finalBackgroundColor);
-    expect(th.style.display).to.equal(finalDisplay);
+    expect(th.style.color).toEqual(finalColor);
+    expect(th.style.backgroundColor).toEqual(finalBackgroundColor);
+    expect(th.style.display).toEqual(finalDisplay);
   });
 
   it('renders children', function () {
@@ -212,7 +213,7 @@ describe('Table.Header', function () {
       table, testClass
     );
 
-    expect(testElement).to.exist;
+    expect(testElement).toBeDefined();
   });
 
   it('renders based on `header` fields', function () {
@@ -245,7 +246,7 @@ describe('Table.Header', function () {
       table, 'th'
     );
 
-    expect(ths.length).to.equal(columns.length);
+    expect(ths.length).toEqual(columns.length);
   });
 
   it('can be transformed', function () {
@@ -271,7 +272,7 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th).to.exist;
+    expect(th).toBeDefined();
   });
 
   it('accepts columnIndex and column when transforming', function () {
@@ -280,6 +281,40 @@ describe('Table.Header', function () {
     let receivedValues;
     const columns = [
       {
+        header: {
+          label: initialLabel,
+          property: initialLabel,
+          transforms: [
+            (label, extraValues) => {
+              receivedLabel = label;
+              receivedValues = extraValues;
+            }
+          ]
+        }
+      }
+    ];
+
+    TestUtils.renderIntoDocument(
+      <Table.Provider columns={columns}>
+        <Table.Header />
+      </Table.Provider>
+    );
+
+    expect(receivedLabel).toEqual(initialLabel);
+    expect(receivedValues).toBeDefined();
+    expect(receivedValues.property).toEqual(initialLabel);
+    expect(receivedValues.column).toEqual({
+      ...columns[0]
+    });
+  });
+
+  it('passes column level property', function () {
+    const initialLabel = 'Name';
+    let receivedLabel;
+    let receivedValues;
+    const columns = [
+      {
+        property: initialLabel,
         header: {
           label: initialLabel,
           transforms: [
@@ -298,10 +333,13 @@ describe('Table.Header', function () {
       </Table.Provider>
     );
 
-    expect(receivedLabel).to.equal(initialLabel);
-    expect(receivedValues).to.exist;
-    expect(receivedValues.columnIndex).to.equal(0);
-    expect(receivedValues.column.header).to.deep.equal(columns[0].header);
+    expect(receivedLabel).toEqual(initialLabel);
+    expect(receivedValues).toBeDefined();
+    expect(receivedValues.property).toEqual(initialLabel);
+    expect(receivedValues.column).toEqual({
+      header: columns[0].header,
+      property: initialLabel
+    });
   });
 
   it('can be transformed with multiple transforms', function () {
@@ -331,9 +369,9 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th).to.exist;
-    expect(th.className).to.equal(headerClass);
-    expect(th.style.display).to.equal(style.display);
+    expect(th).toBeDefined();
+    expect(th.className).toEqual(headerClass);
+    expect(th.style.display).toEqual(style.display);
   });
 
   it('retains classNames with multiple transforms', function () {
@@ -363,8 +401,8 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th).to.exist;
-    expect(th.className).to.equal(`${headerClass} ${anotherHeaderClass}`);
+    expect(th).toBeDefined();
+    expect(th.className).toEqual(`${headerClass} ${anotherHeaderClass}`);
   });
 
   it('does retain objects with multiple transforms', function () {
@@ -396,9 +434,9 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th).to.exist;
-    expect(th.style.display).to.equal(anotherHeaderStyle.display);
-    expect(th.style.color).to.equal(anotherHeaderStyle.color);
+    expect(th).toBeDefined();
+    expect(th.style.display).toEqual(anotherHeaderStyle.display);
+    expect(th.style.color).toEqual(anotherHeaderStyle.color);
   });
 
   it('can be transformed while retaining classNames', function () {
@@ -429,8 +467,8 @@ describe('Table.Header', function () {
       table, headerClass
     );
 
-    expect(th.innerHTML).to.equal(label);
-    expect(th.className).to.equal(`${headerClass} ${anotherHeaderClass}`);
+    expect(th.innerHTML).toEqual(label);
+    expect(th.className).toEqual(`${headerClass} ${anotherHeaderClass}`);
   });
 
   [
@@ -478,7 +516,7 @@ describe('Table.Header', function () {
         table, wrapperClass
       );
 
-      expect(div).to.exist;
+      expect(div).toBeDefined();
     });
   });
 
@@ -494,7 +532,7 @@ describe('Table.Header', function () {
       table, customClass
     );
 
-    expect(renderedTable).to.exist;
+    expect(renderedTable).toBeDefined();
   });
 
   it('gives access to header ref through getRef', function () {
@@ -510,6 +548,6 @@ describe('Table.Header', function () {
       </Table.Provider>
     );
 
-    expect(ref).to.exist;
+    expect(ref).toBeDefined();
   });
 });

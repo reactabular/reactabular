@@ -6,6 +6,7 @@ const propTypes = {
   window: React.PropTypes.object, // DOM window
   columns: React.PropTypes.array,
   rows: React.PropTypes.array,
+  headerRows: React.PropTypes.array,
   rowKey: React.PropTypes.string.isRequired,
   query: React.PropTypes.object,
   sortingColumns: React.PropTypes.object,
@@ -16,7 +17,6 @@ const propTypes = {
   props: React.PropTypes.object,
   styles: React.PropTypes.object,
   components: React.PropTypes.object,
-  toggleChildrenProps: React.PropTypes.object,
   // Custom tree fields
   idField: React.PropTypes.string,
   parentField: React.PropTypes.string,
@@ -24,11 +24,7 @@ const propTypes = {
   onRow: React.PropTypes.func,
   onMoveRow: React.PropTypes.func,
   onWidth: React.PropTypes.func,
-  onDragColumn: React.PropTypes.func,
-  onMoveColumns: React.PropTypes.func,
-  onSelectRow: React.PropTypes.func,
-  onSort: React.PropTypes.func,
-  onToggleShowingChildren: React.PropTypes.func
+  onSelectRow: React.PropTypes.func
 };
 
 const defaultProps = {
@@ -52,6 +48,7 @@ const defaultProps = {
       */
     }
   },
+  // XXX: push to bindColumns
   props: {
     resize: {
       container: {},
@@ -65,18 +62,13 @@ const defaultProps = {
     }
   },
   components: {},
-  toggleChildrenProps: {},
   // Custom tree fields
   idField: 'id',
   parentField: 'parent',
   // Handlers
   onRow: () => ({}),
   onMoveRow: () => ({}),
-  onDragColumn: () => {},
-  onMoveColumns: () => {},
-  onSelectRow: () => {},
-  onSort: () => {},
-  onToggleShowingChildren: () => {}
+  onSelectRow: () => {}
 };
 
 export {

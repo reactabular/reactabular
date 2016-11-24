@@ -12,8 +12,9 @@ import values from 'lodash/values';
 import transform from 'lodash/transform';
 import {
   Table, search, sort, highlight, resolve,
-  SearchColumns, resizableColumn
+  SearchColumns
 } from 'reactabular';
+import * as resizable from 'reactabular-resizable';
 import * as edit from 'react-edit';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 
@@ -122,7 +123,7 @@ class AllFeaturesTable extends React.Component {
       }
     });
     const sortableHeader = sortHeader(sortable, () => this.state.sortingColumns);
-    const resizable = resizableColumn({
+    const resize = resizable.column({
       getWidth: column => column.header.props.style.width,
       onDrag: (width, { columnIndex }) => {
         const columns = this.state.columns;
@@ -142,17 +143,19 @@ class AllFeaturesTable extends React.Component {
         property: 'name',
         header: {
           label: 'Name',
-          format: (name, extraParameters) => resizable(
-            <div style={{ display: 'inline' }}>
-              <input
-                type="checkbox"
-                onClick={() => console.log('clicked')}
-                style={{ width: '20px' }}
-              />
-              {sortableHeader(name, extraParameters)}
-            </div>,
-            extraParameters
-          ),
+          formatters: [
+            (name, extraParameters) => resize(
+              <div style={{ display: 'inline' }}>
+                <input
+                  type="checkbox"
+                  onClick={() => console.log('clicked')}
+                  style={{ width: '20px' }}
+                />
+                {sortableHeader(name, extraParameters)}
+              </div>,
+              extraParameters
+            )
+          ],
           props: {
             style: {
               width: 200
@@ -160,8 +163,12 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          transforms: [editable(edit.input())],
-          format: highlight.cell
+          transforms: [
+            editable(edit.input())
+          ],
+          formatters: [
+            highlight.cell
+          ]
         },
         footer: () => 'You could show sums etc. here in the customizable footer.',
         visible: true
@@ -170,7 +177,9 @@ class AllFeaturesTable extends React.Component {
         property: 'position',
         header: {
           label: 'Position',
-          format: (v, extra) => resizable(sortableHeader(v, extra), extra),
+          formatters: [
+            (v, extra) => resize(sortableHeader(v, extra), extra)
+          ],
           props: {
             style: {
               width: 100
@@ -178,8 +187,12 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          transforms: [editable(edit.input())],
-          format: highlight.cell
+          transforms: [
+            editable(edit.input())
+          ],
+          formatters: [
+            highlight.cell
+          ]
         },
         visible: true
       },
@@ -187,7 +200,9 @@ class AllFeaturesTable extends React.Component {
         property: 'boss.name',
         header: {
           label: 'Boss',
-          format: sortableHeader,
+          formatters: [
+            sortableHeader
+          ],
           props: {
             style: {
               width: 100
@@ -195,8 +210,12 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          transforms: [editable(edit.input())],
-          format: highlight.cell
+          transforms: [
+            editable(edit.input())
+          ],
+          formatters: [
+            highlight.cell
+          ]
         },
         visible: true
       },
@@ -204,7 +223,9 @@ class AllFeaturesTable extends React.Component {
         property: 'country',
         header: {
           label: 'Country',
-          format: sortableHeader,
+          formatters: [
+            sortableHeader
+          ],
           props: {
             style: {
               width: 100
@@ -212,14 +233,18 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          transforms: [editable(
-            edit.dropdown({
-              options: transform(countries, (result, name, value) => {
-                result.push({ value, name });
-              }, [])
-            })
-          )],
-          format: (country, extra) => highlight.cell(country, extra),
+          transforms: [
+            editable(
+              edit.dropdown({
+                options: transform(countries, (result, name, value) => {
+                  result.push({ value, name });
+                }, [])
+              })
+            )
+          ],
+          formatters: [
+            (country, extra) => highlight.cell(country, extra)
+          ],
           // Resolve hint for search and highlighting
           resolve: country => countries[country]
         },
@@ -229,7 +254,9 @@ class AllFeaturesTable extends React.Component {
         property: 'salary',
         header: {
           label: 'Salary',
-          format: sortableHeader,
+          formatters: [
+            sortableHeader
+          ],
           props: {
             style: {
               width: 100
@@ -237,12 +264,16 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          transforms: [editable(edit.input({ props: { type: 'number' } }))],
-          format: (salary, extra) => (
-            <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-              {highlight.cell(salary, extra)}
-            </span>
-          )
+          transforms: [
+            editable(edit.input({ props: { type: 'number' } }))
+          ],
+          formatters: [
+            (salary, extra) => (
+              <span onDoubleClick={() => alert(`salary is ${salary}`)}>
+                {highlight.cell(salary, extra)}
+              </span>
+            )
+          ]
         },
         footer: rows => `Total salary: ${rows.reduce((a, b) => a + b.salary, 0)}`,
         visible: true
@@ -251,7 +282,9 @@ class AllFeaturesTable extends React.Component {
         property: 'active',
         header: {
           label: 'Active',
-          format: sortableHeader,
+          formatters: [
+            sortableHeader
+          ],
           props: {
             style: {
               width: 100
@@ -259,8 +292,12 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          transforms: [editable(edit.boolean())],
-          format: active => active && <span>&#10003;</span>
+          transforms: [
+            editable(edit.boolean())
+          ],
+          formatters: [
+            active => active && <span>&#10003;</span>
+          ]
         },
         visible: true
       },
@@ -271,14 +308,16 @@ class AllFeaturesTable extends React.Component {
           }
         },
         cell: {
-          format: (value, { rowData }) => (
-            <span
-              className="remove"
-              onClick={() => this.onRemove(rowData.id)} style={{ cursor: 'pointer' }}
-            >
-              &#10007;
-            </span>
-          )
+          formatters: [
+            (value, { rowData }) => (
+              <span
+                className="remove"
+                onClick={() => this.onRemove(rowData.id)} style={{ cursor: 'pointer' }}
+              >
+                &#10007;
+              </span>
+            )
+          ]
         },
         visible: true
       }

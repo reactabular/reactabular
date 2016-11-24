@@ -1,8 +1,13 @@
 7.1.0 / 2016-xx-xx
 ==================
 
-  * Feature - Add `columnsAreEqual` and `rowsAreEqual` checkers.
+  * Feature - Add `columnsAreEqual` checker.
   * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
+  * Breaking - Move `utils.countRowSpan` has been dropped as it's not needed here anymore (moved to `resolve`).
+  * Breaking - Drop `utils.mergeClassNames`. This was replaced by [classnames](https://www.npmjs.org/package/classnames) internally and the column definition accepts formats used by `classnames`.
+  * Breaking - Generalize `utils.mergePropPair` as `utils.mergeProps`. It accepts an arbitrary amount of prop collections now.
+  * Breaking - Drop `utils.resolveBodyColumns`, `utils.resolveHeaderRows`, `utils.resolveRowKey`. The functionality was moved to the `resolve` package.
+  * Breaking - Drop `utils.rowsAreEqual`. Same as `lodash.isEqual(oldRows, newRows)`.
 
 7.0.0 / 2016-11-03
 ==================

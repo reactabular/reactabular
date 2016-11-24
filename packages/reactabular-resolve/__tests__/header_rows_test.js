@@ -1,24 +1,27 @@
-import { expect } from 'chai';
-import { resolveHeaderRows } from '../src';
+import * as resolve from '../src';
 
-describe('utils.resolveHeaderRows', function () {
+const resolveHeaderRows = resolve.headerRows;
+
+describe('resolveHeaderRows', function () {
   it('returns columns wrapped in an array', function () {
     const column = {
-      foo: 'bar'
+      header: {
+        label: 'bar'
+      }
     };
     const columns = [column];
     const expected = [
       [
         {
-          ...column,
           props: {
             rowSpan: 1
-          }
+          },
+          ...column
         }
       ]
     ];
 
-    expect(resolveHeaderRows(columns)).to.deep.equal(expected);
+    expect(resolveHeaderRows({ columns })).toEqual(expected);
   });
 
   it('passes props to column result', function () {
@@ -26,7 +29,9 @@ describe('utils.resolveHeaderRows', function () {
       bar: 'bar'
     };
     const column = {
-      foo: 'bar',
+      header: {
+        label: 'bar'
+      },
       props
     };
     const columns = [column];
@@ -42,15 +47,19 @@ describe('utils.resolveHeaderRows', function () {
       ]
     ];
 
-    expect(resolveHeaderRows(columns)).to.deep.equal(expected);
+    expect(resolveHeaderRows({ columns })).toEqual(expected);
   });
 
   it('returns columns with child wrapped in an array', function () {
     const childColumn = {
-      bar: 'foo'
+      header: {
+        label: 'foo'
+      }
     };
     const column = {
-      foo: 'bar',
+      header: {
+        label: 'bar'
+      },
       children: [
         childColumn
       ]
@@ -59,7 +68,7 @@ describe('utils.resolveHeaderRows', function () {
     const expected = [
       [
         {
-          foo: column.foo,
+          header: column.header,
           props: {
             colSpan: 1
           }
@@ -75,15 +84,19 @@ describe('utils.resolveHeaderRows', function () {
       ]
     ];
 
-    expect(resolveHeaderRows(columns)).to.deep.equal(expected);
+    expect(resolveHeaderRows({ columns })).toEqual(expected);
   });
 
   it('calculates colSpan based on children', function () {
     const childColumn = {
-      bar: 'foo'
+      header: {
+        label: 'foo'
+      }
     };
     const column = {
-      foo: 'bar',
+      header: {
+        label: 'bar'
+      },
       children: [
         childColumn,
         childColumn
@@ -93,7 +106,7 @@ describe('utils.resolveHeaderRows', function () {
     const expected = [
       [
         {
-          foo: column.foo,
+          header: column.header,
           props: {
             colSpan: 2
           }
@@ -115,15 +128,19 @@ describe('utils.resolveHeaderRows', function () {
       ]
     ];
 
-    expect(resolveHeaderRows(columns)).to.deep.equal(expected);
+    expect(resolveHeaderRows({ columns })).toEqual(expected);
   });
 
   it('calculates rowSpan based on siblings', function () {
     const basicColumn = {
-      bar: 'foo'
+      header: {
+        label: 'foo'
+      }
     };
     const column = {
-      foo: 'bar',
+      header: {
+        label: 'bar'
+      },
       children: [
         basicColumn,
         basicColumn
@@ -139,7 +156,9 @@ describe('utils.resolveHeaderRows', function () {
           }
         },
         {
-          foo: column.foo,
+          header: {
+            label: 'bar'
+          },
           props: {
             colSpan: 2
           }
@@ -161,6 +180,6 @@ describe('utils.resolveHeaderRows', function () {
       ]
     ];
 
-    expect(resolveHeaderRows(columns)).to.deep.equal(expected);
+    expect(resolveHeaderRows({ columns })).toEqual(expected);
   });
 });

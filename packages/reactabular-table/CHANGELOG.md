@@ -1,17 +1,53 @@
 7.1.0 / 2016-xx-xx
 ==================
 
+  * Feature - Pass whole column through header/body for extra parameters.
+  * Feature - Support `onRow` at `Table.Header`.
+  * Feature - Allow `Table.Header` to accept `headerRows` (an array of column definitions) to override default columns. See below.
   * Bug fix - Skip functions at `BodyRow` `shouldComponentUpdate`.
+  * Breaking - Generalize `format: <fn>` as `formatters: [<fn>]`. The formatters are applied recursively from left to right: `[f1, f2, f3] => f1(f2(f3(value, extra)))`. This allows composition.
+  * Breaking - Extract nested column logic. Now you will have to resolve nested columns before passing them to the table. The advantage of doing this is that now all logic (search/sorting/etc.) works with nested tables. Basic idea:
+
+```javascript
+import { resolve } from 'reactabular';
+// or
+// import * as resolve from 'reactabular-resolve';
+
+...
+
+const NestedColumnsTable = () => {
+  const resolvedColumns = resolve.columnChildren({ columns });
+  const resolvedRows = resolve.resolve({
+    columns: resolvedColumns,
+    method: resolve.nested
+  })(rows);
+
+  return (
+    <Table.Provider columns={resolvedColumns}>
+      <Table.Header
+        headerRows={resolve.headerRows({ columns })}
+      />
+
+      <Table.Body
+        rows={resolvedRows}
+        rowKey="id"
+      />
+    </Table.Provider>
+  );
+};
+
+...
+```
 
 6.0.0 / 2016-10-14
 ==================
 
-  * Improvement - Allow table body and body row `shouldComponentUpdate` to be overridden.
+  * Feature - Allow table body and body row `shouldComponentUpdate` to be overridden.
 
 3.0.6 / 2016-09-12
 ==================
 
-  * Improvement - Allow `BodyRow` `shouldComponentUpdate` to be overridden by setting `components.body.row.shouldComponentUpdate = true`.
+  * Feature - Allow `BodyRow` `shouldComponentUpdate` to be overridden by setting `components.body.row.shouldComponentUpdate = true`.
 
 3.0.0 / 2016-09-01
 ==================
@@ -21,17 +57,17 @@
 2.0.5 / 2016-08-26
 ==================
 
-  * Improvement - Allow `Body` `rowKey` to be defined as a function (`({ rowData, rowIndex }) => {... return a rowKey ...}`). #193
+  * Feature - Allow `Body` `rowKey` to be defined as a function (`({ rowData, rowIndex }) => {... return a rowKey ...}`). #193
 
 2.0.0 / 2016-08-16
 ==================
 
-  * Improvement - Improve performance by pushing `onRow` check lower in the component hierarchy.
+  * Feature - Improve performance by pushing `onRow` check lower in the component hierarchy.
 
 1.2.3 / 2016-08-08
 ==================
 
-  * Improvement - Make `rowKey` propType check compatible with React 15.3. It should give you better output during development now.
+  * Feature - Make `rowKey` propType check compatible with React 15.3. It should give you better output during development now.
 
 1.2.0 / 2016-08-05
 ==================
@@ -41,12 +77,12 @@
 1.1.1 / 2016-08-04
 ==================
 
-  * Improvement - Drop `lodash/omit` dependency.
+  * Feature - Drop `lodash/omit` dependency.
 
 1.1.0 / 2016-08-03
 ==================
 
-  * Improvement - Added `getRef` for getting references to underlying DOM elements.
+  * Feature - Added `getRef` for getting references to underlying DOM elements.
 
 1.0.0 / 2016-07-25
 ==================

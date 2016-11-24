@@ -1,4 +1,4 @@
-The `header` portion supports `label`, `transforms` and `format` fields.
+The `header` portion supports `label`, `transforms` and `formatters` fields.
 
 ## **`header.label = <string>`**
 
@@ -57,7 +57,7 @@ To give you a concrete example of overriding, consider the example below:
 }
 ```
 
-## **`header.format = label => <string|React element>`**
+## **`header.formatters = [label => <string|React element>]`**
 
 If manipulating `propTypes` isn't enough, you can `format` the output. This should return something React can display. The result will be displayed **within** a table cell.
 
@@ -69,16 +69,18 @@ In the following example we use it to inject an extra checkbox to the header cel
 {
   header: {
     label: 'Name',
-    format: name => (
-      <div>
-        <input
-          type="checkbox"
-          onClick={() => console.log('clicked')}
-          style={{ width: '20px' }}
-        />
-        <span>{name}</span>
-      </div>
-    )
+    formatters: [
+      name => (
+        <div>
+          <input
+            type="checkbox"
+            onClick={() => console.log('clicked')}
+            style={{ width: '20px' }}
+          />
+          <span>{name}</span>
+        </div>
+      )
+    ]
   }
 }
 ```

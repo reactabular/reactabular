@@ -5,7 +5,7 @@ const arrayOfObjectColumns = React.PropTypes.arrayOf(
     header: React.PropTypes.shape({
       label: React.PropTypes.string,
       transforms: React.PropTypes.arrayOf(React.PropTypes.func),
-      format: React.PropTypes.func,
+      formatters: React.PropTypes.arrayOf(React.PropTypes.func),
       props: React.PropTypes.object
     }),
     cell: React.PropTypes.shape({
@@ -14,7 +14,7 @@ const arrayOfObjectColumns = React.PropTypes.arrayOf(
         React.PropTypes.string
       ]),
       transforms: React.PropTypes.arrayOf(React.PropTypes.func),
-      format: React.PropTypes.func,
+      formatters: React.PropTypes.arrayOf(React.PropTypes.func),
       props: React.PropTypes.object
     })
   })
@@ -37,8 +37,7 @@ const tableTypes = {
   components: React.PropTypes.object
 };
 const tableContextTypes = {
-  headerRows: React.PropTypes.array.isRequired,
-  bodyColumns: React.PropTypes.array.isRequired,
+  columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
 const tableBodyDefaults = {
@@ -50,7 +49,7 @@ const tableBodyTypes = {
   rowKey: rowKeyType
 };
 const tableBodyContextTypes = {
-  bodyColumns: React.PropTypes.array.isRequired,
+  columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
 };
 const tableBodyRowDefaults = {
@@ -64,9 +63,24 @@ const tableBodyRowTypes = {
   rowData: rowDataType.isRequired,
   rowKey: React.PropTypes.string.isRequired
 };
+const tableHeaderTypes = {
+  headerRows: React.PropTypes.arrayOf(
+    arrayOfObjectColumns
+  ),
+  children: React.PropTypes.any
+};
 const tableHeaderContextTypes = {
-  headerRows: React.PropTypes.array.isRequired,
+  columns: React.PropTypes.array.isRequired,
   components: React.PropTypes.object
+};
+const tableHeaderRowDefaults = {
+  onRow: () => ({})
+};
+const tableHeaderRowTypes = {
+  components: React.PropTypes.object,
+  onRow: React.PropTypes.func,
+  rowIndex: React.PropTypes.number.isRequired,
+  rowData: rowDataType.isRequired
 };
 const tableDefaults = {
   components: {
@@ -92,6 +106,9 @@ export {
   tableBodyContextTypes,
   tableBodyRowTypes,
   tableBodyRowDefaults,
+  tableHeaderTypes,
   tableHeaderContextTypes,
+  tableHeaderRowTypes,
+  tableHeaderRowDefaults,
   tableDefaults
 };

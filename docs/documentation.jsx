@@ -15,11 +15,12 @@ import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import orderBy from 'lodash/orderBy';
 import transform from 'lodash/transform';
-import EasyTable from 'reactabular-easy';
+import * as easy from 'reactabular-easy';
 import * as reactEdit from 'react-edit';
 import * as reactabular from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as tree from 'reactabular-tree';
+import * as resizable from 'reactabular-resizable';
 import * as select from 'reactabular-select';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as Virtualized from 'reactabular-virtualized';
@@ -42,10 +43,10 @@ const documentationImports = {
   Search: reactabular.Search,
   dnd: { ...dnd },
   tree: { ...tree },
-  resizableColumn: reactabular.resizableColumn,
+  easy: { ...easy },
+  resizable: { ...resizable },
   VisibilityToggles,
   Virtualized: { ...Virtualized },
-  EasyTable,
   stylesheet: { ...stylesheet },
   select: { ...selectabular },
   ...select,

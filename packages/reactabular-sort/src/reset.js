@@ -1,10 +1,10 @@
-import strategies from './strategies';
+import defaultStrategy from './default-strategy';
 
 const reset = ({
   event = 'onDoubleClick',
   getSortingColumns = () => [],
   onReset = () => {},
-  strategy = strategies.byIndex
+  strategy = defaultStrategy
 }) => (value, extra) => ({
   [event]: () => {
     const sortingColumns = getSortingColumns();

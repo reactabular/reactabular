@@ -135,7 +135,7 @@ describe('highlight.highlighter', function () {
     const columns = [
       {
         cell: {
-          format: a => a
+          formatters: [a => a]
         }
       }
     ];

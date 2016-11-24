@@ -9,6 +9,7 @@ const defaultStyles = {
 const VisibilityToggles = ({
   columns,
   onToggleColumn,
+  isVisible,
   styles = {},
   ...props
 }) => {
@@ -23,8 +24,8 @@ const VisibilityToggles = ({
       style={visibilityStyles.container}
       {...props}
     >
-      {columns.filter(column => column.header).map(
-        ({ header: { label }, visible }, columnIndex) => {
+      {columns.filter(column => column.header && column.header.label).map(
+        (column, columnIndex) => {
           const key = `visibility-toggle-${columnIndex}`;
 
           return (
@@ -38,15 +39,15 @@ const VisibilityToggles = ({
                 className="visibility-value"
                 style={visibilityStyles.value}
               >
-                {label}
+                {column.header.label}
               </span>
               <input
                 className="visibility-toggle"
                 type="checkbox"
                 id={key}
                 style={visibilityStyles.toggle}
-                checked={visible}
-                onChange={() => onToggleColumn(columnIndex)}
+                checked={isVisible(column)}
+                onChange={() => onToggleColumn({ column, columnIndex })}
               />
             </label>
           );
@@ -58,7 +59,11 @@ const VisibilityToggles = ({
 VisibilityToggles.propTypes = {
   columns: React.PropTypes.arrayOf(React.PropTypes.object),
   onToggleColumn: React.PropTypes.func,
+  isVisible: React.PropTypes.func,
   styles: React.PropTypes.object // eslint-disable-line react/forbid-prop-types
+};
+VisibilityToggles.defaultProps = {
+  isVisible: column => column.visible
 };
 
 export default VisibilityToggles;

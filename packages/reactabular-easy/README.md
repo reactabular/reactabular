@@ -11,12 +11,16 @@ To make the drag and drop functionality work, you have to set up [react-dnd-html
 ```jsx
 /*
 import React from 'react';
-import { search, Search, SearchColumns } from 'reactabular';
-import EasyTable from 'reactabular-easy';
+import { search, Search, SearchColumns, resolve } from 'reactabular';
+import * as dnd from 'reactabular-dnd';
+import * as easy from 'reactabular-easy';
 import VisibilityToggles from 'reactabular-visibility-toggles';
+import * as resizable from 'reactabular-resizable';
 import * as tree from 'reactabular-tree';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
+import { compose } from 'redux';
+import uuid from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 
@@ -31,8 +35,8 @@ const schema = {
     Id: {
       type: 'string'
     },
-    name: {
-      type: 'string'
+    fullName: {
+      $ref: '#/definitions/fullName'
     },
     company: {
       type: 'string'
@@ -44,7 +48,7 @@ const schema = {
       $ref: '#/definitions/boss'
     }
   },
-  required: ['Id', 'name', 'company', 'age', 'boss'],
+  required: ['Id', 'fullName', 'company', 'age', 'boss'],
   definitions: {
     boss: {
       type: 'object',
@@ -54,6 +58,18 @@ const schema = {
         }
       },
       required: ['name']
+    },
+    fullName: {
+      type: 'object',
+      properties: {
+        first: {
+          type: 'string'
+        },
+        last: {
+          type: 'string'
+        }
+      },
+      required: ['first', 'last']
     }
   }
 };
@@ -67,9 +83,15 @@ class EasyDemo extends React.Component {
       rows,
       columns: this.getColumns(),
       sortingColumns: {},
-      query: {}
+      query: {},
+      hiddenColumns: {} // <id>: <hidden> - show all by default
     };
     this.table = null;
+
+    this.resizableHelper = resizable.helper({
+      globalId: uuid.v4(),
+      getId: ({ id }) => id
+    });
 
     this.onMoveRow = this.onMoveRow.bind(this);
     this.onDragColumn = this.onDragColumn.bind(this);
@@ -83,34 +105,62 @@ class EasyDemo extends React.Component {
   getColumns() {
     return [
       {
+        id: 'demo', // Unique ids for handling visibility checks
         header: {
           label: 'Demo',
           draggable: true,
           resizable: true,
-          format: () => <span>Testing</span>
+          formatters: [
+            () => <span>Testing</span>
+          ]
         },
         cell: {
-          format: () => <span>Demo</span>,
+          formatters: [
+            () => <span>Demo</span>,
+          ],
           toggleChildren: true
         },
-        width: 100,
-        visible: true
+        width: 100
       },
       {
-        property: 'name',
+        id: 'name',
         header: {
           label: 'Name',
-          draggable: true,
-          sortable: true,
-          resizable: true
+          draggable: true
         },
-        cell: {
-          highlight: true
-        },
-        width: 250,
-        visible: true
+        children: [
+          {
+            id: 'firstName',
+            property: 'fullName.first',
+            header: {
+              label: 'First Name',
+              draggable: true,
+              sortable: true,
+              resizable: true
+            },
+            cell: {
+              highlight: true
+            },
+            width: 125
+          },
+          {
+            id: 'lastName',
+            property: 'fullName.last',
+            header: {
+              label: 'Last Name',
+              draggable: true,
+              sortable: true,
+              resizable: true
+            },
+            cell: {
+              highlight: true
+            },
+            width: 125
+          }
+        ]
       },
       {
+        id: 'age',
         property: 'age',
         header: {
           label: 'Age',
@@ -121,10 +171,10 @@ class EasyDemo extends React.Component {
         cell: {
           highlight: true
         },
-        width: 150,
-        visible: true
+        width: 150
       },
       {
+        id: 'company',
         property: 'company',
         header: {
           label: 'Company',
@@ -135,10 +185,10 @@ class EasyDemo extends React.Component {
         cell: {
           highlight: true
         },
-        width: 250,
-        visible: true
+        width: 250
       },
       {
+        id: 'bossName',
         property: 'boss.name',
         header: {
           label: 'Boss',
@@ -149,42 +199,79 @@ class EasyDemo extends React.Component {
         cell: {
           highlight: true
         },
-        width: 200,
-        visible: false
+        width: 200
       },
       {
         cell: {
-          format: (value, { rowData }) => (
-            <div>
-              <input
-                type="button"
-                value="Click me"
-                onClick={() => alert(`${JSON.stringify(rowData, null, 2)}`)}
-              />
-              <span
-                className="remove"
-                onClick={() => this.onRemove(rowData.Id)}
-                style={{ marginLeft: '1em', cursor: 'pointer' }}
-              >
-                &#10007;
-              </span>
-            </div>
-          )
+          formatters: [
+            (value, { rowData }) => (
+              <div>
+                <input
+                  type="button"
+                  value="Click me"
+                  onClick={() => alert(`${JSON.stringify(rowData, null, 2)}`)}
+                />
+                <span
+                  className="remove"
+                  onClick={() => this.onRemove(rowData.Id)}
+                  style={{ marginLeft: '1em', cursor: 'pointer' }}
+                >
+                  &#10007;
+                </span>
+              </div>
+            )
+          ]
         },
-        width: 200,
-        visible: true
+        width: 200
       }
     ];
   }
+  componentWillUnmount() {
+    this.resizableHelper.cleanup();
+  }
   render() {
-    const { columns, sortingColumns, rows, query } = this.state;
-    const visibleColumns = this.state.columns.filter(column => column.visible);
+    const {
+      columns, sortingColumns, rows, query, hiddenColumns
+    } = this.state;
+    const idField = 'Id';
+    const parentField = 'parent';
+
+    const visibleColumns = compose(
+      // 5. Patch columns with classNames for resizing
+      this.resizableHelper.initialize,
+      // 4. Bind columns (extra functionality)
+      easy.bindColumns({
+        toggleChildrenProps: { className: 'toggle-children' },
+        sortingColumns,
+        rows,
+        idField,
+        parentField,
+        props: this.props,
+
+        // Handlers
+        onMoveColumns: this.onMoveColumns,
+        onSort: this.onSort,
+        onDragColumn: this.onDragColumn,
+        onToggleShowingChildren: this.onToggleShowingChildren
+      }),
+      // 3. Filter based on visibility again (children level)
+      columns => columns.filter(column => !hiddenColumns[column.id]),
+      // 2. Unpack
+      tree.unpack(),
+      // 1. Filter based on visibility (root level)
+      columns => columns.filter(column => !hiddenColumns[column.id])
+    )(columns);
+    const columnChildren = visibleColumns.filter(column => !column._isParent);
+    const headerRows = resolve.headerRows({
+      columns: tree.pack()(visibleColumns)
+    });
 
     return (
       <div>
         <VisibilityToggles
-          columns={columns}
+          columns={tree.unpack()(columns)}
           onToggleColumn={this.onToggleColumn}
+          isVisible={({ id }) => !hiddenColumns[id]}
         />
 
         <div className="scroll-container">
@@ -201,22 +288,23 @@ class EasyDemo extends React.Component {
           <span>Search</span>
           <Search
             query={query}
-            columns={visibleColumns}
+            columns={columnChildren}
             rows={rows}
             onChange={query => this.setState({ query })}
           />
         </div>
 
-        <EasyTable
+        <easy.Table
           ref={table => {
             this.table = table
           }}
           rows={rows}
+          headerRows={headerRows}
           rowKey="Id"
           sortingColumns={sortingColumns}
           tableWidth={800}
           tableHeight={400}
-          columns={visibleColumns}
+          columns={columnChildren}
           query={query}
           classNames={{
             table: {
@@ -226,21 +314,16 @@ class EasyDemo extends React.Component {
           headerExtra={
             <SearchColumns
               query={query}
-              columns={visibleColumns}
+              columns={columnChildren}
               onChange={query => this.setState({ query })}
             />
           }
-          toggleChildrenProps={{ className: 'toggle-children' }}
 
-          idField="Id"
-          parentField="parent"
+          idField={idField}
+          parentField={parentField}
 
           onMoveRow={this.onMoveRow}
-          onDragColumn={this.onDragColumn}
-          onMoveColumns={this.onMoveColumns}
           onSelectRow={this.onSelectRow}
-          onSort={this.onSort}
-          onToggleShowingChildren={this.onToggleShowingChildren}
         />
       </div>
     );
@@ -255,15 +338,97 @@ class EasyDemo extends React.Component {
 
     rows && this.setState({ rows });
   }
-  onDragColumn(width, { columnIndex }) {
-    const columns = cloneDeep(this.state.columns);
-
-    columns[columnIndex].width = width;
-
-    this.setState({ columns });
+  onDragColumn(width, { column }) {
+    this.resizableHelper.update({
+      column,
+      width
+    });
   }
-  onMoveColumns({ columns, source, target }) {
-    this.setState({ columns });
+  onMoveColumns({ sourceLabel, targetLabel }) {
+    const columns = tree.unpack()(this.state.columns);
+
+    const sourceIndex = findIndex(
+      columns,
+      { header: { label: sourceLabel } }
+    );
+    const targetIndex = findIndex(
+      columns,
+      { header: { label: targetLabel } }
+    );
+
+    if (sourceIndex < 0 || targetIndex < 0) {
+      return null;
+    }
+
+    let source = columns[sourceIndex];
+    let target = columns[targetIndex];
+
+    if (source._isParent) {
+      return console.warn(
+        'Dragging parents is not supported yet'
+      );
+    }
+
+    // If source doesn't have a parent, make sure we are dragging to
+    // target parent by modifying the original structure.
+    if (!source.parent) {
+      const targetParents = tree.getParents({
+        index: findIndex(columns, { id: target.id })
+      })(columns);
+
+      // If trying to drag to a child, drag to its root
+      // parent instead.
+      if (targetParents.length) {
+        return console.warn(
+          'Dragging to a nested column is not supported yet'
+        );
+      }
+
+      const nestedSourceIndex = findIndex(
+        this.state.columns,
+        { header: { label: sourceLabel } }
+      );
+      source = this.state.columns[nestedSourceIndex];
+
+      const nestedTargetIndex = findIndex(
+        this.state.columns,
+        { header: { label: target.header.label } }
+      );
+      target = this.state.columns[nestedTargetIndex];
+
+      if (nestedSourceIndex < 0 || nestedTargetIndex < 0) {
+        return null;
+      }
+
+      // We are operating at root level now so move accordingly.
+      const movedColumns = dnd.move(
+        this.state.columns, nestedSourceIndex, nestedTargetIndex
+      );
+
+      // Retain widths while moving
+      movedColumns[nestedSourceIndex].width = source.width;
+      movedColumns[nestedTargetIndex].width = target.width;
+
+      this.setState({
+        columns: movedColumns
+      });
+    } else if (source.parent === target.parent) {
+      // Dragging within children now. This has to be against flattened data.
+      const movedColumns = dnd.move(columns, sourceIndex, targetIndex);
+
+      // Retain widths while moving.
+      // XXX: This works only for single level nesting.
+      const sourceWidth = source.width;
+      const targetWidth = target.width;
+
+      source.width = targetWidth;
+      target.width = sourceWidth;
+
+      this.setState({
+        columns: tree.pack()(movedColumns)
+      });
+    }
+    // If trying to drag from children to other children or so, do nothing.
   }
   onSelectRow({ selectedRowId, selectedRow }) {
     console.log('onSelectRow', selectedRowId, selectedRow);
@@ -273,12 +438,15 @@ class EasyDemo extends React.Component {
 
     this.setState({ sortingColumns });
   }
-  onToggleColumn(columnIndex) {
-    const columns = cloneDeep(this.state.columns);
+  onToggleColumn({ column }) {
+    const { hiddenColumns } = this.state;
 
-    columns[columnIndex].visible = !columns[columnIndex].visible;
-
-    this.setState({ columns });
+    this.setState({
+      hiddenColumns: {
+        ...hiddenColumns,
+        [column.id]: !hiddenColumns[column.id]
+      }
+    });
   }
   onRemove(id) {
     const rows = cloneDeep(this.state.rows);

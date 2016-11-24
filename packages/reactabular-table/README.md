@@ -155,9 +155,7 @@ class RefTable extends React.Component {
 <RefTable />
 ```
 
-It's the same idea for `Table.Body`.
-
-## Customizing `Table.Body` Rows
+## Customizing `Table.Header` and `Table.Body` Rows
 
 It is possible to customize body behavior on a row level. `onRow` prop accepts function `(row, { rowIndex, rowKey }) => ({...})` that allows you to set custom attributes per each row.
 
@@ -169,19 +167,26 @@ class CustomTable extends React.Component {
         className="pure-table pure-table-striped"
         columns={columns}
       >
-        <Table.Header />
+        <Table.Header
+          onRow={this.onHeaderRow}
+        />
 
         <Table.Body
           rows={rows}
           rowKey="id"
-          onRow={this.onRow}
+          onRow={this.onBodyRow}
         />
       </Table.Provider>
     );
   }
-  onRow(row, { rowIndex, rowKey }) {
+  onHeaderRow(row, { rowIndex }) {
     return {
-      onClick: () => console.log('clicked row', row)
+      onClick: () => console.log('clicked header row', row)
+    };
+  }
+  onBodyRow(row, { rowIndex, rowKey }) {
+    return {
+      onClick: () => console.log('clicked body row', row)
     };
   }
 }

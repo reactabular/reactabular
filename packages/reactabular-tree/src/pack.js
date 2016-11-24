@@ -39,7 +39,7 @@ const pack = ({
           last(foundParent[childrenField])
         );
       } else {
-        console.warn('Invalid parent id', row, previousParents); // eslint-disable-line no-console
+        console.warn('tree.pack - Invalid parent id', row, previousParents); // eslint-disable-line no-console
       }
     } else {
       ret.push(row);

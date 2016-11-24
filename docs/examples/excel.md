@@ -44,7 +44,9 @@ class ExcelTable extends React.Component {
             label: ''
           },
           cell: {
-            format: (value, { rowIndex }) => rowIndex + 1
+            formatters: [
+              (value, { rowIndex }) => rowIndex + 1
+            ]
           }
         },
         {
@@ -53,8 +55,12 @@ class ExcelTable extends React.Component {
             label: 'A'
           },
           cell: {
-            transforms: [editable(edit.input())],
-            format: evaluate
+            transforms: [
+              editable(edit.input())
+            ],
+            formatters: [
+              evaluate
+            ]
           }
         },
         {
@@ -63,8 +69,12 @@ class ExcelTable extends React.Component {
             label: 'B'
           },
           cell: {
-            transforms: [editable(edit.input())],
-            format: evaluate
+            transforms: [
+              editable(edit.input())
+            ],
+            formatters: [
+              evaluate
+            ]
           }
         },
         {
@@ -73,8 +83,12 @@ class ExcelTable extends React.Component {
             label: 'C'
           },
           cell: {
-            transforms: [editable(edit.input())],
-            format: evaluate
+            transforms: [
+              editable(edit.input())
+            ],
+            formatters: [
+              evaluate
+            ]
           }
         },
         {
@@ -83,8 +97,12 @@ class ExcelTable extends React.Component {
             label: 'D'
           },
           cell: {
-            transforms: [editable(edit.input())],
-            format: evaluate
+            transforms: [
+              editable(edit.input())
+            ],
+            formatters: [
+              evaluate
+            ]
           }
         }
       ],
@@ -161,6 +179,10 @@ function evaluator(getRows, key = 'value') {
   };
 
   return input => {
+    if (!input) {
+      return;
+    }
+
     const inp = input[key];
     const rows = getRows();
 

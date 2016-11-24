@@ -44,6 +44,7 @@
     "react": ">= 0.11.2 < 16.0.0",
     "react-dom": ">= 0.11.2 < 16.0.0",
     "reactabular-sticky": ">= 6.0.0 < 8.0.0",
-    "reactabular-utils": ">= 6.0.0 < 8.0.0"
+    "reactabular-utils": ">= 6.0.0 < 8.0.0",
+    "reactabular-resolve": ">= 6.0.0 < 8.0.0"
   }
 }

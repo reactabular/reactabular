@@ -99,6 +99,29 @@ describe('tree.moveRows', function () {
     })(rows)).toEqual(expectedRows);
   });
 
+  it('warns with an invalid parent', function () {
+    const rows = [
+      {
+        id: 0,
+        name: 'foo'
+      },
+      {
+        parent: 100,
+        id: 1,
+        name: 'bar'
+      }
+    ];
+    const sourceRowId = 0;
+    const targetRowId = 1;
+
+    expect(moveRows({
+      sourceRowId,
+      targetRowId
+    })(rows)).toEqual(rows);
+
+    expect(console.warn).toBeCalled(); // eslint-disable-line no-console
+  });
+
   it('swaps rows with a parent', function () {
     const rows = [
       {

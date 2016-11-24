@@ -1,4 +1,7 @@
-`reactabular-resizable` implements a formatter that provides handles for altering column widths. It provides a single function, `resizableColumn`, that accepts `onDrag` callback. You should adjust your column width using it.
+`reactabular-resizable` implements a formatter that provides handles for altering column widths. It provides two functions:
+
+* `column({ parent = document, onDrag, minWidth = 10, props: { ... }})`. This formatter does most of the work.
+* `helper({ globalId, getId })` returns an object with `initialize({ columns, getId: (column) => ...})`, `cleanup()`, and `update({ column, width })` methods. The helper can be used with the formatter to implement performant resizing. It utilizes CSS stylesheets for this purpose. It also expects you set `width` per each column at your column definition.
 
 Note that the current implementation doesn't constrain the total width of the table. That would require additional logic as you would have to check for this while altering a column width.
 
@@ -21,12 +24,12 @@ props = {
 ```jsx
 /*
 import React from 'react';
-import { Table, Sticky, resizableColumn } from 'reactabular';
-// import resizableColumn from 'reactabular-resizable';
+import { Table, Sticky } from 'reactabular';
+import * as resizable from 'reactabular-resizable';
 import uuid from 'uuid';
-import * as stylesheet from 'stylesheet-helpers';
 import { generateRows } from './helpers';
 */
+
 
 const schema = {
   type: 'object',
@@ -52,75 +55,35 @@ class ResizableColumnsTable extends React.Component {
   constructor(props) {
     super(props);
 
-    // Generate a unique id for the instance so we
-    // don't get clashing class names for resizing.
-    this.id = uuid.v4();
-
     this.state = {
       columns: this.getColumns(),
       rows
     };
 
+    this.resizableHelper = resizable.helper({
+      globalId: uuid.v4(),
+      getId: ({ property}) => property
+    });
+
     this.tableHeader = null;
     this.tableBody = null;
   }
   componentDidMount() {
-    // Create a custom stylesheet for tracking styles.
-    // Without creating a custom one we would need to modify
-    // an existing one.
-    //
-    // This can fail on old IE due to low maximum stylesheet limit.
-    const { styleSheetElement, styleSheet } = stylesheet.create();
-
-    this.styleSheetElement = styleSheetElement;
-    this.styleSheet = styleSheet;
-
     // Patch the column definition with class names.
     this.setState({
-      columns: this.initializeStyle(this.state.columns)
+      columns: this.resizableHelper.initialize(this.state.columns)
     });
   }
   componentWillUnmount() {
-    this.styleSheetElement.remove();
-  }
-  initializeStyle(columns) {
-    return columns.map((column, i) => {
-      const className = this.getClassName(column, i);
-
-      stylesheet.updateProperties(
-        window,
-        this.styleSheet,
-        className,
-        {
-          width: `${column.width}px`,
-          minWidth: `${column.width}px`
-        }
-      );
-
-      return {
-        props: {
-          className
-        },
-        ...column
-      };
-    });
+    this.resizableHelper.cleanup();
   }
   getColumns() {
-    const resizable = resizableColumn({
-      onDrag: (width, { columnIndex }) => {
-        const columns = this.state.columns;
-        const column = columns[columnIndex];
-
-        // Update the width of the changed column class
-        stylesheet.updateProperties(
-          window,
-          this.styleSheet,
-          this.getClassName(column, columnIndex),
-          {
-            width: `${width}px`,
-            minWidth: `${width}px`
-          }
-        );
+    const resizableFormatter = resizable.column({
+      onDrag: (width, { column }) => {
+        this.resizableHelper.update({
+          column,
+          width
+        });
       }
     });
 
@@ -129,16 +92,19 @@ class ResizableColumnsTable extends React.Component {
         property: 'name',
         header: {
           label: 'Name',
-          format: resizable
+          formatters: [
+            resizableFormatter
+          ]
         },
-        // Track style on CSS level (not React)
         width: 200
       },
       {
         property: 'address',
         header: {
           label: 'Really Long Address Header',
-          format: resizable
+          formatters: [
+            resizableFormatter
+          ]
         },
         width: 400
       },

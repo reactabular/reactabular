@@ -35,8 +35,10 @@
   "module": "dist",
   "jsnext:main": "dist",
   "dependencies": {
+    "classnames": "^2.2.5",
     "react-dnd": "^2.1.4",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "webpack-merge": "^0.17.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
@@ -47,6 +49,7 @@
     "react": ">= 0.11.2 < 16.0.0",
     "reactabular": ">= 6.0.0 < 8.0.0",
     "reactabular-dnd": ">= 4.2.0 < 8.0.0",
+    "reactabular-resizable": ">= 6.0.0 < 8.0.0",
     "reactabular-select": ">= 6.0.0 < 8.0.0",
     "reactabular-tree": ">= 6.0.0 < 8.0.0",
     "reactabular-utils": ">= 6.0.0 < 8.0.0",

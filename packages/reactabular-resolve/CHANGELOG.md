@@ -1,6 +1,7 @@
 7.1.0 / 2016-xx-xx
 ==================
 
+  * Feature - Add `resolve.columnChildren({ columns, childrenField = 'children' }) => <resolved columns>`. Earlier this was in `reactabular-utils` but it fits this namespace better.
   * Breaking - Allow resolvers to be composed more easily. Now the API follows the pattern `(extra) => (rowData) => <resolved row>. This means the functions fit within `compose` like this:
 
 ```javascript
@@ -22,12 +23,12 @@ const resolver = resolve.resolve({
 ==================
 
   * Breaking - Rework `resolve` interface to be object based and pass row index through it.
-  * Improvement - Implement `resolve.index`. This attached the row indices to `_index`. That can be handy data to have for optimization.
+  * Feature - Implement `resolve.index`. This attached the row indices to `_index`. That can be handy data to have for optimization.
 
 1.0.1 / 2016-07-26
 ==================
 
-  * Improvement - Make sure `undefined` keys aren't included in the resolved result.
+  * Feature - Make sure `undefined` keys aren't included in the resolved result.
 
 1.0.0 / 2016-07-25
 ==================

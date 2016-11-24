@@ -1,12 +1,12 @@
 4.1.0 / 2016-09-20
 ==================
 
-  * Improvement - Pass `extraParameters` to `edit` interface. #201
+  * Feature - Pass `extraParameters` to `edit` interface. #201
 
 2.0.2 / 2016-08-17
 ==================
 
-  * Improvement - Allow value rendering to be customized. Now you can pass a custom renderer for value if the default (no visible value!) isn't enough.
+  * Feature - Allow value rendering to be customized. Now you can pass a custom renderer for value if the default (no visible value!) isn't enough.
 
 2.0.0 / 2016-08-16
 ==================
@@ -17,17 +17,17 @@
 1.2.1 / 2016-08-05
 ==================
 
-  * Improvement - Expose `event` to `onActivate`.
+  * Feature - Expose `event` to `onActivate`.
 
 1.1.6 / 2016-08-05
 ==================
 
-  * Improvement - Allow `activateEvent` (default `onClick`) to be overridden.
+  * Feature - Allow `activateEvent` (default `onClick`) to be overridden.
 
 1.1.0 / 2016-08-03
 ==================
 
-  * Improvement - Allow `editingProps` (`value`/`onValue`) to be overridden.
+  * Feature - Allow `editingProps` (`value`/`onValue`) to be overridden.
 
 1.0.0 / 2016-07-25
 ==================

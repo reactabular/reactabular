@@ -1,7 +1,7 @@
 1.0.5 / 2016-07-27
 ==================
 
-  * Improvement - Do not pass `undefined` keys to `_highlights` data.
+  * Feature - Do not pass `undefined` keys to `_highlights` data.
 
 1.0.1 / 2016-07-26
 ==================

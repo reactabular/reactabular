@@ -10,7 +10,7 @@ Consider the example below.
 /*
 import React from 'react';
 import {
-  Table, search, Search
+  Table, search, Search, resolve
 } from 'reactabular';
 */
 
@@ -23,10 +23,23 @@ class SearchTable extends React.Component {
       query: {}, // Search query
       columns: [
         {
-          property: 'name',
           header: {
             label: 'Name'
-          }
+          },
+          children: [
+            {
+              property: 'name.first',
+              header: {
+                label: 'First Name'
+              }
+            },
+            {
+              property: 'name.last',
+              header: {
+                label: 'Last Name'
+              }
+            }
+          ]
         },
         {
           property: 'age',
@@ -38,30 +51,50 @@ class SearchTable extends React.Component {
       rows: [
         {
           id: 100,
-          name: 'Adam',
-          age: 12
+          name: {
+            first: 'Adam',
+            last: 'West'
+          },
+          age: 10
         },
         {
           id: 101,
-          name: 'Brian',
-          age: 7
-        },
-        {
-          id: 102,
-          name: 'Jake',
-          age: 88
+          name: {
+            first: 'Brian',
+            last: 'Eno'
+          },
+          age: 43
         },
         {
           id: 103,
-          name: 'Jill',
-          age: 50
+          name: {
+            first: 'Jake',
+            last: 'Dalton'
+          },
+          age: 33
+        },
+        {
+          id: 104,
+          name: {
+            first: 'Jill',
+            last: 'Jackson'
+          },
+          age: 63
         }
       ]
     };
   }
   render() {
-    const { searchColumn, rows, columns, query } = this.state;
-    const searchedRows = search.multipleColumns({ columns, query })(rows);
+    const { searchColumn, columns, rows, query } = this.state;
+    const resolvedColumns = resolve.columnChildren({ columns });
+    const resolvedRows = resolve.resolve({
+      columns: resolvedColumns,
+      method: resolve.nested
+    })(rows);
+    const searchedRows = search.multipleColumns({
+      columns: resolvedColumns,
+      query
+    })(resolvedRows);
 
     return (
       <div>
@@ -70,14 +103,16 @@ class SearchTable extends React.Component {
           <Search
             column={searchColumn}
             query={query}
-            columns={columns}
-            rows={rows}
+            columns={resolvedColumns}
+            rows={resolvedRows}
             onColumnChange={searchColumn => this.setState({ searchColumn })}
             onChange={query => this.setState({ query })}
           />
         </div>
-        <Table.Provider columns={columns}>
-          <Table.Header />
+        <Table.Provider columns={resolvedColumns}>
+          <Table.Header
+            headerRows={resolve.headerRows({ columns })}
+          />
 
           <Table.Body rows={searchedRows} rowKey="id" />
         </Table.Provider>

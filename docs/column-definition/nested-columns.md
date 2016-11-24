@@ -1,4 +1,4 @@
-Given sometimes you might want to display rows in a nested manner, there's a `children` field for that. It accepts an array of column definitions and is recursive. If `children` has been set, then `cell` specific sibling field won't do anything. `header` will still work as usual.
+Given sometimes you might want to display rows in a nested manner, you can use resolvers for this purpose. One way to do this is to use a `children` field and then convert the tree structure to something flat that Reactabular understands. Reactabular core doesn't know anything about trees but it works thanks to this conversion step.
 
 **Example:**
 
@@ -78,16 +78,26 @@ const rows = [
   }
 ];
 
-const NestedColumnsTable = () => (
-  <Table.Provider columns={columns}>
-    <Table.Header />
+const NestedColumnsTable = () => {
+  const resolvedColumns = resolve.columnChildren({ columns });
+  const resolvedRows = resolve.resolve({
+    columns: resolvedColumns,
+    method: resolve.nested
+  })(rows);
 
-    <Table.Body
-      rows={resolve.resolve({ columns, method: resolve.nested })(rows)}
-      rowKey="id"
-    />
-  </Table.Provider>
-);
+  return (
+    <Table.Provider columns={resolvedColumns}>
+      <Table.Header
+        headerRows={resolve.headerRows({ columns })}
+      />
+
+      <Table.Body
+        rows={resolvedRows}
+        rowKey="id"
+      />
+    </Table.Provider>
+  );
+};
 
 <NestedColumnsTable />
 ```

@@ -1,14 +1,22 @@
+import omit from 'lodash/omit';
 import countRowSpan from './count-row-span';
 
-function resolveHeaderRows(columns = []) {
+function resolveHeaderRows({
+  columns,
+  childrenField = 'children'
+}) {
   let resolvedChildren = [];
 
   const ret = columns.map((column) => {
-    const { children, ...col } = column;
+    const children = column[childrenField];
+    const col = omit(column, [childrenField]);
 
     if (children && children.length) {
       resolvedChildren = resolvedChildren.concat(
-        resolveHeaderRows(children)[0]
+        resolveHeaderRows({
+          columns: children,
+          childrenField
+        })[0]
       );
 
       return {
@@ -29,11 +37,7 @@ function resolveHeaderRows(columns = []) {
     };
   });
 
-  if (resolvedChildren.length) {
-    return [ret].concat([resolvedChildren]);
-  }
-
-  return [ret];
+  return resolvedChildren.length ? [ret].concat([resolvedChildren]) : [ret];
 }
 
 export default resolveHeaderRows;

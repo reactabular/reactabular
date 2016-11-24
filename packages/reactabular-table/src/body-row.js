@@ -1,8 +1,9 @@
+import isEqual from 'lodash/isEqual';
 import isFunction from 'lodash/isFunction';
 import React from 'react';
 import {
-  evaluateTransforms, mergePropPair,
-  columnsAreEqual, rowsAreEqual
+  evaluateTransforms, evaluateFormatters,
+  mergeProps, columnsAreEqual
 } from 'reactabular-utils';
 import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
 
@@ -23,7 +24,7 @@ class BodyRow extends React.Component {
 
     return !(
       columnsAreEqual(previousProps.columns, nextProps.columns) &&
-      rowsAreEqual(previousProps.rowData, nextProps.rowData)
+      isEqual(previousProps.rowData, nextProps.rowData)
     );
   }
   render() {
@@ -32,21 +33,23 @@ class BodyRow extends React.Component {
     return React.createElement(
       components.row,
       onRow(rowData, { rowIndex, rowKey }),
-      columns.map(({ column, cell, property, props }, j) => {
+      columns.map((column, columnIndex) => {
+        const { property, cell, props } = column;
+        const evaluatedProperty = property || (cell && cell.property);
         const {
           transforms = [],
-          format = a => a
+          formatters = []
         } = cell || {}; // TODO: test against this case
         const extraParameters = {
-          columnIndex: j,
+          columnIndex,
+          property: evaluatedProperty,
           column,
           rowData,
           rowIndex,
-          rowKey,
-          property
+          rowKey
         };
         const transformed = evaluateTransforms(
-          transforms, rowData[property], extraParameters
+          transforms, rowData[evaluatedProperty], extraParameters
         );
 
         if (!transformed) {
@@ -56,12 +59,17 @@ class BodyRow extends React.Component {
         return React.createElement(
           components.cell,
           {
-            key: `${j}-cell`,
-            ...mergePropPair(props, transformed)
+            key: `${columnIndex}-cell`,
+            ...mergeProps(
+              props,
+              cell && cell.props,
+              transformed
+            )
           },
-          transformed.children ||
-          format(rowData[`_${property}`] ||
-          rowData[property], extraParameters)
+          transformed.children || evaluateFormatters(formatters)(
+              rowData[`_${evaluatedProperty}`] ||
+              rowData[evaluatedProperty], extraParameters
+            )
         );
       })
     );

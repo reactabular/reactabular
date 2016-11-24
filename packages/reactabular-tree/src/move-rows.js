@@ -15,6 +15,7 @@ const moveTreeRows = ({
     targetRowId,
     idField
   })(rows);
+  let cancelMoving = false;
 
   if (movedRows) {
     // Walk through the old row definition, patch parent relations and fields
@@ -36,10 +37,12 @@ const moveTreeRows = ({
 
       if (index < 0) {
         console.warn( // eslint-disable-line no-console
-          'Failed to find the old parent', rows, row, idField, parentField
+          'tree.moveRows - Failed to find the old parent', rows, row, idField, parentField
         );
 
-        return row;
+        cancelMoving = true;
+
+        return null;
       }
 
       // Figure out the new id based on that index
@@ -52,6 +55,10 @@ const moveTreeRows = ({
         [parentField]: id
       };
     });
+  }
+
+  if (cancelMoving) {
+    return rows;
   }
 
   return movedRows;
