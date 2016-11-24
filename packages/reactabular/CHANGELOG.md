@@ -1,30 +1,104 @@
 7.1.0 / 2016-xx-xx
 ==================
 
+This is a major release with plenty of improvements, but also some breakage so go through the following changes carefully. The biggest changes have to do with the column definition (`formatters [<fn>]` over `format: <fn>`), resolving (composes better), `reactabular-easy` partitioning (better API for the future), and the way column definitions are handled.
+
+Reactabular doesn't support nested column definitions out of the box anymore. Instead you have to resolve such definitions before passing them to Reactabular. Even though it's more code, now all the logic (search/sorting/...) works with nested definitions and you have control over naming.
+
+  * Breaking - `resizableColumn` isn't included in the core distribution anymore. You should use `reactabular-resizable` instead.
+
 ## reactabular-dnd
 
   * Feature - Expose `dnd.draggableRow`. This allows you to use row dragging with virtualization. Example: `body.row = dnd.draggableRow(Virtualized.BodyRow)`.
   * Feature - `dnd.draggableRow` hooks into row level (`onRow({ rowId })`) props `onCanMove({ rowId })`, `onMoveStart({ rowId })`, `onMove({ sourceRowId, targetRowId })`, and `onMoveEnd({ rowId })` instead of just `onMove`.
+  * Feature - Fail fas if `moveLabels` is missing data.
+  * Feature - Expose `move` core algorithm. This can be useful standalone.
 
 ## reactabular-easy
 
   * Feature - Support row dragging. This has been exposed through `onMoveRow({ sourceRowId, targetRowId })`. You are expected to call an algorithm that actually moves the row there. `reactabular-dnd` implements these. Note that this works only while there is no sorting or search query in place!
   * Bug fix - Inject `className` per row only if it has been defined at `onRow`.
   * Bug fix - If a column has width set, set `maxWidth` to it as well. #238
+  * Breaking - The API has been partitioned so that the column definition related functionality is bound separately. This makes it possible to implement nested column functionality on top of it. Consider the example below and see the README for more:
+
+```javascript
+...
+
+render() {
+  ...
+
+  const newColumns = easy.bindColumns({
+    toggleChildrenProps: { className: 'toggle-children' },
+    sortingColumns,
+    rows,
+    idField,
+    parentField,
+    props: this.props,
+
+    // Handlers
+    onMoveColumns: this.onMoveColumns,
+    onSort: this.onSort,
+    onDragColumn: this.onDragColumn,
+    onToggleShowingChildren: this.onToggleShowingChildren
+  })(columns);
+
+  ...
+}
+
+...
+```
 
 ## reactabular-table
 
+  * Feature - Pass whole column through header/body for extra parameters.
   * Feature - Support `onRow` at `Table.Header`.
+  * Feature - Allow `Table.Header` to accept `headerRows` (an array of column definitions) to override default columns. See below.
   * Bug fix - Skip functions at `BodyRow` `shouldComponentUpdate`.
+  * Breaking - Generalize `format: <fn>` as `formatters: [<fn>]`. The formatters are applied recursively from left to right: `[f1, f2, f3] => f1(f2(f3(value, extra)))`. This allows composition.
+  * Breaking - Extract nested column logic. Now you will have to resolve nested columns before passing them to the table. The advantage of doing this is that now all logic (search/sorting/etc.) works with nested tables. Basic idea:
+
+```javascript
+import { resolve } from 'reactabular';
+// or
+// import * as resolve from 'reactabular-resolve';
+
+...
+
+const NestedColumnsTable = () => {
+  const resolvedColumns = resolve.columnChildren({ columns });
+  const resolvedRows = resolve.resolve({
+    columns: resolvedColumns,
+    method: resolve.nested
+  })(rows);
+
+  return (
+    <Table.Provider columns={resolvedColumns}>
+      <Table.Header
+        headerRows={resolve.headerRows({ columns })}
+      />
+
+      <Table.Body
+        rows={resolvedRows}
+        rowKey="id"
+      />
+    </Table.Provider>
+  );
+};
+
+...
+```
 
 ## reactabular-tree
 
   * Bug fix - Respect `idField` properly at `tree.moveRows`.
   * Breaking - Make `tree.filter` throw if `fieldName` is not passed. Without this it would fail silently.
+  * Feature - Attach `_isParent` to parents when using `tree.unpack`.
+  * Bug fix - `tree.moveRows` will return the original rows now if moving fails for some reason.
 
 ## reactabular-resizable
 
   * Feature - Allow `minWidth` to be set per `column` explicitly.
+  * Breaking - Push performance optimized resizing to a function. As a result `reactabular-resizable` exposes `column` and `helper` functions now. `column` is the same as before. `helper` implements optional performance optimizations. See the README for usage instructions.
 
 ## reactabular-search-columns
 
@@ -34,9 +108,17 @@
 
   * Feature - Add `columnsAreEqual` checker.
   * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
+  * Feature - Add `columnsAreEqual` checker.
+  * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
+  * Breaking - Move `utils.countRowSpan` has been dropped as it's not needed here anymore (moved to `resolve`).
+  * Breaking - Drop `utils.mergeClassNames`. This was replaced by [classnames](https://www.npmjs.org/package/classnames) internally and the column definition accepts formats used by `classnames`.
+  * Breaking - Generalize `utils.mergePropPair` as `utils.mergeProps`. It accepts an arbitrary amount of prop collections now.
+  * Breaking - Drop `utils.resolveBodyColumns`, `utils.resolveHeaderRows`, `utils.resolveRowKey`. The functionality was moved to the `resolve` package.
+  * Breaking - Drop `utils.rowsAreEqual`. Same as `lodash.isEqual(oldRows, newRows)`.
 
 ## reactabular-resolve
 
+  * Feature - Add `resolve.columnChildren({ columns, childrenField = 'children' }) => <resolved columns>`. Earlier this was in `reactabular-utils` but it fits this namespace better.
   * Breaking - Allow resolvers to be composed more easily. Now the API follows the pattern `(extra) => (rowData) => <resolved row>. This means the functions fit within `compose` like this:
 
 ```javascript
@@ -48,6 +130,12 @@ const resolver = resolve.resolve({
   )
 });
 ```
+
+## reactabular-visibility-toggles
+
+  * Bug fix - Show a visibility toggle only for those columns that have `header` defined.
+  * Breaking - Generalize `onToggleColumn`. It's `onToggleColumn({ column, columnIndex })` now instead of `onToggleColumn(columnIndex)`. This way it works with data not depending on index.
+  * Feature - Expose `isVisible(column)`. It checks `column.visible` by default. You can override the default behavior through this prop.
 
 ## reactabular-virtualized
 

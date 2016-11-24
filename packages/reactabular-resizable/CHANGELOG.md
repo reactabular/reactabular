@@ -2,6 +2,7 @@
 ==================
 
   * Feature - Allow `minWidth` to be set per `column` explicitly.
+  * Breaking - Push performance optimized resizing to a function. As a result `reactabular-resizable` exposes `column` and `helper` functions now. `column` is the same as before. `helper` implements optional performance optimizations. See the README for usage instructions.
 
 6.0.0 / 2016-10-14
 ==================

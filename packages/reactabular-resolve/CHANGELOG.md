@@ -1,6 +1,7 @@
 7.1.0 / 2016-xx-xx
 ==================
 
+  * Feature - Add `resolve.columnChildren({ columns, childrenField = 'children' }) => <resolved columns>`. Earlier this was in `reactabular-utils` but it fits this namespace better.
   * Breaking - Allow resolvers to be composed more easily. Now the API follows the pattern `(extra) => (rowData) => <resolved row>. This means the functions fit within `compose` like this:
 
 ```javascript

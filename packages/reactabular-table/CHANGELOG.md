@@ -1,8 +1,43 @@
 7.1.0 / 2016-xx-xx
 ==================
 
+  * Feature - Pass whole column through header/body for extra parameters.
   * Feature - Support `onRow` at `Table.Header`.
+  * Feature - Allow `Table.Header` to accept `headerRows` (an array of column definitions) to override default columns. See below.
   * Bug fix - Skip functions at `BodyRow` `shouldComponentUpdate`.
+  * Breaking - Generalize `format: <fn>` as `formatters: [<fn>]`. The formatters are applied recursively from left to right: `[f1, f2, f3] => f1(f2(f3(value, extra)))`. This allows composition.
+  * Breaking - Extract nested column logic. Now you will have to resolve nested columns before passing them to the table. The advantage of doing this is that now all logic (search/sorting/etc.) works with nested tables. Basic idea:
+
+```javascript
+import { resolve } from 'reactabular';
+// or
+// import * as resolve from 'reactabular-resolve';
+
+...
+
+const NestedColumnsTable = () => {
+  const resolvedColumns = resolve.columnChildren({ columns });
+  const resolvedRows = resolve.resolve({
+    columns: resolvedColumns,
+    method: resolve.nested
+  })(rows);
+
+  return (
+    <Table.Provider columns={resolvedColumns}>
+      <Table.Header
+        headerRows={resolve.headerRows({ columns })}
+      />
+
+      <Table.Body
+        rows={resolvedRows}
+        rowKey="id"
+      />
+    </Table.Provider>
+  );
+};
+
+...
+```
 
 6.0.0 / 2016-10-14
 ==================

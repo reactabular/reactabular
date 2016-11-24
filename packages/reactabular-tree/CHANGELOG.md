@@ -3,6 +3,8 @@
 
   * Bug fix - Respect `idField` properly at `tree.moveRows`.
   * Breaking - Make `tree.filter` throw if `fieldName` is not passed. Without this it would fail silently.
+  * Feature - Attach `_isParent` to parents when using `tree.unpack`.
+  * Bug fix - `tree.moveRows` will return the original rows now if moving fails for some reason.
 
 7.0.0 / 2016-11-03
 ==================

@@ -4,6 +4,34 @@
   * Feature - Support row dragging. This has been exposed through `onMoveRow({ sourceRowId, targetRowId })`. You are expected to call an algorithm that actually moves the row there. `reactabular-dnd` implements these. Note that this works only while there is no sorting or search query in place!
   * Bug fix - Inject `className` per row only if it has been defined at `onRow`.
   * Bug fix - If a column has width set, set `maxWidth` to it as well. #238
+  * Breaking - The API has been partitioned so that the column definition related functionality is bound separately. This makes it possible to implement nested column functionality on top of it. Consider the example below and see the README for more:
+
+```javascript
+...
+
+render() {
+  ...
+
+  const newColumns = easy.bindColumns({
+    toggleChildrenProps: { className: 'toggle-children' },
+    sortingColumns,
+    rows,
+    idField,
+    parentField,
+    props: this.props,
+
+    // Handlers
+    onMoveColumns: this.onMoveColumns,
+    onSort: this.onSort,
+    onDragColumn: this.onDragColumn,
+    onToggleShowingChildren: this.onToggleShowingChildren
+  })(columns);
+
+  ...
+}
+
+...
+```
 
 7.0.0 / 2016-11-03
 ==================
