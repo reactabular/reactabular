@@ -35,8 +35,6 @@
   "jsnext:main": "dist",
   "dependencies": {
     "reactabular-resolve": "^7.0.0",
-    "reactabular-search-columns": "^6.0.0",
-    "reactabular-search-field": "^6.0.0",
     "reactabular-sticky": "^7.0.0",
     "reactabular-table": "^7.0.0"
   },

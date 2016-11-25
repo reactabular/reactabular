@@ -34,8 +34,6 @@ const documentationImports = {
   Sticky: { ...reactabular.Sticky },
   edit: { ...reactEdit },
   resolve: { ...reactabular.resolve },
-  SearchColumns: reactabular.SearchColumns,
-  Search: reactabular.Search,
   dnd: { ...dnd },
   tree: { ...tree },
   easy: { ...easy },

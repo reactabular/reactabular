@@ -7,9 +7,7 @@ import { compose } from 'redux';
 import {
   cloneDeep, findIndex, orderBy, keys, values, transforms
 } from 'lodash';
-import {
-  Table, resolve, SearchColumns
-} from 'reactabular';
+import { Table, resolve } from 'reactabular';
 import * as search from 'searchtabular';
 import * as sort from 'sortabular';
 import * as resizable from 'reactabular-resizable';
@@ -365,7 +363,7 @@ class AllFeaturesTable extends React.Component {
           style={{ overflowX: 'auto' }}
         >
           <Table.Header>
-            <SearchColumns query={query} columns={cols} onChange={this.onSearch} />
+            <search.Columns query={query} columns={cols} onChange={this.onSearch} />
           </Table.Header>
 
           <Table.Body onRow={this.onRow} rows={paginated.rows} rowKey="id" />

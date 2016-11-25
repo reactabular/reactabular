@@ -11,7 +11,7 @@ To make the drag and drop functionality work, you have to set up [react-dnd-html
 ```jsx
 /*
 import React from 'react';
-import { Search, SearchColumns, resolve } from 'reactabular';
+import { resolve } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as easy from 'reactabular-easy';
 import VisibilityToggles from 'reactabular-visibility-toggles';
@@ -286,7 +286,7 @@ class EasyDemo extends React.Component {
 
         <div className="search-container">
           <span>Search</span>
-          <Search
+          <search.Field
             query={query}
             columns={columnChildren}
             rows={rows}
@@ -312,7 +312,7 @@ class EasyDemo extends React.Component {
             }
           }}
           headerExtra={
-            <SearchColumns
+            <search.Columns
               query={query}
               columns={columnChildren}
               onChange={query => this.setState({ query })}

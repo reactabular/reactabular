@@ -9,6 +9,8 @@ The following packages have been moved to standalone projects:
 
   * `reactabular-search` is [searchtabular](https://github.com/reactabular/searchtabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.
   * `reactabular-highlight` has been integrated to `reactabular-search`. You get `search.highlighter`, `search.highlightCell`, and `search.highlightValue` now. Highlighting isn't bundled with `reactabular` wrapper anymore.
+  * `reactabular-search-columns` has been integrated to `reactabular-search`. You can access it through `search.Columns`. It's not bundled with `reactabular` wrapper anymore.
+  * `reactabular-search-field` has been integrated to `reactabular-search`. You can access it through `search.Field`. It's not bundled with `reactabular` wrapper anymore.
   * `reactabular-sort` is [sortabular](https://github.com/reactabular/sortabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.
 
 ## No More Nested Support Out of the Box
@@ -110,10 +112,6 @@ const NestedColumnsTable = () => {
 
   * Feature - Allow `minWidth` to be set per `column` explicitly.
   * Breaking - Push performance optimized resizing to a function. As a result `reactabular-resizable` exposes `column` and `helper` functions now. `column` is the same as before. `helper` implements optional performance optimizations. See the README for usage instructions.
-
-## reactabular-search-columns
-
-  * Bug fix - Make sure search `input`s get an empty default value to avoid a React warning about converting from an uncontrolled component to a controlled one.
 
 ## reactabular-utils
 

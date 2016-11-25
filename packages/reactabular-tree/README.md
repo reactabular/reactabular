@@ -106,11 +106,11 @@ Makes it possible to toggle node children through a user interface.
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import { compose } from 'redux';
-import {
-  Table, search, Search, sort, resolve
-} from 'reactabular';
+import { Table, resolve } from 'reactabular';
 import * as tree from 'reactabular-tree';
 import VisibilityToggles from 'reactabular-visibility-toggles';
+import * as search from 'searchtabular';
+import * as sort from 'sortabular';
 
 import {
   generateParents, generateRows
@@ -245,7 +245,7 @@ class TreeTable extends React.Component {
 
         <div className="search-container">
           <span>Search</span>
-          <Search
+          <search.Field
             column={searchColumn}
             query={query}
             columns={visibleColumns}

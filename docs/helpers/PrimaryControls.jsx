@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search } from 'reactabular';
+import * as search from 'searchtabular';
 import PerPage from './PerPage';
 
 const PrimaryControls = ({
@@ -13,7 +13,7 @@ const PrimaryControls = ({
     </div>
     <div className="search-container">
       <span>Search</span>
-      <Search
+      <search.Field
         column={column}
         query={query}
         columns={columns}

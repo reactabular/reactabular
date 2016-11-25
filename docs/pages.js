@@ -5,7 +5,6 @@ import dataPages from './data';
 import dragAndDropPages from './drag-and-drop';
 import featuresPages from './features';
 import examplesPages from './examples';
-import searchPages from './search';
 import contributingPages from './contributing';
 
 export default [
@@ -22,7 +21,6 @@ export default [
   tablePages('table'),
   columnDefinitionPages('column-definition'),
   dataPages('data'),
-  searchPages('search'),
   dragAndDropPages('drag-and-drop'),
   featuresPages('features'),
   {

@@ -3,6 +3,11 @@ export default rootPath => ({
   title: 'Features',
   pages: [
     {
+      path: `${rootPath}/search`,
+      title: 'Search',
+      component: require('searchtabular/README.md')
+    },
+    {
       path: `${rootPath}/resizing-columns`,
       title: 'Resizing Columns',
       component: require('reactabular-resizable/../README.md')

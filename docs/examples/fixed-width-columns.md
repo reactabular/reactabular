@@ -3,7 +3,7 @@ Depending on the content of your rows, you may encounter issues with column widt
 ```jsx
 /*
 import React from 'react';
-import { Table, Search } from 'reactabular';
+import { Table } from 'reactabular';
 import * as search from 'searchtabular';
 */
 
@@ -55,7 +55,7 @@ class FixedWidthColumnsTable extends React.Component {
       <div>
         <div className="search-container">
           <span>Search</span>
-          <Search
+          <search.Field
             column={searchColumn}
             query={query}
             columns={columns}
