@@ -1,6 +1,6 @@
 import { orderBy } from 'lodash';
 import { compose } from 'redux';
-import { sorter } from 'reactabular-sort';
+import { sorter } from 'sortabular';
 import pack from './pack';
 import unpack from './unpack';
 

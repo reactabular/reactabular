@@ -112,6 +112,7 @@
     "searchtabular": "^1.0.1",
     "segmentize": "^0.4.1",
     "selectabular": "^0.2.1",
+    "sortabular": "^1.0.0",
     "style-loader": "^0.13.1",
     "stylesheet-helpers": "^0.2.2",
     "url-loader": "^0.5.7",

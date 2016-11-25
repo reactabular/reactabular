@@ -15,7 +15,7 @@ export default rootPath => ({
     {
       path: `${rootPath}/sorting`,
       title: 'Sorting',
-      component: require('reactabular-sort/../README.md')
+      component: require('sortabular/README.md')
     },
     {
       path: `${rootPath}/paginating`,

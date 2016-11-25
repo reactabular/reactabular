@@ -3,9 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import 'purecss/build/pure.css';
+import 'sortabular/style.css';
 import 'react-pagify/style.css';
 import 'reactabular-resizable/../style.css';
-import 'reactabular-sort/../style.css';
 import 'reactabular-tree/../style.css';
 import 'reactabular-visibility-toggles/../style.css';
 
