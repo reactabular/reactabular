@@ -341,7 +341,3 @@ columns: [
   }
 ]
 ```
-
-## See Also
-
-* [Sort and Search](http://reactabular.js.org/#/examples/sort-and-search)

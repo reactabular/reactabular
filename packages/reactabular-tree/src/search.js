@@ -1,5 +1,5 @@
 import { uniq } from 'lodash';
-import { multipleColumns } from 'reactabular-search';
+import { multipleColumns } from 'searchtabular';
 import getChildren from './get-children';
 import getParents from './get-parents';
 

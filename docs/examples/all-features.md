@@ -8,9 +8,9 @@ import {
   cloneDeep, findIndex, orderBy, keys, values, transforms
 } from 'lodash';
 import {
-  Table, search, sort, highlight, resolve,
-  SearchColumns
+  Table, sort, highlight, resolve, SearchColumns
 } from 'reactabular';
+import * as search from 'searchtabular';
 import * as resizable from 'reactabular-resizable';
 import * as edit from 'react-edit';
 import VisibilityToggles from 'reactabular-visibility-toggles';

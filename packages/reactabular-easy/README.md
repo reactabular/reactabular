@@ -11,7 +11,7 @@ To make the drag and drop functionality work, you have to set up [react-dnd-html
 ```jsx
 /*
 import React from 'react';
-import { search, Search, SearchColumns, resolve } from 'reactabular';
+import { Search, SearchColumns, resolve } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as easy from 'reactabular-easy';
 import VisibilityToggles from 'reactabular-visibility-toggles';

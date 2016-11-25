@@ -3,6 +3,14 @@
 
 This is a major release with plenty of improvements, but also some breakage so go through the following changes carefully. The biggest changes have to do with the column definition (`formatters [<fn>]` over `format: <fn>`), resolving (composes better), `reactabular-easy` partitioning (better API for the future), and the way column definitions are handled.
 
+## Reorganization
+
+The following packages have been moved to standalone projects:
+
+* `reactabular-search` is [searchtabular](https://github.com/reactabular/searchtabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.
+
+## No More Nested Support Out of the Box
+
 Reactabular doesn't support nested column definitions out of the box anymore. Instead you have to resolve such definitions before passing them to Reactabular. Even though it's more code, now all the logic (search/sorting/...) works with nested definitions and you have control over naming.
 
   * Breaking - `resizableColumn` isn't included in the core distribution anymore. You should use `reactabular-resizable` instead.

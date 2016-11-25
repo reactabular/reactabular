@@ -10,8 +10,9 @@ Consider the example below.
 /*
 import React from 'react';
 import {
-  Table, search, Search, resolve
+  Table, Search, resolve
 } from 'reactabular';
+import * as search from 'searchtabular';
 */
 
 class SearchTable extends React.Component {

@@ -5,7 +5,7 @@ export default rootPath => ({
     {
       path: `${rootPath}/search-algorithms`,
       title: 'Algorithms',
-      component: require('reactabular-search/../README.md')
+      component: require('searchtabular/README.md')
     },
     {
       path: `${rootPath}/search-per-field`,

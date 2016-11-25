@@ -44,7 +44,7 @@
     "lodash": ">= 3.0.0 < 5.0.0",
     "react": ">= 0.11.2 < 16.0.0",
     "reactabular-dnd": ">= 6.0.0 < 8.0.0",
-    "reactabular-search": ">= 6.0.0 < 8.0.0",
+    "searchtabular": ">= 1.0.0 < 2.0.0",
     "reactabular-sort": ">= 6.0.0 < 8.0.0",
     "redux": ">= 3.0.0 < 4.0.0"
   }

@@ -17,8 +17,9 @@ _highlights: {
 import React from 'react';
 import { compose } from 'redux';
 import {
-  Table, search, Search, highlight, resolve
+  Table, Search, highlight, resolve
 } from 'reactabular';
+import * as search from 'searchtabular';
 */
 
 class HighlightTable extends React.Component {

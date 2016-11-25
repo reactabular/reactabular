@@ -1,6 +1,7 @@
 import {
-  sort, resolve, highlight, search
+  sort, resolve, highlight
 } from 'reactabular';
+import * as search from 'searchtabular';
 import * as tree from 'reactabular-tree';
 import { compose } from 'redux';
 

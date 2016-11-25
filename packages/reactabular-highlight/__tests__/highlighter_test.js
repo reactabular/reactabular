@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as search from '../../reactabular-search/src';
+import * as search from 'searchtabular';
 import * as highlight from '../src';
 
 describe('highlight.highlighter', function () {

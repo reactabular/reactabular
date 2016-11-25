@@ -21,6 +21,7 @@ import * as select from 'reactabular-select';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as Virtualized from 'reactabular-virtualized';
 import * as stylesheet from 'stylesheet-helpers';
+import * as searchtabular from 'searchtabular';
 import selectabular from 'selectabular';
 
 import * as rowsDefinitions from './data/definitions';
@@ -30,7 +31,6 @@ import countries from './data/countries';
 const documentationImports = {
   Table: { ...reactabular.Table },
   Sticky: { ...reactabular.Sticky },
-  search: { ...reactabular.search },
   sort: { ...reactabular.sort },
   edit: { ...reactEdit },
   highlight: { ...reactabular.highlight },
@@ -44,6 +44,7 @@ const documentationImports = {
   VisibilityToggles,
   Virtualized: { ...Virtualized },
   stylesheet: { ...stylesheet },
+  search: { ...searchtabular },
   select: { ...selectabular },
   ...select,
   ...reactDnd,

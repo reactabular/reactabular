@@ -3,7 +3,8 @@ Depending on the content of your rows, you may encounter issues with column widt
 ```jsx
 /*
 import React from 'react';
-import { Table, search, Search } from 'reactabular';
+import { Table, Search } from 'reactabular';
+import * as search from 'searchtabular';
 */
 
 class FixedWidthColumnsTable extends React.Component {
