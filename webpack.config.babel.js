@@ -131,7 +131,7 @@ if (TARGET.startsWith('gh-pages')) {
         'react-dnd', 'react-dnd-html5-backend',
         'react-github-corner', 'react-redux', 'redux', 'uuid',
         'annogenerate', 'selectabular', 'deep-diff',
-        'searchtabular', 'sortabular'
+        'searchtabular', 'sortabular', 'react-edit'
       ])
     },
     output: {

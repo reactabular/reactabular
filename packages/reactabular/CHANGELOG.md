@@ -12,6 +12,7 @@ The following packages have been moved to standalone projects:
   * `reactabular-search-columns` has been integrated to `reactabular-search`. You can access it through `search.Columns`. It's not bundled with `reactabular` wrapper anymore.
   * `reactabular-search-field` has been integrated to `reactabular-search`. You can access it through `search.Field`. It's not bundled with `reactabular` wrapper anymore.
   * `reactabular-sort` is [sortabular](https://github.com/reactabular/sortabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.
+  * `react-edit` is functionally the same as before except it is in a repository of its own. This makes it possible to keep its versioning out of sync with the rest as it moves slower.
 
 ## No More Nested Support Out of the Box
 

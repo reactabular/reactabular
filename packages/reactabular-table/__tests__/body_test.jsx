@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
+import * as edit from 'react-edit';
 import * as Table from '../src';
-import * as edit from '../../react-edit/src';
 import * as resolve from '../../reactabular-resolve/src';
 
 describe('Table.Body', function () {
