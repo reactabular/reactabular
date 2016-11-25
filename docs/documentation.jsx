@@ -33,7 +33,6 @@ const documentationImports = {
   Table: { ...reactabular.Table },
   Sticky: { ...reactabular.Sticky },
   edit: { ...reactEdit },
-  highlight: { ...reactabular.highlight },
   resolve: { ...reactabular.resolve },
   SearchColumns: reactabular.SearchColumns,
   Search: reactabular.Search,

@@ -41,7 +41,7 @@ The idea here is the same as for `header.formatters`.
     formatters: [
       (salary, extra) => (
         <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-          {highlight.cell(salary, extra)}
+          {search.highlightCell(salary, extra)}
         </span>
       )
     ]

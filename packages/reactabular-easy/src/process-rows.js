@@ -1,5 +1,5 @@
 import {
-  sort, resolve, highlight
+  sort, resolve
 } from 'reactabular';
 import * as search from 'searchtabular';
 import * as tree from 'reactabular-tree';
@@ -23,7 +23,7 @@ function processRows({
       sortingColumns,
       strategy: sort.strategies.byProperty
     }),
-    movingRow ? id : highlight.highlighter({ columns, matches: search.matches, query }),
+    movingRow ? id : search.highlighter({ columns, matches: search.matches, query }),
     movingRow ? id : tree.search({ columns, query, idField, parentField }),
     resolve.resolve({
       columns,

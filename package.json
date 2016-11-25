@@ -109,7 +109,7 @@
     "react-redux": "^4.4.6",
     "redux": "^3.6.0",
     "schema2object": "^0.4.0",
-    "searchtabular": "^1.0.1",
+    "searchtabular": "^1.1.0",
     "segmentize": "^0.4.1",
     "selectabular": "^0.2.1",
     "sortabular": "^1.0.0",

@@ -8,7 +8,7 @@ import {
   cloneDeep, findIndex, orderBy, keys, values, transforms
 } from 'lodash';
 import {
-  Table, highlight, resolve, SearchColumns
+  Table, resolve, SearchColumns
 } from 'reactabular';
 import * as search from 'searchtabular';
 import * as sort from 'sortabular';
@@ -165,7 +165,7 @@ class AllFeaturesTable extends React.Component {
             editable(edit.input())
           ],
           formatters: [
-            highlight.cell
+            search.highlightCell
           ]
         },
         footer: () => 'You could show sums etc. here in the customizable footer.',
@@ -189,7 +189,7 @@ class AllFeaturesTable extends React.Component {
             editable(edit.input())
           ],
           formatters: [
-            highlight.cell
+            search.highlightCell
           ]
         },
         visible: true
@@ -212,7 +212,7 @@ class AllFeaturesTable extends React.Component {
             editable(edit.input())
           ],
           formatters: [
-            highlight.cell
+            search.highlightCell
           ]
         },
         visible: true
@@ -241,7 +241,7 @@ class AllFeaturesTable extends React.Component {
             )
           ],
           formatters: [
-            (country, extra) => highlight.cell(country, extra)
+            (country, extra) => search.highlightCell(country, extra)
           ],
           // Resolve hint for search and highlighting
           resolve: country => countries[country]
@@ -268,7 +268,7 @@ class AllFeaturesTable extends React.Component {
           formatters: [
             (salary, extra) => (
               <span onDoubleClick={() => alert(`salary is ${salary}`)}>
-                {highlight.cell(salary, extra)}
+                {search.highlightCell(salary, extra)}
               </span>
             )
           ]
@@ -329,7 +329,7 @@ class AllFeaturesTable extends React.Component {
     const paginated = compose(
       paginate(pagination),
       sort.sorter({ columns: cols, sortingColumns, sort: orderBy }),
-      highlight.highlighter({ columns: cols, matches: search.matches, query }),
+      search.highlighter({ columns: cols, matches: search.matches, query }),
       search.multipleColumns({ columns: cols, query }),
       resolve.resolve({
         columns: cols,

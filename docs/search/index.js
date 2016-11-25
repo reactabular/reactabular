@@ -4,7 +4,7 @@ export default rootPath => ({
   pages: [
     {
       path: `${rootPath}/search-algorithms`,
-      title: 'Algorithms',
+      title: 'Algorithms and Highlighting',
       component: require('searchtabular/README.md')
     },
     {
@@ -16,11 +16,6 @@ export default rootPath => ({
       path: `${rootPath}/search-columns`,
       title: 'Columns',
       component: require('reactabular-search-columns/../README.md')
-    },
-    {
-      path: `${rootPath}/highlighting-search-results`,
-      title: 'Highlighting',
-      component: require('reactabular-highlight/../README.md')
     }
   ]
 });

@@ -1,8 +1,7 @@
-import {
-  sort, highlight
-} from 'reactabular';
 import * as resizable from 'reactabular-resizable';
 import * as tree from 'reactabular-tree';
+import * as search from 'searchtabular';
+import * as sort from 'sortabular';
 
 function bindHighlightCell() {
   return {
@@ -13,7 +12,7 @@ function bindHighlightCell() {
       return {
         cell: {
           formatters: [
-            highlight.cell
+            search.highlightCell
           ]
         }
       };

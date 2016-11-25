@@ -5,8 +5,6 @@
 
 As long as a formatter returns something that React can render, it will work. The results are rendered recursively from left to right **inside** a table cell.
 
-Reactabular provides a formatter to make it easier to highlight search results. It is covered in the next section.
-
 ## See Also
 
 * [Resizable Columns](/examples/resizable-columns)
