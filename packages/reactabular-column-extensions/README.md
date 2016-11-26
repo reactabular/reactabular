@@ -49,15 +49,15 @@ An extension has to be an object like this:
 
 **`extensions.resizableHeader({ window, onDragColumn, props }) => <extension>`**
 
-`resizableHeader` accepts `window` so you can make resizing work in an iframe. Most often you don't need to touch the parameter, though. You should define `onDragColumn(width, { column }` handler and deal with the new width there. `reactabular-resizable` can be useful there. `props` allow you to inject custom styling/props to `resizable.column`.
+`resizableHeader` injects the configuration required for resizable headers if `header.resizable` is set. It accepts `window` so you can make resizing work in an iframe. Most often you don't need to touch the parameter, though. You should define `onDragColumn(width, { column }` handler and deal with the new width there. `reactabular-resizable` can be useful there. `props` allow you to inject custom styling/props to `resizable.column`.
 
 **`extensions.sortableHeader({ sortingColumns, onSort, props, strategy }) => <extension>`**
 
-`sortableHeader` is a light wrapper to `sortabular`. It sets logic and user interface needed for altering sorting state. It also injects sort reset transform. `sortingColumns`, `onSort(sortingColumns)`, `props`, and `strategy` follow `sortabular` interface. `props` allow you to customize styling/props of `sortabular.sort`.
+`sortableHeader` is a light wrapper to `sortabular` that gets injected if `header.sortable` is set. It sets logic and user interface needed for altering sorting state. It also injects sort reset transform. `sortingColumns`, `onSort(sortingColumns)`, `props`, and `strategy` follow `sortabular` interface. `props` allow you to customize styling/props of `sortabular.sort`.
 
 **`extensions.toggleChildrenCell({ idField, parentField, onToggleShowingChildren, props, rows }) => <extension>`**
 
-`toggleChildrenCell` has been designed to work with nested tree data of `treetabular`. It allows you to customize tree `idField` and `parentField`. In addition you have to define what happens when children are toggled using `onToggleShowingChildren(rowIndex)`. If you want to customize `treetabular.toggleChildren`, you can pass `props` to it. The extension also expects you to pass the rows of your application to it.
+`toggleChildrenCell` gets injected if `cell.toggleChildren` is set. It has been designed to work with nested tree data of `treetabular`. It allows you to customize tree `idField` and `parentField`. In addition you have to define what happens when children are toggled using `onToggleShowingChildren(rowIndex)`. If you want to customize `treetabular.toggleChildren`, you can pass `props` to it. The extension also expects you to pass the rows of your application to it.
 
 ## Column Extension Example
 
