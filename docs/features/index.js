@@ -18,9 +18,9 @@ export default rootPath => ({
       component: require('reactabular-visibility-toggles/../README.md')
     },
     {
-      path: `${rootPath}/selecting-rows`,
-      title: 'Selecting Rows',
-      component: require('reactabular-select/../README.md')
+      path: `${rootPath}/selection`,
+      title: 'Selection',
+      component: require('selectabular/README.md')
     },
     {
       path: `${rootPath}/sticky`,
