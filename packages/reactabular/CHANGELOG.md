@@ -8,6 +8,7 @@ This is a major release with plenty of improvements, but also some breakage so g
 The following packages have been moved to standalone projects:
 
   * `reactabular-search` is [searchtabular](https://github.com/reactabular/searchtabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.
+  * `reactabular-tree` is [treetabular](https://github.com/reactabular/treetabular) now.
   * `reactabular-highlight` has been integrated to `reactabular-search`. You get `search.highlighter`, `search.highlightCell`, and `search.highlightValue` now. Highlighting isn't bundled with `reactabular` wrapper anymore.
   * `reactabular-search-columns` has been integrated to `reactabular-search`. You can access it through `search.Columns`. It's not bundled with `reactabular` wrapper anymore.
   * `reactabular-search-field` has been integrated to `reactabular-search`. You can access it through `search.Field`. It's not bundled with `reactabular` wrapper anymore.
@@ -102,13 +103,6 @@ const NestedColumnsTable = () => {
 
 ...
 ```
-
-## reactabular-tree
-
-  * Bug fix - Respect `idField` properly at `tree.moveRows`.
-  * Breaking - Make `tree.filter` throw if `fieldName` is not passed. Without this it would fail silently.
-  * Feature - Attach `_isParent` to parents when using `tree.unpack`.
-  * Bug fix - `tree.moveRows` will return the original rows now if moving fails for some reason.
 
 ## reactabular-resizable
 

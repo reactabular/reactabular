@@ -2,7 +2,7 @@ import {
   sort, resolve
 } from 'reactabular';
 import * as search from 'searchtabular';
-import * as tree from 'reactabular-tree';
+import * as tree from 'treetabular';
 import { compose } from 'redux';
 
 function processRows({

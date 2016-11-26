@@ -1,5 +1,5 @@
 import * as resizable from 'reactabular-resizable';
-import * as tree from 'reactabular-tree';
+import * as tree from 'treetabular';
 import * as search from 'searchtabular';
 import * as sort from 'sortabular';
 

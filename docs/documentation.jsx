@@ -15,14 +15,14 @@ import * as easy from 'reactabular-easy';
 import * as reactEdit from 'react-edit';
 import * as reactabular from 'reactabular';
 import * as dnd from 'reactabular-dnd';
-import * as tree from 'reactabular-tree';
 import * as resizable from 'reactabular-resizable';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as Virtualized from 'reactabular-virtualized';
 import * as stylesheet from 'stylesheet-helpers';
 import * as searchtabular from 'searchtabular';
 import * as sortabular from 'sortabular';
-import selectabular from 'selectabular';
+import * as selectabular from 'selectabular';
+import * as treetabular from 'treetabular';
 
 import * as rowsDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
@@ -34,7 +34,6 @@ const documentationImports = {
   edit: { ...reactEdit },
   resolve: { ...reactabular.resolve },
   dnd: { ...dnd },
-  tree: { ...tree },
   easy: { ...easy },
   resizable: { ...resizable },
   VisibilityToggles,
@@ -43,6 +42,7 @@ const documentationImports = {
   search: { ...searchtabular },
   select: { ...selectabular },
   sort: { ...sortabular },
+  tree: { ...treetabular },
   ...reactDnd,
   classnames,
   compose,

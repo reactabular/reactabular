@@ -18,14 +18,14 @@ export default rootPath => ({
       component: require('sortabular/README.md')
     },
     {
-      path: `${rootPath}/paginating`,
-      title: 'Paginating',
-      component: require('./paginating.md')
+      path: `${rootPath}/pagination`,
+      title: 'Pagination',
+      component: require('./pagination.md')
     },
     {
       path: `${rootPath}/tree`,
       title: 'Tree',
-      component: require('reactabular-tree/../README.md')
+      component: require('treetabular/README.md')
     }
   ]
 });

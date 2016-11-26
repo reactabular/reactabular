@@ -55,6 +55,7 @@
     "reactabular-virtualized": ">= 6.0.0 < 8.0.0",
     "searchtabular": ">= 1.0.0 < 2.0.0",
     "selectabular": ">= 2.0.0 < 3.0.0",
-    "sortabular": ">= 1.0.0 < 2.0.0"
+    "sortabular": ">= 1.0.0 < 2.0.0",
+    "treetabular": ">= 1.0.0 < 2.0.0"
   }
 }
