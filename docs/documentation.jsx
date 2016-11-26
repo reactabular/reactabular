@@ -18,6 +18,7 @@ import * as dnd from 'reactabular-dnd';
 import * as resizable from 'reactabular-resizable';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as Virtualized from 'reactabular-virtualized';
+import * as extensions from 'reactabular-column-extensions';
 import * as stylesheet from 'stylesheet-helpers';
 import * as searchtabular from 'searchtabular';
 import * as sortabular from 'sortabular';
@@ -36,6 +37,7 @@ const documentationImports = {
   dnd: { ...dnd },
   easy: { ...easy },
   resizable: { ...resizable },
+  extensions: { ...extensions },
   VisibilityToggles,
   Virtualized: { ...Virtualized },
   resolve: { ...resolve },

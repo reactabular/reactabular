@@ -1,0 +1,49 @@
+{
+  "name": "reactabular-column-extensions",
+  "version": "7.0.0",
+  "description": "Column extensions for Reactabular",
+  "scripts": {
+    "build": "rimraf ./dist && babel ./src --out-dir ./dist",
+    "prepublish": "npm run build"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reactabular/reactabular.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "table",
+    "tables",
+    "reactabular"
+  ],
+  "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reactabular/reactabular/issues"
+  },
+  "homepage": "http://reactabular.js.org/",
+  "main": "dist",
+  "module": "dist",
+  "jsnext:main": "dist",
+  "dependencies": {
+    "webpack-merge": "^0.17.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "rimraf": "^2.5.4"
+  },
+  "peerDependencies": {
+    "reactabular": ">= 6.0.0 < 8.0.0",
+    "searchtabular": ">= 1.0.0 < 2.0.0",
+    "sortabular": ">= 1.0.0 < 2.0.0",
+    "treetabular": ">= 1.0.0 < 2.0.0"
+  }
+}

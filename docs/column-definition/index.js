@@ -41,6 +41,11 @@ export default rootPath => ({
       path: `${rootPath}/nested-columns`,
       title: 'Nested Columns',
       component: require('./nested-columns.md')
+    },
+    {
+      path: `${rootPath}/column-extensions`,
+      title: 'Column Extensions',
+      component: require('reactabular-column-extensions/../README.md')
     }
   ]
 });

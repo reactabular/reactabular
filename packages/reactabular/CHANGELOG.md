@@ -134,6 +134,10 @@ const NestedColumnsTable = () => {
   * Bug fix - Skip functions at `BodyRow` `shouldComponentUpdate`.
   * Breaking - Speed up vertical scrolling by implementing `shouldComponentUpdate` for rows. Now it detects whether or not a row has been measured and also does check based on column and row changes like default SCU at reactabular-table.
 
+## reactabular-column-extensions
+
+  * New package to wrap common configuration.
+
 7.0.0 / 2016-11-03
 ==================
 
