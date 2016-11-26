@@ -23,6 +23,7 @@ import * as searchtabular from 'searchtabular';
 import * as sortabular from 'sortabular';
 import * as selectabular from 'selectabular';
 import * as treetabular from 'treetabular';
+import * as resolve from 'table-resolver';
 
 import * as rowsDefinitions from './data/definitions';
 import * as customHelpers from './helpers';
@@ -32,12 +33,12 @@ const documentationImports = {
   Table: { ...reactabular.Table },
   Sticky: { ...reactabular.Sticky },
   edit: { ...reactEdit },
-  resolve: { ...reactabular.resolve },
   dnd: { ...dnd },
   easy: { ...easy },
   resizable: { ...resizable },
   VisibilityToggles,
   Virtualized: { ...Virtualized },
+  resolve: { ...resolve },
   stylesheet: { ...stylesheet },
   search: { ...searchtabular },
   select: { ...selectabular },

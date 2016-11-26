@@ -116,6 +116,7 @@
     "sortabular": "^1.0.0",
     "style-loader": "^0.13.1",
     "stylesheet-helpers": "^0.2.2",
+    "table-resolver": "^1.0.0",
     "treetabular": "^1.0.1",
     "url-loader": "^0.5.7",
     "uuid": "^3.0.0",

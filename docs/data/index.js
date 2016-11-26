@@ -5,7 +5,7 @@ export default rootPath => ({
     {
       path: `${rootPath}/resolving`,
       title: 'Resolving',
-      component: require('reactabular-resolve/../README.md')
+      component: require('table-resolver/README.md')
     },
     {
       path: `${rootPath}/inline-editing`,

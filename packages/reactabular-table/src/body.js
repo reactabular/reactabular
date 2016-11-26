@@ -1,6 +1,6 @@
 import { isEqual, isFunction } from 'lodash';
 import React from 'react';
-import { rowKey as resolveRowKey } from 'reactabular-resolve';
+import { rowKey as resolveRowKey } from 'table-resolver';
 import { tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';
 import BodyRow from './body-row';
 

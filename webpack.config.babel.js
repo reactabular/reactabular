@@ -132,7 +132,7 @@ if (TARGET.startsWith('gh-pages')) {
         'react-github-corner', 'react-redux', 'redux', 'uuid',
         'annogenerate', 'selectabular', 'deep-diff',
         'searchtabular', 'sortabular', 'treetabular',
-        'react-edit'
+        'react-edit', 'table-resolver'
       ])
     },
     output: {

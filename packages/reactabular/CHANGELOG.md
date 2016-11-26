@@ -9,6 +9,7 @@ The following packages have been moved to standalone projects:
 
   * `reactabular-search` is [searchtabular](https://github.com/reactabular/searchtabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.
   * `reactabular-tree` is [treetabular](https://github.com/reactabular/treetabular) now.
+  * `reactabular-resolve` is [table-resolver](https://github.com/reactabular/table-resolver) now. It is not bundled with `reactabular` wrapper anymore.
   * `reactabular-highlight` has been integrated to `reactabular-search`. You get `search.highlighter`, `search.highlightCell`, and `search.highlightValue` now. Highlighting isn't bundled with `reactabular` wrapper anymore.
   * `reactabular-search-columns` has been integrated to `reactabular-search`. You can access it through `search.Columns`. It's not bundled with `reactabular` wrapper anymore.
   * `reactabular-search-field` has been integrated to `reactabular-search`. You can access it through `search.Field`. It's not bundled with `reactabular` wrapper anymore.
@@ -76,7 +77,7 @@ render() {
 ```javascript
 import { resolve } from 'reactabular';
 // or
-// import * as resolve from 'reactabular-resolve';
+// import * as resolve from 'table-resolver';
 
 ...
 
@@ -115,26 +116,11 @@ const NestedColumnsTable = () => {
   * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
   * Feature - Add `columnsAreEqual` checker.
   * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
-  * Breaking - Move `utils.countRowSpan` has been dropped as it's not needed here anymore (moved to `resolve`).
+  * Breaking - Move `utils.countRowSpan` has been dropped as it's not needed here anymore (moved to `table-resolver`).
   * Breaking - Drop `utils.mergeClassNames`. This was replaced by [classnames](https://www.npmjs.org/package/classnames) internally and the column definition accepts formats used by `classnames`.
   * Breaking - Generalize `utils.mergePropPair` as `utils.mergeProps`. It accepts an arbitrary amount of prop collections now.
-  * Breaking - Drop `utils.resolveBodyColumns`, `utils.resolveHeaderRows`, `utils.resolveRowKey`. The functionality was moved to the `resolve` package.
+  * Breaking - Drop `utils.resolveBodyColumns`, `utils.resolveHeaderRows`, `utils.resolveRowKey`. The functionality was moved to the `table-resolver` package.
   * Breaking - Drop `utils.rowsAreEqual`. Same as `lodash.isEqual(oldRows, newRows)`.
-
-## reactabular-resolve
-
-  * Feature - Add `resolve.columnChildren({ columns, childrenField = 'children' }) => <resolved columns>`. Earlier this was in `reactabular-utils` but it fits this namespace better.
-  * Breaking - Allow resolvers to be composed more easily. Now the API follows the pattern `(extra) => (rowData) => <resolved row>. This means the functions fit within `compose` like this:
-
-```javascript
-const resolver = resolve.resolve({
-  columns,
-  method: (extra) => compose(
-    resolve.byFunction('cell.resolve')(extra),
-    resolve.nested(extra)
-  )
-});
-```
 
 ## reactabular-visibility-toggles
 

@@ -5,7 +5,8 @@ Given sometimes you might want to display rows in a nested manner, you can use r
 ```jsx
 /*
 import React from 'react';
-import { Table, resolve } from 'reactabular';
+import { Table } from 'reactabular';
+import * as resolve from 'table-resolver';
 */
 
 const columns = [

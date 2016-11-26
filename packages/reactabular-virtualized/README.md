@@ -9,7 +9,7 @@
 import React from 'react';
 import * as Sticky from 'reactabular-sticky';
 import * as Virtualized from 'reactabular-virtualized';
-import * as resolve from 'reactabular-resolve';
+import * as resolve from 'table-resolver';
 
 import { generateRows } from './helpers';
 */
