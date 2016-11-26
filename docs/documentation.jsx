@@ -17,7 +17,6 @@ import * as reactabular from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as tree from 'reactabular-tree';
 import * as resizable from 'reactabular-resizable';
-import * as select from 'reactabular-select';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as Virtualized from 'reactabular-virtualized';
 import * as stylesheet from 'stylesheet-helpers';
@@ -44,7 +43,6 @@ const documentationImports = {
   search: { ...searchtabular },
   select: { ...selectabular },
   sort: { ...sortabular },
-  ...select,
   ...reactDnd,
   classnames,
   compose,

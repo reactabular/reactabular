@@ -2,10 +2,9 @@ import React from 'react';
 import classnames from 'classnames';
 import { Table, Sticky } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
-import { byArrowKeys } from 'reactabular-select';
 import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';
-import select from 'selectabular';
+import * as select from 'selectabular';
 import { findIndex, values } from 'lodash';
 import processRows from './process-rows';
 import { defaultProps, propTypes } from './types';
@@ -78,7 +77,7 @@ class EasyTable extends React.Component {
       selectedRow
     });
 
-    return byArrowKeys({
+    return select.byArrowKeys({
       rows,
       selectedRowIndex,
       onSelectRow: this.selectRow

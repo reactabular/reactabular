@@ -50,12 +50,11 @@
     "reactabular": ">= 6.0.0 < 8.0.0",
     "reactabular-dnd": ">= 4.2.0 < 8.0.0",
     "reactabular-resizable": ">= 6.0.0 < 8.0.0",
-    "reactabular-select": ">= 6.0.0 < 8.0.0",
     "reactabular-tree": ">= 6.0.0 < 8.0.0",
     "reactabular-utils": ">= 6.0.0 < 8.0.0",
     "reactabular-virtualized": ">= 6.0.0 < 8.0.0",
     "searchtabular": ">= 1.0.0 < 2.0.0",
-    "selectabular": ">= 1.0.0 < 2.0.0",
+    "selectabular": ">= 2.0.0 < 3.0.0",
     "sortabular": ">= 1.0.0 < 2.0.0"
   }
 }

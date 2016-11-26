@@ -112,7 +112,7 @@
     "schema2object": "^0.4.0",
     "searchtabular": "^1.2.0",
     "segmentize": "^0.4.1",
-    "selectabular": "^0.2.1",
+    "selectabular": "^2.0.0",
     "sortabular": "^1.0.0",
     "style-loader": "^0.13.1",
     "stylesheet-helpers": "^0.2.2",
