@@ -17,6 +17,8 @@ The following packages have been moved to standalone projects:
   * `reactabular-select` was integrated into [selectabular](https://github.com/reactabular/selectabular). You can access it through `import { byArrowKeys } from 'selectabular';`.
   * `react-edit` is functionally the same as before except it is in a repository of its own. This makes it possible to keep its versioning out of sync with the rest as it moves slower.
 
+`reactabular-utils` doesn't exist anymore as the functionality has been split up into `reactabular-table` and `table-resolver`.
+
 ## No More Nested Support Out of the Box
 
 Reactabular doesn't support nested column definitions out of the box anymore. Instead you have to resolve such definitions before passing them to Reactabular. Even though it's more code, now all the logic (search/sorting/...) works with nested definitions and you have control over naming.
@@ -110,17 +112,6 @@ const NestedColumnsTable = () => {
 
   * Feature - Allow `minWidth` to be set per `column` explicitly.
   * Breaking - Push performance optimized resizing to a function. As a result `reactabular-resizable` exposes `column` and `helper` functions now. `column` is the same as before. `helper` implements optional performance optimizations. See the README for usage instructions.
-
-## reactabular-utils
-
-  * Feature - Add `columnsAreEqual` checker.
-  * Breaking - Move `utils.countRowSpan` has been dropped as it's not needed here anymore (moved to `table-resolver`).
-  * Breaking - Drop `utils.mergeClassNames`. This was replaced by [classnames](https://www.npmjs.org/package/classnames) internally and the column definition accepts formats used by `classnames`.
-  * Breaking - Generalize `utils.mergePropPair` as `utils.mergeProps`. It accepts an arbitrary amount of prop collections now.
-  * Breaking - Drop `utils.resolveBodyColumns`, `utils.resolveHeaderRows`, `utils.resolveRowKey`. The functionality was moved to the `table-resolver` package.
-  * Breaking - Drop `utils.rowsAreEqual`. Same as `lodash.isEqual(oldRows, newRows)`.
-  * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
-  * Breaking - Move `utils.evaluateFormatters` and `utils.evaluateTransforms` to `reactabular-table`. Those aren't used elsewhere so that makes a lot of sense.
 
 ## reactabular-visibility-toggles
 
