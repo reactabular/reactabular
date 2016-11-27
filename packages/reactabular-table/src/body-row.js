@@ -1,6 +1,6 @@
 import { isEqual, isFunction } from 'lodash';
 import React from 'react';
-import { columnsAreEqual } from 'reactabular-utils';
+import columnsAreEqual from './columns-are-equal';
 import evaluateFormatters from './evaluate-formatters';
 import evaluateTransforms from './evaluate-transforms';
 import mergeProps from './merge-props';
