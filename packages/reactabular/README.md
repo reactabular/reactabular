@@ -2,9 +2,9 @@ Reactabular has been designed to be extensible. Rather than implementing a lot o
 
 By default Reactabular operates using a column and a data definition. It doesn't care where those come from. It just renders the table for you. This means Reactabular will fit right into your current data architecture. It doesn't constrain it in any manner.
 
-The chosen approach pushes a lot of complexity out of the core. As a result it might take more code to achieve certain functionalities. This is the price of flexibility. And that's the primary design goal of Reactabular.
+The chosen approach pushes a lot of complexity out of the core. As a result it might take more code to achieve certain functionalities. This is the price of flexibility. And that's the primary design goal of Reactabular. You can think Reactabular as a framework you use to build the table you want.
 
-Learn more about Reactabular at [reactabular.js.org](http://reactabular.js.org/)!
+**IMPORTANT! You cannot use Reactabular through this package! Head to [reactabular.js.org](http://reactabular.js.org/) in order to learn more!**
 
 ## License
 
