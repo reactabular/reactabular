@@ -70,6 +70,7 @@ render() {
   * Feature - Pass whole column through header/body for extra parameters.
   * Feature - Support `onRow` at `Table.Header`.
   * Feature - Allow `Table.Header` to accept `headerRows` (an array of column definitions) to override default columns. See below.
+  * Feature - Move `utils.evaluateFormatters` and `utils.evaluateTransforms` to `reactabular-table`. Those aren't used elsewhere so that makes a lot of sense.
   * Bug fix - Skip functions at `BodyRow` `shouldComponentUpdate`.
   * Breaking - Generalize `format: <fn>` as `formatters: [<fn>]`. The formatters are applied recursively from left to right: `[f1, f2, f3] => f1(f2(f3(value, extra)))`. This allows composition.
   * Breaking - Extract nested column logic. Now you will have to resolve nested columns before passing them to the table. The advantage of doing this is that now all logic (search/sorting/etc.) works with nested tables. Basic idea:
@@ -113,14 +114,13 @@ const NestedColumnsTable = () => {
 ## reactabular-utils
 
   * Feature - Add `columnsAreEqual` checker.
-  * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
-  * Feature - Add `columnsAreEqual` checker.
-  * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
   * Breaking - Move `utils.countRowSpan` has been dropped as it's not needed here anymore (moved to `table-resolver`).
   * Breaking - Drop `utils.mergeClassNames`. This was replaced by [classnames](https://www.npmjs.org/package/classnames) internally and the column definition accepts formats used by `classnames`.
   * Breaking - Generalize `utils.mergePropPair` as `utils.mergeProps`. It accepts an arbitrary amount of prop collections now.
   * Breaking - Drop `utils.resolveBodyColumns`, `utils.resolveHeaderRows`, `utils.resolveRowKey`. The functionality was moved to the `table-resolver` package.
   * Breaking - Drop `utils.rowsAreEqual`. Same as `lodash.isEqual(oldRows, newRows)`.
+  * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
+  * Breaking - Move `utils.evaluateFormatters` and `utils.evaluateTransforms` to `reactabular-table`. Those aren't used elsewhere so that makes a lot of sense.
 
 ## reactabular-visibility-toggles
 

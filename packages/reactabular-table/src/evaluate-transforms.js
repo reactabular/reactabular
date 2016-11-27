@@ -1,5 +1,5 @@
 import { isFunction } from 'lodash';
-import mergeProps from './merge-props';
+import { mergeProps } from 'reactabular-utils';
 
 function evaluateTransforms(transforms = [], value, extraParameters = {}) {
   if (process.env.NODE_ENV !== 'production') {
