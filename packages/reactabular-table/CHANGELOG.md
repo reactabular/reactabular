@@ -1,3 +1,8 @@
+8.1.0 / 2016-11-27
+==================
+
+  * Feature - Allow `overflow` to be overridden through `style`. #246
+
 8.0.0 / 2016-11-27
 ==================
 
