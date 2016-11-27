@@ -1,5 +1,5 @@
-import merge from 'webpack-merge';
-import * as bind from './bind';
+import * as extensions from 'reactabular-column-extensions';
+import * as sort from 'sortabular';
 
 function bindColumns({
   window,
@@ -9,55 +9,30 @@ function bindColumns({
   toggleChildrenProps,
   sortingColumns, rows
 }) {
-  return (columns) => {
-    const bindings = [
-      bind.highlightCell(),
-      bind.toggleChildrenCell({
-        idField,
-        parentField,
-        toggleChildrenProps,
-        onToggleShowingChildren,
-        rows
-      }),
-      bind.draggableHeader({
-        onMoveColumns
-      }),
-      bind.resizableHeader({
-        window,
-        onDragColumn,
-        props: props.resize
-      }),
-      bind.sortableHeader({
-        sortingColumns,
-        onSort,
-        props: props.sort
-      })
-    ];
-
-    return columns.map(
-      column => bindColumn({
-        column,
-        bindings
-      })
-    );
-  };
-}
-
-function bindColumn({
-  column,
-  bindings
-}) {
-  const matches = bindings.map((binding) => {
-    const col = {
-      cell: {},
-      header: {},
-      ...column
-    };
-
-    return binding.match(col) && binding.evaluate(col);
-  });
-
-  return merge(column, ...matches);
+  return extensions.bind([
+    extensions.draggableHeader({
+      onMoveColumns
+    }),
+    extensions.highlightCell(),
+    extensions.resizableHeader({
+      window,
+      onDragColumn,
+      props: props.resize
+    }),
+    extensions.sortableHeader({
+      sortingColumns,
+      onSort,
+      props: props.sort,
+      strategy: sort.strategies.byProperty
+    }),
+    extensions.toggleChildrenCell({
+      idField,
+      parentField,
+      onToggleShowingChildren,
+      props: toggleChildrenProps,
+      rows
+    })
+  ]);
 }
 
 export default bindColumns;
