@@ -24,7 +24,7 @@ The following packages have been moved to standalone projects:
   * `reactabular-highlight` has been integrated to `searchtabular`. You get `search.highlighter`, `search.highlightCell`, and `search.highlightValue` now.
   * `reactabular-search-columns` has been integrated to `searchtabular`. You can access it through `search.Columns`.
   * `reactabular-search-field` has been integrated to `searchtabular`. You can access it through `search.Field`.
-  * `reactabular-sort` is [sortabular](https://github.com/reactabular/sortabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.
+  * `reactabular-sort` is [sortabular](https://github.com/reactabular/sortabular) now.
   * `reactabular-select` was integrated into [selectabular](https://github.com/reactabular/selectabular). You can access it through `import { byArrowKeys } from 'selectabular';`.
   * `react-edit` is functionally the same as before except it is in a repository of its own. This makes it possible to keep its versioning out of sync with the rest as it moves slower.
   * `reactabular-visibility-toggles` has been pushed to [react-visibility-toggles](https://github.com/reactabular/react-visibility-toggles) with several improvements and full test coverage.
