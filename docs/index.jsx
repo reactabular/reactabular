@@ -6,8 +6,8 @@ import 'purecss/build/pure.css';
 import 'sortabular/style.css';
 import 'react-pagify/style.css';
 import 'treetabular/style.css';
+import 'react-visibility-toggles/style.css';
 import 'reactabular-resizable/../style.css';
-import 'reactabular-visibility-toggles/../style.css';
 
 import documentation from './documentation';
 import pages from './pages';

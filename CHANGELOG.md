@@ -18,6 +18,7 @@ The following packages have been moved to standalone projects:
   * `reactabular-sort` is [sortabular](https://github.com/reactabular/sortabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.
   * `reactabular-select` was integrated into [selectabular](https://github.com/reactabular/selectabular). You can access it through `import { byArrowKeys } from 'selectabular';`.
   * `react-edit` is functionally the same as before except it is in a repository of its own. This makes it possible to keep its versioning out of sync with the rest as it moves slower.
+  * `reactabular-visibility-toggles` has been pushed to [react-visibility-toggles](https://github.com/reactabular/react-visibility-toggles) with several improvements and full test coverage.
 
 `reactabular-utils` doesn't exist anymore as the functionality has been split up into `reactabular-table` and `table-resolver`.
 
@@ -114,12 +115,6 @@ const NestedColumnsTable = () => {
 
   * Feature - Allow `minWidth` to be set per `column` explicitly.
   * Breaking - Push performance optimized resizing to a function. As a result `reactabular-resizable` exposes `column` and `helper` functions now. `column` is the same as before. `helper` implements optional performance optimizations. See the README for usage instructions.
-
-## reactabular-visibility-toggles
-
-  * Bug fix - Show a visibility toggle only for those columns that have `header` defined.
-  * Breaking - Generalize `onToggleColumn`. It's `onToggleColumn({ column, columnIndex })` now instead of `onToggleColumn(columnIndex)`. This way it works with data not depending on index.
-  * Feature - Expose `isVisible(column)`. It checks `column.visible` by default. You can override the default behavior through this prop.
 
 ## reactabular-virtualized
 

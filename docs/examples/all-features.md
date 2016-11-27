@@ -13,7 +13,7 @@ import * as sort from 'sortabular';
 import * as resizable from 'reactabular-resizable';
 import * as resolve from 'table-resolver';
 import * as edit from 'react-edit';
-import VisibilityToggles from 'reactabular-visibility-toggles';
+import VisibilityToggles from 'react-visibility-toggles';
 
 import {
   Paginator, PrimaryControls, generateRows, paginate

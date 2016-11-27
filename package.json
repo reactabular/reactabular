@@ -104,6 +104,7 @@
     "react-github-corner": "^0.3.0",
     "react-pagify": "^2.1.1",
     "react-redux": "^4.4.6",
+    "react-visibility-toggles": "^1.0.1",
     "redux": "^3.6.0",
     "schema2object": "^0.4.0",
     "searchtabular": "^1.2.0",

@@ -14,7 +14,7 @@ import React from 'react';
 import { resolve } from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as easy from 'reactabular-easy';
-import VisibilityToggles from 'reactabular-visibility-toggles';
+import VisibilityToggles from 'react-visibility-toggles';
 import * as resizable from 'reactabular-resizable';
 import * as tree from 'reactabular-tree';
 import HTML5Backend from 'react-dnd-html5-backend';

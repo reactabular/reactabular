@@ -15,7 +15,6 @@ import * as easy from 'reactabular-easy';
 import * as reactEdit from 'react-edit';
 import * as dnd from 'reactabular-dnd';
 import * as resizable from 'reactabular-resizable';
-import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as Virtualized from 'reactabular-virtualized';
 import * as extensions from 'reactabular-column-extensions';
 import * as Table from 'reactabular-table';
@@ -26,6 +25,7 @@ import * as sortabular from 'sortabular';
 import * as selectabular from 'selectabular';
 import * as treetabular from 'treetabular';
 import * as resolve from 'table-resolver';
+import VisibilityToggles from 'react-visibility-toggles';
 
 import * as rowsDefinitions from './data/definitions';
 import * as customHelpers from './helpers';

@@ -15,7 +15,7 @@ export default rootPath => ({
     {
       path: `${rootPath}/toggling-column-visibility`,
       title: 'Toggling Column Visibility',
-      component: require('reactabular-visibility-toggles/../README.md')
+      component: require('react-visibility-toggles/README.md')
     },
     {
       path: `${rootPath}/selection`,
