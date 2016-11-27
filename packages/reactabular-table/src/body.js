@@ -1,8 +1,8 @@
 import { isEqual, isFunction } from 'lodash';
 import React from 'react';
-import { rowKey as resolveRowKey } from 'table-resolver';
 import { tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';
 import BodyRow from './body-row';
+import resolveRowKey from './resolve-row-key';
 
 class Body extends React.Component {
   constructor(props) {

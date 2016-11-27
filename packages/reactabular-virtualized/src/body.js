@@ -1,7 +1,7 @@
 import { isEqual } from 'lodash';
 import React from 'react';
 import { Body } from 'reactabular-sticky';
-import { rowKey as resolveRowKey } from 'table-resolver';
+import { resolveRowKey } from 'reactabular-table';
 import { bodyChildContextTypes } from './types';
 import calculateAverageHeight from './calculate-average-height';
 import calculateRows from './calculate-rows';
