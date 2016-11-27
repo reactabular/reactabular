@@ -23,7 +23,7 @@ class Body extends React.Component {
         style: {
           display: 'block',
           overflow: 'auto',
-          paddingRight: scrollOffset
+          paddingRight: scrollOffset,
           ...style || {},
         },
         // Expand onScroll as otherwise the logic won't work
