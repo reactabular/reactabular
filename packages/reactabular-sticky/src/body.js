@@ -21,10 +21,10 @@ class Body extends React.Component {
           this.ref = body && body.getRef();
         },
         style: {
-          ...style || {},
           display: 'block',
           overflow: 'auto',
-          paddingRight: scrollOffset
+          paddingRight: scrollOffset,
+          ...style || {}
         },
         // Expand onScroll as otherwise the logic won't work
         onScroll: (e) => {
