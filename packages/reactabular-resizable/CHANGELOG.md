@@ -1,4 +1,4 @@
-7.1.0 / 2016-xx-xx
+8.0.0 / 2016-11-27
 ==================
 
   * Feature - Allow `minWidth` to be set per `column` explicitly.

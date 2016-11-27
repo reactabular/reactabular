@@ -1,20 +1,22 @@
-7.1.0 / 2016-xx-xx
+8.0.0 / 2016-11-27
 ==================
 
-This is a major release with plenty of improvements, but also some breakage so go through the following changes carefully. The biggest changes have to do with the column definition (`formatters [<fn>]` over `format: <fn>`), resolving (composes better), `reactabular-easy` partitioning (better API for the future), and the way column definitions are handled.
+This is a major release with plenty of improvements, but also some breakage so go through the following changes carefully. The biggest changes have to do with the column definition (`formatters [<fn>]` over `format: <fn>`, no support for nested columns out of the box), resolving (composes better), and `reactabular-easy` partitioning (better API for the future).
 
 ## Reorganization
 
-`reactabular` wrapper package has been dropped. As a result no standalone builds are available anymore. This has to do with the fact that the project has been split up into smaller parts and eventually that wrapper became so small it contained just the table core so it made most sense to drop it. This means that in order to use the basic table without any bells and whistles you will have to `import * as Table from 'reactabular-table';` over `import { Table } from 'reactabular';`
+`reactabular` wrapper package has been dropped. As a result no standalone builds are available anymore. This has to do with the fact that the project has been split up into smaller parts that maintaining one didn't make any sense.
+
+This means that in order to use the basic table without any bells and whistles you will have to `import * as Table from 'reactabular-table';` over `import { Table } from 'reactabular';`
 
 The following packages have been moved to standalone projects:
 
-  * `reactabular-search` is [searchtabular](https://github.com/reactabular/searchtabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.
+  * `reactabular-search` is [searchtabular](https://github.com/reactabular/searchtabular) now.
   * `reactabular-tree` is [treetabular](https://github.com/reactabular/treetabular) now.
-  * `reactabular-resolve` is [table-resolver](https://github.com/reactabular/table-resolver) now. It is not bundled with `reactabular` wrapper anymore.
-  * `reactabular-highlight` has been integrated to `reactabular-search`. You get `search.highlighter`, `search.highlightCell`, and `search.highlightValue` now. Highlighting isn't bundled with `reactabular` wrapper anymore.
-  * `reactabular-search-columns` has been integrated to `reactabular-search`. You can access it through `search.Columns`. It's not bundled with `reactabular` wrapper anymore.
-  * `reactabular-search-field` has been integrated to `reactabular-search`. You can access it through `search.Field`. It's not bundled with `reactabular` wrapper anymore.
+  * `reactabular-resolve` is [table-resolver](https://github.com/reactabular/table-resolver) now.
+  * `reactabular-highlight` has been integrated to `reactabular-search`. You get `search.highlighter`, `search.highlightCell`, and `search.highlightValue` now.
+  * `reactabular-search-columns` has been integrated to `reactabular-search`. You can access it through `search.Columns`.
+  * `reactabular-search-field` has been integrated to `reactabular-search`. You can access it through `search.Field`.
   * `reactabular-sort` is [sortabular](https://github.com/reactabular/sortabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.
   * `reactabular-select` was integrated into [selectabular](https://github.com/reactabular/selectabular). You can access it through `import { byArrowKeys } from 'selectabular';`.
   * `react-edit` is functionally the same as before except it is in a repository of its own. This makes it possible to keep its versioning out of sync with the rest as it moves slower.
@@ -24,7 +26,7 @@ The following packages have been moved to standalone projects:
 
 ## No More Nested Support Out of the Box
 
-Reactabular doesn't support nested column definitions out of the box anymore. Instead you have to resolve such definitions before passing them to Reactabular. Even though it's more code, now all the logic (search/sorting/...) works with nested definitions and you have control over naming.
+Reactabular doesn't support nested column definitions out of the box anymore. Earlier they did, but the logic didn't. To fix this, the related resolving pass was moved outside of the core. Even though it's more code, now all the logic (search/sorting/...) works with nested definitions and you have control over naming and the conventions you prefer.
 
   * Breaking - `resizableColumn` isn't included in the core distribution anymore. You should use `reactabular-resizable` instead.
   * Breaking - Official support for lodash 3 has been dropped.

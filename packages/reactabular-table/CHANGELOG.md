@@ -1,4 +1,4 @@
-7.1.0 / 2016-xx-xx
+8.0.0 / 2016-11-27
 ==================
 
   * Feature - Pass whole column through header/body for extra parameters.

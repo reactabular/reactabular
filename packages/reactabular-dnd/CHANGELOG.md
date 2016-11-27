@@ -1,4 +1,4 @@
-7.1.0 / 2016-xx-xx
+8.0.0 / 2016-11-27
 ==================
 
   * Feature - Expose `dnd.draggableRow`. This allows you to use row dragging with virtualization. Example: `body.row = dnd.draggableRow(Virtualized.BodyRow)`.
