@@ -98,6 +98,12 @@ const columns = [
 </Table.Provider>
 ```
 
+## Available Packages
+
+The following image shows roughly what packages are available. It is possible to use packages beyond these, but these are the ones maintained within the Reactabular organization:
+
+![Reactabular packages](./images/overall.png)
+
 ## Testimonials
 
 > If you've struggled with other React table components, you'll see why this one is the best! - [Tim Dorr](https://twitter.com/timdorr/status/750346565374455808)
