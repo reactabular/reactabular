@@ -10,9 +10,7 @@
   * Breaking - Extract nested column logic. Now you will have to resolve nested columns before passing them to the table. The advantage of doing this is that now all logic (search/sorting/etc.) works with nested tables. Basic idea:
 
 ```javascript
-import { resolve } from 'reactabular';
-// or
-// import * as resolve from 'reactabular-resolve';
+import * as resolve from 'table-resolver';
 
 ...
 

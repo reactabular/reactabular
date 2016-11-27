@@ -15,6 +15,10 @@ The chosen approach pushes a lot of complexity out of the core. As a result it m
 The following example illustrates the approach used by Reactabular:
 
 ```jsx
+/*
+import * as Table from 'reactabular-table';
+*/
+
 const rows = [
   {
     id: 100,

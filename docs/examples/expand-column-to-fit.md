@@ -3,7 +3,7 @@ The following example shows how to expand a column to take available space.
 ```jsx
 /*
 import React from 'react';
-import { Table } from 'reactabular';
+import * as Table from 'reactabular-table';
 */
 
 const columns = [

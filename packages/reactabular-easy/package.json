@@ -46,9 +46,10 @@
   "peerDependencies": {
     "lodash": ">= 3.0.0 < 5.0.0",
     "react": ">= 0.11.2 < 16.0.0",
-    "reactabular": ">= 6.0.0 < 8.0.0",
     "reactabular-column-extensions": ">= 7.0.0 < 8.0.0",
     "reactabular-dnd": ">= 4.2.0 < 8.0.0",
+    "reactabular-sticky": ">= 6.0.0 < 8.0.0",
+    "reactabular-table": ">= 6.0.0 < 8.0.0",
     "reactabular-virtualized": ">= 6.0.0 < 8.0.0",
     "searchtabular": ">= 1.0.0 < 2.0.0",
     "selectabular": ">= 2.0.0 < 3.0.0",

@@ -7,7 +7,7 @@ import { compose } from 'redux';
 import {
   cloneDeep, findIndex, orderBy, keys, values, transforms
 } from 'lodash';
-import { Table } from 'reactabular';
+import * as Table from 'reactabular-table';
 import * as search from 'searchtabular';
 import * as sort from 'sortabular';
 import * as resizable from 'reactabular-resizable';

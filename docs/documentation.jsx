@@ -13,12 +13,13 @@ import {
 } from 'lodash';
 import * as easy from 'reactabular-easy';
 import * as reactEdit from 'react-edit';
-import * as reactabular from 'reactabular';
 import * as dnd from 'reactabular-dnd';
 import * as resizable from 'reactabular-resizable';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 import * as Virtualized from 'reactabular-virtualized';
 import * as extensions from 'reactabular-column-extensions';
+import * as Table from 'reactabular-table';
+import * as Sticky from 'reactabular-sticky';
 import * as stylesheet from 'stylesheet-helpers';
 import * as searchtabular from 'searchtabular';
 import * as sortabular from 'sortabular';
@@ -31,8 +32,8 @@ import * as customHelpers from './helpers';
 import countries from './data/countries';
 
 const documentationImports = {
-  Table: { ...reactabular.Table },
-  Sticky: { ...reactabular.Sticky },
+  Table: { ...Table },
+  Sticky: { ...Sticky },
   edit: { ...reactEdit },
   dnd: { ...dnd },
   easy: { ...easy },

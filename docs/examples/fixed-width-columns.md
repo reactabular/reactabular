@@ -3,7 +3,7 @@ Depending on the content of your rows, you may encounter issues with column widt
 ```jsx
 /*
 import React from 'react';
-import { Table } from 'reactabular';
+import * as Table from 'reactabular-table';
 import * as search from 'searchtabular';
 */
 

@@ -4,7 +4,7 @@ The following example shows how to implement basic editing functionality.
 /*
 import React from 'react';
 import { cloneDeep, findIndex } from 'lodash';
-import { Table } from 'reactabular';
+import * as Table from 'reactabular-table';
 import * as edit from 'react-edit';
 import uuid from 'uuid';
 

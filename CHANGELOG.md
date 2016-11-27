@@ -5,6 +5,8 @@ This is a major release with plenty of improvements, but also some breakage so g
 
 ## Reorganization
 
+`reactabular` wrapper package has been dropped. As a result no standalone builds are available anymore. This has to do with the fact that the project has been split up into smaller parts and eventually that wrapper became so small it contained just the table core so it made most sense to drop it. This means that in order to use the basic table without any bells and whistles you will have to `import * as Table from 'reactabular-table';` over `import { Table } from 'reactabular';`
+
 The following packages have been moved to standalone projects:
 
   * `reactabular-search` is [searchtabular](https://github.com/reactabular/searchtabular) now. It's not included to `reactabular` wrapper anymore. Instead you have to depend on the logic explicitly.

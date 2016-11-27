@@ -6,7 +6,7 @@ Reactabular doesn't come with inline editing. Instead you can use a package, suc
 /*
 import React from 'react';
 import { cloneDeep, findIndex } from 'lodash';
-import { Table } from 'reactabular';
+import * as Table from 'reactabular';
 import * as edit from 'react-edit';
 */
 

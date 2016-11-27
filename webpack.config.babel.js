@@ -10,7 +10,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import merge from 'webpack-merge';
 
 const catalogPkg = require('./node_modules/catalog/package.json');
-const pkg = require('./packages/reactabular/package.json');
+const pkg = require('./lerna.json');
 
 const TARGET = process.env.npm_lifecycle_event || '';
 const ROOT_PATH = path.resolve(__dirname);
@@ -182,54 +182,6 @@ if (TARGET.startsWith('gh-pages')) {
         }
       ]
     }
-  });
-}
-
-const commonDist = merge(common, {
-  devtool: 'source-map',
-  entry: './packages/reactabular/src',
-  output: {
-    path: config.paths.dist,
-    libraryTarget: 'umd',
-    library: 'Reactabular',
-    sourceMapFilename: '[file].map'
-  },
-  externals: {
-    lodash: {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: '_',
-      root: '_'
-    },
-    react: {
-      commonjs: 'react',
-      commonjs2: 'react',
-      amd: 'React',
-      root: 'React'
-    }
-  }
-});
-
-if (TARGET === 'dist:build') {
-  module.exports = merge(commonDist, {
-    output: {
-      filename: 'reactabular.js'
-    }
-  });
-}
-
-if (TARGET === 'dist:build-min') {
-  module.exports = merge(commonDist, {
-    output: {
-      filename: 'reactabular.min.js'
-    },
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      })
-    ]
   });
 }
 

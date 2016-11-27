@@ -38,7 +38,7 @@ export default [
   {
     path: 'changelog',
     title: 'Changelog',
-    component: require('reactabular/../CHANGELOG.md')
+    component: require('../CHANGELOG.md')
   },
   {
     path: 'license',

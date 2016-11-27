@@ -3,9 +3,8 @@ The following example implements infinite scrolling within a fixed viewport.
 ```jsx
 /*
 import React from 'react';
-
+import * as Table from 'reactabular-table';
 import { generateRows } from './helpers';
-import { Table } from 'reactabular';
 */
 
 const schema = {

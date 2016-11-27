@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Table, Sticky } from 'reactabular';
+import * as Table from 'reactabular-table';
+import * as Sticky from 'reactabular-sticky';
 import * as dnd from 'reactabular-dnd';
 import * as Virtualized from 'reactabular-virtualized';
 import { compose } from 'redux';

@@ -1,4 +1,5 @@
 {
+  "name": "reactabular",
   "lerna": "2.0.0-beta.30",
   "version": "7.0.0",
   "independent": false

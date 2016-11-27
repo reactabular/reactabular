@@ -5,7 +5,7 @@
 ```jsx
 /*
 import React from 'react';
-import { Table } from 'reactabular';
+import * as Table from 'reactabular-table';
 import cloneDeep from 'lodash/cloneDeep';
 import VisibilityToggles from 'reactabular-visibility-toggles';
 */

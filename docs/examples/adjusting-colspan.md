@@ -3,7 +3,7 @@ Reactabular manages `colSpan` and `rowSpan` for you automatically by default. It
 ```jsx
 /*
 import React from 'react';
-import { Table } from 'reactabular';
+import * as Table from 'reactabular-table';
 
 import { generateRows } from './helpers';
 */

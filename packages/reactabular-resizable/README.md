@@ -24,7 +24,8 @@ props = {
 ```jsx
 /*
 import React from 'react';
-import { Table, Sticky } from 'reactabular';
+import * as Table from 'reactabular-table';
+import * as Sticky from 'reactabular-sticky';
 import * as resizable from 'reactabular-resizable';
 import uuid from 'uuid';
 import { generateRows } from './helpers';
