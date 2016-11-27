@@ -41,7 +41,7 @@
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {
-    "reactabular": ">= 6.0.0 < 8.0.0",
+    "reactabular": ">= 8.0.0 < 9.0.0",
     "searchtabular": ">= 1.0.0 < 2.0.0",
     "sortabular": ">= 1.0.0 < 2.0.0",
     "treetabular": ">= 1.0.0 < 2.0.0"
