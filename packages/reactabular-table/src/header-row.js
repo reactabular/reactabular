@@ -1,7 +1,7 @@
 import React from 'react';
-import { mergeProps } from 'reactabular-utils';
 import evaluateFormatters from './evaluate-formatters';
 import evaluateTransforms from './evaluate-transforms';
+import mergeProps from './merge-props';
 import { tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
 
 const HeaderRow = ({ rowData, rowIndex, components, onRow }) => (

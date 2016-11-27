@@ -8,7 +8,7 @@
   * Breaking - Drop `utils.resolveBodyColumns`, `utils.resolveHeaderRows`, `utils.resolveRowKey`. The functionality was moved to the `table-resolver` package.
   * Breaking - Drop `utils.rowsAreEqual`. Same as `lodash.isEqual(oldRows, newRows)`.
   * Feature - `evaluateTransforms` will throw if all transforms aren't functions.
-  * Breaking - Move `utils.evaluateFormatters` and `utils.evaluateTransforms` to `reactabular-table`. Those aren't used elsewhere so that makes a lot of sense.
+  * Breaking - Move `utils.evaluateFormatters`, `utils.evaluateTransforms`, and `utils.mergeProps` to `reactabular-table`. Those aren't used elsewhere so that makes a lot of sense.
 
 7.0.0 / 2016-11-03
 ==================

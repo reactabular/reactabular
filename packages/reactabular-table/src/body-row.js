@@ -1,8 +1,9 @@
 import { isEqual, isFunction } from 'lodash';
 import React from 'react';
-import { mergeProps, columnsAreEqual } from 'reactabular-utils';
+import { columnsAreEqual } from 'reactabular-utils';
 import evaluateFormatters from './evaluate-formatters';
 import evaluateTransforms from './evaluate-transforms';
+import mergeProps from './merge-props';
 import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
 
 class BodyRow extends React.Component {
