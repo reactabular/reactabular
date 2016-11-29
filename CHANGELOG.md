@@ -1,9 +1,16 @@
+8.2.0 / 2016-11-29
+==================
+
+## reactabular-sticky
+
+  * Feature - Allow `Sticky.Header` `overflow` to be overridden through `style`.
+
 8.1.0 / 2016-11-27
 ==================
 
 ## reactabular-sticky
 
-  * Feature - Allow `overflow` to be overridden through `style`. #246
+  * Feature - Allow `Sticky.Body` `overflow` to be overridden through `style`. #246
 
 8.0.0 / 2016-11-27
 ==================

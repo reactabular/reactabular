@@ -1,3 +1,13 @@
+8.2.0 / 2016-11-29
+==================
+
+  * Feature - Allow `Sticky.Header` `overflow` to be overridden through `style`.
+
+8.1.0 / 2016-11-27
+==================
+
+  * Feature - Allow `Sticky.Body` `overflow` to be overridden through `style`. #246
+
 3.0.0 / 2016-09-01
 ==================
 

@@ -18,9 +18,9 @@ class Header extends React.Component {
           this.ref = header && header.getRef();
         },
         style: {
-          ...style || {},
           display: 'block',
-          overflow: 'auto'
+          overflow: 'auto',
+          ...style || {}
         },
         ...props,
         // Override onScroll as otherwise the logic won't work
