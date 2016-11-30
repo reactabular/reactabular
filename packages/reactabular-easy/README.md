@@ -16,7 +16,7 @@ import * as dnd from 'reactabular-dnd';
 import * as easy from 'reactabular-easy';
 import VisibilityToggles from 'react-visibility-toggles';
 import * as resizable from 'reactabular-resizable';
-import * as tree from 'reactabular-tree';
+import * as tree from 'treetabular';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import { compose } from 'redux';
