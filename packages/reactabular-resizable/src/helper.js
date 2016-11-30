@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import * as stylesheet from 'stylesheet-helpers';
 
 function helper({ globalId, getId }) {
@@ -20,11 +21,11 @@ function helper({ globalId, getId }) {
         });
 
         return {
+          ...column,
           props: {
             ...column.props,
-            className // XXX: This overrides possible className!
-          },
-          ...column
+            className: classNames(column.props.className, className)
+          }
         };
       });
     },

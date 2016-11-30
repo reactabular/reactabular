@@ -1,9 +1,10 @@
 8.3.0 / 2016-11-30
 ==================
 
-## reactabular-column-extensions
+## reactabular-resizable
 
   * Feature - Pass `index` to `helper` `getId`. The enhanced signature is `getId(column, index)`.
+  * Bug fix - Make sure `helper` merges class names correctly if there are multiple.
 
 8.2.1 / 2016-11-30
 ==================
