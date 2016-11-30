@@ -10,8 +10,8 @@ function helper({ globalId, getId }) {
 
   return {
     initialize(columns) {
-      return columns.map((column) => {
-        const className = getClassName(globalId, getId(column));
+      return columns.map((column, index) => {
+        const className = getClassName(globalId, getId(column, index));
 
         updateWidth({
           styleSheet,
