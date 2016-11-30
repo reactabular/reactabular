@@ -1,6 +1,6 @@
 {
   "name": "reactabular-column-extensions",
-  "version": "8.0.0",
+  "version": "8.2.1",
   "description": "Column extensions for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
