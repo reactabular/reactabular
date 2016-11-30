@@ -24,7 +24,8 @@ function helper({ globalId, getId }) {
           ...column,
           props: {
             ...column.props,
-            className: classNames(column.props.className, className)
+            // TODO: test against missing props case
+            className: classNames(column.props && column.props.className, className)
           }
         };
       });

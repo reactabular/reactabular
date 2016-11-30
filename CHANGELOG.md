@@ -1,3 +1,10 @@
+8.3.1 / 2016-11-30
+==================
+
+## reactabular-resizable
+
+  * Bug fix - Make sure `helper` doesn't crash if `props` are missing from a column.
+
 8.3.0 / 2016-11-30
 ==================
 
