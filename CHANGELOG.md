@@ -1,3 +1,10 @@
+8.2.1 / 2016-11-30
+==================
+
+## reactabular-column-extensions
+
+  * Bug fix - Drop `reactabular` peer dependency as that's not needed anymore.
+
 8.2.0 / 2016-11-29
 ==================
 
