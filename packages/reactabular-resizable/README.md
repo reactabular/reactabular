@@ -61,15 +61,15 @@ class ResizableColumnsTable extends React.Component {
       rows
     };
 
+    this.tableHeader = null;
+    this.tableBody = null;
+  }
+  componentWillMount() {
     this.resizableHelper = resizable.helper({
       globalId: uuid.v4(),
       getId: ({ property}) => property
     });
 
-    this.tableHeader = null;
-    this.tableBody = null;
-  }
-  componentDidMount() {
     // Patch the column definition with class names.
     this.setState({
       columns: this.resizableHelper.initialize(this.state.columns)

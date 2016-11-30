@@ -88,11 +88,6 @@ class EasyDemo extends React.Component {
     };
     this.table = null;
 
-    this.resizableHelper = resizable.helper({
-      globalId: uuid.v4(),
-      getId: ({ id }) => id
-    });
-
     this.onMoveRow = this.onMoveRow.bind(this);
     this.onDragColumn = this.onDragColumn.bind(this);
     this.onMoveColumns = this.onMoveColumns.bind(this);
@@ -101,6 +96,15 @@ class EasyDemo extends React.Component {
     this.onRemove = this.onRemove.bind(this);
     this.onSort = this.onSort.bind(this);
     this.onToggleShowingChildren = this.onToggleShowingChildren.bind(this);
+  }
+  componentWillMount() {
+    this.resizableHelper = resizable.helper({
+      globalId: uuid.v4(),
+      getId: ({ id }) => id
+    });
+  }
+  componentWillUnmount() {
+    this.resizableHelper.cleanup();
   }
   getColumns() {
     return [
@@ -225,9 +229,6 @@ class EasyDemo extends React.Component {
         width: 200
       }
     ];
-  }
-  componentWillUnmount() {
-    this.resizableHelper.cleanup();
   }
   render() {
     const {
