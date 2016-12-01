@@ -14,16 +14,16 @@ function bindColumns({
       onMoveColumns
     }),
     extensions.highlightCell(),
-    extensions.resizableHeader({
-      window,
-      onDragColumn,
-      props: props.resize
-    }),
     extensions.sortableHeader({
       sortingColumns,
       onSort,
       props: props.sort,
       strategy: sort.strategies.byProperty
+    }),
+    extensions.resizableHeader({
+      window,
+      onDragColumn,
+      props: props.resize
     }),
     extensions.toggleChildrenCell({
       idField,

@@ -1,3 +1,10 @@
+8.3.2 / 2016-12-01
+==================
+
+## reactabular-easy
+
+  * Bug fix - Swap resizableHeader and sorting formatter application order to match the original.
+
 8.3.1 / 2016-11-30
 ==================
 
