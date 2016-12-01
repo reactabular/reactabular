@@ -5,6 +5,10 @@
 
   * Feature - Expose `resizable.column` `onDragStart` and `onDragEnd`. These work the same way as `onDrag` except at the beginning and the end of the process.
 
+## reactabular-column-extensions
+
+  * Feature - Expose `onDragColumnStart` and `onDragColumnEnd` at `resizableHeader`.
+
 8.3.2 / 2016-12-01
 ==================
 

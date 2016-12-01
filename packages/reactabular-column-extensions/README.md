@@ -47,9 +47,9 @@ An extension has to be an object like this:
 
 `highlightCell` injects the configuration expected by highlighting functionality from `searchtabular` if `cell.highlight` is set. You have to connect the highlighting logic with your data processing to make this work.
 
-**`extensions.resizableHeader({ window, onDragColumn, props }) => <extension>`**
+**`extensions.resizableHeader({ window, onDragColumnStart, onDragColumn, onDragColumnEnd, props }) => <extension>`**
 
-`resizableHeader` injects the configuration required for resizable headers if `header.resizable` is set. It accepts `window` so you can make resizing work in an iframe. Most often you don't need to touch the parameter, though. You should define `onDragColumn(width, { column }` handler and deal with the new width there. `reactabular-resizable` can be useful there. `props` allow you to inject custom styling/props to `resizable.column`.
+`resizableHeader` injects the configuration required for resizable headers if `header.resizable` is set. It accepts `window` so you can make resizing work in an iframe. Most often you don't need to touch the parameter, though. You should define `onDragColumn(width, { column }` handler and deal with the new width there. `reactabular-resizable` can be useful for that purpose. `props` allow you to inject custom styling/props to `resizable.column`.
 
 **`extensions.sortableHeader({ sortingColumns, onSort, props, strategy }) => <extension>`**
 

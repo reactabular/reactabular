@@ -1,3 +1,8 @@
+8.4.0 / 2016-12-01
+==================
+
+  * Feature - Expose `onDragColumnStart` and `onDragColumnEnd` at `resizableHeader`.
+
 8.2.1 / 2016-11-30
 ==================
 
