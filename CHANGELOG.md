@@ -1,6 +1,10 @@
 8.4.0 / 2016-12-01
 ==================
 
+## reactabular-easy
+
+  * Feature - Expose `onDragColumnStart` and `onDragColumnEnd` at `easy.bindColumns`.
+
 ## reactabular-resizable
 
   * Feature - Expose `resizable.column` `onDragStart` and `onDragEnd`. These work the same way as `onDrag` except at the beginning and the end of the process.

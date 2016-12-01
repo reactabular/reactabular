@@ -4,7 +4,8 @@ import * as sort from 'sortabular';
 function bindColumns({
   window,
   props = {},
-  onDragColumn, onSort, onMoveColumns, onToggleShowingChildren,
+  onDragColumnStart, onDragColumn, onDragColumnEnd,
+  onSort, onMoveColumns, onToggleShowingChildren,
   idField = 'id', parentField = 'parent',
   toggleChildrenProps,
   sortingColumns, rows
@@ -22,7 +23,9 @@ function bindColumns({
     }),
     extensions.resizableHeader({
       window,
+      onDragColumnStart,
       onDragColumn,
+      onDragColumnEnd,
       props: props.resize
     }),
     extensions.toggleChildrenCell({

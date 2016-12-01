@@ -1,3 +1,8 @@
+8.4.0 / 2016-12-01
+==================
+
+  * Feature - Expose `onDragColumnStart` and `onDragColumnEnd` at `easy.bindColumns`.
+
 8.3.2 / 2016-12-01
 ==================
 

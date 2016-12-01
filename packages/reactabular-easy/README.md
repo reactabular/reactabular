@@ -252,7 +252,9 @@ class EasyDemo extends React.Component {
         // Handlers
         onMoveColumns: this.onMoveColumns,
         onSort: this.onSort,
+        onDragColumnStart: (width, extra) => console.log('drag column start', width, extra),
         onDragColumn: this.onDragColumn,
+        onDragColumnEnd: (width, extra) => console.log('drag column end', width, extra),
         onToggleShowingChildren: this.onToggleShowingChildren
       }),
       // 3. Filter based on visibility again (children level)
