@@ -80,11 +80,17 @@ class ResizableColumnsTable extends React.Component {
   }
   getColumns() {
     const resizableFormatter = resizable.column({
+      onDragStart: (width, { column }) => {
+        console.log('drag start', width, column);
+      },
       onDrag: (width, { column }) => {
         this.resizableHelper.update({
           column,
           width
         });
+      },
+      onDragEnd: (width, { column }) => {
+        console.log('drag end', width, column);
       }
     });
 

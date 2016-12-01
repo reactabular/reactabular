@@ -4,7 +4,9 @@ import React from 'react';
 const resizableColumn = (
   {
     parent = document,
-    onDrag,
+    onDragStart = (width, extra) => {}, // eslint-disable-line no-unused-vars
+    onDrag = (width, extra) => {}, // eslint-disable-line no-unused-vars
+    onDragEnd = (width, extra) => {}, // eslint-disable-line no-unused-vars
     minWidth = 10,
     props = {
       container: {},
@@ -58,34 +60,41 @@ const resizableColumn = (
           </div>
         );
       }
-      onMouseDown(e) {
-        e.stopPropagation();
-        e.preventDefault();
+      onMouseDown(event) {
+        event.stopPropagation();
+        event.preventDefault();
 
         parent.addEventListener('mousemove', this.onMouseMove);
         parent.addEventListener('mouseup', this.onMouseUp);
 
-        this.startX = e.clientX;
+        this.startX = event.clientX;
         this.startWidth = this.column.offsetWidth;
-      }
-      onMouseMove(e) {
-        e.stopPropagation();
-        e.preventDefault();
 
-        onDrag(
+        this.triggerMove(onDragStart, event);
+      }
+      onMouseMove(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        this.triggerMove(onDrag, event);
+      }
+      onMouseUp(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        this.triggerMove(onDragEnd, event);
+
+        parent.removeEventListener('mousemove', this.onMouseMove);
+        parent.removeEventListener('mouseup', this.onMouseUp);
+      }
+      triggerMove(handler, event) {
+        handler(
           Math.max(
-              (this.startWidth - this.startX) + e.clientX,
+              (this.startWidth - this.startX) + event.clientX,
               (extraParameters.column && extraParameters.column.minWidth) || minWidth
           ),
           extraParameters
         );
-      }
-      onMouseUp(e) {
-        e.stopPropagation();
-        e.preventDefault();
-
-        parent.removeEventListener('mousemove', this.onMouseMove);
-        parent.removeEventListener('mouseup', this.onMouseUp);
       }
     }
 

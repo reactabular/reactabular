@@ -1,3 +1,8 @@
+8.4.0 / 2016-12-01
+==================
+
+  * Feature - Expose `resizable.column` `onDragStart` and `onDragEnd`. These work the same way as `onDrag` except at the beginning and the end of the process.
+
 8.3.1 / 2016-11-30
 ==================
 
