@@ -156,7 +156,7 @@ class CRUDTable extends React.Component {
         },
         cell: {
           transforms: [editable(edit.boolean())],
-          format: active => active && <span>&#10003;</span>
+          formatters: [active => active && <span>&#10003;</span>]
         }
       },
       {
@@ -166,14 +166,16 @@ class CRUDTable extends React.Component {
           }
         },
         cell: {
-          format: (value, { rowData }) => (
-            <span
-              className="remove"
-              onClick={() => this.props.deleteRow(rowData.id)} style={{ cursor: 'pointer' }}
-            >
-              &#10007;
-            </span>
-          )
+          formatters: [
+            (value, { rowData }) => (
+              <span
+                className="remove"
+                onClick={() => this.props.deleteRow(rowData.id)} style={{ cursor: 'pointer' }}
+              >
+                &#10007;
+              </span>
+            )
+          ]
         }
       }
     ];
