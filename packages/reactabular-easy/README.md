@@ -129,8 +129,9 @@ class EasyDemo extends React.Component {
       {
         id: 'name',
         header: {
-          label: 'Name',
-          draggable: true
+          label: 'Name'
+          // Disabled for now as this is a difficult case in React DnD
+          //draggable: true
         },
         children: [
           {
