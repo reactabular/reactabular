@@ -429,12 +429,15 @@ class AllFeaturesTable extends React.Component {
 
     this.setState({ rows });
   }
-  onToggleColumn(columnIndex) {
+  onToggleColumn({ columnIndex }) {
     const columns = cloneDeep(this.state.columns);
     const column = columns[columnIndex];
+
     column.visible = !column.visible;
+
     const query = cloneDeep(this.state.query);
     delete query[column.property];
+
     this.setState({ columns, query });
   }
 }
