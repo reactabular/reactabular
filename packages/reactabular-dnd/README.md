@@ -69,7 +69,7 @@ class DragAndDropTable extends React.Component {
             label: 'Name',
             props: {
               label: 'Name',
-              onMove: o => this.onMove(o)
+              onMove: o => this.onMoveColumn(o)
             }
           },
           children: [
@@ -84,7 +84,7 @@ class DragAndDropTable extends React.Component {
                 label: 'First Name',
                 props: {
                   label: 'First Name',
-                  onMove: o => this.onChildMove(o)
+                  onMove: o => this.onMoveChildColumn(o)
                 }
               }
             },
@@ -99,7 +99,7 @@ class DragAndDropTable extends React.Component {
                 label: 'Last Name',
                 props: {
                   label: 'Last Name',
-                  onMove: o => this.onChildMove(o)
+                  onMove: o => this.onMoveChildColumn(o)
                 }
               }
             }
@@ -116,7 +116,7 @@ class DragAndDropTable extends React.Component {
           header: {
             label: 'Company',
             props: {
-              onMove: o => this.onMove(o)
+              onMove: o => this.onMoveColumn(o)
             }
           }
         },
@@ -131,7 +131,7 @@ class DragAndDropTable extends React.Component {
             label: 'Sentence',
             props: {
               label: 'Sentence',
-              onMove: o => this.onMove(o)
+              onMove: o => this.onMoveColumn(o)
             }
           }
         }
@@ -141,8 +141,8 @@ class DragAndDropTable extends React.Component {
 
     this.onRow = this.onRow.bind(this);
     this.onMoveRow = this.onMoveRow.bind(this);
-    this.onMove = this.onMove.bind(this);
-    this.onChildMove = this.onChildMove.bind(this);
+    this.onMoveColumn = this.onMoveColumn.bind(this);
+    this.onMoveChildColumn = this.onMoveChildColumn.bind(this);
   }
   render() {
     const components = {
@@ -193,7 +193,7 @@ class DragAndDropTable extends React.Component {
       this.setState({ rows });
     }
   }
-  onMove(labels) {
+  onMoveColumn(labels) {
     const movedColumns = dnd.moveLabels(this.state.columns, labels);
 
     if (movedColumns) {
@@ -217,7 +217,7 @@ class DragAndDropTable extends React.Component {
       });
     }
   }
-  onChildMove(labels) {
+  onMoveChildColumn(labels) {
     const movedChildren = dnd.moveChildrenLabels(this.state.columns, labels);
 
     if (movedChildren) {
