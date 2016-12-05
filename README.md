@@ -100,7 +100,7 @@ const columns = [
 
 ## Available Packages
 
-The following image shows roughly what packages are available. It is possible to use packages beyond these, but these are the ones maintained within the Reactabular organization:
+The following image shows roughly what packages are available. You will need to install them individually based on your needs. It is possible to use packages beyond these, but the ones listed below are maintained within the Reactabular organization:
 
 ![Reactabular packages](./images/overall.png)
 
