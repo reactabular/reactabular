@@ -1,6 +1,6 @@
 {
   "name": "reactabular-easy",
-  "version": "8.4.0",
+  "version": "8.4.1",
   "description": "Easy, opinionated wrapper for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
