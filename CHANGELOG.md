@@ -1,3 +1,10 @@
+8.4.2 / 2016-12-15
+==================
+
+## reactabular-table
+
+  * Bug fix - Fix false negative for `rowKey` check. Now objects with getters should work as expected. #261
+
 8.4.0 / 2016-12-01
 ==================
 

@@ -1,3 +1,8 @@
+8.4.2 / 2016-12-15
+==================
+
+  * Bug fix - Fix false negative for `rowKey` check. Now objects with getters should work as expected. #261
+
 8.1.0 / 2016-11-27
 ==================
 
