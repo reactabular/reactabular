@@ -30,6 +30,7 @@
 * [Adrian Kolakowski](https://github.com/chiss2906) - Fixed `reactabular-search` behavior with empty properties. Also improved `reactabular-search` performance. #228
 * [Radoslav Kirilov](https://github.com/smoke) - Fixed `onRow` at `reactabular-easy`. Improved column width behavior. #229, #238
 * [Or Poran](https://github.com/orporan) - Allow sticky overflow to be overridden through style. #246
+* [Pontus Alexander](https://github.com/pomle) - Fixed false negative rowkey check. #261
 
 ## Acknowledgments
 
