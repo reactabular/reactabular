@@ -334,8 +334,11 @@ class EasyDemo extends React.Component {
   }
   onMoveRow({ sourceRowId, targetRowId }) {
     const rows = tree.moveRows({
-      sourceRowId,
-      targetRowId,
+      operation: dnd.moveRows({
+        sourceRowId,
+        targetRowId,
+        idField: 'Id'
+      }),
       idField: 'Id', // Defaults to id
       parentField: 'parent'
     })(this.state.rows);

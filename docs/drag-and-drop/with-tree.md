@@ -122,8 +122,7 @@ class DragAndDropTreeTable extends React.Component {
   }
   onMoveRow({ sourceRowId, targetRowId }) {
     const rows = tree.moveRows({
-      sourceRowId,
-      targetRowId,
+      operation: dnd.moveRows({ sourceRowId, targetRowId }),
       retain: ['showingChildren']
     })(this.state.rows);
 
