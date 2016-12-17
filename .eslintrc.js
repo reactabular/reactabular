@@ -23,5 +23,8 @@ module.exports = {
     "react/sort-comp": 0, // personal preference
     "react/no-multi-comp": 0, // personal preference
     "jsx-a11y/no-static-element-interactions": 0 // personal preference
+  },
+  "globals": {
+    "jest": false
   }
 };

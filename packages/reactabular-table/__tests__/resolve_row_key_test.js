@@ -1,5 +1,12 @@
 import { resolveRowKey } from '../src';
 
+/* eslint-disable no-console */
+
+const originalWarn = console.warn;
+afterEach(function () {
+  console.warn = originalWarn;
+});
+
 describe('table.resolveRowKey', function () {
   it('resolves to rowKey', function () {
     const rowKey = 'id';
@@ -21,6 +28,20 @@ describe('table.resolveRowKey', function () {
     const rowIndex = 0;
 
     expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual('0-row');
+  });
+
+  it('does not show warning when rowKey=0', function () {
+    console.warn = jest.fn();
+    const rowKey = 'id';
+    const rowData = {
+      [rowKey]: 0,
+      foo: 'bar'
+    };
+    const rowIndex = 0;
+
+    resolveRowKey({ rowData, rowIndex, rowKey });
+
+    expect(console.warn).toHaveBeenCalledTimes(0);
   });
 
   it('resolves zero index to zero', function () {
