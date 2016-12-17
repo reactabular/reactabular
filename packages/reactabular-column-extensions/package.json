@@ -33,9 +33,6 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
-  "dependencies": {
-    "webpack-merge": "^0.17.0"
-  },
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"
@@ -43,6 +40,7 @@
   "peerDependencies": {
     "searchtabular": ">= 1.0.0 < 2.0.0",
     "sortabular": ">= 1.0.0 < 2.0.0",
-    "treetabular": ">= 1.0.0 < 2.0.0"
+    "treetabular": ">= 1.0.0 < 2.0.0",
+    "webpack-merge": ">= 0.17.0 < 2.0.0"
   }
 }

@@ -23,7 +23,11 @@ function bindColumn({
     return match(col) && evaluate(col);
   });
 
-  return merge(column, ...matches);
+  if (matches.length > 0) {
+    return merge(column, ...matches);
+  }
+
+  return column;
 }
 
 export default bindColumns;
