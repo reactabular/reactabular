@@ -1,3 +1,9 @@
+8.5.0 / 2016-12-20
+==================
+
+  * Feature - Drop `deep-diff` dependency. Now it checks through lodash instead. Simpler this way.
+  * Bug fix - Allow `rowKey` to be zero. #262
+
 8.4.2 / 2016-12-15
 ==================
 
