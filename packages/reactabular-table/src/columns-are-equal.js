@@ -1,12 +1,17 @@
-import { isFunction } from 'lodash';
-import diff from 'deep-diff';
+import { isFunction, isEqualWith } from 'lodash';
 
 function columnsAreEqual(oldColumns, newColumns) {
-  return (diff(
-    oldColumns, newColumns
-  ) || []).filter(
-    e => !isFunction(e.lhs)
-  ).length === 0;
+  return isEqualWith(
+    oldColumns,
+    newColumns,
+    (a, b) => {
+      if (isFunction(a) && isFunction(b)) {
+        return true;
+      }
+
+      return undefined;
+    }
+  );
 }
 
 export default columnsAreEqual;

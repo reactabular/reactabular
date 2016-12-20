@@ -34,8 +34,7 @@
   "module": "dist",
   "jsnext:main": "dist",
   "dependencies": {
-    "classnames": "^2.2.5",
-    "deep-diff": "^0.3.4"
+    "classnames": "^2.2.5"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
