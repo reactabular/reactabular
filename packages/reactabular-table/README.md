@@ -70,7 +70,7 @@ const columns = [
 
 It is possible to customize a header by passing child components to it. This way you can implement filtering per column for instance.
 
-Here `SearchColumns` injects an additional row for the filter controls. An alternative way to handle it would be to push the problem to the column definition.
+Here `search.Columns` injects an additional row for the filter controls. An alternative way to handle it would be to push the problem to the column definition.
 
 ```react
 <Table.Provider
@@ -78,7 +78,7 @@ Here `SearchColumns` injects an additional row for the filter controls. An alter
   columns={columns}
 >
   <Table.Header>
-    <SearchColumns
+    <search.Columns
       query={{}}
       columns={columns}
       onChange={value => console.log('new value', value)}
