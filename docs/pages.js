@@ -26,7 +26,7 @@ export default [
   {
     path: 'easy',
     title: 'Easy Version',
-    component: require('reactabular-easy/../README.md')
+    component: require('reactabular-easy/README.md')
   },
   examplesPages('examples'),
   {

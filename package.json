@@ -107,6 +107,7 @@
     "react-redux": "^5.0.1",
     "react-visibility-toggles": "^1.1.0",
     "reactabular-column-extensions": "^8.6.0",
+    "reactabular-easy": "^9.0.0",
     "redux": "^3.6.0",
     "schema2object": "^0.4.0",
     "searchtabular": "^1.2.3",
