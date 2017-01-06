@@ -45,7 +45,7 @@ export default rootPath => ({
     {
       path: `${rootPath}/column-extensions`,
       title: 'Column Extensions',
-      component: require('reactabular-column-extensions/../README.md')
+      component: require('reactabular-column-extensions/README.md')
     }
   ]
 });
