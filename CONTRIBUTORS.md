@@ -31,6 +31,7 @@
 * [Radoslav Kirilov](https://github.com/smoke) - Fixed `onRow` at `reactabular-easy`. Improved column width behavior. #229, #238
 * [Or Poran](https://github.com/orporan) - Allow sticky overflow to be overridden through style. #246
 * [Pontus Alexander](https://github.com/pomle) - Fixed false negative rowkey check. #261
+* [Dean Taub](https://github.com/dtaub) - Calculate virtualized rows when height changes. #270
 
 ## Acknowledgments
 
