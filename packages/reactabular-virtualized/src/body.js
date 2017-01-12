@@ -26,7 +26,7 @@ class VirtualizedBody extends React.Component {
     this.checkMeasurements();
   }
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.rows, nextProps.rows)) {
+    if (!isEqual(this.props.rows, nextProps.rows) || this.props.height !== nextProps.height) {
       if (process.env.NODE_ENV !== 'production' && window.LOG_VIRTUALIZED) {
         console.log('invalidating measurements'); // eslint-disable-line no-console
       }
