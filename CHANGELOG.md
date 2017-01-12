@@ -1,3 +1,10 @@
+8.5.1 / 2017-01-12
+==================
+
+## reactabular-virtualized
+
+  * Bug fix - Calculate rows when height changes. #270
+
 8.5.0 / 2016-12-20
 ==================
 
