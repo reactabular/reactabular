@@ -1,3 +1,8 @@
+8.6.0 / 2017-01-16
+==================
+
+  * Bug fix - Bump lodash peer dependency to v4 minimum. This was expected already, but the version was wrong.
+
 8.0.0 / 2016-11-27
 ==================
 

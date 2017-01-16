@@ -1,3 +1,26 @@
+8.6.0 / 2017-01-16
+==================
+
+## reactabular-dnd
+
+  * Bug fix - Bump lodash peer dependency to v4 minimum. This was expected already, but the version was wrong.
+
+## reactabular-resizable
+
+  * Bug fix - Bump lodash peer dependency to v4 minimum. This was expected already, but the version was wrong.
+
+## reactabular-sticky
+
+  * Bug fix - Bump lodash peer dependency to v4 minimum. This was expected already, but the version was wrong.
+
+## reactabular-table
+
+  * Bug fix - Bump lodash peer dependency to v4 minimum. This was expected already, but the version was wrong.
+
+## reactabular-virtualized
+
+  * Bug fix - Bump lodash peer dependency to v4 minimum. This was expected already, but the version was wrong.
+
 8.5.1 / 2017-01-12
 ==================
 
