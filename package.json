@@ -15,7 +15,7 @@
     "gh-pages:build": "webpack",
     "gh-pages:deploy": "gh-pages -d gh-pages",
     "gh-pages:stats": "webpack --json --profile > stats.json",
-    "publish": "lerna publish && lerna-npm-readme-hack",
+    "publish": "lerna publish",
     "postinstall": "node lib/post_install.js",
     "postpublish": "npm run gh-pages:build-and-deploy"
   },
@@ -91,7 +91,6 @@
     "html-webpack-plugin": "^2.24.1",
     "jest": "^18.0.0",
     "lerna": "2.0.0-beta.31",
-    "lerna-npm-readme-hack": "^1.0.6",
     "lodash": "^4.17.2",
     "purecss": "^0.6.1",
     "raw-loader": "^0.5.1",
