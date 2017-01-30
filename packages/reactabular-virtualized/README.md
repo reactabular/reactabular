@@ -16,6 +16,7 @@ import { generateRows } from './helpers';
 
 const columns = [
   {
+    property: 'id',
     props: {
       style: { minWidth: 50 }
     },
@@ -163,7 +164,101 @@ class VirtualizedTable extends React.Component {
 
 <VirtualizedTable />
 ```
-
 ## Scrolling to Index
 
 `Virtualized.Body` `ref` exposes `scrollTo` method for scrolling through index. If you want to scroll based on some field value, search the dataset first and pass the resulting index here.
+
+## Define the height of table
+Please note `height` of `<Virtualized.Body>` must be defined. If `height` is not defined, `style.maxHeight` will be used. In below example, we use `style.maxHeight` instead of `height`,
+
+```jsx
+/*
+import React from 'react';
+import * as Sticky from 'reactabular-sticky';
+import * as Virtualized from 'reactabular-virtualized';
+
+import { generateRows } from './helpers';
+*/
+
+const columns = [
+  {
+    property: 'id',
+    props: {
+      style: { minWidth: 50 }
+    },
+    header: {
+      label: 'Index'
+    }
+  },
+  {
+    property: 'name',
+    props: {
+      style: { minWidth: 300 }
+    },
+    header: {
+      label: 'Name'
+    }
+  }
+];
+
+const rows = generateRows(1000);
+
+class VirtualizedTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      rows,
+      columns
+    };
+
+    this.tableHeader = null;
+    this.tableBody = null;
+  }
+  componentDidMount() {
+    // We have refs now. Force update to get those to Header/Body.
+    this.forceUpdate();
+  }
+  render() {
+    return (
+      <div>
+        <Table.Provider
+          className="pure-table pure-table-striped"
+          columns={columns}
+          components={{
+            body: {
+              wrapper: Virtualized.BodyWrapper,
+              row: Virtualized.BodyRow
+            }
+          }}
+        >
+          <Sticky.Header
+            style={{
+              maxWidth: 800
+            }}
+            ref={tableHeader => {
+              this.tableHeader = tableHeader && tableHeader.getRef();
+            }}
+            tableBody={this.tableBody}
+          />
+
+          <Virtualized.Body
+            rows={rows}
+            rowKey="id"
+            style={{
+              maxWidth: 800,
+              maxHeight: 400
+            }}
+            ref={tableBody => {
+              this.tableBody = tableBody && tableBody.getRef();
+            }}
+            tableHeader={this.tableHeader}
+          />
+        </Table.Provider>
+      </div>
+    );
+  }
+}
+
+<VirtualizedTable />
+```
