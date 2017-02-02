@@ -168,7 +168,8 @@ class VirtualizedTable extends React.Component {
 
 `Virtualized.Body` `ref` exposes `scrollTo` method for scrolling through index. If you want to scroll based on some field value, search the dataset first and pass the resulting index here.
 
-## Define the height of table
+## Define the Height of Table
+
 Please note `height` of `<Virtualized.Body>` must be defined. If `height` is not defined, `style.maxHeight` will be used. In below example, we use `style.maxHeight` instead of `height`,
 
 ```jsx
@@ -184,7 +185,7 @@ const columns = [
   {
     property: 'id',
     props: {
-      style: { minWidth: 50 }
+      style: { minWidth: 350 }
     },
     header: {
       label: 'Index'
@@ -200,8 +201,19 @@ const columns = [
     }
   }
 ];
-
-const rows = generateRows(1000);
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string'
+    },
+    name: {
+      type: 'string'
+    }
+  },
+  required: ['id', 'name']
+};
+const rows = generateRows(1000, schema);
 
 class VirtualizedTable extends React.Component {
   constructor(props) {
