@@ -32,7 +32,7 @@
 * [Or Poran](https://github.com/orporan) - Allow sticky overflow to be overridden through style. #246
 * [Pontus Alexander](https://github.com/pomle) - Fixed false negative rowkey check. #261
 * [Dean Taub](https://github.com/dtaub) - Calculate virtualized rows when height changes. #270
-* [Chen Bin](https://github.com/redguardtoo) - Support `props.style.maxHeight` at virtualization. ##276
+* [Chen Bin](https://github.com/redguardtoo) - Support `props.style.maxHeight` at virtualization. ##277
 
 ## Acknowledgments
 

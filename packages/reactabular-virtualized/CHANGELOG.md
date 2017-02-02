@@ -1,3 +1,8 @@
+8.7.0 / 2017-02-02
+==================
+
+  * Feature - Pick up `props.style.maxHeight` at `Virtualized.Body` if it's set. #277
+
 8.6.0 / 2017-01-16
 ==================
 
