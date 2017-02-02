@@ -25,8 +25,17 @@ class VirtualizedBody extends React.Component {
   componentDidUpdate() {
     this.checkMeasurements();
   }
+
+  getHeight(optionalProps) {
+    // If `optionalProps` is defined, we use `optionalProps` instead of `this.props`.
+    const props = optionalProps || this.props;
+    // If `props.height` is not defined, we use `props.style.maxHeight` instead.
+    return props.height || props.style.maxHeight;
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.rows, nextProps.rows) || this.props.height !== nextProps.height) {
+    if (!isEqual(this.props.rows, nextProps.rows)
+        || this.getHeight() !== this.getHeight(nextProps)) {
       if (process.env.NODE_ENV !== 'production' && window.LOG_VIRTUALIZED) {
         console.log('invalidating measurements'); // eslint-disable-line no-console
       }
@@ -34,7 +43,7 @@ class VirtualizedBody extends React.Component {
       const rows = calculateRows({
         scrollTop: this.scrollTop,
         measuredRows: this.measuredRows,
-        height: nextProps.height,
+        height: this.getHeight(nextProps),
         rowKey: nextProps.rowKey,
         rows: nextProps.rows
       });
@@ -122,7 +131,7 @@ class VirtualizedBody extends React.Component {
             calculateRows({
               scrollTop,
               measuredRows: this.measuredRows,
-              height: this.props.height,
+              height: this.getHeight(),
               rowKey: this.props.rowKey,
               rows: this.props.rows
             })
@@ -160,7 +169,7 @@ class VirtualizedBody extends React.Component {
         const rows = calculateRows({
           scrollTop: this.scrollTop,
           measuredRows: this.measuredRows,
-          height: this.props.height,
+          height: this.getHeight(),
           rowKey: this.props.rowKey,
           rows: this.props.rows
         });
