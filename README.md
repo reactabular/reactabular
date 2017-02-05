@@ -124,6 +124,18 @@ If you are using Reactabular and want to endorse it, [let me know](https://githu
 
 [![SurviveJS](./images/survivejs.png)](http://survivejs.com/) [![Kenandy](./images/kenandy.png)](http://www.kenandy.com/)
 
+[Become a sponsor](https://opencollective.com/reactabular#sponsor) and get your logo on our README on Github with a link to your site.
+
+[![](https://opencollective.com/reactabular/sponsor/0/avatar.svg)](https://opencollective.com/reactabular/sponsor/0/website)
+[![](https://opencollective.com/reactabular/sponsor/1/avatar.svg)](https://opencollective.com/reactabular/sponsor/1/website)
+
+## Backers
+
+[Become a backer](https://opencollective.com/reactabular#backer) and get your image on our README on Github with a link to your site.
+
+[![alt text](https://opencollective.com/reactabular/backer/0/avatar.svg)](https://opencollective.com/reactabular/backer/0/website)
+[![alt text](https://opencollective.com/reactabular/backer/1/avatar.svg)](https://opencollective.com/reactabular/backer/1/website)
+
 ## License
 
 MIT. See LICENSE for details.
