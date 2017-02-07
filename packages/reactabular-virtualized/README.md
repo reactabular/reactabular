@@ -274,3 +274,47 @@ class VirtualizedTable extends React.Component {
 
 <VirtualizedTable />
 ```
+## Use relative column widths
+You can define column widths as percentages of the table's width, like so:
+```
+const columns = [
+  {
+    property: 'id',
+    props: {
+      style: { width: "35%" }
+    },
+    ...
+```
+To force rows to stretch to the full width of the `tbody` container, however, a `flex`-based styling workaround is required. [This StackOverflow answer](http://stackoverflow.com/a/29512692/629578) suggests the configuration below. If this does not work for you, due to other styling constraints or concerns about browser compatibility, you may consider the other answers posted there, or you may need to take care of your column sizing and resizing in JavaScript.
+```
+{
+  display: flex;
+  flex-flow: column;
+
+  thead,
+  tbody tr {
+    display: table;
+    table-layout: fixed;
+  }
+
+  thead {
+    flex: 0 0 auto;
+    width: 100%;
+    background: #eaeaea;
+    tr {
+      width: calc(100% - 0.9em); /* 0.9em approximates scrollbar width */
+      display: table;
+    }
+  }
+
+  tbody {
+    display: block;
+    flex: 1 1 auto;
+    overflow-y: scroll;
+
+    tr {
+      width: 100%;
+    }
+  }
+}
+```
