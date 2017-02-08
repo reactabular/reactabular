@@ -164,6 +164,7 @@ class VirtualizedTable extends React.Component {
 
 <VirtualizedTable />
 ```
+
 ## Scrolling to Index
 
 `Virtualized.Body` `ref` exposes `scrollTo` method for scrolling through index. If you want to scroll based on some field value, search the dataset first and pass the resulting index here.
@@ -274,9 +275,12 @@ class VirtualizedTable extends React.Component {
 
 <VirtualizedTable />
 ```
-## Use relative column widths
+
+## Using relative column widths
+
 You can define column widths as percentages of the table's width, like so:
-```
+
+```javascript
 const columns = [
   {
     property: 'id',
@@ -285,8 +289,10 @@ const columns = [
     },
     ...
 ```
+
 To force rows to stretch to the full width of the `tbody` container, however, a `flex`-based styling workaround is required. [This StackOverflow answer](http://stackoverflow.com/a/29512692/629578) suggests the configuration below. If this does not work for you, due to other styling constraints or concerns about browser compatibility, you may consider the other answers posted there, or you may need to take care of your column sizing and resizing in JavaScript.
-```
+
+```css
 {
   display: flex;
   flex-flow: column;
