@@ -94,7 +94,7 @@ const commonSite = {
 
 if (TARGET === 'start') {
   module.exports = merge(common, commonSite, {
-    devtool: 'eval-source-map',
+    devtool: 'source-map',
     entry: config.paths.documentation,
     devServer: {
       historyApiFallback: true,
