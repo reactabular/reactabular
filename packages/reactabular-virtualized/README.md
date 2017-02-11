@@ -92,10 +92,7 @@ const schema = {
 // rely on rowIndex anywhere. But if you do, it's good to calculate and
 // include to the data. Reactabular's rendering logic is able to pick it
 // up by convention (`_index` field).
-const rows = resolve.resolve({
-  columns,
-  method: resolve.index
-})(generateRows(1000, schema));
+const rows = resolve.resolve({ columns })(generateRows(1000, schema));
 
 class VirtualizedTable extends React.Component {
   constructor(props) {
