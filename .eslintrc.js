@@ -21,6 +21,8 @@ module.exports = {
     "no-use-before-define": 0, // personal preference
     "react/forbid-prop-types": 0, // TODO: re-enable this later
     "react/sort-comp": 0, // personal preference
+    "react/require-default-props": 0, // personal preference
+    "react/no-array-index-key": 0, // XXX: crashes, re-enable later
     "react/no-multi-comp": 0, // personal preference
     "jsx-a11y/no-static-element-interactions": 0 // personal preference
   },
