@@ -78,6 +78,7 @@ const common = {
 };
 
 const commonSite = {
+  devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
       template: config.paths.indexTemplate,
@@ -94,7 +95,6 @@ const commonSite = {
 
 if (TARGET === 'start') {
   module.exports = merge(common, commonSite, {
-    devtool: 'source-map',
     entry: config.paths.documentation,
     devServer: {
       historyApiFallback: true,
