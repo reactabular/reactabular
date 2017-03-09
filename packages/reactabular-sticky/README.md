@@ -116,6 +116,7 @@ class StickyTable extends React.Component {
         <Sticky.Body
           rows={rows}
           rowKey="id"
+          scrollLeftLimitOffset={0}
           style={{
             maxWidth: 800,
             maxHeight: 400
@@ -132,3 +133,5 @@ class StickyTable extends React.Component {
 
 <StickyTable />
 ```
+
+Please note `<Sticky.Body />` has an optional attribute `scrollLeftLimitOffset` which could prevent the user scroll the content to the right end of table, so header and cells will always be in alignment.
