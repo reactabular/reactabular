@@ -33,6 +33,7 @@
 * [Pontus Alexander](https://github.com/pomle) - Fixed false negative rowkey check. #261
 * [Dean Taub](https://github.com/dtaub) - Calculate virtualized rows when height changes. #270
 * [Chen Bin](https://github.com/redguardtoo) - Support `props.style.maxHeight` at virtualization. ##277
+* [Daniel Johnson](https://github.com/danielj41) - Don't create a new component type on render to avoid issues with controlled components. #287
 
 ## Acknowledgments
 
