@@ -86,10 +86,12 @@ DraggableRow.propTypes = {
   rowId: React.PropTypes.any.isRequired
 };
 
+const SourceTargetDraggableRow = dragSource(dropTarget(DraggableRow));
+
 const draggableRow = (_parent) => {
   function draggable(children) {
     return React.createElement(
-      dragSource(dropTarget(DraggableRow)),
+      SourceTargetDraggableRow,
       {
         _parent,
         ...children
