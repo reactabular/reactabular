@@ -1,3 +1,8 @@
+8.7.1 / 2017-03-16
+==================
+
+  * Bug fix - Don't create a new component type on render to avoid issues with controlled components. #287
+
 8.6.0 / 2017-01-16
 ==================
 
