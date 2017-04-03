@@ -23,6 +23,30 @@ describe('utils.mergeProps', function () {
     expect(mergeProps(oldProps, newProps)).toEqual(expected);
   });
 
+  it('skips merging undefined I', function () {
+    const oldProps = {
+      a: 'foo'
+    };
+    const newProps = undefined;
+    const expected = {
+      a: 'foo'
+    };
+
+    expect(mergeProps(oldProps, newProps)).toEqual(expected);
+  });
+
+  it('skips merging undefined II', function () {
+    const oldProps = undefined;
+    const newProps = {
+      a: 'foo'
+    };
+    const expected = {
+      a: 'foo'
+    };
+
+    expect(mergeProps(oldProps, newProps)).toEqual(expected);
+  });
+
   it('should not mutate first', function () {
     const oldProps = {
       a: 'foo'
