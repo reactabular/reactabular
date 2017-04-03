@@ -1,3 +1,8 @@
+8.7.2 / 2017-04-03
+==================
+
+  * Bug fix - If there are no transforms, skip processing them entirely.
+
 8.6.0 / 2017-01-16
 ==================
 

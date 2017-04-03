@@ -1,3 +1,10 @@
+8.7.2 / 2017-04-03
+==================
+
+## reactabular-table
+
+  * Bug fix - If there are no transforms, skip processing them entirely.
+
 8.7.1 / 2017-03-16
 ==================
 
