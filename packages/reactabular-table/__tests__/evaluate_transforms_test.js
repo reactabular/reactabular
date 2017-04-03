@@ -9,6 +9,14 @@ describe('utils.evaluateTransforms', function () {
     expect(evaluateTransforms(transforms, input).value).toEqual(output);
   });
 
+  it('returns an object without transforms', function () {
+    const input = 10;
+    const output = {};
+    const transforms = [];
+
+    expect(evaluateTransforms(transforms, input)).toEqual(output);
+  });
+
   it('accepts extra parameters passed to transforms', function () {
     const input = 10;
     const output = 'foo';

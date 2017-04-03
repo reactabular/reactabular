@@ -11,6 +11,10 @@ function evaluateTransforms(transforms = [], value, extraParameters = {}) {
     }
   }
 
+  if (transforms.length === 0) {
+    return {};
+  }
+
   return mergeProps(
     ...transforms.map(transform => transform(value, extraParameters))
   );
