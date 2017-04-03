@@ -1,3 +1,10 @@
+8.8.0 / 2017-04-03
+==================
+
+## reactabular-table
+
+  * Refactor - Refactor `mergePropPair` logic. Now Babel should generate easier code.
+
 8.7.2 / 2017-04-03
 ==================
 
