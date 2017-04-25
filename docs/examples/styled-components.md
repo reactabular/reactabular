@@ -13,6 +13,7 @@ import * as Table from 'reactabular-table';
 
 import { generateRows } from './helpers';
 */
+
 const AlignedBodyCell = styled.td`
   text-align: ${props => props.isNumber ? 'right' : 'left'};
 `;
