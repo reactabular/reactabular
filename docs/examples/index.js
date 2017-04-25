@@ -53,7 +53,7 @@ export default rootPath => ({
       component: require('./multiple-async-instances.md')
     },
     {
-      imports: {styled: require('styled-components')},
+      imports: { styled: require('styled-components') },
       path: `${rootPath}/styled-components`,
       title: 'Styled Components',
       component: require('./styled-components.md')
