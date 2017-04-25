@@ -1,28 +1,22 @@
-This is a simple example showing how to override default elements by components defined via the popular [styled components](https://styled-components.com/) library.
+This is an example showing how to override default elements by components defined via the popular [styled components](https://styled-components.com/) library.
 
-Assume we want to right-align all columns containing numbers and left-align the other columns. Styled components can be passed props as usual, so if we define a styled component as follows:
+Assume we want to right-align all columns containing numbers and left-align the other columns. Styled components can be passed props as usual and we can achieve the desired formatting by defining a styled component `AlignedBodyCell` as shown in the example below.
 
-```jsx
-import styled from 'styled-components';
-
-const AlignedBodyCell = styled.td`
-  text-align: ${props => props.isNumber ? 'right' : 'left'};
-`;
-
-export default AlignedBodyCell;
-```
-
-and the column definition contains the `isNumber` information, we can apply the desired styling like this:
+In this example we have just set one css property, but one can imagine putting most or all the styling into such styling components.
 
 ```jsx
 /*
 import React from 'react';
+import styled from 'styled'; // replace in your code by: import styled from 'styled-components';
+
 import * as Table from 'reactabular-table';
 
 import { generateRows } from './helpers';
-
-import AlignedBodyCell from './AlignedBodyCell';
 */
+const AlignedBodyCell = styled.td`
+  text-align: ${props => props.isNumber ? 'right' : 'left'};
+`;
+
 const schema = {
   type: 'object',
   properties: {
@@ -101,7 +95,5 @@ class AlignedTable extends React.Component {
   }
 }
 
-export default AlignedTable
+<AlignedTable />
 ```
-
-In this example we have just set one css property, but one can imagine putting most or all the styling into such styling components.
