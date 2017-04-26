@@ -7,7 +7,7 @@ In this example we have just set one css property, but one can imagine putting m
 ```jsx
 /*
 import React from 'react';
-import styled from 'styled'; // replace in your code by: import styled from 'styled-components';
+import styled from 'styled-components';
 
 import * as Table from 'reactabular-table';
 
