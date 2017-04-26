@@ -55,7 +55,6 @@
       "./lib/test_setup.js"
     ]
   },
-  "dependencies": {},
   "devDependencies": {
     "annogenerate": "^0.8.1",
     "babel-cli": "^6.22.2",
@@ -114,6 +113,7 @@
     "selectabular": "^2.0.1",
     "sortabular": "^1.2.0",
     "style-loader": "^0.13.1",
+    "styled-components": "^1.4.5",
     "stylesheet-helpers": "^0.2.2",
     "table-resolver": "^3.1.0",
     "treetabular": "^3.1.1",
