@@ -1,5 +1,6 @@
 import { isEqual } from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Body } from 'reactabular-sticky';
 import { resolveRowKey } from 'reactabular-table';
 import { bodyChildContextTypes } from './types';
@@ -194,7 +195,7 @@ class VirtualizedBody extends React.Component {
 VirtualizedBody.defaultProps = Body.defaultProps;
 VirtualizedBody.propTypes = {
   ...Body.propTypes,
-  height: React.PropTypes.number.isRequired
+  height: PropTypes.number.isRequired
 };
 VirtualizedBody.childContextTypes = bodyChildContextTypes;
 

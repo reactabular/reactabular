@@ -1,5 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Header as TableHeader } from 'reactabular-table';
 
 class Header extends React.Component {
@@ -37,8 +38,8 @@ class Header extends React.Component {
   }
 }
 Header.propTypes = {
-  style: React.PropTypes.any,
-  tableBody: React.PropTypes.any
+  style: PropTypes.any,
+  tableBody: PropTypes.any
 };
 
 export default Header;

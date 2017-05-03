@@ -1,85 +1,85 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
-const arrayOfObjectColumns = React.PropTypes.arrayOf(
-  React.PropTypes.shape({
-    header: React.PropTypes.shape({
-      label: React.PropTypes.string,
-      transforms: React.PropTypes.arrayOf(React.PropTypes.func),
-      formatters: React.PropTypes.arrayOf(React.PropTypes.func),
-      props: React.PropTypes.object
+const arrayOfObjectColumns = PropTypes.arrayOf(
+  PropTypes.shape({
+    header: PropTypes.shape({
+      label: PropTypes.string,
+      transforms: PropTypes.arrayOf(PropTypes.func),
+      formatters: PropTypes.arrayOf(PropTypes.func),
+      props: PropTypes.object
     }),
-    cell: React.PropTypes.shape({
-      property: React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
+    cell: PropTypes.shape({
+      property: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
       ]),
-      transforms: React.PropTypes.arrayOf(React.PropTypes.func),
-      formatters: React.PropTypes.arrayOf(React.PropTypes.func),
-      props: React.PropTypes.object
+      transforms: PropTypes.arrayOf(PropTypes.func),
+      formatters: PropTypes.arrayOf(PropTypes.func),
+      props: PropTypes.object
     })
   })
 );
-const arrayOfArrayColumns = React.PropTypes.arrayOf(React.PropTypes.array);
-const rowsType = React.PropTypes.oneOfType([
+const arrayOfArrayColumns = PropTypes.arrayOf(PropTypes.array);
+const rowsType = PropTypes.oneOfType([
   arrayOfObjectColumns,
   arrayOfArrayColumns
 ]);
-const rowKeyType = React.PropTypes.oneOfType([
-  React.PropTypes.func,
-  React.PropTypes.string
+const rowKeyType = PropTypes.oneOfType([
+  PropTypes.func,
+  PropTypes.string
 ]);
-const rowDataType = React.PropTypes.oneOfType([
-  React.PropTypes.array,
-  React.PropTypes.object
+const rowDataType = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object
 ]);
 const tableTypes = {
-  columns: React.PropTypes.array.isRequired,
-  components: React.PropTypes.object
+  columns: PropTypes.array.isRequired,
+  components: PropTypes.object
 };
 const tableContextTypes = {
-  columns: React.PropTypes.array.isRequired,
-  components: React.PropTypes.object
+  columns: PropTypes.array.isRequired,
+  components: PropTypes.object
 };
 const tableBodyDefaults = {
   onRow: () => {}
 };
 const tableBodyTypes = {
-  onRow: React.PropTypes.func,
+  onRow: PropTypes.func,
   rows: rowsType.isRequired,
   rowKey: rowKeyType
 };
 const tableBodyContextTypes = {
-  columns: React.PropTypes.array.isRequired,
-  components: React.PropTypes.object
+  columns: PropTypes.array.isRequired,
+  components: PropTypes.object
 };
 const tableBodyRowDefaults = {
   onRow: () => ({})
 };
 const tableBodyRowTypes = {
-  columns: React.PropTypes.array.isRequired,
-  components: React.PropTypes.object,
-  onRow: React.PropTypes.func,
-  rowIndex: React.PropTypes.number.isRequired,
+  columns: PropTypes.array.isRequired,
+  components: PropTypes.object,
+  onRow: PropTypes.func,
+  rowIndex: PropTypes.number.isRequired,
   rowData: rowDataType.isRequired,
-  rowKey: React.PropTypes.string.isRequired
+  rowKey: PropTypes.string.isRequired
 };
 const tableHeaderTypes = {
-  headerRows: React.PropTypes.arrayOf(
+  headerRows: PropTypes.arrayOf(
     arrayOfObjectColumns
   ),
-  children: React.PropTypes.any
+  children: PropTypes.any
 };
 const tableHeaderContextTypes = {
-  columns: React.PropTypes.array.isRequired,
-  components: React.PropTypes.object
+  columns: PropTypes.array.isRequired,
+  components: PropTypes.object
 };
 const tableHeaderRowDefaults = {
   onRow: () => ({})
 };
 const tableHeaderRowTypes = {
-  components: React.PropTypes.object,
-  onRow: React.PropTypes.func,
-  rowIndex: React.PropTypes.number.isRequired,
+  components: PropTypes.object,
+  onRow: PropTypes.func,
+  rowIndex: PropTypes.number.isRequired,
   rowData: rowDataType.isRequired
 };
 const tableDefaults = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { tableTypes, tableDefaults, tableContextTypes } from './types';
 
 const componentDefaults = tableDefaults.components;
@@ -34,7 +35,7 @@ export default class Provider extends React.Component {
 }
 Provider.propTypes = {
   ...tableTypes,
-  children: React.PropTypes.any
+  children: PropTypes.any
 };
 Provider.defaultProps = {
   ...tableDefaults

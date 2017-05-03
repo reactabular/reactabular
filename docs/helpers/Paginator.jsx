@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Pagify from 'react-pagify';
 import segmentize from 'segmentize';
 
@@ -41,9 +42,9 @@ const Paginator = ({ pagination, pages, onSelect }) => (
   </div>
 );
 Paginator.propTypes = {
-  pagination: React.PropTypes.object,
-  pages: React.PropTypes.number,
-  onSelect: React.PropTypes.func
+  pagination: PropTypes.object,
+  pages: PropTypes.number,
+  onSelect: PropTypes.func
 };
 
 export default Paginator;

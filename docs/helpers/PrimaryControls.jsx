@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as search from 'searchtabular';
 import PerPage from './PerPage';
 
@@ -25,14 +26,14 @@ const PrimaryControls = ({
   </div>
 );
 PrimaryControls.propTypes = {
-  perPage: React.PropTypes.number,
-  columns: React.PropTypes.array,
-  rows: React.PropTypes.array,
-  column: React.PropTypes.string,
-  query: React.PropTypes.object,
-  onPerPage: React.PropTypes.func,
-  onSearch: React.PropTypes.func,
-  onColumnChange: React.PropTypes.func
+  perPage: PropTypes.number,
+  columns: PropTypes.array,
+  rows: PropTypes.array,
+  column: PropTypes.string,
+  query: PropTypes.object,
+  onPerPage: PropTypes.func,
+  onSearch: PropTypes.func,
+  onColumnChange: PropTypes.func
 };
 
 export default PrimaryControls;
