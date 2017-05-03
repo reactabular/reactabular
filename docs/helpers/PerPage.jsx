@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const PerPage = ({ value, onChange }) => (
   <div>
@@ -11,8 +12,8 @@ const PerPage = ({ value, onChange }) => (
   </div>
 );
 PerPage.propTypes = {
-  value: React.PropTypes.number,
-  onChange: React.PropTypes.func
+  value: PropTypes.number,
+  onChange: PropTypes.func
 };
 
 export default PerPage;

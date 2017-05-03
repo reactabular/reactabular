@@ -1,5 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Body as TableBody } from 'reactabular-table';
 
 class Body extends React.Component {
@@ -45,9 +46,9 @@ class Body extends React.Component {
   }
 }
 Body.propTypes = {
-  style: React.PropTypes.any,
-  tableHeader: React.PropTypes.any,
-  onScroll: React.PropTypes.func
+  style: PropTypes.any,
+  tableHeader: PropTypes.any,
+  onScroll: PropTypes.func
 };
 
 export default Body;

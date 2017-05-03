@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom';
 
@@ -73,17 +74,17 @@ const DraggableRow = ({
   )
 );
 DraggableRow.propTypes = {
-  _parent: React.PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.node
+  _parent: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.node
   ]).isRequired,
-  connectDragSource: React.PropTypes.func.isRequired,
-  connectDropTarget: React.PropTypes.func.isRequired,
-  onMove: React.PropTypes.func.isRequired,
-  onCanMove: React.PropTypes.func,
-  onMoveStart: React.PropTypes.func,
-  onMoveEnd: React.PropTypes.func,
-  rowId: React.PropTypes.any.isRequired
+  connectDragSource: PropTypes.func.isRequired,
+  connectDropTarget: PropTypes.func.isRequired,
+  onMove: PropTypes.func.isRequired,
+  onCanMove: PropTypes.func,
+  onMoveStart: PropTypes.func,
+  onMoveEnd: PropTypes.func,
+  rowId: PropTypes.any.isRequired
 };
 
 const SourceTargetDraggableRow = dragSource(dropTarget(DraggableRow));
