@@ -34,7 +34,7 @@
 * [Dean Taub](https://github.com/dtaub) - Calculate virtualized rows when height changes. #270
 * [Chen Bin](https://github.com/redguardtoo) - Support `props.style.maxHeight` at virtualization. ##277
 * [Daniel Johnson](https://github.com/danielj41) - Don't create a new component type on render to avoid issues with controlled components. #287
-* [José Diaz Seng](https://github.com/joseds) - Add styled-components example. Fix to work with React 15.5. #293, #297
+* [José Diaz Seng](https://github.com/joseds) - Add styled-components example. Fix to work with React 15.5. Updated Jest. #293, #297, #298
 
 ## Acknowledgments
 
