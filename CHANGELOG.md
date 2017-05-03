@@ -1,3 +1,8 @@
+8.9.0 / 2017-04-03
+==================
+
+  * Refactor - Use **prop-types** package over React `propTypes` to fix the package for React 15.5. #297
+
 8.8.0 / 2017-04-03
 ==================
 
