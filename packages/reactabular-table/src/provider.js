@@ -23,6 +23,7 @@ export default class Provider extends React.Component {
       columns, // eslint-disable-line no-unused-vars
       components,
       children,
+      tableDefaults,
       ...props
     } = this.props;
 
