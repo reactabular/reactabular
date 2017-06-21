@@ -10,24 +10,40 @@ function helper({ globalId, getId }) {
   const { styleSheetElement, styleSheet } = stylesheet.create();
 
   return {
+
     initialize(columns) {
-      return columns.map((column, index) => {
-        const className = getClassName(globalId, getId(column, index));
+      // using leaf index ref, check either leaf column or not
+      let leafIndex = 0;
 
-        updateWidth({
-          styleSheet,
-          className,
-          width: column.width
-        });
+      // before return columns, give style to column including children
+      loopColumns({ columns }, (column) => {
+        let currentColumn = column;
 
-        return {
-          ...column,
-          props: {
-            ...column.props,
-            // TODO: test against missing props case
-            className: classNames(column.props && column.props.className, className)
-          }
-        };
+        if (!currentColumn.children) {
+          currentColumn.leafIndex = leafIndex;
+          leafIndex += 1;
+        }
+        if (typeof currentColumn.leafIndex !== 'undefined') {
+          const className = getClassName(globalId, getId(column, column.leafIndex));
+          updateWidth({
+            styleSheet,
+            className,
+            width: column.width
+          });
+
+          currentColumn = Object.assign(currentColumn, {
+            props: {
+              ...currentColumn.props,
+              className: classNames(column.props && column.props.className, className)
+            }
+          });
+
+          delete currentColumn.leafIndex;
+        }
+      });
+
+      return columns.map(function (column) {
+        return column;
       });
     },
     cleanup() {
@@ -62,6 +78,23 @@ function updateWidth({
       maxWidth: `${width}px`
     }
   );
+}
+
+function loopColumns({
+  columns,
+  childrenField = 'children'
+}, callback) {
+  if (!columns) {
+    throw new Error('loopColumns - Missing columns!');
+  }
+
+  columns.forEach((column, index) => {
+    callback && callback(column, index);
+
+    if (column.children && column.children.length) {
+      loopColumns({ columns: column.children, childrenField }, callback);
+    }
+  });
 }
 
 export default helper;

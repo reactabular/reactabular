@@ -5,6 +5,9 @@
 
 Note that the current implementation doesn't constrain the total width of the table. That would require additional logic as you would have to check for this while altering a column width.
 
+If you want to resizing with nested column, give a `resizableFormatter` formatter on children **except parent column**.
+Below example included nested column. If you don't want to using nested column, remove related nested columns code.
+
 ## How to Use?
 
 The following example adjusts column widths through CSS to keep the performance high while using a sticky header/body. This way we can avoid touching the DOM through React and let the browser do the work.
@@ -29,6 +32,7 @@ import * as Sticky from 'reactabular-sticky';
 import * as resizable from 'reactabular-resizable';
 import uuid from 'uuid';
 import { generateRows } from './helpers';
+import * as resolve from 'table-resolver';
 */
 
 
@@ -44,11 +48,14 @@ const schema = {
     address: {
       type: 'string'
     },
+    company: {
+      type: 'string'
+    },
     age: {
       type: 'integer'
     }
   },
-  required: ['id', 'name', 'age']
+  required: ['id', 'name', 'age', 'company']
 };
 const rows = generateRows(100, schema);
 
@@ -103,24 +110,40 @@ class ResizableColumnsTable extends React.Component {
             resizableFormatter
           ]
         },
-        width: 200
+        width: 100
       },
       {
-        property: 'address',
         header: {
-          label: 'Really Long Address Header',
-          formatters: [
-            resizableFormatter
-          ]
+          label: 'About'
         },
-        width: 400
+        children: [
+          {
+            property: 'company',
+            header: {
+              label: 'Company',
+              formatters: [
+                resizableFormatter
+              ],
+            },
+            width: 100
+          },
+          {
+            property: 'address',
+            header: {
+              label: 'Address',
+              formatters: [
+                resizableFormatter
+              ],
+            },
+            width: 200
+          },
+        ],
       },
       {
         property: 'age',
         header: {
           label: 'Age'
-        },
-        width: 200
+        }
       }
     ];
   }
@@ -130,16 +153,23 @@ class ResizableColumnsTable extends React.Component {
   render() {
     const { rows, columns } = this.state;
 
+    const resolvedColumns = resolve.columnChildren({ columns });
+    const resolvedRows = resolve.resolve({
+        columns: resolvedColumns,
+        method: resolve.nested
+      })(rows);
+
     return (
       <Table.Provider
         className="pure-table pure-table-striped"
-        columns={columns}
+        columns={resolvedColumns}
         style={{ width: 'auto' }}
       >
         <Sticky.Header
           style={{
             maxWidth: 800
           }}
+          headerRows={resolve.headerRows({ columns })}
           ref={tableHeader => {
             this.tableHeader = tableHeader && tableHeader.getRef();
           }}
@@ -147,7 +177,7 @@ class ResizableColumnsTable extends React.Component {
         />
 
         <Sticky.Body
-          rows={rows}
+          rows={resolvedRows}
           rowKey="id"
           onRow={this.onRow}
           style={{
