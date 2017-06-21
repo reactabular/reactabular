@@ -35,6 +35,7 @@
 * [Chen Bin](https://github.com/redguardtoo) - Support `props.style.maxHeight` at virtualization. ##277
 * [Daniel Johnson](https://github.com/danielj41) - Don't create a new component type on render to avoid issues with controlled components. #287
 * [José Diaz Seng](https://github.com/joseds) - Add styled-components example. Fix to work with React 15.5. Updated Jest. #293, #297, #298
+* [Junho Park](https://github.com/cnaa97) - Fix Nested Columns more then two children. Enhancement resizing columns for nested column. #301, #307
 
 ## Acknowledgments
 
