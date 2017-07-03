@@ -1,6 +1,5 @@
 import { isEqual } from 'lodash';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Body } from 'reactabular-sticky';
 import { resolveRowKey } from 'reactabular-table';
 import { bodyChildContextTypes } from './types';
@@ -195,9 +194,20 @@ class VirtualizedBody extends React.Component {
 VirtualizedBody.defaultProps = Body.defaultProps;
 VirtualizedBody.propTypes = {
   ...Body.propTypes,
-  height: PropTypes.number.isRequired
+  height: heightPropCheck
 };
 VirtualizedBody.childContextTypes = bodyChildContextTypes;
+
+/* eslint-disable consistent-return */
+export function heightPropCheck(props, propName, componentName) {
+  if (
+    (typeof props[propName] !== 'number') &&
+    (!props.style || typeof props.style.maxHeight !== 'number')
+    ) {
+    return new Error(`height or style.maxHeight of type 'number' is marked as required in ${componentName}`);
+  }
+}
+/* eslint-enable consistent-return */
 
 function getInitialState() {
   return {
