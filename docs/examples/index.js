@@ -57,6 +57,11 @@ export default rootPath => ({
       path: `${rootPath}/styled-components`,
       title: 'Styled Components',
       component: require('./styled-components.md')
+    },
+    {
+      path: `${rootPath}/header-body-aligned`,
+      title: 'Align sticky header and body',
+      component: require('./header-body-aligned.md')
     }
   ]
 });
