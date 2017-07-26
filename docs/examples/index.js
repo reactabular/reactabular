@@ -60,7 +60,7 @@ export default rootPath => ({
     },
     {
       path: `${rootPath}/header-body-aligned`,
-      title: 'Align sticky header and body',
+      title: 'Align Sticky Header and Body',
       component: require('./header-body-aligned.md')
     }
   ]
