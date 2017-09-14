@@ -2,7 +2,7 @@
   "private": true,
   "name": "reactabular",
   "version": "1.0.0",
-  "description": "Spectacular tables for React",
+  "description": "A framework for building the React table you need",
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "init": "npm install && lerna bootstrap",

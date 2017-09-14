@@ -1,8 +1,8 @@
 [![Join the chat at https://gitter.im/reactabular/reactabular](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/reactabular/reactabular) [![build status](https://secure.travis-ci.org/reactabular/reactabular.svg)](http://travis-ci.org/reactabular/reactabular) [![bitHound Score](https://www.bithound.io/github/reactabular/reactabular/badges/score.svg)](https://www.bithound.io/github/reactabular/reactabular) [![codecov](https://codecov.io/gh/reactabular/reactabular/branch/master/graph/badge.svg)](https://codecov.io/gh/reactabular/reactabular)
-[![OpenCollective](https://opencollective.com/reactabular/backers/badge.svg)](#backers) 
+[![OpenCollective](https://opencollective.com/reactabular/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/reactabular/sponsors/badge.svg)](#sponsors)
 
-# Reactabular - Spectacular tables for React
+# Reactabular - A framework for building the React table you need
 
 Reactabular has been designed to be extensible. Rather than implementing a lot of functionality in its core, it provides extension points. You can, for instance, customize rendering on cell level. It is possible to implement functionality, such as search, pagination, sorting, and inline editing, through composition. The library includes a variety of utilities for this even though you may use third party ones as well.
 
