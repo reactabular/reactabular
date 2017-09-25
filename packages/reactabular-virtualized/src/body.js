@@ -14,6 +14,7 @@ class VirtualizedBody extends React.Component {
     this.ref = null;
     this.scrollTop = 0;
     this.initialMeasurement = true;
+    this.timeoutId = 0;
 
     this.state = getInitialState();
 
@@ -24,6 +25,9 @@ class VirtualizedBody extends React.Component {
   }
   componentDidUpdate() {
     this.checkMeasurements();
+  }
+  componentWillUnmount() {
+    clearTimeout(this.timeoutId);
   }
 
   getHeight(optionalProps) {
@@ -165,7 +169,7 @@ class VirtualizedBody extends React.Component {
     // Without this styling solutions like Radium won't work as you might expect
     // given they can take a while to set container height.
     if (this.initialMeasurement) {
-      setTimeout(() => {
+      this.timeoutId = setTimeout(() => {
         const rows = calculateRows({
           scrollTop: this.scrollTop,
           measuredRows: this.measuredRows,
