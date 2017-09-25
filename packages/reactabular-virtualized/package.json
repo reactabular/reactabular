@@ -1,6 +1,6 @@
 {
   "name": "reactabular-virtualized",
-  "version": "8.10.1",
+  "version": "8.11.0",
   "description": "Table virtualization for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
