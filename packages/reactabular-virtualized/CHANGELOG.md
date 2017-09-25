@@ -1,4 +1,4 @@
-8.7.1 / 2017-09-25
+8.11.0 / 2017-09-25
 ==================
 
   * Bug fix - Clear `setTimeout` timer on `componentWillUnmount` to avoid warnings (good practice anyway). #320
