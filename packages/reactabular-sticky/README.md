@@ -11,7 +11,7 @@ The following example implements sticky headers within a fixed viewport through 
 ```jsx
 /*
 import React from 'react';
-import { Table, Sticky } from 'reactabular';
+import { Table } from 'reactabular-table';
 // import * as Sticky from 'reactabular-sticky';
 
 import { generateRows } from './helpers';
