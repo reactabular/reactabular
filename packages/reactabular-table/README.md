@@ -6,7 +6,7 @@ Reactabular provides three components: `Table.Provider`, `Table.Header`, and `Ta
 
 ```jsx
 /*
-import { Table } from 'reactabular';
+import { Table } from 'reactabular-table';
 */
 
 const rows = [
