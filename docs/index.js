@@ -15,9 +15,10 @@ import pages from './pages';
 import './main.css';
 import '../style.css';
 
-if (process.env.NODE_ENV !== 'production') {
-  React.Perf = require('react-addons-perf');
-}
+// TODO: Doesn’t work in React 16 yet
+// if (process.env.NODE_ENV !== 'production') {
+//   React.Perf = require('react-addons-perf');
+// }
 
 ReactDOM.render(
   React.createElement(documentation({
