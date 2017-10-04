@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
+import { mount } from 'enzyme';
 import { expect } from 'chai';
 import * as edit from 'react-edit';
 import * as resolve from 'table-resolver';
@@ -1033,18 +1034,14 @@ describe('Table.Body', function () {
     const rows = [
       { position: 'foo', age: 111, name: 'foo', nested: { id } }
     ];
-    const table = TestUtils.renderIntoDocument(
+
+    const table = mount(
       <Table.Provider columns={columns}>
         <Table.Body rows={rows} rowKey={({ rowData }) => rowData.nested.id} />
       </Table.Provider>
     );
-    const tableBodyRow = TestUtils.findRenderedComponentWithType(
-      table, Table.BodyRow
-    );
-    // XXX: there's likely a lot better way to dig the key
-    // Shallow rendering perhaps? https://github.com/facebook/react/issues/3721#issuecomment-106318499
-    const key = tableBodyRow._reactInternalInstance._currentElement.key;
 
+    const key = table.find('BodyRow').prop('rowKey');
     expect(key).to.equal(`${id}-row`);
   });
 
@@ -1065,18 +1062,13 @@ describe('Table.Body', function () {
     const rows = [
       { position: 'foo', age: 111, name: 'foo' }
     ];
-    const table = TestUtils.renderIntoDocument(
+    const table = mount(
       <Table.Provider columns={columns}>
         <Table.Body rows={rows} rowKey={({ rowIndex }) => rowIndex} />
       </Table.Provider>
     );
-    const tableBodyRow = TestUtils.findRenderedComponentWithType(
-      table, Table.BodyRow
-    );
-    // XXX: there's likely a lot better way to dig the key
-    // Shallow rendering perhaps? https://github.com/facebook/react/issues/3721#issuecomment-106318499
-    const key = tableBodyRow._reactInternalInstance._currentElement.key;
 
+    const key = table.find('BodyRow').prop('rowKey');
     expect(key).to.equal(`${index}-row`);
   });
 
