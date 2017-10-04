@@ -1,36 +1,38 @@
 /* eslint-disable global-require, import/no-unresolved */
+import { pageLoader } from 'catalog';
+
 export default rootPath => ({
   title: 'Features',
   pages: [
     {
       path: `${rootPath}/search`,
       title: 'Search',
-      component: require('searchtabular/README.md')
+      content: pageLoader(() => import('searchtabular/README.md'))
     },
     {
       path: `${rootPath}/resizing-columns`,
       title: 'Resizing Columns',
-      component: require('reactabular-resizable/../README.md')
+      content: pageLoader(() => import('../../packages/reactabular-resizable/README.md'))
     },
     {
       path: `${rootPath}/toggling-column-visibility`,
       title: 'Toggling Column Visibility',
-      component: require('react-visibility-toggles/README.md')
+      content: pageLoader(() => import('react-visibility-toggles/README.md'))
     },
     {
       path: `${rootPath}/selection`,
       title: 'Selection',
-      component: require('selectabular/README.md')
+      content: pageLoader(() => import('selectabular/README.md'))
     },
     {
       path: `${rootPath}/sticky`,
       title: 'Sticky',
-      component: require('reactabular-sticky/../README.md')
+      content: pageLoader(() => import('../../packages/reactabular-sticky/README.md'))
     },
     {
       path: `${rootPath}/virtualization`,
       title: 'Virtualization',
-      component: require('reactabular-virtualized/../README.md')
+      content: pageLoader(() => import('../../packages/reactabular-virtualized/README.md'))
     }
   ]
 });

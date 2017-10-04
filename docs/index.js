@@ -7,7 +7,7 @@ import 'sortabular/style.css';
 import 'react-pagify/style.css';
 import 'treetabular/style.css';
 import 'react-visibility-toggles/style.css';
-import 'reactabular-resizable/../style.css';
+import '../packages/reactabular-resizable/style.css';
 
 import documentation from './documentation';
 import pages from './pages';
@@ -21,8 +21,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 ReactDOM.render(
   React.createElement(documentation({
-    title: `Reactabular ${VERSION}`, // eslint-disable-line no-undef
+    title: 'Reactabular',
     pages
   })),
-  document.getElementById('app')
+  document.getElementById('catalog')
 );

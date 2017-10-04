@@ -1,5 +1,5 @@
 node_modules/
-gh-pages/
+docs/build/
 packages/**/dist/
 coverage/
 stats.json

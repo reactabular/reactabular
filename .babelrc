@@ -5,6 +5,7 @@
   ],
   "plugins": [
     "lodash",
+    "syntax-dynamic-import",
     "syntax-object-rest-spread",
     "transform-object-rest-spread",
     [
@@ -13,12 +14,5 @@
         "mode": "wrap"
       }
     ]
-  ],
-  "env": {
-    "start": {
-      "presets": [
-        "react-hmre"
-      ]
-    }
-  }
+  ]
 }

@@ -1,4 +1,5 @@
 /* eslint-disable global-require, import/no-unresolved */
+import { pageLoader } from 'catalog';
 import tablePages from './table';
 import columnDefinitionPages from './column-definition';
 import dataPages from './data';
@@ -11,12 +12,7 @@ export default [
   {
     path: '/',
     title: 'Introduction',
-    component: require('../README.md'),
-    props: {
-      style: {
-        borderBottom: '2px solid #ddd'
-      }
-    }
+    content: pageLoader(() => import('../README.md'))
   },
   tablePages('table'),
   columnDefinitionPages('column-definition'),
@@ -26,23 +22,23 @@ export default [
   {
     path: 'easy',
     title: 'Easy Version',
-    component: require('reactabular-easy/README.md')
+    content: pageLoader(() => import('reactabular-easy/README.md'))
   },
   examplesPages('examples'),
   {
     path: 'installing',
     title: 'Installing',
-    component: require('./installing.md')
+    content: pageLoader(() => import('./installing.md'))
   },
   contributingPages('contributing'),
   {
     path: 'changelog',
     title: 'Changelog',
-    component: require('../CHANGELOG.md')
+    content: pageLoader(() => import('../CHANGELOG.md'))
   },
   {
     path: 'license',
     title: 'License',
-    component: require('../LICENSE.md')
+    content: pageLoader(() => import('../LICENSE.md'))
   }
 ];

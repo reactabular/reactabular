@@ -1,31 +1,33 @@
 /* eslint-disable global-require, import/no-unresolved */
+import { pageLoader } from 'catalog';
+
 export default rootPath => ({
   title: 'Data',
   pages: [
     {
       path: `${rootPath}/resolving`,
       title: 'Resolving',
-      component: require('table-resolver/README.md')
+      content: pageLoader(() => import('table-resolver/README.md'))
     },
     {
       path: `${rootPath}/inline-editing`,
       title: 'Inline Editing',
-      component: require('./inline-editing.md')
+      content: pageLoader(() => import('./inline-editing.md'))
     },
     {
       path: `${rootPath}/sorting`,
       title: 'Sorting',
-      component: require('sortabular/README.md')
+      content: pageLoader(() => import('sortabular/README.md'))
     },
     {
       path: `${rootPath}/pagination`,
       title: 'Pagination',
-      component: require('./pagination.md')
+      content: pageLoader(() => import('./pagination.md'))
     },
     {
       path: `${rootPath}/tree`,
       title: 'Tree',
-      component: require('treetabular/README.md')
+      content: pageLoader(() => import('treetabular/README.md'))
     }
   ]
 });
