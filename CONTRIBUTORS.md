@@ -26,7 +26,7 @@
 * [Mathieu M-Gosselin](https://github.com/mathieumg) - Nested array search and custom casting strategies. #212
 * [Toni](https://github.com/git-toni) - Added example showing multiple async instances. #214
 * [Vijay Thirugnanam](https://github.com/vijayst) - Fixed `reactabular-search-columns` behavior for filtered data. #216
-* [Artem Sapegin](https://github.com/sapegin) - Fixed `SearchColumns` typo, fixed peer dependency, fixed reference to `react-edit` at documentation, enabled mobile tweaks for `HtmlWebpackPlugin`, and more. #217, #220, #221, #222, #233, #262, #263
+* [Artem Sapegin](https://github.com/sapegin) - Fixed `SearchColumns` typo, fixed peer dependency, fixed reference to `react-edit` at documentation, enabled mobile tweaks for `HtmlWebpackPlugin`, and more. #217, #220, #221, #222, #233, #262, #263, #324
 * [Adrian Kolakowski](https://github.com/chiss2906) - Fixed `reactabular-search` behavior with empty properties. Also improved `reactabular-search` performance. #228
 * [Radoslav Kirilov](https://github.com/smoke) - Fixed `onRow` at `reactabular-easy`. Improved column width behavior. #229, #238
 * [Or Poran](https://github.com/orporan) - Allow sticky overflow to be overridden through style. #246
