@@ -80,7 +80,7 @@ export default ({ title, pages }) => {
           />
           <Catalog
             title={title}
-            logoSrc="logo.png"
+            logoSrc="../images/logo.png"
             pages={pages}
             imports={documentationImports}
             specimens={{

@@ -21,8 +21,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 ReactDOM.render(
   React.createElement(documentation({
-    title: 'Reactabular',
+    title: `Reactabular ${VERSION}`, // eslint-disable-line no-undef
     pages
   })),
-  document.getElementById('catalog')
+  document.getElementById('app')
 );
