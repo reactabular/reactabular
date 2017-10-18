@@ -7,4 +7,4 @@ As long as a formatter returns something that React can render, it will work. Th
 
 ## See Also
 
-* [Resizable Columns](/examples/resizable-columns)
+* [Resizing Columns](/features/resizing-columns)
