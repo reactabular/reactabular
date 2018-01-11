@@ -116,7 +116,7 @@
     "styled-components": "^2.2.0",
     "stylesheet-helpers": "^0.2.2",
     "table-resolver": "^3.2.0",
-    "treetabular": "^3.4.0",
+    "treetabular": "^3.5",
     "url-loader": "^0.6.2",
     "uuid": "^3.0.1",
     "webpack": "^3.6.0",
