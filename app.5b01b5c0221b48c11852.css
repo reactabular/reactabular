@@ -1657,6 +1657,10 @@ table {
     border-left: 0.2em solid orange;
     padding-left: 0.2em;
 }
+table {
+  color: black;
+}
+
 table .sort {
   cursor: pointer;
   cursor: hand;
@@ -1667,17 +1671,16 @@ table .sort:after {
   font-size: 0.5em;
 }
 table .sort-none:after {
-  content: '\21D5';
+  content: "\21D5";
 
   padding-left: 0.5em;
   font-size: 1em;
 }
 table .sort-asc:after {
-  content: '\25BC';
-
+  content: "\25BC";
 }
 table .sort-desc:after {
-  content: '\25B2';
+  content: "\25B2";
 }
 
-/*# sourceMappingURL=app.df5d31adf1557a8c2a85.css.map*/
+/*# sourceMappingURL=app.5b01b5c0221b48c11852.css.map*/
