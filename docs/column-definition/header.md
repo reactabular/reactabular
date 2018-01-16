@@ -2,7 +2,7 @@ The `header` portion supports `label`, `transforms` and `formatters` fields.
 
 ## **`header.label = <string>`**
 
-`label` is the most essential as it describes the value displayer to the user. This should be a string. For example search options are populated based on this.
+`label` is the most essential as it describes the value displayed to the user. This should be a string. For example search options are populated based on this.
 
 **Example:**
 
