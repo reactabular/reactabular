@@ -62,6 +62,11 @@ export default rootPath => ({
       path: `${rootPath}/header-body-aligned`,
       title: 'Align Sticky Header and Body',
       component: require('./header-body-aligned.md')
+    },
+    {
+      path: `${rootPath}/fixed-columns`,
+      title: 'Table With Fixed Columns',
+      component: require('./fixed-columns.md')
     }
   ]
 });
