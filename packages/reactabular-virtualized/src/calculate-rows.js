@@ -18,7 +18,7 @@ const calculateRows = ({
     startIndex + amountOfRowsToRender
   );
 
-  if (process.env.NODE_ENV !== 'production' && window.LOG_VIRTUALIZED) {
+  if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.LOG_VIRTUALIZED) {
     console.log( // eslint-disable-line no-console
       'update rows to render',
       'scroll top', scrollTop,
@@ -48,7 +48,7 @@ const calculateRows = ({
     0
   );
 
-  if (process.env.NODE_ENV !== 'production' && window.LOG_VIRTUALIZED) {
+  if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.LOG_VIRTUALIZED) {
     console.log( // eslint-disable-line no-console
       'average height', averageHeight,
       'body height', height,

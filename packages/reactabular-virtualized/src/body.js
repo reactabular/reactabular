@@ -40,7 +40,7 @@ class VirtualizedBody extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.rows, nextProps.rows)
         || this.getHeight() !== this.getHeight(nextProps)) {
-      if (process.env.NODE_ENV !== 'production' && window.LOG_VIRTUALIZED) {
+      if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.LOG_VIRTUALIZED) {
         console.log('invalidating measurements'); // eslint-disable-line no-console
       }
 
@@ -93,7 +93,7 @@ class VirtualizedBody extends React.Component {
       ]
     }));
 
-    if (process.env.NODE_ENV !== 'production' && window.LOG_VIRTUALIZED) {
+    if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.LOG_VIRTUALIZED) {
       console.log( // eslint-disable-line no-console
         'rendering', rowsToRender.length, '/', rows.length,
         'rows to render', rowsToRender,
