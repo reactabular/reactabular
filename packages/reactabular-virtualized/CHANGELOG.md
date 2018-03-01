@@ -1,3 +1,8 @@
+8.12.1 / 2018-03-01
+==================
+
+ * Bug fix - Check if window is defined before checking LOG_VIRTUALIZED. #337
+
 8.12.0 / 2017-10-05
 ==================
 
