@@ -115,7 +115,7 @@
     "style-loader": "^0.19.1",
     "styled-components": "^2.4.0",
     "stylesheet-helpers": "^0.2.2",
-    "table-resolver": "^3.2.0",
+    "table-resolver": "^4.0.1",
     "treetabular": "^3.5",
     "url-loader": "^0.6.2",
     "uuid": "^3.0.1",
