@@ -5,7 +5,7 @@ The following example uses majority of Reactabular's features and combines them 
 import React from 'react';
 import { compose } from 'redux';
 import {
-  cloneDeep, findIndex, orderBy, keys, values, transforms
+  cloneDeep, findIndex, orderBy, keys, values, transform
 } from 'lodash';
 import * as Table from 'reactabular-table';
 import * as search from 'searchtabular';
