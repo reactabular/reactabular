@@ -10,6 +10,7 @@ module.exports = {
     "react"
   ],
   "rules": {
+    "react/jsx-filename-extension": 0,
     "comma-dangle": ["error", "never"], // personal preference
     "prefer-arrow-callback": 0, // mocha tests (recommendation)
     "func-names": 0, // mocha tests (recommendation)
