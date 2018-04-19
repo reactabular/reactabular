@@ -3,7 +3,7 @@
   "version": "8.12.0",
   "description": "Sticky header and body for Reactabular",
   "scripts": {
-    "build": "rimraf ./dist && babel ./src --out-dir ./dist",
+    "build": "rimraf ./dist && babel ./src --ignore __tests__ --out-dir ./dist",
     "prepublish": "npm run build"
   },
   "files": [

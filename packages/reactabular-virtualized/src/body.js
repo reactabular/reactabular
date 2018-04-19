@@ -202,7 +202,6 @@ VirtualizedBody.propTypes = {
 };
 VirtualizedBody.childContextTypes = bodyChildContextTypes;
 
-/* eslint-disable consistent-return */
 export function heightPropCheck(props, propName, componentName) {
   if (
     (typeof props[propName] !== 'number') &&
@@ -210,8 +209,9 @@ export function heightPropCheck(props, propName, componentName) {
     ) {
     return new Error(`height or style.maxHeight of type 'number' is marked as required in ${componentName}`);
   }
+
+  return undefined;
 }
-/* eslint-enable consistent-return */
 
 function getInitialState() {
   return {

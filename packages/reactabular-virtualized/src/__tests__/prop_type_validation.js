@@ -14,20 +14,18 @@ describe('height propType validator', function () {
   });
 
   it('has an error when height and style.maxHeight are not provided', function () {
-    expect(
-      heightPropCheck({}, 'height', 'VirtualizedBody')
-    ).toThrow();
+    expect(heightPropCheck({}, 'height', 'VirtualizedBody')).toBeDefined();
   });
 
   it('has an error when height is not a number', function () {
     expect(
       heightPropCheck({ height: '50px' }, 'height', 'VirtualizedBody')
-    ).toThrow();
+    ).toBeDefined();
   });
 
   it('has an error when style.maxHeight is not a number', function () {
     expect(
       heightPropCheck({ style: { maxHeight: '50px' } }, 'height', 'VirtualizedBody')
-    ).toThrow();
+    ).toBeDefined();
   });
 });

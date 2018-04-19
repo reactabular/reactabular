@@ -3,7 +3,7 @@
   "version": "8.13.0",
   "description": "Table components for Reactabular",
   "scripts": {
-    "build": "rimraf ./dist && babel ./src --out-dir ./dist",
+    "build": "rimraf ./dist && babel ./src --ignore __tests__ --out-dir ./dist",
     "prepublish": "npm run build"
   },
   "files": [

@@ -8,12 +8,18 @@
     "lodash",
     "syntax-dynamic-import",
     "syntax-object-rest-spread",
-    "transform-object-rest-spread",
-    [
-      "transform-react-remove-prop-types",
-      {
-        "mode": "wrap"
-      }
-    ]
-  ]
+    "transform-object-rest-spread"
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        [
+          "transform-react-remove-prop-types",
+          {
+            "mode": "wrap"
+          }
+        ]
+      ]
+    }
+  }
 }
