@@ -16,11 +16,11 @@ class Body extends React.Component {
     // prefer to define the handler.
 
     // Check for wrapper based override.
-    const { components } = nextContext;
+    const { renderers } = nextContext;
 
-    if (components && components.body && components.body.wrapper.shouldComponentUpdate) {
-      if (isFunction(components.body.wrapper.shouldComponentUpdate)) {
-        return components.body.wrapper.shouldComponentUpdate.call(
+    if (renderers && renderers.body && renderers.body.wrapper.shouldComponentUpdate) {
+      if (isFunction(renderers.body.wrapper.shouldComponentUpdate)) {
+        return renderers.body.wrapper.shouldComponentUpdate.call(
           this, nextProps, nextState, nextContext
         );
       }
@@ -35,14 +35,14 @@ class Body extends React.Component {
   }
   render() {
     const { onRow, rows, rowKey, ...props } = this.props;
-    const { columns, components } = this.context;
+    const { columns, renderers } = this.context;
 
     props.ref = (body) => {
       this.ref = body;
     };
 
     return React.createElement(
-      components.body.wrapper,
+      renderers.body.wrapper,
       props,
       rows.map((rowData, index) => {
         const rowIndex = rowData._index || index;
@@ -50,7 +50,7 @@ class Body extends React.Component {
 
         return React.createElement(BodyRow, {
           key,
-          components: components.body,
+          renderers: renderers.body,
           onRow,
           rowKey: key,
           rowIndex,

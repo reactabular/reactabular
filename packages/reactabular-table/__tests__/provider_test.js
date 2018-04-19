@@ -106,7 +106,7 @@ describe('Table.Provider', function () {
     );
 
     const table = TestUtils.renderIntoDocument(
-      <Table.Provider components={{ table: wrapper }} columns={[]}>
+      <Table.Provider renderers={{ table: wrapper }} columns={[]}>
         <Table.Body rows={[]} />
       </Table.Provider>
     );

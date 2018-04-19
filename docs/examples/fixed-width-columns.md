@@ -43,7 +43,7 @@ class FixedWidthColumnsTable extends React.Component {
     };
   }
   render() {
-    const components = {
+    const renderers = {
       header: {
         cell: FixedWidthHeader
       }
@@ -65,7 +65,7 @@ class FixedWidthColumnsTable extends React.Component {
           />
         </div>
         <Table.Provider
-          components={components}
+          renderers={renderers}
           columns={columns}
         >
           <Table.Header />

@@ -58,7 +58,7 @@ class FixedColumnsTable extends React.Component {
           zIndex: 2,
           borderRight: '2px solid red',
         }}
-        components={{
+        renderers={{
           body: {
             wrapper: Virtualized.BodyWrapper,
             row: Virtualized.BodyRow
@@ -133,7 +133,7 @@ class FixedColumnsTable extends React.Component {
     return(
       <Table.Provider
         style={tableStyle}
-        components={{
+        renderers={{
           body: {
             wrapper: Virtualized.BodyWrapper,
             row: Virtualized.BodyRow

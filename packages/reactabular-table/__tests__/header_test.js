@@ -495,10 +495,10 @@ describe('Table.Header', function () {
           children
         )
       );
-      const components = {
+      const renderers = {
         header: {}
       };
-      components.header[type] = wrapper;
+      renderers.header[type] = wrapper;
 
       const columns = [
         {
@@ -508,7 +508,7 @@ describe('Table.Header', function () {
         }
       ];
       const table = TestUtils.renderIntoDocument(
-        <Table.Provider components={components} columns={columns}>
+        <Table.Provider renderers={renderers} columns={columns}>
           <Table.Header />
         </Table.Provider>
       );

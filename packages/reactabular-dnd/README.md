@@ -145,7 +145,7 @@ class DragAndDropTable extends React.Component {
     this.onMoveChildColumn = this.onMoveChildColumn.bind(this);
   }
   render() {
-    const components = {
+    const renderers = {
       header: {
         cell: dnd.Header
       },
@@ -162,7 +162,7 @@ class DragAndDropTable extends React.Component {
 
     return (
       <Table.Provider
-        components={components}
+        renderers={renderers}
         columns={resolvedColumns}
       >
         <Table.Header

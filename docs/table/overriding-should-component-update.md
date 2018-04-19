@@ -23,7 +23,7 @@ RowWrapper.shouldComponentUpdate = function (nextProps) {
 
 <Table.Provider
   columns={columns}
-  components={{
+  renderers={{
     body: {
       wrapper: BodyWrapper,
       row: RowWrapper

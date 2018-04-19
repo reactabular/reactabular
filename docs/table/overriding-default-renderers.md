@@ -1,11 +1,11 @@
-If you want to override the default elements, pass a React component through the `components` prop. It should render passed props like this:
+If you want to override the default elements, pass a React component through the `renderers` prop. It should render passed props like this:
 
 ```javascript
 const wrapper = props => <div {...props} className="table" />;
 
 ...
 
-<Table.Provider components={{ table: wrapper }} ...>
+<Table.Provider renderers={{ table: wrapper }} ...>
   <Table.Body rows={rows} rowKey="id" />
 </Table.Provider>
 ```
@@ -16,7 +16,7 @@ The defaults are as follows:
 
 ```javascript
 {
-  components: {
+  renderers: {
     table: 'table',
     header: {
       wrapper: 'thead',

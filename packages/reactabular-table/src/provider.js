@@ -2,32 +2,43 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { tableTypes, tableDefaults, tableContextTypes } from './types';
 
-const componentDefaults = tableDefaults.components;
+const componentDefaults = tableDefaults.renderers;
 
-// TODO: shouldComponentUpdate
 export default class Provider extends React.Component {
   getChildContext() {
-    const { columns, components } = this.props;
+    const { columns, components, renderers } = this.props;
+    let finalRenderers = renderers;
+
+    // XXXXX: Drop in the next major version
+    if (process.env.NODE_ENV !== 'production') {
+      if (components) {
+        // eslint-disable-next-line no-console
+        console.warn('`components` have been deprecated in favor of `renderers` and will be removed in the next major version, please rename!');
+
+        finalRenderers = components;
+      }
+    }
 
     return {
       columns,
-      components: {
-        table: components.table || componentDefaults.table,
-        header: { ...componentDefaults.header, ...components.header },
-        body: { ...componentDefaults.body, ...components.body }
+      renderers: {
+        table: finalRenderers.table || componentDefaults.table,
+        header: { ...componentDefaults.header, ...finalRenderers.header },
+        body: { ...componentDefaults.body, ...finalRenderers.body }
       }
     };
   }
   render() {
     const {
       columns, // eslint-disable-line no-unused-vars
-      components,
+      renderers,
+      components, // XXXXX: Drop in the next major version
       children,
       ...props
     } = this.props;
 
     return React.createElement(
-      components.table || tableDefaults.components.table,
+      renderers.table || tableDefaults.renderers.table,
       props,
       children
     );

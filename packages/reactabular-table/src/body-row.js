@@ -11,11 +11,11 @@ class BodyRow extends React.Component {
     const previousProps = this.props;
 
     // Check for row based override.
-    const { components } = nextProps;
+    const { renderers } = nextProps;
 
-    if (components && components.row && components.row.shouldComponentUpdate) {
-      if (isFunction(components.row.shouldComponentUpdate)) {
-        return components.row.shouldComponentUpdate.call(this, nextProps);
+    if (renderers && renderers.row && renderers.row.shouldComponentUpdate) {
+      if (isFunction(renderers.row.shouldComponentUpdate)) {
+        return renderers.row.shouldComponentUpdate.call(this, nextProps);
       }
 
       return true;
@@ -27,10 +27,10 @@ class BodyRow extends React.Component {
     );
   }
   render() {
-    const { columns, components, onRow, rowKey, rowIndex, rowData } = this.props;
+    const { columns, renderers, onRow, rowKey, rowIndex, rowData } = this.props;
 
     return React.createElement(
-      components.row,
+      renderers.row,
       onRow(rowData, { rowIndex, rowKey }),
       columns.map((column, columnIndex) => {
         const { property, cell, props } = column;
@@ -56,7 +56,7 @@ class BodyRow extends React.Component {
         }
 
         return React.createElement(
-          components.cell,
+          renderers.cell,
           {
             key: `${columnIndex}-cell`,
             ...mergeProps(

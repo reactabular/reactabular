@@ -10,7 +10,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
   }
   render() {
     const { children, headerRows, onRow, ...props } = this.props;
-    const { components, columns } = this.context;
+    const { renderers, columns } = this.context;
 
     props.ref = (header) => {
       this.ref = header;
@@ -18,12 +18,12 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
 
     // If headerRows aren't passed, default to bodyColumns as header rows
     return React.createElement(
-      components.header.wrapper,
+      renderers.header.wrapper,
       props,
       [(headerRows || [columns]).map((rowData, rowIndex) =>
         React.createElement(HeaderRow, {
           key: `${rowIndex}-header-row`,
-          components: components.header,
+          renderers: renderers.header,
           onRow,
           rowData,
           rowIndex

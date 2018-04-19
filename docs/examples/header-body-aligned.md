@@ -106,7 +106,7 @@ class MyTable extends React.Component {
   onScrollFromThirdParty(e) {
     console.log('onScrollFromThirdParty called => e.target.scrollLeft=', e.target.scrollLeft);
     this.tableHeader.scrollLeft = e.target.scrollLeft;
-    this.tableBody.scrollLeft = e.target.scrollLeft; 
+    this.tableBody.scrollLeft = e.target.scrollLeft;
   }
   onScrollFromNative(e) {
     // just demo to reproduce issue of native horizontal scrollbar
@@ -142,7 +142,7 @@ class MyTable extends React.Component {
           className="pure-table pure-table-striped"
           columns={columns}
           style={tableStyle}
-          components={{
+          renderers={{
             body: {
               wrapper: Virtualized.BodyWrapper,
               row: Virtualized.BodyRow

@@ -74,7 +74,7 @@ class AlignedTable extends React.Component {
   render() {
     const { columns, rows } = this.state;
 
-    const stylingComponents = {
+    const stylingRenderers = {
       body: {
         cell: AlignedBodyCell // the one element we are overriding
       }
@@ -83,7 +83,7 @@ class AlignedTable extends React.Component {
     return (
       <div>
         <Table.Provider
-          components={stylingComponents}
+          renderers={stylingRenderers}
           className="pure-table pure-table-striped"
           columns={columns}
         >

@@ -20,9 +20,9 @@ export default rootPath => ({
       content: pageLoader(() => import('./styling.md'))
     },
     {
-      path: `${rootPath}/overriding-default-elements`,
-      title: 'Overriding Default Elements',
-      content: pageLoader(() => import('./overriding-default-elements.md'))
+      path: `${rootPath}/overriding-default-renderers`,
+      title: 'Overriding Default Renderers',
+      content: pageLoader(() => import('./overriding-default-renderers.md'))
     },
     {
       path: `${rootPath}/overriding-should-component-update`,

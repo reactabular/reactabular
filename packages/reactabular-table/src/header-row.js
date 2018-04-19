@@ -4,9 +4,9 @@ import evaluateTransforms from './evaluate-transforms';
 import mergeProps from './merge-props';
 import { tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
 
-const HeaderRow = ({ rowData, rowIndex, components, onRow }) => (
+const HeaderRow = ({ rowData, rowIndex, renderers, onRow }) => (
   React.createElement(
-    components.row,
+    renderers.row,
     onRow(rowData, { rowIndex }),
     rowData.map((column, columnIndex) => {
       const { property, header = {}, props = {} } = column;
@@ -28,7 +28,7 @@ const HeaderRow = ({ rowData, rowIndex, components, onRow }) => (
       }
 
       return React.createElement(
-        components.cell,
+        renderers.cell,
         {
           key: `${columnIndex}-header`,
           ...mergeProps(

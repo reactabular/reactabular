@@ -817,10 +817,10 @@ describe('Table.Body', function () {
           children
         )
       );
-      const components = {
+      const renderers = {
         body: {}
       };
-      components.body[type] = wrapper;
+      renderers.body[type] = wrapper;
 
       const columns = [
         {
@@ -836,7 +836,7 @@ describe('Table.Body', function () {
         }
       ];
       const table = TestUtils.renderIntoDocument(
-        <Table.Provider components={components} columns={columns}>
+        <Table.Provider renderers={renderers} columns={columns}>
           <Table.Body rows={rows} rowKey="name" />
         </Table.Provider>
       );
@@ -872,7 +872,7 @@ describe('Table.Body', function () {
     const component = ReactDOM.render( // eslint-disable-line react/no-render-return-value
       <Table.Provider
         columns={columns}
-        components={{
+        renderers={{
           body: {
             wrapper: BodyWrapper
           }
@@ -923,7 +923,7 @@ describe('Table.Body', function () {
     const component = ReactDOM.render( // eslint-disable-line react/no-render-return-value
       <Table.Provider
         columns={columns}
-        components={{
+        renderers={{
           body: {
             wrapper: BodyWrapper, // Needed as otherwise it won't get to row
             row: RowWrapper

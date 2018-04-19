@@ -85,7 +85,7 @@ class DragAndDropTreeTable extends React.Component {
     ];
   }
   render() {
-    const components = {
+    const renderers = {
       header: {
         cell: dnd.Header
       },
@@ -101,7 +101,7 @@ class DragAndDropTreeTable extends React.Component {
 
     return (
       <Table.Provider
-        components={components}
+        renderers={renderers}
         columns={columns}
       >
         <Table.Header />

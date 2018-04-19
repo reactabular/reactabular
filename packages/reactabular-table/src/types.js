@@ -34,11 +34,12 @@ const rowDataType = PropTypes.oneOfType([
 ]);
 const tableTypes = {
   columns: PropTypes.array.isRequired,
-  components: PropTypes.object
+  renderers: PropTypes.object,
+  components: PropTypes.object // XXXXX: Deprecated in favor of renderers, remove in the next major!
 };
 const tableContextTypes = {
   columns: PropTypes.array.isRequired,
-  components: PropTypes.object
+  renderers: PropTypes.object
 };
 const tableBodyDefaults = {
   onRow: () => {}
@@ -50,14 +51,14 @@ const tableBodyTypes = {
 };
 const tableBodyContextTypes = {
   columns: PropTypes.array.isRequired,
-  components: PropTypes.object
+  renderers: PropTypes.object
 };
 const tableBodyRowDefaults = {
   onRow: () => ({})
 };
 const tableBodyRowTypes = {
   columns: PropTypes.array.isRequired,
-  components: PropTypes.object,
+  renderers: PropTypes.object,
   onRow: PropTypes.func,
   rowIndex: PropTypes.number.isRequired,
   rowData: rowDataType.isRequired,
@@ -71,19 +72,19 @@ const tableHeaderTypes = {
 };
 const tableHeaderContextTypes = {
   columns: PropTypes.array.isRequired,
-  components: PropTypes.object
+  renderers: PropTypes.object
 };
 const tableHeaderRowDefaults = {
   onRow: () => ({})
 };
 const tableHeaderRowTypes = {
-  components: PropTypes.object,
+  renderers: PropTypes.object,
   onRow: PropTypes.func,
   rowIndex: PropTypes.number.isRequired,
   rowData: rowDataType.isRequired
 };
 const tableDefaults = {
-  components: {
+  renderers: {
     table: 'table',
     header: {
       wrapper: 'thead',

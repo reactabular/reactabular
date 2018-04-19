@@ -1,5 +1,10 @@
+8.13.0 / 2017-04-19
+===================
+
+  * Refactor - Rename `components` field to `renderers`. The old prop name will be dropped in the next major version although it works for now.
+
 8.12.0 / 2017-10-05
-==================
+===================
 
   * Chore - Support React 16. #324
 
