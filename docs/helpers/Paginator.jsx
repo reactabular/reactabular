@@ -13,7 +13,8 @@ const Paginator = ({ pagination, pages, onSelect }) => (
         beginPages: 3,
         endPages: 3,
         sidePages: 2
-      })} onSelect={onSelect}
+      })}
+      onSelect={onSelect}
     >
       <Pagify.Button page={pagination.page - 1}>Previous</Pagify.Button>
 

@@ -1,20 +1,18 @@
 import React from 'react';
 
 // Adapted from https://stackoverflow.com/questions/20926551/recommended-way-of-making-react-component-div-draggable
-const resizableColumn = (
-  {
-    parent = document,
-    onDragStart = (width, extra) => {}, // eslint-disable-line no-unused-vars
-    onDrag = (width, extra) => {}, // eslint-disable-line no-unused-vars
-    onDragEnd = (width, extra) => {}, // eslint-disable-line no-unused-vars
-    minWidth = 10,
-    props = {
-      container: {},
-      value: {},
-      handle: {}
-    }
+const resizableColumn = ({
+  parent = document,
+  onDragStart = (width, extra) => {}, // eslint-disable-line no-unused-vars
+  onDrag = (width, extra) => {}, // eslint-disable-line no-unused-vars
+  onDragEnd = (width, extra) => {}, // eslint-disable-line no-unused-vars
+  minWidth = 10,
+  props = {
+    container: {},
+    value: {},
+    handle: {}
   }
-) => {
+}) => {
   if (!onDrag) {
     throw new Error('resizableColumn - Missing onDrag!');
   }
@@ -49,7 +47,8 @@ const resizableColumn = (
             <span
               className="resize-value"
               {...props.value}
-            >{label}</span>
+            >{label}
+            </span>
             <span
               className="resize-handle"
               onMouseDown={this.onMouseDown}
@@ -90,8 +89,8 @@ const resizableColumn = (
       triggerMove(handler, event) {
         handler(
           Math.max(
-              (this.startWidth - this.startX) + event.clientX,
-              (extraParameters.column && extraParameters.column.minWidth) || minWidth
+            (this.startWidth - this.startX) + event.clientX,
+            (extraParameters.column && extraParameters.column.minWidth) || minWidth
           ),
           extraParameters
         );

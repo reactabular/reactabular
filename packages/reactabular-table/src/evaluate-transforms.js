@@ -15,9 +15,7 @@ function evaluateTransforms(transforms = [], value, extraParameters = {}) {
     return {};
   }
 
-  return mergeProps(
-    ...transforms.map(transform => transform(value, extraParameters))
-  );
+  return mergeProps(...transforms.map(transform => transform(value, extraParameters)));
 }
 
 export default evaluateTransforms;

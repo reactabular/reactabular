@@ -20,9 +20,7 @@ class Body extends React.Component {
 
     if (renderers && renderers.body && renderers.body.wrapper.shouldComponentUpdate) {
       if (isFunction(renderers.body.wrapper.shouldComponentUpdate)) {
-        return renderers.body.wrapper.shouldComponentUpdate.call(
-          this, nextProps, nextState, nextContext
-        );
+        return renderers.body.wrapper.shouldComponentUpdate.call(this, nextProps, nextState, nextContext);
       }
 
       return true;
@@ -34,7 +32,9 @@ class Body extends React.Component {
     );
   }
   render() {
-    const { onRow, rows, rowKey, ...props } = this.props;
+    const {
+      onRow, rows, rowKey, ...props
+    } = this.props;
     const { columns, renderers } = this.context;
 
     props.ref = (body) => {

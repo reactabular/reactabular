@@ -4,7 +4,9 @@ import evaluateTransforms from './evaluate-transforms';
 import mergeProps from './merge-props';
 import { tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
 
-const HeaderRow = ({ rowData, rowIndex, renderers, onRow }) => (
+const HeaderRow = ({
+  rowData, rowIndex, renderers, onRow
+}) => (
   React.createElement(
     renderers.row,
     onRow(rowData, { rowIndex }),
@@ -37,9 +39,7 @@ const HeaderRow = ({ rowData, rowIndex, renderers, onRow }) => (
             transformedProps
           )
         },
-        transformedProps.children || evaluateFormatters(formatters)(
-          label, extraParameters
-        )
+        transformedProps.children || evaluateFormatters(formatters)(label, extraParameters)
       );
     })
   )

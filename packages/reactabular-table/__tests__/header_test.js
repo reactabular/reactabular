@@ -16,14 +16,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                               </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th).toBeDefined();
   });
@@ -40,14 +36,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+    </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th).toBeDefined();
   });
@@ -64,14 +56,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                               </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th).toBeDefined();
   });
@@ -98,14 +86,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                               </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th.style.color).toEqual(color);
     expect(th.style.backgroundColor).toEqual(backgroundColor);
@@ -127,14 +111,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                               </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th.className).toEqual(`${anotherClass} ${headerClass}`);
   });
@@ -177,14 +157,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                               </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th.style.color).toEqual(finalColor);
     expect(th.style.backgroundColor).toEqual(finalBackgroundColor);
@@ -200,18 +176,14 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header>
-          <tr className={testClass}>
-            <td>demo</td>
-          </tr>
-        </Table.Header>
-      </Table.Provider>
-    );
-    const testElement = TestUtils.findRenderedDOMComponentWithClass(
-      table, testClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header>
+        <tr className={testClass}>
+          <td>demo</td>
+        </tr>
+      </Table.Header>
+                                               </Table.Provider>);
+    const testElement = TestUtils.findRenderedDOMComponentWithClass(table, testClass);
 
     expect(testElement).toBeDefined();
   });
@@ -237,14 +209,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const ths = TestUtils.scryRenderedDOMComponentsWithTag(
-      table, 'th'
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                               </Table.Provider>);
+    const ths = TestUtils.scryRenderedDOMComponentsWithTag(table, 'th');
 
     expect(ths.length).toEqual(columns.length);
   });
@@ -263,14 +231,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                               </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th).toBeDefined();
   });
@@ -294,11 +258,9 @@ describe('Table.Header', function () {
       }
     ];
 
-    TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
+    TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                 </Table.Provider>);
 
     expect(receivedLabel).toEqual(initialLabel);
     expect(receivedValues).toBeDefined();
@@ -327,11 +289,9 @@ describe('Table.Header', function () {
       }
     ];
 
-    TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
+    TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                 </Table.Provider>);
 
     expect(receivedLabel).toEqual(initialLabel);
     expect(receivedValues).toBeDefined();
@@ -360,14 +320,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                               </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th).toBeDefined();
     expect(th.className).toEqual(headerClass);
@@ -392,14 +348,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                               </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th).toBeDefined();
     expect(th.className).toEqual(`${headerClass} ${anotherHeaderClass}`);
@@ -425,14 +377,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+                                               </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th).toBeDefined();
     expect(th.style.display).toEqual(anotherHeaderStyle.display);
@@ -458,14 +406,10 @@ describe('Table.Header', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Header className={anotherHeaderClass} />
-      </Table.Provider>
-    );
-    const th = TestUtils.findRenderedDOMComponentWithClass(
-      table, headerClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header className={anotherHeaderClass} />
+    </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th.innerHTML).toEqual(label);
     expect(th.className).toEqual(`${headerClass} ${anotherHeaderClass}`);
@@ -507,14 +451,10 @@ describe('Table.Header', function () {
           }
         }
       ];
-      const table = TestUtils.renderIntoDocument(
-        <Table.Provider renderers={renderers} columns={columns}>
-          <Table.Header />
-        </Table.Provider>
-      );
-      const div = TestUtils.findRenderedDOMComponentWithClass(
-        table, wrapperClass
-      );
+      const table = TestUtils.renderIntoDocument(<Table.Provider renderers={renderers} columns={columns}>
+        <Table.Header />
+                                                 </Table.Provider>);
+      const div = TestUtils.findRenderedDOMComponentWithClass(table, wrapperClass);
 
       expect(div).toBeDefined();
     });
@@ -523,14 +463,10 @@ describe('Table.Header', function () {
   it('supports custom props', function () {
     const customClass = 'demo';
 
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={[]}>
-        <Table.Header className={customClass} />
-      </Table.Provider>
-    );
-    const renderedTable = TestUtils.findRenderedDOMComponentWithClass(
-      table, customClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={[]}>
+      <Table.Header className={customClass} />
+                                               </Table.Provider>);
+    const renderedTable = TestUtils.findRenderedDOMComponentWithClass(table, customClass);
 
     expect(renderedTable).toBeDefined();
   });
@@ -538,15 +474,13 @@ describe('Table.Header', function () {
   it('gives access to header ref through getRef', function () {
     let ref;
 
-    TestUtils.renderIntoDocument(
-      <Table.Provider columns={[]}>
-        <Table.Header
-          ref={(r) => {
+    TestUtils.renderIntoDocument(<Table.Provider columns={[]}>
+      <Table.Header
+        ref={(r) => {
             ref = r;
           }}
-        />
-      </Table.Provider>
-    );
+      />
+                                 </Table.Provider>);
 
     expect(ref).toBeDefined();
   });

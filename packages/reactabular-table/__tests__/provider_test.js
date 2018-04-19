@@ -26,15 +26,13 @@ describe('Table.Provider', function () {
         }
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <tfoot>
-          <tr>
-            <td>Dancing is the poetry of the foot.</td>
-          </tr>
-        </tfoot>
-      </Table.Provider>
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <tfoot>
+        <tr>
+          <td>Dancing is the poetry of the foot.</td>
+        </tr>
+      </tfoot>
+    </Table.Provider>);
     const tfoot = TestUtils.findRenderedDOMComponentWithTag(table, 'tfoot');
 
     expect(tfoot).to.exist;
@@ -52,15 +50,13 @@ describe('Table.Provider', function () {
         property: 'age'
       }
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <tfoot>
-          <tr>
-            <td>Dancing is the poetry of the foot.</td>
-          </tr>
-        </tfoot>
-      </Table.Provider>
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <tfoot>
+        <tr>
+          <td>Dancing is the poetry of the foot.</td>
+        </tr>
+      </tfoot>
+                                               </Table.Provider>);
     const tfoot = TestUtils.findRenderedDOMComponentWithTag(table, 'tfoot');
 
     expect(tfoot).to.exist;
@@ -85,14 +81,10 @@ describe('Table.Provider', function () {
       ['123', '234'],
       ['11', '1']
     ];
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={columns}>
-        <Table.Body rows={rows} />
-      </Table.Provider>
-    );
-    const tds = TestUtils.scryRenderedDOMComponentsWithTag(
-      table, 'td'
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Body rows={rows} />
+                                               </Table.Provider>);
+    const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
 
     expect(tds.length).to.equal(4);
   });
@@ -105,14 +97,10 @@ describe('Table.Provider', function () {
       </table>
     );
 
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider renderers={{ table: wrapper }} columns={[]}>
-        <Table.Body rows={[]} />
-      </Table.Provider>
-    );
-    const div = TestUtils.findRenderedDOMComponentWithClass(
-      table, wrapperClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider renderers={{ table: wrapper }} columns={[]}>
+      <Table.Body rows={[]} />
+                                               </Table.Provider>);
+    const div = TestUtils.findRenderedDOMComponentWithClass(table, wrapperClass);
 
     expect(div).to.exist;
   });
@@ -120,14 +108,10 @@ describe('Table.Provider', function () {
   it('supports custom props', function () {
     const customClass = 'demo';
 
-    const table = TestUtils.renderIntoDocument(
-      <Table.Provider columns={[]} className={customClass}>
-        <Table.Body rows={[]} />
-      </Table.Provider>
-    );
-    const renderedTable = TestUtils.findRenderedDOMComponentWithClass(
-      table, customClass
-    );
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={[]} className={customClass}>
+      <Table.Body rows={[]} />
+                                               </Table.Provider>);
+    const renderedTable = TestUtils.findRenderedDOMComponentWithClass(table, customClass);
 
     expect(renderedTable).to.exist;
   });

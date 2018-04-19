@@ -37,8 +37,6 @@ describe('utils.evaluateFormatters', function () {
       (value, extra) => `bar${value}bar${extra}`
     ];
 
-    expect(
-      evaluateFormatters(formatters)('', extraValue)
-    ).toEqual(`barfoobar${extraValue}`);
+    expect(evaluateFormatters(formatters)('', extraValue)).toEqual(`barfoobar${extraValue}`);
   });
 });

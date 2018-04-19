@@ -1,24 +1,22 @@
 import PropTypes from 'prop-types';
 
-const arrayOfObjectColumns = PropTypes.arrayOf(
-  PropTypes.shape({
-    header: PropTypes.shape({
-      label: PropTypes.string,
-      transforms: PropTypes.arrayOf(PropTypes.func),
-      formatters: PropTypes.arrayOf(PropTypes.func),
-      props: PropTypes.object
-    }),
-    cell: PropTypes.shape({
-      property: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-      ]),
-      transforms: PropTypes.arrayOf(PropTypes.func),
-      formatters: PropTypes.arrayOf(PropTypes.func),
-      props: PropTypes.object
-    })
+const arrayOfObjectColumns = PropTypes.arrayOf(PropTypes.shape({
+  header: PropTypes.shape({
+    label: PropTypes.string,
+    transforms: PropTypes.arrayOf(PropTypes.func),
+    formatters: PropTypes.arrayOf(PropTypes.func),
+    props: PropTypes.object
+  }),
+  cell: PropTypes.shape({
+    property: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
+    transforms: PropTypes.arrayOf(PropTypes.func),
+    formatters: PropTypes.arrayOf(PropTypes.func),
+    props: PropTypes.object
   })
-);
+}));
 const arrayOfArrayColumns = PropTypes.arrayOf(PropTypes.array);
 const rowsType = PropTypes.oneOfType([
   arrayOfObjectColumns,
@@ -65,9 +63,7 @@ const tableBodyRowTypes = {
   rowKey: PropTypes.string.isRequired
 };
 const tableHeaderTypes = {
-  headerRows: PropTypes.arrayOf(
-    arrayOfObjectColumns
-  ),
+  headerRows: PropTypes.arrayOf(arrayOfObjectColumns),
   children: PropTypes.any
 };
 const tableHeaderContextTypes = {

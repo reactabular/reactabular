@@ -29,20 +29,16 @@ const headerTarget = {
 const dragSource = DragSource( // eslint-disable-line new-cap
   DragTypes.HEADER, headerSource, connect => ({
     connectDragSource: connect.dragSource()
-  })
-);
+  }));
 const dropTarget = DropTarget( // eslint-disable-line new-cap
   DragTypes.HEADER, headerTarget, connect => ({
     connectDropTarget: connect.dropTarget()
-  })
-);
+  }));
 const header = ({
   connectDragSource, connectDropTarget, label, // eslint-disable-line no-unused-vars
   children, onMove, onFinishMove, ...props // eslint-disable-line no-unused-vars
 }) => (
-  connectDragSource(connectDropTarget(
-    <th {...props}>{children}</th>
-  ))
+  connectDragSource(connectDropTarget(<th {...props}>{children}</th>))
 );
 
 export default dragSource(dropTarget(header));

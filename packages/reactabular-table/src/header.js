@@ -9,7 +9,9 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     this.ref = null;
   }
   render() {
-    const { children, headerRows, onRow, ...props } = this.props;
+    const {
+      children, headerRows, onRow, ...props
+    } = this.props;
     const { renderers, columns } = this.context;
 
     props.ref = (header) => {
@@ -27,8 +29,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
           onRow,
           rowData,
           rowIndex
-        })
-      )].concat(children)
+        }))].concat(children)
     );
   }
   getRef() {

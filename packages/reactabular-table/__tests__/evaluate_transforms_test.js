@@ -22,9 +22,7 @@ describe('utils.evaluateTransforms', function () {
     const output = 'foo';
     const transforms = [(value, { result }) => ({ result })];
 
-    expect(evaluateTransforms(
-      transforms, input, { result: output }
-    ).result).toEqual(output);
+    expect(evaluateTransforms(transforms, input, { result: output }).result).toEqual(output);
   });
 
   it('merges from left to right', function () {

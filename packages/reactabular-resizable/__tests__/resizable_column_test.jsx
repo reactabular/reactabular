@@ -35,18 +35,10 @@ describe('resizableColumn', function () {
       onDrag: () => {},
       props
     })('foo', {});
-    const renderedContainer = TestUtils.renderIntoDocument(
-      <Wrapper>{resizableTransform}</Wrapper>
-    );
-    const container = TestUtils.findRenderedDOMComponentWithClass(
-      renderedContainer, 'resize-container'
-    );
-    const handle = TestUtils.findRenderedDOMComponentWithClass(
-      renderedContainer, 'resize-handle'
-    );
-    const value = TestUtils.findRenderedDOMComponentWithClass(
-      renderedContainer, 'resize-value'
-    );
+    const renderedContainer = TestUtils.renderIntoDocument(<Wrapper>{resizableTransform}</Wrapper>);
+    const container = TestUtils.findRenderedDOMComponentWithClass(renderedContainer, 'resize-container');
+    const handle = TestUtils.findRenderedDOMComponentWithClass(renderedContainer, 'resize-handle');
+    const value = TestUtils.findRenderedDOMComponentWithClass(renderedContainer, 'resize-value');
 
     expect(container.style.color).to.equal(color);
     expect(handle.style.color).to.equal(color);

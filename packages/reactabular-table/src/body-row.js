@@ -27,7 +27,9 @@ class BodyRow extends React.Component {
     );
   }
   render() {
-    const { columns, renderers, onRow, rowKey, rowIndex, rowData } = this.props;
+    const {
+      columns, renderers, onRow, rowKey, rowIndex, rowData
+    } = this.props;
 
     return React.createElement(
       renderers.row,
@@ -47,9 +49,7 @@ class BodyRow extends React.Component {
           rowIndex,
           rowKey
         };
-        const transformed = evaluateTransforms(
-          transforms, rowData[evaluatedProperty], extraParameters
-        );
+        const transformed = evaluateTransforms(transforms, rowData[evaluatedProperty], extraParameters);
 
         if (!transformed) {
           console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
@@ -65,10 +65,8 @@ class BodyRow extends React.Component {
               transformed
             )
           },
-          transformed.children || evaluateFormatters(formatters)(
-              rowData[`_${evaluatedProperty}`] ||
-              rowData[evaluatedProperty], extraParameters
-            )
+          transformed.children || evaluateFormatters(formatters)(rowData[`_${evaluatedProperty}`] ||
+              rowData[evaluatedProperty], extraParameters)
         );
       })
     );

@@ -74,7 +74,9 @@ class VirtualizedBody extends React.Component {
     };
   }
   render() {
-    const { onRow, rows, onScroll, ...props } = this.props;
+    const {
+      onRow, rows, onScroll, ...props
+    } = this.props;
     const { startIndex, amountOfRowsToRender } = this.state;
 
     // Attach information about measuring status. This way we can implement
@@ -131,21 +133,19 @@ class VirtualizedBody extends React.Component {
 
           this.scrollTop = scrollTop;
 
-          this.setState(
-            calculateRows({
-              scrollTop,
-              measuredRows: this.measuredRows,
-              height: this.getHeight(),
-              rowKey: this.props.rowKey,
-              rows: this.props.rows
-            })
-          );
+          this.setState(calculateRows({
+            scrollTop,
+            measuredRows: this.measuredRows,
+            height: this.getHeight(),
+            rowKey: this.props.rowKey,
+            rows: this.props.rows
+          }));
         }
       }
     );
   }
   getRef() {
-    const ref = this.ref;
+    const { ref } = this;
 
     ref.scrollTo = (index) => {
       const startIndex = parseInt(index, 10);
@@ -206,7 +206,7 @@ export function heightPropCheck(props, propName, componentName) {
   if (
     (typeof props[propName] !== 'number') &&
     (!props.style || typeof props.style.maxHeight !== 'number')
-    ) {
+  ) {
     return new Error(`height or style.maxHeight of type 'number' is marked as required in ${componentName}`);
   }
 

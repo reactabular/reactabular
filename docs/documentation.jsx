@@ -8,9 +8,7 @@ import classnames from 'classnames';
 import { compose, createStore } from 'redux';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
-import {
-  cloneDeep, keys, values, find, findIndex, orderBy, transform
-} from 'lodash';
+import { cloneDeep, keys, values, find, findIndex, orderBy, transform } from 'lodash';
 import * as easy from 'reactabular-easy';
 import * as reactEdit from 'react-edit';
 import * as dnd from 'reactabular-dnd';

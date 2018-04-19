@@ -114,14 +114,10 @@ function move(data, sourceIndex, targetIndex) {
   const sourceItem = data[sourceIndex];
 
   // 1. detach - a, c, d, e - a, b, c, e, - b, c, d, e
-  const ret = data.slice(0, sourceIndex).concat(
-    data.slice(sourceIndex + 1)
-  );
+  const ret = data.slice(0, sourceIndex).concat(data.slice(sourceIndex + 1));
 
   // 2. attach - a, c, d, b, e - d, a, b, c, e - b, c, d, a, e
-  return ret.slice(0, targetIndex).concat([sourceItem]).concat(
-    ret.slice(targetIndex)
-  );
+  return ret.slice(0, targetIndex).concat([sourceItem]).concat(ret.slice(targetIndex));
 }
 
 export {

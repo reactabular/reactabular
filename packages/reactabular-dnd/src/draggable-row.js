@@ -35,13 +35,11 @@ const rowTarget = {
 const dragSource = DragSource( // eslint-disable-line new-cap
   DragTypes.ROW, rowSource, connect => ({
     connectDragSource: connect.dragSource()
-  })
-);
+  }));
 const dropTarget = DropTarget( // eslint-disable-line new-cap
   DragTypes.ROW, rowTarget, connect => ({
     connectDropTarget: connect.dropTarget()
-  })
-);
+  }));
 const DraggableRow = ({
   _parent,
   connectDragSource, connectDropTarget,
@@ -63,6 +61,8 @@ const DraggableRow = ({
           return;
         }
 
+        // XXXXX: Refactor this out
+        // eslint-disable-next-line react/no-find-dom-node
         const node = findDOMNode(e);
 
         // Chaining is not allowed

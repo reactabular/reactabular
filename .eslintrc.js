@@ -1,5 +1,5 @@
 module.exports = {
-  "extends": "airbnb",
+  "extends": ["airbnb", "prettier", "prettier/react"],
   "parser": "babel-eslint",
   "env": {
     "browser": true,
@@ -11,20 +11,20 @@ module.exports = {
   ],
   "rules": {
     "react/jsx-filename-extension": 0,
-    "comma-dangle": ["error", "never"], // personal preference
-    "prefer-arrow-callback": 0, // mocha tests (recommendation)
-    "func-names": 0, // mocha tests (recommendation)
-    "import/extensions": 0, // skip import extensions
-    "import/no-extraneous-dependencies": 0, // monorepo setup
-    "import/no-unresolved": [1, { ignore: ['^reactabular'] }], // monorepo setup
-    "no-underscore-dangle": 0, // implementation detail (_highlights etc.)
-    "no-unused-expressions": 0, // chai
-    "no-use-before-define": 0, // personal preference
-    "react/forbid-prop-types": 0, // TODO: re-enable this later
-    "react/sort-comp": 0, // personal preference
-    "react/require-default-props": 0, // personal preference
-    "react/no-array-index-key": 0, // XXX: crashes, re-enable later
-    "react/no-multi-comp": 0, // personal preference
+    "comma-dangle": ["error", "never"],
+    "prefer-arrow-callback": 0,
+    "func-names": 0,
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": [1, { ignore: ['^reactabular'] }],
+    "no-underscore-dangle": 0,
+    "no-unused-expressions": 0,
+    "no-use-before-define": 0,
+    "react/forbid-prop-types": 0,
+    "react/sort-comp": 0,
+    "react/require-default-props": 0,
+    "react/no-array-index-key": 0,
+    "react/no-multi-comp": 0,
     "jsx-a11y/no-static-element-interactions": 0 // personal preference
   },
   "globals": {
