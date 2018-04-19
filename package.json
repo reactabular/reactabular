@@ -10,7 +10,7 @@
     "test": "jest --",
     "test:coverage": "jest --coverage --",
     "test:watch": "jest --watch --",
-    "test:lint": "eslint . --ext .js --ext .jsx --cache",
+    "lint": "eslint . --ext .js --ext .jsx --cache",
     "gh-pages:build-and-deploy": "npm run gh-pages:build && npm run gh-pages:deploy",
     "gh-pages:build": "webpack --env build",
     "gh-pages:deploy": "gh-pages -d gh-pages",
@@ -124,7 +124,7 @@
     "webpack-merge": "^4.1.1"
   },
   "pre-push": [
-    "test:lint",
+    "lint",
     "test"
   ]
 }

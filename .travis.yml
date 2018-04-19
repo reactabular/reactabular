@@ -1,11 +1,9 @@
 language: node_js
 node_js:
-  - "6"
-  - "7"
   - "8"
 script:
   - npm run bootstrap
-  - npm run test:lint
+  - npm run lint
   - npm run test:coverage
 after_success:
   - bash <(curl -s https://codecov.io/bash)
