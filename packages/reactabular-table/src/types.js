@@ -1,21 +1,9 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const arrayOfObjectColumns = PropTypes.arrayOf(PropTypes.shape({
-  header: PropTypes.shape({
-    label: PropTypes.string,
-    transforms: PropTypes.arrayOf(PropTypes.func),
-    formatters: PropTypes.arrayOf(PropTypes.func),
-    props: PropTypes.object
-  }),
-  cell: PropTypes.shape({
-    property: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]),
-    transforms: PropTypes.arrayOf(PropTypes.func),
-    formatters: PropTypes.arrayOf(PropTypes.func),
-    props: PropTypes.object
-  })
+  headerCell: PropTypes.element,
+  bodyCell: PropTypes.element
 }));
 const arrayOfArrayColumns = PropTypes.arrayOf(PropTypes.array);
 const rowsType = PropTypes.oneOfType([
@@ -85,12 +73,12 @@ const tableDefaults = {
     header: {
       wrapper: 'thead',
       row: 'tr',
-      cell: 'th'
+      cell: value => <th>{value}</th> // XXX: good idea?
     },
     body: {
       wrapper: 'tbody',
       row: 'tr',
-      cell: 'td'
+      cell: value => <td>{value}</td> // XXX: good idea?
     }
   }
 };

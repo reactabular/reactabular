@@ -10,6 +10,7 @@ module.exports = {
     "react"
   ],
   "rules": {
+    "no-empty-pattern": 0,
     "react/jsx-filename-extension": 0,
     "comma-dangle": ["error", "never"],
     "prefer-arrow-callback": 0,
