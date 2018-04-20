@@ -8,22 +8,16 @@ describe('Table.Provider', function () {
   it('renders children correctly', function () {
     const columns = [
       {
-        property: 'name',
-        header: {
-          label: 'Name'
-        }
+        headerCell: ({ }, { renderer }) => renderer('Name'),
+        bodyCell: ({ name }, { renderer }) => renderer(name)
       },
       {
-        property: 'position',
-        header: {
-          label: 'Position'
-        }
+        headerCell: ({ }, { renderer }) => renderer('Position'),
+        bodyCell: ({ position }, { renderer }) => renderer(position)
       },
       {
-        property: 'age',
-        header: {
-          label: 'Age'
-        }
+        headerCell: ({ }, { renderer }) => renderer('Age'),
+        bodyCell: ({ age }, { renderer }) => renderer(age)
       }
     ];
     const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
@@ -41,13 +35,13 @@ describe('Table.Provider', function () {
   it('renders without headers', function () {
     const columns = [
       {
-        property: 'name'
+        bodyCell: ({ name }, { renderer }) => renderer(name)
       },
       {
-        property: 'position'
+        bodyCell: ({ position }, { renderer }) => renderer(position)
       },
       {
-        property: 'age'
+        bodyCell: ({ age }, { renderer }) => renderer(age)
       }
     ];
     const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
@@ -56,7 +50,7 @@ describe('Table.Provider', function () {
           <td>Dancing is the poetry of the foot.</td>
         </tr>
       </tfoot>
-                                               </Table.Provider>);
+    </Table.Provider>);
     const tfoot = TestUtils.findRenderedDOMComponentWithTag(table, 'tfoot');
 
     expect(tfoot).to.exist;
@@ -65,16 +59,12 @@ describe('Table.Provider', function () {
   it('accepts numbers as properties', function () {
     const columns = [
       {
-        property: 0,
-        header: {
-          label: 'A'
-        }
+        headerCell: ({ }, { renderer }) => renderer('A'),
+        bodyCell: (row, { renderer }) => renderer(row[0])
       },
       {
-        property: 1,
-        header: {
-          label: 'B'
-        }
+        headerCell: ({ }, { renderer }) => renderer('B'),
+        bodyCell: (row, { renderer }) => renderer(row[1])
       }
     ];
     const rows = [
@@ -83,7 +73,7 @@ describe('Table.Provider', function () {
     ];
     const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
       <Table.Body rows={rows} />
-                                               </Table.Provider>);
+    </Table.Provider>);
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
 
     expect(tds.length).to.equal(4);
@@ -99,7 +89,7 @@ describe('Table.Provider', function () {
 
     const table = TestUtils.renderIntoDocument(<Table.Provider renderers={{ table: wrapper }} columns={[]}>
       <Table.Body rows={[]} />
-                                               </Table.Provider>);
+    </Table.Provider>);
     const div = TestUtils.findRenderedDOMComponentWithClass(table, wrapperClass);
 
     expect(div).to.exist;
@@ -110,7 +100,7 @@ describe('Table.Provider', function () {
 
     const table = TestUtils.renderIntoDocument(<Table.Provider columns={[]} className={customClass}>
       <Table.Body rows={[]} />
-                                               </Table.Provider>);
+    </Table.Provider>);
     const renderedTable = TestUtils.findRenderedDOMComponentWithClass(table, customClass);
 
     expect(renderedTable).to.exist;

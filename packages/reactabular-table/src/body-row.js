@@ -1,9 +1,6 @@
 import { isEqual, isFunction } from 'lodash';
 import React from 'react';
 import columnsAreEqual from './columns-are-equal';
-import evaluateFormatters from './evaluate-formatters';
-import evaluateTransforms from './evaluate-transforms';
-import mergeProps from './merge-props';
 import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
 
 class BodyRow extends React.Component {
@@ -35,39 +32,19 @@ class BodyRow extends React.Component {
       renderers.row,
       onRow(rowData, { rowIndex, rowKey }),
       columns.map((column, columnIndex) => {
-        const { property, cell, props } = column;
-        const evaluatedProperty = property || (cell && cell.property);
-        const {
-          transforms = [],
-          formatters = []
-        } = cell || {}; // TODO: test against this case
-        const extraParameters = {
+        const { property, bodyCell } = column;
+        const cellParameters = {
           columnIndex,
-          property: evaluatedProperty,
+          property,
           column,
+          renderer: renderers.cell,
           rowData,
           rowIndex,
           rowKey
         };
-        const transformed = evaluateTransforms(transforms, rowData[evaluatedProperty], extraParameters);
 
-        if (!transformed) {
-          console.warn('Table.Body - Failed to receive a transformed result'); // eslint-disable-line max-len, no-console
-        }
-
-        return React.createElement(
-          renderers.cell,
-          {
-            key: `${columnIndex}-cell`,
-            ...mergeProps(
-              props,
-              cell && cell.props,
-              transformed
-            )
-          },
-          transformed.children || evaluateFormatters(formatters)(rowData[`_${evaluatedProperty}`] ||
-              rowData[evaluatedProperty], extraParameters)
-        );
+        // XXXXX: keying
+        return isFunction(bodyCell) ? bodyCell(property ? rowData[property] : rowData, cellParameters) : renderers.cell(bodyCell, cellParameters);
       })
     );
   }
