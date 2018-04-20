@@ -20,8 +20,7 @@ const rowDataType = PropTypes.oneOfType([
 ]);
 const tableTypes = {
   columns: PropTypes.array.isRequired,
-  renderers: PropTypes.object,
-  components: PropTypes.object // XXXXX: Deprecated in favor of renderers, remove in the next major!
+  renderers: PropTypes.object
 };
 const tableContextTypes = {
   columns: PropTypes.array.isRequired,
