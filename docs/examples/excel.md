@@ -37,12 +37,11 @@ class ExcelTable extends React.Component {
     });
     const evaluate = evaluator(() => convertToValues(this.state.rows));
 
+    // XXXXX: port to 9
     this.state = {
       columns: [
         {
-          header: {
-            label: ''
-          },
+          headerCell: '',
           cell: {
             formatters: [
               (value, { rowIndex }) => rowIndex + 1
@@ -51,9 +50,7 @@ class ExcelTable extends React.Component {
         },
         {
           property: 0,
-          header: {
-            label: 'A'
-          },
+          headerCell: 'A',
           cell: {
             transforms: [
               editable(edit.input())
@@ -65,9 +62,7 @@ class ExcelTable extends React.Component {
         },
         {
           property: 1,
-          header: {
-            label: 'B'
-          },
+          headerCell:  'B',
           cell: {
             transforms: [
               editable(edit.input())
@@ -79,9 +74,7 @@ class ExcelTable extends React.Component {
         },
         {
           property: 2,
-          header: {
-            label: 'C'
-          },
+          headerCell: 'C',
           cell: {
             transforms: [
               editable(edit.input())
@@ -93,9 +86,7 @@ class ExcelTable extends React.Component {
         },
         {
           property: 3,
-          header: {
-            label: 'D'
-          },
+          headerCell: 'D'
           cell: {
             transforms: [
               editable(edit.input())

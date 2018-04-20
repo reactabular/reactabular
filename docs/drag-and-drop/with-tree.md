@@ -48,15 +48,14 @@ class DragAndDropTreeTable extends React.Component {
     this.onMoveRow = this.onMoveRow.bind(this);
   }
   getColumns() {
+    // XXXXX: port to 9
     return [
       {
         property: 'name',
         props: {
           style: { width: 200 }
         },
-        header: {
-          label: 'Name'
-        },
+        headerCell: 'Name',
         cell: {
           formatters: [
             tree.toggleChildren({
@@ -78,9 +77,7 @@ class DragAndDropTreeTable extends React.Component {
         props: {
           style: { width: 300 }
         },
-        header: {
-          label: 'Age'
-        }
+        headerCell: 'Age'
       }
     ];
   }

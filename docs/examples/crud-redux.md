@@ -121,39 +121,32 @@ class CRUDTable extends React.Component {
       }
     });
 
+    // XXXXX: port to 9
     return [
       {
         property: 'name',
-        header: {
-          label: 'Name'
-        },
+        headerCell: 'Name',
         cell: {
           transforms: [editable(edit.input())]
         }
       },
       {
         property: 'position',
-        header: {
-          label: 'Position'
-        },
+        headerCell: 'Position',
         cell: {
           transforms: [editable(edit.input())]
         }
       },
       {
         property: 'salary',
-        header: {
-          label: 'Salary'
-        },
+        headerCell: 'Salary',
         cell: {
           transforms: [editable(edit.input({ props: { type: 'number' } }))]
         }
       },
       {
         property: 'active',
-        header: {
-          label: 'Active'
-        },
+        headerCell: 'Active',
         cell: {
           transforms: [editable(edit.boolean())],
           formatters: [active => active && <span>&#10003;</span>]

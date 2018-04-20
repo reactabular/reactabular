@@ -27,15 +27,11 @@ const rows = [
 const columns = [
   {
     property: 'name',
-    header: {
-      label: 'Name'
-    }
+    headerCell: 'Name'
   },
   {
     property: 'dad',
-    header: {
-      label: 'Dad'
-    }
+    headerCell: 'Dad'
   }
 ];
 

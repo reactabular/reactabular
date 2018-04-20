@@ -17,15 +17,11 @@ class FixedWidthColumnsTable extends React.Component {
       columns: [
         {
           property: 'name',
-          header: {
-            label: 'Name'
-          }
+          headerCell: 'Name'
         },
         {
           property: 'address',
-          header: {
-            label: 'Address'
-          }
+          headerCell: 'Address'
         }
       ],
       rows: [

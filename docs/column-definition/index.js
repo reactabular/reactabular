@@ -15,39 +15,19 @@ export default rootPath => ({
       content: pageLoader(() => import('./property.md'))
     },
     {
-      path: `${rootPath}/props`,
-      title: 'Props',
-      content: pageLoader(() => import('./props.md'))
+      path: `${rootPath}/body-cell`,
+      title: 'BodyCell',
+      content: pageLoader(() => import('./body-cell.md'))
     },
     {
-      path: `${rootPath}/header`,
-      title: 'Header',
-      content: pageLoader(() => import('./header.md'))
-    },
-    {
-      path: `${rootPath}/cell`,
-      title: 'Cell',
-      content: pageLoader(() => import('./cell.md'))
-    },
-    {
-      path: `${rootPath}/formatters`,
-      title: 'Formatters',
-      content: pageLoader(() => import('./formatters.md'))
-    },
-    {
-      path: `${rootPath}/transforms`,
-      title: 'Transforms',
-      content: pageLoader(() => import('./transforms.md'))
+      path: `${rootPath}/header-cell`,
+      title: 'HeaderCell',
+      content: pageLoader(() => import('./header-cell.md'))
     },
     {
       path: `${rootPath}/nested-columns`,
       title: 'Nested Columns',
       content: pageLoader(() => import('./nested-columns.md'))
-    },
-    {
-      path: `${rootPath}/column-extensions`,
-      title: 'Column Extensions',
-      content: pageLoader(() => import('reactabular-column-extensions/README.md'))
     }
   ]
 });

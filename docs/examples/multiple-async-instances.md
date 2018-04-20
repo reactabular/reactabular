@@ -68,9 +68,7 @@ function getColumns() {
 function formatColumns(colin) {
   return colin.map(c => ({
     property: c[0],
-    header:{
-      label: c[1]
-    }
+    headerCell: c[1]
   }));
 }
 function setEditableColumns(colin) {

@@ -50,21 +50,16 @@ class AlignedTable extends React.Component {
     return [
       {
         property: 'name',
-        header: {
-          label: 'Name'
-        }
+        headerCell: 'Name'
       },
       {
         property: 'position',
-        header: {
-          label: 'Position'
-        }
+        headerCell: 'Position'
       },
       {
         property: 'salary',
-        header: {
-          label: 'Salary'
-        },
+        headerCell: 'Salary',
+        // XXXXX: port to 9
         props: {
           isNumber: true, // the type information used for styling
         },

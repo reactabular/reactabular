@@ -43,21 +43,15 @@ class CRUDTable extends React.Component {
           colSpan: 2, // It's possible to override rowSpan too
         },
         property: 'name',
-        header: {
-          label: 'Name'
-        }
+        headerCell: 'Name'
       },
       {
         property: 'position',
-        header: {
-          label: 'Position'
-        }
+        headerCell: 'Position'
       },
       {
         property: 'salary',
-        header: {
-          label: 'Salary'
-        }
+        headerCell: 'Salary'
       }
     ];
   }

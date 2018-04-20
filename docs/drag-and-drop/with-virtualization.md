@@ -17,14 +17,13 @@ import * as Virtualized from 'reactabular-virtualized';
 import { generateRows } from './helpers';
 */
 
+// XXXXX: port to 9
 const columns = [
   {
     props: {
       style: { minWidth: 50 }
     },
-    header: {
-      label: 'Index'
-    },
+    headerCell: 'Index',
     cell: {
       formatters: [
         (value, { rowIndex }) => <span>{rowIndex}</span>
@@ -36,36 +35,28 @@ const columns = [
     props: {
       style: { minWidth: 300 }
     },
-    header: {
-      label: 'Name'
-    }
+    headerCell: 'Name'
   },
   {
     property: 'age',
     props: {
       style: { minWidth: 100 }
     },
-    header: {
-      label: 'Age'
-    }
+    headerCell: 'Age'
   },
   {
     property: 'company',
     props: {
       style: { minWidth: 400 }
     },
-    header: {
-      label: 'Company'
-    }
+    headerCell: 'Company'
   },
   {
     property: 'product',
     props: {
       style: { minWidth: 400 }
     },
-    header: {
-      label: 'Product'
-    }
+    headerCell: 'Product'
   }
 ];
 

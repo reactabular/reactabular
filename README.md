@@ -44,50 +44,24 @@ const countries = {
   dk: 'Denmark'
 };
 
+// Note that the repetitive headerCell logic could be pushed to a function.
+// Then you would have headerCell: headerCell('Name') for example.
+// Alternatively you could do something even more higher level.
 const columns = [
   {
     property: 'name',
-    header: {
-      label: 'Name',
-      transforms: [
-        label => ({
-          onClick: () => alert(`clicked ${label}`)
-        })
-      ]
-    }
+    headerCell: <th onClick={() => alert(`clicked name`)}>Name</th>
   },
   {
     property: 'tools',
-    header: {
-      label: 'Active',
-      transforms: [
-        label => ({
-          onClick: () => alert(`clicked ${label}`)
-        })
-      ]
-    },
-    cell: {
-      formatters: [
-        tools => tools.hammer ? 'Hammertime' : 'nope'
-      ]
-    }
+    headerCell: <th onClick={() => alert(`clicked active`)}>Active</th>,
+    bodyCell: tools => <td>{tools.hammer ? 'Hammertime' : 'nope'}</td>
   },
   {
     property: 'country',
-    header: {
-      label: 'Country',
-      transforms: [
-        label => ({
-          onClick: () => alert(`clicked ${label}`)
-        })
-      ]
-    },
-    cell: {
-      formatters: [
-        country => countries[country]
-      ]
-    }
-  },
+    headerCell: <th onClick={() => alert(`clicked country`)}>Country</th>,
+    bodyCell: country => <td>{countries[country]}</td>
+  }
 ];
 
 <Table.Provider
