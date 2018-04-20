@@ -228,6 +228,7 @@ function generateRandomTableData() {
       textAlign: 'center',
     }
   };
+  // XXXXX: port to 9
   // id column should always exist
   tableData.columns.push({
     property: 'id', // the json row need two levels

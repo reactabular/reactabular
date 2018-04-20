@@ -51,9 +51,8 @@ class EditableTable extends React.Component {
       columns: [
         {
           property: 'name',
-          header: {
-            label: 'Name'
-          },
+          headerCell: 'Name'
+          // XXXXX: Implement for 9
           cell: {
             transforms: [
               (value, extra) => editable(edit.input())(value, extra, {

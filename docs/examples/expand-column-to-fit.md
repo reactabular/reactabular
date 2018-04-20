@@ -9,27 +9,13 @@ import * as Table from 'reactabular-table';
 const columns = [
   {
     property: 'name',
-    header: {
-      label: 'Name',
-      props: {
-        style: {
-          // Fix column width to 200px
-          width: 200
-        }
-      }
-    }
+    // Fix column width to 200px
+    headerCell: () => <th style={{ width: 200 }}>Name</th>
   },
   {
     property: 'dad',
-    header: {
-      label: 'Dad',
-      props: {
-        style: {
-          // Calculate remaining space
-          width: 'calc(100% - 200px)'
-        }
-      }
-    }
+    // Calculate remaining space
+    headerCell: () => <th style={{ width: 'calc(100% - 200px)' }}>Dad</th>
   }
 ];
 

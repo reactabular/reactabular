@@ -32,15 +32,11 @@ const rows = generateRows(100, schema);
 const columns = [
   {
     property: 'name',
-    header: {
-      label: 'Name'
-    }
+    headerCell: 'Name'
   },
   {
     property: 'age',
-    header: {
-      label: 'Age'
-    }
+    headerCell: 'Age'
   }
 ];
 

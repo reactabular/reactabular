@@ -135,6 +135,7 @@ class AllFeaturesTable extends React.Component {
       }
     });
 
+    // XXXXX: port to 9
     return [
       {
         property: 'name',

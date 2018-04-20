@@ -69,28 +69,14 @@ function generateRandomTableData() {
   // id column should always exist
   tableData.columns.push({
     property: 'id', // the json row need two levels
-    props: {
-      style: {
-        minWidth: width
-      }
-    },
-    header: {
-      label: 'id'
-    }
+    headerCell: () => <th style={{ minWidth: width }}>id</th>
   });
 
   // filling columns
   for (let j = 0; j < columnNum; j++) {
     tableData.columns.push({
         property: `col${j}`, // the json row need two levels
-        props: {
-          style: {
-            minWidth: width
-          }
-        },
-        header: {
-          label: `col${j}`
-        }
+        headerCell: () => <th style={{ minWidth: width }}>{`col${j}`}</th>
       });
   }
   return tableData;

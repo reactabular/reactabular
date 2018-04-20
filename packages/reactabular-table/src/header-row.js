@@ -16,9 +16,10 @@ const HeaderRow = ({
           property,
           column
         };
+        const cellRenderer = isFunction(headerCell) ? headerCell : renderers.cell;
+        const data = isFunction(headerCell) ? rowData : headerCell;
 
-        // XXXXX: keying
-        return isFunction(headerCell) ? headerCell(rowData, cellParameters) : renderers.cell(headerCell, cellParameters);
+        return cellRenderer(data, cellParameters);
       })
     )
   );

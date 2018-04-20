@@ -4,9 +4,7 @@ The column definition is an array of objects. Each maps to a specific table colu
 const columns = [
   {
     property: 'name',
-    header: {
-      label: 'Name'
-    }
+    headerCell: 'Name'
   }
 ];
 ```

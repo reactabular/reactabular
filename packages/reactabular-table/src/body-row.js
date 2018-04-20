@@ -42,9 +42,11 @@ class BodyRow extends React.Component {
           rowIndex,
           rowKey
         };
+        const cellRenderer = isFunction(bodyCell) ? bodyCell : renderers.cell;
+        const data = property ? rowData[property] : rowData;
 
         // XXXXX: keying
-        return isFunction(bodyCell) ? bodyCell(property ? rowData[property] : rowData, cellParameters) : renderers.cell(bodyCell, cellParameters);
+        return cellRenderer(data, cellParameters);
       })
     );
   }

@@ -12,45 +12,31 @@ import * as resolve from 'table-resolver';
 const columns = [
   {
     property: 'color',
-    header: {
-      label: 'Color'
-    }
+    headerCell: 'Color'
   },
   {
-    header: {
-      label: 'Name'
-    },
+    headerCell: 'Name'
     children: [
       {
         property: 'name.first',
-        header: {
-          label: 'First Name'
-        }
+        headerCell: 'First Name'
       },
       {
         property: 'name.last',
-        header: {
-          label: 'Last Name'
-        }
+        headerCell: 'Last Name'
       }
     ]
   },
   {
-    header: {
-      label: 'About'
-    },
+    headerCell: 'About'
     children: [
       {
         property: 'company',
-        header: {
-          label: 'Company'
-        }
+        headerCell: 'Company'
       },
       {
         property: 'sentence',
-        header: {
-          label: 'Sentence'
-        }
+        headerCell: 'Sentence'
       }
     ]
   }
