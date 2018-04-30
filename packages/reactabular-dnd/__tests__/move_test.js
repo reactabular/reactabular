@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { reverse } from 'lodash';
 import { moveRows } from '../src';
 
@@ -20,7 +19,7 @@ describe('dnd.moveRows', function () {
     expect(moveRows({
       sourceRowId,
       targetRowId
-    })(rows)).to.deep.equal(rows);
+    })(rows)).toEqual(rows);
   });
 
   it('swaps two rows', function () {
@@ -40,7 +39,7 @@ describe('dnd.moveRows', function () {
     expect(moveRows({
       sourceRowId,
       targetRowId
-    })(rows)).to.deep.equal(reverse(rows));
+    })(rows)).toEqual(reverse(rows));
   });
 
   it('swaps three rows', function () {
@@ -64,6 +63,6 @@ describe('dnd.moveRows', function () {
     expect(moveRows({
       sourceRowId,
       targetRowId
-    })(rows)).to.deep.equal([rows[1], rows[2], rows[0]]);
+    })(rows)).toEqual([rows[1], rows[2], rows[0]]);
   });
 });
