@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import { expect } from 'chai';
 import * as Table from '../src';
 
 describe('Table.Body', function () {
@@ -38,7 +37,7 @@ describe('Table.Body', function () {
     </Table.Provider>);
     const trs = TestUtils.scryRenderedDOMComponentsWithTag(table, 'tr');
 
-    expect(trs.length).to.equal(rows.length);
+    expect(trs.length).toBe(rows.length);
   });
 
   it('allows body cell customization', function () {
@@ -66,7 +65,7 @@ describe('Table.Body', function () {
     </Table.Provider>);
     const trs = TestUtils.scryRenderedDOMComponentsWithTag(table, 'tr');
 
-    expect(trs.length).to.equal(rows.length);
+    expect(trs.length).toBe(rows.length);
   });
 
   it('does not resolve rows by default', function () {
@@ -85,14 +84,14 @@ describe('Table.Body', function () {
     </Table.Provider>);
     const td = TestUtils.findRenderedDOMComponentWithTag(table, 'td');
 
-    expect(td.innerHTML).to.equal('');
+    expect(td.innerHTML).toBe('');
   });
 
   it('allows Body shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
     const BodyWrapper = props => <tbody {...props} />;
     BodyWrapper.shouldComponentUpdate = function () {
-      expect(this.props).to.exist;
+      expect(this.props).toBeDefined();
 
       calledUpdate = true;
 
@@ -126,14 +125,14 @@ describe('Table.Body', function () {
 
     component.forceUpdate();
 
-    expect(calledUpdate).to.be.true;
+    expect(calledUpdate).toBe(true);
   });
 
   it('allows BodyRow shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
     const BodyWrapper = props => <tbody {...props} />;
     BodyWrapper.shouldComponentUpdate = function () {
-      expect(this.props).to.exist;
+      expect(this.props).toBeDefined();
 
       calledUpdate = true;
 
@@ -141,7 +140,7 @@ describe('Table.Body', function () {
     };
     const RowWrapper = props => <tr {...props} />;
     RowWrapper.shouldComponentUpdate = function () {
-      expect(this.props).to.exist;
+      expect(this.props).toBeDefined();
 
       calledUpdate = true;
 
@@ -176,7 +175,7 @@ describe('Table.Body', function () {
 
     component.forceUpdate();
 
-    expect(calledUpdate).to.be.true;
+    expect(calledUpdate).toBe(true);
   });
 
   it('supports custom props', function () {
@@ -187,7 +186,7 @@ describe('Table.Body', function () {
     </Table.Provider>);
     const renderedTable = TestUtils.findRenderedDOMComponentWithClass(table, customClass);
 
-    expect(renderedTable).to.exist;
+    expect(renderedTable).toBeDefined();
   });
 
   it('gives access to body ref through getRef', function () {
@@ -202,7 +201,7 @@ describe('Table.Body', function () {
       />
     </Table.Provider>);
 
-    expect(ref).to.exist;
+    expect(ref).toBeDefined();
   });
 
   it('allows attaching custom props per row through onRow', function () {
@@ -235,10 +234,10 @@ describe('Table.Body', function () {
     </Table.Provider>);
     const tr = TestUtils.findRenderedDOMComponentWithClass(table, rowClass);
 
-    expect(receivedRow).to.deep.equal(testRow);
-    expect(receivedRowIndex).to.equal(0);
-    expect(receivedRowKey).to.equal(`${testRow.name}-row`);
-    expect(tr).to.exist;
+    expect(receivedRow).toEqual(testRow);
+    expect(receivedRowIndex).toBe(0);
+    expect(receivedRowKey).toBe(`${testRow.name}-row`);
+    expect(tr).toBeDefined();
   });
 
   it('accepts a function for rowKey', function () {
@@ -261,7 +260,7 @@ describe('Table.Body', function () {
     </Table.Provider>);
 
     const key = table.find('BodyRow').prop('rowKey');
-    expect(key).to.equal(`${id}-row`);
+    expect(key).toBe(`${id}-row`);
   });
 
   it('rowKey function received rowIndex', function () {
@@ -281,7 +280,7 @@ describe('Table.Body', function () {
     </Table.Provider>);
 
     const key = table.find('BodyRow').prop('rowKey');
-    expect(key).to.equal(`${index}-row`);
+    expect(key).toBe(`${index}-row`);
   });
 
   it('allows passing custom row keys through _index', function () {
@@ -305,6 +304,6 @@ describe('Table.Body', function () {
     </Table.Provider>);
     const tr = TestUtils.findRenderedDOMComponentWithClass(table, testIndex.toString());
 
-    expect(tr).to.exist;
+    expect(tr).toBeDefined();
   });
 });

@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { expect } from 'chai';
 import * as Table from '../src';
 
 describe('Table.Provider', function () {
@@ -29,7 +28,7 @@ describe('Table.Provider', function () {
     </Table.Provider>);
     const tfoot = TestUtils.findRenderedDOMComponentWithTag(table, 'tfoot');
 
-    expect(tfoot).to.exist;
+    expect(tfoot).toBeDefined();
   });
 
   it('renders without headers', function () {
@@ -53,7 +52,7 @@ describe('Table.Provider', function () {
     </Table.Provider>);
     const tfoot = TestUtils.findRenderedDOMComponentWithTag(table, 'tfoot');
 
-    expect(tfoot).to.exist;
+    expect(tfoot).toBeDefined();
   });
 
   it('accepts numbers as properties', function () {
@@ -76,7 +75,7 @@ describe('Table.Provider', function () {
     </Table.Provider>);
     const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
 
-    expect(tds.length).to.equal(4);
+    expect(tds.length).toBe(4);
   });
 
   it('allows table component to be overridden', function () {
@@ -92,7 +91,7 @@ describe('Table.Provider', function () {
     </Table.Provider>);
     const div = TestUtils.findRenderedDOMComponentWithClass(table, wrapperClass);
 
-    expect(div).to.exist;
+    expect(div).toBeDefined();
   });
 
   it('supports custom props', function () {
@@ -103,6 +102,6 @@ describe('Table.Provider', function () {
     </Table.Provider>);
     const renderedTable = TestUtils.findRenderedDOMComponentWithClass(table, customClass);
 
-    expect(renderedTable).to.exist;
+    expect(renderedTable).toBeDefined();
   });
 });

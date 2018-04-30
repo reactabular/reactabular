@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { expect } from 'chai';
 import * as resizable from '../src';
 
 const resizableColumn = resizable.column;
 
 describe('resizableColumn', function () {
   it('throws an error if onDrag is not passed', function () {
-    expect(resizableColumn).to.throw(Error);
+    expect(resizableColumn).toThrowError(Error);
   });
 
   it('allows customization of props', function () {
@@ -40,9 +39,9 @@ describe('resizableColumn', function () {
     const handle = TestUtils.findRenderedDOMComponentWithClass(renderedContainer, 'resize-handle');
     const value = TestUtils.findRenderedDOMComponentWithClass(renderedContainer, 'resize-value');
 
-    expect(container.style.color).to.equal(color);
-    expect(handle.style.color).to.equal(color);
-    expect(value.style.color).to.equal(color);
+    expect(container.style.color).toBe(color);
+    expect(handle.style.color).toBe(color);
+    expect(value.style.color).toBe(color);
   });
 });
 
