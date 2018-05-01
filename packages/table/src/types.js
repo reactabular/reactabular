@@ -26,11 +26,8 @@ const tableContextTypes = {
   columns: PropTypes.array.isRequired,
   renderers: PropTypes.object
 };
-const tableBodyDefaults = {
-  onRow: () => {}
-};
+const tableBodyDefaults = {};
 const tableBodyTypes = {
-  onRow: PropTypes.func,
   rows: rowsType.isRequired,
   rowKey: rowKeyType
 };
@@ -38,13 +35,10 @@ const tableBodyContextTypes = {
   columns: PropTypes.array.isRequired,
   renderers: PropTypes.object
 };
-const tableBodyRowDefaults = {
-  onRow: () => ({})
-};
+const tableBodyRowDefaults = {};
 const tableBodyRowTypes = {
   columns: PropTypes.array.isRequired,
   renderers: PropTypes.object,
-  onRow: PropTypes.func,
   rowIndex: PropTypes.number.isRequired,
   rowData: rowDataType.isRequired,
   rowKey: PropTypes.string.isRequired
@@ -57,12 +51,9 @@ const tableHeaderContextTypes = {
   columns: PropTypes.array.isRequired,
   renderers: PropTypes.object
 };
-const tableHeaderRowDefaults = {
-  onRow: () => ({})
-};
+const tableHeaderRowDefaults = {};
 const tableHeaderRowTypes = {
   renderers: PropTypes.object,
-  onRow: PropTypes.func,
   rowIndex: PropTypes.number.isRequired,
   rowData: rowDataType.isRequired
 };
@@ -71,13 +62,13 @@ const tableDefaults = {
     table: 'table',
     header: {
       wrapper: 'thead',
-      row: 'tr',
-      cell: value => <th>{value}</th> // XXX: good idea?
+      row: row => <tr>{row}</tr>,
+      cell: value => <th>{value}</th>
     },
     body: {
       wrapper: 'tbody',
-      row: 'tr',
-      cell: value => <td>{value}</td> // XXX: good idea?
+      row: row => <tr>{row}</tr>,
+      cell: value => <td>{value}</td>
     }
   }
 };

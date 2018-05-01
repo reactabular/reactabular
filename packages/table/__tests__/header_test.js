@@ -116,4 +116,35 @@ describe('Table.Header', function () {
 
     expect(ref).toBeDefined();
   });
+
+  it('allows attaching custom props per row through renderers', function () {
+    let receivedRow;
+    let receivedRowIndex;
+    const rowClass = 'test-row';
+    const columns = [
+      {
+        headerCell: 'Name',
+        property: 'name'
+      }
+    ];
+    const renderers = {
+      header: {
+        row: (children, o) => {
+          receivedRow = o.rowData;
+          receivedRowIndex = o.rowIndex;
+
+          return <tr className={rowClass}>{children}</tr>;
+        }
+      }
+    };
+
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns} renderers={renderers}>
+      <Table.Header/>
+    </Table.Provider>);
+    const tr = TestUtils.findRenderedDOMComponentWithClass(table, rowClass);
+
+    expect(receivedRow).toEqual([columns[0]]);
+    expect(receivedRowIndex).toBe(0);
+    expect(tr).toBeDefined();
+  });
 });
