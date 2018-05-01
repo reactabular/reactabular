@@ -18,7 +18,7 @@ The following example illustrates the approach used by Reactabular:
 
 ```jsx
 /*
-import * as Table from 'reactabular-table';
+import * as Table from '@reactabular/table';
 */
 
 const rows = [

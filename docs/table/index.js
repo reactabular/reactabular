@@ -12,7 +12,7 @@ export default rootPath => ({
     {
       path: `${rootPath}/components`,
       title: 'Components',
-      content: pageLoader(() => import('../../packages/reactabular-table/README.md'))
+      content: pageLoader(() => import('../../packages/table/README.md'))
     },
     {
       path: `${rootPath}/styling`,

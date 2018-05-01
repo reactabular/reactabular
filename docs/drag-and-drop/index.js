@@ -7,7 +7,7 @@ export default rootPath => ({
     {
       path: `${rootPath}`,
       title: 'Introduction',
-      content: pageLoader(() => import('../../packages/reactabular-dnd/README.md'))
+      content: pageLoader(() => import('../../packages/dnd/README.md'))
     },
     {
       path: `${rootPath}/with-tree`,
