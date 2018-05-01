@@ -92,17 +92,6 @@ describe('Table.Header', function () {
     expect(ths.length).toEqual(columns.length);
   });
 
-  it('supports custom props', function () {
-    const customClass = 'demo';
-
-    const table = TestUtils.renderIntoDocument(<Table.Provider columns={[]}>
-      <Table.Header className={customClass} />
-    </Table.Provider>);
-    const renderedTable = TestUtils.findRenderedDOMComponentWithClass(table, customClass);
-
-    expect(renderedTable).toBeDefined();
-  });
-
   it('gives access to header ref through getRef', function () {
     let ref;
 

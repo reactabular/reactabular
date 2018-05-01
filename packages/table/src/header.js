@@ -9,32 +9,30 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     this.ref = null;
   }
   render() {
-    const {
-      children, headerRows, onRow, ...props
-    } = this.props;
+    const { children, headerRows } = this.props;
     const { renderers, columns } = this.context;
+    const renderer = renderers.header.wrapper;
 
-    props.ref = (header) => {
+    // XXXXX: Figure out how to handle ref
+    /* props.ref = (header) => {
       this.ref = header;
-    };
+    }; */
 
     // If headerRows aren't passed, default to bodyColumns as header rows
-    return React.createElement(
-      renderers.header.wrapper,
-      props,
+    return renderers.header.wrapper(
       [(headerRows || [columns]).map((rowData, rowIndex) =>
         React.createElement(HeaderRow, {
           key: `${rowIndex}-header-row`,
           renderers: renderers.header,
-          onRow,
           rowData,
           rowIndex
-        }))].concat(children)
+        }))].concat(children),
+      { renderer, columns }
     );
   }
-  getRef() {
+  /* getRef() {
     return this.ref;
-  }
+  } */
 }
 Header.propTypes = tableHeaderTypes;
 Header.contextTypes = tableHeaderContextTypes;

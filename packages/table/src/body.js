@@ -28,18 +28,19 @@ class Body extends React.Component {
     );
   }
   render() {
-    const {
-      rows, rowKey, ...props
-    } = this.props;
+    const { rows, rowKey } = this.props;
     const { columns, renderers } = this.context;
 
+    // XXXXX: Figure out how to handle ref
+    /*
     props.ref = (body) => {
       this.ref = body;
     };
+    */
 
-    return React.createElement(
-      renderers.body.wrapper,
-      props,
+    const renderer = renderers.body.wrapper;
+
+    return renderer(
       rows.map((rowData, index) => {
         const rowIndex = rowData._index || index;
         const key = resolveRowKey({ rowData, rowIndex, rowKey });
@@ -52,12 +53,13 @@ class Body extends React.Component {
           rowData,
           columns
         });
-      })
+      }),
+      { renderer, columns }
     );
   }
-  getRef() {
+  /* getRef() {
     return this.ref;
-  }
+  } */
 }
 Body.propTypes = tableBodyTypes;
 Body.defaultProps = tableBodyDefaults;

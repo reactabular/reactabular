@@ -80,7 +80,7 @@ describe('Table.Provider', function () {
 
   it('allows table component to be overridden', function () {
     const wrapperClass = 'wrapper';
-    const wrapper = ({ children }) => (
+    const wrapper = children => (
       <table className={wrapperClass}>
         {children}
       </table>
@@ -92,16 +92,5 @@ describe('Table.Provider', function () {
     const div = TestUtils.findRenderedDOMComponentWithClass(table, wrapperClass);
 
     expect(div).toBeDefined();
-  });
-
-  it('supports custom props', function () {
-    const customClass = 'demo';
-
-    const table = TestUtils.renderIntoDocument(<Table.Provider columns={[]} className={customClass}>
-      <Table.Body rows={[]} />
-    </Table.Provider>);
-    const renderedTable = TestUtils.findRenderedDOMComponentWithClass(table, customClass);
-
-    expect(renderedTable).toBeDefined();
   });
 });
