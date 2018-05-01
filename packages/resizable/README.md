@@ -1,4 +1,4 @@
-`reactabular-resizable` implements a formatter that provides handles for altering column widths. It provides two functions:
+`@reactabular/resizable` implements a formatter that provides handles for altering column widths. It provides two functions:
 
 * `column({ parent = document, onDrag, minWidth = 10, props: { ... }})`. This formatter does most of the work.
 * `helper({ globalId, getId })` returns an object with `initialize({ columns, getId: (column, index) => ...})`, `cleanup()`, and `update({ column, width })` methods. The helper can be used with the formatter to implement performant resizing. It utilizes CSS stylesheets for this purpose. It also expects you set `width` per each column at your column definition.

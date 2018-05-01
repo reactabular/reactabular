@@ -1,4 +1,4 @@
-Sometimes you might want to display data within a fixed container. That's where `reactabular-sticky` comes in. It includes logic keeping a table header and a table body in sync. Unfortunately you still need to dig DOM references yourself to achieve this given it relies on measuring.
+Sometimes you might want to display data within a fixed container. That's where `@reactabular/sticky` comes in. It includes logic keeping a table header and a table body in sync. Unfortunately you still need to dig DOM references yourself to achieve this given it relies on measuring.
 
 ## API
 
