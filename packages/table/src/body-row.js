@@ -5,7 +5,7 @@ import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
 import renderCell from './render-cell';
 
 class BodyRow extends React.Component {
-  shouldComponentUpdate(nextProps) { // eslint-disable-line no-unused-vars
+  shouldComponentUpdate(nextProps) {
     const previousProps = this.props;
 
     // Check for row based override.
