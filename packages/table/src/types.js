@@ -57,18 +57,19 @@ const tableHeaderRowTypes = {
   rowIndex: PropTypes.number.isRequired,
   rowData: rowDataType.isRequired
 };
+const renderer = type => (children, { props } = {}) => React.createElement(type, props, children);
 const tableDefaults = {
   renderers: {
-    table: children => <table>{children}</table>,
+    table: renderer('table'),
     header: {
-      wrapper: rows => <thead>{rows}</thead>,
-      row: row => <tr>{row}</tr>,
-      cell: value => <th>{value}</th>
+      wrapper: renderer('thead'),
+      row: renderer('tr'),
+      cell: renderer('th')
     },
     body: {
-      wrapper: rows => <tbody>{rows}</tbody>,
-      row: row => <tr>{row}</tr>,
-      cell: value => <td>{value}</td>
+      wrapper: renderer('tbody'),
+      row: renderer('tr'),
+      cell: renderer('td')
     }
   }
 };
