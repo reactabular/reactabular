@@ -45,8 +45,7 @@ class BodyRow extends React.Component {
         const cellRenderer = isFunction(bodyCell) ? bodyCell : renderers.cell;
         const data = property ? rowData[property] : rowData;
 
-        // XXXXX: keying
-        return cellRenderer(data, cellParameters);
+        return <React.Fragment key={`${columnIndex}-body-cell`}>{cellRenderer(data, cellParameters)}</React.Fragment>;
       })
     );
   }
