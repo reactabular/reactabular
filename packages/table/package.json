@@ -33,6 +33,9 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "classnames": "^2.2.5"
   },
