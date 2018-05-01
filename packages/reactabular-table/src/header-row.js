@@ -19,7 +19,7 @@ const HeaderRow = ({
         const cellRenderer = isFunction(headerCell) ? headerCell : renderers.cell;
         const data = isFunction(headerCell) ? rowData : headerCell;
 
-        return cellRenderer(data, cellParameters);
+        return <React.Fragment key={`${columnIndex}-header-cell`}>{cellRenderer(data, cellParameters)}</React.Fragment>;
       })
     )
   );
