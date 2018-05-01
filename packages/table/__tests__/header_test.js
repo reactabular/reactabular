@@ -113,7 +113,7 @@ describe('Table.Header', function () {
     const columns = [
       {
         headerCell: 'Name',
-        property: 'name'
+        bodyCell: ({ name }, { renderer }) => renderer(name)
       }
     ];
     const renderers = {
