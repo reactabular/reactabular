@@ -34,6 +34,10 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"
