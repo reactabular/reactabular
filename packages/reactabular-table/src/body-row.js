@@ -2,6 +2,7 @@ import { isEqual, isFunction } from 'lodash';
 import React from 'react';
 import columnsAreEqual from './columns-are-equal';
 import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
+import renderCell from './render-cell';
 
 class BodyRow extends React.Component {
   shouldComponentUpdate(nextProps) { // eslint-disable-line no-unused-vars
@@ -31,22 +32,11 @@ class BodyRow extends React.Component {
     return React.createElement(
       renderers.row,
       onRow(rowData, { rowIndex, rowKey }),
-      columns.map((column, columnIndex) => {
-        const { property, bodyCell } = column;
-        const cellParameters = {
-          columnIndex,
-          property,
-          column,
-          renderer: renderers.cell,
-          rowData,
-          rowIndex,
-          rowKey
-        };
-        const cellRenderer = isFunction(bodyCell) ? bodyCell : renderers.cell;
-        const data = property ? rowData[property] : rowData;
-
-        return <React.Fragment key={`${columnIndex}-body-cell`}>{cellRenderer(data, cellParameters)}</React.Fragment>;
-      })
+      columns.map((column, columnIndex) =>
+        <React.Fragment key={`${columnIndex}-body-cell`}>{
+          renderCell(columnIndex, renderers.cell, column, column.property, column.bodyCell, rowData)
+        }</React.Fragment>
+      )
     );
   }
 }

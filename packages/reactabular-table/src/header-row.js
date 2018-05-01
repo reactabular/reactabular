@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
-import renderCell from './render-cell'
+import renderCell from './render-cell';
 
 const HeaderRow = ({
   rowData, rowIndex, renderers, onRow

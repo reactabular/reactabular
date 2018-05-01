@@ -40,13 +40,13 @@ describe('Table.Body', function () {
     expect(trs.length).toBe(rows.length);
   });
 
-  it('allows body cell customization', function () {
+  it('allows body cell customization with a function', function () {
     const customClass = 'foobar';
     const columns = [
       {
         headerCell: 'Name',
         property: 'name',
-        bodyCell: name => <td className={customClass}>{name}</td>
+        bodyCell: (rowData, { property }) => <td className={customClass}>{rowData[property]}</td>
       }
     ];
     const rows = [
@@ -66,6 +66,67 @@ describe('Table.Body', function () {
     const trs = TestUtils.scryRenderedDOMComponentsWithTag(table, 'tr');
 
     expect(trs.length).toBe(rows.length);
+  });
+
+  it('allows body cell customization with an element', function () {
+    const name = 'Name';
+    const customClass = 'foobar';
+    const columns = [
+      {
+        headerCell: 'Name',
+        property: 'name',
+        bodyCell: <td className={customClass}>{name}</td>
+      }
+    ];
+    const rows = [
+      {
+        name: 'foo', id: 0
+      },
+      {
+        name: 'boo', id: 1
+      },
+      {
+        name: 'demo', id: 2
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Body rows={rows} rowKey="id" />
+    </Table.Provider>);
+    const trs = TestUtils.scryRenderedDOMComponentsWithTag(table, 'tr');
+    const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
+
+    expect(trs.length).toBe(rows.length);
+    expect(tds[0].innerHTML).toEqual(name);
+  });
+
+  it('allows body cell customization with a string', function () {
+    const name = 'Name';
+    const columns = [
+      {
+        headerCell: 'Name',
+        property: 'name',
+        bodyCell: name
+      }
+    ];
+    const rows = [
+      {
+        name: 'foo', id: 0
+      },
+      {
+        name: 'boo', id: 1
+      },
+      {
+        name: 'demo', id: 2
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Body rows={rows} rowKey="id" />
+    </Table.Provider>);
+    const trs = TestUtils.scryRenderedDOMComponentsWithTag(table, 'tr');
+    const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
+
+    expect(trs.length).toBe(rows.length);
+    expect(tds[0].innerHTML).toEqual(name);
   });
 
   it('does not resolve rows by default', function () {
