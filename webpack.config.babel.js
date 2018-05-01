@@ -24,7 +24,7 @@ const config = {
   }
 };
 const packages = fromPairs(fs.readdirSync('packages').map(p => [
-  p, path.join(config.paths.src, p, 'src')
+  `@reactabular/${p}`, path.join(config.paths.src, p, 'src')
 ]));
 
 const common = {
