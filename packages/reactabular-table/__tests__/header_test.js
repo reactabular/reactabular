@@ -4,11 +4,12 @@ import TestUtils from 'react-dom/test-utils';
 import * as Table from '../src';
 
 describe('Table.Header', function () {
-  it('can be customized', function () {
+  it('can be customized with a function', function () {
+    const name = 'Name';
     const headerClass = 'test-header';
     const columns = [
       {
-        headerCell: () => <td className={headerClass}>Name</td>
+        headerCell: () => <th className={headerClass}>{name}</th>
       }
     ];
     const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
@@ -17,6 +18,39 @@ describe('Table.Header', function () {
     const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
 
     expect(th).toBeDefined();
+    expect(th.innerHTML).toContain(name);
+  });
+
+  it('can be customized with an element', function () {
+    const name = 'Name';
+    const headerClass = 'test-header';
+    const columns = [
+      {
+        headerCell: <th className={headerClass}>{name}</th>
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+    </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithClass(table, headerClass);
+
+    expect(th).toBeDefined();
+    expect(th.innerHTML).toContain(name);
+  });
+
+  it('can be customized with a string', function () {
+    const name = 'Name';
+    const columns = [
+      {
+        headerCell: name
+      }
+    ];
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+      <Table.Header />
+    </Table.Provider>);
+    const th = TestUtils.findRenderedDOMComponentWithTag(table, 'th');
+
+    expect(th.innerHTML).toContain(name);
   });
 
   it('renders children', function () {
