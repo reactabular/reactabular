@@ -36,8 +36,10 @@ describe('Table.Body', function () {
       <Table.Body rows={rows} rowKey="id" />
     </Table.Provider>);
     const trs = TestUtils.scryRenderedDOMComponentsWithTag(table, 'tr');
+    const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
 
     expect(trs.length).toBe(rows.length);
+    expect(tds[0].innerHTML).toEqual(rows[0].name);
   });
 
   it('allows body cell customization with a function', function () {
@@ -128,7 +130,7 @@ describe('Table.Body', function () {
 
   it('allows Body shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
-    const BodyWrapper = props => <tbody {...props} />;
+    const BodyWrapper = children => <tbody>{children}</tbody>;
     BodyWrapper.shouldComponentUpdate = function () {
       expect(this.props).toBeDefined();
 
@@ -169,7 +171,7 @@ describe('Table.Body', function () {
 
   it('allows BodyRow shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
-    const BodyWrapper = props => <tbody {...props} />;
+    const BodyWrapper = children => <tbody>{children}</tbody>;
     BodyWrapper.shouldComponentUpdate = function () {
       expect(this.props).toBeDefined();
 
@@ -177,7 +179,7 @@ describe('Table.Body', function () {
 
       return true;
     };
-    const RowWrapper = props => <tr {...props} />;
+    const RowWrapper = children => <tr>{children}</tr>;
     RowWrapper.shouldComponentUpdate = function () {
       expect(this.props).toBeDefined();
 
@@ -335,7 +337,9 @@ describe('Table.Body', function () {
       />
     </Table.Provider>);
     const tr = TestUtils.findRenderedDOMComponentWithClass(table, testIndex.toString());
+    const tds = TestUtils.scryRenderedDOMComponentsWithTag(table, 'td');
 
     expect(tr).toBeDefined();
+    expect(tds[0].innerHTML).toEqual(testRow.name);
   });
 });
