@@ -1,7 +1,7 @@
 {
-  "name": "reactabular-sticky",
+  "name": "@reactabular/resizable",
   "version": "8.14.0",
-  "description": "Sticky header and body for Reactabular",
+  "description": "Resizable columns for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --ignore __tests__ --out-dir ./dist",
     "prepublish": "npm run build"
@@ -10,7 +10,8 @@
     "dist",
     "CHANGELOG.md",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "style.css"
   ],
   "readmeFilename": "README.md",
   "repository": {
@@ -33,13 +34,16 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
+  "dependencies": {
+    "stylesheet-helpers": "^0.2.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {
+    "classnames": ">= 2.0.0 < 3.0.0",
     "lodash": ">= 4.0.0 < 5.0.0",
-    "react": ">= 0.11.2 < 17.0.0",
-    "reactabular-table": ">= 8.0.0 < 9.0.0"
+    "react": ">= 0.11.2 < 17.0.0"
   }
 }

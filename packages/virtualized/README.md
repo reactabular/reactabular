@@ -1,4 +1,4 @@
-`reactabular-virtualized` works in conjunction with `reactabular-sticky` and provides virtualization. The idea is that instead of rendering all table cells, it renders only ones visible at the viewport. This improves performance significantly with larger datasets.
+`@reactabular/virtualized` works in conjunction with `reactabular-sticky` and provides virtualization. The idea is that instead of rendering all table cells, it renders only ones visible at the viewport. This improves performance significantly with larger datasets.
 
 > If you want extra logging during development, set `window.LOG_VIRTUALIZED = true` at console.
 

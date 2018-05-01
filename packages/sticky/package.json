@@ -1,7 +1,7 @@
 {
-  "name": "reactabular-table",
+  "name": "@reactabular/sticky",
   "version": "8.14.0",
-  "description": "Table components for Reactabular",
+  "description": "Sticky header and body for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --ignore __tests__ --out-dir ./dist",
     "prepublish": "npm run build"
@@ -33,15 +33,13 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
-  "dependencies": {
-    "classnames": "^2.2.5"
-  },
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {
     "lodash": ">= 4.0.0 < 5.0.0",
-    "react": ">= 0.11.2 < 17.0.0"
+    "react": ">= 0.11.2 < 17.0.0",
+    "reactabular-table": ">= 8.0.0 < 9.0.0"
   }
 }

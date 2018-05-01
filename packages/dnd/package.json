@@ -1,7 +1,7 @@
 {
-  "name": "reactabular-virtualized",
+  "name": "@reactabular/dnd",
   "version": "8.14.0",
-  "description": "Table virtualization for Reactabular",
+  "description": "Drag and drop helpers for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --ignore __tests__ --out-dir ./dist",
     "prepublish": "npm run build"
@@ -22,7 +22,8 @@
     "reactjs",
     "table",
     "tables",
-    "reactabular"
+    "reactabular",
+    "dnd"
   ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
@@ -35,14 +36,11 @@
   "jsnext:main": "dist",
   "devDependencies": {
     "babel-cli": "^6.11.4",
-    "react-dom": "^16.0.0",
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {
     "lodash": ">= 4.0.0 < 5.0.0",
     "react": ">= 0.11.2 < 17.0.0",
-    "react-dom": ">= 0.11.2 < 17.0.0",
-    "reactabular-sticky": ">= 8.0.0 < 9.0.0",
-    "reactabular-table": ">= 8.0.0 < 9.0.0"
+    "react-dnd": ">= 2.0.0 < 3.0.0"
   }
 }

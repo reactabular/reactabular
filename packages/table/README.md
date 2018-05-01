@@ -1,4 +1,4 @@
-Reactabular provides three components: `Table.Provider`, `Table.Header`, and `Table.Body`. `Table.Provider` sets the data context. It may contain multiple `Table.Header` and `Table.Body` elements. You can control data per body while the provider maintains a shared column definition.
+`@reactabular/table` provides three components: `Table.Provider`, `Table.Header`, and `Table.Body`. `Table.Provider` sets the data context. It may contain multiple `Table.Header` and `Table.Body` elements. You can control data per body while the provider maintains a shared column definition.
 
 ## `Table.Provider`
 

@@ -1,7 +1,7 @@
 {
-  "name": "reactabular-dnd",
+  "name": "@reactabular/table",
   "version": "8.14.0",
-  "description": "Drag and drop helpers for Reactabular",
+  "description": "Table components for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --ignore __tests__ --out-dir ./dist",
     "prepublish": "npm run build"
@@ -22,8 +22,7 @@
     "reactjs",
     "table",
     "tables",
-    "reactabular",
-    "dnd"
+    "reactabular"
   ],
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
   "license": "MIT",
@@ -34,13 +33,15 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
+  "dependencies": {
+    "classnames": "^2.2.5"
+  },
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {
     "lodash": ">= 4.0.0 < 5.0.0",
-    "react": ">= 0.11.2 < 17.0.0",
-    "react-dnd": ">= 2.0.0 < 3.0.0"
+    "react": ">= 0.11.2 < 17.0.0"
   }
 }

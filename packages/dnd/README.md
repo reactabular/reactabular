@@ -1,4 +1,4 @@
-`reactabular-dnd` provides [React DnD](https://gaearon.github.io/react-dnd/) based helpers for Reactabular.
+`@reactabular/dnd` provides [React DnD](https://gaearon.github.io/react-dnd/) based helpers for Reactabular.
 
 **Example:**
 
