@@ -16,7 +16,8 @@
     "gh-pages:deploy": "gh-pages -d gh-pages",
     "publish": "NODE_ENV=production lerna publish",
     "postinstall": "node lib/post_install.js",
-    "postpublish": "npm run gh-pages:build-and-deploy"
+    "postpublish": "npm run gh-pages:build-and-deploy",
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -86,8 +87,10 @@
     "gh-pages": "^0.12.0",
     "git-prepush-hook": "^1.0.2",
     "html-webpack-plugin": "^2.30.1",
+    "husky": "^0.14.3",
     "jest": "^22.4.3",
     "lerna": "2.10.2",
+    "lint-staged": "^7.0.5",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
     "purecss": "^0.6.2",
@@ -125,5 +128,11 @@
   "pre-push": [
     "lint",
     "test"
-  ]
+  ],
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }
