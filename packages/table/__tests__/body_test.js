@@ -265,10 +265,10 @@ describe('Table.Body', function () {
     expect(ref).toBeDefined();
   });
 
-  it('allows attaching custom props per row through onRow', function () {
+  it('allows attaching custom props per row through renderers', function () {
     let receivedRow;
     let receivedRowIndex;
-    let receivedRowKey;
+    let receivedColumns;
     const testRow = { name: 'demo' };
     const rowClass = 'test-row';
     const columns = [
@@ -277,27 +277,29 @@ describe('Table.Body', function () {
         property: 'name'
       }
     ];
+    const renderers = {
+      body: {
+        row: (children, o) => {
+          receivedRow = o.rowData;
+          receivedRowIndex = o.rowIndex;
+          receivedColumns = o.columns;
 
-    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+          return <tr className={rowClass}>{children}</tr>;
+        }
+      }
+    };
+
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns} renderers={renderers}>
       <Table.Body
         rows={[testRow]}
         rowKey="name"
-        onRow={(row, { rowIndex, rowKey }) => {
-          receivedRow = row;
-          receivedRowIndex = rowIndex;
-          receivedRowKey = rowKey;
-
-          return {
-            className: rowClass
-          };
-        }}
       />
     </Table.Provider>);
     const tr = TestUtils.findRenderedDOMComponentWithClass(table, rowClass);
 
     expect(receivedRow).toEqual(testRow);
     expect(receivedRowIndex).toBe(0);
-    expect(receivedRowKey).toBe(`${testRow.name}-row`);
+    expect(receivedColumns).toEqual(columns);
     expect(tr).toBeDefined();
   });
 
@@ -353,14 +355,16 @@ describe('Table.Body', function () {
         property: 'name'
       }
     ];
+    const renderers = {
+      body: {
+        row: (children, { rowIndex }) => <tr className={rowIndex}>{children}</tr>
+      }
+    };
 
-    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
+    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns} renderers={renderers}>
       <Table.Body
         rows={[testRow]}
         rowKey="name"
-        onRow={(row, { rowIndex }) => ({
-          className: rowIndex
-        })}
       />
     </Table.Provider>);
     const tr = TestUtils.findRenderedDOMComponentWithClass(table, testIndex.toString());

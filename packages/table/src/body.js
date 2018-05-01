@@ -10,11 +10,7 @@ class Body extends React.Component {
 
     this.ref = null;
   }
-  shouldComponentUpdate(nextProps, nextState, nextContext) { // eslint-disable-line no-unused-vars
-    // Skip checking props against `onRow` since that can be bound at render().
-    // That's not particularly good practice but you never know how the users
-    // prefer to define the handler.
-
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
     // Check for wrapper based override.
     const { renderers } = nextContext;
 
@@ -27,13 +23,13 @@ class Body extends React.Component {
     }
 
     return (
-      !(isEqual(omitOnRow(this.props), omitOnRow(nextProps)) &&
+      !(isEqual(this.props, nextProps) &&
       isEqual(this.context, nextContext))
     );
   }
   render() {
     const {
-      onRow, rows, rowKey, ...props
+      rows, rowKey, ...props
     } = this.props;
     const { columns, renderers } = this.context;
 
@@ -51,7 +47,6 @@ class Body extends React.Component {
         return React.createElement(BodyRow, {
           key,
           renderers: renderers.body,
-          onRow,
           rowKey: key,
           rowIndex,
           rowData,
@@ -67,11 +62,5 @@ class Body extends React.Component {
 Body.propTypes = tableBodyTypes;
 Body.defaultProps = tableBodyDefaults;
 Body.contextTypes = tableBodyContextTypes;
-
-function omitOnRow(props) {
-  const { onRow, ...ret } = props; // eslint-disable-line no-unused-vars
-
-  return ret;
-}
 
 export default Body;

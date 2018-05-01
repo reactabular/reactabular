@@ -26,18 +26,19 @@ class BodyRow extends React.Component {
   }
   render() {
     const {
-      columns, renderers, onRow, rowKey, rowIndex, rowData
+      columns, renderers, rowKey, rowIndex, rowData
     } = this.props;
 
-    return React.createElement(
-      renderers.row,
-      onRow(rowData, { rowIndex, rowKey }),
-      columns.map((column, columnIndex) =>
-        <React.Fragment key={`${columnIndex}-body-cell`}>{
-          renderCell(columnIndex, renderers.cell, column, column.property, column.bodyCell, rowData)
-        }</React.Fragment>
+    return <React.Fragment key={rowKey}>{
+      renderers.row(
+        columns.map((column, columnIndex) =>
+          <React.Fragment key={`${columnIndex}-body-cell`}>{
+            renderCell(columnIndex, renderers.cell, column, column.property, column.bodyCell, rowData)
+          }</React.Fragment>
+        ),
+        { rowIndex, rowData, columns, renderer: renderers.row }
       )
-    );
+    }</React.Fragment>;
   }
 }
 BodyRow.defaultProps = tableBodyRowDefaults;
