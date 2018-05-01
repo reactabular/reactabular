@@ -1,6 +1,7 @@
 import React from 'react';
-import { isFunction } from 'lodash';
+
 import { tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
+import renderCell from './render-cell'
 
 const HeaderRow = ({
   rowData, rowIndex, renderers, onRow
@@ -8,19 +9,11 @@ const HeaderRow = ({
     React.createElement(
       renderers.row,
       onRow(rowData, { rowIndex }),
-      rowData.map((column, columnIndex) => {
-        const { property, headerCell } = column;
-        const cellParameters = {
-          renderer: renderers.cell,
-          columnIndex,
-          property,
-          column
-        };
-        const cellRenderer = isFunction(headerCell) ? headerCell : renderers.cell;
-        const data = isFunction(headerCell) ? rowData : headerCell;
-
-        return <React.Fragment key={`${columnIndex}-header-cell`}>{cellRenderer(data, cellParameters)}</React.Fragment>;
-      })
+      rowData.map((column, columnIndex) =>
+        <React.Fragment key={`${columnIndex}-header-cell`}>{
+          renderCell(columnIndex, renderers.cell, column, column.property, column.headerCell, rowData)
+        }</React.Fragment>
+      )
     )
   );
 HeaderRow.defaultProps = tableHeaderRowDefaults;
