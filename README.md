@@ -47,9 +47,12 @@ const countries = {
 // Note that the repetitive headerCell logic could be pushed to a function.
 // Then you would have headerCell: headerCell('Name') for example.
 // Alternatively you could do something even more higher level.
+//
+// The same goes for bodyCell.
 const columns = [
   {
-    headerCell: <th onClick={() => alert(`clicked name`)}>Name</th>
+    headerCell: <th onClick={() => alert(`clicked name`)}>Name</th>,
+    bodyCell: ({ name }) => <td>{name}</td>
   },
   {
     headerCell: <th onClick={() => alert(`clicked active`)}>Active</th>,
