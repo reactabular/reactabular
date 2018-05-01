@@ -7,7 +7,7 @@ import 'sortabular/style.css';
 import 'react-pagify/style.css';
 import 'treetabular/style.css';
 import 'react-visibility-toggles/style.css';
-import '../packages/reactabular-resizable/style.css';
+import '../packages/resizable/style.css';
 
 import documentation from './documentation';
 import pages from './pages';

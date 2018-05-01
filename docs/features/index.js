@@ -12,7 +12,7 @@ export default rootPath => ({
     {
       path: `${rootPath}/resizing-columns`,
       title: 'Resizing Columns',
-      content: pageLoader(() => import('../../packages/reactabular-resizable/README.md'))
+      content: pageLoader(() => import('../../packages/resizable/README.md'))
     },
     {
       path: `${rootPath}/toggling-column-visibility`,
@@ -27,12 +27,12 @@ export default rootPath => ({
     {
       path: `${rootPath}/sticky`,
       title: 'Sticky',
-      content: pageLoader(() => import('../../packages/reactabular-sticky/README.md'))
+      content: pageLoader(() => import('../../packages/sticky/README.md'))
     },
     {
       path: `${rootPath}/virtualization`,
       title: 'Virtualization',
-      content: pageLoader(() => import('../../packages/reactabular-virtualized/README.md'))
+      content: pageLoader(() => import('../../packages/virtualized/README.md'))
     }
   ]
 });
