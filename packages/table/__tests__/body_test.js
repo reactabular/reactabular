@@ -239,17 +239,6 @@ describe('Table.Body', function () {
     expect(calledUpdate).toBe(true);
   });
 
-  it('supports custom props', function () {
-    const customClass = 'demo';
-
-    const table = TestUtils.renderIntoDocument(<Table.Provider columns={[]}>
-      <Table.Body className={customClass} rows={[]} />
-    </Table.Provider>);
-    const renderedTable = TestUtils.findRenderedDOMComponentWithClass(table, customClass);
-
-    expect(renderedTable).toBeDefined();
-  });
-
   it('gives access to body ref through getRef', function () {
     let ref;
 

@@ -59,14 +59,14 @@ const tableHeaderRowTypes = {
 };
 const tableDefaults = {
   renderers: {
-    table: 'table',
+    table: children => <table>{children}</table>,
     header: {
-      wrapper: 'thead',
+      wrapper: rows => <thead>{rows}</thead>,
       row: row => <tr>{row}</tr>,
       cell: value => <th>{value}</th>
     },
     body: {
-      wrapper: 'tbody',
+      wrapper: rows => <tbody>{rows}</tbody>,
       row: row => <tr>{row}</tr>,
       cell: value => <td>{value}</td>
     }

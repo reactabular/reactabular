@@ -21,15 +21,14 @@ export default class Provider extends React.Component {
     const {
       columns, // eslint-disable-line no-unused-vars
       renderers,
-      children,
-      ...props
-    } = this.props;
-
-    return React.createElement(
-      renderers.table || tableDefaults.renderers.table,
-      props,
       children
-    );
+    } = this.props;
+    const defaultRenderer = tableDefaults.renderers.table;
+
+    return (renderers.table || defaultRenderer)(children, {
+      columns,
+      renderer: defaultRenderer
+    });
   }
 }
 Provider.propTypes = {
