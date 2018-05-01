@@ -10,15 +10,15 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: 'Name',
-        property: 'name'
+        bodyCell: ({ name }, { renderer }) => renderer(name)
       },
       {
         headerCell: 'Position',
-        property: 'position'
+        bodyCell: ({ position }, { renderer }) => renderer(position)
       },
       {
         headerCell: 'Age',
-        property: 'age'
+        bodyCell: ({ age }, { renderer }) => renderer(age)
       }
     ];
     const rows = [
@@ -45,8 +45,7 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: 'Name',
-        property: 'name',
-        bodyCell: (rowData, { property }) => <td className={customClass}>{rowData[property]}</td>
+        bodyCell: ({ name }) => <td className={customClass}>{name}</td>
       }
     ];
     const rows = [
@@ -74,7 +73,6 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: 'Name',
-        property: 'name',
         bodyCell: <td className={customClass}>{name}</td>
       }
     ];
@@ -104,8 +102,7 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: 'Name',
-        property: 'name',
-        bodyCell: name
+        bodyCell: ({}, { renderer }) => renderer(name)
       }
     ];
     const rows = [
@@ -129,25 +126,6 @@ describe('Table.Body', function () {
     expect(tds[0].innerHTML).toEqual(name);
   });
 
-  it('does not resolve rows by default', function () {
-    const lastName = 'foobar';
-    const columns = [
-      {
-        headerCell: 'Last name',
-        property: 'name.last'
-      }
-    ];
-    const rows = [
-      { name: { last: lastName }, id: 0 }
-    ];
-    const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
-      <Table.Body rows={rows} rowKey="id" />
-    </Table.Provider>);
-    const td = TestUtils.findRenderedDOMComponentWithTag(table, 'td');
-
-    expect(td.innerHTML).toBe('');
-  });
-
   it('allows Body shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
     const BodyWrapper = props => <tbody {...props} />;
@@ -161,7 +139,7 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: 'Name',
-        property: 'name'
+        bodyCell: ({ name }, { renderer }) => renderer(name)
       }
     ];
     const rows = [{ name: 'demo' }];
@@ -210,7 +188,7 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: 'Name',
-        property: 'name'
+        bodyCell: ({ name }, { renderer }) => renderer(name)
       }
     ];
     const rows = [{ name: 'demo' }];
@@ -263,7 +241,7 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: 'Name',
-        property: 'name'
+        bodyCell: ({ name }, { renderer }) => renderer(name)
       }
     ];
     const renderers = {
@@ -297,7 +275,7 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: () => <th className={cellClass}>Age</th>,
-        property: 'age'
+        bodyCell: ({ age }, { renderer }) => renderer(age)
       }
     ];
     const id = 0;
@@ -320,7 +298,7 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: () => <th className={cellClass}>Age</th>,
-        property: 'age'
+        bodyCell: ({ age }, { renderer }) => renderer(age)
       }
     ];
     const index = 0;
@@ -341,7 +319,7 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: 'Name',
-        property: 'name'
+        bodyCell: ({ name }, { renderer }) => renderer(name)
       }
     ];
     const renderers = {

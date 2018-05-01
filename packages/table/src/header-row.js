@@ -9,7 +9,7 @@ const HeaderRow = ({
   renderers.row(
     rowData.map((column, columnIndex) =>
       <React.Fragment key={`${columnIndex}-header-cell`}>{
-        renderCell(columnIndex, renderers.cell, column, column.property, column.headerCell, rowData)
+        renderCell(columnIndex, renderers.cell, column, column.headerCell, rowData)
       }</React.Fragment>
     ),
     { rowIndex, rowData, renderer: renderers.row }
