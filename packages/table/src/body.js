@@ -1,8 +1,10 @@
-import { isEqual, isFunction } from 'lodash';
+import { isEqual } from 'lodash';
 import React from 'react';
+
 import { tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';
 import BodyRow from './body-row';
 import resolveRowKey from './resolve-row-key';
+import isFunction from './is-function';
 
 class Body extends React.Component {
   constructor(props) {

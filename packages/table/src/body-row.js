@@ -1,8 +1,10 @@
-import { isEqual, isFunction } from 'lodash';
+import { isEqual } from 'lodash';
 import React from 'react';
+
 import columnsAreEqual from './columns-are-equal';
 import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
 import renderCell from './render-cell';
+import isFunction from './is-function';
 
 class BodyRow extends React.Component {
   shouldComponentUpdate(nextProps) {
