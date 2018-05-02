@@ -56,7 +56,6 @@
     ]
   },
   "devDependencies": {
-    "annogenerate": "^0.8.1",
     "babel-cli": "^6.22.2",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
@@ -109,9 +108,7 @@
     "reactabular-easy": "^9.2.0",
     "reactabular-resizable": "^8.12.0",
     "redux": "^4.0.0",
-    "schema2object": "^0.4.0",
     "searchtabular": "^1.7.0",
-    "segmentize": "^0.4.1",
     "selectabular": "^2.1.0",
     "sortabular": "^1.5.1",
     "style-loader": "^0.19.1",
