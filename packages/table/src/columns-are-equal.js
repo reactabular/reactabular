@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import isEqual from 'deep-is';
 
 function columnsAreEqual(oldColumns, newColumns) {
   return isEqual(filterCells(oldColumns), filterCells(newColumns));

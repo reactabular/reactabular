@@ -1,7 +1,8 @@
-import { isEqual } from 'lodash';
+import isEqual from 'deep-is';
 import React from 'react';
 import { Body } from 'reactabular-sticky';
 import { resolveRowKey } from 'reactabular-table';
+
 import { bodyChildContextTypes } from './types';
 import calculateAverageHeight from './calculate-average-height';
 import calculateRows from './calculate-rows';
