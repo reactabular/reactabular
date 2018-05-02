@@ -98,7 +98,8 @@ const developConfig = {
     stats: 'errors-only'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
   ],
   module: {
     loaders: [
