@@ -25,7 +25,8 @@ export default class Provider extends React.Component {
     } = this.props;
     const defaultRenderer = tableDefaults.renderers.table;
 
-    return (renderers.table || defaultRenderer)(children, {
+    return (renderers.table || defaultRenderer)({
+      children,
       columns,
       renderer: defaultRenderer
     });

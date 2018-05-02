@@ -6,14 +6,16 @@ import renderCell from './render-cell';
 const HeaderRow = ({
   rowData, rowIndex, renderers
 }) => (
-  renderers.row(
-    rowData.map((column, columnIndex) =>
+  renderers.row({
+    rowIndex,
+    rowData,
+    renderer: renderers.row,
+    children: rowData.map((column, columnIndex) =>
       <React.Fragment key={`${columnIndex}-header-cell`}>{
         renderCell(columnIndex, renderers.cell, column, column.headerCell, rowData)
       }</React.Fragment>
-    ),
-    { rowIndex, rowData, renderer: renderers.row }
-  )
+    )
+  })
 );
 HeaderRow.defaultProps = tableHeaderRowDefaults;
 HeaderRow.propTypes = tableHeaderRowTypes;

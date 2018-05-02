@@ -19,16 +19,17 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     }; */
 
     // If headerRows aren't passed, default to bodyColumns as header rows
-    return renderers.header.wrapper(
-      [(headerRows || [columns]).map((rowData, rowIndex) =>
+    return renderers.header.wrapper({
+      renderer: tableDefaults.renderers.header.wrapper,
+      columns,
+      children: [(headerRows || [columns]).map((rowData, rowIndex) =>
         React.createElement(HeaderRow, {
           key: `${rowIndex}-header-row`,
           renderers: renderers.header,
           rowData,
           rowIndex
-        }))].concat(children),
-      { renderer: tableDefaults.renderers.header.wrapper, columns }
-    );
+        }))].concat(children)
+    });
   }
   /* getRef() {
     return this.ref;

@@ -40,8 +40,10 @@ class Body extends React.Component {
     };
     */
 
-    return renderers.body.wrapper(
-      rows.map((rowData, index) => {
+    return renderers.body.wrapper({
+      renderer: tableDefaults.renderers.body.wrapper,
+      columns,
+      children: rows.map((rowData, index) => {
         const rowIndex = rowData._index || index;
         const key = resolveRowKey({ rowData, rowIndex, rowKey });
 
@@ -53,9 +55,8 @@ class Body extends React.Component {
           rowData,
           columns
         });
-      }),
-      { renderer: tableDefaults.renderers.body.wrapper, columns }
-    );
+      })
+    });
   }
   /* getRef() {
     return this.ref;
