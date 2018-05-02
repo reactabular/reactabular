@@ -75,13 +75,13 @@ describe('Table.Header', function () {
   it('renders based on `header` fields', function () {
     const columns = [
       {
-        headerCell: ({ }, { renderer }) => renderer('Name')
+        headerCell: ({ renderer }) => React.createElement(renderer, {}, 'Name')
       },
       {
-        headerCell: ({ }, { renderer }) => renderer('Position')
+        headerCell: ({ renderer }) => React.createElement(renderer, {}, 'Position')
       },
       {
-        headerCell: ({ }, { renderer }) => renderer('Age')
+        headerCell: ({ renderer }) => React.createElement(renderer, {}, 'Age')
       }
     ];
     const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
@@ -112,17 +112,18 @@ describe('Table.Header', function () {
     const rowClass = 'test-row';
     const columns = [
       {
+        property: 'name',
         headerCell: 'Name',
-        bodyCell: ({ name }, { renderer }) => renderer(name)
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       }
     ];
     const renderers = {
       header: {
-        row: (children, o) => {
+        row: (o) => {
           receivedRow = o.rowData;
           receivedRowIndex = o.rowIndex;
 
-          return <tr className={rowClass}>{children}</tr>;
+          return <tr className={rowClass}>{o.children}</tr>;
         }
       }
     };
