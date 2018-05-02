@@ -30,15 +30,8 @@ class Body extends React.Component {
     );
   }
   render() {
-    const { rows, rowKey } = this.props;
+    const { rows, rowKey, ...props } = this.props; // XXXXX: test ...props
     const { columns, renderers } = this.context;
-
-    // XXXXX: Figure out how to handle ref
-    /*
-    props.ref = (body) => {
-      this.ref = body;
-    };
-    */
 
     return renderers.body.wrapper({
       renderer: tableDefaults.renderers.body.wrapper,
@@ -53,14 +46,18 @@ class Body extends React.Component {
           rowKey: key,
           rowIndex,
           rowData,
-          columns
+          columns,
+          ref: (body) => {
+            this.ref = body;
+          }
         });
-      })
+      }),
+      props
     });
   }
-  /* getRef() {
+  getRef() {
     return this.ref;
-  } */
+  }
 }
 Body.propTypes = tableBodyTypes;
 Body.defaultProps = tableBodyDefaults;
