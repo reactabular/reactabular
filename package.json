@@ -108,7 +108,6 @@
     "react-redux": "^5.0.2",
     "react-test-renderer": "^16.2.0",
     "react-visibility-toggles": "^1.2.0",
-    "reactabular-column-extensions": "^8.9.3",
     "reactabular-resizable": "^8.12.0",
     "redux": "^4.0.0",
     "searchtabular": "^1.7.0",
