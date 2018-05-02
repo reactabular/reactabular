@@ -48,9 +48,11 @@ const countries = {
 // className. Overrides are possible too as this has to return
 // something React can render.
 const renderers = {
-  table: (children, { renderer }) => renderer(children, { props: {
-    className: 'pure-table pure-table-striped'
-  }})
+  table: ({ children, renderer }) => React.createElement(
+    renderer,
+    { props: { className: 'pure-table pure-table-striped' } },
+    children
+  )
 };
 
 // Note that the repetitive headerCell logic could be pushed to a function.
@@ -60,16 +62,18 @@ const renderers = {
 // The same goes for bodyCell.
 const columns = [
   {
-    headerCell: <th onClick={() => alert(`clicked name`)}>Name</th>,
-    bodyCell: ({ name }) => <td>{name}</td>
+    property: 'name',
+    headerCell: <th onClick={() => alert(`clicked name`)}>Name</th>
   },
   {
+    property: 'tools',
     headerCell: <th onClick={() => alert(`clicked active`)}>Active</th>,
-    bodyCell: ({ tools }) => <td>{tools.hammer ? 'Hammertime' : 'nope'}</td>
+    bodyCell: ({ children }) => <td>{children.hammer ? 'Hammertime' : 'nope'}</td>
   },
   {
+    property: 'country',
     headerCell: <th onClick={() => alert(`clicked country`)}>Country</th>,
-    bodyCell: ({ country }) => <td>{countries[country]}</td>
+    bodyCell: ({ children }) => <td>{countries[children]}</td>
   }
 ];
 
