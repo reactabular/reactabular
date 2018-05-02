@@ -1,18 +1,15 @@
-import { isEqualWith } from 'lodash';
-import isFunction from './is-function';
+import { isEqual } from 'lodash';
 
 function columnsAreEqual(oldColumns, newColumns) {
-  return isEqualWith(
-    oldColumns,
-    newColumns,
-    (a, b) => {
-      if (isFunction(a) && isFunction(b)) {
-        return true;
-      }
+  return isEqual(filterCells(oldColumns), filterCells(newColumns));
+}
 
-      return undefined;
-    }
-  );
+function filterCells(columns) {
+  return columns.map(column => {
+    const { headerCell, bodyCell, ...rest } = column;
+
+    return rest;
+  });
 }
 
 export default columnsAreEqual;
