@@ -32,14 +32,17 @@ class BodyRow extends React.Component {
     } = this.props;
 
     return <React.Fragment key={rowKey}>{
-      renderers.row(
-        columns.map((column, columnIndex) =>
+      renderers.row({
+        rowIndex,
+        rowData,
+        columns,
+        renderer: renderers.row,
+        children: columns.map((column, columnIndex) =>
           <React.Fragment key={`${columnIndex}-body-cell`}>{
             renderCell(columnIndex, renderers.cell, column, column.bodyCell, rowData[column.property])
           }</React.Fragment>
-        ),
-        { rowIndex, rowData, columns, renderer: renderers.row }
-      )
+        )
+      })
     }</React.Fragment>;
   }
 }

@@ -57,7 +57,7 @@ const tableHeaderRowTypes = {
   rowIndex: PropTypes.number.isRequired,
   rowData: rowDataType.isRequired
 };
-const renderer = type => (children, { props } = {}) => React.createElement(type, props, children);
+const renderer = type => ({ children, props } = {}) => React.createElement(type, props, children);
 const tableDefaults = {
   renderers: {
     table: renderer('table'),
