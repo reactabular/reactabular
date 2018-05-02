@@ -9,14 +9,13 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { compose } from 'redux';
 import { cloneDeep, findIndex } from 'lodash';
-import * as Table from 'reactabular-table';
+import * as Table from '@reactabular/table';
+import * as dnd from '@reactabular/dnd';
 import * as resolve from 'table-resolver';
 import * as tree from 'treetabular';
-import * as dnd from 'reactabular-dnd';
-
 import {
   generateParents, generateRows
-} from './helpers';
+} from '@reactabular/helpers';
 */
 
 const schema = {

@@ -19,11 +19,10 @@ Note that each object in `rows` contain more fields than the ones desired to be 
 /*
 import React from 'react';
 import { cloneDeep, findIndex } from 'lodash';
-import * as Table from 'reactabular-table';
+import * as Table from '@reactabular/table';
 import * as edit from 'react-edit';
 import uuid from 'uuid';
-
-import { generateRows } from './helpers';
+import { generateRows } from '@reactabular/helpers';
 */
 
 const fields = [

@@ -17,6 +17,7 @@ import * as Virtualized from '@reactabular/virtualized';
 import * as extensions from 'reactabular-column-extensions';
 import * as Table from '@reactabular/table';
 import * as Sticky from '@reactabular/sticky';
+import * as customHelpers from '@reactabular/helpers';
 import * as stylesheet from 'stylesheet-helpers';
 import * as searchtabular from 'searchtabular';
 import * as sortabular from 'sortabular';
@@ -26,7 +27,6 @@ import * as resolve from 'table-resolver';
 import VisibilityToggles from 'react-visibility-toggles';
 
 import * as rowsDefinitions from './data/definitions';
-import * as customHelpers from './helpers';
 import countries from './data/countries';
 
 const documentationImports = {

@@ -1,0 +1,49 @@
+{
+  "name": "@reactabular/helpers",
+  "version": "8.13.0",
+  "description": "Pagination and generation helpers for Reactabular",
+  "scripts": {
+    "build": "rimraf ./dist && babel ./src --ignore __tests__ --out-dir ./dist",
+    "prepublish": "npm run build"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reactabular/reactabular.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "table",
+    "tables",
+    "reactabular",
+    "generators",
+    "pagination"
+  ],
+  "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reactabular/reactabular/issues"
+  },
+  "homepage": "http://reactabular.js.org/",
+  "main": "dist",
+  "module": "dist",
+  "jsnext:main": "dist",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "rimraf": "^2.5.4"
+  },
+  "peerDependencies": {
+    "react": ">= 0.11.2 < 17.0.0"
+  }
+}
