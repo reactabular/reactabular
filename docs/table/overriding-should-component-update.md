@@ -3,7 +3,7 @@ Given the default `shouldComponentUpdate` for `Table` body can be somewhat stric
 **Example:**
 
 ```javascript
-const BodyWrapper = props => <tbody {...props} />;
+const BodyWrapper = ({ children }) => <tbody>{children}</tbody>;
 BodyWrapper.shouldComponentUpdate = function (nextProps, nextState, nextContext) {
   // Perform a custom check now
   // this.props is available here too
@@ -11,7 +11,7 @@ BodyWrapper.shouldComponentUpdate = function (nextProps, nextState, nextContext)
 };
 // You can also use
 // BodyWrapper.shouldComponentUpdate = true;
-const RowWrapper = props => <tr {...props} />;
+const RowWrapper = ({ children }) => <tr>{children}</tr>;
 RowWrapper.shouldComponentUpdate = function (nextProps) {
   // Perform a custom check now
   // this.props is available here too
