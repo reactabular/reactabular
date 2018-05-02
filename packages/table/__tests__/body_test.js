@@ -9,16 +9,16 @@ describe('Table.Body', function () {
   it('displays rows', function () {
     const columns = [
       {
-        headerCell: 'Name',
-        bodyCell: ({ name }, { renderer }) => renderer(name)
+        property: 'name',
+        headerCell: 'Name'
       },
       {
-        headerCell: 'Position',
-        bodyCell: ({ position }, { renderer }) => renderer(position)
+        property: 'position',
+        headerCell: 'Position'
       },
       {
-        headerCell: 'Age',
-        bodyCell: ({ age }, { renderer }) => renderer(age)
+        property: 'age',
+        headerCell: 'Age'
       }
     ];
     const rows = [
