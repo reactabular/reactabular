@@ -46,8 +46,9 @@ describe('Table.Body', function () {
     const customClass = 'foobar';
     const columns = [
       {
+        property: 'name',
         headerCell: 'Name',
-        bodyCell: ({ name }) => <td className={customClass}>{name}</td>
+        bodyCell: ({ children }) => <td className={customClass}>{children}</td>
       }
     ];
     const rows = [
@@ -104,7 +105,7 @@ describe('Table.Body', function () {
     const columns = [
       {
         headerCell: 'Name',
-        bodyCell: ({}, { renderer }) => renderer(name)
+        bodyCell: ({ renderer }) => React.createElement(renderer, {}, name)
       }
     ];
     const rows = [
@@ -130,7 +131,7 @@ describe('Table.Body', function () {
 
   it('allows Body shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
-    const BodyWrapper = children => <tbody>{children}</tbody>;
+    const BodyWrapper = ({ children }) => <tbody>{children}</tbody>;
     BodyWrapper.shouldComponentUpdate = function () {
       expect(this.props).toBeDefined();
 
@@ -140,8 +141,9 @@ describe('Table.Body', function () {
     };
     const columns = [
       {
+        property: 'name',
         headerCell: 'Name',
-        bodyCell: ({ name }, { renderer }) => renderer(name)
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       }
     ];
     const rows = [{ name: 'demo' }];
@@ -171,7 +173,7 @@ describe('Table.Body', function () {
 
   it('allows BodyRow shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
-    const BodyWrapper = children => <tbody>{children}</tbody>;
+    const BodyWrapper = ({ children }) => <tbody>{children}</tbody>;
     BodyWrapper.shouldComponentUpdate = function () {
       expect(this.props).toBeDefined();
 
@@ -179,7 +181,7 @@ describe('Table.Body', function () {
 
       return true;
     };
-    const RowWrapper = children => <tr>{children}</tr>;
+    const RowWrapper = ({ children }) => <tr>{children}</tr>;
     RowWrapper.shouldComponentUpdate = function () {
       expect(this.props).toBeDefined();
 
@@ -189,8 +191,9 @@ describe('Table.Body', function () {
     };
     const columns = [
       {
+        property: 'name',
         headerCell: 'Name',
-        bodyCell: ({ name }, { renderer }) => renderer(name)
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       }
     ];
     const rows = [{ name: 'demo' }];
@@ -235,25 +238,24 @@ describe('Table.Body', function () {
   });
 
   it('allows attaching custom props per row through renderers', function () {
-    let receivedRow;
     let receivedRowIndex;
     let receivedColumns;
     const testRow = { name: 'demo' };
     const rowClass = 'test-row';
     const columns = [
       {
+        property: 'name',
         headerCell: 'Name',
-        bodyCell: ({ name }, { renderer }) => renderer(name)
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       }
     ];
     const renderers = {
       body: {
-        row: (children, o) => {
-          receivedRow = o.rowData;
+        row: o => {
           receivedRowIndex = o.rowIndex;
           receivedColumns = o.columns;
 
-          return <tr className={rowClass}>{children}</tr>;
+          return <tr className={rowClass}>{o.children}</tr>;
         }
       }
     };
@@ -266,7 +268,6 @@ describe('Table.Body', function () {
     </Table.Provider>);
     const tr = TestUtils.findRenderedDOMComponentWithClass(table, rowClass);
 
-    expect(receivedRow).toEqual(testRow);
     expect(receivedRowIndex).toBe(0);
     expect(receivedColumns).toEqual(columns);
     expect(tr).toBeDefined();
@@ -276,8 +277,9 @@ describe('Table.Body', function () {
     const cellClass = 'test-cell';
     const columns = [
       {
+        property: 'age',
         headerCell: () => <th className={cellClass}>Age</th>,
-        bodyCell: ({ age }, { renderer }) => renderer(age)
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       }
     ];
     const id = 0;
@@ -299,8 +301,9 @@ describe('Table.Body', function () {
     const cellClass = 'test-cell';
     const columns = [
       {
+        property: 'age',
         headerCell: () => <th className={cellClass}>Age</th>,
-        bodyCell: ({ age }, { renderer }) => renderer(age)
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       }
     ];
     const index = 0;
@@ -320,13 +323,14 @@ describe('Table.Body', function () {
     const testRow = { name: 'demo', _index: testIndex };
     const columns = [
       {
+        property: 'name',
         headerCell: 'Name',
-        bodyCell: ({ name }, { renderer }) => renderer(name)
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       }
     ];
     const renderers = {
       body: {
-        row: (children, { rowIndex }) => <tr className={rowIndex}>{children}</tr>
+        row: ({ children, rowIndex }) => <tr className={rowIndex}>{children}</tr>
       }
     };
 
