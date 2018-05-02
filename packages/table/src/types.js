@@ -67,12 +67,12 @@ const tableDefaults = {
   renderers: {
     table: renderer('table'),
     header: {
-      wrapper: renderer('thead'),
+      wrapper: 'thead',
       row: renderer('tr'),
       cell: renderer('th')
     },
     body: {
-      wrapper: renderer('tbody'),
+      wrapper: 'tbody',
       row: renderer('tr'),
       cell: renderer('td')
     }
