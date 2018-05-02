@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import isEqual from 'deep-is';
 import React from 'react';
 
 import { tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';

@@ -1,6 +1,7 @@
-import { isEqual } from 'lodash';
+import isEqual from 'deep-is';
 import React from 'react';
 import { columnsAreEqual } from 'reactabular-table';
+
 import { bodyRowContextTypes, bodyRowTypes } from './types';
 
 class BodyRow extends React.Component {

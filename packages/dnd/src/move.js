@@ -1,12 +1,8 @@
-import { findIndex } from 'lodash';
-
 function moveChildrenLabels(columns, { sourceLabel, targetLabel }) {
-  const sourceIndex = findIndex(
-    columns,
+  const sourceIndex = columns.findIndex(
     column => (
-      findIndex(
-        column.children,
-        { header: { label: sourceLabel } }
+      column.children.findIndex(
+        o => o.header.label === sourceLabel
       ) >= 0
     )
   );
@@ -15,12 +11,10 @@ function moveChildrenLabels(columns, { sourceLabel, targetLabel }) {
     return null;
   }
 
-  const targetIndex = findIndex(
-    columns,
+  const targetIndex = columns.findIndex(
     column => (
-      findIndex(
-        column.children,
-        { header: { label: targetLabel } }
+      column.children.findIndex(
+        o => o.header.label === targetLabel
       ) >= 0
     )
   );
@@ -53,18 +47,16 @@ function moveLabels(columns, { sourceLabel, targetLabel }) {
     throw new Error('dnd.moveLabels - Missing columns!');
   }
 
-  const sourceIndex = findIndex(
-    columns,
-    { header: { label: sourceLabel } }
+  const sourceIndex = columns.findIndex(
+    o => o.header.label === sourceLabel
   );
 
   if (sourceIndex < 0) {
     return null;
   }
 
-  const targetIndex = findIndex(
-    columns,
-    { header: { label: targetLabel } }
+  const targetIndex = columns.findIndex(
+    o => o.header.label === targetLabel
   );
 
   if (targetIndex < 0) {
@@ -85,18 +77,16 @@ const moveRows = ({
   targetRowId,
   idField = 'id'
 } = {}) => (rows) => {
-  const sourceIndex = findIndex(
-    rows,
-    { [idField]: sourceRowId }
+  const sourceIndex = rows.findIndex(
+    o => o[idField] === sourceRowId
   );
 
   if (sourceIndex < 0) {
     return null;
   }
 
-  const targetIndex = findIndex(
-    rows,
-    { [idField]: targetRowId }
+  const targetIndex = rows.findIndex(
+    o => o[idField] === targetRowId
   );
 
   if (targetIndex < 0) {
