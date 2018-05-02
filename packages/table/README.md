@@ -30,12 +30,12 @@ const rows = [
 
 const columns = [
   {
-    headerCell: 'Name',
-    bodyCell: ({ name }, { renderer }) => renderer(name)
+    property: 'name',
+    headerCell: 'Name'
   },
   {
-    headerCell: 'Dad',
-    bodyCell: ({ dad }, { renderer }) => renderer(dad)
+    property: 'dad',
+    headerCell: 'Dad'
   }
 ];
 
@@ -64,18 +64,20 @@ const columns = [
 It is possible to customize a header by using the renderer interface. This way you can implement filtering per column for instance. Here `search.Columns` injects an additional row for the filter controls:
 
 ```jsx
-// XXXXX: Fix search.Columns - needs property field
 const renderers = {
   header: {
-    wrapper: (children, { renderer }) => renderer(
-      <React.Fragment>
-        {children}
+    wrapper: ({ children, renderer }) => React.createElement(
+      renderer,
+      {},
+      [
+        children,
         <search.Columns
+          key="search-columns"
           query={{}}
           columns={columns}
           onChange={value => console.log('new value', value)}
         />
-      </React.Fragment>
+      ]
     )
   }
 };
@@ -114,19 +116,28 @@ Most often you'll define `rowKey` as a string. An alternative is to define it us
 Sometimes you might need to access the underlying DOM nodes for measuring etc. This can be achieved as follows:
 
 ```react
-// XXXXX: Make this work with React 16, onRow handler has to go to a renderer
 class RefTable extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onRow = this.onRow.bind(this);
+    this.renderers = {
+      body: {
+        wrapper: ({ children, renderer }) => React.createElement(
+          renderer,
+          {
+            onClick: () => console.log(this.headerRef, this.bodyRef)
+          },
+          children
+        )
+      }
+    };
 
     this.headerRef = null;
     this.bodyRef = null;
   }
   render() {
     return (
-      <Table.Provider columns={columns}>
+      <Table.Provider columns={columns} renderers={this.renderers}>
         <Table.Header
           ref={header => {
             this.headerRef = header
@@ -138,15 +149,9 @@ class RefTable extends React.Component {
           }}
           rows={rows}
           rowKey="id"
-          onRow={this.onRow}
         />
       </Table.Provider>
     );
-  }
-  onRow(row, { rowIndex, rowKey }) {
-    return {
-      onClick: () => console.log(this.headerRef, this.bodyRef)
-    };
   }
 }
 
@@ -155,38 +160,50 @@ class RefTable extends React.Component {
 
 ## Customizing `Table.Header` and `Table.Body` Rows
 
-It is possible to customize body behavior on a row level. `onRow` prop accepts function `(row, { rowIndex, rowKey }) => ({...})` that allows you to set custom attributes per each row.
+It is possible to customize body behavior on a row level using `renderers`.
 
 ```react
 // XXXXX: Replace onRow with a renderer
 class CustomTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.renderers = {
+      header: {
+        row: ({ children, renderer, rowIndex }) => React.createElement(
+          renderer,
+          {
+            onClick: () => console.log('clicked header row', rowIndex)
+          },
+          children
+        )
+      },
+      body: {
+        row: ({ children, renderer, rowIndex }) => React.createElement(
+          renderer,
+          {
+            onClick: () => console.log('clicked body row', rowIndex)
+          },
+          children
+        )
+      }
+    };
+  }
   render() {
     return (
       <Table.Provider
         className="pure-table pure-table-striped"
         columns={columns}
+        renderers={this.renderers}
       >
-        <Table.Header
-          onRow={this.onHeaderRow}
-        />
+        <Table.Header />
 
         <Table.Body
           rows={rows}
           rowKey="id"
-          onRow={this.onBodyRow}
         />
       </Table.Provider>
     );
-  }
-  onHeaderRow(row, { rowIndex }) {
-    return {
-      onClick: () => console.log('clicked header row', row)
-    };
-  }
-  onBodyRow(row, { rowIndex, rowKey }) {
-    return {
-      onClick: () => console.log('clicked body row', row)
-    };
   }
 }
 

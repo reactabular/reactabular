@@ -15,12 +15,12 @@ const rows = [
 
 const columns = [
   {
-    headerCell: 'Name',
-    bodyCell: ({ name }, { renderer }) => renderer(name)
+    property: 'name',
+    headerCell: 'Name'
   },
   {
-    headerCell: 'Dad',
-    bodyCell: ({ dad }, { renderer }) => renderer(dad)
+    property: 'dad',
+    headerCell: 'Dad'
   }
 ];
 

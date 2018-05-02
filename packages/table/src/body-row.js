@@ -2,7 +2,7 @@ import isEqual from 'deep-is';
 import React from 'react';
 
 import columnsAreEqual from './columns-are-equal';
-import { tableBodyRowDefaults, tableBodyRowTypes } from './types';
+import { tableDefaults, tableBodyRowDefaults, tableBodyRowTypes } from './types';
 import renderCell from './render-cell';
 import isFunction from './is-function';
 
@@ -38,7 +38,7 @@ class BodyRow extends React.Component {
           rowIndex,
           rowData,
           columns,
-          renderer: renderers.row
+          renderer: tableDefaults.renderers.body.row
         },
         columns.map((column, columnIndex) =>
           <React.Fragment key={`${columnIndex}-body-cell`}>{
