@@ -1,12 +1,16 @@
-`@reactabular/table` provides three components: `Table.Provider`, `Table.Header`, and `Table.Body`. `Table.Provider` sets the data context. It may contain multiple `Table.Header` and `Table.Body` elements. You can control data per body while the provider maintains a shared column definition.
+`@reactabular/table` provides three components: `Table.Provider`, `Table.Header`, and `Table.Body`:
+
+* `Table.Provider` attaches column and renderer definition (optional) to the table.
+* `Table.Header` connects to the table and renders each `headerCell` from the column definition.
+* `Table.Body` connects to the table and renders each `bodyCell` from the column definition. It also accepts rows to render.
 
 ## `Table.Provider`
 
-`Table.Provider` is the core of Reactabular. It sets up a [context](https://facebook.github.io/react/docs/context.html) and maps the `column` definition to its children components. The following example illustrates the basic idea.
+`Table.Provider` is the core of Reactabular. It sets up a [context](https://reactjs.org/docs/context.html) and maps the `column` definition to its children components. The following example illustrates the basic idea.
 
 ```jsx
 /*
-import * as Table from 'reactabular-table';
+import * as Table from '@reactabular/table';
 */
 
 const rows = [
@@ -26,21 +30,17 @@ const rows = [
 
 const columns = [
   {
-    property: 'name',
-    headerCell: 'Name'
+    headerCell: 'Name',
+    bodyCell: ({ name }, { renderer }) => renderer(name)
   },
   {
-    property: 'dad',
-    headerCell: 'Dad'
+    headerCell: 'Dad',
+    bodyCell: ({ dad }, { renderer }) => renderer(dad)
   }
 ];
 
-<Table.Provider
-  className="pure-table pure-table-striped"
-  columns={columns}
->
+<Table.Provider columns={columns}>
   <Table.Header />
-
   <Table.Body rows={rows} rowKey="id" />
 </Table.Provider>
 ```
@@ -50,10 +50,7 @@ const columns = [
 `Table.Header` renders a table header within a `Table.Provider` context.
 
 ```react
-<Table.Provider
-  className="pure-table pure-table-striped"
-  columns={columns}
->
+<Table.Provider columns={columns}>
   <Table.Header />
 
   <Table.Body rows={rows} rowKey="id"/>
@@ -64,23 +61,27 @@ const columns = [
 
 ## Customizing `Table.Header`
 
-It is possible to customize a header by passing child components to it. This way you can implement filtering per column for instance.
+It is possible to customize a header by using the renderer interface. This way you can implement filtering per column for instance. Here `search.Columns` injects an additional row for the filter controls:
 
-Here `search.Columns` injects an additional row for the filter controls. An alternative way to handle it would be to push the problem to the column definition.
+```jsx
+// XXXXX: Fix search.Columns - needs property field
+const renderers = {
+  header: {
+    wrapper: (children, { renderer }) => renderer(
+      <React.Fragment>
+        {children}
+        <search.Columns
+          query={{}}
+          columns={columns}
+          onChange={value => console.log('new value', value)}
+        />
+      </React.Fragment>
+    )
+  }
+};
 
-```react
-<Table.Provider
-  className="pure-table pure-table-striped"
-  columns={columns}
->
-  <Table.Header>
-    <search.Columns
-      query={{}}
-      columns={columns}
-      onChange={value => console.log('new value', value)}
-    />
-  </Table.Header>
-
+<Table.Provider columns={columns} renderers={renderers}>
+  <Table.Header />
   <Table.Body rows={rows} rowKey="id" />
 </Table.Provider>
 ```
@@ -113,6 +114,7 @@ Most often you'll define `rowKey` as a string. An alternative is to define it us
 Sometimes you might need to access the underlying DOM nodes for measuring etc. This can be achieved as follows:
 
 ```react
+// XXXXX: Make this work with React 16, onRow handler has to go to a renderer
 class RefTable extends React.Component {
   constructor(props) {
     super(props);
@@ -127,12 +129,12 @@ class RefTable extends React.Component {
       <Table.Provider columns={columns}>
         <Table.Header
           ref={header => {
-            this.headerRef = header && header.getRef();
+            this.headerRef = header
           }}
         />
         <Table.Body
           ref={body => {
-            this.bodyRef = body && body.getRef();
+            this.bodyRef = body
           }}
           rows={rows}
           rowKey="id"
@@ -156,6 +158,7 @@ class RefTable extends React.Component {
 It is possible to customize body behavior on a row level. `onRow` prop accepts function `(row, { rowIndex, rowKey }) => ({...})` that allows you to set custom attributes per each row.
 
 ```react
+// XXXXX: Replace onRow with a renderer
 class CustomTable extends React.Component {
   render() {
     return (

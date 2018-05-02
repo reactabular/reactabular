@@ -1,5 +1,6 @@
 import React from 'react';
-import { tableHeaderTypes, tableHeaderContextTypes } from './types';
+
+import { tableDefaults, tableHeaderTypes, tableHeaderContextTypes } from './types';
 import HeaderRow from './header-row';
 
 class Header extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
@@ -11,7 +12,6 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
   render() {
     const { children, headerRows } = this.props;
     const { renderers, columns } = this.context;
-    const renderer = renderers.header.wrapper;
 
     // XXXXX: Figure out how to handle ref
     /* props.ref = (header) => {
@@ -27,7 +27,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
           rowData,
           rowIndex
         }))].concat(children),
-      { renderer, columns }
+      { renderer: tableDefaults.renderers.header.wrapper, columns }
     );
   }
   /* getRef() {
