@@ -7,16 +7,19 @@ describe('Table.Provider', function () {
   it('renders children correctly', function () {
     const columns = [
       {
-        headerCell: ({ }, { renderer }) => renderer('Name'),
-        bodyCell: ({ name }, { renderer }) => renderer(name)
+        property: 'name',
+        headerCell: ({ renderer }) => renderer('Name'),
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       },
       {
+        property: 'position',
         headerCell: ({ }, { renderer }) => renderer('Position'),
-        bodyCell: ({ position }, { renderer }) => renderer(position)
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       },
       {
+        property: 'age',
         headerCell: ({ }, { renderer }) => renderer('Age'),
-        bodyCell: ({ age }, { renderer }) => renderer(age)
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       }
     ];
     const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
@@ -34,13 +37,13 @@ describe('Table.Provider', function () {
   it('renders without headers', function () {
     const columns = [
       {
-        bodyCell: ({ name }, { renderer }) => renderer(name)
+        property: 'name'
       },
       {
-        bodyCell: ({ position }, { renderer }) => renderer(position)
+        property: 'position'
       },
       {
-        bodyCell: ({ age }, { renderer }) => renderer(age)
+        property: 'age'
       }
     ];
     const table = TestUtils.renderIntoDocument(<Table.Provider columns={columns}>
@@ -58,12 +61,14 @@ describe('Table.Provider', function () {
   it('accepts numbers as properties', function () {
     const columns = [
       {
+        property: 0,
         headerCell: ({ }, { renderer }) => renderer('A'),
-        bodyCell: (row, { renderer }) => renderer(row[0])
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       },
       {
+        property: 1,
         headerCell: ({ }, { renderer }) => renderer('B'),
-        bodyCell: (row, { renderer }) => renderer(row[1])
+        bodyCell: ({ children, renderer }) => React.createElement(renderer, {}, children)
       }
     ];
     const rows = [
@@ -80,7 +85,7 @@ describe('Table.Provider', function () {
 
   it('allows table component to be overridden', function () {
     const wrapperClass = 'wrapper';
-    const wrapper = children => (
+    const wrapper = ({ children }) => (
       <table className={wrapperClass}>
         {children}
       </table>
