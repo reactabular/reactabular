@@ -13,7 +13,6 @@ import * as reactEdit from 'react-edit';
 import * as dnd from '@reactabular/dnd';
 import * as resizable from '@reactabular/resizable';
 import * as Virtualized from '@reactabular/virtualized';
-import * as extensions from 'reactabular-column-extensions';
 import * as Table from '@reactabular/table';
 import * as Sticky from '@reactabular/sticky';
 import * as customHelpers from '@reactabular/helpers';
@@ -34,7 +33,6 @@ const documentationImports = {
   edit: { ...reactEdit },
   dnd: { ...dnd },
   resizable: { ...resizable },
-  extensions: { ...extensions },
   VisibilityToggles,
   Virtualized: { ...Virtualized },
   resolve: { ...resolve },
