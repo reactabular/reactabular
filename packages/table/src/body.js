@@ -1,6 +1,6 @@
 import isEqual from 'deep-is';
 import React from 'react';
-
+import createRef from 'create-react-ref/lib/createRef';
 import { tableDefaults, tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';
 import BodyRow from './body-row';
 import resolveRowKey from './resolve-row-key';
@@ -10,7 +10,7 @@ class Body extends React.Component {
   constructor(props) {
     super(props);
 
-    this.ref = null;
+    this.bodyRef = createRef();
   }
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     // Check for wrapper based override.
@@ -38,7 +38,8 @@ class Body extends React.Component {
       {
         ...props,
         renderer: tableDefaults.renderers.body.wrapper,
-        columns
+        columns,
+        ref: this.bodyRef
       },
       rows.map((rowData, index) => {
         const rowIndex = rowData._index || index;
@@ -50,16 +51,13 @@ class Body extends React.Component {
           rowKey: key,
           rowIndex,
           rowData,
-          columns,
-          ref: (body) => {
-            this.ref = body;
-          }
+          columns
         });
       })
     );
   }
   getRef() {
-    return this.ref;
+    return this.bodyRef.current;
   }
 }
 Body.propTypes = tableBodyTypes;

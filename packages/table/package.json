@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "create-react-ref": "^0.1.0",
     "deep-is": "^0.1.3"
   },
   "devDependencies": {

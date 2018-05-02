@@ -1,13 +1,12 @@
 import React from 'react';
-
+import createRef from 'create-react-ref/lib/createRef';
 import { tableDefaults, tableHeaderTypes, tableHeaderContextTypes } from './types';
 import HeaderRow from './header-row';
 
 class Header extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
   constructor(props) {
     super(props);
-
-    this.ref = null;
+    this.headerRef = createRef();
   }
   render() {
     const { children, headerRows, ...props } = this.props; // XXXXX: Test ...props
@@ -20,6 +19,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
       {
         renderer: tableDefaults.renderers.header.wrapper,
         columns,
+        ref: this.headerRef,
         ...props
       },
       [(headerRows || [columns]).map((rowData, rowIndex) =>
@@ -27,15 +27,12 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
         key: `${rowIndex}-header-row`,
         renderers: renderers.header,
         rowData,
-        rowIndex,
-        ref: (header) => {
-          this.ref = header;
-        }
+        rowIndex
       }))].concat(children)
     );
   }
   getRef() {
-    return this.ref;
+    return this.headerRef.current;
   }
 }
 Header.propTypes = tableHeaderTypes;
