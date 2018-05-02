@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
+import { tableDefaults, tableHeaderRowTypes, tableHeaderRowDefaults } from './types';
 import renderCell from './render-cell';
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -13,7 +13,7 @@ class HeaderRow extends React.Component {
       {
         rowIndex,
         rowData,
-        renderer: renderers.row
+        renderer: tableDefaults.renderers.header.row
       },
       rowData.map((column, columnIndex) =>
       <React.Fragment key={`${columnIndex}-header-cell`}>{
