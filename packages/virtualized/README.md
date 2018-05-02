@@ -7,11 +7,11 @@
 ```jsx
 /*
 import React from 'react';
-import * as Sticky from 'reactabular-sticky';
-import * as Virtualized from 'reactabular-virtualized';
+import * as Sticky from '@reactabular/sticky';
+import * as Virtualized from '@reactabular/virtualized';
 import * as resolve from 'table-resolver';
 
-import { generateRows } from './helpers';
+import { generateRows } from '@reactabular/helpers';
 */
 
 const columns = [
@@ -20,9 +20,7 @@ const columns = [
     props: {
       style: { minWidth: 50 }
     },
-    header: {
-      label: 'Index'
-    },
+    headerCell: 'Index',
     cell: {
       formatters: [
         (value, { rowIndex }) => <span>{rowIndex}</span>
@@ -31,38 +29,30 @@ const columns = [
   },
   {
     property: 'name',
+    headerCell: 'Name',
     props: {
       style: { minWidth: 300 }
-    },
-    header: {
-      label: 'Name'
     }
   },
   {
     property: 'age',
+    headerCell: 'Age',
     props: {
       style: { minWidth: 100 }
-    },
-    header: {
-      label: 'Age'
     }
   },
   {
     property: 'company',
+    headerCell: 'Company',
     props: {
       style: { minWidth: 400 }
-    },
-    header: {
-      label: 'Company'
     }
   },
   {
     property: 'product',
+    headerCell: 'Product',
     props: {
       style: { minWidth: 400 }
-    },
-    header: {
-      label: 'Product'
     }
   }
 ];
@@ -173,10 +163,9 @@ Please note `height` of `<Virtualized.Body>` must be defined. If `height` is not
 ```jsx
 /*
 import React from 'react';
-import * as Sticky from 'reactabular-sticky';
-import * as Virtualized from 'reactabular-virtualized';
-
-import { generateRows } from './helpers';
+import * as Sticky from '@reactabular/sticky';
+import * as Virtualized from '@reactabular/virtualized';
+import { generateRows } from '@reactabular/helpers';
 */
 
 const columns = [

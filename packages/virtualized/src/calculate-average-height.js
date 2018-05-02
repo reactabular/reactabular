@@ -1,4 +1,4 @@
-import { resolveRowKey } from 'reactabular-table';
+import { resolveRowKey } from '@reactabular/table';
 
 const calculateAverageHeight = ({
   measuredRows, rows, rowKey
