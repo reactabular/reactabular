@@ -29,9 +29,9 @@ export default class Provider extends React.Component {
     return React.createElement(
       renderers.table || defaultRenderer,
       {
+        ...props,
         columns,
-        renderer: defaultRenderer,
-        props
+        renderer: defaultRenderer
       },
       children
     );

@@ -20,7 +20,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
       {
         renderer: tableDefaults.renderers.header.wrapper,
         columns,
-        props
+        ...props
       },
       [(headerRows || [columns]).map((rowData, rowIndex) =>
       React.createElement(HeaderRow, {

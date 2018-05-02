@@ -109,6 +109,7 @@ class VirtualizedBody extends React.Component {
       Body,
       {
         ...props,
+        /* XXXXX: Figure out how to handle in the new system
         onRow: (row, extra) => {
           const rowProps = onRow ? onRow(row, extra) : {};
 
@@ -118,9 +119,10 @@ class VirtualizedBody extends React.Component {
             ...rowProps
           };
         },
+        */
         rows: rowsToRender,
         ref: (body) => {
-          this.ref = body && body.getRef().getRef();
+          this.ref = body && body.getRef();
         },
         onScroll: (e) => {
           onScroll && onScroll(e);

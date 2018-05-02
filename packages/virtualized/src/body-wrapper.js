@@ -8,7 +8,7 @@ class BodyWrapper extends React.Component {
     this.ref = null;
   }
   render() {
-    const { children, ...props } = this.props;
+    const { children, columns, renderer, props, ...rest } = this.props;
     const { startHeight, endHeight, showExtraRow } = this.context;
     const startRow = tr({
       key: 'start-row',
@@ -38,7 +38,7 @@ class BodyWrapper extends React.Component {
     return React.createElement(
       'tbody',
       {
-        ...props,
+        ...rest,
         ref: (e) => {
           this.ref = e;
         }

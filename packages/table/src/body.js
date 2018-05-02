@@ -36,9 +36,9 @@ class Body extends React.Component {
     return React.createElement(
       renderers.body.wrapper,
       {
+        ...props,
         renderer: tableDefaults.renderers.body.wrapper,
-        columns,
-        props
+        columns
       },
       rows.map((rowData, index) => {
         const rowIndex = rowData._index || index;
