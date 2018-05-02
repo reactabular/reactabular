@@ -51,6 +51,10 @@
       "node_modules",
       "packages"
     ],
+    "moduleNameMapper": {
+      "@reactabular/sticky": "<rootDir>/packages/sticky",
+      "@reactabular/table": "<rootDir>/packages/table"
+    },
     "setupFiles": [
       "./lib/test_setup.js"
     ]
