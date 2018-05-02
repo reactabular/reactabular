@@ -10,14 +10,10 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     this.ref = null;
   }
   render() {
-    const { children, headerRows } = this.props;
+    const { children, headerRows, ...props } = this.props; // XXXXX: Test ...props
     const { renderers, columns } = this.context;
 
-    // XXXXX: Figure out how to handle ref
-    /* props.ref = (header) => {
-      this.ref = header;
-    }; */
-
+    // XXXXX: Test headerRows, change name?
     // If headerRows aren't passed, default to bodyColumns as header rows
     return renderers.header.wrapper({
       renderer: tableDefaults.renderers.header.wrapper,
@@ -27,13 +23,17 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
           key: `${rowIndex}-header-row`,
           renderers: renderers.header,
           rowData,
-          rowIndex
-        }))].concat(children)
+          rowIndex,
+          ref: (header) => {
+            this.ref = header;
+          }
+        }))].concat(children),
+      props
     });
   }
-  /* getRef() {
+  getRef() {
     return this.ref;
-  } */
+  }
 }
 Header.propTypes = tableHeaderTypes;
 Header.contextTypes = tableHeaderContextTypes;

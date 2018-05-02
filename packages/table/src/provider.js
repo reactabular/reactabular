@@ -21,11 +21,13 @@ export default class Provider extends React.Component {
     const {
       columns, // eslint-disable-line no-unused-vars
       renderers,
-      children
+      children,
+      ...props // XXXXX: test this
     } = this.props;
     const defaultRenderer = tableDefaults.renderers.table;
 
     return (renderers.table || defaultRenderer)({
+      props,
       children,
       columns,
       renderer: defaultRenderer

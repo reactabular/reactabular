@@ -18,7 +18,7 @@ import { generateRows } from '@reactabular/helpers';
 
 const schema = {
   type: 'object',
-  properties:
+  properties: {
     id: {
       type: 'string'
     },
@@ -38,43 +38,33 @@ const schema = {
   required: ['id', 'name', 'product', 'company', 'age']
 };
 const rows = generateRows(100, schema);
+const headerCell = name => ({ column: { props } }) => <th {...props}>{name}</th>;
+const bodyCell = ({ children, column: { props } }) => <td {...props}>{children}</td>;
 
 const columns = [
   {
+    props: { style: { minWidth: 200 }},
     property: 'name',
-    props: {
-      style: { minWidth: 300 }
-    },
-    header: {
-      label: 'Name'
-    }
+    headerCell: headerCell('Name'),
+    bodyCell
   },
   {
+    props: { style: { minWidth: 100 }},
     property: 'age',
-    props: {
-      style: { minWidth: 100 }
-    },
-    header: {
-      label: 'Age'
-    }
+    headerCell: headerCell('Age'),
+    bodyCell
   },
   {
+    props: { style: { minWidth: 300 }},
     property: 'company',
-    props: {
-      style: { minWidth: 400 }
-    },
-    header: {
-      label: 'Company'
-    }
+    headerCell: headerCell('Company'),
+    bodyCell
   },
   {
+    props: { style: { minWidth: 400 }},
     property: 'product',
-    props: {
-      style: { minWidth: 400 }
-    },
-    header: {
-      label: 'Product'
-    }
+    headerCell: headerCell('Product'),
+    bodyCell
   }
 ];
 

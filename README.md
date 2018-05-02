@@ -44,17 +44,6 @@ const countries = {
   dk: 'Denmark'
 };
 
-// Customize table rendering. In this case we inject a custom
-// className. Overrides are possible too as this has to return
-// something React can render.
-const renderers = {
-  table: ({ children, renderer }) => React.createElement(
-    renderer,
-    { props: { className: 'pure-table pure-table-striped' } },
-    children
-  )
-};
-
 // Note that the repetitive headerCell logic could be pushed to a function.
 // Then you would have headerCell: headerCell('Name') for example.
 // Alternatively you could do something even more higher level.
@@ -79,7 +68,7 @@ const columns = [
 
 <Table.Provider
   columns={columns}
-  renderers={renderers}
+  className="pure-table pure-table-striped"
 >
   <Table.Header />
 
