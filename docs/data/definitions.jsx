@@ -10,6 +10,12 @@ const rows = [
     name: 'Brian',
     dad: 'George',
     lovesBeeGees: false
+  },
+  {
+    id: 102,
+    name: 'Jack',
+    dad: 'George',
+    lovesBeeGees: false
   }
 ];
 
