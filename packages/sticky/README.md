@@ -2,7 +2,7 @@ Sometimes you might want to display data within a fixed container. That's where 
 
 ## API
 
-The API is exactly the same as for `reactabular-table` apart from naming. Here you need to use `Sticky.Header` and `Sticky.Body` over `Table.Header` and `Table.Body`.
+The API is exactly the same as for `@reactabular/table` apart from naming. Here you need to use `Sticky.Header` and `Sticky.Body` over `Table.Header` and `Table.Body`.
 
 ## How to Use?
 
@@ -11,15 +11,14 @@ The following example implements sticky headers within a fixed viewport through 
 ```jsx
 /*
 import React from 'react';
-import { Table } from 'reactabular-table';
-// import * as Sticky from 'reactabular-sticky';
-
-import { generateRows } from './helpers';
+import { Table } from '@reactabular/table';
+import * as Sticky from '@reactabular/sticky';
+import { generateRows } from '@reactabular/helpers';
 */
 
 const schema = {
   type: 'object',
-  properties: {
+  properties:
     id: {
       type: 'string'
     },

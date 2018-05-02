@@ -1,7 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Body as TableBody } from 'reactabular-table';
+import { Body as TableBody } from '@reactabular/table';
 
 class Body extends React.Component {
   constructor(props) {

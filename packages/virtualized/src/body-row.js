@@ -1,6 +1,6 @@
 import isEqual from 'deep-is';
 import React from 'react';
-import { columnsAreEqual } from 'reactabular-table';
+import { columnsAreEqual } from '@reactabular/table';
 
 import { bodyRowContextTypes, bodyRowTypes } from './types';
 

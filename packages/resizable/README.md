@@ -27,11 +27,11 @@ props = {
 ```jsx
 /*
 import React from 'react';
-import * as Table from 'reactabular-table';
-import * as Sticky from 'reactabular-sticky';
-import * as resizable from 'reactabular-resizable';
+import * as Table from '@reactabular/table';
+import * as Sticky from '@reactabular/sticky';
+import * as resizable from '@reactabular/resizable';
+import { generateRows } from '@reactabular/helpers';
 import uuid from 'uuid';
-import { generateRows } from './helpers';
 import * as resolve from 'table-resolver';
 */
 
