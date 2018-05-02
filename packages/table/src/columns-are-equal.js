@@ -1,4 +1,5 @@
-import { isFunction, isEqualWith } from 'lodash';
+import { isEqualWith } from 'lodash';
+import isFunction from './is-function';
 
 function columnsAreEqual(oldColumns, newColumns) {
   return isEqualWith(

@@ -1,5 +1,6 @@
 import React from 'react';
-import { isFunction } from 'lodash';
+
+import isFunction from './is-function';
 
 function renderCell(columnIndex, renderer, column, cell, rowData) {
   if (React.isValidElement(cell)) {
