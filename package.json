@@ -14,9 +14,9 @@
     "gh-pages:build-and-deploy": "npm run gh-pages:build && npm run gh-pages:deploy",
     "gh-pages:build": "webpack --env build",
     "gh-pages:deploy": "gh-pages -d gh-pages",
-    "publish": "NODE_ENV=production lerna publish",
+    "publish:canary": "NODE_ENV=production lerna publish --canary",
+    "publish": "NODE_ENV=production lerna publish && npm run gh-pages:build-and-deploy",
     "postinstall": "node lib/post_install.js",
-    "postpublish": "npm run gh-pages:build-and-deploy",
     "precommit": "lint-staged"
   },
   "repository": {
