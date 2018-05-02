@@ -5,7 +5,7 @@ Given sometimes you might want to display rows in a nested manner, you can use r
 ```jsx
 /*
 import React from 'react';
-import * as Table from 'reactabular-table';
+import * as Table from '@reactabular/table';
 import * as resolve from 'table-resolver';
 */
 
@@ -15,7 +15,7 @@ const columns = [
     headerCell: 'Color'
   },
   {
-    headerCell: 'Name'
+    headerCell: 'Name',
     children: [
       {
         property: 'name.first',
@@ -28,7 +28,7 @@ const columns = [
     ]
   },
   {
-    headerCell: 'About'
+    headerCell: 'About',
     children: [
       {
         property: 'company',
@@ -71,6 +71,9 @@ const NestedColumnsTable = () => {
     columns: resolvedColumns,
     method: resolve.nested
   })(rows);
+
+  // TODO: Fix resolver to pass colSpan/rowSpan without nesting in props property
+  console.log(resolve.headerRows({ columns }));
 
   return (
     <Table.Provider columns={resolvedColumns}>
