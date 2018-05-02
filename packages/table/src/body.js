@@ -33,10 +33,14 @@ class Body extends React.Component {
     const { rows, rowKey, ...props } = this.props; // XXXXX: test ...props
     const { columns, renderers } = this.context;
 
-    return renderers.body.wrapper({
-      renderer: tableDefaults.renderers.body.wrapper,
-      columns,
-      children: rows.map((rowData, index) => {
+    return React.createElement(
+      renderers.body.wrapper,
+      {
+        renderer: tableDefaults.renderers.body.wrapper,
+        columns,
+        props
+      },
+      rows.map((rowData, index) => {
         const rowIndex = rowData._index || index;
         const key = resolveRowKey({ rowData, rowIndex, rowKey });
 
@@ -51,9 +55,8 @@ class Body extends React.Component {
             this.ref = body;
           }
         });
-      }),
-      props
-    });
+      })
+    );
   }
   getRef() {
     return this.ref;

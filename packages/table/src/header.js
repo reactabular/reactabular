@@ -15,21 +15,24 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
 
     // XXXXX: Test headerRows, change name?
     // If headerRows aren't passed, default to bodyColumns as header rows
-    return renderers.header.wrapper({
-      renderer: tableDefaults.renderers.header.wrapper,
-      columns,
-      children: [(headerRows || [columns]).map((rowData, rowIndex) =>
-        React.createElement(HeaderRow, {
-          key: `${rowIndex}-header-row`,
-          renderers: renderers.header,
-          rowData,
-          rowIndex,
-          ref: (header) => {
-            this.ref = header;
-          }
-        }))].concat(children),
-      props
-    });
+    return React.createElement(
+      renderers.header.wrapper,
+      {
+        renderer: tableDefaults.renderers.header.wrapper,
+        columns,
+        props
+      },
+      [(headerRows || [columns]).map((rowData, rowIndex) =>
+      React.createElement(HeaderRow, {
+        key: `${rowIndex}-header-row`,
+        renderers: renderers.header,
+        rowData,
+        rowIndex,
+        ref: (header) => {
+          this.ref = header;
+        }
+      }))].concat(children)
+    );
   }
   getRef() {
     return this.ref;
