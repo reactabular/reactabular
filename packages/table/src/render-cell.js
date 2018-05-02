@@ -2,13 +2,12 @@ import React from 'react';
 
 import isFunction from './is-function';
 
-function renderCell(columnIndex, renderer, column, cell, rowData) {
+function renderCell(columnIndex, renderer, column, cell, data) {
   if (React.isValidElement(cell)) {
     return cell;
   }
 
   const cellRenderer = isFunction(cell) ? cell : renderer;
-  const data = isFunction(cell) ? rowData : cell;
 
   return cellRenderer(data, { column, columnIndex, renderer });
 }
