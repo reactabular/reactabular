@@ -19,11 +19,6 @@ export default [
   dataPages('data'),
   dragAndDropPages('drag-and-drop'),
   featuresPages('features'),
-  {
-    path: 'easy',
-    title: 'Easy Version',
-    content: pageLoader(() => import('reactabular-easy/README.md'))
-  },
   examplesPages('examples'),
   {
     path: 'installing',
