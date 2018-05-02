@@ -45,6 +45,7 @@
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {
+    "prop-types": ">= 0.11.2 < 17.0.0",
     "react": ">= 0.11.2 < 17.0.0"
   }
 }
