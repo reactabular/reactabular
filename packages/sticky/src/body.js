@@ -20,6 +20,7 @@ class Body extends React.Component {
     return React.createElement(
       TableBody,
       {
+        ...props,
         ref: (body) => {
           this.ref = body && body.getRef();
         },
@@ -38,8 +39,7 @@ class Body extends React.Component {
           if (tableHeader) {
             tableHeader.scrollLeft = scrollLeft;
           }
-        },
-        ...props
+        }
       }
     );
   }

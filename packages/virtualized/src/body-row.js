@@ -24,10 +24,12 @@ class BodyRow extends React.Component {
     }
   }
   render() {
+    const { columns, renderer, rowData, rowIndex, ...props } = this.props;
+
     return React.createElement(
       'tr',
       {
-        ...this.props,
+        ...props,
         ref: (e) => {
           if (e) {
             this.ref = e;

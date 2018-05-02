@@ -14,46 +14,51 @@ import * as resolve from 'table-resolver';
 import { generateRows } from '@reactabular/helpers';
 */
 
+const headerCell = name => ({ column: { props } }) => <th {...props}>{name}</th>;
+const bodyCell = ({ children, column: { props } }) => <td {...props}>{children}</td>;
+
 const columns = [
   {
     property: 'id',
     props: {
       style: { minWidth: 50 }
     },
-    headerCell: 'Index',
-    cell: {
-      formatters: [
-        (value, { rowIndex }) => <span>{rowIndex}</span>
-      ]
-    }
+    headerCell: headerCell('Index'),
+    bodyCell: ({ renderer, rowIndex, column: { props } }) => (
+      React.createElement(renderer, ...props, rowIndex)
+    )
   },
   {
     property: 'name',
-    headerCell: 'Name',
     props: {
       style: { minWidth: 300 }
-    }
+    },
+    headerCell: headerCell('Name'),
+    bodyCell
   },
   {
     property: 'age',
-    headerCell: 'Age',
     props: {
       style: { minWidth: 100 }
-    }
+    },
+    headerCell: headerCell('Age'),
+    bodyCell
   },
   {
     property: 'company',
-    headerCell: 'Company',
     props: {
       style: { minWidth: 400 }
-    }
+    },
+    headerCell: headerCell('Company'),
+    bodyCell
   },
   {
     property: 'product',
-    headerCell: 'Product',
     props: {
       style: { minWidth: 400 }
-    }
+    },
+    headerCell: headerCell('Product'),
+    bodyCell
   }
 ];
 
@@ -167,6 +172,8 @@ import * as Sticky from '@reactabular/sticky';
 import * as Virtualized from '@reactabular/virtualized';
 import { generateRows } from '@reactabular/helpers';
 */
+const headerCell = name => ({ column: { props } }) => <th {...props}>{name}</th>;
+const bodyCell = ({ children, column: { props } }) => <td {...props}>{children}</td>;
 
 const columns = [
   {
@@ -174,18 +181,16 @@ const columns = [
     props: {
       style: { minWidth: 350 }
     },
-    header: {
-      label: 'Index'
-    }
+    headerCell: headerCell('Index'),
+    bodyCell
   },
   {
     property: 'name',
     props: {
       style: { minWidth: 300 }
     },
-    header: {
-      label: 'Name'
-    }
+    headerCell: headerCell('Name'),
+    bodyCell
   }
 ];
 const schema = {
