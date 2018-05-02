@@ -6,11 +6,10 @@ import React from 'react';
 import { compose, createStore } from 'redux';
 import { connect } from 'react-redux';
 import { cloneDeep, findIndex } from 'lodash';
-import * as Table from 'reactabular-table';
+import * as Table from '@reactabular/table';
 import * as edit from 'react-edit';
 import uuid from 'uuid';
-
-import { generateRows } from './helpers';
+import { generateRows } from '@reactabular/helpers';
 */
 
 const schema = {

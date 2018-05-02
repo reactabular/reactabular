@@ -8,10 +8,8 @@ In this example we have just set one css property, but one can imagine putting m
 /*
 import React from 'react';
 import styled from 'styled-components';
-
-import * as Table from 'reactabular-table';
-
-import { generateRows } from './helpers';
+import * as Table from '@reactabular/table';
+import { generateRows } from '@reactabular/helpers';
 */
 
 const AlignedBodyCell = styled.td`

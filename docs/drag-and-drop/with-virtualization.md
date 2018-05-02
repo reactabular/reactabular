@@ -8,13 +8,12 @@ import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { cloneDeep, findIndex } from 'lodash';
-import * as Table from 'reactabular-table';
-import * as dnd from 'reactabular-dnd';
+import * as Table from '@reactabular/table';
+import * as dnd from '@reactabular/dnd';
 import * as resolve from 'table-resolver';
-import * as Sticky from 'reactabular-sticky';
-import * as Virtualized from 'reactabular-virtualized';
-
-import { generateRows } from './helpers';
+import * as Sticky from '@reactabular/sticky';
+import * as Virtualized from '@reactabular/virtualized';
+import { generateRows } from '@reactabular/helpers';
 */
 
 // XXXXX: port to 9

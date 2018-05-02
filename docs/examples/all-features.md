@@ -7,17 +7,17 @@ import { compose } from 'redux';
 import {
   cloneDeep, findIndex, orderBy, keys, values, transform
 } from 'lodash';
-import * as Table from 'reactabular-table';
+import * as Table from '@reactabular/table';
 import * as search from 'searchtabular';
 import * as sort from 'sortabular';
-import * as resizable from 'reactabular-resizable';
+import * as resizable from '@reactabular/resizable';
 import * as resolve from 'table-resolver';
 import * as edit from 'react-edit';
 import VisibilityToggles from 'react-visibility-toggles';
-
 import {
   Paginator, PrimaryControls, generateRows, paginate
-} from './helpers';
+} from '@reactabular/helpers';
+
 import countries from './data/countries';
 */
 
