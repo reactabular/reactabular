@@ -1,9 +1,22 @@
 language: node_js
 node_js:
   - "9"
-script:
-  - npm run bootstrap
-  - npm run lint
-  - npm run test:coverage
+stages:
+  - lint
+  - test
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+jobs:
+  include:
+    - stage: lint
+      script:
+        - npm run lint
+
+    - stage: test
+      script:
+        - npm run bootstrap
+        - npm install --no-save react@15 react-dom@15
+        - npm run test:coverage
+      script:
+        - npm run bootstrap
+        - npm run test:coverage
