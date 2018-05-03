@@ -24,7 +24,7 @@ class BodyRow extends React.Component {
     }
   }
   render() {
-    const { columns, renderer, rowData, rowIndex, ...props } = this.props;
+    const { columns, renderer, rowData, rowIndex, rowKey, ...props } = this.props;
 
     return React.createElement(
       'tr',
@@ -40,7 +40,7 @@ class BodyRow extends React.Component {
   }
   updateHeight() {
     this.context.updateHeight(
-      this.props['data-rowkey'],
+      this.props.rowKey,
       this.ref.offsetHeight
     );
   }
