@@ -131,7 +131,14 @@ describe('Table.Body', function () {
 
   it('allows Body shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
-    const BodyWrapper = ({ children }) => <tbody>{children}</tbody>;
+
+    // XXX: This has to be a class due to ref handling
+    // eslint-disable-next-line react/prefer-stateless-function
+    class BodyWrapper extends React.Component {
+      render() {
+        return <tbody>{this.props.children}</tbody>;
+      }
+    }
     BodyWrapper.shouldComponentUpdate = function () {
       expect(this.props).toBeDefined();
 
@@ -173,7 +180,14 @@ describe('Table.Body', function () {
 
   it('allows BodyRow shouldComponentUpdate to be overridden', function () {
     let calledUpdate = false;
-    const BodyWrapper = ({ children }) => <tbody>{children}</tbody>;
+
+    // XXX: This has to be a class due to ref handling
+    // eslint-disable-next-line react/prefer-stateless-function
+    class BodyWrapper extends React.Component {
+      render() {
+        return <tbody>{this.props.children}</tbody>;
+      }
+    }
     BodyWrapper.shouldComponentUpdate = function () {
       expect(this.props).toBeDefined();
 
