@@ -14,10 +14,12 @@ jobs:
         - npm run lint
 
     - stage: test
+      # test against React 15
       script:
         - npm run bootstrap
         - npm install --no-save react@15 react-dom@15
         - npm run test:coverage
+    - # test against React 16
       script:
         - npm run bootstrap
         - npm run test:coverage
