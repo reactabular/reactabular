@@ -19,13 +19,13 @@ const bodyCell = ({ children, column: { props } }) => <td {...props}>{children}<
 
 const columns = [
   {
-    property: 'id',
     props: {
       style: { minWidth: 50 }
     },
     headerCell: headerCell('Index'),
+    // XXXXX: props looks ok but doesn't get applied to element. why?
     bodyCell: ({ renderer, rowIndex, column: { props } }) => (
-      React.createElement(renderer, ...props, rowIndex)
+      React.createElement(renderer, props, rowIndex)
     )
   },
   {
