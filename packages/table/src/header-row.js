@@ -17,7 +17,7 @@ class HeaderRow extends React.Component {
         props // XXXXX: test props
       },
       rowData.map((column, columnIndex) =>
-        React.cloneElement(renderCell(columnIndex, renderers.cell, column, column.headerCell, undefined, column.headerCell), {
+        React.cloneElement(renderCell(columnIndex, renderers.cell, column, column.headerCell, column.headerCell), {
           key: `${columnIndex}-header-cell`
         })
     )
