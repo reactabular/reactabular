@@ -2,14 +2,17 @@ import React from 'react';
 
 import isFunction from './is-function';
 
-function renderCell(columnIndex, renderer, column, cell, value, rowData, rowIndex) {
+// { columnIndex, renderer, column, props, cell, children, rowData, rowIndex }
+function renderCell(args) {
+  const { cell, renderer } = args;
+
   if (React.isValidElement(cell)) {
     return cell;
   }
 
   const cellRenderer = isFunction(cell) ? cell : renderer;
 
-  return cellRenderer({ children: value, column, columnIndex, renderer, props: column.props, rowData, rowIndex });
+  return cellRenderer(args);
 }
 
 export default renderCell;

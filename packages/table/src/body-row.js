@@ -43,7 +43,10 @@ class BodyRow extends React.Component {
           key: rowKey
         },
         columns.map((column, columnIndex) =>
-          React.cloneElement(renderCell(columnIndex, renderers.cell, column, column.bodyCell, rowData[column.property], rowData, rowIndex), {
+          React.cloneElement(renderCell({
+            columnIndex, renderer: renderers.cell, column, cell: column.bodyCell,
+            children: rowData[column.property], props: column.props, rowData, rowIndex
+          }), {
             key: `${columnIndex}-body-cell`
           })
         )
