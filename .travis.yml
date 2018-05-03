@@ -10,6 +10,7 @@ jobs:
   include:
     - stage: lint
       script:
+        - npm run bootstrap
         - npm run lint
 
     - stage: test
