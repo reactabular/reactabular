@@ -43,7 +43,7 @@ class BodyRow extends React.Component {
         },
         columns.map((column, columnIndex) =>
           <React.Fragment key={`${columnIndex}-body-cell`}>{
-            renderCell(columnIndex, renderers.cell, column, column.bodyCell, rowData[column.property])
+            renderCell(columnIndex, renderers.cell, column, column.bodyCell, rowData[column.property], rowIndex)
           }</React.Fragment>
         )
       )
