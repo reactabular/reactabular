@@ -28,7 +28,7 @@ class BodyRow extends React.Component {
   }
   render() {
     const {
-      columns, renderers, rowKey, rowIndex, rowData
+      columns, renderers, rowKey, rowIndex, rowData, props
     } = this.props;
 
     return <React.Fragment key={rowKey}>{
@@ -38,7 +38,8 @@ class BodyRow extends React.Component {
           rowIndex,
           rowData,
           columns,
-          renderer: tableDefaults.renderers.body.row
+          renderer: tableDefaults.renderers.body.row,
+          props // XXXXX: test props
         },
         columns.map((column, columnIndex) =>
           <React.Fragment key={`${columnIndex}-body-cell`}>{

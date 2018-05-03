@@ -22,14 +22,14 @@ export default class Provider extends React.Component {
       columns, // eslint-disable-line no-unused-vars
       renderers,
       children,
-      ...props // XXXXX: test this
+      props // XXXXX: test props
     } = this.props;
     const defaultRenderer = tableDefaults.renderers.table;
 
     return React.createElement(
       renderers.table || defaultRenderer,
       {
-        ...props,
+        props,
         columns,
         renderer: defaultRenderer
       },

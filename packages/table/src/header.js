@@ -9,7 +9,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     this.headerRef = createRef();
   }
   render() {
-    const { children, headerRows, ...props } = this.props; // XXXXX: Test ...props
+    const { children, headerRows, props } = this.props; // XXXXX: Test props
     const { renderers, columns } = this.context;
 
     // XXXXX: Test headerRows, change name?
@@ -20,7 +20,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
         renderer: tableDefaults.renderers.header.wrapper,
         columns,
         ref: this.headerRef,
-        ...props
+        props
       },
       [(headerRows || [columns]).map((rowData, rowIndex) =>
       React.createElement(HeaderRow, {
