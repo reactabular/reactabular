@@ -37,6 +37,7 @@ class BodyRow extends React.Component {
         {
           rowIndex,
           rowData,
+          rowKey,
           columns,
           renderer: tableDefaults.renderers.body.row,
           props // XXXXX: test props
