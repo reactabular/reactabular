@@ -17,7 +17,8 @@
     "publish:canary": "NODE_ENV=production lerna publish --canary",
     "publish": "NODE_ENV=production lerna publish && npm run gh-pages:build-and-deploy",
     "postinstall": "node lib/post_install.js",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prepush": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
@@ -88,7 +89,6 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "gh-pages": "^0.12.0",
-    "git-prepush-hook": "^1.0.2",
     "html-webpack-plugin": "^2.30.1",
     "husky": "^0.14.3",
     "jest": "^22.4.3",
@@ -124,10 +124,6 @@
     "webpack-dev-server": "^2.10.1",
     "webpack-merge": "^4.1.1"
   },
-  "pre-push": [
-    "lint",
-    "test"
-  ],
   "lint-staged": {
     "*.{js,jsx}": [
       "eslint --fix",
