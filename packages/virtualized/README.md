@@ -97,7 +97,7 @@ class VirtualizedTable extends React.Component {
       columns
     };
 
-    // Capture table body ref so it's possible to scroll too index.
+    // Capture table body ref so it's possible to scroll to the index.
     this.tableBody = null;
   }
   render() {
@@ -205,8 +205,6 @@ class VirtualizedTable extends React.Component {
       rows,
       columns
     };
-
-    this.tableBody = null;
   }
   render() {
     return (
@@ -233,9 +231,6 @@ class VirtualizedTable extends React.Component {
             style={{
               maxWidth: 800,
               maxHeight: 400
-            }}
-            ref={tableBody => {
-              this.tableBody = tableBody && tableBody.getRef();
             }}
           />
         </Table.Provider>
