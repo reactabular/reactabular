@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const arrayOfObjectColumns = PropTypes.arrayOf(PropTypes.shape({
-  headerCell: PropTypes.element,
-  bodyCell: PropTypes.element
+  headerCell: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  bodyCell: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
 }));
 const arrayOfArrayColumns = PropTypes.arrayOf(PropTypes.array);
 const rowsType = PropTypes.oneOfType([
@@ -58,8 +58,8 @@ const tableHeaderRowTypes = {
   rowData: rowDataType.isRequired
 };
 const renderer = type => ({
-  // eslint-disable-next-line no-shadow
-  children, columnIndex, renderer, rowData, rowIndex, ...props
+  // eslint-disable-next-line no-shadow, no-unused-vars
+  children, columnIndex, renderer, rowData, rowIndex, props
 } = {}) => (
   React.createElement(type, props, children)
 );

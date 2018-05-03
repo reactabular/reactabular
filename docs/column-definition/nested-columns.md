@@ -72,9 +72,6 @@ const NestedColumnsTable = () => {
     method: resolve.nested
   })(rows);
 
-  // TODO: Fix resolver to pass colSpan/rowSpan without nesting in props property
-  console.log(resolve.headerRows({ columns }));
-
   return (
     <Table.Provider columns={resolvedColumns}>
       <Table.Header

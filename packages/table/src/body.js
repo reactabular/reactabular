@@ -30,13 +30,13 @@ class Body extends React.Component {
     );
   }
   render() {
-    const { rows, rowKey, ...props } = this.props; // XXXXX: test ...props
+    const { rows, rowKey, props } = this.props; // XXXXX: test props
     const { columns, renderers } = this.context;
 
     return React.createElement(
       renderers.body.wrapper,
       {
-        ...props,
+        props,
         renderer: tableDefaults.renderers.body.wrapper,
         columns,
         ref: this.bodyRef

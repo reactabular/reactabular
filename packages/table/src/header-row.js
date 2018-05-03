@@ -6,14 +6,15 @@ import renderCell from './render-cell';
 // eslint-disable-next-line react/prefer-stateless-function
 class HeaderRow extends React.Component {
   render() {
-    const { rowData, rowIndex, renderers } = this.props;
+    const { rowData, rowIndex, renderers, props } = this.props;
 
     return React.createElement(
       renderers.row,
       {
         rowIndex,
         rowData,
-        renderer: tableDefaults.renderers.header.row
+        renderer: tableDefaults.renderers.header.row,
+        props // XXXXX: test props
       },
       rowData.map((column, columnIndex) =>
       <React.Fragment key={`${columnIndex}-header-cell`}>{

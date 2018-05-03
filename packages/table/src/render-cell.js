@@ -9,7 +9,7 @@ function renderCell(columnIndex, renderer, column, cell, data) {
 
   const cellRenderer = isFunction(cell) ? cell : renderer;
 
-  return cellRenderer({ children: data, column, columnIndex, renderer });
+  return cellRenderer({ children: data, column, columnIndex, renderer, props: column.props });
 }
 
 export default renderCell;
