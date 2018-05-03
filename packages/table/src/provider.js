@@ -5,8 +5,14 @@ import { tableTypes, tableDefaults, tableContextTypes } from './types';
 const componentDefaults = tableDefaults.renderers;
 
 export default class Provider extends React.Component {
+  constructor() {
+    super();
+
+    this.references = {}; // { type: ref }. Example: { stickyHeader: 1 }
+  }
   getChildContext() {
     const { columns, renderers } = this.props;
+    const { references } = this;
 
     return {
       columns,
@@ -14,6 +20,13 @@ export default class Provider extends React.Component {
         table: renderers.table || componentDefaults.table,
         header: { ...componentDefaults.header, ...renderers.header },
         body: { ...componentDefaults.body, ...renderers.body }
+      },
+      getRef(name) {
+        return references[name];
+      },
+      setRef(name, ref) {
+        // TODO: how to handle multiple references that have the same name? -> array?
+        references[name] = ref;
       }
     };
   }

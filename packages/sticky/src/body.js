@@ -1,20 +1,17 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Body as TableBody } from '@reactabular/table';
+import { Body as TableBody, types } from '@reactabular/table';
 
 class Body extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.ref = null;
-  }
   render() {
     const {
-      style, tableHeader, onScroll, ...props
+      style, onScroll, ...props
     } = this.props;
-    const tableHeaderWidth = tableHeader ? tableHeader.clientWidth : 0;
-    const tableBodyWidth = this.ref ? this.ref.clientWidth : 0;
+    const stickyHeader = this.context.getRef('stickyHeader');
+    const stickyBody = this.context.getRef('stickyHeader');
+    const tableHeaderWidth = stickyHeader ? stickyHeader.clientWidth : 0;
+    const tableBodyWidth = stickyBody ? stickyBody.clientWidth : 0;
     const scrollOffset = tableHeaderWidth - tableBodyWidth || 0;
 
     return React.createElement(
@@ -22,7 +19,7 @@ class Body extends React.Component {
       {
         ...props,
         ref: (body) => {
-          this.ref = body && body.getRef();
+          body && this.context.setRef('stickyBody', body.getRef());
         },
         style: {
           display: 'block',
@@ -36,20 +33,19 @@ class Body extends React.Component {
 
           const { target: { scrollLeft } } = e;
 
-          if (tableHeader) {
-            tableHeader.scrollLeft = scrollLeft;
+          const scrollStickyHeader = this.context.getRef('stickyHeader');
+
+          if (scrollStickyHeader) {
+            scrollStickyHeader.scrollLeft = scrollLeft;
           }
         }
       }
     );
   }
-  getRef() {
-    return this.ref;
-  }
 }
+Body.contextTypes = types.tableRefTypes;
 Body.propTypes = {
   style: PropTypes.any,
-  tableHeader: PropTypes.any,
   onScroll: PropTypes.func
 };
 

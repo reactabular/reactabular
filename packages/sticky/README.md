@@ -76,13 +76,6 @@ class StickyTable extends React.Component {
       rows,
       columns
     };
-
-    this.tableHeader = null;
-    this.tableBody = null;
-  }
-  componentDidMount() {
-    // We have refs now. Force update to get those to Header/Body.
-    this.forceUpdate();
   }
   render() {
     const { rows, columns } = this.state;
@@ -96,10 +89,6 @@ class StickyTable extends React.Component {
           style={{
             maxWidth: 800
           }}
-          ref={tableHeader => {
-            this.tableHeader = tableHeader && tableHeader.getRef();
-          }}
-          tableBody={this.tableBody}
         />
 
         <Sticky.Body
@@ -109,10 +98,6 @@ class StickyTable extends React.Component {
             maxWidth: 800,
             maxHeight: 400
           }}
-          ref={tableBody => {
-            this.tableBody = tableBody && tableBody.getRef();
-          }}
-          tableHeader={this.tableHeader}
         />
       </Table.Provider>
     );
