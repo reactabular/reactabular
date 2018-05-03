@@ -22,7 +22,12 @@ const tableTypes = {
   columns: PropTypes.array.isRequired,
   renderers: PropTypes.object
 };
+const tableRefTypes = {
+  getRef: PropTypes.func,
+  setRef: PropTypes.func
+}
 const tableContextTypes = {
+  ...tableRefTypes,
   columns: PropTypes.array.isRequired,
   renderers: PropTypes.object
 };
@@ -82,6 +87,7 @@ const tableDefaults = {
 export {
   tableTypes,
   tableContextTypes,
+  tableRefTypes,
   tableBodyTypes,
   tableBodyDefaults,
   tableBodyContextTypes,

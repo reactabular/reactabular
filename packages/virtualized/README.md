@@ -97,12 +97,8 @@ class VirtualizedTable extends React.Component {
       columns
     };
 
-    this.tableHeader = null;
+    // Capture table body ref so it's possible to scroll too index.
     this.tableBody = null;
-  }
-  componentDidMount() {
-    // We have refs now. Force update to get those to Header/Body.
-    this.forceUpdate();
   }
   render() {
     return (
@@ -129,10 +125,6 @@ class VirtualizedTable extends React.Component {
             style={{
               maxWidth: 800
             }}
-            ref={tableHeader => {
-              this.tableHeader = tableHeader && tableHeader.getRef();
-            }}
-            tableBody={this.tableBody}
           />
 
           <Virtualized.Body
@@ -145,7 +137,6 @@ class VirtualizedTable extends React.Component {
             ref={tableBody => {
               this.tableBody = tableBody && tableBody.getRef();
             }}
-            tableHeader={this.tableHeader}
           />
         </Table.Provider>
       </div>
@@ -215,12 +206,7 @@ class VirtualizedTable extends React.Component {
       columns
     };
 
-    this.tableHeader = null;
     this.tableBody = null;
-  }
-  componentDidMount() {
-    // We have refs now. Force update to get those to Header/Body.
-    this.forceUpdate();
   }
   render() {
     return (
@@ -239,10 +225,6 @@ class VirtualizedTable extends React.Component {
             style={{
               maxWidth: 800
             }}
-            ref={tableHeader => {
-              this.tableHeader = tableHeader && tableHeader.getRef();
-            }}
-            tableBody={this.tableBody}
           />
 
           <Virtualized.Body
@@ -255,7 +237,6 @@ class VirtualizedTable extends React.Component {
             ref={tableBody => {
               this.tableBody = tableBody && tableBody.getRef();
             }}
-            tableHeader={this.tableHeader}
           />
         </Table.Provider>
       </div>

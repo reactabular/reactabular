@@ -1,7 +1,7 @@
 import isEqual from 'deep-is';
 import React from 'react';
 import { Body } from '@reactabular/sticky';
-import { resolveRowKey } from '@reactabular/table';
+import { resolveRowKey, types } from '@reactabular/table';
 
 import { bodyChildContextTypes } from './types';
 import calculateAverageHeight from './calculate-average-height';
@@ -109,21 +109,7 @@ class VirtualizedBody extends React.Component {
       Body,
       {
         ...props,
-        /* XXXXX: Figure out how to handle in the new system
-        onRow: (row, extra) => {
-          const rowProps = onRow ? onRow(row, extra) : {};
-
-          return {
-            // Pass index so that row heights can be tracked properly
-            'data-rowkey': extra.rowKey,
-            ...rowProps
-          };
-        },
-        */
         rows: rowsToRender,
-        ref: (body) => {
-          this.ref = body && body.getRef();
-        },
         onScroll: (e) => {
           onScroll && onScroll(e);
 
@@ -148,7 +134,7 @@ class VirtualizedBody extends React.Component {
     );
   }
   getRef() {
-    const { ref } = this;
+    const ref = this.context.getRef('stickyBody');
 
     ref.scrollTo = (index) => {
       const startIndex = parseInt(index, 10);
@@ -161,7 +147,12 @@ class VirtualizedBody extends React.Component {
         }) * startIndex;
 
         this.scrollTop = startHeight;
-        this.ref.scrollTop = startHeight;
+
+        const stickyBody = this.context.getRef('stickyBody');
+
+        if (stickyBody) {
+          stickyBody.ref.scrollTop = startHeight;
+        }
       }
     };
 
@@ -203,6 +194,7 @@ VirtualizedBody.propTypes = {
   ...Body.propTypes,
   height: heightPropCheck
 };
+VirtualizedBody.contextTypes = types.tableRefTypes;
 VirtualizedBody.childContextTypes = bodyChildContextTypes;
 
 export function heightPropCheck(props, propName, componentName) {
