@@ -22,7 +22,7 @@ export default class Provider extends React.Component {
       columns, // eslint-disable-line no-unused-vars
       renderers,
       children,
-      props // XXXXX: test props
+      ...props // XXXXX: test props
     } = this.props;
     const defaultRenderer = tableDefaults.renderers.table;
 
