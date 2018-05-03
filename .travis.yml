@@ -17,7 +17,7 @@ jobs:
       # test against React 15
       script:
         - npm run bootstrap
-        - npm install --no-save react@15 react-dom@15 enzyme-adapter-react-15
+        - npm install --no-save react@15 react-dom@15 react-test-renderer@15 enzyme-adapter-react-15
         - npm run test:coverage
     - # test against React 16
       script:
