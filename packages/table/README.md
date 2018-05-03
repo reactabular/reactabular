@@ -64,21 +64,23 @@ const columns = [
 It is possible to customize a header by using the renderer interface. This way you can implement filtering per column for instance. Here `search.Columns` injects an additional row for the filter controls:
 
 ```jsx
+class HeaderWrapper extends React.Component {
+  render() {
+    return <thead>
+      {this.props.children}
+      <search.Columns
+        key="search-columns"
+        query={{}}
+        columns={columns}
+        onChange={value => console.log('new value', value)}
+      />
+    </thead>;
+  }
+}
+
 const renderers = {
   header: {
-    wrapper: ({ children, renderer }) => React.createElement(
-      renderer,
-      {},
-      [
-        children,
-        <search.Columns
-          key="search-columns"
-          query={{}}
-          columns={columns}
-          onChange={value => console.log('new value', value)}
-        />
-      ]
-    )
+    wrapper: HeaderWrapper
   }
 };
 
@@ -116,19 +118,20 @@ Most often you'll define `rowKey` as a string. An alternative is to define it us
 Sometimes you might need to access the underlying DOM nodes for measuring etc. This can be achieved as follows:
 
 ```react
+// XXXXX: Debug ref handling here
 class RefTable extends React.Component {
   constructor(props) {
     super(props);
 
+    class BodyWrapper extends React.Component {
+      render() {
+        return <tbody onClick={() => console.log(this.headerRef, this.bodyRef)}>{this.props.children}</tbody>;
+      }
+    }
+
     this.renderers = {
       body: {
-        wrapper: ({ children, renderer }) => React.createElement(
-          renderer,
-          {
-            onClick: () => console.log(this.headerRef, this.bodyRef)
-          },
-          children
-        )
+        wrapper: BodyWrapper
       }
     };
 
@@ -163,7 +166,6 @@ class RefTable extends React.Component {
 It is possible to customize body behavior on a row level using `renderers`.
 
 ```react
-// XXXXX: Replace onRow with a renderer
 class CustomTable extends React.Component {
   constructor(props) {
     super(props);
