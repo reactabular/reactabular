@@ -1,7 +1,8 @@
 import isEqual from 'deep-is';
 import React from 'react';
 import createRef from 'create-react-ref/lib/createRef';
-import { tableDefaults, tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';
+// XXX: tableDefaults
+import { tableBodyTypes, tableBodyDefaults, tableBodyContextTypes } from './types';
 import BodyRow from './body-row';
 import resolveRowKey from './resolve-row-key';
 import isFunction from './is-function';
@@ -30,15 +31,16 @@ class Body extends React.Component {
     );
   }
   render() {
-    const { rows, rowKey, props } = this.props; // XXXXX: test props
+    const { rows, rowKey, ...props } = this.props; // XXXXX: test props
     const { columns, renderers } = this.context;
 
+    // XXXXX: Wrappers use different protocol than others due to ref handling
     return React.createElement(
       renderers.body.wrapper,
       {
-        props,
-        renderer: tableDefaults.renderers.body.wrapper,
-        columns,
+        ...props,
+        // renderer: tableDefaults.renderers.body.wrapper,
+        // columns,
         ref: this.bodyRef
       },
       rows.map((rowData, index) => {

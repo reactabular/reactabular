@@ -1,6 +1,7 @@
 import React from 'react';
 import createRef from 'create-react-ref/lib/createRef';
-import { tableDefaults, tableHeaderTypes, tableHeaderContextTypes } from './types';
+// XXX: tableDefaults
+import { tableHeaderTypes, tableHeaderContextTypes } from './types';
 import HeaderRow from './header-row';
 
 class Header extends React.Component { // eslint-disable-line max-len, react/prefer-stateless-function
@@ -9,7 +10,7 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     this.headerRef = createRef();
   }
   render() {
-    const { children, headerRows, props } = this.props; // XXXXX: Test props
+    const { children, headerRows, ...props } = this.props; // XXXXX: Test props
     const { renderers, columns } = this.context;
 
     // XXXXX: Test headerRows, change name?
@@ -17,10 +18,11 @@ class Header extends React.Component { // eslint-disable-line max-len, react/pre
     return React.createElement(
       renderers.header.wrapper,
       {
-        renderer: tableDefaults.renderers.header.wrapper,
-        columns,
+        // XXXXX: Wrappers use different protocol than the others due to refs
+        // renderer: tableDefaults.renderers.header.wrapper,
+        // columns,
         ref: this.headerRef,
-        props
+        ...props
       },
       [(headerRows || [columns]).map((rowData, rowIndex) =>
       React.createElement(HeaderRow, {
