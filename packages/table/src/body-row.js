@@ -31,8 +31,7 @@ class BodyRow extends React.Component {
       columns, renderers, rowKey, rowIndex, rowData, props
     } = this.props;
 
-    return <React.Fragment key={rowKey}>{
-      React.createElement(
+    return React.createElement(
         renderers.row,
         {
           rowIndex,
@@ -40,15 +39,15 @@ class BodyRow extends React.Component {
           rowKey,
           columns,
           renderer: tableDefaults.renderers.body.row,
-          props // XXXXX: test props
+          props, // TODO: test props
+          key: rowKey
         },
         columns.map((column, columnIndex) =>
-          <React.Fragment key={`${columnIndex}-body-cell`}>{
-            renderCell(columnIndex, renderers.cell, column, column.bodyCell, rowData[column.property], rowIndex)
-          }</React.Fragment>
+          React.cloneElement(renderCell(columnIndex, renderers.cell, column, column.bodyCell, rowData[column.property], rowIndex), {
+            key: `${columnIndex}-body-cell`
+          })
         )
       )
-    }</React.Fragment>;
   }
 }
 BodyRow.defaultProps = tableBodyRowDefaults;
