@@ -27,7 +27,7 @@ The defaults are as follows:
 
 ```javascript
 const renderer = type => ({
-  children, columnIndex, renderer, rowData, rowIndex, ...props
+  children, columnIndex, renderer, rowData, rowIndex, props
 } = {}) => (
   React.createElement(type, props, children)
 );
