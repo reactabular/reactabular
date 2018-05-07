@@ -53,7 +53,7 @@ class VirtualizedBody extends React.Component {
         rowKey: nextProps.rowKey,
         rows: nextProps.rows,
         overScan: nextProps.overScan,
-        underScan: nextProps.underScan
+        underScan: nextProps.overScan
       });
 
       if (!rows) {
@@ -79,7 +79,7 @@ class VirtualizedBody extends React.Component {
   }
   render() {
     const {
-      onRow, rows, onScroll, overScan, underScan, ...props
+      onRow, rows, onScroll, overScan, ...props
     } = this.props;
     const { startIndex, amountOfRowsToRender } = this.state;
 
@@ -132,7 +132,7 @@ class VirtualizedBody extends React.Component {
             rowKey: this.props.rowKey,
             rows: this.props.rows,
             overScan: this.props.overScan,
-            underScan: this.props.underScan
+            underScan: this.props.overScan
           }));
         }
       }
@@ -176,7 +176,7 @@ class VirtualizedBody extends React.Component {
           rowKey: this.props.rowKey,
           rows: this.props.rows,
           overScan: this.props.overScan,
-          underScan: this.props.underScan
+          underScan: this.props.overScan
         });
 
         if (!rows) {
@@ -198,14 +198,12 @@ class VirtualizedBody extends React.Component {
 }
 VirtualizedBody.defaultProps = {
   ...Body.defaultProps,
-  overScan: 5,
-  underScan: 5
+  overScan: 5
 };
 VirtualizedBody.propTypes = {
   ...Body.propTypes,
   height: heightPropCheck,
-  overScan: PropTypes.number,
-  underScan: PropTypes.number
+  overScan: PropTypes.number
 };
 VirtualizedBody.contextTypes = types.tableRefTypes;
 VirtualizedBody.childContextTypes = bodyChildContextTypes;
