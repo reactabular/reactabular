@@ -5,17 +5,19 @@ const calculateRows = ({
   height,
   rowKey,
   rows,
-  scrollTop = 0
+  scrollTop = 0,
+  overScan = 0,
+  underScan = 0
 }) => {
   // Calculate amount of rows to render based on average height and take the
   // amount of actual rows into account.
   const averageHeight = calculateAverageHeight({ measuredRows, rows, rowKey });
-  const amountOfRowsToRender = Math.ceil(height / averageHeight) + 2;
+  const amountOfRowsToRender = overScan + Math.ceil(height / averageHeight) + underScan;
 
   const startIndex = Math.floor(scrollTop / averageHeight);
   const rowsToRender = rows.slice(
-    startIndex,
-    startIndex + amountOfRowsToRender
+    Math.max(startIndex - overScan, 0),
+    Math.max(startIndex - overScan + amountOfRowsToRender, 0)
   );
 
   if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.LOG_VIRTUALIZED) {
@@ -34,7 +36,10 @@ const calculateRows = ({
     return null;
   }
 
-  const startHeight = startIndex * averageHeight;
+  const startHeight = Math.max(
+    (startIndex - overScan) * averageHeight,
+    0
+  );
 
   // Calculate the padding of the last row so we can match whole height. This
   // won't be totally accurate if row heights differ but should get close
@@ -42,7 +47,7 @@ const calculateRows = ({
   const endHeight = Math.max(
     (
       (
-        rows.length - amountOfRowsToRender
+        rows.length - amountOfRowsToRender - overScan
       ) * averageHeight
     ) - startHeight,
     0
