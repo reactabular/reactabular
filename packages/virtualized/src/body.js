@@ -52,8 +52,7 @@ class VirtualizedBody extends React.Component {
         height: this.getHeight(nextProps),
         rowKey: nextProps.rowKey,
         rows: nextProps.rows,
-        overScan: nextProps.overScan,
-        underScan: nextProps.overScan
+        overScan: nextProps.overScan
       });
 
       if (!rows) {
@@ -131,8 +130,7 @@ class VirtualizedBody extends React.Component {
             height: this.getHeight(),
             rowKey: this.props.rowKey,
             rows: this.props.rows,
-            overScan: this.props.overScan,
-            underScan: this.props.overScan
+            overScan: this.props.overScan
           }));
         }
       }
@@ -175,8 +173,7 @@ class VirtualizedBody extends React.Component {
           height: this.getHeight(),
           rowKey: this.props.rowKey,
           rows: this.props.rows,
-          overScan: this.props.overScan,
-          underScan: this.props.overScan
+          overScan: this.props.overScan
         });
 
         if (!rows) {
@@ -198,7 +195,7 @@ class VirtualizedBody extends React.Component {
 }
 VirtualizedBody.defaultProps = {
   ...Body.defaultProps,
-  overScan: 5
+  overScan: 10
 };
 VirtualizedBody.propTypes = {
   ...Body.propTypes,

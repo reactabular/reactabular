@@ -6,13 +6,12 @@ const calculateRows = ({
   rowKey,
   rows,
   scrollTop = 0,
-  overScan = 0,
-  underScan = 0
+  overScan = 0
 }) => {
   // Calculate amount of rows to render based on average height and take the
   // amount of actual rows into account.
   const averageHeight = calculateAverageHeight({ measuredRows, rows, rowKey });
-  const amountOfRowsToRender = overScan + Math.ceil(height / averageHeight) + underScan;
+  const amountOfRowsToRender = (overScan * 2) + Math.ceil(height / averageHeight);
 
   const startIndex = Math.floor(scrollTop / averageHeight);
   const rowsToRender = rows.slice(
