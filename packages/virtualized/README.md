@@ -242,7 +242,11 @@ class VirtualizedTable extends React.Component {
 <VirtualizedTable />
 ```
 
-## Using relative column widths
+## Overscan and Underscan
+
+In order to avoid flickering while rendering, you can render more than is needed by using the `overScan` and `underScan` props on `Virtualized.Body`. It's set to five by default.
+
+## Using Relative Column Widths
 
 You can define column widths as percentages of the table's width, like so:
 

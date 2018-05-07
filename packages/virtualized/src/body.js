@@ -1,5 +1,6 @@
 import isEqual from 'deep-is';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Body } from '@reactabular/sticky';
 import { resolveRowKey, types } from '@reactabular/table';
 
@@ -50,7 +51,9 @@ class VirtualizedBody extends React.Component {
         measuredRows: this.measuredRows,
         height: this.getHeight(nextProps),
         rowKey: nextProps.rowKey,
-        rows: nextProps.rows
+        rows: nextProps.rows,
+        overScan: nextProps.overScan,
+        underScan: nextProps.underScan
       });
 
       if (!rows) {
@@ -76,7 +79,7 @@ class VirtualizedBody extends React.Component {
   }
   render() {
     const {
-      onRow, rows, onScroll, ...props
+      onRow, rows, onScroll, overScan, underScan, ...props
     } = this.props;
     const { startIndex, amountOfRowsToRender } = this.state;
 
@@ -127,7 +130,9 @@ class VirtualizedBody extends React.Component {
             measuredRows: this.measuredRows,
             height: this.getHeight(),
             rowKey: this.props.rowKey,
-            rows: this.props.rows
+            rows: this.props.rows,
+            overScan: this.props.overScan,
+            underScan: this.props.underScan
           }));
         }
       }
@@ -169,7 +174,9 @@ class VirtualizedBody extends React.Component {
           measuredRows: this.measuredRows,
           height: this.getHeight(),
           rowKey: this.props.rowKey,
-          rows: this.props.rows
+          rows: this.props.rows,
+          overScan: this.props.overScan,
+          underScan: this.props.underScan
         });
 
         if (!rows) {
@@ -189,10 +196,16 @@ class VirtualizedBody extends React.Component {
     }
   }
 }
-VirtualizedBody.defaultProps = Body.defaultProps;
+VirtualizedBody.defaultProps = {
+  ...Body.defaultProps,
+  overScan: 5,
+  underScan: 5
+};
 VirtualizedBody.propTypes = {
   ...Body.propTypes,
-  height: heightPropCheck
+  height: heightPropCheck,
+  overScan: PropTypes.number,
+  underScan: PropTypes.number
 };
 VirtualizedBody.contextTypes = types.tableRefTypes;
 VirtualizedBody.childContextTypes = bodyChildContextTypes;
