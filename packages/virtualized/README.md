@@ -242,9 +242,9 @@ class VirtualizedTable extends React.Component {
 <VirtualizedTable />
 ```
 
-## Overscan and Underscan
+## Overscan
 
-In order to avoid flickering while rendering, you can render more than is needed by using the `overScan` and `underScan` props on `Virtualized.Body`. It's set to five by default.
+In order to avoid flickering while rendering, you can render more than is needed by using the `overScan` prop on `Virtualized.Body`. It's set to five by default.
 
 ## Using Relative Column Widths
 
