@@ -16,7 +16,7 @@ describe('table.resolveRowKey', function () {
     };
     const rowIndex = 0;
 
-    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual('5-row');
+    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual('5');
   });
 
   it('resolves to rowIndex if rowKey is not found', function () {
@@ -27,7 +27,7 @@ describe('table.resolveRowKey', function () {
     };
     const rowIndex = 0;
 
-    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual('0-row');
+    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual('0');
   });
 
   it('does not show warning when rowKey=0', function () {
@@ -52,7 +52,7 @@ describe('table.resolveRowKey', function () {
     };
     const rowIndex = 0;
 
-    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual('0-row');
+    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual('0');
   });
 
   it('allows rowKey to be a function', function () {
@@ -63,7 +63,7 @@ describe('table.resolveRowKey', function () {
     };
     const rowIndex = 0;
 
-    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual(`${rowIndex}-row`);
+    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual(rowIndex.toString());
   });
 
   it('allows rowKey to be a getter', function () {
@@ -80,6 +80,6 @@ describe('table.resolveRowKey', function () {
     const rowKey = 'foo';
     const rowData = new Row();
 
-    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual('bar-row');
+    expect(resolveRowKey({ rowData, rowIndex, rowKey })).toEqual('bar');
   });
 });
