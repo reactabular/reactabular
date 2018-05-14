@@ -1,6 +1,6 @@
 function resolveRowKey({ rowData, rowIndex, rowKey }) {
   if (typeof rowKey === 'function') {
-    return `${rowKey({ rowData, rowIndex })}-row`;
+    return `${rowKey({ rowData, rowIndex })}`;
   } else if (process.env.NODE_ENV !== 'production') {
     // Arrays cannot have rowKeys by definition so we have to go by index there.
     if (!Array.isArray(rowData) && rowData[rowKey] === undefined) {
@@ -13,10 +13,10 @@ function resolveRowKey({ rowData, rowIndex, rowKey }) {
   }
 
   if (rowData[rowKey] === 0) {
-    return `${rowData[rowKey]}-row`;
+    return `${rowData[rowKey]}`;
   }
 
-  return `${rowData[rowKey] || rowIndex}-row`;
+  return `${rowData[rowKey] || rowIndex}`;
 }
 
 export default resolveRowKey;

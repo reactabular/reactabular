@@ -308,7 +308,7 @@ describe('Table.Body', function () {
     </Table.Provider>);
 
     const key = table.find('BodyRow').prop('rowKey');
-    expect(key).toBe(`${id}-row`);
+    expect(key).toBe(id.toString());
   });
 
   it('rowKey function received rowIndex', function () {
@@ -329,7 +329,7 @@ describe('Table.Body', function () {
     </Table.Provider>);
 
     const key = table.find('BodyRow').prop('rowKey');
-    expect(key).toBe(`${index}-row`);
+    expect(key).toBe(index.toString());
   });
 
   it('allows passing custom row keys through _index', function () {
