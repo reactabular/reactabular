@@ -18,7 +18,7 @@ class VirtualizedBody extends React.Component {
     this.initialMeasurement = true;
     this.timeoutId = 0;
 
-    this.state = getInitialState();
+    this.state = getInitialState(this.props.rows);
 
     this.checkMeasurements = this.checkMeasurements.bind(this);
   }
@@ -31,29 +31,14 @@ class VirtualizedBody extends React.Component {
   componentWillUnmount() {
     clearTimeout(this.timeoutId);
   }
-
-  getHeight(optionalProps) {
-    // If `optionalProps` is defined, we use `optionalProps` instead of `this.props`.
-    const props = optionalProps || this.props;
-    // If `props.height` is not defined, we use `props.style.maxHeight` instead.
-    return props.height || props.style.maxHeight;
-  }
-
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.rows, nextProps.rows)
-        || this.getHeight() !== this.getHeight(nextProps)) {
+        || getHeight(this.props) !== getHeight(nextProps)) {
       if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.LOG_VIRTUALIZED) {
         console.log('invalidating measurements'); // eslint-disable-line no-console
       }
 
-      const rows = calculateRows({
-        scrollTop: this.scrollTop,
-        measuredRows: this.measuredRows,
-        height: this.getHeight(nextProps),
-        rowKey: nextProps.rowKey,
-        rows: nextProps.rows,
-        overScan: nextProps.overScan
-      });
+      const rows = this.calculateRows(nextProps);
 
       if (!rows) {
         return;
@@ -80,14 +65,11 @@ class VirtualizedBody extends React.Component {
     const {
       onRow, rows, onScroll, overScan, ...props
     } = this.props;
-    const { startIndex, amountOfRowsToRender } = this.state;
+    const { startIndex, rowsToRender } = this.state;
 
     // Attach information about measuring status. This way we can implement
     // proper shouldComponentUpdate
-    const rowsToRender = rows.slice(
-      startIndex,
-      startIndex + amountOfRowsToRender
-    ).map((rowData, rowIndex) => ({
+    const measurableRowsToRender = rowsToRender.map((rowData, rowIndex) => ({
       ...rowData,
       _measured: !!this.measuredRows[
         resolveRowKey({
@@ -103,7 +85,7 @@ class VirtualizedBody extends React.Component {
         'rendering', rowsToRender.length, '/', rows.length,
         'rows to render', rowsToRender,
         'start index', startIndex,
-        'amount of rows to render', amountOfRowsToRender
+        'rows to render', measurableRowsToRender
       );
     }
 
@@ -111,7 +93,7 @@ class VirtualizedBody extends React.Component {
       Body,
       {
         ...props,
-        rows: rowsToRender,
+        rows: measurableRowsToRender,
         onScroll: (e) => {
           onScroll && onScroll(e);
 
@@ -124,14 +106,7 @@ class VirtualizedBody extends React.Component {
 
           this.scrollTop = scrollTop;
 
-          this.setState(calculateRows({
-            scrollTop,
-            measuredRows: this.measuredRows,
-            height: this.getHeight(),
-            rowKey: this.props.rowKey,
-            rows: this.props.rows,
-            overScan: this.props.overScan
-          }));
+          this.setState(this.calculateRows(this.props));
         }
       }
     );
@@ -144,7 +119,6 @@ class VirtualizedBody extends React.Component {
 
       if (startIndex >= 0) {
         const startHeight = calculateAverageHeight({
-          measuredRows: this.measuredRows,
           rows: this.props.rows,
           rowKey: this.props.rowKey
         }) * startIndex;
@@ -167,14 +141,7 @@ class VirtualizedBody extends React.Component {
     // given they can take a while to set container height.
     if (this.initialMeasurement) {
       this.timeoutId = setTimeout(() => {
-        const rows = calculateRows({
-          scrollTop: this.scrollTop,
-          measuredRows: this.measuredRows,
-          height: this.getHeight(),
-          rowKey: this.props.rowKey,
-          rows: this.props.rows,
-          overScan: this.props.overScan
-        });
+        const rows = this.calculateRows(this.props);
 
         if (!rows) {
           // Refresh the rows to trigger measurement.
@@ -192,6 +159,22 @@ class VirtualizedBody extends React.Component {
       }, 100);
     }
   }
+  calculateRows(props) {
+    const { measuredRows, scrollTop } = this;
+    const { startIndex: rowStartIndex } = this.state;
+    const { overScan, rowKey, rows } = props;
+
+
+    return calculateRows({
+      rowStartIndex,
+      scrollTop,
+      measuredRows,
+      height: getHeight(props),
+      rowKey,
+      rows,
+      overScan
+    });
+  }
 }
 VirtualizedBody.defaultProps = {
   ...Body.defaultProps,
@@ -205,6 +188,11 @@ VirtualizedBody.propTypes = {
 VirtualizedBody.contextTypes = types.tableRefTypes;
 VirtualizedBody.childContextTypes = bodyChildContextTypes;
 
+function getHeight(props) {
+  // If `props.height` is not defined, we use `props.style.maxHeight` instead.
+  return props.height || props.style.maxHeight;
+}
+
 export function heightPropCheck(props, propName, componentName) {
   if (
     (typeof props[propName] !== 'number') &&
@@ -216,9 +204,9 @@ export function heightPropCheck(props, propName, componentName) {
   return undefined;
 }
 
-function getInitialState() {
+function getInitialState(rows) {
   return {
-    amountOfRowsToRender: 3, // First few rows for initial measurement
+    rowsToRender: rows.slice(0, 3), // The rows to render
     startIndex: 0, // Index where to start rendering
 
     // Heights for extra rows to mimic scrolling
