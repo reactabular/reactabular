@@ -87,7 +87,6 @@ const schema = {
 // include to the data. Reactabular's rendering logic is able to pick it
 // up by convention (`_index` field).
 const rows = resolve.resolve({ columns })(generateRows(1000, schema));
-
 class VirtualizedTable extends React.Component {
   constructor(props) {
     super(props);
@@ -244,7 +243,7 @@ class VirtualizedTable extends React.Component {
 
 ## Overscan
 
-In order to avoid flickering while rendering, you can render more than is needed by using the 
+In order to avoid flickering while rendering, you can render more than is needed by using the
 `overScan` prop on `Virtualized.Body`. It's set to `10` by default.
 
 ## Using Relative Column Widths
