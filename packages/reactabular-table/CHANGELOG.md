@@ -1,3 +1,8 @@
+8.14.0 / 2017-05-17
+===================
+
+  * Fix - Make `components` rename work properly in production as well. #348
+
 8.13.0 / 2017-04-19
 ===================
 

@@ -10,13 +10,11 @@ export default class Provider extends React.Component {
     let finalRenderers = renderers;
 
     // XXXXX: Drop in the next major version
-    if (process.env.NODE_ENV !== 'production') {
-      if (components) {
-        // eslint-disable-next-line no-console
-        console.warn('`components` have been deprecated in favor of `renderers` and will be removed in the next major version, please rename!');
+    if (components) {
+      // eslint-disable-next-line no-console
+      console.warn('`components` have been deprecated in favor of `renderers` and will be removed in the next major version, please rename!');
 
-        finalRenderers = components;
-      }
+      finalRenderers = components;
     }
 
     return {
