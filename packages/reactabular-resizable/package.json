@@ -1,6 +1,6 @@
 {
   "name": "reactabular-resizable",
-  "version": "8.12.0",
+  "version": "8.14.0",
   "description": "Resizable columns for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --ignore __tests__ --out-dir ./dist",

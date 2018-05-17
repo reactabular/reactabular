@@ -1,6 +1,6 @@
 {
   "name": "reactabular-virtualized",
-  "version": "8.13.0",
+  "version": "8.14.0",
   "description": "Table virtualization for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --ignore __tests__ --out-dir ./dist",
@@ -33,7 +33,6 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
-  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "react-dom": "^16.0.0",
