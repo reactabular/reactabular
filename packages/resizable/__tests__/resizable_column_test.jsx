@@ -30,10 +30,7 @@ describe('resizableColumn', function () {
       }
     };
 
-    const resizableTransform = resizableColumn({
-      onDrag: () => {},
-      props
-    })('foo', {});
+    const resizableTransform = resizableColumn({ onDrag: () => {} })('foo', {}, props);
     const renderedContainer = TestUtils.renderIntoDocument(<Wrapper>{resizableTransform}</Wrapper>);
     const container = TestUtils.findRenderedDOMComponentWithClass(renderedContainer, 'resize-container');
     const handle = TestUtils.findRenderedDOMComponentWithClass(renderedContainer, 'resize-handle');
