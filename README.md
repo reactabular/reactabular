@@ -57,7 +57,7 @@ const columns = [
   {
     property: 'tools',
     headerCell: <th onClick={() => alert(`clicked active`)}>Active</th>,
-    bodyCell: ({ children }) => <td>{children.hammer ? 'Hammertime' : 'nope'}</td>
+    bodyCell: ({ children }) => <td onClick={() => alert(`clicked active cell`)}>{children.hammer ? 'Hammertime' : 'nope'}</td>
   },
   {
     property: 'country',

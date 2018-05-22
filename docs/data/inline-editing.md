@@ -16,30 +16,38 @@ class EditableTable extends React.Component {
 
     const editable = edit.edit({
       // Determine whether the current cell is being edited or not.
-      isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
+      isEditing: ({ rowData }) => {
+        console.log('is editing', rowData, rowData.editing);
+
+        return rowData.editing;
+      },
 
       // The user requested activation, mark the current cell as edited.
       // IMPORTANT! If you stash the rows at this.state.rows, DON'T
       // mutate it as that will break Table.Body optimization check.
       onActivate: ({ columnIndex, rowData }) => {
+        console.log('on activate', columnIndex, rowData);
+
         const index = findIndex(this.state.rows, { id: rowData.id });
         const rows = cloneDeep(this.state.rows);
 
-        rows[index].editing = columnIndex;
+        rows[index].editing = true;
 
         this.setState({ rows });
       },
 
       // Capture the value when the user has finished and update
       // application state.
-      onValue: ({ value, rowData, property }) => {
+      onValue: ({ value, rowData, column: { property } }) => {
+        console.log('on value', value, rowData, property);
+
         const index = findIndex(this.state.rows, { id: rowData.id });
         const rows = cloneDeep(this.state.rows);
 
         rows[index][property] = value;
         rows[index].editing = false;
 
-        // Optional: capture the fact that a field was edited for visualization
+        // Tag a row so that we know it was edited in the past.
         rows[index].edited = true;
 
         this.setState({ rows });
@@ -47,18 +55,22 @@ class EditableTable extends React.Component {
     });
 
     this.state = {
-      editedCell: null, // Track the edited cell somehow
       columns: [
         {
           property: 'name',
-          headerCell: 'Name'
-          // XXXXX: Implement for 9
-          cell: {
-            transforms: [
-              (value, extra) => editable(edit.input())(value, extra, {
-                className: extra.rowData.edited && 'edited'
-              })
-            ]
+          headerCell: 'Name',
+          bodyCell: ({ children, renderer, rowData, ...rest }) => {
+            const editor = editable(edit.input())(
+              children,
+              {...rest, rowData},
+              {
+                className: rowData.edited ? 'edited' : ''
+              }
+            );
+
+            console.log('rendering body cell', rowData, editor);
+
+            return React.createElement('td', editor, editor.children || children);
           }
         }
       ],
