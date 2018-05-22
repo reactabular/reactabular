@@ -67,14 +67,11 @@ class ResizableColumnsTable extends React.Component {
       columns: this.getColumns(),
       rows
     };
-
-    this.tableHeader = null;
-    this.tableBody = null;
   }
   componentWillMount() {
     this.resizableHelper = resizable.helper({
       globalId: uuid.v4(),
-      getId: ({ property}) => property
+      getId: ({ property }) => property
     });
 
     // Patch the column definition with class names.
@@ -90,11 +87,10 @@ class ResizableColumnsTable extends React.Component {
       onDragStart: (width, { column }) => {
         console.log('drag start', width, column);
       },
-      onDrag: (width, { column }) => {
-        this.resizableHelper.update({
-          column,
-          width
-        });
+      onDrag: (width, column) => {
+        console.log('on drag', width, column);
+
+        this.resizableHelper.update({ width, column });
       },
       onDragEnd: (width, { column }) => {
         console.log('drag end', width, column);
@@ -104,46 +100,27 @@ class ResizableColumnsTable extends React.Component {
     return [
       {
         property: 'name',
-        header: {
-          label: 'Name',
-          formatters: [
-            resizableFormatter
-          ]
-        },
+        headerCell: ({ props, column: { property } }) => resizableFormatter('Name', { property }, { container: props }),
         width: 100
       },
       {
-        header: {
-          label: 'About'
-        },
+        headerCell: 'About',
         children: [
           {
             property: 'company',
-            header: {
-              label: 'Company',
-              formatters: [
-                resizableFormatter
-              ],
-            },
+            headerCell: ({ props, column: { property } }) => resizableFormatter('Company', { property }, { container: props }),
             width: 100
           },
           {
             property: 'address',
-            header: {
-              label: 'Address',
-              formatters: [
-                resizableFormatter
-              ],
-            },
+            headerCell: ({ props, column: { property } }) => resizableFormatter('Address', { property }, { container: props }),
             width: 200
           },
         ],
       },
       {
         property: 'age',
-        header: {
-          label: 'Age'
-        }
+        headerCell: 'Age'
       }
     ];
   }
@@ -170,32 +147,18 @@ class ResizableColumnsTable extends React.Component {
             maxWidth: 800
           }}
           headerRows={resolve.headerRows({ columns })}
-          ref={tableHeader => {
-            this.tableHeader = tableHeader && tableHeader.getRef();
-          }}
-          tableBody={this.tableBody}
         />
 
         <Sticky.Body
           rows={resolvedRows}
           rowKey="id"
-          onRow={this.onRow}
           style={{
             maxWidth: 800,
             maxHeight: 400
           }}
-          ref={tableBody => {
-            this.tableBody = tableBody && tableBody.getRef();
-          }}
-          tableHeader={this.tableHeader}
         />
       </Table.Provider>
     );
-  }
-  onRow(row, { rowIndex }) {
-    return {
-      className: rowIndex % 2 ? 'odd-row' : 'even-row',
-    };
   }
 }
 

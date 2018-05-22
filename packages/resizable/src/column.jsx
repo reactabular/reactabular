@@ -6,18 +6,13 @@ const resizableColumn = ({
   onDragStart = (width, extra) => {}, // eslint-disable-line no-unused-vars
   onDrag = (width, extra) => {}, // eslint-disable-line no-unused-vars
   onDragEnd = (width, extra) => {}, // eslint-disable-line no-unused-vars
-  minWidth = 10,
-  props = {
-    container: {},
-    value: {},
-    handle: {}
-  }
+  minWidth = 10
 }) => {
   if (!onDrag) {
     throw new Error('resizableColumn - Missing onDrag!');
   }
 
-  return (label, extraParameters) => {
+  return (label, extraParameters, props = { container: {}, value: {}, handle: {} }) => {
     class ResizableColumn extends React.Component {
       constructor(props) { // eslint-disable-line no-shadow
         super(props);
@@ -35,7 +30,7 @@ const resizableColumn = ({
       }
       render() {
         return (
-          <div
+          <th
             className="resize-container"
             ref={(column) => {
               if (column) {
@@ -56,7 +51,7 @@ const resizableColumn = ({
             >
               &nbsp;
             </span>
-          </div>
+          </th>
         );
       }
       onMouseDown(event) {
