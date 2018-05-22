@@ -78,8 +78,6 @@ class AllFeaturesTable extends React.Component {
       }
     };
 
-    this.onRow = this.onRow.bind(this);
-    this.onRowSelected = this.onRowSelected.bind(this);
     this.onColumnChange = this.onColumnChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onSelect = this.onSelect.bind(this);
@@ -365,12 +363,22 @@ class AllFeaturesTable extends React.Component {
           style={{ overflowX: 'auto' }}
         >
           <Table.Header>
-            <search.Columns query={query} columns={cols} onChange={this.onSearch} />
+            <search.Columns 
+              query={query} 
+              columns={cols} 
+              onChange={this.onSearch}
+            />
           </Table.Header>
 
-          <Table.Body onRow={this.onRow} rows={paginated.rows} rowKey="id" />
+          <Table.Body 
+            rows={paginated.rows} 
+            rowKey="id"
+          />
 
-          <CustomFooter columns={cols} rows={paginated.rows} />
+          <CustomFooter 
+            columns={cols} 
+            rows={paginated.rows}
+          />
         </Table.Provider>
 
         <div className="controls">
@@ -382,14 +390,6 @@ class AllFeaturesTable extends React.Component {
         </div>
       </div>
     );
-  }
-  onRow(row, { rowIndex }) {
-    return {
-      onClick: () => this.onRowSelected(row)
-    };
-  }
-  onRowSelected(row) {
-    console.log('clicked row', row);
   }
   onColumnChange(searchColumn) {
     this.setState({

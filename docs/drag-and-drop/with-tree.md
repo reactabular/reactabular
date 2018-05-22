@@ -42,9 +42,6 @@ class DragAndDropTreeTable extends React.Component {
       columns: this.getColumns(),
       rows: generateParents(generateRows(100, schema))
     };
-
-    this.onRow = this.onRow.bind(this);
-    this.onMoveRow = this.onMoveRow.bind(this);
   }
   getColumns() {
     // XXXXX: port to 9
@@ -105,26 +102,9 @@ class DragAndDropTreeTable extends React.Component {
         <Table.Body
           rows={rows}
           rowKey="id"
-          onRow={this.onRow}
         />
       </Table.Provider>
     );
-  }
-  onRow(row) {
-    return {
-      rowId: row.id,
-      onMove: o => this.onMoveRow(o)
-    };
-  }
-  onMoveRow({ sourceRowId, targetRowId }) {
-    const rows = tree.moveRows({
-      operation: dnd.moveRows({ sourceRowId, targetRowId }),
-      retain: ['showingChildren']
-    })(this.state.rows);
-
-    if (rows) {
-      this.setState({ rows });
-    }
   }
 }
 
