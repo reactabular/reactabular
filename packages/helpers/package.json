@@ -1,6 +1,6 @@
 {
   "name": "@reactabular/helpers",
-  "version": "8.13.0",
+  "version": "9.0.0",
   "description": "Pagination and generation helpers for Reactabular",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --ignore __tests__ --out-dir ./dist",
