@@ -19,8 +19,8 @@ const calculateRows = ({
     .map(row => measuredRows[row[rowKey]] || averageHeight)
     .reduce((a, b) => a + b, 0) : 0;
 
-  const renderedOverScanRows = Math.max(startIndex - overScan, 0);
   const startIndex = Math.floor(scrollTop / averageHeight);
+  const renderedOverScanRows = Math.max(startIndex - overScan, 0);
   const rowsToRender = rows.slice(
     renderedOverScanRows,
     Math.max(startIndex + overScan * 2 + amountOfRowsToRender, 0)
