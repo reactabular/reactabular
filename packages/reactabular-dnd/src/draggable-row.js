@@ -37,49 +37,59 @@ const dragSource = DragSource( // eslint-disable-line new-cap
     connectDragSource: connect.dragSource()
   }));
 const dropTarget = DropTarget( // eslint-disable-line new-cap
-  DragTypes.ROW, rowTarget, connect => ({
-    connectDropTarget: connect.dropTarget()
+  DragTypes.ROW, rowTarget, (connect, monitor) => ({
+    connectDropTarget: connect.dropTarget(),
+    hovered: monitor.isOver()
   }));
 const DraggableRow = ({
   _parent,
   connectDragSource, connectDropTarget,
   onCanMove, onMoveStart, onMoveEnd, // eslint-disable-line no-unused-vars
-  onMove, rowId, ...props // eslint-disable-line no-unused-vars
-}) => (
-  // If you want to drag using a handle instead, then you need to pass
-  // connectDragSource to a customized cell (DndCell) through React
-  // context and wrap the handle there. You also need to annotate
-  // this function using connectDragPreview.
-  //
-  // https://github.com/gaearon/react-dnd/releases/tag/v2.0.0 - ref trick
-  React.createElement(
-    _parent,
-    {
+  onMove, rowId,// eslint-disable-line no-unused-vars,
+  hovered, className, ...props
+}) => {
+    const newProps = {
       ...props,
-      ref: (e) => {
-        if (!e) {
-          return;
+      className: `${className || ''}${hovered ? ' hovered' : ''}`
+    };
+    return (
+    // If you want to drag using a handle instead, then you need to pass
+    // connectDragSource to a customized cell (DndCell) through React
+    // context and wrap the handle there. You also need to annotate
+    // this function using connectDragPreview.
+    //
+    // https://github.com/gaearon/react-dnd/releases/tag/v2.0.0 - ref trick
+    React.createElement(
+      _parent,
+      {
+        ...newProps,
+        ref: (e) => {
+          if (!e) {
+            return;
+          }
+
+          // XXXXX: Refactor this out
+          // eslint-disable-next-line react/no-find-dom-node
+          const node = findDOMNode(e);
+
+          // Chaining is not allowed
+          // https://github.com/gaearon/react-dnd/issues/305#issuecomment-164490014
+          connectDropTarget(node);
+          connectDragSource(node);
         }
-
-        // XXXXX: Refactor this out
-        // eslint-disable-next-line react/no-find-dom-node
-        const node = findDOMNode(e);
-
-        // Chaining is not allowed
-        // https://github.com/gaearon/react-dnd/issues/305#issuecomment-164490014
-        connectDropTarget(node);
-        connectDragSource(node);
       }
-    }
+    )
   )
-);
+};
 DraggableRow.propTypes = {
   _parent: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.node
   ]).isRequired,
+  className: PropTypes.any,
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
+  hovered: PropTypes.bool.isRequired,
   onMove: PropTypes.func.isRequired,
   onCanMove: PropTypes.func,
   onMoveStart: PropTypes.func,
