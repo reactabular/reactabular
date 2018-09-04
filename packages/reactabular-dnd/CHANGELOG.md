@@ -1,4 +1,4 @@
-8.15.0 / 2018-09-04
+8.16.0 / 2018-09-04
 ==================
 
   * Feature - Added hovered class to hovered row. #358
