@@ -162,6 +162,143 @@ class VirtualizedTable extends React.Component {
 <VirtualizedTable />
 ```
 
+## Scrolling within a container
+
+By passing in a function as `container` which returns a reference to a container to `Virtualized.Body`, you can use the scrollbar of a surrounding element as the scroll for virtualization. This might be useful if you want to render multiple containers in the same scrolling area, or if you want the table to scroll along with the rest of your page.
+```jsx
+/*
+import React from 'react';
+import * as Sticky from 'reactabular-sticky';
+import * as Virtualized from 'reactabular-virtualized';
+import * as resolve from 'table-resolver';
+
+import { generateRows } from './helpers';
+*/
+
+const columns = [
+  {
+    property: 'id',
+    props: {
+      style: { minWidth: 50 }
+    },
+    header: {
+      label: 'Index'
+    },
+    cell: {
+      formatters: [
+        (value, { rowIndex }) => <span>{rowIndex}</span>
+      ]
+    }
+  },
+  {
+    property: 'name',
+    props: {
+      style: { minWidth: 300 }
+    },
+    header: {
+      label: 'Name'
+    }
+  },
+  {
+    property: 'age',
+    props: {
+      style: { minWidth: 100 }
+    },
+    header: {
+      label: 'Age'
+    }
+  },
+  {
+    property: 'company',
+    props: {
+      style: { minWidth: 400 }
+    },
+    header: {
+      label: 'Company'
+    }
+  },
+  {
+    property: 'product',
+    props: {
+      style: { minWidth: 400 }
+    },
+    header: {
+      label: 'Product'
+    }
+  }
+];
+
+const schema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string'
+    },
+    name: {
+      type: 'string'
+    },
+    product: {
+      type: 'string'
+    },
+    company: {
+      type: 'string'
+    },
+    age: {
+      type: 'integer'
+    }
+  },
+  required: ['id', 'name', 'product', 'company', 'age']
+};
+// Resolving indices is an optional step. You can skip it if you don't
+// rely on rowIndex anywhere. But if you do, it's good to calculate and
+// include to the data. Reactabular's rendering logic is able to pick it
+// up by convention (`_index` field).
+const rows = resolve.resolve({ columns })(generateRows(1000, schema));
+
+class VirtualizedTable extends React.Component {
+  render() {
+    return (
+      <div>
+       <div ref={(ref) => this.container = ref} style={{ height: '500px', overflow: 'auto' }}>
+            {([1, 2, 3]).map(count => 
+            <Table.Provider
+              key={count}
+              className="pure-table pure-table-striped"
+              columns={columns}
+              style={{ margin: '20px', }}
+              renderers={{
+                body: {
+                  wrapper: Virtualized.BodyWrapper,
+                  row: Virtualized.BodyRow
+                }
+              }}
+            >
+              <Table.Header
+                style={{
+                  maxWidth: 800
+                }}
+              />
+
+              <Virtualized.Body
+                container={() => this.container}
+                rows={rows}
+                rowKey="id"
+                style={{
+                  maxWidth: 800
+                }}
+                height={400}
+              />
+            </Table.Provider>
+            )}
+        </div>
+      </div>
+    );
+  }
+}
+
+<VirtualizedTable />
+```
+
 ## Scrolling to Index
 
 `Virtualized.Body` `ref` exposes `scrollTo` method for scrolling through index. If you want to scroll based on some field value, search the dataset first and pass the resulting index here.

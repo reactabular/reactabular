@@ -13,9 +13,10 @@ const calculateRows = ({
   const amountOfRowsToRender = Math.ceil(height / averageHeight) + 2;
 
   const startIndex = Math.floor(scrollTop / averageHeight);
+  const zeroedIndex = Math.max(startIndex, 0);
   const rowsToRender = rows.slice(
-    startIndex,
-    startIndex + amountOfRowsToRender
+    zeroedIndex,
+    Math.max(startIndex + amountOfRowsToRender, 0)
   );
 
   if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.LOG_VIRTUALIZED) {
@@ -34,7 +35,7 @@ const calculateRows = ({
     return null;
   }
 
-  const startHeight = startIndex * averageHeight;
+  const startHeight = zeroedIndex * averageHeight;
 
   // Calculate the padding of the last row so we can match whole height. This
   // won't be totally accurate if row heights differ but should get close
@@ -60,8 +61,8 @@ const calculateRows = ({
 
   return {
     amountOfRowsToRender,
-    startIndex,
-    showExtraRow: !(startIndex % 2),
+    startIndex: zeroedIndex,
+    showExtraRow: !(zeroedIndex % 2),
     startHeight,
     endHeight
   };

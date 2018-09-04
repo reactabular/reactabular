@@ -1,7 +1,8 @@
 import { isEqual } from 'lodash';
 import React from 'react';
 import { Body } from 'reactabular-sticky';
-import { resolveRowKey } from 'reactabular-table';
+import { resolveRowKey, Body as StandardBody } from 'reactabular-table';
+import PropTypes from 'prop-types';
 import { bodyChildContextTypes } from './types';
 import calculateAverageHeight from './calculate-average-height';
 import calculateRows from './calculate-rows';
@@ -9,6 +10,7 @@ import calculateRows from './calculate-rows';
 class VirtualizedBody extends React.Component {
   constructor(props) {
     super(props);
+
 
     this.measuredRows = {}; // row key -> measurement
     this.ref = null;
@@ -19,9 +21,16 @@ class VirtualizedBody extends React.Component {
     this.state = getInitialState();
 
     this.checkMeasurements = this.checkMeasurements.bind(this);
+    this.onScroll = this.onScroll.bind(this);
   }
   componentDidMount() {
     this.checkMeasurements();
+    this.props.container && this.registerContainer();
+  }
+  registerContainer() {
+    setTimeout(() => {
+      this.props.container().addEventListener('scroll', this.onScroll);
+    }, 0);
   }
   componentDidUpdate() {
     this.checkMeasurements();
@@ -33,13 +42,16 @@ class VirtualizedBody extends React.Component {
   getHeight(optionalProps) {
     // If `optionalProps` is defined, we use `optionalProps` instead of `this.props`.
     const props = optionalProps || this.props;
+    if (this.props.container) {
+      return this.props.container().clientHeight;
+    }
     // If `props.height` is not defined, we use `props.style.maxHeight` instead.
     return props.height || props.style.maxHeight;
   }
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.rows, nextProps.rows)
-        || this.getHeight() !== this.getHeight(nextProps)) {
+      || this.getHeight() !== this.getHeight(nextProps)) {
       if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.LOG_VIRTUALIZED) {
         console.log('invalidating measurements'); // eslint-disable-line no-console
       }
@@ -75,7 +87,7 @@ class VirtualizedBody extends React.Component {
   }
   render() {
     const {
-      onRow, rows, onScroll, ...props
+      onRow, rows, onScroll, container, ...props
     } = this.props;
     const { startIndex, amountOfRowsToRender } = this.state;
 
@@ -104,8 +116,9 @@ class VirtualizedBody extends React.Component {
       );
     }
 
+
     return React.createElement(
-      Body,
+      this.props.container ? StandardBody : Body,
       {
         ...props,
         onRow: (row, extra) => {
@@ -121,29 +134,31 @@ class VirtualizedBody extends React.Component {
         ref: (body) => {
           this.ref = body && body.getRef().getRef();
         },
-        onScroll: (e) => {
-          onScroll && onScroll(e);
-
-          const { target: { scrollTop } } = e;
-
-          // Y didn't change, bail to avoid rendering rows
-          if (this.scrollTop === scrollTop) {
-            return;
-          }
-
-          this.scrollTop = scrollTop;
-
-          this.setState(calculateRows({
-            scrollTop,
-            measuredRows: this.measuredRows,
-            height: this.getHeight(),
-            rowKey: this.props.rowKey,
-            rows: this.props.rows
-          }));
-        }
+        onScroll: this.onScroll
       }
     );
   }
+  onScroll(e) {
+    const { onScroll } = this.props;
+    onScroll && onScroll(e);
+
+    const { target: { scrollTop } } = e;
+
+    // Y didn't change, bail to avoid rendering rows
+    if (this.scrollTop === scrollTop) {
+      return;
+    }
+
+    this.scrollTop = this.props.container ? scrollTop - this.ref.parentElement.offsetTop : scrollTop;
+
+    this.setState(calculateRows({
+      scrollTop: this.scrollTop,
+      measuredRows: this.measuredRows,
+      height: this.getHeight(),
+      rowKey: this.props.rowKey,
+      rows: this.props.rows
+    }));
+  };
   getRef() {
     const { ref } = this;
 
@@ -198,16 +213,18 @@ class VirtualizedBody extends React.Component {
 VirtualizedBody.defaultProps = Body.defaultProps;
 VirtualizedBody.propTypes = {
   ...Body.propTypes,
-  height: heightPropCheck
+  height: heightPropCheck,
+  container: PropTypes.func
 };
 VirtualizedBody.childContextTypes = bodyChildContextTypes;
 
 export function heightPropCheck(props, propName, componentName) {
   if (
     (typeof props[propName] !== 'number') &&
-    (!props.style || typeof props.style.maxHeight !== 'number')
+    (!props.style || typeof props.style.maxHeight !== 'number') &&
+    (!props.container || typeof props.container !== 'function')
   ) {
-    return new Error(`height or style.maxHeight of type 'number' is marked as required in ${componentName}`);
+    return new Error(`height or style.maxHeight of type 'number' or container of type 'function' is marked as required in ${componentName}`);
   }
 
   return undefined;

@@ -9,7 +9,7 @@ describe('height propType validator', function () {
     expect(heightPropCheck({ style: { maxHeight: 50 } }, 'height', 'VirtualizedBody')).toBeUndefined();
   });
 
-  it('has an error when height and style.maxHeight are not provided', function () {
+  it('has an error when height, container and style.maxHeight are not provided', function () {
     expect(heightPropCheck({}, 'height', 'VirtualizedBody')).toBeDefined();
   });
 
@@ -19,5 +19,9 @@ describe('height propType validator', function () {
 
   it('has an error when style.maxHeight is not a number', function () {
     expect(heightPropCheck({ style: { maxHeight: '50px' } }, 'height', 'VirtualizedBody')).toBeDefined();
+  });
+
+  it('has no error when container is provided', function () {
+    expect(heightPropCheck({ container: () => {} }, 'height', 'VirtualizedBody')).toBeUndefined();
   });
 });
