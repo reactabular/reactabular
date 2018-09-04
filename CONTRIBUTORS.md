@@ -38,6 +38,7 @@
 * [Junho Park](https://github.com/cnaa97) - Fix Nested Columns more then two children. Enhancement resizing columns for nested column. #301, #307
 * [R Sloan](https://github.com/rnsloan) - Fixed virtualization propType warning
 * [Pearce Keesling](https://github.com/keeslinp) - Added option to use container for scrolling in virtualization
+* [Alfonso Concha](https://github.com/sikolio) - Added Hovered Class when hovering rows
 
 ## Acknowledgments
 
