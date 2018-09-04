@@ -1,3 +1,8 @@
+8.15.0 / 2018-09-04
+==================
+
+  * Feature - Added option to use a container for the scrolling in virtualization. #356
+
 8.12.1 / 2018-03-01
 ==================
 
