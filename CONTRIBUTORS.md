@@ -39,6 +39,7 @@
 * [R Sloan](https://github.com/rnsloan) - Fixed virtualization propType warning
 * [Pearce Keesling](https://github.com/keeslinp) - Added option to use container for scrolling in virtualization
 * [Alfonso Concha](https://github.com/sikolio) - Added Hovered Class when hovering rows
+* [Daniil Manevich](https://github.com/d-manevich) - Fixed `scrollTo` at `reactabular-virtualized`
 
 ## Acknowledgments
 

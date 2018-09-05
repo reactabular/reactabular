@@ -174,6 +174,14 @@ class VirtualizedBody extends React.Component {
 
         this.scrollTop = startHeight;
         this.ref.scrollTop = startHeight;
+
+        this.setState(calculateRows({
+          scrollTop: this.scrollTop,
+          measuredRows: this.measuredRows,
+          height: this.getHeight(),
+          rowKey: this.props.rowKey,
+          rows: this.props.rows
+        }));
       }
     };
 
