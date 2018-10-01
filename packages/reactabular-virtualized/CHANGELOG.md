@@ -1,3 +1,9 @@
+8.16.0 / 2018-10-01
+==================
+
+  * Fix - `scrollTo` works correctly now. #359
+  * Refactor - Reuse math internally better.
+
 8.15.0 / 2018-09-04
 ==================
 
