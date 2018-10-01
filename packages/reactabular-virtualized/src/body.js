@@ -39,9 +39,7 @@ class VirtualizedBody extends React.Component {
     clearTimeout(this.timeoutId);
   }
 
-  getHeight(optionalProps) {
-    // If `optionalProps` is defined, we use `optionalProps` instead of `this.props`.
-    const props = optionalProps || this.props;
+  getHeight(props) {
     if (this.props.container) {
       return this.props.container().clientHeight;
     }
@@ -51,18 +49,12 @@ class VirtualizedBody extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.rows, nextProps.rows)
-      || this.getHeight() !== this.getHeight(nextProps)) {
+      || this.getHeight(this.props) !== this.getHeight(nextProps)) {
       if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.LOG_VIRTUALIZED) {
         console.log('invalidating measurements'); // eslint-disable-line no-console
       }
 
-      const rows = calculateRows({
-        scrollTop: this.scrollTop,
-        measuredRows: this.measuredRows,
-        height: this.getHeight(nextProps),
-        rowKey: nextProps.rowKey,
-        rows: nextProps.rows
-      });
+      const rows = this.calculateRows(nextProps);
 
       if (!rows) {
         return;
@@ -151,13 +143,7 @@ class VirtualizedBody extends React.Component {
 
     this.scrollTop = this.props.container ? scrollTop - this.ref.parentElement.offsetTop : scrollTop;
 
-    this.setState(calculateRows({
-      scrollTop: this.scrollTop,
-      measuredRows: this.measuredRows,
-      height: this.getHeight(),
-      rowKey: this.props.rowKey,
-      rows: this.props.rows
-    }));
+    this.setState(this.calculateRows(this.props));
   };
   getRef() {
     const { ref } = this;
@@ -175,17 +161,20 @@ class VirtualizedBody extends React.Component {
         this.scrollTop = startHeight;
         this.ref.scrollTop = startHeight;
 
-        this.setState(calculateRows({
-          scrollTop: this.scrollTop,
-          measuredRows: this.measuredRows,
-          height: this.getHeight(),
-          rowKey: this.props.rowKey,
-          rows: this.props.rows
-        }));
+        this.setState(this.calculateRows(this.props));
       }
     };
 
     return ref;
+  }
+  calculateRows(props) {
+    return calculateRows({
+      scrollTop: this.scrollTop,
+      measuredRows: this.measuredRows,
+      height: this.getHeight(props),
+      rowKey: props.rowKey,
+      rows: props.rows
+    })
   }
   checkMeasurements() {
     // If there are no valid measurements, calculate some after waiting a while.
@@ -193,13 +182,7 @@ class VirtualizedBody extends React.Component {
     // given they can take a while to set container height.
     if (this.initialMeasurement) {
       this.timeoutId = setTimeout(() => {
-        const rows = calculateRows({
-          scrollTop: this.scrollTop,
-          measuredRows: this.measuredRows,
-          height: this.getHeight(),
-          rowKey: this.props.rowKey,
-          rows: this.props.rows
-        });
+        const rows = this.calculateRows(this.props)
 
         if (!rows) {
           // Refresh the rows to trigger measurement.
