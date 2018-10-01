@@ -3,10 +3,17 @@
 <!--[if IE 7 ]>    <html lang="en" class="ie7" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="ie8" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="ie9" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="
+<%= htmlWebpackPlugin.files.manifest %>"
+<% } %>>
+<!--<![endif]-->
+
 <head>
   <meta charset="utf-8">
-  <title><%= htmlWebpackPlugin.options.title || 'Webpack App'%></title>
+  <title>
+    <%= htmlWebpackPlugin.options.title || 'Webpack App'%>
+  </title>
 
   <% if (htmlWebpackPlugin.files.favicon) { %>
   <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon%>">
@@ -23,49 +30,72 @@
   <base href="<%= htmlWebpackPlugin.options.baseHref %>" />
   <% } %>
 
+  <script>
+    var SeedAndDewConfig = {};
+    (function () {
+      SeedAndDewConfig['adClass'] = "snd-ad";
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      SeedAndDewConfig['projectId'] = 'ae3922e8-5407-4232-b464-0dd06f8ba3de';
+      SeedAndDewConfig['loadStartTime'] = performance.now();
+      SeedAndDewConfig['apiVersion'] = '2018-05-28'
+      SeedAndDewConfig['sessionId'] = Math.random().toString(36).substring(2, 15);
+      var snd = document.createElement('script');
+      snd.type = 'text/javascript';
+      snd.async = true;
+      snd.src = 'https://www.seedanddew.com/static/embed.min.js';
+      (document.getElementsByTagName('head')[0] ||
+        document.getElementsByTagName('body')[0]).appendChild(snd);
+    })();
+  </script>
 </head>
+
 <body>
-<% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
-<style>.unsupported-browser { display: none; }</style>
-<div class="unsupported-browser">
-  Sorry, your browser is not supported.  Please upgrade to
-  the latest version or switch your browser to use this site.
-  See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>
-  for options.
-</div>
-<% } %>
-
-<% if (htmlWebpackPlugin.options.appMountId) { %>
-<div id="<%= htmlWebpackPlugin.options.appMountId%>"></div>
-<% } %>
-
-<% if (htmlWebpackPlugin.options.appMountIds && htmlWebpackPlugin.options.appMountIds.length > 0) { %>
-<% for (var index in htmlWebpackPlugin.options.appMountIds) { %>
-<div id="<%= htmlWebpackPlugin.options.appMountIds[index]%>"></div>
-<% } %>
-<% } %>
-
-<% if (htmlWebpackPlugin.options.window) { %>
-<script>
-  <% for (var varName in htmlWebpackPlugin.options.window) { %>
-    window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+  <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
+  <style>
+    .unsupported-browser {
+      display: none;
+    }
+  </style>
+  <div class="unsupported-browser">
+    Sorry, your browser is not supported. Please upgrade to
+    the latest version or switch your browser to use this site.
+    See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>
+    for options.
+  </div>
   <% } %>
-</script>
-<% } %>
 
-<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-<script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
-<% } %>
+  <% if (htmlWebpackPlugin.options.appMountId) { %>
+  <div id="<%= htmlWebpackPlugin.options.appMountId%>"></div>
+  <% } %>
 
-<% if (htmlWebpackPlugin.options.devServer) { %>
-<script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
-<% } %>
+  <% if (htmlWebpackPlugin.options.appMountIds && htmlWebpackPlugin.options.appMountIds.length > 0) { %>
+  <% for (var index in htmlWebpackPlugin.options.appMountIds) { %>
+  <div id="<%= htmlWebpackPlugin.options.appMountIds[index]%>"></div>
+  <% } %>
+  <% } %>
 
-<script>
-  ((window.gitter = {}).chat = {}).options = {
-    room: 'reactabular/reactabular'
-  };
-</script>
-<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  <% if (htmlWebpackPlugin.options.window) { %>
+  <script>
+  <% for (var varName in htmlWebpackPlugin.options.window) { %>
+      window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+  <% } %>
+  </script>
+  <% } %>
+
+  <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+  <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+  <% } %>
+
+  <% if (htmlWebpackPlugin.options.devServer) { %>
+  <script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
+  <% } %>
+
+  <script>
+      ((window.gitter = {}).chat = {}).options = {
+      room: 'reactabular/reactabular'
+    };
+  </script>
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
 </body>
+
 </html>
