@@ -141,7 +141,8 @@ class VirtualizedBody extends React.Component {
       return;
     }
 
-    this.scrollTop = this.props.container ? scrollTop - this.ref.parentElement.offsetTop : scrollTop;
+    const virtualizedOffset = this.ref.parentElement.offsetTop + this.ref.offsetTop;
+    this.scrollTop = this.props.container ? scrollTop - virtualizedOffset : scrollTop;
 
     this.setState(this.calculateRows(this.props));
   };
