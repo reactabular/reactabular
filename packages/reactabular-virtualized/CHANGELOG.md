@@ -1,3 +1,8 @@
+8.17.0 / 2019-01-21
+==================
+
+  * Fix - Fix virtualized scrolling in container to account for thead height. #361
+
 8.16.0 / 2018-10-01
 ==================
 
