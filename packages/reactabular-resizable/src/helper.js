@@ -60,7 +60,7 @@ function helper({ globalId, getId }) {
 }
 
 function getClassName(globalId, localId) {
-  return `column-${globalId}-${localId}`;
+  return `column-${globalId}-${localId}`.replace(/\./gi,'-');
 }
 
 function updateWidth({
