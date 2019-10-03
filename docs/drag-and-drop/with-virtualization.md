@@ -124,7 +124,7 @@ class VirtualizedTable extends React.Component {
         <Table.Provider
           className="pure-table pure-table-striped"
           columns={columns}
-          components={{
+          renderers={{
             body: {
               wrapper: Virtualized.BodyWrapper,
               row: dnd.draggableRow(Virtualized.BodyRow)
