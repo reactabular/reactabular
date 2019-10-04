@@ -28,7 +28,7 @@ const packages = fromPairs(fs.readdirSync('packages').map(p => [
 ]));
 
 const common = {
-  entry: config.paths.documentation,
+  entry: ['babel-polyfill', config.paths.documentation],
   resolve: {
     extensions: ['.js', '.jsx', '.md', '.css', '.png', '.jpg'],
     alias: {
@@ -88,7 +88,6 @@ const commonSite = {
 };
 
 const developConfig = {
-  entry: config.paths.documentation,
   devServer: {
     historyApiFallback: true,
     hot: true,
@@ -111,9 +110,6 @@ const developConfig = {
 };
 
 const ghPagesConfig = {
-  entry: {
-    app: config.paths.documentation
-  },
   output: {
     path: config.paths.ghPages,
     filename: 'js/bundle.[chunkhash].js'
