@@ -145,7 +145,8 @@ class VirtualizedTable extends React.Component {
             rows={rows}
             rowKey="id"
             style={{
-              maxWidth: 800
+              maxWidth: 800,
+              maxHeight: 400
             }}
             height={400}
             ref={tableBody => {
