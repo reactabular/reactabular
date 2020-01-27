@@ -14,8 +14,10 @@ import * as Table from 'reactabular-table';
 import { generateRows } from './helpers';
 */
 
+/* Number column is left aligned. Number less than 5000 is highlighted in red color */
 const AlignedBodyCell = styled.td`
   text-align: ${props => props.isNumber ? 'right' : 'left'};
+  color: ${props => props.isTinyNumber ? 'red' : 'black'};
 `;
 
 const schema = {
@@ -64,6 +66,9 @@ class AlignedTable extends React.Component {
         property: 'salary',
         header: {
           label: 'Salary'
+        },
+        cell: {
+          transforms: [val => { return {isTinyNumber: val < 5000}; } ]
         },
         props: {
           isNumber: true, // the type information used for styling
