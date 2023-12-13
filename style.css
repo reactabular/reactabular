@@ -18,8 +18,8 @@ table .sort-none:after {
   font-size: 1em;
 }
 table .sort-asc:after {
-  content: "\25BC";
+  content: "\25B2";
 }
 table .sort-desc:after {
-  content: "\25B2";
+  content: "\25BC";
 }
