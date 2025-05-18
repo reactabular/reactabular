@@ -1,4 +1,4 @@
-[![Join the chat at https://gitter.im/reactabular/reactabular](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/reactabular/reactabular) [![build status](https://img.shields.io/badge/Build-passing-green.svg)](http://travis-ci.org/reactabular/reactabular) [![codecov](https://codecov.io/gh/reactabular/reactabular/branch/master/graph/badge.svg)](https://codecov.io/gh/reactabular/reactabular)
+[![Join the chat at https://gitter.im/reactabular/reactabular](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/reactabular/reactabular) [![build status](https://img.shields.io/badge/build-passing-green.svg)](http://travis-ci.org/reactabular/reactabular) [![codecov](https://codecov.io/gh/reactabular/reactabular/branch/master/graph/badge.svg)](https://codecov.io/gh/reactabular/reactabular)
 [![OpenCollective](https://opencollective.com/reactabular/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/reactabular/sponsors/badge.svg)](#sponsors)
 
